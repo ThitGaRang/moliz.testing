@@ -1,0 +1,24 @@
+import Model.structure.*
+import Model.behavior.*
+
+scenario TestData[ 
+	object clientObj : Client{
+		attribute Client.name = "Stefan";
+		attribute Client.age = 28;
+	}
+	object cardObj : Card{
+		attribute Card.bank = "ErsteBank";
+		attribute Card.number = 123456;
+	}
+]
+
+test ClientCardTest activity ClientCardActivity{
+	var card = ClientCardActivity.SetCardOwner.result;
+	
+	assertOrder ClientCardActivity.init, ClientCardActivity.ClientAction,
+		ClientCardActivity.CardAction, ClientCardActivity.SetCardOwner;
+	
+	assertState always after ClientCardActivity.SetCardOwner{
+		card = TestData.cardObj;
+	}
+}

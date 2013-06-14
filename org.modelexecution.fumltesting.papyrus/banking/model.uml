@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:uml="http://www.eclipse.org/uml2/3.0.0/UML" xmi:id="_0-Cf0MquEeKtlOlPy-FQMw" name="Model">
+  <packageImport xmi:id="_0-Cf0cquEeKtlOlPy-FQMw">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Package" xmi:id="_1zdE4MquEeKtlOlPy-FQMw" name="structure">
+    <packagedElement xmi:type="uml:Class" xmi:id="_Bw9_wMqvEeKtlOlPy-FQMw" name="Client">
+      <ownedAttribute xmi:id="_ELIVEMqvEeKtlOlPy-FQMw" name="name">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_G06awMqvEeKtlOlPy-FQMw" name="age">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_rdw30Mt8EeK9Hf3jELcIog" name="Card">
+      <ownedAttribute xmi:id="_tm9Y8Mt8EeK9Hf3jELcIog" name="number">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_yGh7kMt8EeK9Hf3jELcIog" name="bank">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_Z0ndkMuBEeK9Hf3jELcIog" name="client" type="_Bw9_wMqvEeKtlOlPy-FQMw" association="_Z0oEoMuBEeK9Hf3jELcIog">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Z0ndkcuBEeK9Hf3jELcIog" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Z0ndksuBEeK9Hf3jELcIog" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_Z0oEoMuBEeK9Hf3jELcIog" name="cardOwner" memberEnd="_Z0oEocuBEeK9Hf3jELcIog _Z0ndkMuBEeK9Hf3jELcIog">
+      <ownedEnd xmi:id="_Z0oEocuBEeK9Hf3jELcIog" name="card" type="_rdw30Mt8EeK9Hf3jELcIog" association="_Z0oEoMuBEeK9Hf3jELcIog">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Z0oEosuBEeK9Hf3jELcIog" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Z0oEo8uBEeK9Hf3jELcIog"/>
+      </ownedEnd>
+    </packagedElement>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_3AHsUMquEeKtlOlPy-FQMw" name="behavior" clientDependency="_5Ypp8MquEeKtlOlPy-FQMw">
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_5Ypp8MquEeKtlOlPy-FQMw" name="uses" supplier="_1zdE4MquEeKtlOlPy-FQMw" client="_3AHsUMquEeKtlOlPy-FQMw"/>
+    <packagedElement xmi:type="uml:Activity" xmi:id="_OZltIMqvEeKtlOlPy-FQMw" name="ClientActivity">
+      <ownedParameter xmi:id="_g1kfMMt-EeK9Hf3jELcIog" name="client" type="_Bw9_wMqvEeKtlOlPy-FQMw" direction="out"/>
+      <node xmi:type="uml:InitialNode" xmi:id="_Rwc7QMqvEeKtlOlPy-FQMw" name="init" outgoing="_bL468MqvEeKtlOlPy-FQMw"/>
+      <node xmi:type="uml:CreateObjectAction" xmi:id="_UJU3IMqvEeKtlOlPy-FQMw" name="ClientAction" outgoing="_cSMmQMqwEeKt_MBU5Khcww" incoming="_bL468MqvEeKtlOlPy-FQMw" classifier="_Bw9_wMqvEeKtlOlPy-FQMw">
+        <result xmi:id="_UJbk0MqvEeKtlOlPy-FQMw" name="result" outgoing="_sOx-wMqwEeKt_MBU5Khcww" type="_Bw9_wMqvEeKtlOlPy-FQMw"/>
+      </node>
+      <node xmi:type="uml:ValueSpecificationAction" xmi:id="_SmQsccqwEeKt_MBU5Khcww" name="NameAction" incoming="_cSMmQMqwEeKt_MBU5Khcww">
+        <value xmi:type="uml:LiteralString" xmi:id="_X6zIMMqwEeKt_MBU5Khcww" name="value" value="Stefan"/>
+        <result xmi:id="_WVL1QMqwEeKt_MBU5Khcww" name="value" outgoing="_1OiIAMqwEeKt_MBU5Khcww">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </result>
+      </node>
+      <node xmi:type="uml:AddStructuralFeatureValueAction" xmi:id="_gjfcUMqwEeKt_MBU5Khcww" name="SetNameAction" outgoing="_sJTwcMrSEeK83IbnMybrMw" structuralFeature="_ELIVEMqvEeKtlOlPy-FQMw">
+        <object xmi:id="_gjfcUsqwEeKt_MBU5Khcww" name="object" incoming="_sOx-wMqwEeKt_MBU5Khcww" type="_Bw9_wMqvEeKtlOlPy-FQMw"/>
+        <value xmi:id="_gjfcUcqwEeKt_MBU5Khcww" name="value" incoming="_1OiIAMqwEeKt_MBU5Khcww">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </value>
+        <result xmi:id="_gjfcU8qwEeKt_MBU5Khcww" name="result" outgoing="_E98HsMrTEeK83IbnMybrMw" type="_Bw9_wMqvEeKtlOlPy-FQMw"/>
+      </node>
+      <node xmi:type="uml:ValueSpecificationAction" xmi:id="_hjCVUcrSEeK83IbnMybrMw" name="AgeAction" incoming="_sJTwcMrSEeK83IbnMybrMw">
+        <value xmi:type="uml:LiteralInteger" xmi:id="_nq2BEMrSEeK83IbnMybrMw" name="value" value="28"/>
+        <result xmi:id="_mAoiAMrSEeK83IbnMybrMw" outgoing="_5gIVsMrUEeK83IbnMybrMw">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </result>
+      </node>
+      <node xmi:type="uml:AddStructuralFeatureValueAction" xmi:id="_yC6BEMrSEeK83IbnMybrMw" name="SetAgeAction" outgoing="_mJ32MMrVEeK83IbnMybrMw" structuralFeature="_G06awMqvEeKtlOlPy-FQMw">
+        <object xmi:id="_yDi6QMrSEeK83IbnMybrMw" name="object" incoming="_E98HsMrTEeK83IbnMybrMw" type="_Bw9_wMqvEeKtlOlPy-FQMw"/>
+        <value xmi:id="_yDiTMMrSEeK83IbnMybrMw" name="value" incoming="_5gIVsMrUEeK83IbnMybrMw">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </value>
+        <result xmi:id="_yDjhUMrSEeK83IbnMybrMw" name="result" outgoing="_icq_4Mt-EeK9Hf3jELcIog" type="_Bw9_wMqvEeKtlOlPy-FQMw"/>
+      </node>
+      <node xmi:type="uml:ActivityFinalNode" xmi:id="_iED3YMrVEeK83IbnMybrMw" name="final" incoming="_mJ32MMrVEeK83IbnMybrMw"/>
+      <node xmi:type="uml:ActivityParameterNode" xmi:id="_g15PUMt-EeK9Hf3jELcIog" name="client" incoming="_icq_4Mt-EeK9Hf3jELcIog" type="_Bw9_wMqvEeKtlOlPy-FQMw" isControlType="true" parameter="_g1kfMMt-EeK9Hf3jELcIog"/>
+      <edge xmi:type="uml:ControlFlow" xmi:id="_bL468MqvEeKtlOlPy-FQMw" name="cf1" source="_Rwc7QMqvEeKtlOlPy-FQMw" target="_UJU3IMqvEeKtlOlPy-FQMw"/>
+      <edge xmi:type="uml:ControlFlow" xmi:id="_cSMmQMqwEeKt_MBU5Khcww" name="cf2" source="_UJU3IMqvEeKtlOlPy-FQMw" target="_SmQsccqwEeKt_MBU5Khcww"/>
+      <edge xmi:type="uml:ObjectFlow" xmi:id="_sOx-wMqwEeKt_MBU5Khcww" name="of1" source="_UJbk0MqvEeKtlOlPy-FQMw" target="_gjfcUsqwEeKt_MBU5Khcww"/>
+      <edge xmi:type="uml:ObjectFlow" xmi:id="_1OiIAMqwEeKt_MBU5Khcww" name="of2" source="_WVL1QMqwEeKt_MBU5Khcww" target="_gjfcUcqwEeKt_MBU5Khcww"/>
+      <edge xmi:type="uml:ControlFlow" xmi:id="_sJTwcMrSEeK83IbnMybrMw" name="cf3" source="_gjfcUMqwEeKt_MBU5Khcww" target="_hjCVUcrSEeK83IbnMybrMw"/>
+      <edge xmi:type="uml:ObjectFlow" xmi:id="_E98HsMrTEeK83IbnMybrMw" name="of3" source="_gjfcU8qwEeKt_MBU5Khcww" target="_yDi6QMrSEeK83IbnMybrMw"/>
+      <edge xmi:type="uml:ObjectFlow" xmi:id="_5gIVsMrUEeK83IbnMybrMw" name="of4" source="_mAoiAMrSEeK83IbnMybrMw" target="_yDiTMMrSEeK83IbnMybrMw"/>
+      <edge xmi:type="uml:ControlFlow" xmi:id="_mJ32MMrVEeK83IbnMybrMw" name="cf4" source="_yC6BEMrSEeK83IbnMybrMw" target="_iED3YMrVEeK83IbnMybrMw"/>
+      <edge xmi:type="uml:ObjectFlow" xmi:id="_icq_4Mt-EeK9Hf3jELcIog" name="of5" source="_yDjhUMrSEeK83IbnMybrMw" target="_g15PUMt-EeK9Hf3jELcIog"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Activity" xmi:id="_CInjkMrXEeK83IbnMybrMw" name="ClientParameterActivity">
+      <ownedParameter xmi:id="_TjvWoMrXEeK83IbnMybrMw" name="name">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </ownedParameter>
+      <ownedParameter xmi:id="_Yc6sEMrXEeK83IbnMybrMw" name="age">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+      </ownedParameter>
+      <node xmi:type="uml:InitialNode" xmi:id="_GFawUMrXEeK83IbnMybrMw" name="init" outgoing="_kKwMMMrXEeK83IbnMybrMw"/>
+      <node xmi:type="uml:ActivityParameterNode" xmi:id="_TkIYMMrXEeK83IbnMybrMw" name="name" outgoing="_1fwJIMrXEeK83IbnMybrMw" isControlType="true" parameter="_TjvWoMrXEeK83IbnMybrMw">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </node>
+      <node xmi:type="uml:ActivityParameterNode" xmi:id="_YdX_EMrXEeK83IbnMybrMw" name="age" outgoing="_MvaGoMrYEeK83IbnMybrMw" isControlType="true" parameter="_Yc6sEMrXEeK83IbnMybrMw">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+      </node>
+      <node xmi:type="uml:CreateObjectAction" xmi:id="_geG7UMrXEeK83IbnMybrMw" name="ClientAction" incoming="_kKwMMMrXEeK83IbnMybrMw" classifier="_Bw9_wMqvEeKtlOlPy-FQMw">
+        <result xmi:id="_geJ-oMrXEeK83IbnMybrMw" name="result" outgoing="_7DxyYMrXEeK83IbnMybrMw" type="_Bw9_wMqvEeKtlOlPy-FQMw"/>
+      </node>
+      <node xmi:type="uml:AddStructuralFeatureValueAction" xmi:id="_nSL3MMrXEeK83IbnMybrMw" name="SetNameAction" structuralFeature="_ELIVEMqvEeKtlOlPy-FQMw">
+        <object xmi:id="_nSNFUcrXEeK83IbnMybrMw" name="object" incoming="_7DxyYMrXEeK83IbnMybrMw" type="_Bw9_wMqvEeKtlOlPy-FQMw"/>
+        <value xmi:id="_nSNFUMrXEeK83IbnMybrMw" name="value" incoming="_1fwJIMrXEeK83IbnMybrMw">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </value>
+        <result xmi:id="_nSNsYMrXEeK83IbnMybrMw" name="result" outgoing="_FbKc8MrYEeK83IbnMybrMw" type="_Bw9_wMqvEeKtlOlPy-FQMw"/>
+      </node>
+      <node xmi:type="uml:AddStructuralFeatureValueAction" xmi:id="_-tLiAMrXEeK83IbnMybrMw" name="SetAgeAction" outgoing="_S53dwMrYEeK83IbnMybrMw" structuralFeature="_G06awMqvEeKtlOlPy-FQMw">
+        <object xmi:id="_-tMwIcrXEeK83IbnMybrMw" name="object" incoming="_FbKc8MrYEeK83IbnMybrMw" type="_Bw9_wMqvEeKtlOlPy-FQMw"/>
+        <value xmi:id="_-tMwIMrXEeK83IbnMybrMw" name="value" incoming="_MvaGoMrYEeK83IbnMybrMw">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </value>
+        <result xmi:id="_-tNXMMrXEeK83IbnMybrMw" name="result" type="_Bw9_wMqvEeKtlOlPy-FQMw"/>
+      </node>
+      <node xmi:type="uml:ActivityFinalNode" xmi:id="_RZtSkMrYEeK83IbnMybrMw" name="final" incoming="_S53dwMrYEeK83IbnMybrMw"/>
+      <edge xmi:type="uml:ControlFlow" xmi:id="_kKwMMMrXEeK83IbnMybrMw" name="cf1" source="_GFawUMrXEeK83IbnMybrMw" target="_geG7UMrXEeK83IbnMybrMw"/>
+      <edge xmi:type="uml:ObjectFlow" xmi:id="_1fwJIMrXEeK83IbnMybrMw" name="of2" source="_TkIYMMrXEeK83IbnMybrMw" target="_nSNFUMrXEeK83IbnMybrMw"/>
+      <edge xmi:type="uml:ObjectFlow" xmi:id="_7DxyYMrXEeK83IbnMybrMw" name="of1" source="_geJ-oMrXEeK83IbnMybrMw" target="_nSNFUcrXEeK83IbnMybrMw"/>
+      <edge xmi:type="uml:ObjectFlow" xmi:id="_FbKc8MrYEeK83IbnMybrMw" name="of3" source="_nSNsYMrXEeK83IbnMybrMw" target="_-tMwIcrXEeK83IbnMybrMw"/>
+      <edge xmi:type="uml:ObjectFlow" xmi:id="_MvaGoMrYEeK83IbnMybrMw" name="of4" source="_YdX_EMrXEeK83IbnMybrMw" target="_-tMwIMrXEeK83IbnMybrMw"/>
+      <edge xmi:type="uml:ControlFlow" xmi:id="_S53dwMrYEeK83IbnMybrMw" name="cf2" source="_-tLiAMrXEeK83IbnMybrMw" target="_RZtSkMrYEeK83IbnMybrMw"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Activity" xmi:id="_oi9bMMraEeK83IbnMybrMw" name="ChangeClientActivity">
+      <ownedParameter xmi:id="_BUZUgMrbEeK83IbnMybrMw" name="client" type="_Bw9_wMqvEeKtlOlPy-FQMw"/>
+      <node xmi:type="uml:InitialNode" xmi:id="_tRSLgMraEeK83IbnMybrMw" name="init" outgoing="_47HDcMrcEeK83IbnMybrMw"/>
+      <node xmi:type="uml:AddStructuralFeatureValueAction" xmi:id="_v89HkMraEeK83IbnMybrMw" name="ChangeNameAction" outgoing="_fHtMQMrbEeK83IbnMybrMw" structuralFeature="_ELIVEMqvEeKtlOlPy-FQMw">
+        <object xmi:id="_v8-8wMraEeK83IbnMybrMw" name="object" incoming="_Dwx3YMrbEeK83IbnMybrMw" type="_Bw9_wMqvEeKtlOlPy-FQMw"/>
+        <value xmi:id="_v8-VsMraEeK83IbnMybrMw" name="value" incoming="_VSgowMrbEeK83IbnMybrMw">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </value>
+        <result xmi:id="_v8-8wcraEeK83IbnMybrMw" name="result" type="_Bw9_wMqvEeKtlOlPy-FQMw"/>
+      </node>
+      <node xmi:type="uml:ActivityParameterNode" xmi:id="_BUxH8MrbEeK83IbnMybrMw" name="client" outgoing="_Dwx3YMrbEeK83IbnMybrMw" type="_Bw9_wMqvEeKtlOlPy-FQMw" isControlType="true" parameter="_BUZUgMrbEeK83IbnMybrMw"/>
+      <node xmi:type="uml:ValueSpecificationAction" xmi:id="_HryUYMrbEeK83IbnMybrMw" name="NameAction" incoming="_47HDcMrcEeK83IbnMybrMw">
+        <value xmi:type="uml:LiteralString" xmi:id="_OtOW0MrbEeK83IbnMybrMw" name="value" value="Vuk"/>
+        <result xmi:id="_MTyaQMrbEeK83IbnMybrMw" name="name" outgoing="_VSgowMrbEeK83IbnMybrMw">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </result>
+      </node>
+      <node xmi:type="uml:ActivityFinalNode" xmi:id="_cLmngMrbEeK83IbnMybrMw" name="final" incoming="_fHtMQMrbEeK83IbnMybrMw"/>
+      <edge xmi:type="uml:ObjectFlow" xmi:id="_Dwx3YMrbEeK83IbnMybrMw" name="of1" source="_BUxH8MrbEeK83IbnMybrMw" target="_v8-8wMraEeK83IbnMybrMw"/>
+      <edge xmi:type="uml:ObjectFlow" xmi:id="_VSgowMrbEeK83IbnMybrMw" name="of2" source="_MTyaQMrbEeK83IbnMybrMw" target="_v8-VsMraEeK83IbnMybrMw"/>
+      <edge xmi:type="uml:ControlFlow" xmi:id="_fHtMQMrbEeK83IbnMybrMw" name="cf3" source="_v89HkMraEeK83IbnMybrMw" target="_cLmngMrbEeK83IbnMybrMw"/>
+      <edge xmi:type="uml:ControlFlow" xmi:id="_47HDcMrcEeK83IbnMybrMw" name="cf1" source="_tRSLgMraEeK83IbnMybrMw" target="_HryUYMrbEeK83IbnMybrMw"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Activity" xmi:id="_Bh_P4MtwEeK9Hf3jELcIog" name="ChangeClientInnerActivity">
+      <node xmi:type="uml:InitialNode" xmi:id="_K4GDoMtwEeK9Hf3jELcIog" name="init" outgoing="_VLkekMtwEeK9Hf3jELcIog"/>
+      <node xmi:type="uml:CreateObjectAction" xmi:id="_RLTuIMtwEeK9Hf3jELcIog" name="CreateClientAction" incoming="_VLkekMtwEeK9Hf3jELcIog" classifier="_Bw9_wMqvEeKtlOlPy-FQMw">
+        <result xmi:id="_RLZ0wMtwEeK9Hf3jELcIog" name="result" outgoing="_cOMMwMtwEeK9Hf3jELcIog" type="_Bw9_wMqvEeKtlOlPy-FQMw"/>
+      </node>
+      <node xmi:type="uml:CallBehaviorAction" xmi:id="_YqmKMMtwEeK9Hf3jELcIog" name="ChangeClientNameAction" outgoing="_e2K7oMtwEeK9Hf3jELcIog" behavior="_oi9bMMraEeK83IbnMybrMw">
+        <argument xmi:id="_Yqn_YMtwEeK9Hf3jELcIog" name="client" incoming="_cOMMwMtwEeK9Hf3jELcIog" type="_Bw9_wMqvEeKtlOlPy-FQMw"/>
+      </node>
+      <node xmi:type="uml:ActivityFinalNode" xmi:id="_daQXQMtwEeK9Hf3jELcIog" name="final" incoming="_e2K7oMtwEeK9Hf3jELcIog"/>
+      <edge xmi:type="uml:ControlFlow" xmi:id="_VLkekMtwEeK9Hf3jELcIog" name="cf1" source="_K4GDoMtwEeK9Hf3jELcIog" target="_RLTuIMtwEeK9Hf3jELcIog"/>
+      <edge xmi:type="uml:ObjectFlow" xmi:id="_cOMMwMtwEeK9Hf3jELcIog" name="of1" source="_RLZ0wMtwEeK9Hf3jELcIog" target="_Yqn_YMtwEeK9Hf3jELcIog"/>
+      <edge xmi:type="uml:ControlFlow" xmi:id="_e2K7oMtwEeK9Hf3jELcIog" name="cf2" source="_YqmKMMtwEeK9Hf3jELcIog" target="_daQXQMtwEeK9Hf3jELcIog"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Activity" xmi:id="_4WSpcMt8EeK9Hf3jELcIog" name="CardActivity">
+      <ownedParameter xmi:id="_qFrYoMt-EeK9Hf3jELcIog" name="card" type="_rdw30Mt8EeK9Hf3jELcIog" direction="out"/>
+      <node xmi:type="uml:InitialNode" xmi:id="_8ePWQMt8EeK9Hf3jELcIog" name="init" outgoing="_BiG4wMt9EeK9Hf3jELcIog"/>
+      <node xmi:type="uml:CreateObjectAction" xmi:id="_-wr6AMt8EeK9Hf3jELcIog" name="CardAction" outgoing="_N0c0IMt9EeK9Hf3jELcIog" incoming="_BiG4wMt9EeK9Hf3jELcIog" classifier="_rdw30Mt8EeK9Hf3jELcIog">
+        <result xmi:id="_-wshEMt8EeK9Hf3jELcIog" name="result" outgoing="_gzc0wMt9EeK9Hf3jELcIog" type="_rdw30Mt8EeK9Hf3jELcIog"/>
+      </node>
+      <node xmi:type="uml:ValueSpecificationAction" xmi:id="_GdChsMt9EeK9Hf3jELcIog" name="BankAction" incoming="_N0c0IMt9EeK9Hf3jELcIog">
+        <value xmi:type="uml:LiteralString" xmi:id="_M3jHAMt9EeK9Hf3jELcIog" name="value" value="ErsteBank"/>
+        <result xmi:id="_JRXDcMt9EeK9Hf3jELcIog" name="value" outgoing="_jDchcMt9EeK9Hf3jELcIog">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </result>
+      </node>
+      <node xmi:type="uml:AddStructuralFeatureValueAction" xmi:id="_SdW48Mt9EeK9Hf3jELcIog" name="SetBankAction" outgoing="_D1VDIMt-EeK9Hf3jELcIog" structuralFeature="_yGh7kMt8EeK9Hf3jELcIog">
+        <object xmi:id="_SdYuIMt9EeK9Hf3jELcIog" name="object" incoming="_gzc0wMt9EeK9Hf3jELcIog" type="_rdw30Mt8EeK9Hf3jELcIog"/>
+        <value xmi:id="_SdYHEMt9EeK9Hf3jELcIog" name="value" incoming="_jDchcMt9EeK9Hf3jELcIog">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </value>
+        <result xmi:id="_SdYuIct9EeK9Hf3jELcIog" name="result" outgoing="_Gjc2QMt-EeK9Hf3jELcIog" type="_rdw30Mt8EeK9Hf3jELcIog"/>
+      </node>
+      <node xmi:type="uml:AddStructuralFeatureValueAction" xmi:id="_ti0qYMt9EeK9Hf3jELcIog" name="SetNumber" structuralFeature="_tm9Y8Mt8EeK9Hf3jELcIog">
+        <object xmi:id="_ti14gct9EeK9Hf3jELcIog" name="object" incoming="_Gjc2QMt-EeK9Hf3jELcIog" type="_rdw30Mt8EeK9Hf3jELcIog"/>
+        <value xmi:id="_ti14gMt9EeK9Hf3jELcIog" name="value" incoming="_IeBskMt-EeK9Hf3jELcIog">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </value>
+        <result xmi:id="_ti2fkMt9EeK9Hf3jELcIog" name="result" outgoing="_rZBP0Mt-EeK9Hf3jELcIog" type="_rdw30Mt8EeK9Hf3jELcIog"/>
+      </node>
+      <node xmi:type="uml:ValueSpecificationAction" xmi:id="_6SR_kMt9EeK9Hf3jELcIog" name="NumberAction" incoming="_D1VDIMt-EeK9Hf3jELcIog">
+        <value xmi:type="uml:LiteralInteger" xmi:id="_A61A4Mt-EeK9Hf3jELcIog" name="value" value="123456"/>
+        <result xmi:id="_-aNeQMt9EeK9Hf3jELcIog" name="value" outgoing="_IeBskMt-EeK9Hf3jELcIog">
+          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
+        </result>
+      </node>
+      <node xmi:type="uml:ActivityParameterNode" xmi:id="_qGNkIMt-EeK9Hf3jELcIog" name="card" incoming="_rZBP0Mt-EeK9Hf3jELcIog" type="_rdw30Mt8EeK9Hf3jELcIog" isControlType="true" parameter="_qFrYoMt-EeK9Hf3jELcIog"/>
+      <edge xmi:type="uml:ControlFlow" xmi:id="_BiG4wMt9EeK9Hf3jELcIog" name="cf1" source="_8ePWQMt8EeK9Hf3jELcIog" target="_-wr6AMt8EeK9Hf3jELcIog"/>
+      <edge xmi:type="uml:ControlFlow" xmi:id="_N0c0IMt9EeK9Hf3jELcIog" name="cf2" source="_-wr6AMt8EeK9Hf3jELcIog" target="_GdChsMt9EeK9Hf3jELcIog"/>
+      <edge xmi:type="uml:ObjectFlow" xmi:id="_gzc0wMt9EeK9Hf3jELcIog" name="of1" source="_-wshEMt8EeK9Hf3jELcIog" target="_SdYuIMt9EeK9Hf3jELcIog"/>
+      <edge xmi:type="uml:ObjectFlow" xmi:id="_jDchcMt9EeK9Hf3jELcIog" name="of2" source="_JRXDcMt9EeK9Hf3jELcIog" target="_SdYHEMt9EeK9Hf3jELcIog"/>
+      <edge xmi:type="uml:ControlFlow" xmi:id="_D1VDIMt-EeK9Hf3jELcIog" name="cf3" source="_SdW48Mt9EeK9Hf3jELcIog" target="_6SR_kMt9EeK9Hf3jELcIog"/>
+      <edge xmi:type="uml:ObjectFlow" xmi:id="_Gjc2QMt-EeK9Hf3jELcIog" name="of3" source="_SdYuIct9EeK9Hf3jELcIog" target="_ti14gct9EeK9Hf3jELcIog"/>
+      <edge xmi:type="uml:ObjectFlow" xmi:id="_IeBskMt-EeK9Hf3jELcIog" name="of4" source="_-aNeQMt9EeK9Hf3jELcIog" target="_ti14gMt9EeK9Hf3jELcIog"/>
+      <edge xmi:type="uml:ObjectFlow" xmi:id="_rZBP0Mt-EeK9Hf3jELcIog" name="of5" source="_ti2fkMt9EeK9Hf3jELcIog" target="_qGNkIMt-EeK9Hf3jELcIog"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Activity" xmi:id="_I1qpIMuBEeK9Hf3jELcIog" name="ClientCardActivity">
+      <ownedParameter xmi:id="_Qp8y4MuDEeK9Hf3jELcIog" name="card" type="_rdw30Mt8EeK9Hf3jELcIog" direction="out"/>
+      <node xmi:type="uml:InitialNode" xmi:id="_TsUpoMuBEeK9Hf3jELcIog" name="init" outgoing="_kOY4UMuCEeK9Hf3jELcIog"/>
+      <node xmi:type="uml:CallBehaviorAction" xmi:id="_f5VjoMuCEeK9Hf3jELcIog" name="ClientAction" outgoing="_sonSoMuCEeK9Hf3jELcIog" incoming="_kOY4UMuCEeK9Hf3jELcIog" behavior="_OZltIMqvEeKtlOlPy-FQMw">
+        <result xmi:id="_f5WxwMuCEeK9Hf3jELcIog" name="client" outgoing="_Jp_-MMuDEeK9Hf3jELcIog" type="_Bw9_wMqvEeKtlOlPy-FQMw"/>
+      </node>
+      <node xmi:type="uml:CallBehaviorAction" xmi:id="_n8rH8MuCEeK9Hf3jELcIog" name="CardAction" outgoing="_CgVz4MuDEeK9Hf3jELcIog" incoming="_sonSoMuCEeK9Hf3jELcIog" behavior="_4WSpcMt8EeK9Hf3jELcIog">
+        <result xmi:id="_n8sWEMuCEeK9Hf3jELcIog" name="card" outgoing="_G4vXgMuDEeK9Hf3jELcIog" type="_rdw30Mt8EeK9Hf3jELcIog"/>
+      </node>
+      <node xmi:type="uml:AddStructuralFeatureValueAction" xmi:id="_yPJdUMuCEeK9Hf3jELcIog" name="SetCardOwner" incoming="_CgVz4MuDEeK9Hf3jELcIog" structuralFeature="_Z0ndkMuBEeK9Hf3jELcIog">
+        <object xmi:id="_yPLSgMuCEeK9Hf3jELcIog" name="object" incoming="_G4vXgMuDEeK9Hf3jELcIog" type="_rdw30Mt8EeK9Hf3jELcIog"/>
+        <value xmi:id="_yPKrcMuCEeK9Hf3jELcIog" name="value" incoming="_Jp_-MMuDEeK9Hf3jELcIog" type="_Bw9_wMqvEeKtlOlPy-FQMw"/>
+        <result xmi:id="_yPLSgcuCEeK9Hf3jELcIog" name="result" outgoing="_SP1LkMuDEeK9Hf3jELcIog" type="_rdw30Mt8EeK9Hf3jELcIog"/>
+      </node>
+      <node xmi:type="uml:ActivityParameterNode" xmi:id="_QqSxIMuDEeK9Hf3jELcIog" name="card" incoming="_SP1LkMuDEeK9Hf3jELcIog" type="_rdw30Mt8EeK9Hf3jELcIog" isControlType="true" parameter="_Qp8y4MuDEeK9Hf3jELcIog"/>
+      <edge xmi:type="uml:ControlFlow" xmi:id="_kOY4UMuCEeK9Hf3jELcIog" name="cf1" source="_TsUpoMuBEeK9Hf3jELcIog" target="_f5VjoMuCEeK9Hf3jELcIog"/>
+      <edge xmi:type="uml:ControlFlow" xmi:id="_sonSoMuCEeK9Hf3jELcIog" name="cf2" source="_f5VjoMuCEeK9Hf3jELcIog" target="_n8rH8MuCEeK9Hf3jELcIog"/>
+      <edge xmi:type="uml:ControlFlow" xmi:id="_CgVz4MuDEeK9Hf3jELcIog" name="cf3" source="_n8rH8MuCEeK9Hf3jELcIog" target="_yPJdUMuCEeK9Hf3jELcIog"/>
+      <edge xmi:type="uml:ObjectFlow" xmi:id="_G4vXgMuDEeK9Hf3jELcIog" name="of1" source="_n8sWEMuCEeK9Hf3jELcIog" target="_yPLSgMuCEeK9Hf3jELcIog"/>
+      <edge xmi:type="uml:ObjectFlow" xmi:id="_Jp_-MMuDEeK9Hf3jELcIog" name="of2" source="_f5WxwMuCEeK9Hf3jELcIog" target="_yPKrcMuCEeK9Hf3jELcIog"/>
+      <edge xmi:type="uml:ObjectFlow" xmi:id="_SP1LkMuDEeK9Hf3jELcIog" name="of3" source="_yPLSgcuCEeK9Hf3jELcIog" target="_QqSxIMuDEeK9Hf3jELcIog"/>
+    </packagedElement>
+  </packagedElement>
+</uml:Model>
