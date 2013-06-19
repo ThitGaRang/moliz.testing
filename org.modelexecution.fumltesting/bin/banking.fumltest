@@ -1,24 +1,23 @@
 import Model.structure.*
 import Model.behavior.*
 
-scenario TestData[ 
-	object clientObj : Client{
-		attribute Client.name = "Stefan";
+scenario TestData[
+	object clientTestObject : Client{
+		attribute Client.name = "Stefan Mijatov";
 		attribute Client.age = 28;
 	}
-	object cardObj : Card{
-		attribute Card.bank = "ErsteBank";
+	object cardTestObject : Card {
 		attribute Card.number = 123456;
+		attribute Card.bank = "ErsteBank";
+		
+		link Card.client = clientTestObject;		
 	}
 ]
 
-test ClientCardTest activity ClientCardActivity{
-	var card = ClientCardActivity.SetCardOwner.result;
+test ClientActivityTest activity ClientActivity{
 	
-	assertOrder ClientCardActivity.init, ClientCardActivity.ClientAction,
-		ClientCardActivity.CardAction, ClientCardActivity.SetCardOwner;
+}
+
+test CardActivityTest activity CardActivity{
 	
-	assertState always after ClientCardActivity.SetCardOwner{
-		card = TestData.cardObj;
-	}
 }

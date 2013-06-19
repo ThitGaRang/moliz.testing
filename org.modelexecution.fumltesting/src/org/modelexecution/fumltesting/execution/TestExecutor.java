@@ -61,7 +61,7 @@ public class TestExecutor{
 				resourceSet.getPackageRegistry().put(UMLPackage.eNS_URI, UMLPackage.eINSTANCE);
 				resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(UMLResource.FILE_EXTENSION, UMLResource.Factory.INSTANCE);
 				//model with UML elements under test, referenced by testing model
-				Resource r = resourceSet.getResource(URI.createFileURI(new File("example/model.uml").getAbsolutePath()), true);
+				Resource r = resourceSet.getResource(URI.createFileURI(new File("example/banking.uml").getAbsolutePath()), true);
 				r.load(null);
 				
 				//replacement of references with the elements from UML model
