@@ -2,19 +2,37 @@ import Model.structure.*
 import Model.behavior.*
 
 scenario TestData[
+	
 	object clientTestObject : Client{
 		attribute Client.name = "Stefan Mijatov";
 		attribute Client.age = 28;
 	}
-	object cardTestObject : Card {
+	
+	object accountTestObject : Account{
+		attribute Account.number = 1220;
+		attribute Account.balance = 800;
+	}
+	
+	object cardTestObject : Card{
 		attribute Card.number = 123456;
 		attribute Card.bank = "ErsteBank";
+		attribute Card.pin = 1234;
 		
-		link Card.client = clientTestObject;		
+		link Card.client = clientTestObject;
+		link Card.account = accountTestObject;		
 	}
+	
+	object atmTestObject : ATM{
+		link ATM.card = cardTestObject;
+	}
+	
 ]
 
 test ClientActivityTest activity ClientActivity{
+	
+}
+
+test AccountActivityTest activity AccountActivity{
 	
 }
 

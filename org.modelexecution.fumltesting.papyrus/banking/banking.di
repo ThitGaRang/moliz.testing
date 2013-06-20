@@ -13,6 +13,14 @@
     <availablePage>
       <emfPageIdentifier href="banking.notation#_USZTANjmEeKmTogSPQTWOg"/>
     </availablePage>
+    <availablePage>
+      <emfPageIdentifier href="banking.notation#_bkVBkNmAEeK1YNWIdNBFBA"/>
+    </availablePage>
+    <availablePage/>
+    <availablePage/>
+    <availablePage>
+      <emfPageIdentifier href="banking.notation#_FguZ8NmgEeK1YNWIdNBFBA"/>
+    </availablePage>
   </pageList>
   <sashModel currentSelection="//@sashModel/@windows.0/@children.0">
     <windows>
@@ -27,7 +35,13 @@
           <emfPageIdentifier href="banking.notation#_32MfgNjiEeKmTogSPQTWOg"/>
         </children>
         <children>
+          <emfPageIdentifier href="banking.notation#_bkVBkNmAEeK1YNWIdNBFBA"/>
+        </children>
+        <children>
           <emfPageIdentifier href="banking.notation#_USZTANjmEeKmTogSPQTWOg"/>
+        </children>
+        <children>
+          <emfPageIdentifier href="banking.notation#_FguZ8NmgEeK1YNWIdNBFBA"/>
         </children>
       </children>
     </windows>
