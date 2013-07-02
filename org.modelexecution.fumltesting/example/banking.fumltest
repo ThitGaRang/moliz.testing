@@ -1,41 +1,49 @@
-import Model.structure.*
-import Model.behavior.*
+import model.*
 
-scenario TestData[
-	
-	object clientTestObject : Client{
-		attribute Client.name = "Stefan Mijatov";
-		attribute Client.age = 28;
-	}
-	
-	object accountTestObject : Account{
-		attribute Account.number = 1220;
+scenario TestData[	
+	object accountTO : Account{
+		attribute Account.number = 320;
 		attribute Account.balance = 800;
 	}
-	
-	object cardTestObject : Card{
+	object accountTOUpdated : Account{
+		attribute Account.number = 320;
+		attribute Account.balance = 500;
+	}
+	object cardTO : Card{
 		attribute Card.number = 123456;
-		attribute Card.bank = "ErsteBank";
 		attribute Card.pin = 1234;
-		
-		link Card.client = clientTestObject;
-		link Card.account = accountTestObject;		
+		link Card.account = accountTO;		
 	}
-	
-	object atmTestObject : ATM{
-		link ATM.card = cardTestObject;
-	}
-	
+	object atmTO : ATM{}
 ]
 
-test ClientActivityTest activity ClientActivity{
+test AccountWithdrawActivityTest activity AccountWithdrawActivity(AccountWithdrawActivity.amount=300) on TestData.accountTO{
+	var account = AccountWithdrawActivity.self.result;
+	var successful = AccountWithdrawActivity.successful;
 	
+	assertOrder AccountWithdrawActivity.self, AccountWithdrawActivity.readBalance, AccountWithdrawActivity.subtract, 
+		AccountWithdrawActivity.setBalance, AccountWithdrawActivity.successTrue;
+	
+	assertState always before AccountWithdrawActivity.subtract{
+		account -> Account.number = 320;
+		account -> Account.balance = 800;
+	}
+	
+	assertState always after AccountWithdrawActivity.successTrue{
+		account -> Account.number = 320;
+		account -> Account.balance = 500;
+		successful = true;
+	}
 }
-
-test AccountActivityTest activity AccountActivity{
+test ATMwithdrawActivityTest activity ATMwithdrawActivity(ATMwithdrawActivity.card=TestData.cardTO, ATMwithdrawActivity.pin=1234, ATMwithdrawActivity.amount=300) on TestData.atmTO{
+	var card = ATMwithdrawActivity.card;
+	var successul = ATMwithdrawActivity.successful;
 	
-}
-
-test CardActivityTest activity CardActivity{
-	
+	assertOrder ATMwithdrawActivity.self, ATMwithdrawActivity.call_validatePin, 
+		ATMwithdrawActivity.readAccount, ATMwithdrawActivity.call_withdraw, ATMwithdrawActivity.successTrue;
+		
+	assertState always after ATMwithdrawActivity.call_withdraw{
+		card -> Card.account = TestData.accountTOUpdated;
+		successul = true;
+	}
 }

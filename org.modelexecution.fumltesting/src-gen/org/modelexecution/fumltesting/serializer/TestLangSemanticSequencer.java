@@ -1292,6 +1292,7 @@ public class TestLangSemanticSequencer extends XbaseSemanticSequencer {
 	 *         name=ID 
 	 *         activityUnderTest=[Activity|QualifiedName] 
 	 *         (inputs+=ActivityInput inputs+=ActivityInput*)? 
+	 *         contextObject=[ObjectSpecification|QualifiedName]? 
 	 *         variables+=VarDeclaration* 
 	 *         assertions+=Assertion*
 	 *     )

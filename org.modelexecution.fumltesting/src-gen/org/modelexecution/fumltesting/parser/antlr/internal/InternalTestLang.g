@@ -389,23 +389,42 @@ ruleTestCase returns [EObject current=null]
     {
     	newLeafNode(otherlv_8, grammarAccess.getTestCaseAccess().getRightParenthesisKeyword_4_3());
     }
-)?	otherlv_9='{' 
+)?(	otherlv_9='on' 
     {
-    	newLeafNode(otherlv_9, grammarAccess.getTestCaseAccess().getLeftCurlyBracketKeyword_5());
+    	newLeafNode(otherlv_9, grammarAccess.getTestCaseAccess().getOnKeyword_5_0());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getTestCaseRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getTestCaseAccess().getContextObjectObjectSpecificationCrossReference_5_1_0()); 
+	    }
+		ruleQualifiedName		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))?	otherlv_11='{' 
+    {
+    	newLeafNode(otherlv_11, grammarAccess.getTestCaseAccess().getLeftCurlyBracketKeyword_6());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getTestCaseAccess().getVariablesVarDeclarationParserRuleCall_6_0()); 
+	        newCompositeNode(grammarAccess.getTestCaseAccess().getVariablesVarDeclarationParserRuleCall_7_0()); 
 	    }
-		lv_variables_10_0=ruleVarDeclaration		{
+		lv_variables_12_0=ruleVarDeclaration		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getTestCaseRule());
 	        }
        		add(
        			$current, 
        			"variables",
-        		lv_variables_10_0, 
+        		lv_variables_12_0, 
         		"VarDeclaration");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -414,24 +433,24 @@ ruleTestCase returns [EObject current=null]
 )*(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getTestCaseAccess().getAssertionsAssertionParserRuleCall_7_0()); 
+	        newCompositeNode(grammarAccess.getTestCaseAccess().getAssertionsAssertionParserRuleCall_8_0()); 
 	    }
-		lv_assertions_11_0=ruleAssertion		{
+		lv_assertions_13_0=ruleAssertion		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getTestCaseRule());
 	        }
        		add(
        			$current, 
        			"assertions",
-        		lv_assertions_11_0, 
+        		lv_assertions_13_0, 
         		"Assertion");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)*	otherlv_12='}' 
+)*	otherlv_14='}' 
     {
-    	newLeafNode(otherlv_12, grammarAccess.getTestCaseAccess().getRightCurlyBracketKeyword_8());
+    	newLeafNode(otherlv_14, grammarAccess.getTestCaseAccess().getRightCurlyBracketKeyword_9());
     }
 )
 ;

@@ -19,6 +19,7 @@ import org.modelexecution.fumltesting.testLang.Value;
 import UMLPrimitiveTypes.UnlimitedNatural;
 import fUML.Semantics.Classes.Kernel.BooleanValue;
 import fUML.Semantics.Classes.Kernel.FeatureValue;
+import fUML.Semantics.Classes.Kernel.IntegerValue;
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.StringValue;
 import fUML.Semantics.Classes.Kernel.UnlimitedNaturalValue;
@@ -96,10 +97,10 @@ public class TestDataConverter {
 			return fumlValue;
 		}
 		if(expression instanceof XNumberLiteral){
-			UnlimitedNaturalValue fumlValue = new UnlimitedNaturalValue();
+			IntegerValue fumlValue = new IntegerValue();
 			double numberValue = Double.valueOf(((XNumberLiteral)expression).getValue());
-			fumlValue.type = locus.factory.getBuiltInType("UnlimitedNatural");
-			fumlValue.value = new UnlimitedNatural((int)numberValue);
+			fumlValue.type = locus.factory.getBuiltInType("Integer");
+			fumlValue.value = new Integer((int)numberValue);
 			fumlValue.specify();
 			return fumlValue;
 		}

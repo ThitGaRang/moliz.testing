@@ -22,6 +22,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="activityUnderTest" eType="ecore:EClass ../../../../../org.eclipse.uml2.uml/model/UML.ecore#//Activity"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="inputs" upperBound="-1"
         eType="#//ActivityInput" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="contextObject" eType="#//ObjectSpecification"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="variables" upperBound="-1"
         eType="#//VarDeclaration" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="assertions" upperBound="-1"

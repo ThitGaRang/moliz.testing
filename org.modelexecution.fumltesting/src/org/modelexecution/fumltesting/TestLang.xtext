@@ -17,7 +17,7 @@ VarDeclaration:
 ;
 
 TestCase:
-	'test' name=ID 'activity' activityUnderTest=[uml::Activity|QualifiedName] ('(' inputs+=ActivityInput (',' inputs+=ActivityInput)* ')')? '{'
+	'test' name=ID 'activity' activityUnderTest=[uml::Activity|QualifiedName] ('(' inputs+=ActivityInput (',' inputs+=ActivityInput)* ')')? ('on' contextObject=[ObjectSpecification|QualifiedName])? '{'
 		(variables+=VarDeclaration)*
 		(assertions+=Assertion)*
 	'}'

@@ -19,6 +19,7 @@ import org.eclipse.uml2.uml.Activity;
  *   <li>{@link org.modelexecution.fumltesting.testLang.TestCase#getName <em>Name</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.testLang.TestCase#getActivityUnderTest <em>Activity Under Test</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.testLang.TestCase#getInputs <em>Inputs</em>}</li>
+ *   <li>{@link org.modelexecution.fumltesting.testLang.TestCase#getContextObject <em>Context Object</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.testLang.TestCase#getVariables <em>Variables</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.testLang.TestCase#getAssertions <em>Assertions</em>}</li>
  * </ul>
@@ -97,6 +98,32 @@ public interface TestCase extends EObject
    * @generated
    */
   EList<ActivityInput> getInputs();
+
+  /**
+   * Returns the value of the '<em><b>Context Object</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Context Object</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Context Object</em>' reference.
+   * @see #setContextObject(ObjectSpecification)
+   * @see org.modelexecution.fumltesting.testLang.TestLangPackage#getTestCase_ContextObject()
+   * @model
+   * @generated
+   */
+  ObjectSpecification getContextObject();
+
+  /**
+   * Sets the value of the '{@link org.modelexecution.fumltesting.testLang.TestCase#getContextObject <em>Context Object</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Context Object</em>' reference.
+   * @see #getContextObject()
+   * @generated
+   */
+  void setContextObject(ObjectSpecification value);
 
   /**
    * Returns the value of the '<em><b>Variables</b></em>' containment reference list.

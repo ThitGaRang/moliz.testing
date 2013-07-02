@@ -436,7 +436,7 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getTestCase_Variables()
+  public EReference getTestCase_ContextObject()
   {
     return (EReference)testCaseEClass.getEStructuralFeatures().get(3);
   }
@@ -446,9 +446,19 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getTestCase_Assertions()
+  public EReference getTestCase_Variables()
   {
     return (EReference)testCaseEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getTestCase_Assertions()
+  {
+    return (EReference)testCaseEClass.getEStructuralFeatures().get(5);
   }
 
   /**
@@ -1007,6 +1017,7 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
     createEAttribute(testCaseEClass, TEST_CASE__NAME);
     createEReference(testCaseEClass, TEST_CASE__ACTIVITY_UNDER_TEST);
     createEReference(testCaseEClass, TEST_CASE__INPUTS);
+    createEReference(testCaseEClass, TEST_CASE__CONTEXT_OBJECT);
     createEReference(testCaseEClass, TEST_CASE__VARIABLES);
     createEReference(testCaseEClass, TEST_CASE__ASSERTIONS);
 
@@ -1145,6 +1156,7 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
     initEAttribute(getTestCase_Name(), theEcorePackage.getEString(), "name", null, 0, 1, TestCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getTestCase_ActivityUnderTest(), theUMLPackage.getActivity(), null, "activityUnderTest", null, 0, 1, TestCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getTestCase_Inputs(), this.getActivityInput(), null, "inputs", null, 0, -1, TestCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTestCase_ContextObject(), this.getObjectSpecification(), null, "contextObject", null, 0, 1, TestCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getTestCase_Variables(), this.getVarDeclaration(), null, "variables", null, 0, -1, TestCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getTestCase_Assertions(), this.getAssertion(), null, "assertions", null, 0, -1, TestCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

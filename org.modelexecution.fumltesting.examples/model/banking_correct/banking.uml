@@ -114,7 +114,7 @@
     <node xmi:type="uml:ActivityParameterNode" xmi:id="_NZ8DANw_EeKn2ranrBSLLA" name="successful" incoming="_SjhroNxCEeKn2ranrBSLLA _Y91coNxCEeKn2ranrBSLLA" type="_GrEMsNw-EeKn2ranrBSLLA" isControlType="true" parameter="_NZMcINw_EeKn2ranrBSLLA">
       <upperBound xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_YXToINxCEeKn2ranrBSLLA" value="1"/>
     </node>
-    <node xmi:type="uml:ReadStructuralFeatureAction" xmi:id="_X_bbANw_EeKn2ranrBSLLA" name="read card.account" incoming="_kmJjkNxCEeKn2ranrBSLLA" structuralFeature="_yiFsQNw9EeKn2ranrBSLLA">
+    <node xmi:type="uml:ReadStructuralFeatureAction" xmi:id="_X_bbANw_EeKn2ranrBSLLA" name="readAccount" incoming="_kmJjkNxCEeKn2ranrBSLLA" structuralFeature="_yiFsQNw9EeKn2ranrBSLLA">
       <object xmi:id="_X_bbA9w_EeKn2ranrBSLLA" name="object" incoming="_-TtjYNxBEeKn2ranrBSLLA" type="_JSjBwNw9EeKn2ranrBSLLA">
         <upperBound xmi:type="uml:LiteralInteger" xmi:id="_X_bbBNw_EeKn2ranrBSLLA" value="1"/>
       </object>
@@ -127,7 +127,7 @@
         <upperBound xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_w_7rENw_EeKn2ranrBSLLA" value="1"/>
       </result>
     </node>
-    <node xmi:type="uml:CallOperationAction" xmi:id="_hFIbQNw_EeKn2ranrBSLLA" name="call validatePin()" operation="_afD7oNw-EeKn2ranrBSLLA">
+    <node xmi:type="uml:CallOperationAction" xmi:id="_hFIbQNw_EeKn2ranrBSLLA" name="call_validatePin" operation="_afD7oNw-EeKn2ranrBSLLA">
       <argument xmi:id="_hFIbRdw_EeKn2ranrBSLLA" name="card" incoming="_CMdWkNxCEeKn2ranrBSLLA" type="_JSjBwNw9EeKn2ranrBSLLA">
         <eAnnotations xmi:id="_hFIbR9w_EeKn2ranrBSLLA" source="PinToParameterLink">
           <details xmi:id="_hFIbSNw_EeKn2ranrBSLLA" key="PinToParameterLink" value="_fUNssNw-EeKn2ranrBSLLA"/>
@@ -150,7 +150,7 @@
         <upperBound xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_-QY0gNw_EeKn2ranrBSLLA" value="1"/>
       </target>
     </node>
-    <node xmi:type="uml:CallOperationAction" xmi:id="_lMwX8Nw_EeKn2ranrBSLLA" name="call withdraw()" operation="_5tzFANw9EeKn2ranrBSLLA">
+    <node xmi:type="uml:CallOperationAction" xmi:id="_lMwX8Nw_EeKn2ranrBSLLA" name="call_withdraw" operation="_5tzFANw9EeKn2ranrBSLLA">
       <argument xmi:id="_lMwX8dw_EeKn2ranrBSLLA" name="amount" incoming="_cl69oNxCEeKn2ranrBSLLA" type="_VCASgNw9EeKn2ranrBSLLA">
         <eAnnotations xmi:id="_lMwX89w_EeKn2ranrBSLLA" source="PinToParameterLink">
           <details xmi:id="_lMwX9Nw_EeKn2ranrBSLLA" key="PinToParameterLink" value="_-EmtMNw9EeKn2ranrBSLLA"/>
@@ -167,7 +167,7 @@
         <upperBound xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_PT_NgNxCEeKn2ranrBSLLA" value="1"/>
       </target>
     </node>
-    <node xmi:type="uml:ValueSpecificationAction" xmi:id="_nZWLUNw_EeKn2ranrBSLLA" name="false" incoming="_iCWKENxCEeKn2ranrBSLLA">
+    <node xmi:type="uml:ValueSpecificationAction" xmi:id="_nZWLUNw_EeKn2ranrBSLLA" name="successFalse" incoming="_iCWKENxCEeKn2ranrBSLLA">
       <result xmi:id="_oft9gNw_EeKn2ranrBSLLA" name="result" outgoing="_Y91coNxCEeKn2ranrBSLLA">
         <upperBound xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_VbkPwNxCEeKn2ranrBSLLA" value="1"/>
       </result>
@@ -196,7 +196,7 @@
     <node xmi:type="uml:ActivityParameterNode" xmi:id="_6dN9gNxCEeKn2ranrBSLLA" name="valid" incoming="_LTJQ0NybEeKL0dtv1Gjh_Q" type="_GrEMsNw-EeKn2ranrBSLLA" isControlType="true" parameter="_6cUloNxCEeKn2ranrBSLLA">
       <upperBound xmi:type="uml:LiteralInteger" xmi:id="_6dN9gdxCEeKn2ranrBSLLA" value="1"/>
     </node>
-    <node xmi:type="uml:ReadStructuralFeatureAction" xmi:id="_IVJrwNxFEeKL0dtv1Gjh_Q" name="card.pin" structuralFeature="_eDGfkNw9EeKn2ranrBSLLA">
+    <node xmi:type="uml:ReadStructuralFeatureAction" xmi:id="_IVJrwNxFEeKL0dtv1Gjh_Q" name="readPin" structuralFeature="_eDGfkNw9EeKn2ranrBSLLA">
       <object xmi:id="_IVTcwtxFEeKL0dtv1Gjh_Q" name="object" incoming="_PaeIoNxFEeKL0dtv1Gjh_Q" type="_JSjBwNw9EeKn2ranrBSLLA">
         <upperBound xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_MC5I0NxFEeKL0dtv1Gjh_Q" value="1"/>
       </object>
@@ -204,7 +204,7 @@
         <upperBound xmi:type="uml:LiteralInteger" xmi:id="_IVTcwdxFEeKL0dtv1Gjh_Q" value="1"/>
       </result>
     </node>
-    <node xmi:type="uml:TestIdentityAction" xmi:id="_dW2ugNxGEeKL0dtv1Gjh_Q" name="test">
+    <node xmi:type="uml:TestIdentityAction" xmi:id="_dW2ugNxGEeKL0dtv1Gjh_Q" name="validate">
       <first xmi:id="_eYBQkNxGEeKL0dtv1Gjh_Q" name="first" incoming="_KGYiwNybEeKL0dtv1Gjh_Q"/>
       <result xmi:id="_jP_sINxGEeKL0dtv1Gjh_Q" name="result" outgoing="_LTJQ0NybEeKL0dtv1Gjh_Q"/>
       <second xmi:id="_hOa18NxGEeKL0dtv1Gjh_Q" name="second" incoming="_KzKJMNybEeKL0dtv1Gjh_Q"/>
@@ -277,13 +277,13 @@
       <upperBound xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_C3fnIN4wEeK3bIm3mzG3sw" value="1"/>
     </node>
     <node xmi:type="uml:DecisionNode" xmi:id="_ise2wNxDEeKn2ranrBSLLA" name="DecisionNode1" outgoing="_hiKGwNxFEeKL0dtv1Gjh_Q _ko7DYNxFEeKL0dtv1Gjh_Q" incoming="_RxE-MNxGEeKL0dtv1Gjh_Q _PpatwN5tEeKtmuWA2xqcdw" decisionInput="_7CBo0NxEEeKL0dtv1Gjh_Q" decisionInputFlow="_PpatwN5tEeKtmuWA2xqcdw"/>
-    <node xmi:type="uml:ValueSpecificationAction" xmi:id="_nNQTQNxDEeKn2ranrBSLLA" name="false" incoming="_hiKGwNxFEeKL0dtv1Gjh_Q">
+    <node xmi:type="uml:ValueSpecificationAction" xmi:id="_nNQTQNxDEeKn2ranrBSLLA" name="successFalse" incoming="_hiKGwNxFEeKL0dtv1Gjh_Q">
       <result xmi:id="_qTtt4NxDEeKn2ranrBSLLA" name="result" outgoing="_vVEH4NxDEeKn2ranrBSLLA">
         <upperBound xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_sJPsINxDEeKn2ranrBSLLA" value="1"/>
       </result>
       <value xmi:type="uml:LiteralBoolean" xmi:id="_oy6FQN5uEeKtmuWA2xqcdw" name=""/>
     </node>
-    <node xmi:type="uml:ReadStructuralFeatureAction" xmi:id="_EokhwNxEEeKn2ranrBSLLA" name="account.balance" structuralFeature="_nhfsoNw9EeKn2ranrBSLLA">
+    <node xmi:type="uml:ReadStructuralFeatureAction" xmi:id="_EokhwNxEEeKn2ranrBSLLA" name="readBalance" structuralFeature="_nhfsoNw9EeKn2ranrBSLLA">
       <object xmi:id="_Eokhw9xEEeKn2ranrBSLLA" name="object" incoming="_4a-4oNxFEeKL0dtv1Gjh_Q" type="_J22osNw9EeKn2ranrBSLLA">
         <upperBound xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_rIaEwNxEEeKL0dtv1Gjh_Q" value="1"/>
       </object>
@@ -317,7 +317,7 @@
       </result>
     </node>
     <node xmi:type="uml:ForkNode" xmi:id="_tryyENxFEeKL0dtv1Gjh_Q" name="accountFork" outgoing="_4a-4oNxFEeKL0dtv1Gjh_Q _5M0lQNxFEeKL0dtv1Gjh_Q" incoming="_3fxNkNxFEeKL0dtv1Gjh_Q"/>
-    <node xmi:type="uml:AddStructuralFeatureValueAction" xmi:id="_vMM04NxFEeKL0dtv1Gjh_Q" name="set account.balance" outgoing="_fssZkN5sEeKtmuWA2xqcdw" structuralFeature="_nhfsoNw9EeKn2ranrBSLLA" isReplaceAll="true">
+    <node xmi:type="uml:AddStructuralFeatureValueAction" xmi:id="_vMM04NxFEeKL0dtv1Gjh_Q" name="setBalance" outgoing="_fssZkN5sEeKtmuWA2xqcdw" structuralFeature="_nhfsoNw9EeKn2ranrBSLLA" isReplaceAll="true">
       <object xmi:id="_vMWl4txFEeKL0dtv1Gjh_Q" name="object" incoming="_5M0lQNxFEeKL0dtv1Gjh_Q" type="_J22osNw9EeKn2ranrBSLLA">
         <upperBound xmi:type="uml:LiteralInteger" xmi:id="_vMWl49xFEeKL0dtv1Gjh_Q" value="1"/>
       </object>
@@ -330,7 +330,7 @@
     </node>
     <node xmi:type="uml:ForkNode" xmi:id="_LEKaQNxGEeKL0dtv1Gjh_Q" name="amountFork" outgoing="_RxE-MNxGEeKL0dtv1Gjh_Q _TRLfANxGEeKL0dtv1Gjh_Q" incoming="_xdMSANxDEeKn2ranrBSLLA"/>
     <node xmi:type="uml:ForkNode" xmi:id="_AHnCMN5sEeKtmuWA2xqcdw" name="balanceFork" outgoing="_HLSgUN5sEeKtmuWA2xqcdw _PpatwN5tEeKtmuWA2xqcdw" incoming="_AHwzMN5sEeKtmuWA2xqcdw"/>
-    <node xmi:type="uml:ValueSpecificationAction" xmi:id="_a6q1AN5sEeKtmuWA2xqcdw" name="true" incoming="_fssZkN5sEeKtmuWA2xqcdw">
+    <node xmi:type="uml:ValueSpecificationAction" xmi:id="_a6q1AN5sEeKtmuWA2xqcdw" name="successTrue" incoming="_fssZkN5sEeKtmuWA2xqcdw">
       <result xmi:id="_cfPmIN5sEeKtmuWA2xqcdw" name="result" outgoing="_eslAYN5sEeKtmuWA2xqcdw">
         <upperBound xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_dl6TQN5sEeKtmuWA2xqcdw" value="1"/>
       </result>

@@ -84,22 +84,25 @@ public class TestExecutor{
 	/** Main method of the testing framework. */
 	@Test
 	public void test() {
-		setup();		
-		
+		setup();
 		for (int i = 0; i < suite.getTests().size(); i++) {
-			TestCase testCase = suite.getTests().get(i);
-			
+			TestCase testCase = suite.getTests().get(i);			
 			AssertionPrinter.print(testCase);
-			
 			Activity activity = testCase.getActivityUnderTest();
 			
-			mainActivityExecutionID = executor.executeActivity(activity, testCase.getInputs());
+			if(testCase.getContextObject() != null){
+				mainActivityExecutionID = executor.executeActivity(activity, testCase.getInputs(), testCase.getContextObject());
+			}else{
+				mainActivityExecutionID = executor.executeActivity(activity, testCase.getInputs(), null);
+			}
+			
 			validator = new AssertionValidator(mainActivityExecutionID, executor);
 			
 			for(int j=0;j<testCase.getAssertions().size();j++){
 				Assertion assertion = testCase.getAssertions().get(j);
 				assertTrue(validator.check(assertion));
 			}
+			
 			System.out.println("End of test.");
 			AssertionPrinter.printStartEnd();
 		}

@@ -167,23 +167,32 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cInputsAssignment_4_2_1 = (Assignment)cGroup_4_2.eContents().get(1);
 		private final RuleCall cInputsActivityInputParserRuleCall_4_2_1_0 = (RuleCall)cInputsAssignment_4_2_1.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_4_3 = (Keyword)cGroup_4.eContents().get(3);
-		private final Keyword cLeftCurlyBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
-		private final Assignment cVariablesAssignment_6 = (Assignment)cGroup.eContents().get(6);
-		private final RuleCall cVariablesVarDeclarationParserRuleCall_6_0 = (RuleCall)cVariablesAssignment_6.eContents().get(0);
-		private final Assignment cAssertionsAssignment_7 = (Assignment)cGroup.eContents().get(7);
-		private final RuleCall cAssertionsAssertionParserRuleCall_7_0 = (RuleCall)cAssertionsAssignment_7.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_8 = (Keyword)cGroup.eContents().get(8);
+		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
+		private final Keyword cOnKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
+		private final Assignment cContextObjectAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
+		private final CrossReference cContextObjectObjectSpecificationCrossReference_5_1_0 = (CrossReference)cContextObjectAssignment_5_1.eContents().get(0);
+		private final RuleCall cContextObjectObjectSpecificationQualifiedNameParserRuleCall_5_1_0_1 = (RuleCall)cContextObjectObjectSpecificationCrossReference_5_1_0.eContents().get(1);
+		private final Keyword cLeftCurlyBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
+		private final Assignment cVariablesAssignment_7 = (Assignment)cGroup.eContents().get(7);
+		private final RuleCall cVariablesVarDeclarationParserRuleCall_7_0 = (RuleCall)cVariablesAssignment_7.eContents().get(0);
+		private final Assignment cAssertionsAssignment_8 = (Assignment)cGroup.eContents().get(8);
+		private final RuleCall cAssertionsAssertionParserRuleCall_8_0 = (RuleCall)cAssertionsAssignment_8.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_9 = (Keyword)cGroup.eContents().get(9);
 		
 		//TestCase:
 		//
 		//	"test" name=ID "activity" activityUnderTest=[uml::Activity|QualifiedName] ("(" inputs+=ActivityInput (","
 		//
-		//	inputs+=ActivityInput)* ")")? "{" variables+=VarDeclaration* assertions+=Assertion* "}";
+		//	inputs+=ActivityInput)* ")")? ("on" contextObject=[ObjectSpecification|QualifiedName])? "{"
+		//
+		//	variables+=VarDeclaration* assertions+=Assertion* "}";
 		public ParserRule getRule() { return rule; }
 
 		//"test" name=ID "activity" activityUnderTest=[uml::Activity|QualifiedName] ("(" inputs+=ActivityInput (","
 		//
-		//inputs+=ActivityInput)* ")")? "{" variables+=VarDeclaration* assertions+=Assertion* "}"
+		//inputs+=ActivityInput)* ")")? ("on" contextObject=[ObjectSpecification|QualifiedName])? "{" variables+=VarDeclaration*
+		//
+		//assertions+=Assertion* "}"
 		public Group getGroup() { return cGroup; }
 
 		//"test"
@@ -234,23 +243,38 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_4_3() { return cRightParenthesisKeyword_4_3; }
 
+		//("on" contextObject=[ObjectSpecification|QualifiedName])?
+		public Group getGroup_5() { return cGroup_5; }
+
+		//"on"
+		public Keyword getOnKeyword_5_0() { return cOnKeyword_5_0; }
+
+		//contextObject=[ObjectSpecification|QualifiedName]
+		public Assignment getContextObjectAssignment_5_1() { return cContextObjectAssignment_5_1; }
+
+		//[ObjectSpecification|QualifiedName]
+		public CrossReference getContextObjectObjectSpecificationCrossReference_5_1_0() { return cContextObjectObjectSpecificationCrossReference_5_1_0; }
+
+		//QualifiedName
+		public RuleCall getContextObjectObjectSpecificationQualifiedNameParserRuleCall_5_1_0_1() { return cContextObjectObjectSpecificationQualifiedNameParserRuleCall_5_1_0_1; }
+
 		//"{"
-		public Keyword getLeftCurlyBracketKeyword_5() { return cLeftCurlyBracketKeyword_5; }
+		public Keyword getLeftCurlyBracketKeyword_6() { return cLeftCurlyBracketKeyword_6; }
 
 		//variables+=VarDeclaration*
-		public Assignment getVariablesAssignment_6() { return cVariablesAssignment_6; }
+		public Assignment getVariablesAssignment_7() { return cVariablesAssignment_7; }
 
 		//VarDeclaration
-		public RuleCall getVariablesVarDeclarationParserRuleCall_6_0() { return cVariablesVarDeclarationParserRuleCall_6_0; }
+		public RuleCall getVariablesVarDeclarationParserRuleCall_7_0() { return cVariablesVarDeclarationParserRuleCall_7_0; }
 
 		//assertions+=Assertion*
-		public Assignment getAssertionsAssignment_7() { return cAssertionsAssignment_7; }
+		public Assignment getAssertionsAssignment_8() { return cAssertionsAssignment_8; }
 
 		//Assertion
-		public RuleCall getAssertionsAssertionParserRuleCall_7_0() { return cAssertionsAssertionParserRuleCall_7_0; }
+		public RuleCall getAssertionsAssertionParserRuleCall_8_0() { return cAssertionsAssertionParserRuleCall_8_0; }
 
 		//"}"
-		public Keyword getRightCurlyBracketKeyword_8() { return cRightCurlyBracketKeyword_8; }
+		public Keyword getRightCurlyBracketKeyword_9() { return cRightCurlyBracketKeyword_9; }
 	}
 
 	public class ActivityInputElements extends AbstractParserRuleElementFinder {
@@ -1278,7 +1302,9 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 	//
 	//	"test" name=ID "activity" activityUnderTest=[uml::Activity|QualifiedName] ("(" inputs+=ActivityInput (","
 	//
-	//	inputs+=ActivityInput)* ")")? "{" variables+=VarDeclaration* assertions+=Assertion* "}";
+	//	inputs+=ActivityInput)* ")")? ("on" contextObject=[ObjectSpecification|QualifiedName])? "{"
+	//
+	//	variables+=VarDeclaration* assertions+=Assertion* "}";
 	public TestCaseElements getTestCaseAccess() {
 		return (pTestCase != null) ? pTestCase : (pTestCase = new TestCaseElements());
 	}

@@ -85,6 +85,7 @@ public class TestLangParser extends AbstractContentAssistParser {
 					put(grammarAccess.getTestCaseAccess().getGroup(), "rule__TestCase__Group__0");
 					put(grammarAccess.getTestCaseAccess().getGroup_4(), "rule__TestCase__Group_4__0");
 					put(grammarAccess.getTestCaseAccess().getGroup_4_2(), "rule__TestCase__Group_4_2__0");
+					put(grammarAccess.getTestCaseAccess().getGroup_5(), "rule__TestCase__Group_5__0");
 					put(grammarAccess.getActivityInputAccess().getGroup(), "rule__ActivityInput__Group__0");
 					put(grammarAccess.getScenarioAccess().getGroup(), "rule__Scenario__Group__0");
 					put(grammarAccess.getObjectSpecificationAccess().getGroup(), "rule__ObjectSpecification__Group__0");
@@ -255,8 +256,9 @@ public class TestLangParser extends AbstractContentAssistParser {
 					put(grammarAccess.getTestCaseAccess().getActivityUnderTestAssignment_3(), "rule__TestCase__ActivityUnderTestAssignment_3");
 					put(grammarAccess.getTestCaseAccess().getInputsAssignment_4_1(), "rule__TestCase__InputsAssignment_4_1");
 					put(grammarAccess.getTestCaseAccess().getInputsAssignment_4_2_1(), "rule__TestCase__InputsAssignment_4_2_1");
-					put(grammarAccess.getTestCaseAccess().getVariablesAssignment_6(), "rule__TestCase__VariablesAssignment_6");
-					put(grammarAccess.getTestCaseAccess().getAssertionsAssignment_7(), "rule__TestCase__AssertionsAssignment_7");
+					put(grammarAccess.getTestCaseAccess().getContextObjectAssignment_5_1(), "rule__TestCase__ContextObjectAssignment_5_1");
+					put(grammarAccess.getTestCaseAccess().getVariablesAssignment_7(), "rule__TestCase__VariablesAssignment_7");
+					put(grammarAccess.getTestCaseAccess().getAssertionsAssignment_8(), "rule__TestCase__AssertionsAssignment_8");
 					put(grammarAccess.getActivityInputAccess().getParameterAssignment_0(), "rule__ActivityInput__ParameterAssignment_0");
 					put(grammarAccess.getActivityInputAccess().getValueAssignment_2(), "rule__ActivityInput__ValueAssignment_2");
 					put(grammarAccess.getSimpleValueAccess().getValueAssignment(), "rule__SimpleValue__ValueAssignment");

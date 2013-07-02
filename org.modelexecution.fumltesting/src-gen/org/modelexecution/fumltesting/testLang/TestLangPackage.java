@@ -206,13 +206,22 @@ public interface TestLangPackage extends EPackage
   int TEST_CASE__INPUTS = 2;
 
   /**
+   * The feature id for the '<em><b>Context Object</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TEST_CASE__CONTEXT_OBJECT = 3;
+
+  /**
    * The feature id for the '<em><b>Variables</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int TEST_CASE__VARIABLES = 3;
+  int TEST_CASE__VARIABLES = 4;
 
   /**
    * The feature id for the '<em><b>Assertions</b></em>' containment reference list.
@@ -221,7 +230,7 @@ public interface TestLangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int TEST_CASE__ASSERTIONS = 4;
+  int TEST_CASE__ASSERTIONS = 5;
 
   /**
    * The number of structural features of the '<em>Test Case</em>' class.
@@ -230,7 +239,7 @@ public interface TestLangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int TEST_CASE_FEATURE_COUNT = 5;
+  int TEST_CASE_FEATURE_COUNT = 6;
 
   /**
    * The meta object id for the '{@link org.modelexecution.fumltesting.testLang.impl.ActivityInputImpl <em>Activity Input</em>}' class.
@@ -1097,6 +1106,17 @@ public interface TestLangPackage extends EPackage
   EReference getTestCase_Inputs();
 
   /**
+   * Returns the meta object for the reference '{@link org.modelexecution.fumltesting.testLang.TestCase#getContextObject <em>Context Object</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Context Object</em>'.
+   * @see org.modelexecution.fumltesting.testLang.TestCase#getContextObject()
+   * @see #getTestCase()
+   * @generated
+   */
+  EReference getTestCase_ContextObject();
+
+  /**
    * Returns the meta object for the containment reference list '{@link org.modelexecution.fumltesting.testLang.TestCase#getVariables <em>Variables</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1791,6 +1811,14 @@ public interface TestLangPackage extends EPackage
      * @generated
      */
     EReference TEST_CASE__INPUTS = eINSTANCE.getTestCase_Inputs();
+
+    /**
+     * The meta object literal for the '<em><b>Context Object</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference TEST_CASE__CONTEXT_OBJECT = eINSTANCE.getTestCase_ContextObject();
 
     /**
      * The meta object literal for the '<em><b>Variables</b></em>' containment reference list feature.

@@ -39,7 +39,8 @@ public class TraceUtil {
 		for(ActivityNodeExecution exe : nodes){
 			executedNodes.add(exe);
 			if(exe instanceof CallActionExecution){
-				generateExecutionOrderList(((CallActionExecution)exe).getCallee().getNodeExecutions());
+				if(((CallActionExecution)exe).getCallee() != null)
+					generateExecutionOrderList(((CallActionExecution)exe).getCallee().getNodeExecutions());
 			}		
 		}
 	}

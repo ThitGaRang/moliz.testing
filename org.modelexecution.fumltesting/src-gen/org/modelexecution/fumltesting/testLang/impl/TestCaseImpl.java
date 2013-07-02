@@ -22,6 +22,7 @@ import org.eclipse.uml2.uml.Activity;
 
 import org.modelexecution.fumltesting.testLang.ActivityInput;
 import org.modelexecution.fumltesting.testLang.Assertion;
+import org.modelexecution.fumltesting.testLang.ObjectSpecification;
 import org.modelexecution.fumltesting.testLang.TestCase;
 import org.modelexecution.fumltesting.testLang.TestLangPackage;
 import org.modelexecution.fumltesting.testLang.VarDeclaration;
@@ -36,6 +37,7 @@ import org.modelexecution.fumltesting.testLang.VarDeclaration;
  *   <li>{@link org.modelexecution.fumltesting.testLang.impl.TestCaseImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.testLang.impl.TestCaseImpl#getActivityUnderTest <em>Activity Under Test</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.testLang.impl.TestCaseImpl#getInputs <em>Inputs</em>}</li>
+ *   <li>{@link org.modelexecution.fumltesting.testLang.impl.TestCaseImpl#getContextObject <em>Context Object</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.testLang.impl.TestCaseImpl#getVariables <em>Variables</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.testLang.impl.TestCaseImpl#getAssertions <em>Assertions</em>}</li>
  * </ul>
@@ -84,6 +86,16 @@ public class TestCaseImpl extends MinimalEObjectImpl.Container implements TestCa
    * @ordered
    */
   protected EList<ActivityInput> inputs;
+
+  /**
+   * The cached value of the '{@link #getContextObject() <em>Context Object</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getContextObject()
+   * @generated
+   * @ordered
+   */
+  protected ObjectSpecification contextObject;
 
   /**
    * The cached value of the '{@link #getVariables() <em>Variables</em>}' containment reference list.
@@ -211,6 +223,49 @@ public class TestCaseImpl extends MinimalEObjectImpl.Container implements TestCa
    * <!-- end-user-doc -->
    * @generated
    */
+  public ObjectSpecification getContextObject()
+  {
+    if (contextObject != null && contextObject.eIsProxy())
+    {
+      InternalEObject oldContextObject = (InternalEObject)contextObject;
+      contextObject = (ObjectSpecification)eResolveProxy(oldContextObject);
+      if (contextObject != oldContextObject)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, TestLangPackage.TEST_CASE__CONTEXT_OBJECT, oldContextObject, contextObject));
+      }
+    }
+    return contextObject;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ObjectSpecification basicGetContextObject()
+  {
+    return contextObject;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setContextObject(ObjectSpecification newContextObject)
+  {
+    ObjectSpecification oldContextObject = contextObject;
+    contextObject = newContextObject;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, TestLangPackage.TEST_CASE__CONTEXT_OBJECT, oldContextObject, contextObject));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<VarDeclaration> getVariables()
   {
     if (variables == null)
@@ -271,6 +326,9 @@ public class TestCaseImpl extends MinimalEObjectImpl.Container implements TestCa
         return basicGetActivityUnderTest();
       case TestLangPackage.TEST_CASE__INPUTS:
         return getInputs();
+      case TestLangPackage.TEST_CASE__CONTEXT_OBJECT:
+        if (resolve) return getContextObject();
+        return basicGetContextObject();
       case TestLangPackage.TEST_CASE__VARIABLES:
         return getVariables();
       case TestLangPackage.TEST_CASE__ASSERTIONS:
@@ -299,6 +357,9 @@ public class TestCaseImpl extends MinimalEObjectImpl.Container implements TestCa
       case TestLangPackage.TEST_CASE__INPUTS:
         getInputs().clear();
         getInputs().addAll((Collection<? extends ActivityInput>)newValue);
+        return;
+      case TestLangPackage.TEST_CASE__CONTEXT_OBJECT:
+        setContextObject((ObjectSpecification)newValue);
         return;
       case TestLangPackage.TEST_CASE__VARIABLES:
         getVariables().clear();
@@ -331,6 +392,9 @@ public class TestCaseImpl extends MinimalEObjectImpl.Container implements TestCa
       case TestLangPackage.TEST_CASE__INPUTS:
         getInputs().clear();
         return;
+      case TestLangPackage.TEST_CASE__CONTEXT_OBJECT:
+        setContextObject((ObjectSpecification)null);
+        return;
       case TestLangPackage.TEST_CASE__VARIABLES:
         getVariables().clear();
         return;
@@ -357,6 +421,8 @@ public class TestCaseImpl extends MinimalEObjectImpl.Container implements TestCa
         return activityUnderTest != null;
       case TestLangPackage.TEST_CASE__INPUTS:
         return inputs != null && !inputs.isEmpty();
+      case TestLangPackage.TEST_CASE__CONTEXT_OBJECT:
+        return contextObject != null;
       case TestLangPackage.TEST_CASE__VARIABLES:
         return variables != null && !variables.isEmpty();
       case TestLangPackage.TEST_CASE__ASSERTIONS:

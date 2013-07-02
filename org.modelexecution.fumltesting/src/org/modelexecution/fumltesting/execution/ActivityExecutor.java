@@ -10,20 +10,26 @@ import org.modelexecution.fuml.convert.IConverter;
 import org.modelexecution.fumldebug.core.ExecutionContext;
 import org.modelexecution.fumldebug.core.ExecutionEventListener;
 import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
-import org.modelexecution.fumldebug.core.event.ActivityExitEvent;
 import org.modelexecution.fumldebug.core.event.Event;
-import org.modelexecution.fumldebug.core.event.SuspendEvent;
 import org.modelexecution.fumltesting.testLang.ActivityInput;
+import org.modelexecution.fumltesting.testLang.ObjectSpecification;
+import org.modelexecution.fumltesting.testLang.ObjectValue;
+import org.modelexecution.fumltesting.testLang.TestLangFactory;
 
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.Reference;
 import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
+import fUML.Syntax.Actions.BasicActions.CallBehaviorAction;
+import fUML.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
+import fUML.Syntax.Activities.IntermediateActivities.DecisionNode;
 import fUML.Syntax.Classes.Kernel.Element;
+import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
+import fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
 /**
  * Utility class for executing UML activities.
  * @author Stefan Mijatov
@@ -31,9 +37,6 @@ import fUML.Syntax.Classes.Kernel.Element;
  */
 public class ActivityExecutor implements ExecutionEventListener {
 	
-	private SuspendEvent suspendEvent;
-	/** Flag variable used to detect exit event from main Activity. */
-	private boolean terminate;
 	/** ID of main Activity. */
 	private int mainActivityID;
 	/** Original UML model under test. */
@@ -52,6 +55,7 @@ public class ActivityExecutor implements ExecutionEventListener {
 		this.umlModel = umlModel;
 		IConverter converter = ConverterRegistry.getInstance().getConverter(umlModel);
 		result = converter.convert(this.umlModel);
+		replaceOpaqueBehaviors();
 		testDataConverter = new TestDataConverter(result);
 	}
 
@@ -73,7 +77,7 @@ public class ActivityExecutor implements ExecutionEventListener {
 	/**
 	 * Converts the specified {@code activity} into fUML Activity and executes it.
 	 */
-	public int executeActivity(org.eclipse.uml2.uml.Activity activity, List<ActivityInput> activityInputs){
+	public int executeActivity(org.eclipse.uml2.uml.Activity activity, List<ActivityInput> activityInputs, ObjectSpecification context){
 		Activity fumlActivity = result.getActivity(activity.getName());
 		for(ActivityInput input: activityInputs){
 			Object object = testDataConverter.getFUMLElement(input.getValue());
@@ -95,27 +99,77 @@ public class ActivityExecutor implements ExecutionEventListener {
 			parameters.add(parameterValue);
 		}
 		
-		//add observer and a listener
-		eventlist = new ArrayList<Event>();
-		registerObserver();
-		ExecutionContext.getInstance().addEventListener(this);
-		
-		//stepwise execution with listener attached
-		enabledNodes = new ArrayList<ActivityNode>();
-		ExecutionContext.getInstance().executeStepwise(fumlActivity, null, parameters);
-		
-		if(suspendEvent != null){
-			enabledNodes = suspendEvent.getNewEnabledNodes();
-		}else{System.out.println("There are no enabled nodes in the Activity!");}		
-		
-		while (!terminate){
-			for(int i=0;i<enabledNodes.size();i++){
-				ExecutionContext.getInstance().nextStep(suspendEvent.getActivityExecutionID());
-			}
+		//converting and setting the context object
+		Object_ contextObject = null;
+		if(context != null){
+			ObjectValue contextValue = TestLangFactory.eINSTANCE.createObjectValue();
+			contextValue.setValue(context);
+			contextObject = (Object_)testDataConverter.getFUMLElement(contextValue);
 		}
 		
-		terminate = false;
+		//add a listener
+		eventlist = new ArrayList<Event>();
+		getExecutionContext().addEventListener(this);
+		
+		//execution with listener attached
+		enabledNodes = new ArrayList<ActivityNode>();
+		
+		//insert the converted context object, if it exists
+		if(context != null){
+			getExecutionContext().execute(fumlActivity, contextObject, parameters);
+		}else{
+			getExecutionContext().execute(fumlActivity, null, parameters);
+		}
+		
 		return mainActivityID;
+	}
+	
+	private void replaceOpaqueBehaviors() {
+		List<ActivityNode> nodesWithBehavior = new ArrayList<ActivityNode>();
+		for (fUML.Syntax.Activities.IntermediateActivities.Activity activity : result
+				.getAllActivities()) {
+			nodesWithBehavior.addAll(getBehaviorNodes(activity.node));
+		}
+
+		for (ActivityNode node : nodesWithBehavior) {
+			if (node instanceof CallBehaviorAction) {
+				CallBehaviorAction callBehaviorAction = (CallBehaviorAction) node;
+				Behavior behavior = callBehaviorAction.behavior;
+				OpaqueBehavior behaviorReplacement = getExecutionContext()
+						.getOpaqueBehavior(behavior.name);
+				if (behaviorReplacement != null) {
+					callBehaviorAction.behavior = behaviorReplacement;
+				}
+			} else if (node instanceof DecisionNode) {
+				DecisionNode decision = (DecisionNode) node;
+				Behavior behavior = decision.decisionInput;
+				OpaqueBehavior behaviorReplacement = getExecutionContext()
+						.getOpaqueBehavior(behavior.name);
+				if (behaviorReplacement != null) {
+					decision.decisionInput = behaviorReplacement;
+				}
+			}
+		}
+	}
+	
+	private List<ActivityNode> getBehaviorNodes(List<ActivityNode> nodes) {
+		List<ActivityNode> nodesWithBehavior = new ArrayList<ActivityNode>();
+		for (ActivityNode node : nodes) {
+			if (node instanceof CallBehaviorAction) {
+				CallBehaviorAction action = (CallBehaviorAction) node;
+				nodesWithBehavior.add(action);
+			} else if (node instanceof DecisionNode) {
+				DecisionNode decision = (DecisionNode) node;
+				if (decision.decisionInput != null) {
+					nodesWithBehavior.add(decision);
+				}
+			}
+			if (node instanceof StructuredActivityNode) {
+				StructuredActivityNode structurednode = (StructuredActivityNode) node;
+				nodesWithBehavior.addAll(getBehaviorNodes(structurednode.node));
+			}
+		}
+		return nodesWithBehavior;
 	}
 	
 	@Override
@@ -126,19 +180,7 @@ public class ActivityExecutor implements ExecutionEventListener {
 		eventlist.add(event);		
 	}
 	
-	private void registerObserver(){
-		ExecutionContext.getInstance().addEventListener(
-				new ExecutionEventListener() {
-					@Override
-					public void notify(Event event) {
-						if (event instanceof SuspendEvent) {
-							suspendEvent = (SuspendEvent) event;
-						}
-						else if(event instanceof ActivityExitEvent 
-								&& ((ActivityExitEvent)event).getActivityExecutionID() == mainActivityID){
-							terminate = true;
-						}
-					}
-				});
+	private ExecutionContext getExecutionContext(){
+		return ExecutionContext.getInstance();
 	}
 }
