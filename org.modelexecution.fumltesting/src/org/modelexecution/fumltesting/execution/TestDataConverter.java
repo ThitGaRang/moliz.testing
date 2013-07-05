@@ -16,13 +16,11 @@ import org.modelexecution.fumltesting.testLang.ObjectValue;
 import org.modelexecution.fumltesting.testLang.SimpleValue;
 import org.modelexecution.fumltesting.testLang.Value;
 
-import UMLPrimitiveTypes.UnlimitedNatural;
 import fUML.Semantics.Classes.Kernel.BooleanValue;
 import fUML.Semantics.Classes.Kernel.FeatureValue;
 import fUML.Semantics.Classes.Kernel.IntegerValue;
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.StringValue;
-import fUML.Semantics.Classes.Kernel.UnlimitedNaturalValue;
 import fUML.Semantics.Loci.LociL1.Locus;
 import fUML.Syntax.Classes.Kernel.Class_;
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.uml2.uml.Action;
+import org.eclipse.uml2.uml.Activity;
 import org.eclipse.uml2.uml.InputPin;
 import org.eclipse.uml2.uml.OutputPin;
 import org.eclipse.xtext.xbase.XBooleanLiteral;
@@ -12,9 +13,12 @@ import org.eclipse.xtext.xbase.XNumberLiteral;
 import org.eclipse.xtext.xbase.XStringLiteral;
 import org.modelexecution.fuml.convert.IConversionResult;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActionExecution;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Input;
+import org.modelexecution.fumldebug.core.trace.tracemodel.InputParameterSetting;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Output;
+import org.modelexecution.fumldebug.core.trace.tracemodel.OutputParameterSetting;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot;
 import org.modelexecution.fumltesting.execution.TestDataConverter;
@@ -62,7 +66,7 @@ public class StateAssertionValidator {
 	private TemporalQuantifier quantifier;
 	
 	private ActionExecution referredNodeExecution;
-	private ActionExecution expressionNodeExecution;
+	private Object expressionNodeExecution;
 	
 	public StateAssertionValidator(TraceUtil traceUtil, IConversionResult model){
 		testDataConverter = new TestDataConverter(model);
@@ -79,31 +83,60 @@ public class StateAssertionValidator {
 		return result;
 	}
 	
-	private boolean check(StateExpression expression){		
+	private boolean check(StateExpression expression){
+		predecessors.removeAll(predecessors);
+		successors.removeAll(successors);
+		
 		assertion = (StateAssertion)expression.eContainer();
 		operator = assertion.getTemporalOperator();
 		quantifier = assertion.getTemporalQuantifier();
 		
 		Action referredAction = assertion.getReferenceAction();
-		Action expressionAction = (Action)expression.getPin().getRef().eContainer();
+		Object expressionAction = expression.getPin().getRef().eContainer();
 		
-		referredNodeExecution = (ActionExecution)traceUtil.getNodeExecution(referredAction);		
-		expressionNodeExecution = (ActionExecution)traceUtil.getNodeExecution(expressionAction);
+		referredNodeExecution = (ActionExecution)traceUtil.getNodeExecution(referredAction);
+		
+		//TODO implement activity parameter node
+		if(expressionAction instanceof Action)
+			expressionNodeExecution = (ActionExecution)traceUtil.getNodeExecution((Action)expressionAction);
+		if(expressionAction instanceof Activity){
+			System.out.println("Activity parameters not supported!");
+			return true;
+			//expressionNodeExecution = (ActivityExecution)traceUtil.getNodeExecution((Activity)expressionAction);
+		}
 		
 		if(expressionNodeExecution != null){
 			
 			if(expression.getPin().getRef() instanceof OutputPin){
-				for(Output output: expressionNodeExecution.getOutputs()){
-					if(output.getOutputPin().name.equals(expression.getPin().getRef().getName())){
-						valueInstance = (ValueInstance)output.getOutputValues().get(0).getOutputValueSnapshot().eContainer();
+				if(expressionNodeExecution instanceof ActionExecution){
+					for(Output output: ((ActionExecution)expressionNodeExecution).getOutputs()){
+						if(output.getOutputPin().name.equals(expression.getPin().getRef().getName())){
+							valueInstance = (ValueInstance)output.getOutputValues().get(0).getOutputValueSnapshot().eContainer();
+						}
+					}
+				}
+				if(expressionNodeExecution instanceof ActivityExecution){
+					for(OutputParameterSetting output: ((ActivityExecution)expressionNodeExecution).getActivityOutputs()){
+						if(output.getParameter().name.equals(expression.getPin().getRef().getName())){
+							valueInstance = (ValueInstance)output.getParameterValues().get(0).getValueSnapshot().eContainer();
+						}
 					}
 				}
 			}
 			
 			if(expression.getPin().getRef() instanceof InputPin){
-				for(Input input: expressionNodeExecution.getInputs()){
-					if(input.getInputPin().name.equals(expression.getPin().getRef().getName())){
-						valueInstance = (ValueInstance)input.getInputValues().get(0).getInputValueSnapshot().eContainer();
+				if(expressionNodeExecution instanceof ActionExecution){
+					for(Input input: ((ActionExecution)expressionNodeExecution).getInputs()){
+						if(input.getInputPin().name.equals(expression.getPin().getRef().getName())){
+							valueInstance = (ValueInstance)input.getInputValues().get(0).getInputValueSnapshot().eContainer();
+						}
+					}
+				}
+				if(expressionNodeExecution instanceof ActivityExecution){
+					for(InputParameterSetting input: ((ActivityExecution)expressionNodeExecution).getActivityInputs()){
+						if(input.getParameter().name.equals(expression.getPin().getRef().getName())){
+							valueInstance = (ValueInstance)input.getParameterValues().get(0).getValueSnapshot().eContainer();
+						}
 					}
 				}
 			}

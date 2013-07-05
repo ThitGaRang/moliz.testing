@@ -6240,11 +6240,11 @@ rule__PropertyStateExpression__Group__1__Impl
     }
 :
 (
-{ before(grammarAccess.getPropertyStateExpressionAccess().getHyphenMinusGreaterThanSignKeyword_1()); }
+{ before(grammarAccess.getPropertyStateExpressionAccess().getColonColonKeyword_1()); }
 
-	'->' 
+	'::' 
 
-{ after(grammarAccess.getPropertyStateExpressionAccess().getHyphenMinusGreaterThanSignKeyword_1()); }
+{ after(grammarAccess.getPropertyStateExpressionAccess().getColonColonKeyword_1()); }
 )
 
 ;

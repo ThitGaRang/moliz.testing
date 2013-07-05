@@ -595,10 +595,10 @@ public class InternalTestLangLexer extends Lexer {
         try {
             int _type = T__36;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:34:7: ( '->' )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:34:9: '->'
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:34:7: ( '::' )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:34:9: '::'
             {
-            match("->"); 
+            match("::"); 
 
 
             }
@@ -885,10 +885,10 @@ public class InternalTestLangLexer extends Lexer {
         try {
             int _type = T__50;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:48:7: ( '..' )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:48:9: '..'
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:48:7: ( '->' )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:48:9: '->'
             {
-            match(".."); 
+            match("->"); 
 
 
             }
@@ -906,10 +906,10 @@ public class InternalTestLangLexer extends Lexer {
         try {
             int _type = T__51;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:49:7: ( '=>' )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:49:9: '=>'
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:49:7: ( '..' )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:49:9: '..'
             {
-            match("=>"); 
+            match(".."); 
 
 
             }
@@ -927,10 +927,10 @@ public class InternalTestLangLexer extends Lexer {
         try {
             int _type = T__52;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:50:7: ( '<>' )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:50:9: '<>'
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:50:7: ( '=>' )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:50:9: '=>'
             {
-            match("<>"); 
+            match("=>"); 
 
 
             }
@@ -948,10 +948,10 @@ public class InternalTestLangLexer extends Lexer {
         try {
             int _type = T__53;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:51:7: ( '?:' )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:51:9: '?:'
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:51:7: ( '<>' )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:51:9: '<>'
             {
-            match("?:"); 
+            match("<>"); 
 
 
             }
@@ -969,10 +969,10 @@ public class InternalTestLangLexer extends Lexer {
         try {
             int _type = T__54;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:52:7: ( '<=>' )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:52:9: '<=>'
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:52:7: ( '?:' )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:52:9: '?:'
             {
-            match("<=>"); 
+            match("?:"); 
 
 
             }
@@ -990,10 +990,11 @@ public class InternalTestLangLexer extends Lexer {
         try {
             int _type = T__55;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:53:7: ( '+' )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:53:9: '+'
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:53:7: ( '<=>' )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:53:9: '<=>'
             {
-            match('+'); 
+            match("<=>"); 
+
 
             }
 
@@ -1010,10 +1011,10 @@ public class InternalTestLangLexer extends Lexer {
         try {
             int _type = T__56;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:54:7: ( '-' )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:54:9: '-'
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:54:7: ( '+' )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:54:9: '+'
             {
-            match('-'); 
+            match('+'); 
 
             }
 
@@ -1030,11 +1031,10 @@ public class InternalTestLangLexer extends Lexer {
         try {
             int _type = T__57;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:55:7: ( '**' )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:55:9: '**'
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:55:7: ( '-' )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:55:9: '-'
             {
-            match("**"); 
-
+            match('-'); 
 
             }
 
@@ -1051,10 +1051,11 @@ public class InternalTestLangLexer extends Lexer {
         try {
             int _type = T__58;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:56:7: ( '/' )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:56:9: '/'
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:56:7: ( '**' )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:56:9: '**'
             {
-            match('/'); 
+            match("**"); 
+
 
             }
 
@@ -1071,10 +1072,10 @@ public class InternalTestLangLexer extends Lexer {
         try {
             int _type = T__59;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:57:7: ( '%' )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:57:9: '%'
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:57:7: ( '/' )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:57:9: '/'
             {
-            match('%'); 
+            match('/'); 
 
             }
 
@@ -1091,10 +1092,10 @@ public class InternalTestLangLexer extends Lexer {
         try {
             int _type = T__60;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:58:7: ( '!' )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:58:9: '!'
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:58:7: ( '%' )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:58:9: '%'
             {
-            match('!'); 
+            match('%'); 
 
             }
 
@@ -1111,11 +1112,10 @@ public class InternalTestLangLexer extends Lexer {
         try {
             int _type = T__61;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:59:7: ( 'as' )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:59:9: 'as'
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:59:7: ( '!' )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:59:9: '!'
             {
-            match("as"); 
-
+            match('!'); 
 
             }
 
@@ -1132,10 +1132,11 @@ public class InternalTestLangLexer extends Lexer {
         try {
             int _type = T__62;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:60:7: ( '.' )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:60:9: '.'
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:60:7: ( 'as' )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:60:9: 'as'
             {
-            match('.'); 
+            match("as"); 
+
 
             }
 
@@ -1152,11 +1153,10 @@ public class InternalTestLangLexer extends Lexer {
         try {
             int _type = T__63;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:61:7: ( '?.' )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:61:9: '?.'
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:61:7: ( '.' )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:61:9: '.'
             {
-            match("?."); 
-
+            match('.'); 
 
             }
 
@@ -1173,10 +1173,10 @@ public class InternalTestLangLexer extends Lexer {
         try {
             int _type = T__64;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:62:7: ( '*.' )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:62:9: '*.'
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:62:7: ( '?.' )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:62:9: '?.'
             {
-            match("*."); 
+            match("?."); 
 
 
             }
@@ -1194,10 +1194,11 @@ public class InternalTestLangLexer extends Lexer {
         try {
             int _type = T__65;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:63:7: ( '|' )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:63:9: '|'
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:63:7: ( '*.' )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:63:9: '*.'
             {
-            match('|'); 
+            match("*."); 
+
 
             }
 
@@ -1214,11 +1215,10 @@ public class InternalTestLangLexer extends Lexer {
         try {
             int _type = T__66;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:64:7: ( 'if' )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:64:9: 'if'
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:64:7: ( '|' )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:64:9: '|'
             {
-            match("if"); 
-
+            match('|'); 
 
             }
 
@@ -1235,10 +1235,10 @@ public class InternalTestLangLexer extends Lexer {
         try {
             int _type = T__67;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:65:7: ( 'else' )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:65:9: 'else'
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:65:7: ( 'if' )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:65:9: 'if'
             {
-            match("else"); 
+            match("if"); 
 
 
             }
@@ -1256,10 +1256,10 @@ public class InternalTestLangLexer extends Lexer {
         try {
             int _type = T__68;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:66:7: ( 'switch' )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:66:9: 'switch'
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:66:7: ( 'else' )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:66:9: 'else'
             {
-            match("switch"); 
+            match("else"); 
 
 
             }
@@ -1277,10 +1277,10 @@ public class InternalTestLangLexer extends Lexer {
         try {
             int _type = T__69;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:67:7: ( 'default' )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:67:9: 'default'
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:67:7: ( 'switch' )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:67:9: 'switch'
             {
-            match("default"); 
+            match("switch"); 
 
 
             }
@@ -1298,10 +1298,10 @@ public class InternalTestLangLexer extends Lexer {
         try {
             int _type = T__70;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:68:7: ( 'case' )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:68:9: 'case'
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:68:7: ( 'default' )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:68:9: 'default'
             {
-            match("case"); 
+            match("default"); 
 
 
             }
@@ -1319,10 +1319,10 @@ public class InternalTestLangLexer extends Lexer {
         try {
             int _type = T__71;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:69:7: ( 'for' )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:69:9: 'for'
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:69:7: ( 'case' )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:69:9: 'case'
             {
-            match("for"); 
+            match("case"); 
 
 
             }
@@ -1340,10 +1340,10 @@ public class InternalTestLangLexer extends Lexer {
         try {
             int _type = T__72;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:70:7: ( 'while' )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:70:9: 'while'
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:70:7: ( 'for' )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:70:9: 'for'
             {
-            match("while"); 
+            match("for"); 
 
 
             }
@@ -1361,10 +1361,10 @@ public class InternalTestLangLexer extends Lexer {
         try {
             int _type = T__73;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:71:7: ( 'do' )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:71:9: 'do'
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:71:7: ( 'while' )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:71:9: 'while'
             {
-            match("do"); 
+            match("while"); 
 
 
             }
@@ -1382,10 +1382,10 @@ public class InternalTestLangLexer extends Lexer {
         try {
             int _type = T__74;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:72:7: ( 'val' )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:72:9: 'val'
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:72:7: ( 'do' )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:72:9: 'do'
             {
-            match("val"); 
+            match("do"); 
 
 
             }
@@ -1403,10 +1403,10 @@ public class InternalTestLangLexer extends Lexer {
         try {
             int _type = T__75;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:73:7: ( 'super' )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:73:9: 'super'
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:73:7: ( 'val' )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:73:9: 'val'
             {
-            match("super"); 
+            match("val"); 
 
 
             }
@@ -1424,10 +1424,10 @@ public class InternalTestLangLexer extends Lexer {
         try {
             int _type = T__76;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:74:7: ( '::' )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:74:9: '::'
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:74:7: ( 'super' )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:74:9: 'super'
             {
-            match("::"); 
+            match("super"); 
 
 
             }
@@ -3263,10 +3263,10 @@ public class InternalTestLangLexer extends Lexer {
     protected DFA19 dfa19 = new DFA19(this);
     static final String DFA19_eotS =
         "\1\uffff\1\63\1\66\1\63\1\72\1\uffff\2\63\3\uffff\1\63\2\uffff"+
-        "\1\63\2\uffff\1\123\2\63\1\127\1\132\1\133\1\135\1\137\1\141\1\143"+
-        "\1\145\1\150\1\153\1\156\1\uffff\10\63\2\176\1\57\1\uffff\2\57\2"+
+        "\1\63\2\uffff\1\123\2\63\1\130\1\131\1\133\1\135\1\137\1\141\1\143"+
+        "\1\146\1\150\1\153\1\156\1\uffff\10\63\2\176\1\57\1\uffff\2\57\2"+
         "\uffff\2\63\1\u0085\4\uffff\1\63\4\uffff\7\63\1\u0091\2\63\3\uffff"+
-        "\1\u0094\1\63\2\uffff\3\63\4\uffff\2\63\20\uffff\1\u009c\11\uffff"+
+        "\1\u0094\1\63\2\uffff\3\63\4\uffff\2\63\16\uffff\1\u009c\13\uffff"+
         "\3\63\1\u00a1\11\63\2\uffff\1\176\3\uffff\2\63\1\uffff\1\u00ae\1"+
         "\u00af\2\63\1\u00b2\4\63\1\u00b7\1\63\1\uffff\2\63\1\uffff\6\63"+
         "\2\uffff\4\63\1\uffff\2\63\1\u00c7\3\63\1\u00cb\5\63\2\uffff\1\u00d1"+
@@ -3283,12 +3283,12 @@ public class InternalTestLangLexer extends Lexer {
         "\u012d\uffff";
     static final String DFA19_minS =
         "\1\0\1\146\1\52\1\141\1\75\1\uffff\1\145\1\143\3\uffff\1\142\2"+
-        "\uffff\1\143\2\uffff\1\72\1\151\1\156\1\76\1\52\1\44\1\75\1\174"+
-        "\1\46\3\75\1\56\1\52\1\uffff\1\154\1\145\2\141\1\150\3\145\2\60"+
+        "\uffff\1\143\2\uffff\1\72\1\151\1\156\1\52\1\44\1\75\1\174\1\46"+
+        "\3\75\1\76\1\56\1\52\1\uffff\1\154\1\145\2\141\1\150\3\145\2\60"+
         "\1\44\1\uffff\2\0\2\uffff\1\160\1\163\1\44\4\uffff\1\154\4\uffff"+
         "\1\163\1\165\1\160\1\162\2\164\1\144\1\44\1\164\1\167\3\uffff\1"+
-        "\44\1\152\2\uffff\1\145\1\151\1\160\4\uffff\1\156\1\164\20\uffff"+
-        "\1\76\11\uffff\1\163\1\141\1\146\1\44\1\163\1\162\1\154\1\156\1"+
+        "\44\1\152\2\uffff\1\145\1\151\1\160\4\uffff\1\156\1\164\16\uffff"+
+        "\1\76\13\uffff\1\163\1\141\1\146\1\44\1\163\1\162\1\154\1\156\1"+
         "\151\1\167\1\154\1\164\1\146\2\uffff\1\60\3\uffff\1\157\1\164\1"+
         "\uffff\2\44\1\164\1\145\1\44\1\145\1\157\1\151\1\162\1\44\1\145"+
         "\1\uffff\1\145\1\141\1\uffff\1\145\1\156\1\164\1\145\1\153\1\151"+
@@ -3306,12 +3306,12 @@ public class InternalTestLangLexer extends Lexer {
         "\uffff\1\44\1\uffff\1\145\1\162\1\uffff\2\44\2\uffff";
     static final String DFA19_maxS =
         "\1\uffff\1\156\1\56\1\141\1\76\1\uffff\1\171\1\164\3\uffff\1\156"+
-        "\2\uffff\1\167\2\uffff\1\72\1\151\1\156\1\76\1\56\1\172\1\75\1\174"+
-        "\1\46\2\75\1\76\1\72\1\57\1\uffff\1\170\1\157\1\141\1\157\1\150"+
-        "\1\165\2\145\1\170\1\154\1\172\1\uffff\2\uffff\2\uffff\1\160\1\163"+
+        "\2\uffff\1\167\2\uffff\1\72\1\151\1\156\1\56\1\172\1\75\1\174\1"+
+        "\46\2\75\2\76\1\72\1\57\1\uffff\1\170\1\157\1\141\1\157\1\150\1"+
+        "\165\2\145\1\170\1\154\1\172\1\uffff\2\uffff\2\uffff\1\160\1\163"+
         "\1\172\4\uffff\1\162\4\uffff\1\163\1\171\1\160\1\162\2\164\1\144"+
         "\1\172\1\164\1\167\3\uffff\1\172\1\152\2\uffff\1\145\1\151\1\160"+
-        "\4\uffff\1\156\1\164\20\uffff\1\76\11\uffff\1\163\1\164\1\146\1"+
+        "\4\uffff\1\156\1\164\16\uffff\1\76\13\uffff\1\163\1\164\1\146\1"+
         "\172\1\164\1\162\1\154\1\156\1\151\1\167\1\154\1\164\1\146\2\uffff"+
         "\1\154\3\uffff\1\157\1\164\1\uffff\2\172\1\164\1\145\1\172\1\145"+
         "\1\157\1\151\1\162\1\172\1\145\1\uffff\1\145\1\141\1\uffff\1\145"+
@@ -3330,28 +3330,28 @@ public class InternalTestLangLexer extends Lexer {
         "\1\uffff\1\145\1\162\1\uffff\2\172\2\uffff";
     static final String DFA19_acceptS =
         "\5\uffff\1\5\2\uffff\1\10\1\11\1\12\1\uffff\1\14\1\15\1\uffff\1"+
-        "\17\1\20\16\uffff\1\57\13\uffff\1\125\2\uffff\1\131\1\132\3\uffff"+
-        "\1\125\1\2\1\46\1\62\1\uffff\1\37\1\47\1\4\1\5\12\uffff\1\10\1\11"+
-        "\1\12\2\uffff\1\14\1\15\3\uffff\1\17\1\20\1\100\1\22\2\uffff\1\30"+
-        "\1\54\1\55\1\64\1\32\1\33\1\34\1\53\1\35\1\65\1\36\1\115\1\40\1"+
-        "\60\1\42\1\44\1\uffff\1\50\1\45\1\51\1\63\1\113\1\127\1\130\1\56"+
-        "\1\57\15\uffff\1\122\1\123\1\uffff\1\124\1\126\1\131\2\uffff\1\66"+
-        "\13\uffff\1\61\2\uffff\1\13\6\uffff\1\52\1\43\4\uffff\1\75\14\uffff"+
-        "\1\3\1\76\2\uffff\1\110\4\uffff\1\25\17\uffff\1\73\3\uffff\1\101"+
-        "\5\uffff\1\6\1\103\13\uffff\1\24\1\uffff\1\67\3\uffff\1\72\4\uffff"+
-        "\1\104\5\uffff\1\106\3\uffff\1\116\4\uffff\1\77\1\27\3\uffff\1\112"+
-        "\1\102\1\uffff\1\74\2\uffff\1\1\1\uffff\1\105\4\uffff\1\121\1\21"+
-        "\1\uffff\1\70\4\uffff\1\107\1\117\6\uffff\1\114\1\120\1\71\1\111"+
-        "\1\uffff\1\7\3\uffff\1\16\1\uffff\1\23\2\uffff\1\41\2\uffff\1\26"+
-        "\1\31";
+        "\17\1\20\16\uffff\1\60\13\uffff\1\125\2\uffff\1\131\1\132\3\uffff"+
+        "\1\125\1\2\1\47\1\63\1\uffff\1\37\1\50\1\4\1\5\12\uffff\1\10\1\11"+
+        "\1\12\2\uffff\1\14\1\15\3\uffff\1\17\1\20\1\30\1\22\2\uffff\1\56"+
+        "\1\65\1\32\1\33\1\34\1\54\1\35\1\66\1\36\1\115\1\40\1\61\1\42\1"+
+        "\44\1\uffff\1\51\1\45\1\46\1\55\1\52\1\64\1\113\1\127\1\130\1\57"+
+        "\1\60\15\uffff\1\122\1\123\1\uffff\1\124\1\126\1\131\2\uffff\1\67"+
+        "\13\uffff\1\62\2\uffff\1\13\6\uffff\1\53\1\43\4\uffff\1\76\14\uffff"+
+        "\1\3\1\77\2\uffff\1\110\4\uffff\1\25\17\uffff\1\74\3\uffff\1\101"+
+        "\5\uffff\1\6\1\103\13\uffff\1\24\1\uffff\1\70\3\uffff\1\73\4\uffff"+
+        "\1\104\5\uffff\1\106\3\uffff\1\116\4\uffff\1\100\1\27\3\uffff\1"+
+        "\112\1\102\1\uffff\1\75\2\uffff\1\1\1\uffff\1\105\4\uffff\1\121"+
+        "\1\21\1\uffff\1\71\4\uffff\1\107\1\117\6\uffff\1\114\1\120\1\72"+
+        "\1\111\1\uffff\1\7\3\uffff\1\16\1\uffff\1\23\2\uffff\1\41\2\uffff"+
+        "\1\26\1\31";
     static final String DFA19_specialS =
         "\1\0\53\uffff\1\1\1\2\u00ff\uffff}>";
     static final String[] DFA19_transitionS = {
-            "\11\57\2\56\2\57\1\56\22\57\1\56\1\32\1\54\1\57\1\53\1\37\1"+
-            "\31\1\55\1\10\1\12\1\25\1\27\1\11\1\24\1\2\1\36\1\50\11\51\1"+
-            "\21\1\5\1\34\1\4\1\33\1\35\1\57\32\53\1\17\1\57\1\20\1\52\1"+
-            "\26\1\57\1\7\1\47\1\42\1\41\1\40\1\43\2\53\1\1\2\53\1\22\1\53"+
-            "\1\45\1\13\2\53\1\46\1\16\1\6\1\23\1\3\1\44\3\53\1\14\1\30\1"+
+            "\11\57\2\56\2\57\1\56\22\57\1\56\1\31\1\54\1\57\1\53\1\37\1"+
+            "\30\1\55\1\10\1\12\1\24\1\26\1\11\1\34\1\2\1\36\1\50\11\51\1"+
+            "\21\1\5\1\33\1\4\1\32\1\35\1\57\32\53\1\17\1\57\1\20\1\52\1"+
+            "\25\1\57\1\7\1\47\1\42\1\41\1\40\1\43\2\53\1\1\2\53\1\22\1\53"+
+            "\1\45\1\13\2\53\1\46\1\16\1\6\1\23\1\3\1\44\3\53\1\14\1\27\1"+
             "\15\uff82\57",
             "\1\62\6\uffff\1\60\1\61",
             "\1\64\3\uffff\1\65",
@@ -3372,16 +3372,16 @@ public class InternalTestLangLexer extends Lexer {
             "\1\122",
             "\1\124",
             "\1\125",
-            "\1\126",
-            "\1\130\3\uffff\1\131",
+            "\1\126\3\uffff\1\127",
             "\1\63\13\uffff\12\63\7\uffff\32\63\4\uffff\1\63\1\uffff\32"+
             "\63",
+            "\1\132",
             "\1\134",
             "\1\136",
             "\1\140",
             "\1\142",
-            "\1\144",
-            "\1\146\1\147",
+            "\1\144\1\145",
+            "\1\147",
             "\1\152\13\uffff\1\151",
             "\1\154\4\uffff\1\155",
             "",
@@ -3459,9 +3459,9 @@ public class InternalTestLangLexer extends Lexer {
             "",
             "",
             "",
-            "",
-            "",
             "\1\u009b",
+            "",
+            "",
             "",
             "",
             "",
@@ -3778,23 +3778,23 @@ public class InternalTestLangLexer extends Lexer {
 
                         else if ( (LA19_0=='u') ) {s = 19;}
 
-                        else if ( (LA19_0=='-') ) {s = 20;}
+                        else if ( (LA19_0=='*') ) {s = 20;}
 
-                        else if ( (LA19_0=='*') ) {s = 21;}
+                        else if ( (LA19_0=='_') ) {s = 21;}
 
-                        else if ( (LA19_0=='_') ) {s = 22;}
+                        else if ( (LA19_0=='+') ) {s = 22;}
 
-                        else if ( (LA19_0=='+') ) {s = 23;}
+                        else if ( (LA19_0=='|') ) {s = 23;}
 
-                        else if ( (LA19_0=='|') ) {s = 24;}
+                        else if ( (LA19_0=='&') ) {s = 24;}
 
-                        else if ( (LA19_0=='&') ) {s = 25;}
+                        else if ( (LA19_0=='!') ) {s = 25;}
 
-                        else if ( (LA19_0=='!') ) {s = 26;}
+                        else if ( (LA19_0=='>') ) {s = 26;}
 
-                        else if ( (LA19_0=='>') ) {s = 27;}
+                        else if ( (LA19_0=='<') ) {s = 27;}
 
-                        else if ( (LA19_0=='<') ) {s = 28;}
+                        else if ( (LA19_0=='-') ) {s = 28;}
 
                         else if ( (LA19_0=='?') ) {s = 29;}
 

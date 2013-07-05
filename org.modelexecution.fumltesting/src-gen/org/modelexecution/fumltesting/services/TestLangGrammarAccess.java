@@ -864,7 +864,7 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cPinAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final CrossReference cPinVarDeclarationCrossReference_0_0 = (CrossReference)cPinAssignment_0.eContents().get(0);
 		private final RuleCall cPinVarDeclarationIDTerminalRuleCall_0_0_1 = (RuleCall)cPinVarDeclarationCrossReference_0_0.eContents().get(1);
-		private final Keyword cHyphenMinusGreaterThanSignKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Keyword cColonColonKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cPropertyAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final CrossReference cPropertyPropertyCrossReference_2_0 = (CrossReference)cPropertyAssignment_2.eContents().get(0);
 		private final RuleCall cPropertyPropertyQualifiedNameParserRuleCall_2_0_1 = (RuleCall)cPropertyPropertyCrossReference_2_0.eContents().get(1);
@@ -876,10 +876,10 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//PropertyStateExpression:
 		//
-		//	pin=[VarDeclaration] "->" property=[uml::Property|QualifiedName] operator=ArithmeticOperator value=Value ";";
+		//	pin=[VarDeclaration] "::" property=[uml::Property|QualifiedName] operator=ArithmeticOperator value=Value ";";
 		public ParserRule getRule() { return rule; }
 
-		//pin=[VarDeclaration] "->" property=[uml::Property|QualifiedName] operator=ArithmeticOperator value=Value ";"
+		//pin=[VarDeclaration] "::" property=[uml::Property|QualifiedName] operator=ArithmeticOperator value=Value ";"
 		public Group getGroup() { return cGroup; }
 
 		//pin=[VarDeclaration]
@@ -891,8 +891,8 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getPinVarDeclarationIDTerminalRuleCall_0_0_1() { return cPinVarDeclarationIDTerminalRuleCall_0_0_1; }
 
-		//"->"
-		public Keyword getHyphenMinusGreaterThanSignKeyword_1() { return cHyphenMinusGreaterThanSignKeyword_1; }
+		//"::"
+		public Keyword getColonColonKeyword_1() { return cColonColonKeyword_1; }
 
 		//property=[uml::Property|QualifiedName]
 		public Assignment getPropertyAssignment_2() { return cPropertyAssignment_2; }
@@ -1486,7 +1486,7 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 
 	//PropertyStateExpression:
 	//
-	//	pin=[VarDeclaration] "->" property=[uml::Property|QualifiedName] operator=ArithmeticOperator value=Value ";";
+	//	pin=[VarDeclaration] "::" property=[uml::Property|QualifiedName] operator=ArithmeticOperator value=Value ";";
 	public PropertyStateExpressionElements getPropertyStateExpressionAccess() {
 		return (pPropertyStateExpression != null) ? pPropertyStateExpression : (pPropertyStateExpression = new PropertyStateExpressionElements());
 	}

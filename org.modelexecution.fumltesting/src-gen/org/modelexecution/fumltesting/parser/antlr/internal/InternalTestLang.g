@@ -1378,9 +1378,9 @@ rulePropertyStateExpression returns [EObject current=null]
 	}
 
 )
-)	otherlv_1='->' 
+)	otherlv_1='::' 
     {
-    	newLeafNode(otherlv_1, grammarAccess.getPropertyStateExpressionAccess().getHyphenMinusGreaterThanSignKeyword_1());
+    	newLeafNode(otherlv_1, grammarAccess.getPropertyStateExpressionAccess().getColonColonKeyword_1());
     }
 (
 (

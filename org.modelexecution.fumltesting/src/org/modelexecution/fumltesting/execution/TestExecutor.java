@@ -1,7 +1,5 @@
 package org.modelexecution.fumltesting.execution;
 
-import static org.junit.Assert.assertTrue;
-
 import java.io.File;
 
 import org.eclipse.emf.common.util.URI;
@@ -100,7 +98,7 @@ public class TestExecutor{
 			
 			for(int j=0;j<testCase.getAssertions().size();j++){
 				Assertion assertion = testCase.getAssertions().get(j);
-				assertTrue(validator.check(assertion));
+				validator.check(assertion);
 			}
 			
 			System.out.println("End of test.");

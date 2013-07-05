@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.uml2.uml.CallBehaviorAction;
+import org.eclipse.uml2.uml.CallOperationAction;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumltesting.testLang.NodeSpecification;
-import org.modelexecution.fumltesting.testLang.OrderExecutionAssertion;
-import org.modelexecution.fumltesting.testLang.TestCase;
 
+import fUML.Syntax.Actions.BasicActions.Action;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityFinalNode;
+import fUML.Syntax.Activities.IntermediateActivities.InitialNode;
 /**
  * Utility class for validation of order execution assertion.
  * @author Stefan Mijatov
@@ -18,13 +20,7 @@ import fUML.Syntax.Activities.IntermediateActivities.Activity;
 public class OrderExecutionAssertionValidator {
 	private List<ActivityNodeExecution> executedNodes;
 	
-	public boolean checkOrder(OrderExecutionAssertion assertion, List<ActivityNodeExecution> executedNodes){
-		String parentNodeName = ((TestCase)assertion.eContainer()).getActivityUnderTest().getName();
-		List<NodeSpecification> nodeOrder = assertion.getOrder().getNodes();
-		return checkOrder(parentNodeName, nodeOrder, executedNodes);
-	}
-	
-	private boolean checkOrder(String parentNodeName, List<NodeSpecification> specifiedOrder, List<ActivityNodeExecution> executedNodes){
+	public boolean checkOrder(String parentNodeName, List<NodeSpecification> specifiedOrder, List<ActivityNodeExecution> executedNodes){
 		this.executedNodes = executedNodes;
 		if(validate(parentNodeName, specifiedOrder, executedNodes) == false){
 			AssertionPrinter.print(specifiedOrder, false);
@@ -77,7 +73,13 @@ public class OrderExecutionAssertionValidator {
 			if(nodeOrderList.get(i).getNode() != null){
 				if(nodeOrderList.get(i).getSubOrder() != null){
 					OrderExecutionAssertionValidator validator = new OrderExecutionAssertionValidator();
-					String activityName = ((CallBehaviorAction)nodeOrderList.get(i).getNode()).getBehavior().getName();
+					String activityName = null;
+					if(nodeOrderList.get(i).getNode() instanceof CallBehaviorAction){
+						activityName = ((CallBehaviorAction)nodeOrderList.get(i).getNode()).getBehavior().getName();
+					}
+					if(nodeOrderList.get(i).getNode() instanceof CallOperationAction){
+						activityName = ((CallOperationAction)nodeOrderList.get(i).getNode()).getOperation().getMethods().get(0).getName();
+					}
 					List<ActivityNodeExecution> executedSubNodes = validator.getTopNodes(activityName, this.executedNodes);
 					List<NodeSpecification> subNodesSpecification = nodeOrderList.get(i).getSubOrder().getNodes();
 					boolean subOrderValid = validator.checkOrder(activityName, subNodesSpecification, executedSubNodes);
@@ -97,7 +99,6 @@ public class OrderExecutionAssertionValidator {
 				if(nodeOrderList.get(i).getJoker().equals("*")){
 					if(i < nodeOrderList.size()-1){
 						if(nodeOrderList.get(i+1).getNode() == null){
-							//TODO: dirty fix! recode, but to what?
 							System.out.println("Use of subsequent star joker not allowed!");
 							System.out.println("Assertion skipped!");
 							return false;
@@ -121,8 +122,11 @@ public class OrderExecutionAssertionValidator {
 	private List<ActivityNodeExecution> getTopNodes(String activityName, List<ActivityNodeExecution> executedNodes){
 		List<ActivityNodeExecution> topNodes = new ArrayList<ActivityNodeExecution>();
 		for(ActivityNodeExecution node: executedNodes ){
-			if(((Activity)node.getNode().owner).name.equals(activityName))
+			if(((Activity)node.getNode().owner).name.equals(activityName) 
+					&& (node.getNode() instanceof Action || node.getNode() instanceof InitialNode 
+							|| node.getNode() instanceof ActivityFinalNode)){
 				topNodes.add(node);
+			}
 		}
 		return topNodes;
 	}	

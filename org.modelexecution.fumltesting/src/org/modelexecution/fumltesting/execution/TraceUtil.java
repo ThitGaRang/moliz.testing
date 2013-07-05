@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.uml2.uml.Action;
+import org.eclipse.uml2.uml.Activity;
 import org.modelexecution.fumldebug.core.ExecutionContext;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
@@ -57,10 +58,19 @@ public class TraceUtil {
 	}
 	
 	/** Gets a node execution for UML node that was converted to corresponding fUML element. */
-	public ActivityNodeExecution getNodeExecution(Action node){
-		for(ActivityNodeExecution execution: this.executedNodes){
-			if(executor.getOriginal(execution.getNode()) == node)
-				return execution;
+	public Object getNodeExecution(Object node){
+		if(node instanceof Action){
+			for(ActivityNodeExecution execution: this.executedNodes){
+				if(executor.getOriginal(execution.getNode()) == node)
+					return execution;
+			}
+		}
+		if(node instanceof Activity){
+			for(ActivityExecution execution: this.trace.getActivityExecutions()){
+				if(execution.getActivity() == node){
+					return execution;
+				}
+			}
 		}
 		return null;
 	}

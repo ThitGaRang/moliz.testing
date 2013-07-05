@@ -6,6 +6,7 @@ import org.eclipse.xtext.xbase.XBooleanLiteral;
 import org.eclipse.xtext.xbase.XNullLiteral;
 import org.eclipse.xtext.xbase.XNumberLiteral;
 import org.eclipse.xtext.xbase.XStringLiteral;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumltesting.testLang.NodeSpecification;
 import org.modelexecution.fumltesting.testLang.ObjectStateExpression;
 import org.modelexecution.fumltesting.testLang.ObjectValue;
@@ -14,6 +15,8 @@ import org.modelexecution.fumltesting.testLang.SimpleValue;
 import org.modelexecution.fumltesting.testLang.StateAssertion;
 import org.modelexecution.fumltesting.testLang.StateExpression;
 import org.modelexecution.fumltesting.testLang.TestCase;
+
+import fUML.Syntax.Actions.BasicActions.Action;
 
 @SuppressWarnings("restriction")
 public class AssertionPrinter {
@@ -91,6 +94,15 @@ public class AssertionPrinter {
 			System.out.println("Assertion success!");
 		else
 			System.out.println("Assertion failed!");
+	}
+	
+	public static void print(List<ActivityNodeExecution> executions){
+		System.out.print("Executed nodes: ");
+		for(ActivityNodeExecution execution: executions){
+			if(execution.getNode() instanceof Action)
+				System.out.print(execution.getNode().name + ", ");
+		}
+		System.out.println();
 	}
 	
 	public static void printStateAssertion(StateAssertion assertion){

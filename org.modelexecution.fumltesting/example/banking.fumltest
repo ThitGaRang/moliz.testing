@@ -2,17 +2,17 @@ import model.*
 
 scenario TestData[	
 	object accountTO : Account{
-		attribute Account.number = 320;
+		attribute Account.number = 323454676;
 		attribute Account.balance = 800;
 	}
 	object accountTOUpdated : Account{
-		attribute Account.number = 320;
+		attribute Account.number = 323454676;
 		attribute Account.balance = 500;
 	}
 	object cardTO : Card{
-		attribute Card.number = 123456;
+		attribute Card.number = 323454676;
 		attribute Card.pin = 1234;
-		link Card.account = accountTO;		
+		link Card.account = accountTO;	
 	}
 	object atmTO : ATM{}
 ]
@@ -25,25 +25,24 @@ test AccountWithdrawActivityTest activity AccountWithdrawActivity(AccountWithdra
 		AccountWithdrawActivity.setBalance, AccountWithdrawActivity.successTrue;
 	
 	assertState always before AccountWithdrawActivity.subtract{
-		account -> Account.number = 320;
-		account -> Account.balance = 800;
+		account::Account.number = 323454676;
+		account::Account.balance = 800;
 	}
 	
 	assertState always after AccountWithdrawActivity.successTrue{
-		account -> Account.number = 320;
-		account -> Account.balance = 500;
+		account::Account.number = 323454676;
+		account::Account.balance = 500;
 		successful = true;
 	}
 }
 test ATMwithdrawActivityTest activity ATMwithdrawActivity(ATMwithdrawActivity.card=TestData.cardTO, ATMwithdrawActivity.pin=1234, ATMwithdrawActivity.amount=300) on TestData.atmTO{
 	var card = ATMwithdrawActivity.card;
-	var successul = ATMwithdrawActivity.successful;
+	var successful = ATMwithdrawActivity.successful;
 	
-	assertOrder ATMwithdrawActivity.self, ATMwithdrawActivity.call_validatePin, 
-		ATMwithdrawActivity.readAccount, ATMwithdrawActivity.call_withdraw, ATMwithdrawActivity.successTrue;
+	assertOrder ATMwithdrawActivity.self, ATMwithdrawActivity.call_validatePin,	ATMwithdrawActivity.readAccount, *;
 		
 	assertState always after ATMwithdrawActivity.call_withdraw{
-		card -> Card.account = TestData.accountTOUpdated;
-		successul = true;
+		card::Card.account = TestData.accountTOUpdated;
+		successful = true;
 	}
 }
