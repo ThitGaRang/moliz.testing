@@ -41,17 +41,14 @@ ObjectValue:
 Scenario:
 	'scenario' name=ID '['
 		(objects+=ObjectSpecification)*
+		(links+=Link)*
 	']'
 ;
 
 ObjectSpecification:
 	'object' name=ID ':' type=[uml::Class|QualifiedName] '{'
-		(features+=Feature)*
+		(attributes+=Attribute)*
 	'}'
-;
-
-Feature:
-	Attribute | Link
 ;
 
 Attribute:
@@ -59,15 +56,10 @@ Attribute:
 ;
 
 Link:
-	SingleValueLink | MultiValueLink
-;
-
-SingleValueLink:
-	'link' link=[uml::Property|QualifiedName] '=' value=[ObjectSpecification|QualifiedName] ';' 
-;
-
-MultiValueLink:
-	'link' link=[uml::Property] 'add' values+=[ObjectSpecification|QualifiedName] (',' values+=[ObjectSpecification])* ';'
+	'link' assoc=[uml::Association|QualifiedName] '{' 
+		sourceProperty=[uml::Property|QualifiedName] '=' sourceValue=[ObjectSpecification|QualifiedName] ';'
+		targetProperty=[uml::Property|QualifiedName] '=' targetValue=[ObjectSpecification|QualifiedName] ';'
+	'}' 
 ;
 
 Assertion:
@@ -105,6 +97,10 @@ NodeSpecification:
 
 enum ArithmeticOperator:
 	equal='='|not_equal='!='|greater='>'|smaller='<'|greater_equal='>='|smaller_equal='<='
+;
+
+enum LinkOperator:
+	unidirect='->'|bidirect='<->'
 ;
 
 enum TemporalOperator:

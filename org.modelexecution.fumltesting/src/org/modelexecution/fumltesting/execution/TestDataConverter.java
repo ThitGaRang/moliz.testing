@@ -10,18 +10,21 @@ import org.eclipse.xtext.xbase.XStringLiteral;
 import org.modelexecution.fuml.convert.IConversionResult;
 import org.modelexecution.fumldebug.core.ExecutionContext;
 import org.modelexecution.fumltesting.testLang.Attribute;
-import org.modelexecution.fumltesting.testLang.Feature;
 import org.modelexecution.fumltesting.testLang.ObjectSpecification;
 import org.modelexecution.fumltesting.testLang.ObjectValue;
+import org.modelexecution.fumltesting.testLang.Scenario;
 import org.modelexecution.fumltesting.testLang.SimpleValue;
+import org.modelexecution.fumltesting.testLang.TestLangFactory;
 import org.modelexecution.fumltesting.testLang.Value;
 
 import fUML.Semantics.Classes.Kernel.BooleanValue;
 import fUML.Semantics.Classes.Kernel.FeatureValue;
 import fUML.Semantics.Classes.Kernel.IntegerValue;
+import fUML.Semantics.Classes.Kernel.Link;
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.StringValue;
 import fUML.Semantics.Loci.LociL1.Locus;
+import fUML.Syntax.Classes.Kernel.Association;
 import fUML.Syntax.Classes.Kernel.Class_;
 
 /**
@@ -35,6 +38,7 @@ public class TestDataConverter {
 	
 	private IConversionResult model;
 	private HashMap<String, Object_> objects = new HashMap<String, Object_>();
+	private HashMap<String, Link> links = new HashMap<String, Link>();
 	private Locus locus = ExecutionContext.getInstance().getLocus();
 	
 	public TestDataConverter(IConversionResult model){
@@ -47,7 +51,8 @@ public class TestDataConverter {
 			return getFumlValue(expression);
 		}		
 		if(value instanceof ObjectValue){
-			ObjectSpecification object = ((ObjectValue)value).getValue();			
+			ObjectSpecification object = ((ObjectValue)value).getValue();
+			Scenario testData = (Scenario)object.eContainer();
 			
 			if(objects.containsKey(object.getName())){
 				return objects.get(object.getName());
@@ -57,18 +62,64 @@ public class TestDataConverter {
 			Class_ class_ = (Class_)model.getFUMLElement(((ObjectValue) value).getValue().getType());
 			object_ = locus.instantiate(class_);
 			
-			for(Feature feature: object.getFeatures()){
-				if(feature instanceof Attribute){
-					Property property = (Property)((Attribute)feature).getAtt();
-					XExpression expression = ((SimpleValue)((Attribute)feature).getValue()).getValue(); 
-					
-					for(FeatureValue featureValue: object_.featureValues){
-						if(featureValue.feature.name.equals(property.getName())){
-							Object simpleValue = getFumlValue(expression);
-							featureValue.values.add((fUML.Semantics.Classes.Kernel.Value)simpleValue);
-						}
+			for(Attribute attribute: object.getAttributes()){
+				Property property = (Property)((Attribute)attribute).getAtt();
+				XExpression expression = ((SimpleValue)((Attribute)attribute).getValue()).getValue(); 
+				
+				for(FeatureValue featureValue: object_.featureValues){
+					if(featureValue.feature.name.equals(property.getName())){
+						Object simpleValue = getFumlValue(expression);
+						featureValue.values.add((fUML.Semantics.Classes.Kernel.Value)simpleValue);
 					}
 				}				
+			}
+			
+			for(org.modelexecution.fumltesting.testLang.Link link: testData.getLinks()){
+				if(link.getSourceValue() == object){
+					System.out.println(link.getAssoc().getName() + ":" + link.getSourceValue().getName() + ":" + link.getTargetValue().getName());
+					if(links.containsKey(link.getAssoc().getName() + ":" + link.getSourceValue().getName() + ":" + link.getTargetValue().getName())){
+						return links.get(link.getAssoc().getName() + ":" + link.getSourceValue().getName() + ":" + link.getTargetValue().getName());
+					}
+					Link fumlLink = new Link();
+					Association fumlAssoc = (Association)model.getFUMLElement(link.getAssoc());
+					fumlLink.type = fumlAssoc;
+					
+					FeatureValue sourceValue = new FeatureValue();
+					FeatureValue targetValue = new FeatureValue();
+					
+					Property source = link.getSourceProperty();
+					Property target = link.getTargetProperty();
+					
+					fUML.Syntax.Classes.Kernel.Property sourcePropertyFuml = null;
+					fUML.Syntax.Classes.Kernel.Property targetPropertyFuml = null;
+					
+					for(fUML.Syntax.Classes.Kernel.Property attribute: fumlAssoc.memberEnd){
+						if(attribute.name.equals(source.getName())){
+							sourcePropertyFuml = attribute;
+						}
+						if(attribute.name.equals(target.getName())){
+							targetPropertyFuml = attribute;
+						}
+					}
+					
+					sourceValue.feature = sourcePropertyFuml;
+					ObjectValue objectValueSource = TestLangFactory.eINSTANCE.createObjectValue();
+					objectValueSource.setValue(link.getSourceValue());
+					sourceValue.values.add(object_);
+					
+					targetValue.feature = targetPropertyFuml;
+					ObjectValue objectValueTarget = TestLangFactory.eINSTANCE.createObjectValue();
+					objectValueTarget.setValue(link.getTargetValue());
+					Object_ targetObject_ = (Object_)getFUMLElement(objectValueTarget);					
+					objects.put(link.getTargetValue().getName(), targetObject_);
+					targetValue.values.add(targetObject_);
+					
+					fumlLink.featureValues.add(sourceValue);
+					fumlLink.featureValues.add(targetValue);
+					
+					fumlLink.addTo(locus);
+					links.put(fumlLink.type.name, fumlLink);
+				}
 			}
 			
 			objects.put(object.getName(), object_);

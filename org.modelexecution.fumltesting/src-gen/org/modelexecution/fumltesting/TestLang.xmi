@@ -114,7 +114,7 @@
           <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.3"/>
         </elements>
         <elements xsi:type="xtext:Assignment" cardinality="*" feature="assertions" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.16"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.13"/>
         </elements>
         <elements xsi:type="xtext:Keyword" value="}"/>
       </alternatives>
@@ -181,6 +181,9 @@
         <elements xsi:type="xtext:Assignment" cardinality="*" feature="objects" operator="+=">
           <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.10"/>
         </elements>
+        <elements xsi:type="xtext:Assignment" cardinality="*" feature="links" operator="+=">
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.12"/>
+        </elements>
         <elements xsi:type="xtext:Keyword" value="]"/>
       </alternatives>
     </rules>
@@ -203,19 +206,10 @@
           </terminal>
         </elements>
         <elements xsi:type="xtext:Keyword" value="{"/>
-        <elements xsi:type="xtext:Assignment" cardinality="*" feature="features" operator="+=">
+        <elements xsi:type="xtext:Assignment" cardinality="*" feature="attributes" operator="+=">
           <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.11"/>
         </elements>
         <elements xsi:type="xtext:Keyword" value="}"/>
-      </alternatives>
-    </rules>
-    <rules xsi:type="xtext:ParserRule" name="Feature">
-      <type metamodel="/0/@metamodelDeclarations.2">
-        <classifier xsi:type="ecore:EClass" href="http://www.modelexecution.org/fumltesting/TestLang#//Feature"/>
-      </type>
-      <alternatives xsi:type="xtext:Alternatives">
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.12"/>
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.13"/>
       </alternatives>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="Attribute">
@@ -243,18 +237,18 @@
       <type metamodel="/0/@metamodelDeclarations.2">
         <classifier xsi:type="ecore:EClass" href="http://www.modelexecution.org/fumltesting/TestLang#//Link"/>
       </type>
-      <alternatives xsi:type="xtext:Alternatives">
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.14"/>
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.15"/>
-      </alternatives>
-    </rules>
-    <rules xsi:type="xtext:ParserRule" name="SingleValueLink">
-      <type metamodel="/0/@metamodelDeclarations.2">
-        <classifier xsi:type="ecore:EClass" href="http://www.modelexecution.org/fumltesting/TestLang#//SingleValueLink"/>
-      </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Keyword" value="link"/>
-        <elements xsi:type="xtext:Assignment" feature="link" operator="=">
+        <elements xsi:type="xtext:Assignment" feature="assoc" operator="=">
+          <terminal xsi:type="xtext:CrossReference">
+            <type metamodel="/0/@metamodelDeclarations.0">
+              <classifier xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Association"/>
+            </type>
+            <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.52"/>
+          </terminal>
+        </elements>
+        <elements xsi:type="xtext:Keyword" value="{"/>
+        <elements xsi:type="xtext:Assignment" feature="sourceProperty" operator="=">
           <terminal xsi:type="xtext:CrossReference">
             <type metamodel="/0/@metamodelDeclarations.0">
               <classifier xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Property"/>
@@ -263,7 +257,7 @@
           </terminal>
         </elements>
         <elements xsi:type="xtext:Keyword" value="="/>
-        <elements xsi:type="xtext:Assignment" feature="value" operator="=">
+        <elements xsi:type="xtext:Assignment" feature="sourceValue" operator="=">
           <terminal xsi:type="xtext:CrossReference">
             <type metamodel="/0/@metamodelDeclarations.2">
               <classifier xsi:type="ecore:EClass" href="http://www.modelexecution.org/fumltesting/TestLang#//ObjectSpecification"/>
@@ -272,24 +266,16 @@
           </terminal>
         </elements>
         <elements xsi:type="xtext:Keyword" value=";"/>
-      </alternatives>
-    </rules>
-    <rules xsi:type="xtext:ParserRule" name="MultiValueLink">
-      <type metamodel="/0/@metamodelDeclarations.2">
-        <classifier xsi:type="ecore:EClass" href="http://www.modelexecution.org/fumltesting/TestLang#//MultiValueLink"/>
-      </type>
-      <alternatives xsi:type="xtext:Group">
-        <elements xsi:type="xtext:Keyword" value="link"/>
-        <elements xsi:type="xtext:Assignment" feature="link" operator="=">
+        <elements xsi:type="xtext:Assignment" feature="targetProperty" operator="=">
           <terminal xsi:type="xtext:CrossReference">
             <type metamodel="/0/@metamodelDeclarations.0">
               <classifier xsi:type="ecore:EClass" href="http://www.eclipse.org/uml2/4.0.0/UML#//Property"/>
             </type>
-            <terminal xsi:type="xtext:RuleCall" rule="/2/@rules.11"/>
+            <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.52"/>
           </terminal>
         </elements>
-        <elements xsi:type="xtext:Keyword" value="add"/>
-        <elements xsi:type="xtext:Assignment" feature="values" operator="+=">
+        <elements xsi:type="xtext:Keyword" value="="/>
+        <elements xsi:type="xtext:Assignment" feature="targetValue" operator="=">
           <terminal xsi:type="xtext:CrossReference">
             <type metamodel="/0/@metamodelDeclarations.2">
               <classifier xsi:type="ecore:EClass" href="http://www.modelexecution.org/fumltesting/TestLang#//ObjectSpecification"/>
@@ -297,18 +283,8 @@
             <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.52"/>
           </terminal>
         </elements>
-        <elements xsi:type="xtext:Group" cardinality="*">
-          <elements xsi:type="xtext:Keyword" value=","/>
-          <elements xsi:type="xtext:Assignment" feature="values" operator="+=">
-            <terminal xsi:type="xtext:CrossReference">
-              <type metamodel="/0/@metamodelDeclarations.2">
-                <classifier xsi:type="ecore:EClass" href="http://www.modelexecution.org/fumltesting/TestLang#//ObjectSpecification"/>
-              </type>
-              <terminal xsi:type="xtext:RuleCall" rule="/2/@rules.11"/>
-            </terminal>
-          </elements>
-        </elements>
         <elements xsi:type="xtext:Keyword" value=";"/>
+        <elements xsi:type="xtext:Keyword" value="}"/>
       </alternatives>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="Assertion">
@@ -316,8 +292,8 @@
         <classifier xsi:type="ecore:EClass" href="http://www.modelexecution.org/fumltesting/TestLang#//Assertion"/>
       </type>
       <alternatives xsi:type="xtext:Alternatives">
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.21"/>
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.17"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.18"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.14"/>
       </alternatives>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="StateAssertion">
@@ -328,10 +304,10 @@
         <elements xsi:type="xtext:Group">
           <elements xsi:type="xtext:Keyword" value="assertState"/>
           <elements xsi:type="xtext:Assignment" feature="temporalQuantifier" operator="=">
-            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.26"/>
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.24"/>
           </elements>
           <elements xsi:type="xtext:Assignment" feature="temporalOperator" operator="=">
-            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.25"/>
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.23"/>
           </elements>
         </elements>
         <elements xsi:type="xtext:Assignment" feature="referenceAction" operator="=">
@@ -355,7 +331,7 @@
         </elements>
         <elements xsi:type="xtext:Keyword" value="{"/>
         <elements xsi:type="xtext:Assignment" cardinality="+" feature="expressions" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.18"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.15"/>
         </elements>
         <elements xsi:type="xtext:Keyword" value="}"/>
       </alternatives>
@@ -365,8 +341,8 @@
         <classifier xsi:type="ecore:EClass" href="http://www.modelexecution.org/fumltesting/TestLang#//StateExpression"/>
       </type>
       <alternatives xsi:type="xtext:Alternatives">
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.19"/>
-        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.20"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.16"/>
+        <elements xsi:type="xtext:RuleCall" rule="/0/@rules.17"/>
       </alternatives>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="ObjectStateExpression">
@@ -383,7 +359,7 @@
           </terminal>
         </elements>
         <elements xsi:type="xtext:Assignment" feature="operator" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.24"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.21"/>
         </elements>
         <elements xsi:type="xtext:Assignment" feature="value" operator="=">
           <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.6"/>
@@ -414,7 +390,7 @@
           </terminal>
         </elements>
         <elements xsi:type="xtext:Assignment" feature="operator" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.24"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.21"/>
         </elements>
         <elements xsi:type="xtext:Assignment" feature="value" operator="=">
           <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.6"/>
@@ -429,7 +405,7 @@
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Keyword" value="assertOrder"/>
         <elements xsi:type="xtext:Assignment" feature="order" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.22"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.19"/>
         </elements>
         <elements xsi:type="xtext:Keyword" value=";"/>
       </alternatives>
@@ -440,12 +416,12 @@
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Assignment" feature="nodes" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.23"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.20"/>
         </elements>
         <elements xsi:type="xtext:Group" cardinality="*">
           <elements xsi:type="xtext:Keyword" value=","/>
           <elements xsi:type="xtext:Assignment" feature="nodes" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.23"/>
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.20"/>
           </elements>
         </elements>
       </alternatives>
@@ -473,7 +449,7 @@
           <elements xsi:type="xtext:Group" cardinality="?">
             <elements xsi:type="xtext:Keyword" value="("/>
             <elements xsi:type="xtext:Assignment" feature="subOrder" operator="=">
-              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.22"/>
+              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.19"/>
             </elements>
             <elements xsi:type="xtext:Keyword" value=")"/>
           </elements>
@@ -514,6 +490,21 @@
         <elements xsi:type="xtext:EnumLiteralDeclaration">
           <enumLiteral href="http://www.modelexecution.org/fumltesting/TestLang#//ArithmeticOperator/smaller_equal"/>
           <literal value="&lt;="/>
+        </elements>
+      </alternatives>
+    </rules>
+    <rules xsi:type="xtext:EnumRule" name="LinkOperator">
+      <type metamodel="/0/@metamodelDeclarations.2">
+        <classifier xsi:type="ecore:EEnum" href="http://www.modelexecution.org/fumltesting/TestLang#//LinkOperator"/>
+      </type>
+      <alternatives xsi:type="xtext:Alternatives">
+        <elements xsi:type="xtext:EnumLiteralDeclaration">
+          <enumLiteral href="http://www.modelexecution.org/fumltesting/TestLang#//LinkOperator/unidirect"/>
+          <literal value="->"/>
+        </elements>
+        <elements xsi:type="xtext:EnumLiteralDeclaration">
+          <enumLiteral href="http://www.modelexecution.org/fumltesting/TestLang#//LinkOperator/bidirect"/>
+          <literal value="&lt;->"/>
         </elements>
       </alternatives>
     </rules>

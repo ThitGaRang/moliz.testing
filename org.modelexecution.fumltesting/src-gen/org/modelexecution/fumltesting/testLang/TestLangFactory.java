@@ -113,15 +113,6 @@ public interface TestLangFactory extends EFactory
   ObjectSpecification createObjectSpecification();
 
   /**
-   * Returns a new object of class '<em>Feature</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Feature</em>'.
-   * @generated
-   */
-  Feature createFeature();
-
-  /**
    * Returns a new object of class '<em>Attribute</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -138,24 +129,6 @@ public interface TestLangFactory extends EFactory
    * @generated
    */
   Link createLink();
-
-  /**
-   * Returns a new object of class '<em>Single Value Link</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Single Value Link</em>'.
-   * @generated
-   */
-  SingleValueLink createSingleValueLink();
-
-  /**
-   * Returns a new object of class '<em>Multi Value Link</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Multi Value Link</em>'.
-   * @generated
-   */
-  MultiValueLink createMultiValueLink();
 
   /**
    * Returns a new object of class '<em>Assertion</em>'.

@@ -125,11 +125,6 @@ public class TestLangAdapterFactory extends AdapterFactoryImpl
         return createObjectSpecificationAdapter();
       }
       @Override
-      public Adapter caseFeature(Feature object)
-      {
-        return createFeatureAdapter();
-      }
-      @Override
       public Adapter caseAttribute(Attribute object)
       {
         return createAttributeAdapter();
@@ -138,16 +133,6 @@ public class TestLangAdapterFactory extends AdapterFactoryImpl
       public Adapter caseLink(Link object)
       {
         return createLinkAdapter();
-      }
-      @Override
-      public Adapter caseSingleValueLink(SingleValueLink object)
-      {
-        return createSingleValueLinkAdapter();
-      }
-      @Override
-      public Adapter caseMultiValueLink(MultiValueLink object)
-      {
-        return createMultiValueLinkAdapter();
       }
       @Override
       public Adapter caseAssertion(Assertion object)
@@ -362,21 +347,6 @@ public class TestLangAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.Feature <em>Feature</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.modelexecution.fumltesting.testLang.Feature
-   * @generated
-   */
-  public Adapter createFeatureAdapter()
-  {
-    return null;
-  }
-
-  /**
    * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.Attribute <em>Attribute</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -402,36 +372,6 @@ public class TestLangAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createLinkAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.SingleValueLink <em>Single Value Link</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.modelexecution.fumltesting.testLang.SingleValueLink
-   * @generated
-   */
-  public Adapter createSingleValueLinkAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.MultiValueLink <em>Multi Value Link</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.modelexecution.fumltesting.testLang.MultiValueLink
-   * @generated
-   */
-  public Adapter createMultiValueLinkAdapter()
   {
     return null;
   }

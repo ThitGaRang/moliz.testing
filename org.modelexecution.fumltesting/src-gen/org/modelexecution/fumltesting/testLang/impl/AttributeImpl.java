@@ -9,6 +9,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.uml2.uml.Property;
 
@@ -30,7 +31,7 @@ import org.modelexecution.fumltesting.testLang.Value;
  *
  * @generated
  */
-public class AttributeImpl extends FeatureImpl implements Attribute
+public class AttributeImpl extends MinimalEObjectImpl.Container implements Attribute
 {
   /**
    * The cached value of the '{@link #getAtt() <em>Att</em>}' reference.

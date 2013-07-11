@@ -67,7 +67,7 @@ public class TraceUtil {
 		}
 		if(node instanceof Activity){
 			for(ActivityExecution execution: this.trace.getActivityExecutions()){
-				if(execution.getActivity() == node){
+				if(execution.getActivity().name.equals(((Activity) node).getName())){
 					return execution;
 				}
 			}

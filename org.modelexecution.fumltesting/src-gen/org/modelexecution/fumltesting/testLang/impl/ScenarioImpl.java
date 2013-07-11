@@ -18,6 +18,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.modelexecution.fumltesting.testLang.Link;
 import org.modelexecution.fumltesting.testLang.ObjectSpecification;
 import org.modelexecution.fumltesting.testLang.Scenario;
 import org.modelexecution.fumltesting.testLang.TestLangPackage;
@@ -31,6 +32,7 @@ import org.modelexecution.fumltesting.testLang.TestLangPackage;
  * <ul>
  *   <li>{@link org.modelexecution.fumltesting.testLang.impl.ScenarioImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.testLang.impl.ScenarioImpl#getObjects <em>Objects</em>}</li>
+ *   <li>{@link org.modelexecution.fumltesting.testLang.impl.ScenarioImpl#getLinks <em>Links</em>}</li>
  * </ul>
  * </p>
  *
@@ -67,6 +69,16 @@ public class ScenarioImpl extends MinimalEObjectImpl.Container implements Scenar
    * @ordered
    */
   protected EList<ObjectSpecification> objects;
+
+  /**
+   * The cached value of the '{@link #getLinks() <em>Links</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getLinks()
+   * @generated
+   * @ordered
+   */
+  protected EList<Link> links;
 
   /**
    * <!-- begin-user-doc -->
@@ -131,6 +143,20 @@ public class ScenarioImpl extends MinimalEObjectImpl.Container implements Scenar
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<Link> getLinks()
+  {
+    if (links == null)
+    {
+      links = new EObjectContainmentEList<Link>(Link.class, this, TestLangPackage.SCENARIO__LINKS);
+    }
+    return links;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -138,6 +164,8 @@ public class ScenarioImpl extends MinimalEObjectImpl.Container implements Scenar
     {
       case TestLangPackage.SCENARIO__OBJECTS:
         return ((InternalEList<?>)getObjects()).basicRemove(otherEnd, msgs);
+      case TestLangPackage.SCENARIO__LINKS:
+        return ((InternalEList<?>)getLinks()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -156,6 +184,8 @@ public class ScenarioImpl extends MinimalEObjectImpl.Container implements Scenar
         return getName();
       case TestLangPackage.SCENARIO__OBJECTS:
         return getObjects();
+      case TestLangPackage.SCENARIO__LINKS:
+        return getLinks();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -178,6 +208,10 @@ public class ScenarioImpl extends MinimalEObjectImpl.Container implements Scenar
         getObjects().clear();
         getObjects().addAll((Collection<? extends ObjectSpecification>)newValue);
         return;
+      case TestLangPackage.SCENARIO__LINKS:
+        getLinks().clear();
+        getLinks().addAll((Collection<? extends Link>)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -198,6 +232,9 @@ public class ScenarioImpl extends MinimalEObjectImpl.Container implements Scenar
       case TestLangPackage.SCENARIO__OBJECTS:
         getObjects().clear();
         return;
+      case TestLangPackage.SCENARIO__LINKS:
+        getLinks().clear();
+        return;
     }
     super.eUnset(featureID);
   }
@@ -216,6 +253,8 @@ public class ScenarioImpl extends MinimalEObjectImpl.Container implements Scenar
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case TestLangPackage.SCENARIO__OBJECTS:
         return objects != null && !objects.isEmpty();
+      case TestLangPackage.SCENARIO__LINKS:
+        return links != null && !links.isEmpty();
     }
     return super.eIsSet(featureID);
   }

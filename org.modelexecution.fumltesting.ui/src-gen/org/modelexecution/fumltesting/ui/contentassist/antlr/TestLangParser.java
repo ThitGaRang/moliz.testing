@@ -38,8 +38,6 @@ public class TestLangParser extends AbstractContentAssistParser {
 				private static final long serialVersionUID = 1L;
 				{
 					put(grammarAccess.getValueAccess().getAlternatives(), "rule__Value__Alternatives");
-					put(grammarAccess.getFeatureAccess().getAlternatives(), "rule__Feature__Alternatives");
-					put(grammarAccess.getLinkAccess().getAlternatives(), "rule__Link__Alternatives");
 					put(grammarAccess.getAssertionAccess().getAlternatives(), "rule__Assertion__Alternatives");
 					put(grammarAccess.getStateExpressionAccess().getAlternatives(), "rule__StateExpression__Alternatives");
 					put(grammarAccess.getNodeSpecificationAccess().getAlternatives(), "rule__NodeSpecification__Alternatives");
@@ -76,6 +74,7 @@ public class TestLangParser extends AbstractContentAssistParser {
 					put(grammarAccess.getJvmWildcardTypeReferenceAccess().getAlternatives_2(), "rule__JvmWildcardTypeReference__Alternatives_2");
 					put(grammarAccess.getJvmTypeParameterAccess().getAlternatives_1(), "rule__JvmTypeParameter__Alternatives_1");
 					put(grammarAccess.getArithmeticOperatorAccess().getAlternatives(), "rule__ArithmeticOperator__Alternatives");
+					put(grammarAccess.getLinkOperatorAccess().getAlternatives(), "rule__LinkOperator__Alternatives");
 					put(grammarAccess.getTemporalOperatorAccess().getAlternatives(), "rule__TemporalOperator__Alternatives");
 					put(grammarAccess.getTemporalQuantifierAccess().getAlternatives(), "rule__TemporalQuantifier__Alternatives");
 					put(grammarAccess.getTestSuiteAccess().getGroup(), "rule__TestSuite__Group__0");
@@ -90,9 +89,7 @@ public class TestLangParser extends AbstractContentAssistParser {
 					put(grammarAccess.getScenarioAccess().getGroup(), "rule__Scenario__Group__0");
 					put(grammarAccess.getObjectSpecificationAccess().getGroup(), "rule__ObjectSpecification__Group__0");
 					put(grammarAccess.getAttributeAccess().getGroup(), "rule__Attribute__Group__0");
-					put(grammarAccess.getSingleValueLinkAccess().getGroup(), "rule__SingleValueLink__Group__0");
-					put(grammarAccess.getMultiValueLinkAccess().getGroup(), "rule__MultiValueLink__Group__0");
-					put(grammarAccess.getMultiValueLinkAccess().getGroup_4(), "rule__MultiValueLink__Group_4__0");
+					put(grammarAccess.getLinkAccess().getGroup(), "rule__Link__Group__0");
 					put(grammarAccess.getStateAssertionAccess().getGroup(), "rule__StateAssertion__Group__0");
 					put(grammarAccess.getStateAssertionAccess().getGroup_0(), "rule__StateAssertion__Group_0__0");
 					put(grammarAccess.getStateAssertionAccess().getGroup_2(), "rule__StateAssertion__Group_2__0");
@@ -265,16 +262,17 @@ public class TestLangParser extends AbstractContentAssistParser {
 					put(grammarAccess.getObjectValueAccess().getValueAssignment(), "rule__ObjectValue__ValueAssignment");
 					put(grammarAccess.getScenarioAccess().getNameAssignment_1(), "rule__Scenario__NameAssignment_1");
 					put(grammarAccess.getScenarioAccess().getObjectsAssignment_3(), "rule__Scenario__ObjectsAssignment_3");
+					put(grammarAccess.getScenarioAccess().getLinksAssignment_4(), "rule__Scenario__LinksAssignment_4");
 					put(grammarAccess.getObjectSpecificationAccess().getNameAssignment_1(), "rule__ObjectSpecification__NameAssignment_1");
 					put(grammarAccess.getObjectSpecificationAccess().getTypeAssignment_3(), "rule__ObjectSpecification__TypeAssignment_3");
-					put(grammarAccess.getObjectSpecificationAccess().getFeaturesAssignment_5(), "rule__ObjectSpecification__FeaturesAssignment_5");
+					put(grammarAccess.getObjectSpecificationAccess().getAttributesAssignment_5(), "rule__ObjectSpecification__AttributesAssignment_5");
 					put(grammarAccess.getAttributeAccess().getAttAssignment_1(), "rule__Attribute__AttAssignment_1");
 					put(grammarAccess.getAttributeAccess().getValueAssignment_3(), "rule__Attribute__ValueAssignment_3");
-					put(grammarAccess.getSingleValueLinkAccess().getLinkAssignment_1(), "rule__SingleValueLink__LinkAssignment_1");
-					put(grammarAccess.getSingleValueLinkAccess().getValueAssignment_3(), "rule__SingleValueLink__ValueAssignment_3");
-					put(grammarAccess.getMultiValueLinkAccess().getLinkAssignment_1(), "rule__MultiValueLink__LinkAssignment_1");
-					put(grammarAccess.getMultiValueLinkAccess().getValuesAssignment_3(), "rule__MultiValueLink__ValuesAssignment_3");
-					put(grammarAccess.getMultiValueLinkAccess().getValuesAssignment_4_1(), "rule__MultiValueLink__ValuesAssignment_4_1");
+					put(grammarAccess.getLinkAccess().getAssocAssignment_1(), "rule__Link__AssocAssignment_1");
+					put(grammarAccess.getLinkAccess().getSourcePropertyAssignment_3(), "rule__Link__SourcePropertyAssignment_3");
+					put(grammarAccess.getLinkAccess().getSourceValueAssignment_5(), "rule__Link__SourceValueAssignment_5");
+					put(grammarAccess.getLinkAccess().getTargetPropertyAssignment_7(), "rule__Link__TargetPropertyAssignment_7");
+					put(grammarAccess.getLinkAccess().getTargetValueAssignment_9(), "rule__Link__TargetValueAssignment_9");
 					put(grammarAccess.getStateAssertionAccess().getTemporalQuantifierAssignment_0_1(), "rule__StateAssertion__TemporalQuantifierAssignment_0_1");
 					put(grammarAccess.getStateAssertionAccess().getTemporalOperatorAssignment_0_2(), "rule__StateAssertion__TemporalOperatorAssignment_0_2");
 					put(grammarAccess.getStateAssertionAccess().getReferenceActionAssignment_1(), "rule__StateAssertion__ReferenceActionAssignment_1");

@@ -1,0 +1,21 @@
+import Model.structure.*
+import Model.behavior.*
+
+scenario TestData[
+	object accountTO:Account{}
+	object cardTO:Card{}
+	
+	link cardAccount{
+		cardAccount.card = cardTO;
+		Card.account = accountTO;
+	}
+]
+
+test testCase1 activity CardAccountActivity{
+	var account = CardAccountActivity.ReadAccount.^object;
+	assertOrder CardAccountActivity.init, CardAccountActivity.CreateCard, CardAccountActivity.CreateAccount, CardAccountActivity.SetAccount, CardAccountActivity.ReadAccount;
+	
+	assertState always after CardAccountActivity.ReadAccount{
+		account = TestData.accountTO;
+	}
+}

@@ -45,28 +45,26 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="objects" upperBound="-1"
         eType="#//ObjectSpecification" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="links" upperBound="-1"
+        eType="#//Link" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ObjectSpecification">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="ecore:EClass ../../../../../org.eclipse.uml2.uml/model/UML.ecore#//Class"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="features" upperBound="-1"
-        eType="#//Feature" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="attributes" upperBound="-1"
+        eType="#//Attribute" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Feature"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Attribute" eSuperTypes="#//Feature">
+  <eClassifiers xsi:type="ecore:EClass" name="Attribute">
     <eStructuralFeatures xsi:type="ecore:EReference" name="att" eType="ecore:EClass ../../../../../org.eclipse.uml2.uml/model/UML.ecore#//Property"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//Value"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Link" eSuperTypes="#//Feature">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="link" eType="ecore:EClass ../../../../../org.eclipse.uml2.uml/model/UML.ecore#//Property"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SingleValueLink" eSuperTypes="#//Link">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//ObjectSpecification"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="MultiValueLink" eSuperTypes="#//Link">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="values" unique="false"
-        upperBound="-1" eType="#//ObjectSpecification"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Link">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="assoc" eType="ecore:EClass ../../../../../org.eclipse.uml2.uml/model/UML.ecore#//Association"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sourceProperty" eType="ecore:EClass ../../../../../org.eclipse.uml2.uml/model/UML.ecore#//Property"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sourceValue" eType="#//ObjectSpecification"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetProperty" eType="ecore:EClass ../../../../../org.eclipse.uml2.uml/model/UML.ecore#//Property"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetValue" eType="#//ObjectSpecification"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Assertion"/>
   <eClassifiers xsi:type="ecore:EClass" name="StateAssertion" eSuperTypes="#//Assertion">
@@ -110,6 +108,10 @@
     <eLiterals name="smaller" value="3" literal="&lt;"/>
     <eLiterals name="greater_equal" value="4" literal=">="/>
     <eLiterals name="smaller_equal" value="5" literal="&lt;="/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="LinkOperator">
+    <eLiterals name="unidirect" literal="->"/>
+    <eLiterals name="bidirect" value="1" literal="&lt;->"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="TemporalOperator">
     <eLiterals name="after" literal="after"/>

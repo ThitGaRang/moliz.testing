@@ -46,8 +46,8 @@
       <ownedParameter xmi:id="_kKjJgNw-EeKn2ranrBSLLA" name="successful" type="_GrEMsNw-EeKn2ranrBSLLA" direction="return"/>
     </ownedOperation>
   </packagedElement>
-  <packagedElement xmi:type="uml:Association" xmi:id="_tGaGs9w9EeKn2ranrBSLLA" name="client_card_1" memberEnd="_tGaGtNw9EeKn2ranrBSLLA _tGaGsNw9EeKn2ranrBSLLA"/>
-  <packagedElement xmi:type="uml:Association" xmi:id="_yiFsQ9w9EeKn2ranrBSLLA" name="card_account_1" memberEnd="_yiFsRNw9EeKn2ranrBSLLA _yiFsQNw9EeKn2ranrBSLLA"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_tGaGs9w9EeKn2ranrBSLLA" name="client_card" memberEnd="_tGaGtNw9EeKn2ranrBSLLA _tGaGsNw9EeKn2ranrBSLLA"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_yiFsQ9w9EeKn2ranrBSLLA" name="card_account" memberEnd="_yiFsRNw9EeKn2ranrBSLLA _yiFsQNw9EeKn2ranrBSLLA"/>
   <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_GrEMsNw-EeKn2ranrBSLLA" name="Boolean"/>
   <packagedElement xmi:type="uml:Activity" xmi:id="_qAawsNw-EeKn2ranrBSLLA" name="ATMwithdrawActivity" specification="_NrBBYNw-EeKn2ranrBSLLA" node="_Bnz4wNw_EeKn2ranrBSLLA _HX3y4Nw_EeKn2ranrBSLLA _KBoDYNw_EeKn2ranrBSLLA _NZ8DANw_EeKn2ranrBSLLA _X_bbANw_EeKn2ranrBSLLA _bEZn4Nw_EeKn2ranrBSLLA _hFIbQNw_EeKn2ranrBSLLA _lMwX8Nw_EeKn2ranrBSLLA _nZWLUNw_EeKn2ranrBSLLA _6-cQsNxBEeKn2ranrBSLLA _e62NoNxCEeKn2ranrBSLLA">
     <ownedParameter xmi:id="_BnER4Nw_EeKn2ranrBSLLA" name="card" type="_JSjBwNw9EeKn2ranrBSLLA"/>

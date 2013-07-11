@@ -16,7 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.modelexecution.fumltesting.testLang.ObjectSpecification#getName <em>Name</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.testLang.ObjectSpecification#getType <em>Type</em>}</li>
- *   <li>{@link org.modelexecution.fumltesting.testLang.ObjectSpecification#getFeatures <em>Features</em>}</li>
+ *   <li>{@link org.modelexecution.fumltesting.testLang.ObjectSpecification#getAttributes <em>Attributes</em>}</li>
  * </ul>
  * </p>
  *
@@ -79,19 +79,19 @@ public interface ObjectSpecification extends EObject
   void setType(org.eclipse.uml2.uml.Class value);
 
   /**
-   * Returns the value of the '<em><b>Features</b></em>' containment reference list.
-   * The list contents are of type {@link org.modelexecution.fumltesting.testLang.Feature}.
+   * Returns the value of the '<em><b>Attributes</b></em>' containment reference list.
+   * The list contents are of type {@link org.modelexecution.fumltesting.testLang.Attribute}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Features</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Attributes</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Features</em>' containment reference list.
-   * @see org.modelexecution.fumltesting.testLang.TestLangPackage#getObjectSpecification_Features()
+   * @return the value of the '<em>Attributes</em>' containment reference list.
+   * @see org.modelexecution.fumltesting.testLang.TestLangPackage#getObjectSpecification_Attributes()
    * @model containment="true"
    * @generated
    */
-  EList<Feature> getFeatures();
+  EList<Attribute> getAttributes();
 
 } // ObjectSpecification

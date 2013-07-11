@@ -3,11 +3,13 @@ package org.modelexecution.fumltesting.execution.assertions;
 import java.util.List;
 
 import org.eclipse.xtext.xbase.XBooleanLiteral;
+import org.eclipse.xtext.xbase.XExpression;
 import org.eclipse.xtext.xbase.XNullLiteral;
 import org.eclipse.xtext.xbase.XNumberLiteral;
 import org.eclipse.xtext.xbase.XStringLiteral;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumltesting.testLang.NodeSpecification;
+import org.modelexecution.fumltesting.testLang.ObjectSpecification;
 import org.modelexecution.fumltesting.testLang.ObjectStateExpression;
 import org.modelexecution.fumltesting.testLang.ObjectValue;
 import org.modelexecution.fumltesting.testLang.PropertyStateExpression;
@@ -17,6 +19,8 @@ import org.modelexecution.fumltesting.testLang.StateExpression;
 import org.modelexecution.fumltesting.testLang.TestCase;
 
 import fUML.Syntax.Actions.BasicActions.Action;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityFinalNode;
+import fUML.Syntax.Activities.IntermediateActivities.InitialNode;
 
 @SuppressWarnings("restriction")
 public class AssertionPrinter {
@@ -33,7 +37,7 @@ public class AssertionPrinter {
 					valueStr = ((XNumberLiteral)((SimpleValue)expression.getValue()).getValue()).getValue();
 				}
 				else if(((SimpleValue)expression.getValue()).getValue() instanceof XBooleanLiteral){
-					valueStr = String.valueOf((((XBooleanLiteral)((SimpleValue)expression.getValue())).isIsTrue()));
+					valueStr = String.valueOf(((XBooleanLiteral)((SimpleValue)expression.getValue()).getValue()).isIsTrue());
 				}
 				else if(((SimpleValue)expression.getValue()).getValue() instanceof XStringLiteral){
 					valueStr = ((XStringLiteral)((SimpleValue)expression.getValue())).getValue();
@@ -56,8 +60,8 @@ public class AssertionPrinter {
 		if(stateExpression instanceof PropertyStateExpression){
 			PropertyStateExpression expression = (PropertyStateExpression)stateExpression;
 			String valueStr = null;
-			Object literal = ((SimpleValue)expression.getValue()).getValue();
 			if(expression.getValue() instanceof SimpleValue){
+				XExpression literal = ((SimpleValue)expression.getValue()).getValue();
 				if(literal instanceof XNullLiteral){
 					valueStr = "null";
 				}
@@ -73,6 +77,12 @@ public class AssertionPrinter {
 				else{
 					valueStr = expression.getValue().toString();
 				}
+				System.out.println(expression.getPin().getRef().getName() + " -> " + expression.getProperty().getName() 
+						+ " " + expression.getOperator() + " " + valueStr);
+			}
+			if(expression.getValue() instanceof ObjectValue){
+				ObjectSpecification literal = ((ObjectValue)expression.getValue()).getValue();
+				valueStr = literal.getName();
 				System.out.println(expression.getPin().getRef().getName() + " -> " + expression.getProperty().getName() 
 						+ " " + expression.getOperator() + " " + valueStr);
 			}
@@ -99,7 +109,7 @@ public class AssertionPrinter {
 	public static void print(List<ActivityNodeExecution> executions){
 		System.out.print("Executed nodes: ");
 		for(ActivityNodeExecution execution: executions){
-			if(execution.getNode() instanceof Action)
+			if(execution.getNode() instanceof Action || execution.getNode() instanceof InitialNode || execution.getNode() instanceof ActivityFinalNode)
 				System.out.print(execution.getNode().name + ", ");
 		}
 		System.out.println();

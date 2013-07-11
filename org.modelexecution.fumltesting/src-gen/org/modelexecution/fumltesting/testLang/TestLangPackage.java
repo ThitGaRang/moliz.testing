@@ -382,13 +382,22 @@ public interface TestLangPackage extends EPackage
   int SCENARIO__OBJECTS = 1;
 
   /**
+   * The feature id for the '<em><b>Links</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SCENARIO__LINKS = 2;
+
+  /**
    * The number of structural features of the '<em>Scenario</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SCENARIO_FEATURE_COUNT = 2;
+  int SCENARIO_FEATURE_COUNT = 3;
 
   /**
    * The meta object id for the '{@link org.modelexecution.fumltesting.testLang.impl.ObjectSpecificationImpl <em>Object Specification</em>}' class.
@@ -419,13 +428,13 @@ public interface TestLangPackage extends EPackage
   int OBJECT_SPECIFICATION__TYPE = 1;
 
   /**
-   * The feature id for the '<em><b>Features</b></em>' containment reference list.
+   * The feature id for the '<em><b>Attributes</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int OBJECT_SPECIFICATION__FEATURES = 2;
+  int OBJECT_SPECIFICATION__ATTRIBUTES = 2;
 
   /**
    * The number of structural features of the '<em>Object Specification</em>' class.
@@ -437,25 +446,6 @@ public interface TestLangPackage extends EPackage
   int OBJECT_SPECIFICATION_FEATURE_COUNT = 3;
 
   /**
-   * The meta object id for the '{@link org.modelexecution.fumltesting.testLang.impl.FeatureImpl <em>Feature</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.modelexecution.fumltesting.testLang.impl.FeatureImpl
-   * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getFeature()
-   * @generated
-   */
-  int FEATURE = 10;
-
-  /**
-   * The number of structural features of the '<em>Feature</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FEATURE_FEATURE_COUNT = 0;
-
-  /**
    * The meta object id for the '{@link org.modelexecution.fumltesting.testLang.impl.AttributeImpl <em>Attribute</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -463,7 +453,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getAttribute()
    * @generated
    */
-  int ATTRIBUTE = 11;
+  int ATTRIBUTE = 10;
 
   /**
    * The feature id for the '<em><b>Att</b></em>' reference.
@@ -472,7 +462,7 @@ public interface TestLangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ATTRIBUTE__ATT = FEATURE_FEATURE_COUNT + 0;
+  int ATTRIBUTE__ATT = 0;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -481,7 +471,7 @@ public interface TestLangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ATTRIBUTE__VALUE = FEATURE_FEATURE_COUNT + 1;
+  int ATTRIBUTE__VALUE = 1;
 
   /**
    * The number of structural features of the '<em>Attribute</em>' class.
@@ -490,7 +480,7 @@ public interface TestLangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ATTRIBUTE_FEATURE_COUNT = FEATURE_FEATURE_COUNT + 2;
+  int ATTRIBUTE_FEATURE_COUNT = 2;
 
   /**
    * The meta object id for the '{@link org.modelexecution.fumltesting.testLang.impl.LinkImpl <em>Link</em>}' class.
@@ -500,16 +490,52 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getLink()
    * @generated
    */
-  int LINK = 12;
+  int LINK = 11;
 
   /**
-   * The feature id for the '<em><b>Link</b></em>' reference.
+   * The feature id for the '<em><b>Assoc</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int LINK__LINK = FEATURE_FEATURE_COUNT + 0;
+  int LINK__ASSOC = 0;
+
+  /**
+   * The feature id for the '<em><b>Source Property</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LINK__SOURCE_PROPERTY = 1;
+
+  /**
+   * The feature id for the '<em><b>Source Value</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LINK__SOURCE_VALUE = 2;
+
+  /**
+   * The feature id for the '<em><b>Target Property</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LINK__TARGET_PROPERTY = 3;
+
+  /**
+   * The feature id for the '<em><b>Target Value</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int LINK__TARGET_VALUE = 4;
 
   /**
    * The number of structural features of the '<em>Link</em>' class.
@@ -518,81 +544,7 @@ public interface TestLangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int LINK_FEATURE_COUNT = FEATURE_FEATURE_COUNT + 1;
-
-  /**
-   * The meta object id for the '{@link org.modelexecution.fumltesting.testLang.impl.SingleValueLinkImpl <em>Single Value Link</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.modelexecution.fumltesting.testLang.impl.SingleValueLinkImpl
-   * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getSingleValueLink()
-   * @generated
-   */
-  int SINGLE_VALUE_LINK = 13;
-
-  /**
-   * The feature id for the '<em><b>Link</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SINGLE_VALUE_LINK__LINK = LINK__LINK;
-
-  /**
-   * The feature id for the '<em><b>Value</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SINGLE_VALUE_LINK__VALUE = LINK_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Single Value Link</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SINGLE_VALUE_LINK_FEATURE_COUNT = LINK_FEATURE_COUNT + 1;
-
-  /**
-   * The meta object id for the '{@link org.modelexecution.fumltesting.testLang.impl.MultiValueLinkImpl <em>Multi Value Link</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.modelexecution.fumltesting.testLang.impl.MultiValueLinkImpl
-   * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getMultiValueLink()
-   * @generated
-   */
-  int MULTI_VALUE_LINK = 14;
-
-  /**
-   * The feature id for the '<em><b>Link</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int MULTI_VALUE_LINK__LINK = LINK__LINK;
-
-  /**
-   * The feature id for the '<em><b>Values</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int MULTI_VALUE_LINK__VALUES = LINK_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Multi Value Link</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int MULTI_VALUE_LINK_FEATURE_COUNT = LINK_FEATURE_COUNT + 1;
+  int LINK_FEATURE_COUNT = 5;
 
   /**
    * The meta object id for the '{@link org.modelexecution.fumltesting.testLang.impl.AssertionImpl <em>Assertion</em>}' class.
@@ -602,7 +554,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getAssertion()
    * @generated
    */
-  int ASSERTION = 15;
+  int ASSERTION = 12;
 
   /**
    * The number of structural features of the '<em>Assertion</em>' class.
@@ -621,7 +573,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getStateAssertion()
    * @generated
    */
-  int STATE_ASSERTION = 16;
+  int STATE_ASSERTION = 13;
 
   /**
    * The feature id for the '<em><b>Temporal Quantifier</b></em>' attribute.
@@ -685,7 +637,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getStateExpression()
    * @generated
    */
-  int STATE_EXPRESSION = 17;
+  int STATE_EXPRESSION = 14;
 
   /**
    * The feature id for the '<em><b>Pin</b></em>' reference.
@@ -731,7 +683,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getObjectStateExpression()
    * @generated
    */
-  int OBJECT_STATE_EXPRESSION = 18;
+  int OBJECT_STATE_EXPRESSION = 15;
 
   /**
    * The feature id for the '<em><b>Pin</b></em>' reference.
@@ -777,7 +729,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getPropertyStateExpression()
    * @generated
    */
-  int PROPERTY_STATE_EXPRESSION = 19;
+  int PROPERTY_STATE_EXPRESSION = 16;
 
   /**
    * The feature id for the '<em><b>Pin</b></em>' reference.
@@ -832,7 +784,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getOrderExecutionAssertion()
    * @generated
    */
-  int ORDER_EXECUTION_ASSERTION = 20;
+  int ORDER_EXECUTION_ASSERTION = 17;
 
   /**
    * The feature id for the '<em><b>Order</b></em>' containment reference.
@@ -860,7 +812,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getNodeOrder()
    * @generated
    */
-  int NODE_ORDER = 21;
+  int NODE_ORDER = 18;
 
   /**
    * The feature id for the '<em><b>Nodes</b></em>' containment reference list.
@@ -888,7 +840,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getNodeSpecification()
    * @generated
    */
-  int NODE_SPECIFICATION = 22;
+  int NODE_SPECIFICATION = 19;
 
   /**
    * The feature id for the '<em><b>Node</b></em>' reference.
@@ -943,7 +895,17 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getArithmeticOperator()
    * @generated
    */
-  int ARITHMETIC_OPERATOR = 23;
+  int ARITHMETIC_OPERATOR = 20;
+
+  /**
+   * The meta object id for the '{@link org.modelexecution.fumltesting.testLang.LinkOperator <em>Link Operator</em>}' enum.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.modelexecution.fumltesting.testLang.LinkOperator
+   * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getLinkOperator()
+   * @generated
+   */
+  int LINK_OPERATOR = 21;
 
   /**
    * The meta object id for the '{@link org.modelexecution.fumltesting.testLang.TemporalOperator <em>Temporal Operator</em>}' enum.
@@ -953,7 +915,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getTemporalOperator()
    * @generated
    */
-  int TEMPORAL_OPERATOR = 24;
+  int TEMPORAL_OPERATOR = 22;
 
   /**
    * The meta object id for the '{@link org.modelexecution.fumltesting.testLang.TemporalQuantifier <em>Temporal Quantifier</em>}' enum.
@@ -963,7 +925,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getTemporalQuantifier()
    * @generated
    */
-  int TEMPORAL_QUANTIFIER = 25;
+  int TEMPORAL_QUANTIFIER = 23;
 
 
   /**
@@ -1255,6 +1217,17 @@ public interface TestLangPackage extends EPackage
   EReference getScenario_Objects();
 
   /**
+   * Returns the meta object for the containment reference list '{@link org.modelexecution.fumltesting.testLang.Scenario#getLinks <em>Links</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Links</em>'.
+   * @see org.modelexecution.fumltesting.testLang.Scenario#getLinks()
+   * @see #getScenario()
+   * @generated
+   */
+  EReference getScenario_Links();
+
+  /**
    * Returns the meta object for class '{@link org.modelexecution.fumltesting.testLang.ObjectSpecification <em>Object Specification</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1287,25 +1260,15 @@ public interface TestLangPackage extends EPackage
   EReference getObjectSpecification_Type();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.modelexecution.fumltesting.testLang.ObjectSpecification#getFeatures <em>Features</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.modelexecution.fumltesting.testLang.ObjectSpecification#getAttributes <em>Attributes</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Features</em>'.
-   * @see org.modelexecution.fumltesting.testLang.ObjectSpecification#getFeatures()
+   * @return the meta object for the containment reference list '<em>Attributes</em>'.
+   * @see org.modelexecution.fumltesting.testLang.ObjectSpecification#getAttributes()
    * @see #getObjectSpecification()
    * @generated
    */
-  EReference getObjectSpecification_Features();
-
-  /**
-   * Returns the meta object for class '{@link org.modelexecution.fumltesting.testLang.Feature <em>Feature</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Feature</em>'.
-   * @see org.modelexecution.fumltesting.testLang.Feature
-   * @generated
-   */
-  EClass getFeature();
+  EReference getObjectSpecification_Attributes();
 
   /**
    * Returns the meta object for class '{@link org.modelexecution.fumltesting.testLang.Attribute <em>Attribute</em>}'.
@@ -1350,57 +1313,59 @@ public interface TestLangPackage extends EPackage
   EClass getLink();
 
   /**
-   * Returns the meta object for the reference '{@link org.modelexecution.fumltesting.testLang.Link#getLink <em>Link</em>}'.
+   * Returns the meta object for the reference '{@link org.modelexecution.fumltesting.testLang.Link#getAssoc <em>Assoc</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Link</em>'.
-   * @see org.modelexecution.fumltesting.testLang.Link#getLink()
+   * @return the meta object for the reference '<em>Assoc</em>'.
+   * @see org.modelexecution.fumltesting.testLang.Link#getAssoc()
    * @see #getLink()
    * @generated
    */
-  EReference getLink_Link();
+  EReference getLink_Assoc();
 
   /**
-   * Returns the meta object for class '{@link org.modelexecution.fumltesting.testLang.SingleValueLink <em>Single Value Link</em>}'.
+   * Returns the meta object for the reference '{@link org.modelexecution.fumltesting.testLang.Link#getSourceProperty <em>Source Property</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Single Value Link</em>'.
-   * @see org.modelexecution.fumltesting.testLang.SingleValueLink
+   * @return the meta object for the reference '<em>Source Property</em>'.
+   * @see org.modelexecution.fumltesting.testLang.Link#getSourceProperty()
+   * @see #getLink()
    * @generated
    */
-  EClass getSingleValueLink();
+  EReference getLink_SourceProperty();
 
   /**
-   * Returns the meta object for the reference '{@link org.modelexecution.fumltesting.testLang.SingleValueLink#getValue <em>Value</em>}'.
+   * Returns the meta object for the reference '{@link org.modelexecution.fumltesting.testLang.Link#getSourceValue <em>Source Value</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Value</em>'.
-   * @see org.modelexecution.fumltesting.testLang.SingleValueLink#getValue()
-   * @see #getSingleValueLink()
+   * @return the meta object for the reference '<em>Source Value</em>'.
+   * @see org.modelexecution.fumltesting.testLang.Link#getSourceValue()
+   * @see #getLink()
    * @generated
    */
-  EReference getSingleValueLink_Value();
+  EReference getLink_SourceValue();
 
   /**
-   * Returns the meta object for class '{@link org.modelexecution.fumltesting.testLang.MultiValueLink <em>Multi Value Link</em>}'.
+   * Returns the meta object for the reference '{@link org.modelexecution.fumltesting.testLang.Link#getTargetProperty <em>Target Property</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Multi Value Link</em>'.
-   * @see org.modelexecution.fumltesting.testLang.MultiValueLink
+   * @return the meta object for the reference '<em>Target Property</em>'.
+   * @see org.modelexecution.fumltesting.testLang.Link#getTargetProperty()
+   * @see #getLink()
    * @generated
    */
-  EClass getMultiValueLink();
+  EReference getLink_TargetProperty();
 
   /**
-   * Returns the meta object for the reference list '{@link org.modelexecution.fumltesting.testLang.MultiValueLink#getValues <em>Values</em>}'.
+   * Returns the meta object for the reference '{@link org.modelexecution.fumltesting.testLang.Link#getTargetValue <em>Target Value</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Values</em>'.
-   * @see org.modelexecution.fumltesting.testLang.MultiValueLink#getValues()
-   * @see #getMultiValueLink()
+   * @return the meta object for the reference '<em>Target Value</em>'.
+   * @see org.modelexecution.fumltesting.testLang.Link#getTargetValue()
+   * @see #getLink()
    * @generated
    */
-  EReference getMultiValueLink_Values();
+  EReference getLink_TargetValue();
 
   /**
    * Returns the meta object for class '{@link org.modelexecution.fumltesting.testLang.Assertion <em>Assertion</em>}'.
@@ -1656,6 +1621,16 @@ public interface TestLangPackage extends EPackage
    * @generated
    */
   EEnum getArithmeticOperator();
+
+  /**
+   * Returns the meta object for enum '{@link org.modelexecution.fumltesting.testLang.LinkOperator <em>Link Operator</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for enum '<em>Link Operator</em>'.
+   * @see org.modelexecution.fumltesting.testLang.LinkOperator
+   * @generated
+   */
+  EEnum getLinkOperator();
 
   /**
    * Returns the meta object for enum '{@link org.modelexecution.fumltesting.testLang.TemporalOperator <em>Temporal Operator</em>}'.
@@ -1935,6 +1910,14 @@ public interface TestLangPackage extends EPackage
     EReference SCENARIO__OBJECTS = eINSTANCE.getScenario_Objects();
 
     /**
+     * The meta object literal for the '<em><b>Links</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SCENARIO__LINKS = eINSTANCE.getScenario_Links();
+
+    /**
      * The meta object literal for the '{@link org.modelexecution.fumltesting.testLang.impl.ObjectSpecificationImpl <em>Object Specification</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1961,22 +1944,12 @@ public interface TestLangPackage extends EPackage
     EReference OBJECT_SPECIFICATION__TYPE = eINSTANCE.getObjectSpecification_Type();
 
     /**
-     * The meta object literal for the '<em><b>Features</b></em>' containment reference list feature.
+     * The meta object literal for the '<em><b>Attributes</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference OBJECT_SPECIFICATION__FEATURES = eINSTANCE.getObjectSpecification_Features();
-
-    /**
-     * The meta object literal for the '{@link org.modelexecution.fumltesting.testLang.impl.FeatureImpl <em>Feature</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.modelexecution.fumltesting.testLang.impl.FeatureImpl
-     * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getFeature()
-     * @generated
-     */
-    EClass FEATURE = eINSTANCE.getFeature();
+    EReference OBJECT_SPECIFICATION__ATTRIBUTES = eINSTANCE.getObjectSpecification_Attributes();
 
     /**
      * The meta object literal for the '{@link org.modelexecution.fumltesting.testLang.impl.AttributeImpl <em>Attribute</em>}' class.
@@ -2015,48 +1988,44 @@ public interface TestLangPackage extends EPackage
     EClass LINK = eINSTANCE.getLink();
 
     /**
-     * The meta object literal for the '<em><b>Link</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Assoc</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference LINK__LINK = eINSTANCE.getLink_Link();
+    EReference LINK__ASSOC = eINSTANCE.getLink_Assoc();
 
     /**
-     * The meta object literal for the '{@link org.modelexecution.fumltesting.testLang.impl.SingleValueLinkImpl <em>Single Value Link</em>}' class.
+     * The meta object literal for the '<em><b>Source Property</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.modelexecution.fumltesting.testLang.impl.SingleValueLinkImpl
-     * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getSingleValueLink()
      * @generated
      */
-    EClass SINGLE_VALUE_LINK = eINSTANCE.getSingleValueLink();
+    EReference LINK__SOURCE_PROPERTY = eINSTANCE.getLink_SourceProperty();
 
     /**
-     * The meta object literal for the '<em><b>Value</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Source Value</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference SINGLE_VALUE_LINK__VALUE = eINSTANCE.getSingleValueLink_Value();
+    EReference LINK__SOURCE_VALUE = eINSTANCE.getLink_SourceValue();
 
     /**
-     * The meta object literal for the '{@link org.modelexecution.fumltesting.testLang.impl.MultiValueLinkImpl <em>Multi Value Link</em>}' class.
+     * The meta object literal for the '<em><b>Target Property</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.modelexecution.fumltesting.testLang.impl.MultiValueLinkImpl
-     * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getMultiValueLink()
      * @generated
      */
-    EClass MULTI_VALUE_LINK = eINSTANCE.getMultiValueLink();
+    EReference LINK__TARGET_PROPERTY = eINSTANCE.getLink_TargetProperty();
 
     /**
-     * The meta object literal for the '<em><b>Values</b></em>' reference list feature.
+     * The meta object literal for the '<em><b>Target Value</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference MULTI_VALUE_LINK__VALUES = eINSTANCE.getMultiValueLink_Values();
+    EReference LINK__TARGET_VALUE = eINSTANCE.getLink_TargetValue();
 
     /**
      * The meta object literal for the '{@link org.modelexecution.fumltesting.testLang.impl.AssertionImpl <em>Assertion</em>}' class.
@@ -2267,6 +2236,16 @@ public interface TestLangPackage extends EPackage
      * @generated
      */
     EEnum ARITHMETIC_OPERATOR = eINSTANCE.getArithmeticOperator();
+
+    /**
+     * The meta object literal for the '{@link org.modelexecution.fumltesting.testLang.LinkOperator <em>Link Operator</em>}' enum.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.modelexecution.fumltesting.testLang.LinkOperator
+     * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getLinkOperator()
+     * @generated
+     */
+    EEnum LINK_OPERATOR = eINSTANCE.getLinkOperator();
 
     /**
      * The meta object literal for the '{@link org.modelexecution.fumltesting.testLang.TemporalOperator <em>Temporal Operator</em>}' enum.

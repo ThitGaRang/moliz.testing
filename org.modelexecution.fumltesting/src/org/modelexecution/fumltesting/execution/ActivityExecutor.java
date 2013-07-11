@@ -17,7 +17,6 @@ import org.modelexecution.fumltesting.testLang.ObjectValue;
 import org.modelexecution.fumltesting.testLang.TestLangFactory;
 
 import fUML.Semantics.Classes.Kernel.Object_;
-import fUML.Semantics.Classes.Kernel.Reference;
 import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
@@ -90,9 +89,7 @@ public class ActivityExecutor implements ExecutionEventListener {
 				}
 			}
 			if(object instanceof Object_){
-				Reference reference = new Reference();
-				reference.referent = (Object_)object;
-				parameterValue.values.add(reference);
+				parameterValue.values.add((Object_)object);
 			}else{
 				parameterValue.values.add((Value)object);
 			}

@@ -54,7 +54,7 @@ import org.modelexecution.fumltesting.services.TestLangGrammarAccess;
 import org.modelexecution.fumltesting.testLang.ActivityInput;
 import org.modelexecution.fumltesting.testLang.Attribute;
 import org.modelexecution.fumltesting.testLang.Import;
-import org.modelexecution.fumltesting.testLang.MultiValueLink;
+import org.modelexecution.fumltesting.testLang.Link;
 import org.modelexecution.fumltesting.testLang.NodeOrder;
 import org.modelexecution.fumltesting.testLang.NodeSpecification;
 import org.modelexecution.fumltesting.testLang.ObjectSpecification;
@@ -64,7 +64,6 @@ import org.modelexecution.fumltesting.testLang.OrderExecutionAssertion;
 import org.modelexecution.fumltesting.testLang.PropertyStateExpression;
 import org.modelexecution.fumltesting.testLang.Scenario;
 import org.modelexecution.fumltesting.testLang.SimpleValue;
-import org.modelexecution.fumltesting.testLang.SingleValueLink;
 import org.modelexecution.fumltesting.testLang.StateAssertion;
 import org.modelexecution.fumltesting.testLang.TestCase;
 import org.modelexecution.fumltesting.testLang.TestLangPackage;
@@ -86,8 +85,7 @@ public class TestLangSemanticSequencer extends XbaseSemanticSequencer {
 				}
 				else break;
 			case TestLangPackage.ATTRIBUTE:
-				if(context == grammarAccess.getAttributeRule() ||
-				   context == grammarAccess.getFeatureRule()) {
+				if(context == grammarAccess.getAttributeRule()) {
 					sequence_Attribute(context, (Attribute) semanticObject); 
 					return; 
 				}
@@ -98,11 +96,9 @@ public class TestLangSemanticSequencer extends XbaseSemanticSequencer {
 					return; 
 				}
 				else break;
-			case TestLangPackage.MULTI_VALUE_LINK:
-				if(context == grammarAccess.getFeatureRule() ||
-				   context == grammarAccess.getLinkRule() ||
-				   context == grammarAccess.getMultiValueLinkRule()) {
-					sequence_MultiValueLink(context, (MultiValueLink) semanticObject); 
+			case TestLangPackage.LINK:
+				if(context == grammarAccess.getLinkRule()) {
+					sequence_Link(context, (Link) semanticObject); 
 					return; 
 				}
 				else break;
@@ -162,14 +158,6 @@ public class TestLangSemanticSequencer extends XbaseSemanticSequencer {
 				if(context == grammarAccess.getSimpleValueRule() ||
 				   context == grammarAccess.getValueRule()) {
 					sequence_SimpleValue(context, (SimpleValue) semanticObject); 
-					return; 
-				}
-				else break;
-			case TestLangPackage.SINGLE_VALUE_LINK:
-				if(context == grammarAccess.getFeatureRule() ||
-				   context == grammarAccess.getLinkRule() ||
-				   context == grammarAccess.getSingleValueLinkRule()) {
-					sequence_SingleValueLink(context, (SingleValueLink) semanticObject); 
 					return; 
 				}
 				else break;
@@ -1114,10 +1102,35 @@ public class TestLangSemanticSequencer extends XbaseSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (link=[Property|ID] values+=[ObjectSpecification|QualifiedName] values+=[ObjectSpecification|ID]*)
+	 *     (
+	 *         assoc=[Association|QualifiedName] 
+	 *         sourceProperty=[Property|QualifiedName] 
+	 *         sourceValue=[ObjectSpecification|QualifiedName] 
+	 *         targetProperty=[Property|QualifiedName] 
+	 *         targetValue=[ObjectSpecification|QualifiedName]
+	 *     )
 	 */
-	protected void sequence_MultiValueLink(EObject context, MultiValueLink semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+	protected void sequence_Link(EObject context, Link semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.LINK__ASSOC) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.LINK__ASSOC));
+			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.LINK__SOURCE_PROPERTY) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.LINK__SOURCE_PROPERTY));
+			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.LINK__SOURCE_VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.LINK__SOURCE_VALUE));
+			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.LINK__TARGET_PROPERTY) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.LINK__TARGET_PROPERTY));
+			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.LINK__TARGET_VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.LINK__TARGET_VALUE));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getLinkAccess().getAssocAssociationQualifiedNameParserRuleCall_1_0_1(), semanticObject.getAssoc());
+		feeder.accept(grammarAccess.getLinkAccess().getSourcePropertyPropertyQualifiedNameParserRuleCall_3_0_1(), semanticObject.getSourceProperty());
+		feeder.accept(grammarAccess.getLinkAccess().getSourceValueObjectSpecificationQualifiedNameParserRuleCall_5_0_1(), semanticObject.getSourceValue());
+		feeder.accept(grammarAccess.getLinkAccess().getTargetPropertyPropertyQualifiedNameParserRuleCall_7_0_1(), semanticObject.getTargetProperty());
+		feeder.accept(grammarAccess.getLinkAccess().getTargetValueObjectSpecificationQualifiedNameParserRuleCall_9_0_1(), semanticObject.getTargetValue());
+		feeder.finish();
 	}
 	
 	
@@ -1141,7 +1154,7 @@ public class TestLangSemanticSequencer extends XbaseSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (name=ID type=[Class|QualifiedName] features+=Feature*)
+	 *     (name=ID type=[Class|QualifiedName] attributes+=Attribute*)
 	 */
 	protected void sequence_ObjectSpecification(EObject context, ObjectSpecification semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1229,7 +1242,7 @@ public class TestLangSemanticSequencer extends XbaseSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (name=ID objects+=ObjectSpecification*)
+	 *     (name=ID objects+=ObjectSpecification* links+=Link*)
 	 */
 	protected void sequence_Scenario(EObject context, Scenario semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1248,25 +1261,6 @@ public class TestLangSemanticSequencer extends XbaseSemanticSequencer {
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getSimpleValueAccess().getValueXLiteralParserRuleCall_0(), semanticObject.getValue());
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (link=[Property|QualifiedName] value=[ObjectSpecification|QualifiedName])
-	 */
-	protected void sequence_SingleValueLink(EObject context, SingleValueLink semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.LINK__LINK) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.LINK__LINK));
-			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.SINGLE_VALUE_LINK__VALUE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.SINGLE_VALUE_LINK__VALUE));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getSingleValueLinkAccess().getLinkPropertyQualifiedNameParserRuleCall_1_0_1(), semanticObject.getLink());
-		feeder.accept(grammarAccess.getSingleValueLinkAccess().getValueObjectSpecificationQualifiedNameParserRuleCall_3_0_1(), semanticObject.getValue());
 		feeder.finish();
 	}
 	

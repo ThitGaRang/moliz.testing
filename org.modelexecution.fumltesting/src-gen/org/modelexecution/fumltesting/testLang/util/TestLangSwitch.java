@@ -144,18 +144,10 @@ public class TestLangSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case TestLangPackage.FEATURE:
-      {
-        Feature feature = (Feature)theEObject;
-        T result = caseFeature(feature);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case TestLangPackage.ATTRIBUTE:
       {
         Attribute attribute = (Attribute)theEObject;
         T result = caseAttribute(attribute);
-        if (result == null) result = caseFeature(attribute);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -163,25 +155,6 @@ public class TestLangSwitch<T> extends Switch<T>
       {
         Link link = (Link)theEObject;
         T result = caseLink(link);
-        if (result == null) result = caseFeature(link);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case TestLangPackage.SINGLE_VALUE_LINK:
-      {
-        SingleValueLink singleValueLink = (SingleValueLink)theEObject;
-        T result = caseSingleValueLink(singleValueLink);
-        if (result == null) result = caseLink(singleValueLink);
-        if (result == null) result = caseFeature(singleValueLink);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case TestLangPackage.MULTI_VALUE_LINK:
-      {
-        MultiValueLink multiValueLink = (MultiValueLink)theEObject;
-        T result = caseMultiValueLink(multiValueLink);
-        if (result == null) result = caseLink(multiValueLink);
-        if (result == null) result = caseFeature(multiValueLink);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -410,22 +383,6 @@ public class TestLangSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Feature</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Feature</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseFeature(Feature object)
-  {
-    return null;
-  }
-
-  /**
    * Returns the result of interpreting the object as an instance of '<em>Attribute</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -453,38 +410,6 @@ public class TestLangSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseLink(Link object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Single Value Link</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Single Value Link</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseSingleValueLink(SingleValueLink object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Multi Value Link</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Multi Value Link</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseMultiValueLink(MultiValueLink object)
   {
     return null;
   }

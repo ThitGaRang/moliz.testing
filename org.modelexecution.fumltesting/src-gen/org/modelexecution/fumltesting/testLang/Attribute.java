@@ -2,6 +2,8 @@
  */
 package org.modelexecution.fumltesting.testLang;
 
+import org.eclipse.emf.ecore.EObject;
+
 import org.eclipse.uml2.uml.Property;
 
 /**
@@ -21,7 +23,7 @@ import org.eclipse.uml2.uml.Property;
  * @model
  * @generated
  */
-public interface Attribute extends Feature
+public interface Attribute extends EObject
 {
   /**
    * Returns the value of the '<em><b>Att</b></em>' reference.

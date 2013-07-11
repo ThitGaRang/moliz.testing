@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link org.modelexecution.fumltesting.testLang.Scenario#getName <em>Name</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.testLang.Scenario#getObjects <em>Objects</em>}</li>
+ *   <li>{@link org.modelexecution.fumltesting.testLang.Scenario#getLinks <em>Links</em>}</li>
  * </ul>
  * </p>
  *
@@ -66,5 +67,21 @@ public interface Scenario extends EObject
    * @generated
    */
   EList<ObjectSpecification> getObjects();
+
+  /**
+   * Returns the value of the '<em><b>Links</b></em>' containment reference list.
+   * The list contents are of type {@link org.modelexecution.fumltesting.testLang.Link}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Links</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Links</em>' containment reference list.
+   * @see org.modelexecution.fumltesting.testLang.TestLangPackage#getScenario_Links()
+   * @model containment="true"
+   * @generated
+   */
+  EList<Link> getLinks();
 
 } // Scenario

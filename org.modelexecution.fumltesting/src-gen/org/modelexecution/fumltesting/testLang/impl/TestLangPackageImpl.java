@@ -19,10 +19,9 @@ import org.modelexecution.fumltesting.testLang.ActivityInput;
 import org.modelexecution.fumltesting.testLang.ArithmeticOperator;
 import org.modelexecution.fumltesting.testLang.Assertion;
 import org.modelexecution.fumltesting.testLang.Attribute;
-import org.modelexecution.fumltesting.testLang.Feature;
 import org.modelexecution.fumltesting.testLang.Import;
 import org.modelexecution.fumltesting.testLang.Link;
-import org.modelexecution.fumltesting.testLang.MultiValueLink;
+import org.modelexecution.fumltesting.testLang.LinkOperator;
 import org.modelexecution.fumltesting.testLang.NodeOrder;
 import org.modelexecution.fumltesting.testLang.NodeSpecification;
 import org.modelexecution.fumltesting.testLang.ObjectSpecification;
@@ -32,7 +31,6 @@ import org.modelexecution.fumltesting.testLang.OrderExecutionAssertion;
 import org.modelexecution.fumltesting.testLang.PropertyStateExpression;
 import org.modelexecution.fumltesting.testLang.Scenario;
 import org.modelexecution.fumltesting.testLang.SimpleValue;
-import org.modelexecution.fumltesting.testLang.SingleValueLink;
 import org.modelexecution.fumltesting.testLang.StateAssertion;
 import org.modelexecution.fumltesting.testLang.StateExpression;
 import org.modelexecution.fumltesting.testLang.TemporalOperator;
@@ -127,13 +125,6 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass featureEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   private EClass attributeEClass = null;
 
   /**
@@ -142,20 +133,6 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * @generated
    */
   private EClass linkEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass singleValueLinkEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass multiValueLinkEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -219,6 +196,13 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * @generated
    */
   private EEnum arithmeticOperatorEEnum = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EEnum linkOperatorEEnum = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -576,6 +560,16 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getScenario_Links()
+  {
+    return (EReference)scenarioEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getObjectSpecification()
   {
     return objectSpecificationEClass;
@@ -606,19 +600,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getObjectSpecification_Features()
+  public EReference getObjectSpecification_Attributes()
   {
     return (EReference)objectSpecificationEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getFeature()
-  {
-    return featureEClass;
   }
 
   /**
@@ -666,7 +650,7 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getLink_Link()
+  public EReference getLink_Assoc()
   {
     return (EReference)linkEClass.getEStructuralFeatures().get(0);
   }
@@ -676,9 +660,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getSingleValueLink()
+  public EReference getLink_SourceProperty()
   {
-    return singleValueLinkEClass;
+    return (EReference)linkEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -686,9 +670,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getSingleValueLink_Value()
+  public EReference getLink_SourceValue()
   {
-    return (EReference)singleValueLinkEClass.getEStructuralFeatures().get(0);
+    return (EReference)linkEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -696,9 +680,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getMultiValueLink()
+  public EReference getLink_TargetProperty()
   {
-    return multiValueLinkEClass;
+    return (EReference)linkEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -706,9 +690,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getMultiValueLink_Values()
+  public EReference getLink_TargetValue()
   {
-    return (EReference)multiValueLinkEClass.getEStructuralFeatures().get(0);
+    return (EReference)linkEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -956,6 +940,16 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EEnum getLinkOperator()
+  {
+    return linkOperatorEEnum;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EEnum getTemporalOperator()
   {
     return temporalOperatorEEnum;
@@ -1036,26 +1030,23 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
     scenarioEClass = createEClass(SCENARIO);
     createEAttribute(scenarioEClass, SCENARIO__NAME);
     createEReference(scenarioEClass, SCENARIO__OBJECTS);
+    createEReference(scenarioEClass, SCENARIO__LINKS);
 
     objectSpecificationEClass = createEClass(OBJECT_SPECIFICATION);
     createEAttribute(objectSpecificationEClass, OBJECT_SPECIFICATION__NAME);
     createEReference(objectSpecificationEClass, OBJECT_SPECIFICATION__TYPE);
-    createEReference(objectSpecificationEClass, OBJECT_SPECIFICATION__FEATURES);
-
-    featureEClass = createEClass(FEATURE);
+    createEReference(objectSpecificationEClass, OBJECT_SPECIFICATION__ATTRIBUTES);
 
     attributeEClass = createEClass(ATTRIBUTE);
     createEReference(attributeEClass, ATTRIBUTE__ATT);
     createEReference(attributeEClass, ATTRIBUTE__VALUE);
 
     linkEClass = createEClass(LINK);
-    createEReference(linkEClass, LINK__LINK);
-
-    singleValueLinkEClass = createEClass(SINGLE_VALUE_LINK);
-    createEReference(singleValueLinkEClass, SINGLE_VALUE_LINK__VALUE);
-
-    multiValueLinkEClass = createEClass(MULTI_VALUE_LINK);
-    createEReference(multiValueLinkEClass, MULTI_VALUE_LINK__VALUES);
+    createEReference(linkEClass, LINK__ASSOC);
+    createEReference(linkEClass, LINK__SOURCE_PROPERTY);
+    createEReference(linkEClass, LINK__SOURCE_VALUE);
+    createEReference(linkEClass, LINK__TARGET_PROPERTY);
+    createEReference(linkEClass, LINK__TARGET_VALUE);
 
     assertionEClass = createEClass(ASSERTION);
 
@@ -1090,6 +1081,7 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
 
     // Create enums
     arithmeticOperatorEEnum = createEEnum(ARITHMETIC_OPERATOR);
+    linkOperatorEEnum = createEEnum(LINK_OPERATOR);
     temporalOperatorEEnum = createEEnum(TEMPORAL_OPERATOR);
     temporalQuantifierEEnum = createEEnum(TEMPORAL_QUANTIFIER);
   }
@@ -1130,10 +1122,6 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
     // Add supertypes to classes
     simpleValueEClass.getESuperTypes().add(this.getValue());
     objectValueEClass.getESuperTypes().add(this.getValue());
-    attributeEClass.getESuperTypes().add(this.getFeature());
-    linkEClass.getESuperTypes().add(this.getFeature());
-    singleValueLinkEClass.getESuperTypes().add(this.getLink());
-    multiValueLinkEClass.getESuperTypes().add(this.getLink());
     stateAssertionEClass.getESuperTypes().add(this.getAssertion());
     objectStateExpressionEClass.getESuperTypes().add(this.getStateExpression());
     propertyStateExpressionEClass.getESuperTypes().add(this.getStateExpression());
@@ -1175,26 +1163,23 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
     initEClass(scenarioEClass, Scenario.class, "Scenario", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getScenario_Name(), theEcorePackage.getEString(), "name", null, 0, 1, Scenario.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getScenario_Objects(), this.getObjectSpecification(), null, "objects", null, 0, -1, Scenario.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getScenario_Links(), this.getLink(), null, "links", null, 0, -1, Scenario.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(objectSpecificationEClass, ObjectSpecification.class, "ObjectSpecification", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getObjectSpecification_Name(), theEcorePackage.getEString(), "name", null, 0, 1, ObjectSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getObjectSpecification_Type(), theUMLPackage.getClass_(), null, "type", null, 0, 1, ObjectSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getObjectSpecification_Features(), this.getFeature(), null, "features", null, 0, -1, ObjectSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(featureEClass, Feature.class, "Feature", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getObjectSpecification_Attributes(), this.getAttribute(), null, "attributes", null, 0, -1, ObjectSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(attributeEClass, Attribute.class, "Attribute", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getAttribute_Att(), theUMLPackage.getProperty(), null, "att", null, 0, 1, Attribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getAttribute_Value(), this.getValue(), null, "value", null, 0, 1, Attribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(linkEClass, Link.class, "Link", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getLink_Link(), theUMLPackage.getProperty(), null, "link", null, 0, 1, Link.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(singleValueLinkEClass, SingleValueLink.class, "SingleValueLink", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getSingleValueLink_Value(), this.getObjectSpecification(), null, "value", null, 0, 1, SingleValueLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(multiValueLinkEClass, MultiValueLink.class, "MultiValueLink", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getMultiValueLink_Values(), this.getObjectSpecification(), null, "values", null, 0, -1, MultiValueLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getLink_Assoc(), theUMLPackage.getAssociation(), null, "assoc", null, 0, 1, Link.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getLink_SourceProperty(), theUMLPackage.getProperty(), null, "sourceProperty", null, 0, 1, Link.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getLink_SourceValue(), this.getObjectSpecification(), null, "sourceValue", null, 0, 1, Link.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getLink_TargetProperty(), theUMLPackage.getProperty(), null, "targetProperty", null, 0, 1, Link.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getLink_TargetValue(), this.getObjectSpecification(), null, "targetValue", null, 0, 1, Link.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(assertionEClass, Assertion.class, "Assertion", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -1235,6 +1220,10 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
     addEEnumLiteral(arithmeticOperatorEEnum, ArithmeticOperator.SMALLER);
     addEEnumLiteral(arithmeticOperatorEEnum, ArithmeticOperator.GREATER_EQUAL);
     addEEnumLiteral(arithmeticOperatorEEnum, ArithmeticOperator.SMALLER_EQUAL);
+
+    initEEnum(linkOperatorEEnum, LinkOperator.class, "LinkOperator");
+    addEEnumLiteral(linkOperatorEEnum, LinkOperator.UNIDIRECT);
+    addEEnumLiteral(linkOperatorEEnum, LinkOperator.BIDIRECT);
 
     initEEnum(temporalOperatorEEnum, TemporalOperator.class, "TemporalOperator");
     addEEnumLiteral(temporalOperatorEEnum, TemporalOperator.AFTER);

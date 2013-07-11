@@ -18,7 +18,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.modelexecution.fumltesting.testLang.Feature;
+import org.modelexecution.fumltesting.testLang.Attribute;
 import org.modelexecution.fumltesting.testLang.ObjectSpecification;
 import org.modelexecution.fumltesting.testLang.TestLangPackage;
 
@@ -31,7 +31,7 @@ import org.modelexecution.fumltesting.testLang.TestLangPackage;
  * <ul>
  *   <li>{@link org.modelexecution.fumltesting.testLang.impl.ObjectSpecificationImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.testLang.impl.ObjectSpecificationImpl#getType <em>Type</em>}</li>
- *   <li>{@link org.modelexecution.fumltesting.testLang.impl.ObjectSpecificationImpl#getFeatures <em>Features</em>}</li>
+ *   <li>{@link org.modelexecution.fumltesting.testLang.impl.ObjectSpecificationImpl#getAttributes <em>Attributes</em>}</li>
  * </ul>
  * </p>
  *
@@ -70,14 +70,14 @@ public class ObjectSpecificationImpl extends MinimalEObjectImpl.Container implem
   protected org.eclipse.uml2.uml.Class type;
 
   /**
-   * The cached value of the '{@link #getFeatures() <em>Features</em>}' containment reference list.
+   * The cached value of the '{@link #getAttributes() <em>Attributes</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getFeatures()
+   * @see #getAttributes()
    * @generated
    * @ordered
    */
-  protected EList<Feature> features;
+  protected EList<Attribute> attributes;
 
   /**
    * <!-- begin-user-doc -->
@@ -171,13 +171,13 @@ public class ObjectSpecificationImpl extends MinimalEObjectImpl.Container implem
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Feature> getFeatures()
+  public EList<Attribute> getAttributes()
   {
-    if (features == null)
+    if (attributes == null)
     {
-      features = new EObjectContainmentEList<Feature>(Feature.class, this, TestLangPackage.OBJECT_SPECIFICATION__FEATURES);
+      attributes = new EObjectContainmentEList<Attribute>(Attribute.class, this, TestLangPackage.OBJECT_SPECIFICATION__ATTRIBUTES);
     }
-    return features;
+    return attributes;
   }
 
   /**
@@ -190,8 +190,8 @@ public class ObjectSpecificationImpl extends MinimalEObjectImpl.Container implem
   {
     switch (featureID)
     {
-      case TestLangPackage.OBJECT_SPECIFICATION__FEATURES:
-        return ((InternalEList<?>)getFeatures()).basicRemove(otherEnd, msgs);
+      case TestLangPackage.OBJECT_SPECIFICATION__ATTRIBUTES:
+        return ((InternalEList<?>)getAttributes()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -211,8 +211,8 @@ public class ObjectSpecificationImpl extends MinimalEObjectImpl.Container implem
       case TestLangPackage.OBJECT_SPECIFICATION__TYPE:
         if (resolve) return getType();
         return basicGetType();
-      case TestLangPackage.OBJECT_SPECIFICATION__FEATURES:
-        return getFeatures();
+      case TestLangPackage.OBJECT_SPECIFICATION__ATTRIBUTES:
+        return getAttributes();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -234,9 +234,9 @@ public class ObjectSpecificationImpl extends MinimalEObjectImpl.Container implem
       case TestLangPackage.OBJECT_SPECIFICATION__TYPE:
         setType((org.eclipse.uml2.uml.Class)newValue);
         return;
-      case TestLangPackage.OBJECT_SPECIFICATION__FEATURES:
-        getFeatures().clear();
-        getFeatures().addAll((Collection<? extends Feature>)newValue);
+      case TestLangPackage.OBJECT_SPECIFICATION__ATTRIBUTES:
+        getAttributes().clear();
+        getAttributes().addAll((Collection<? extends Attribute>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -258,8 +258,8 @@ public class ObjectSpecificationImpl extends MinimalEObjectImpl.Container implem
       case TestLangPackage.OBJECT_SPECIFICATION__TYPE:
         setType((org.eclipse.uml2.uml.Class)null);
         return;
-      case TestLangPackage.OBJECT_SPECIFICATION__FEATURES:
-        getFeatures().clear();
+      case TestLangPackage.OBJECT_SPECIFICATION__ATTRIBUTES:
+        getAttributes().clear();
         return;
     }
     super.eUnset(featureID);
@@ -279,8 +279,8 @@ public class ObjectSpecificationImpl extends MinimalEObjectImpl.Container implem
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case TestLangPackage.OBJECT_SPECIFICATION__TYPE:
         return type != null;
-      case TestLangPackage.OBJECT_SPECIFICATION__FEATURES:
-        return features != null && !features.isEmpty();
+      case TestLangPackage.OBJECT_SPECIFICATION__ATTRIBUTES:
+        return attributes != null && !attributes.isEmpty();
     }
     return super.eIsSet(featureID);
   }

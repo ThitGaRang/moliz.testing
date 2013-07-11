@@ -84,6 +84,7 @@ public class StateAssertionValidator {
 	}
 	
 	private boolean check(StateExpression expression){
+		
 		predecessors.removeAll(predecessors);
 		successors.removeAll(successors);
 		
@@ -100,12 +101,10 @@ public class StateAssertionValidator {
 		if(expressionAction instanceof Action)
 			expressionNodeExecution = (ActionExecution)traceUtil.getNodeExecution((Action)expressionAction);
 		if(expressionAction instanceof Activity){
-			System.out.println("Activity parameters not supported!");
-			return true;
-			//expressionNodeExecution = (ActivityExecution)traceUtil.getNodeExecution((Activity)expressionAction);
+			expressionNodeExecution = (ActivityExecution)traceUtil.getNodeExecution((Activity)expressionAction);
 		}
 		
-		if(expressionNodeExecution != null){
+		if(expressionNodeExecution != null && referredNodeExecution != null){
 			
 			if(expression.getPin().getRef() instanceof OutputPin){
 				if(expressionNodeExecution instanceof ActionExecution){
@@ -191,6 +190,14 @@ public class StateAssertionValidator {
 				result = processObject(expression, list);
 				AssertionPrinter.print(expression, result);
 				return result;
+			}
+		}else{
+			AssertionPrinter.print(expression, false);
+			if(expressionNodeExecution == null){
+				System.out.println(((Action)expressionAction).getName() + " was never executed!");
+			}
+			if(referredNodeExecution == null){
+				System.out.println(referredAction.getName() + " was never executed!");				
 			}
 		}
 		return false;
@@ -307,6 +314,10 @@ public class StateAssertionValidator {
 		
 		if(expression instanceof PropertyStateExpression){
 			PropertyStateExpression propertyExpression = (PropertyStateExpression)expression;
+			if(propertyExpression.getProperty().getType() instanceof org.eclipse.uml2.uml.Class){
+				System.out.println("Link checking not supported!");
+				return true;
+			}
 			for(ValueSnapshot snapshot: list){
 				Object_ object_ = (Object_)snapshot.getValue();
 				FeatureValue featureValue = null;
