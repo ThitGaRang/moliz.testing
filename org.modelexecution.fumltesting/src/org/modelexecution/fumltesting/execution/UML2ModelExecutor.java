@@ -71,8 +71,8 @@ public class UML2ModelExecutor {
 	 */
 	@Test
 	public void executeCallBehaviorActivity() {
-		loadModel("example/model.uml"); //$NON-NLS-1$
-		executeActivity("CreateClientActivity"); //$NON-NLS-1$
+		loadModel("example/banking.uml"); //$NON-NLS-1$
+		executeActivity("ATMwithdrawActivity"); //$NON-NLS-1$
 	}
 
 	/**

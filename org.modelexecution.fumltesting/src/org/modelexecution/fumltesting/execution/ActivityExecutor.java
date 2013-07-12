@@ -17,6 +17,7 @@ import org.modelexecution.fumltesting.testLang.ObjectValue;
 import org.modelexecution.fumltesting.testLang.TestLangFactory;
 
 import fUML.Semantics.Classes.Kernel.Object_;
+import fUML.Semantics.Classes.Kernel.Reference;
 import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
@@ -55,7 +56,8 @@ public class ActivityExecutor implements ExecutionEventListener {
 		IConverter converter = ConverterRegistry.getInstance().getConverter(umlModel);
 		result = converter.convert(this.umlModel);
 		replaceOpaqueBehaviors();
-		testDataConverter = new TestDataConverter(result);
+		TestDataConverter.setModel(result);
+		testDataConverter = TestDataConverter.getInstance();
 	}
 
 	/** 
@@ -89,7 +91,9 @@ public class ActivityExecutor implements ExecutionEventListener {
 				}
 			}
 			if(object instanceof Object_){
-				parameterValue.values.add((Object_)object);
+				Reference reference = new Reference();
+				reference.referent = (Object_)object;
+				parameterValue.values.add(reference);
 			}else{
 				parameterValue.values.add((Value)object);
 			}

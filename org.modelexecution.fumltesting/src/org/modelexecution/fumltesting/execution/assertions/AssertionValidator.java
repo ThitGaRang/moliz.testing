@@ -22,7 +22,7 @@ public class AssertionValidator {
 	
 	public AssertionValidator(int activityExecutionID, ActivityExecutor executor){
 		traceUtil = new TraceUtil(activityExecutionID, executor);		
-		stateValidator = new StateAssertionValidator(traceUtil, executor.getConversionResult());
+		stateValidator = new StateAssertionValidator(traceUtil);
 	}
 	
 	public boolean check(Assertion assertion){

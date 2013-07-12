@@ -49,7 +49,7 @@ public class AssertionPrinter {
 						+ " " + expression.getOperator() + " " + valueStr);
 			}
 			if(expression.getValue() instanceof ObjectValue){
-				System.out.println(expression.getPin().getRef().getName() 
+				System.out.println(expression.getPin().getName() 
 						+ " " + expression.getOperator() + " " + ((ObjectValue)expression.getValue()).getValue().getName());
 			}
 			if(result)
@@ -77,13 +77,13 @@ public class AssertionPrinter {
 				else{
 					valueStr = expression.getValue().toString();
 				}
-				System.out.println(expression.getPin().getRef().getName() + " -> " + expression.getProperty().getName() 
+				System.out.println(expression.getPin().getName() + " -> " + expression.getProperty().getName() 
 						+ " " + expression.getOperator() + " " + valueStr);
 			}
 			if(expression.getValue() instanceof ObjectValue){
 				ObjectSpecification literal = ((ObjectValue)expression.getValue()).getValue();
 				valueStr = literal.getName();
-				System.out.println(expression.getPin().getRef().getName() + " -> " + expression.getProperty().getName() 
+				System.out.println(expression.getPin().getName() + " -> " + expression.getProperty().getName() 
 						+ " " + expression.getOperator() + " " + valueStr);
 			}
 			if(result)

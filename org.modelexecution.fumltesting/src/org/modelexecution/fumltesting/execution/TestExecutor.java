@@ -21,6 +21,7 @@ import org.modelexecution.fumltesting.testLang.TestCase;
 import org.modelexecution.fumltesting.testLang.TestSuite;
 
 import com.google.inject.Injector;
+
 /**
  * Main class that runs all the tests.
  * @author Stefan Mijatov
