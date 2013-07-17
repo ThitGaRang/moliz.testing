@@ -821,11 +821,7 @@ ruleAttribute returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-(	otherlv_0='attribute' 
-    {
-    	newLeafNode(otherlv_0, grammarAccess.getAttributeAccess().getAttributeKeyword_0());
-    }
-(
+((
 (
 		{
 			if ($current==null) {
@@ -833,38 +829,38 @@ ruleAttribute returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getAttributeAccess().getAttPropertyCrossReference_1_0()); 
+	        newCompositeNode(grammarAccess.getAttributeAccess().getAttPropertyCrossReference_0_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)	otherlv_2='=' 
+)	otherlv_1='=' 
     {
-    	newLeafNode(otherlv_2, grammarAccess.getAttributeAccess().getEqualsSignKeyword_2());
+    	newLeafNode(otherlv_1, grammarAccess.getAttributeAccess().getEqualsSignKeyword_1());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAttributeAccess().getValueValueParserRuleCall_3_0()); 
+	        newCompositeNode(grammarAccess.getAttributeAccess().getValueValueParserRuleCall_2_0()); 
 	    }
-		lv_value_3_0=ruleValue		{
+		lv_value_2_0=ruleValue		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getAttributeRule());
 	        }
        		set(
        			$current, 
        			"value",
-        		lv_value_3_0, 
+        		lv_value_2_0, 
         		"Value");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)	otherlv_4=';' 
+)	otherlv_3=';' 
     {
-    	newLeafNode(otherlv_4, grammarAccess.getAttributeAccess().getSemicolonKeyword_4());
+    	newLeafNode(otherlv_3, grammarAccess.getAttributeAccess().getSemicolonKeyword_3());
     }
 )
 ;

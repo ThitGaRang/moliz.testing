@@ -1078,8 +1078,8 @@ public class TestLangSemanticSequencer extends XbaseSemanticSequencer {
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getAttributeAccess().getAttPropertyQualifiedNameParserRuleCall_1_0_1(), semanticObject.getAtt());
-		feeder.accept(grammarAccess.getAttributeAccess().getValueValueParserRuleCall_3_0(), semanticObject.getValue());
+		feeder.accept(grammarAccess.getAttributeAccess().getAttPropertyQualifiedNameParserRuleCall_0_0_1(), semanticObject.getAtt());
+		feeder.accept(grammarAccess.getAttributeAccess().getValueValueParserRuleCall_2_0(), semanticObject.getValue());
 		feeder.finish();
 	}
 	

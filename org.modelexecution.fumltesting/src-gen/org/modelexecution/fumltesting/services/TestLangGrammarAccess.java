@@ -482,46 +482,42 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 	public class AttributeElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Attribute");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cAttributeKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cAttAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final CrossReference cAttPropertyCrossReference_1_0 = (CrossReference)cAttAssignment_1.eContents().get(0);
-		private final RuleCall cAttPropertyQualifiedNameParserRuleCall_1_0_1 = (RuleCall)cAttPropertyCrossReference_1_0.eContents().get(1);
-		private final Keyword cEqualsSignKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Assignment cValueAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cValueValueParserRuleCall_3_0 = (RuleCall)cValueAssignment_3.eContents().get(0);
-		private final Keyword cSemicolonKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Assignment cAttAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final CrossReference cAttPropertyCrossReference_0_0 = (CrossReference)cAttAssignment_0.eContents().get(0);
+		private final RuleCall cAttPropertyQualifiedNameParserRuleCall_0_0_1 = (RuleCall)cAttPropertyCrossReference_0_0.eContents().get(1);
+		private final Keyword cEqualsSignKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cValueAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cValueValueParserRuleCall_2_0 = (RuleCall)cValueAssignment_2.eContents().get(0);
+		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//Attribute:
 		//
-		//	"attribute" att=[uml::Property|QualifiedName] "=" value=Value ";";
+		//	att=[uml::Property|QualifiedName] "=" value=Value ";";
 		public ParserRule getRule() { return rule; }
 
-		//"attribute" att=[uml::Property|QualifiedName] "=" value=Value ";"
+		//att=[uml::Property|QualifiedName] "=" value=Value ";"
 		public Group getGroup() { return cGroup; }
 
-		//"attribute"
-		public Keyword getAttributeKeyword_0() { return cAttributeKeyword_0; }
-
 		//att=[uml::Property|QualifiedName]
-		public Assignment getAttAssignment_1() { return cAttAssignment_1; }
+		public Assignment getAttAssignment_0() { return cAttAssignment_0; }
 
 		//[uml::Property|QualifiedName]
-		public CrossReference getAttPropertyCrossReference_1_0() { return cAttPropertyCrossReference_1_0; }
+		public CrossReference getAttPropertyCrossReference_0_0() { return cAttPropertyCrossReference_0_0; }
 
 		//QualifiedName
-		public RuleCall getAttPropertyQualifiedNameParserRuleCall_1_0_1() { return cAttPropertyQualifiedNameParserRuleCall_1_0_1; }
+		public RuleCall getAttPropertyQualifiedNameParserRuleCall_0_0_1() { return cAttPropertyQualifiedNameParserRuleCall_0_0_1; }
 
 		//"="
-		public Keyword getEqualsSignKeyword_2() { return cEqualsSignKeyword_2; }
+		public Keyword getEqualsSignKeyword_1() { return cEqualsSignKeyword_1; }
 
 		//value=Value
-		public Assignment getValueAssignment_3() { return cValueAssignment_3; }
+		public Assignment getValueAssignment_2() { return cValueAssignment_2; }
 
 		//Value
-		public RuleCall getValueValueParserRuleCall_3_0() { return cValueValueParserRuleCall_3_0; }
+		public RuleCall getValueValueParserRuleCall_2_0() { return cValueValueParserRuleCall_2_0; }
 
 		//";"
-		public Keyword getSemicolonKeyword_4() { return cSemicolonKeyword_4; }
+		public Keyword getSemicolonKeyword_3() { return cSemicolonKeyword_3; }
 	}
 
 	public class LinkElements extends AbstractParserRuleElementFinder {
@@ -1363,7 +1359,7 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 
 	//Attribute:
 	//
-	//	"attribute" att=[uml::Property|QualifiedName] "=" value=Value ";";
+	//	att=[uml::Property|QualifiedName] "=" value=Value ";";
 	public AttributeElements getAttributeAccess() {
 		return (pAttribute != null) ? pAttribute : (pAttribute = new AttributeElements());
 	}

@@ -52,7 +52,7 @@ ObjectSpecification:
 ;
 
 Attribute:
-	'attribute' att=[uml::Property|QualifiedName] '=' value=Value ';'
+	att=[uml::Property|QualifiedName] '=' value=Value ';'
 ;
 
 Link:

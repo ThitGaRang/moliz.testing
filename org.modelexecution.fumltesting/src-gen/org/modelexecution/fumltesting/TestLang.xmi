@@ -217,7 +217,6 @@
         <classifier xsi:type="ecore:EClass" href="http://www.modelexecution.org/fumltesting/TestLang#//Attribute"/>
       </type>
       <alternatives xsi:type="xtext:Group">
-        <elements xsi:type="xtext:Keyword" value="attribute"/>
         <elements xsi:type="xtext:Assignment" feature="att" operator="=">
           <terminal xsi:type="xtext:CrossReference">
             <type metamodel="/0/@metamodelDeclarations.0">

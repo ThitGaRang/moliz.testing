@@ -2,12 +2,12 @@ import model.*
 
 scenario TestData[	
 	object accountTO : Account{
-		attribute Account.number = 323454676;
-		attribute Account.balance = 800;
+		Account.number = 323454676;
+		Account.balance = 800;
 	}
 	object cardTO : Card{
-		attribute Card.number = 323454676;
-		attribute Card.pin = 1234;
+		Card.number = 323454676;
+		Card.pin = 1234;
 	}
 	object atmTO : ATM{}
 	link card_account{
@@ -23,7 +23,7 @@ test testCase1 activity ATMwithdrawActivity(ATMwithdrawActivity.card=TestData.ca
 	assertState always before ATMwithdrawActivity.call_withdraw{
 		account::Account.balance=800;
 	}
-	assertState always after ATMwithdrawActivity.successTrue{
+	assertState always after ATMwithdrawActivity.call_withdraw{
 		account::Account.balance=500;
 		successful = true;
 	}
@@ -32,7 +32,7 @@ test testCase2 activity ATMwithdrawActivity(ATMwithdrawActivity.card = TestData.
 	ATMwithdrawActivity.pin = 1234, ATMwithdrawActivity.amount = 800) on TestData.atmTO{
 	var account = ATMwithdrawActivity.readAccount.result;
 	var successful = ATMwithdrawActivity.successful;	
-	assertState always after ATMwithdrawActivity.successTrue{
+	assertState always after ATMwithdrawActivity.call_withdraw{
 		account::Account.balance = 0;
 		successful = true;
 	}
@@ -41,7 +41,7 @@ test testCase3 activity ATMwithdrawActivity(ATMwithdrawActivity.card = TestData.
 	ATMwithdrawActivity.pin = 1234, ATMwithdrawActivity.amount = 900) on TestData.atmTO{
 	var account = ATMwithdrawActivity.readAccount.result;
 	var successful = ATMwithdrawActivity.successful;
-	assertState always after ATMwithdrawActivity.successTrue{
+	assertState always after ATMwithdrawActivity.call_withdraw{
 		account::Account.balance = 800;
 		successful = false;
 	}
