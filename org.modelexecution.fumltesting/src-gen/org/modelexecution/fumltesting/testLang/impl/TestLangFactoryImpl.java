@@ -82,7 +82,7 @@ public class TestLangFactoryImpl extends EFactoryImpl implements TestLangFactory
       case TestLangPackage.STATE_EXPRESSION: return createStateExpression();
       case TestLangPackage.OBJECT_STATE_EXPRESSION: return createObjectStateExpression();
       case TestLangPackage.PROPERTY_STATE_EXPRESSION: return createPropertyStateExpression();
-      case TestLangPackage.ORDER_EXECUTION_ASSERTION: return createOrderExecutionAssertion();
+      case TestLangPackage.ORDER_ASSERTION: return createOrderAssertion();
       case TestLangPackage.NODE_ORDER: return createNodeOrder();
       case TestLangPackage.NODE_SPECIFICATION: return createNodeSpecification();
       default:
@@ -102,8 +102,6 @@ public class TestLangFactoryImpl extends EFactoryImpl implements TestLangFactory
     {
       case TestLangPackage.ARITHMETIC_OPERATOR:
         return createArithmeticOperatorFromString(eDataType, initialValue);
-      case TestLangPackage.LINK_OPERATOR:
-        return createLinkOperatorFromString(eDataType, initialValue);
       case TestLangPackage.TEMPORAL_OPERATOR:
         return createTemporalOperatorFromString(eDataType, initialValue);
       case TestLangPackage.TEMPORAL_QUANTIFIER:
@@ -125,8 +123,6 @@ public class TestLangFactoryImpl extends EFactoryImpl implements TestLangFactory
     {
       case TestLangPackage.ARITHMETIC_OPERATOR:
         return convertArithmeticOperatorToString(eDataType, instanceValue);
-      case TestLangPackage.LINK_OPERATOR:
-        return convertLinkOperatorToString(eDataType, instanceValue);
       case TestLangPackage.TEMPORAL_OPERATOR:
         return convertTemporalOperatorToString(eDataType, instanceValue);
       case TestLangPackage.TEMPORAL_QUANTIFIER:
@@ -328,10 +324,10 @@ public class TestLangFactoryImpl extends EFactoryImpl implements TestLangFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public OrderExecutionAssertion createOrderExecutionAssertion()
+  public OrderAssertion createOrderAssertion()
   {
-    OrderExecutionAssertionImpl orderExecutionAssertion = new OrderExecutionAssertionImpl();
-    return orderExecutionAssertion;
+    OrderAssertionImpl orderAssertion = new OrderAssertionImpl();
+    return orderAssertion;
   }
 
   /**
@@ -374,28 +370,6 @@ public class TestLangFactoryImpl extends EFactoryImpl implements TestLangFactory
    * @generated
    */
   public String convertArithmeticOperatorToString(EDataType eDataType, Object instanceValue)
-  {
-    return instanceValue == null ? null : instanceValue.toString();
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public LinkOperator createLinkOperatorFromString(EDataType eDataType, String initialValue)
-  {
-    LinkOperator result = LinkOperator.get(initialValue);
-    if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
-    return result;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public String convertLinkOperatorToString(EDataType eDataType, Object instanceValue)
   {
     return instanceValue == null ? null : instanceValue.toString();
   }

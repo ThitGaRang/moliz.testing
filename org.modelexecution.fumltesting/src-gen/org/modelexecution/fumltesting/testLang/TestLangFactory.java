@@ -176,13 +176,13 @@ public interface TestLangFactory extends EFactory
   PropertyStateExpression createPropertyStateExpression();
 
   /**
-   * Returns a new object of class '<em>Order Execution Assertion</em>'.
+   * Returns a new object of class '<em>Order Assertion</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Order Execution Assertion</em>'.
+   * @return a new object of class '<em>Order Assertion</em>'.
    * @generated
    */
-  OrderExecutionAssertion createOrderExecutionAssertion();
+  OrderAssertion createOrderAssertion();
 
   /**
    * Returns a new object of class '<em>Node Order</em>'.

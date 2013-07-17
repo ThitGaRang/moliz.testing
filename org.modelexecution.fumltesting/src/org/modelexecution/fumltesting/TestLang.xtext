@@ -63,7 +63,7 @@ Link:
 ;
 
 Assertion:
-	OrderExecutionAssertion | StateAssertion
+	OrderAssertion | StateAssertion
 ;
 
 StateAssertion:
@@ -83,7 +83,7 @@ PropertyStateExpression:
 	pin=[VarDeclaration] '::' property=[uml::Property|QualifiedName] operator=ArithmeticOperator value=Value ';'
 ;
 
-OrderExecutionAssertion:
+OrderAssertion:
 	'assertOrder' order=NodeOrder ';' 
 ;
 
@@ -97,10 +97,6 @@ NodeSpecification:
 
 enum ArithmeticOperator:
 	equal='='|not_equal='!='|greater='>'|smaller='<'|greater_equal='>='|smaller_equal='<='
-;
-
-enum LinkOperator:
-	unidirect='->'|bidirect='<->'
 ;
 
 enum TemporalOperator:

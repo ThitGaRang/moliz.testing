@@ -1009,11 +1009,11 @@ ruleAssertion returns [EObject current=null]
     @after { leaveRule(); }:
 (
     { 
-        newCompositeNode(grammarAccess.getAssertionAccess().getOrderExecutionAssertionParserRuleCall_0()); 
+        newCompositeNode(grammarAccess.getAssertionAccess().getOrderAssertionParserRuleCall_0()); 
     }
-    this_OrderExecutionAssertion_0=ruleOrderExecutionAssertion
+    this_OrderAssertion_0=ruleOrderAssertion
     { 
-        $current = $this_OrderExecutionAssertion_0.current; 
+        $current = $this_OrderAssertion_0.current; 
         afterParserOrEnumRuleCall();
     }
 
@@ -1361,32 +1361,32 @@ rulePropertyStateExpression returns [EObject current=null]
 
 
 
-// Entry rule entryRuleOrderExecutionAssertion
-entryRuleOrderExecutionAssertion returns [EObject current=null] 
+// Entry rule entryRuleOrderAssertion
+entryRuleOrderAssertion returns [EObject current=null] 
 	:
-	{ newCompositeNode(grammarAccess.getOrderExecutionAssertionRule()); }
-	 iv_ruleOrderExecutionAssertion=ruleOrderExecutionAssertion 
-	 { $current=$iv_ruleOrderExecutionAssertion.current; } 
+	{ newCompositeNode(grammarAccess.getOrderAssertionRule()); }
+	 iv_ruleOrderAssertion=ruleOrderAssertion 
+	 { $current=$iv_ruleOrderAssertion.current; } 
 	 EOF 
 ;
 
-// Rule OrderExecutionAssertion
-ruleOrderExecutionAssertion returns [EObject current=null] 
+// Rule OrderAssertion
+ruleOrderAssertion returns [EObject current=null] 
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
 (	otherlv_0='assertOrder' 
     {
-    	newLeafNode(otherlv_0, grammarAccess.getOrderExecutionAssertionAccess().getAssertOrderKeyword_0());
+    	newLeafNode(otherlv_0, grammarAccess.getOrderAssertionAccess().getAssertOrderKeyword_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getOrderExecutionAssertionAccess().getOrderNodeOrderParserRuleCall_1_0()); 
+	        newCompositeNode(grammarAccess.getOrderAssertionAccess().getOrderNodeOrderParserRuleCall_1_0()); 
 	    }
 		lv_order_1_0=ruleNodeOrder		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getOrderExecutionAssertionRule());
+	            $current = createModelElementForParent(grammarAccess.getOrderAssertionRule());
 	        }
        		set(
        			$current, 
@@ -1399,7 +1399,7 @@ ruleOrderExecutionAssertion returns [EObject current=null]
 )
 )	otherlv_2=';' 
     {
-    	newLeafNode(otherlv_2, grammarAccess.getOrderExecutionAssertionAccess().getSemicolonKeyword_2());
+    	newLeafNode(otherlv_2, grammarAccess.getOrderAssertionAccess().getSemicolonKeyword_2());
     }
 )
 ;
@@ -6373,8 +6373,6 @@ ruleArithmeticOperator returns [Enumerator current=null]
         newLeafNode(enumLiteral_5, grammarAccess.getArithmeticOperatorAccess().getSmaller_equalEnumLiteralDeclaration_5()); 
     }
 ));
-
-
 
 
 

@@ -777,14 +777,14 @@ public interface TestLangPackage extends EPackage
   int PROPERTY_STATE_EXPRESSION_FEATURE_COUNT = STATE_EXPRESSION_FEATURE_COUNT + 1;
 
   /**
-   * The meta object id for the '{@link org.modelexecution.fumltesting.testLang.impl.OrderExecutionAssertionImpl <em>Order Execution Assertion</em>}' class.
+   * The meta object id for the '{@link org.modelexecution.fumltesting.testLang.impl.OrderAssertionImpl <em>Order Assertion</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see org.modelexecution.fumltesting.testLang.impl.OrderExecutionAssertionImpl
-   * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getOrderExecutionAssertion()
+   * @see org.modelexecution.fumltesting.testLang.impl.OrderAssertionImpl
+   * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getOrderAssertion()
    * @generated
    */
-  int ORDER_EXECUTION_ASSERTION = 17;
+  int ORDER_ASSERTION = 17;
 
   /**
    * The feature id for the '<em><b>Order</b></em>' containment reference.
@@ -793,16 +793,16 @@ public interface TestLangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ORDER_EXECUTION_ASSERTION__ORDER = ASSERTION_FEATURE_COUNT + 0;
+  int ORDER_ASSERTION__ORDER = ASSERTION_FEATURE_COUNT + 0;
 
   /**
-   * The number of structural features of the '<em>Order Execution Assertion</em>' class.
+   * The number of structural features of the '<em>Order Assertion</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int ORDER_EXECUTION_ASSERTION_FEATURE_COUNT = ASSERTION_FEATURE_COUNT + 1;
+  int ORDER_ASSERTION_FEATURE_COUNT = ASSERTION_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link org.modelexecution.fumltesting.testLang.impl.NodeOrderImpl <em>Node Order</em>}' class.
@@ -898,16 +898,6 @@ public interface TestLangPackage extends EPackage
   int ARITHMETIC_OPERATOR = 20;
 
   /**
-   * The meta object id for the '{@link org.modelexecution.fumltesting.testLang.LinkOperator <em>Link Operator</em>}' enum.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.modelexecution.fumltesting.testLang.LinkOperator
-   * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getLinkOperator()
-   * @generated
-   */
-  int LINK_OPERATOR = 21;
-
-  /**
    * The meta object id for the '{@link org.modelexecution.fumltesting.testLang.TemporalOperator <em>Temporal Operator</em>}' enum.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -915,7 +905,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getTemporalOperator()
    * @generated
    */
-  int TEMPORAL_OPERATOR = 22;
+  int TEMPORAL_OPERATOR = 21;
 
   /**
    * The meta object id for the '{@link org.modelexecution.fumltesting.testLang.TemporalQuantifier <em>Temporal Quantifier</em>}' enum.
@@ -925,7 +915,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getTemporalQuantifier()
    * @generated
    */
-  int TEMPORAL_QUANTIFIER = 23;
+  int TEMPORAL_QUANTIFIER = 22;
 
 
   /**
@@ -1517,25 +1507,25 @@ public interface TestLangPackage extends EPackage
   EReference getPropertyStateExpression_Property();
 
   /**
-   * Returns the meta object for class '{@link org.modelexecution.fumltesting.testLang.OrderExecutionAssertion <em>Order Execution Assertion</em>}'.
+   * Returns the meta object for class '{@link org.modelexecution.fumltesting.testLang.OrderAssertion <em>Order Assertion</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Order Execution Assertion</em>'.
-   * @see org.modelexecution.fumltesting.testLang.OrderExecutionAssertion
+   * @return the meta object for class '<em>Order Assertion</em>'.
+   * @see org.modelexecution.fumltesting.testLang.OrderAssertion
    * @generated
    */
-  EClass getOrderExecutionAssertion();
+  EClass getOrderAssertion();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.modelexecution.fumltesting.testLang.OrderExecutionAssertion#getOrder <em>Order</em>}'.
+   * Returns the meta object for the containment reference '{@link org.modelexecution.fumltesting.testLang.OrderAssertion#getOrder <em>Order</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Order</em>'.
-   * @see org.modelexecution.fumltesting.testLang.OrderExecutionAssertion#getOrder()
-   * @see #getOrderExecutionAssertion()
+   * @see org.modelexecution.fumltesting.testLang.OrderAssertion#getOrder()
+   * @see #getOrderAssertion()
    * @generated
    */
-  EReference getOrderExecutionAssertion_Order();
+  EReference getOrderAssertion_Order();
 
   /**
    * Returns the meta object for class '{@link org.modelexecution.fumltesting.testLang.NodeOrder <em>Node Order</em>}'.
@@ -1621,16 +1611,6 @@ public interface TestLangPackage extends EPackage
    * @generated
    */
   EEnum getArithmeticOperator();
-
-  /**
-   * Returns the meta object for enum '{@link org.modelexecution.fumltesting.testLang.LinkOperator <em>Link Operator</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for enum '<em>Link Operator</em>'.
-   * @see org.modelexecution.fumltesting.testLang.LinkOperator
-   * @generated
-   */
-  EEnum getLinkOperator();
 
   /**
    * Returns the meta object for enum '{@link org.modelexecution.fumltesting.testLang.TemporalOperator <em>Temporal Operator</em>}'.
@@ -2150,14 +2130,14 @@ public interface TestLangPackage extends EPackage
     EReference PROPERTY_STATE_EXPRESSION__PROPERTY = eINSTANCE.getPropertyStateExpression_Property();
 
     /**
-     * The meta object literal for the '{@link org.modelexecution.fumltesting.testLang.impl.OrderExecutionAssertionImpl <em>Order Execution Assertion</em>}' class.
+     * The meta object literal for the '{@link org.modelexecution.fumltesting.testLang.impl.OrderAssertionImpl <em>Order Assertion</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see org.modelexecution.fumltesting.testLang.impl.OrderExecutionAssertionImpl
-     * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getOrderExecutionAssertion()
+     * @see org.modelexecution.fumltesting.testLang.impl.OrderAssertionImpl
+     * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getOrderAssertion()
      * @generated
      */
-    EClass ORDER_EXECUTION_ASSERTION = eINSTANCE.getOrderExecutionAssertion();
+    EClass ORDER_ASSERTION = eINSTANCE.getOrderAssertion();
 
     /**
      * The meta object literal for the '<em><b>Order</b></em>' containment reference feature.
@@ -2165,7 +2145,7 @@ public interface TestLangPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference ORDER_EXECUTION_ASSERTION__ORDER = eINSTANCE.getOrderExecutionAssertion_Order();
+    EReference ORDER_ASSERTION__ORDER = eINSTANCE.getOrderAssertion_Order();
 
     /**
      * The meta object literal for the '{@link org.modelexecution.fumltesting.testLang.impl.NodeOrderImpl <em>Node Order</em>}' class.
@@ -2236,16 +2216,6 @@ public interface TestLangPackage extends EPackage
      * @generated
      */
     EEnum ARITHMETIC_OPERATOR = eINSTANCE.getArithmeticOperator();
-
-    /**
-     * The meta object literal for the '{@link org.modelexecution.fumltesting.testLang.LinkOperator <em>Link Operator</em>}' enum.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.modelexecution.fumltesting.testLang.LinkOperator
-     * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getLinkOperator()
-     * @generated
-     */
-    EEnum LINK_OPERATOR = eINSTANCE.getLinkOperator();
 
     /**
      * The meta object literal for the '{@link org.modelexecution.fumltesting.testLang.TemporalOperator <em>Temporal Operator</em>}' enum.

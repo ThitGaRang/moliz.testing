@@ -74,7 +74,6 @@ public class TestLangParser extends AbstractContentAssistParser {
 					put(grammarAccess.getJvmWildcardTypeReferenceAccess().getAlternatives_2(), "rule__JvmWildcardTypeReference__Alternatives_2");
 					put(grammarAccess.getJvmTypeParameterAccess().getAlternatives_1(), "rule__JvmTypeParameter__Alternatives_1");
 					put(grammarAccess.getArithmeticOperatorAccess().getAlternatives(), "rule__ArithmeticOperator__Alternatives");
-					put(grammarAccess.getLinkOperatorAccess().getAlternatives(), "rule__LinkOperator__Alternatives");
 					put(grammarAccess.getTemporalOperatorAccess().getAlternatives(), "rule__TemporalOperator__Alternatives");
 					put(grammarAccess.getTemporalQuantifierAccess().getAlternatives(), "rule__TemporalQuantifier__Alternatives");
 					put(grammarAccess.getTestSuiteAccess().getGroup(), "rule__TestSuite__Group__0");
@@ -95,7 +94,7 @@ public class TestLangParser extends AbstractContentAssistParser {
 					put(grammarAccess.getStateAssertionAccess().getGroup_2(), "rule__StateAssertion__Group_2__0");
 					put(grammarAccess.getObjectStateExpressionAccess().getGroup(), "rule__ObjectStateExpression__Group__0");
 					put(grammarAccess.getPropertyStateExpressionAccess().getGroup(), "rule__PropertyStateExpression__Group__0");
-					put(grammarAccess.getOrderExecutionAssertionAccess().getGroup(), "rule__OrderExecutionAssertion__Group__0");
+					put(grammarAccess.getOrderAssertionAccess().getGroup(), "rule__OrderAssertion__Group__0");
 					put(grammarAccess.getNodeOrderAccess().getGroup(), "rule__NodeOrder__Group__0");
 					put(grammarAccess.getNodeOrderAccess().getGroup_1(), "rule__NodeOrder__Group_1__0");
 					put(grammarAccess.getNodeSpecificationAccess().getGroup_0(), "rule__NodeSpecification__Group_0__0");
@@ -285,7 +284,7 @@ public class TestLangParser extends AbstractContentAssistParser {
 					put(grammarAccess.getPropertyStateExpressionAccess().getPropertyAssignment_2(), "rule__PropertyStateExpression__PropertyAssignment_2");
 					put(grammarAccess.getPropertyStateExpressionAccess().getOperatorAssignment_3(), "rule__PropertyStateExpression__OperatorAssignment_3");
 					put(grammarAccess.getPropertyStateExpressionAccess().getValueAssignment_4(), "rule__PropertyStateExpression__ValueAssignment_4");
-					put(grammarAccess.getOrderExecutionAssertionAccess().getOrderAssignment_1(), "rule__OrderExecutionAssertion__OrderAssignment_1");
+					put(grammarAccess.getOrderAssertionAccess().getOrderAssignment_1(), "rule__OrderAssertion__OrderAssignment_1");
 					put(grammarAccess.getNodeOrderAccess().getNodesAssignment_0(), "rule__NodeOrder__NodesAssignment_0");
 					put(grammarAccess.getNodeOrderAccess().getNodesAssignment_1_1(), "rule__NodeOrder__NodesAssignment_1_1");
 					put(grammarAccess.getNodeSpecificationAccess().getNodeAssignment_0_0(), "rule__NodeSpecification__NodeAssignment_0_0");

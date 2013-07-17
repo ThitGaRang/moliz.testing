@@ -561,25 +561,25 @@ finally {
 
 
 
-// Entry rule entryRuleOrderExecutionAssertion
-entryRuleOrderExecutionAssertion 
+// Entry rule entryRuleOrderAssertion
+entryRuleOrderAssertion 
 :
-{ before(grammarAccess.getOrderExecutionAssertionRule()); }
-	 ruleOrderExecutionAssertion
-{ after(grammarAccess.getOrderExecutionAssertionRule()); } 
+{ before(grammarAccess.getOrderAssertionRule()); }
+	 ruleOrderAssertion
+{ after(grammarAccess.getOrderAssertionRule()); } 
 	 EOF 
 ;
 
-// Rule OrderExecutionAssertion
-ruleOrderExecutionAssertion
+// Rule OrderAssertion
+ruleOrderAssertion
     @init {
 		int stackSize = keepStackSize();
     }
 	:
 (
-{ before(grammarAccess.getOrderExecutionAssertionAccess().getGroup()); }
-(rule__OrderExecutionAssertion__Group__0)
-{ after(grammarAccess.getOrderExecutionAssertionAccess().getGroup()); }
+{ before(grammarAccess.getOrderAssertionAccess().getGroup()); }
+(rule__OrderAssertion__Group__0)
+{ after(grammarAccess.getOrderAssertionAccess().getGroup()); }
 )
 
 ;
@@ -2454,8 +2454,6 @@ finally {
 
 
 
-
-
 // Rule TemporalOperator
 ruleTemporalOperator
     @init {
@@ -2522,9 +2520,9 @@ rule__Assertion__Alternatives
     }
 :
 (
-{ before(grammarAccess.getAssertionAccess().getOrderExecutionAssertionParserRuleCall_0()); }
-	ruleOrderExecutionAssertion
-{ after(grammarAccess.getAssertionAccess().getOrderExecutionAssertionParserRuleCall_0()); }
+{ before(grammarAccess.getAssertionAccess().getOrderAssertionParserRuleCall_0()); }
+	ruleOrderAssertion
+{ after(grammarAccess.getAssertionAccess().getOrderAssertionParserRuleCall_0()); }
 )
 
     |(
@@ -3538,7 +3536,6 @@ rule__ArithmeticOperator__Alternatives
 finally {
 	restoreStackSize(stackSize);
 }
-
 
 rule__TemporalOperator__Alternatives
     @init {
@@ -6226,29 +6223,29 @@ finally {
 
 
 
-rule__OrderExecutionAssertion__Group__0
+rule__OrderAssertion__Group__0
     @init {
 		int stackSize = keepStackSize();
     }
 :
-	rule__OrderExecutionAssertion__Group__0__Impl
-	rule__OrderExecutionAssertion__Group__1
+	rule__OrderAssertion__Group__0__Impl
+	rule__OrderAssertion__Group__1
 ;
 finally {
 	restoreStackSize(stackSize);
 }
 
-rule__OrderExecutionAssertion__Group__0__Impl
+rule__OrderAssertion__Group__0__Impl
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getOrderExecutionAssertionAccess().getAssertOrderKeyword_0()); }
+{ before(grammarAccess.getOrderAssertionAccess().getAssertOrderKeyword_0()); }
 
 	'assertOrder' 
 
-{ after(grammarAccess.getOrderExecutionAssertionAccess().getAssertOrderKeyword_0()); }
+{ after(grammarAccess.getOrderAssertionAccess().getAssertOrderKeyword_0()); }
 )
 
 ;
@@ -6257,27 +6254,27 @@ finally {
 }
 
 
-rule__OrderExecutionAssertion__Group__1
+rule__OrderAssertion__Group__1
     @init {
 		int stackSize = keepStackSize();
     }
 :
-	rule__OrderExecutionAssertion__Group__1__Impl
-	rule__OrderExecutionAssertion__Group__2
+	rule__OrderAssertion__Group__1__Impl
+	rule__OrderAssertion__Group__2
 ;
 finally {
 	restoreStackSize(stackSize);
 }
 
-rule__OrderExecutionAssertion__Group__1__Impl
+rule__OrderAssertion__Group__1__Impl
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getOrderExecutionAssertionAccess().getOrderAssignment_1()); }
-(rule__OrderExecutionAssertion__OrderAssignment_1)
-{ after(grammarAccess.getOrderExecutionAssertionAccess().getOrderAssignment_1()); }
+{ before(grammarAccess.getOrderAssertionAccess().getOrderAssignment_1()); }
+(rule__OrderAssertion__OrderAssignment_1)
+{ after(grammarAccess.getOrderAssertionAccess().getOrderAssignment_1()); }
 )
 
 ;
@@ -6286,28 +6283,28 @@ finally {
 }
 
 
-rule__OrderExecutionAssertion__Group__2
+rule__OrderAssertion__Group__2
     @init {
 		int stackSize = keepStackSize();
     }
 :
-	rule__OrderExecutionAssertion__Group__2__Impl
+	rule__OrderAssertion__Group__2__Impl
 ;
 finally {
 	restoreStackSize(stackSize);
 }
 
-rule__OrderExecutionAssertion__Group__2__Impl
+rule__OrderAssertion__Group__2__Impl
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getOrderExecutionAssertionAccess().getSemicolonKeyword_2()); }
+{ before(grammarAccess.getOrderAssertionAccess().getSemicolonKeyword_2()); }
 
 	';' 
 
-{ after(grammarAccess.getOrderExecutionAssertionAccess().getSemicolonKeyword_2()); }
+{ after(grammarAccess.getOrderAssertionAccess().getSemicolonKeyword_2()); }
 )
 
 ;
@@ -18004,14 +18001,14 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__OrderExecutionAssertion__OrderAssignment_1
+rule__OrderAssertion__OrderAssignment_1
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getOrderExecutionAssertionAccess().getOrderNodeOrderParserRuleCall_1_0()); }
-	ruleNodeOrder{ after(grammarAccess.getOrderExecutionAssertionAccess().getOrderNodeOrderParserRuleCall_1_0()); }
+{ before(grammarAccess.getOrderAssertionAccess().getOrderNodeOrderParserRuleCall_1_0()); }
+	ruleNodeOrder{ after(grammarAccess.getOrderAssertionAccess().getOrderNodeOrderParserRuleCall_1_0()); }
 )
 
 ;

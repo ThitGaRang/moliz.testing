@@ -21,13 +21,12 @@ import org.modelexecution.fumltesting.testLang.Assertion;
 import org.modelexecution.fumltesting.testLang.Attribute;
 import org.modelexecution.fumltesting.testLang.Import;
 import org.modelexecution.fumltesting.testLang.Link;
-import org.modelexecution.fumltesting.testLang.LinkOperator;
 import org.modelexecution.fumltesting.testLang.NodeOrder;
 import org.modelexecution.fumltesting.testLang.NodeSpecification;
 import org.modelexecution.fumltesting.testLang.ObjectSpecification;
 import org.modelexecution.fumltesting.testLang.ObjectStateExpression;
 import org.modelexecution.fumltesting.testLang.ObjectValue;
-import org.modelexecution.fumltesting.testLang.OrderExecutionAssertion;
+import org.modelexecution.fumltesting.testLang.OrderAssertion;
 import org.modelexecution.fumltesting.testLang.PropertyStateExpression;
 import org.modelexecution.fumltesting.testLang.Scenario;
 import org.modelexecution.fumltesting.testLang.SimpleValue;
@@ -174,7 +173,7 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass orderExecutionAssertionEClass = null;
+  private EClass orderAssertionEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -196,13 +195,6 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * @generated
    */
   private EEnum arithmeticOperatorEEnum = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EEnum linkOperatorEEnum = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -840,9 +832,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getOrderExecutionAssertion()
+  public EClass getOrderAssertion()
   {
-    return orderExecutionAssertionEClass;
+    return orderAssertionEClass;
   }
 
   /**
@@ -850,9 +842,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getOrderExecutionAssertion_Order()
+  public EReference getOrderAssertion_Order()
   {
-    return (EReference)orderExecutionAssertionEClass.getEStructuralFeatures().get(0);
+    return (EReference)orderAssertionEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -933,16 +925,6 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
   public EEnum getArithmeticOperator()
   {
     return arithmeticOperatorEEnum;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EEnum getLinkOperator()
-  {
-    return linkOperatorEEnum;
   }
 
   /**
@@ -1067,8 +1049,8 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
     propertyStateExpressionEClass = createEClass(PROPERTY_STATE_EXPRESSION);
     createEReference(propertyStateExpressionEClass, PROPERTY_STATE_EXPRESSION__PROPERTY);
 
-    orderExecutionAssertionEClass = createEClass(ORDER_EXECUTION_ASSERTION);
-    createEReference(orderExecutionAssertionEClass, ORDER_EXECUTION_ASSERTION__ORDER);
+    orderAssertionEClass = createEClass(ORDER_ASSERTION);
+    createEReference(orderAssertionEClass, ORDER_ASSERTION__ORDER);
 
     nodeOrderEClass = createEClass(NODE_ORDER);
     createEReference(nodeOrderEClass, NODE_ORDER__NODES);
@@ -1081,7 +1063,6 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
 
     // Create enums
     arithmeticOperatorEEnum = createEEnum(ARITHMETIC_OPERATOR);
-    linkOperatorEEnum = createEEnum(LINK_OPERATOR);
     temporalOperatorEEnum = createEEnum(TEMPORAL_OPERATOR);
     temporalQuantifierEEnum = createEEnum(TEMPORAL_QUANTIFIER);
   }
@@ -1125,7 +1106,7 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
     stateAssertionEClass.getESuperTypes().add(this.getAssertion());
     objectStateExpressionEClass.getESuperTypes().add(this.getStateExpression());
     propertyStateExpressionEClass.getESuperTypes().add(this.getStateExpression());
-    orderExecutionAssertionEClass.getESuperTypes().add(this.getAssertion());
+    orderAssertionEClass.getESuperTypes().add(this.getAssertion());
 
     // Initialize classes and features; add operations and parameters
     initEClass(testSuiteEClass, TestSuite.class, "TestSuite", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1200,8 +1181,8 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
     initEClass(propertyStateExpressionEClass, PropertyStateExpression.class, "PropertyStateExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getPropertyStateExpression_Property(), theUMLPackage.getProperty(), null, "property", null, 0, 1, PropertyStateExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(orderExecutionAssertionEClass, OrderExecutionAssertion.class, "OrderExecutionAssertion", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getOrderExecutionAssertion_Order(), this.getNodeOrder(), null, "order", null, 0, 1, OrderExecutionAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(orderAssertionEClass, OrderAssertion.class, "OrderAssertion", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getOrderAssertion_Order(), this.getNodeOrder(), null, "order", null, 0, 1, OrderAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(nodeOrderEClass, NodeOrder.class, "NodeOrder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getNodeOrder_Nodes(), this.getNodeSpecification(), null, "nodes", null, 0, -1, NodeOrder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1220,10 +1201,6 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
     addEEnumLiteral(arithmeticOperatorEEnum, ArithmeticOperator.SMALLER);
     addEEnumLiteral(arithmeticOperatorEEnum, ArithmeticOperator.GREATER_EQUAL);
     addEEnumLiteral(arithmeticOperatorEEnum, ArithmeticOperator.SMALLER_EQUAL);
-
-    initEEnum(linkOperatorEEnum, LinkOperator.class, "LinkOperator");
-    addEEnumLiteral(linkOperatorEEnum, LinkOperator.UNIDIRECT);
-    addEEnumLiteral(linkOperatorEEnum, LinkOperator.BIDIRECT);
 
     initEEnum(temporalOperatorEEnum, TemporalOperator.class, "TemporalOperator");
     addEEnumLiteral(temporalOperatorEEnum, TemporalOperator.AFTER);

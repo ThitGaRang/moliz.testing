@@ -23,16 +23,18 @@ public class TraceUtil {
 	/** Trace of an activity execution. */
 	private Trace trace;
 	/** Used to generate flat list with all node executions, from main activity and all its children activities. */
-	private List<ActivityNodeExecution> executedNodes = new ArrayList<ActivityNodeExecution>();
+	private List<ActivityNodeExecution> executedNodes;
 	/** Flag indicating if the flat list of executed nodes has already been generated. */
-	private boolean executedNodesListGenerated = false;
+	private boolean executedNodesListGenerated;
 	/** Utility class for executing fUML activities. */
 	private ActivityExecutor executor;
 	
 	public TraceUtil(int activityExecutionID, ActivityExecutor executor){
 		trace = ExecutionContext.getInstance().getTrace(activityExecutionID);
 		this.executor = executor;
-		initializeExecutedNodesList(activityExecutionID);
+		executedNodes = new ArrayList<ActivityNodeExecution>();
+		executedNodesListGenerated = false;
+		initializeExecutedNodesList(activityExecutionID);		
 	}
 	
 	/** Generates flat list of all executed nodes, from main activity and all nested activities. */

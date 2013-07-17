@@ -15,10 +15,6 @@
       <genEnumLiterals ecoreEnumLiteral="TestLang.ecore#//ArithmeticOperator/greater_equal"/>
       <genEnumLiterals ecoreEnumLiteral="TestLang.ecore#//ArithmeticOperator/smaller_equal"/>
     </genEnums>
-    <genEnums typeSafeEnumCompatible="false" ecoreEnum="TestLang.ecore#//LinkOperator">
-      <genEnumLiterals ecoreEnumLiteral="TestLang.ecore#//LinkOperator/unidirect"/>
-      <genEnumLiterals ecoreEnumLiteral="TestLang.ecore#//LinkOperator/bidirect"/>
-    </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="TestLang.ecore#//TemporalOperator">
       <genEnumLiterals ecoreEnumLiteral="TestLang.ecore#//TemporalOperator/after"/>
       <genEnumLiterals ecoreEnumLiteral="TestLang.ecore#//TemporalOperator/before"/>
@@ -96,8 +92,8 @@
     <genClasses ecoreClass="TestLang.ecore#//PropertyStateExpression">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference TestLang.ecore#//PropertyStateExpression/property"/>
     </genClasses>
-    <genClasses ecoreClass="TestLang.ecore#//OrderExecutionAssertion">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TestLang.ecore#//OrderExecutionAssertion/order"/>
+    <genClasses ecoreClass="TestLang.ecore#//OrderAssertion">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TestLang.ecore#//OrderAssertion/order"/>
     </genClasses>
     <genClasses ecoreClass="TestLang.ecore#//NodeOrder">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TestLang.ecore#//NodeOrder/nodes"/>

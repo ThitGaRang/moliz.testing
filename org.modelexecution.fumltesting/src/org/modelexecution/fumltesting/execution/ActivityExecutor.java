@@ -41,45 +41,31 @@ public class ActivityExecutor implements ExecutionEventListener {
 	private int mainActivityID;
 	/** Original UML model under test. */
 	private NamedElement umlModel;
+	/** Result obtained from converting UML to fUML model. */
+	private IConversionResult convertedModel;
 	/** List of events risen during execution. */
 	private List<Event> eventlist;
-	/** Result obtained from converting UML to fUML model. */
-	private IConversionResult result;
 	/** Utility class for converting input data for activity under test. */
 	private TestDataConverter testDataConverter;
 	/** List of parameters for an activity. */
-	private ParameterValueList parameters = new ParameterValueList();
+	private ParameterValueList parameters;
 	List<ActivityNode> enabledNodes;
 	
 	public ActivityExecutor(NamedElement umlModel){
 		this.umlModel = umlModel;
 		IConverter converter = ConverterRegistry.getInstance().getConverter(umlModel);
-		result = converter.convert(this.umlModel);
+		convertedModel = converter.convert(this.umlModel);
 		replaceOpaqueBehaviors();
-		TestDataConverter.setModel(result);
+		TestDataConverter.setModel(convertedModel);
 		testDataConverter = TestDataConverter.getInstance();
-	}
-
-	/** 
-	 * Returns original UML element that was converted to {@code element}. 
-	 */
-	public Object getOriginal(Element element){
-		return result.getInputObject(element);
-	}
-	
-	/**
-	 * Returs the result of conversion of UML model to fUML.
-	 * @return
-	 */
-	public IConversionResult getConversionResult(){
-		return result;
+		parameters = new ParameterValueList();
 	}
 	
 	/**
 	 * Converts the specified {@code activity} into fUML Activity and executes it.
 	 */
 	public int executeActivity(org.eclipse.uml2.uml.Activity activity, List<ActivityInput> activityInputs, ObjectSpecification context){
-		Activity fumlActivity = result.getActivity(activity.getName());
+		Activity fumlActivity = convertedModel.getActivity(activity.getName());
 		for(ActivityInput input: activityInputs){
 			Object object = testDataConverter.getFUMLElement(input.getValue());
 			
@@ -111,8 +97,6 @@ public class ActivityExecutor implements ExecutionEventListener {
 		//add a listener
 		eventlist = new ArrayList<Event>();
 		getExecutionContext().addEventListener(this);
-		
-		//execution with listener attached
 		enabledNodes = new ArrayList<ActivityNode>();
 		
 		//insert the converted context object, if it exists
@@ -127,7 +111,7 @@ public class ActivityExecutor implements ExecutionEventListener {
 	
 	private void replaceOpaqueBehaviors() {
 		List<ActivityNode> nodesWithBehavior = new ArrayList<ActivityNode>();
-		for (fUML.Syntax.Activities.IntermediateActivities.Activity activity : result
+		for (fUML.Syntax.Activities.IntermediateActivities.Activity activity : convertedModel
 				.getAllActivities()) {
 			nodesWithBehavior.addAll(getBehaviorNodes(activity.node));
 		}
@@ -171,6 +155,21 @@ public class ActivityExecutor implements ExecutionEventListener {
 			}
 		}
 		return nodesWithBehavior;
+	}
+	
+	/** 
+	 * Returns original UML element that was converted to {@code element}. 
+	 */
+	public Object getOriginal(Element element){
+		return convertedModel.getInputObject(element);
+	}
+	
+	/**
+	 * Returs the result of conversion of UML model to fUML.
+	 * @return
+	 */
+	public IConversionResult getConversionResult(){
+		return convertedModel;
 	}
 	
 	@Override

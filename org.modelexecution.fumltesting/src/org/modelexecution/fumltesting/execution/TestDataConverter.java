@@ -37,9 +37,11 @@ public class TestDataConverter {
 	
 	private static TestDataConverter INSTANCE;
 	private IConversionResult model;
-	private Locus locus = ExecutionContext.getInstance().getLocus();
+	private Locus locus;
 	
-	private TestDataConverter(){}
+	private TestDataConverter(){
+		locus = ExecutionContext.getInstance().getLocus();
+	}
 	
 	public static TestDataConverter getInstance(){
 		if(INSTANCE == null){

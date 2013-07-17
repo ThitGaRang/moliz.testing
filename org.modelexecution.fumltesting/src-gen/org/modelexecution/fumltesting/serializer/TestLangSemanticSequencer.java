@@ -60,7 +60,7 @@ import org.modelexecution.fumltesting.testLang.NodeSpecification;
 import org.modelexecution.fumltesting.testLang.ObjectSpecification;
 import org.modelexecution.fumltesting.testLang.ObjectStateExpression;
 import org.modelexecution.fumltesting.testLang.ObjectValue;
-import org.modelexecution.fumltesting.testLang.OrderExecutionAssertion;
+import org.modelexecution.fumltesting.testLang.OrderAssertion;
 import org.modelexecution.fumltesting.testLang.PropertyStateExpression;
 import org.modelexecution.fumltesting.testLang.Scenario;
 import org.modelexecution.fumltesting.testLang.SimpleValue;
@@ -134,10 +134,10 @@ public class TestLangSemanticSequencer extends XbaseSemanticSequencer {
 					return; 
 				}
 				else break;
-			case TestLangPackage.ORDER_EXECUTION_ASSERTION:
+			case TestLangPackage.ORDER_ASSERTION:
 				if(context == grammarAccess.getAssertionRule() ||
-				   context == grammarAccess.getOrderExecutionAssertionRule()) {
-					sequence_OrderExecutionAssertion(context, (OrderExecutionAssertion) semanticObject); 
+				   context == grammarAccess.getOrderAssertionRule()) {
+					sequence_OrderAssertion(context, (OrderAssertion) semanticObject); 
 					return; 
 				}
 				else break;
@@ -1203,14 +1203,14 @@ public class TestLangSemanticSequencer extends XbaseSemanticSequencer {
 	 * Constraint:
 	 *     order=NodeOrder
 	 */
-	protected void sequence_OrderExecutionAssertion(EObject context, OrderExecutionAssertion semanticObject) {
+	protected void sequence_OrderAssertion(EObject context, OrderAssertion semanticObject) {
 		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.ORDER_EXECUTION_ASSERTION__ORDER) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.ORDER_EXECUTION_ASSERTION__ORDER));
+			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.ORDER_ASSERTION__ORDER) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.ORDER_ASSERTION__ORDER));
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getOrderExecutionAssertionAccess().getOrderNodeOrderParserRuleCall_1_0(), semanticObject.getOrder());
+		feeder.accept(grammarAccess.getOrderAssertionAccess().getOrderNodeOrderParserRuleCall_1_0(), semanticObject.getOrder());
 		feeder.finish();
 	}
 	

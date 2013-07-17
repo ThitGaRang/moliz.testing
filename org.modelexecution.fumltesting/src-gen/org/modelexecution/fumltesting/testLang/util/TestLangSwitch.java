@@ -196,11 +196,11 @@ public class TestLangSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case TestLangPackage.ORDER_EXECUTION_ASSERTION:
+      case TestLangPackage.ORDER_ASSERTION:
       {
-        OrderExecutionAssertion orderExecutionAssertion = (OrderExecutionAssertion)theEObject;
-        T result = caseOrderExecutionAssertion(orderExecutionAssertion);
-        if (result == null) result = caseAssertion(orderExecutionAssertion);
+        OrderAssertion orderAssertion = (OrderAssertion)theEObject;
+        T result = caseOrderAssertion(orderAssertion);
+        if (result == null) result = caseAssertion(orderAssertion);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -495,17 +495,17 @@ public class TestLangSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Order Execution Assertion</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Order Assertion</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Order Execution Assertion</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Order Assertion</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseOrderExecutionAssertion(OrderExecutionAssertion object)
+  public T caseOrderAssertion(OrderAssertion object)
   {
     return null;
   }

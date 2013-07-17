@@ -160,9 +160,9 @@ public class TestLangAdapterFactory extends AdapterFactoryImpl
         return createPropertyStateExpressionAdapter();
       }
       @Override
-      public Adapter caseOrderExecutionAssertion(OrderExecutionAssertion object)
+      public Adapter caseOrderAssertion(OrderAssertion object)
       {
-        return createOrderExecutionAssertionAdapter();
+        return createOrderAssertionAdapter();
       }
       @Override
       public Adapter caseNodeOrder(NodeOrder object)
@@ -452,16 +452,16 @@ public class TestLangAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.OrderExecutionAssertion <em>Order Execution Assertion</em>}'.
+   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.OrderAssertion <em>Order Assertion</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.modelexecution.fumltesting.testLang.OrderExecutionAssertion
+   * @see org.modelexecution.fumltesting.testLang.OrderAssertion
    * @generated
    */
-  public Adapter createOrderExecutionAssertionAdapter()
+  public Adapter createOrderAssertionAdapter()
   {
     return null;
   }

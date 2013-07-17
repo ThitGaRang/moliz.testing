@@ -85,7 +85,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="PropertyStateExpression" eSuperTypes="#//StateExpression">
     <eStructuralFeatures xsi:type="ecore:EReference" name="property" eType="ecore:EClass ../../../../../org.eclipse.uml2.uml/model/UML.ecore#//Property"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="OrderExecutionAssertion" eSuperTypes="#//Assertion">
+  <eClassifiers xsi:type="ecore:EClass" name="OrderAssertion" eSuperTypes="#//Assertion">
     <eStructuralFeatures xsi:type="ecore:EReference" name="order" eType="#//NodeOrder"
         containment="true"/>
   </eClassifiers>
@@ -108,10 +108,6 @@
     <eLiterals name="smaller" value="3" literal="&lt;"/>
     <eLiterals name="greater_equal" value="4" literal=">="/>
     <eLiterals name="smaller_equal" value="5" literal="&lt;="/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EEnum" name="LinkOperator">
-    <eLiterals name="unidirect" literal="->"/>
-    <eLiterals name="bidirect" value="1" literal="&lt;->"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="TemporalOperator">
     <eLiterals name="after" literal="after"/>

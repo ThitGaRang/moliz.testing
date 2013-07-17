@@ -632,19 +632,19 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 	public class AssertionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Assertion");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cOrderExecutionAssertionParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cOrderAssertionParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cStateAssertionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
 		//Assertion:
 		//
-		//	OrderExecutionAssertion | StateAssertion;
+		//	OrderAssertion | StateAssertion;
 		public ParserRule getRule() { return rule; }
 
-		//OrderExecutionAssertion | StateAssertion
+		//OrderAssertion | StateAssertion
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//OrderExecutionAssertion
-		public RuleCall getOrderExecutionAssertionParserRuleCall_0() { return cOrderExecutionAssertionParserRuleCall_0; }
+		//OrderAssertion
+		public RuleCall getOrderAssertionParserRuleCall_0() { return cOrderAssertionParserRuleCall_0; }
 
 		//StateAssertion
 		public RuleCall getStateAssertionParserRuleCall_1() { return cStateAssertionParserRuleCall_1; }
@@ -870,15 +870,15 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
 	}
 
-	public class OrderExecutionAssertionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "OrderExecutionAssertion");
+	public class OrderAssertionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "OrderAssertion");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cAssertOrderKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cOrderAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cOrderNodeOrderParserRuleCall_1_0 = (RuleCall)cOrderAssignment_1.eContents().get(0);
 		private final Keyword cSemicolonKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		
-		//OrderExecutionAssertion:
+		//OrderAssertion:
 		//
 		//	"assertOrder" order=NodeOrder ";";
 		public ParserRule getRule() { return rule; }
@@ -1081,35 +1081,6 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getSmaller_equalLessThanSignEqualsSignKeyword_5_0() { return cSmaller_equalLessThanSignEqualsSignKeyword_5_0; }
 	}
 
-	public class LinkOperatorElements extends AbstractEnumRuleElementFinder {
-		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "LinkOperator");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final EnumLiteralDeclaration cUnidirectEnumLiteralDeclaration_0 = (EnumLiteralDeclaration)cAlternatives.eContents().get(0);
-		private final Keyword cUnidirectHyphenMinusGreaterThanSignKeyword_0_0 = (Keyword)cUnidirectEnumLiteralDeclaration_0.eContents().get(0);
-		private final EnumLiteralDeclaration cBidirectEnumLiteralDeclaration_1 = (EnumLiteralDeclaration)cAlternatives.eContents().get(1);
-		private final Keyword cBidirectLessThanSignHyphenMinusGreaterThanSignKeyword_1_0 = (Keyword)cBidirectEnumLiteralDeclaration_1.eContents().get(0);
-		
-		//enum LinkOperator:
-		//
-		//	unidirect="->" | bidirect="<->";
-		public EnumRule getRule() { return rule; }
-
-		//unidirect="->" | bidirect="<->"
-		public Alternatives getAlternatives() { return cAlternatives; }
-
-		//unidirect="->"
-		public EnumLiteralDeclaration getUnidirectEnumLiteralDeclaration_0() { return cUnidirectEnumLiteralDeclaration_0; }
-
-		//"->"
-		public Keyword getUnidirectHyphenMinusGreaterThanSignKeyword_0_0() { return cUnidirectHyphenMinusGreaterThanSignKeyword_0_0; }
-
-		//bidirect="<->"
-		public EnumLiteralDeclaration getBidirectEnumLiteralDeclaration_1() { return cBidirectEnumLiteralDeclaration_1; }
-
-		//"<->"
-		public Keyword getBidirectLessThanSignHyphenMinusGreaterThanSignKeyword_1_0() { return cBidirectLessThanSignHyphenMinusGreaterThanSignKeyword_1_0; }
-	}
-
 	public class TemporalOperatorElements extends AbstractEnumRuleElementFinder {
 		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "TemporalOperator");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
@@ -1186,11 +1157,10 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 	private StateExpressionElements pStateExpression;
 	private ObjectStateExpressionElements pObjectStateExpression;
 	private PropertyStateExpressionElements pPropertyStateExpression;
-	private OrderExecutionAssertionElements pOrderExecutionAssertion;
+	private OrderAssertionElements pOrderAssertion;
 	private NodeOrderElements pNodeOrder;
 	private NodeSpecificationElements pNodeSpecification;
 	private ArithmeticOperatorElements unknownRuleArithmeticOperator;
-	private LinkOperatorElements unknownRuleLinkOperator;
 	private TemporalOperatorElements unknownRuleTemporalOperator;
 	private TemporalQuantifierElements unknownRuleTemporalQuantifier;
 	
@@ -1385,7 +1355,7 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 
 	//Assertion:
 	//
-	//	OrderExecutionAssertion | StateAssertion;
+	//	OrderAssertion | StateAssertion;
 	public AssertionElements getAssertionAccess() {
 		return (pAssertion != null) ? pAssertion : (pAssertion = new AssertionElements());
 	}
@@ -1442,15 +1412,15 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		return getPropertyStateExpressionAccess().getRule();
 	}
 
-	//OrderExecutionAssertion:
+	//OrderAssertion:
 	//
 	//	"assertOrder" order=NodeOrder ";";
-	public OrderExecutionAssertionElements getOrderExecutionAssertionAccess() {
-		return (pOrderExecutionAssertion != null) ? pOrderExecutionAssertion : (pOrderExecutionAssertion = new OrderExecutionAssertionElements());
+	public OrderAssertionElements getOrderAssertionAccess() {
+		return (pOrderAssertion != null) ? pOrderAssertion : (pOrderAssertion = new OrderAssertionElements());
 	}
 	
-	public ParserRule getOrderExecutionAssertionRule() {
-		return getOrderExecutionAssertionAccess().getRule();
+	public ParserRule getOrderAssertionRule() {
+		return getOrderAssertionAccess().getRule();
 	}
 
 	//NodeOrder:
@@ -1486,17 +1456,6 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public EnumRule getArithmeticOperatorRule() {
 		return getArithmeticOperatorAccess().getRule();
-	}
-
-	//enum LinkOperator:
-	//
-	//	unidirect="->" | bidirect="<->";
-	public LinkOperatorElements getLinkOperatorAccess() {
-		return (unknownRuleLinkOperator != null) ? unknownRuleLinkOperator : (unknownRuleLinkOperator = new LinkOperatorElements());
-	}
-	
-	public EnumRule getLinkOperatorRule() {
-		return getLinkOperatorAccess().getRule();
 	}
 
 	//enum TemporalOperator:
