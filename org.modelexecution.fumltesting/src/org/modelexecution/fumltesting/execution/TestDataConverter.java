@@ -80,7 +80,7 @@ public class TestDataConverter {
 			}
 			
 			for(org.modelexecution.fumltesting.testLang.Link link: testData.getLinks()){
-				if(link.getSourceValue() == object){
+				if(link.getSourceValue().equals(object)){
 					Link fumlLink = new Link();
 					Association fumlAssoc = (Association)model.getFUMLElement(link.getAssoc());
 					fumlLink.type = fumlAssoc;

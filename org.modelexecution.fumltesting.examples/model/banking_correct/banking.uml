@@ -150,7 +150,7 @@
         <upperBound xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_-QY0gNw_EeKn2ranrBSLLA" value="1"/>
       </target>
     </node>
-    <node xmi:type="uml:CallOperationAction" xmi:id="_lMwX8Nw_EeKn2ranrBSLLA" name="call_withdraw" operation="_5tzFANw9EeKn2ranrBSLLA">
+    <node xmi:type="uml:CallOperationAction" xmi:id="_lMwX8Nw_EeKn2ranrBSLLA" name="call_reduceBalance" operation="_5tzFANw9EeKn2ranrBSLLA">
       <argument xmi:id="_lMwX8dw_EeKn2ranrBSLLA" name="amount" incoming="_cl69oNxCEeKn2ranrBSLLA" type="_VCASgNw9EeKn2ranrBSLLA">
         <eAnnotations xmi:id="_lMwX89w_EeKn2ranrBSLLA" source="PinToParameterLink">
           <details xmi:id="_lMwX9Nw_EeKn2ranrBSLLA" key="PinToParameterLink" value="_-EmtMNw9EeKn2ranrBSLLA"/>

@@ -1,48 +1,17 @@
 import model.*
 
 scenario TestData[	
-	object accountTO : Account{
-		Account.number = 323454676;
-		Account.balance = 800;
-	}
-	object cardTO : Card{
-		Card.number = 323454676;
-		Card.pin = 1234;
-	}
 	object atmTO : ATM{}
-	link card_account{
-		Account.card = cardTO;
-		Card.account = accountTO;
-	}
+	object accountTO : Account{ Account.number = 323454676; Account.balance = 800; }
+	object cardTO : Card{ Card.number = 323454676; Card.pin = 1234; }
+	link card_account{ Account.card = cardTO; Card.account = accountTO; }
 ]
-test testCase1 activity ATMwithdrawActivity(ATMwithdrawActivity.card=TestData.cardTO, 
-	ATMwithdrawActivity.pin=1234, ATMwithdrawActivity.amount=300) on TestData.atmTO{
-	var account = ATMwithdrawActivity.readAccount.result;
+
+test testcase4 activity ATMwithdrawActivity (ATMwithdrawActivity.card = TestData.cardTO, ATMwithdrawActivity.pin = 4321, 
+	ATMwithdrawActivity.amount = 300) on TestData.atmTO {
+	var card = ATMwithdrawActivity.card; 
 	var successful = ATMwithdrawActivity.successful;
-	assertOrder *, ATMwithdrawActivity.call_validatePin, *, ATMwithdrawActivity.call_withdraw, *;
-	assertState always before ATMwithdrawActivity.call_withdraw{
-		account::Account.balance=800;
-	}
-	assertState always after ATMwithdrawActivity.call_withdraw{
-		account::Account.balance=500;
-		successful = true;
-	}
-}
-test testCase2 activity ATMwithdrawActivity(ATMwithdrawActivity.card = TestData.cardTO, 
-	ATMwithdrawActivity.pin = 1234, ATMwithdrawActivity.amount = 800) on TestData.atmTO{
-	var account = ATMwithdrawActivity.readAccount.result;
-	var successful = ATMwithdrawActivity.successful;	
-	assertState always after ATMwithdrawActivity.call_withdraw{
-		account::Account.balance = 0;
-		successful = true;
-	}
-}
-test testCase3 activity ATMwithdrawActivity(ATMwithdrawActivity.card = TestData.cardTO, 
-	ATMwithdrawActivity.pin = 1234, ATMwithdrawActivity.amount = 900) on TestData.atmTO{
-	var account = ATMwithdrawActivity.readAccount.result;
-	var successful = ATMwithdrawActivity.successful;
-	assertState always after ATMwithdrawActivity.call_withdraw{
-		account::Account.balance = 800;
-		successful = false;
+	assertState always after ATMwithdrawActivity.successFalse {
+		card::Card.account = TestData.accountTO;
 	}
 }

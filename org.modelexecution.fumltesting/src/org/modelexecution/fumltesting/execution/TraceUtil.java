@@ -60,7 +60,7 @@ public class TraceUtil {
 	}
 	
 	/** Gets a node execution for UML node that was converted to corresponding fUML element. */
-	public Object getNodeExecution(Object node){
+	public Object getExecution(Object node){
 		if(node instanceof Action){
 			for(ActivityNodeExecution execution: this.executedNodes){
 				if(executor.getOriginal(execution.getNode()) == node)
@@ -89,5 +89,14 @@ public class TraceUtil {
 	
 	public List<ActivityNodeExecution> getExecutedNodesList(){
 		return executedNodes;
+	}
+	
+	public boolean isAfter(ActivityNodeExecution execution1, ActivityNodeExecution execution2){
+		if(execution1.getChronologicalSuccessor() != null){
+			if(execution1.getChronologicalSuccessor() == execution2)
+				return true;
+			else return isAfter(execution1.getChronologicalSuccessor(), execution2);
+		}
+		return false;
 	}
 }

@@ -8,6 +8,7 @@ import org.eclipse.uml2.uml.Activity;
 import org.eclipse.uml2.uml.ActivityParameterNode;
 import org.eclipse.uml2.uml.InputPin;
 import org.eclipse.uml2.uml.OutputPin;
+import org.eclipse.uml2.uml.ParameterDirectionKind;
 import org.eclipse.xtext.xbase.XBooleanLiteral;
 import org.eclipse.xtext.xbase.XNullLiteral;
 import org.eclipse.xtext.xbase.XNumberLiteral;
@@ -38,7 +39,9 @@ import UMLPrimitiveTypes.UnlimitedNatural;
 import fUML.Semantics.Classes.Kernel.BooleanValue;
 import fUML.Semantics.Classes.Kernel.FeatureValue;
 import fUML.Semantics.Classes.Kernel.IntegerValue;
+import fUML.Semantics.Classes.Kernel.Link;
 import fUML.Semantics.Classes.Kernel.Object_;
+import fUML.Semantics.Classes.Kernel.Reference;
 import fUML.Semantics.Classes.Kernel.StringValue;
 import fUML.Semantics.Classes.Kernel.UnlimitedNaturalValue;
 import fUML.Syntax.Actions.BasicActions.CallBehaviorAction;
@@ -100,12 +103,12 @@ public class StateAssertionValidator {
 		//action of the state expression which can be an action or activity
 		Object expressionAction = expression.getPin().getRef().eContainer();
 		
-		referredNodeExecution = (ActionExecution)traceUtil.getNodeExecution(referredAction);
+		referredNodeExecution = (ActionExecution)traceUtil.getExecution(referredAction);
 		
 		if(expressionAction instanceof Action)
-			expressionNodeExecution = (ActionExecution)traceUtil.getNodeExecution((Action)expressionAction);
+			expressionNodeExecution = (ActionExecution)traceUtil.getExecution((Action)expressionAction);
 		if(expressionAction instanceof Activity){
-			expressionNodeExecution = (ActivityExecution)traceUtil.getNodeExecution((Activity)expressionAction);
+			expressionNodeExecution = (ActivityExecution)traceUtil.getExecution((Activity)expressionAction);
 		}
 		
 		if(expressionNodeExecution != null && referredNodeExecution != null){
@@ -338,11 +341,103 @@ public class StateAssertionValidator {
 			}
 		}
 		
+		//link validation
 		if(expression instanceof PropertyStateExpression){
 			PropertyStateExpression propertyExpression = (PropertyStateExpression)expression;
 			if(propertyExpression.getProperty().getType() instanceof org.eclipse.uml2.uml.Class){
-				System.out.println("Link checking not supported!");
-				return true;
+				Object variableAction = propertyExpression.getPin().getRef().eContainer();
+				Object_ source = null;
+				if(propertyExpression.getPin().getRef().eContainer() instanceof Action){
+					ActionExecution execution = (ActionExecution)traceUtil.getExecution(variableAction);
+					if(propertyExpression.getPin().getRef() instanceof OutputPin){
+						for(Input input: execution.getInputs()){
+							if(input.getInputPin().name.equals(propertyExpression.getPin().getRef().getName()))
+								source = (Object_)input.getInputValues().get(0).getInputValueSnapshot().getValue();
+						}
+					}
+					if(propertyExpression.getPin().getRef() instanceof InputPin){
+						for(Output output: execution.getOutputs()){
+							if(output.getOutputPin().name.equals(propertyExpression.getPin().getRef().getName()))
+								source = (Object_)output.getOutputValues().get(0).getOutputValueSnapshot().getValue();
+						}
+					}
+				}
+				if(propertyExpression.getPin().getRef().eContainer() instanceof Activity){
+					ActivityExecution execution = (ActivityExecution)traceUtil.getExecution(variableAction);
+					ActivityParameterNode parameterNode = (ActivityParameterNode)propertyExpression.getPin().getRef();
+					if(parameterNode.getParameter().getDirection().getValue() == ParameterDirectionKind.OUT){
+						for(OutputParameterSetting output: execution.getActivityOutputs()){
+							if(output.getParameter().name.equals(parameterNode.getName()))
+								source = (Object_)output.getParameterValues().get(0).getValueSnapshot().getValue();
+						}
+					}
+					if(parameterNode.getParameter().getDirection().getValue() == ParameterDirectionKind.IN){
+						for(InputParameterSetting input: execution.getActivityInputs()){
+							if(input.getParameter().name.equals(parameterNode.getName()))
+								source = (Object_)input.getParameterValues().get(0).getValueSnapshot().getValue();
+						}
+					}					
+				}
+				
+				Object_ target = null;
+				if(propertyExpression.getValue() instanceof XNullLiteral){
+					
+				}else{
+					target = (Object_)testDataConverter.getFUMLElement(propertyExpression.getValue());
+				}
+				
+				List<ValueInstance> links = new ArrayList<ValueInstance>();
+				for(ValueInstance linkValueInstance: traceUtil.getAllLinks()){
+					Link link = (Link)linkValueInstance.getRuntimeValue();
+					boolean sourceContained = false;
+					boolean targetContained = false;
+					for(FeatureValue value: link.getFeatureValues()){
+						Reference reference = (Reference)value.values.get(0);
+						
+						if(reference.referent.equals(source))sourceContained = true;
+						if(reference.referent.equals(target))targetContained = true;
+					}
+					if(sourceContained && targetContained){
+						links.add(linkValueInstance);
+					}
+				}				
+				
+				//for each temporal constraint it is enough to remove all those links 
+				//that the destroyer is not null and is before the referenced action
+				List<ValueInstance> linksToRemove = new ArrayList<ValueInstance>();
+				
+				for(ValueInstance link: links){
+					if(link.getDestroyer() != null && !traceUtil.isAfter(link.getDestroyer(), referredNodeExecution)){
+						linksToRemove.add(link);
+					}
+				}
+				links.removeAll(linksToRemove);
+				
+				//TODO continue
+				if(target == null){
+					if(links.size() > 0)return false;
+					if(links.size() == 0)return true;
+				}else{
+					if(links.size() == 0)return false;
+					
+					for(ValueInstance instance: links){
+						Link link = (Link)instance.getRuntimeValue();
+						for(FeatureValue feature: link.featureValues){
+							if(feature.feature.name.equals(propertyExpression.getProperty().getName())){
+								Object_ value = ((Reference)feature.values.get(0)).referent;
+								for(FeatureValue targetFeature: target.featureValues){
+									for(FeatureValue comparedFeature: value.featureValues){
+										if(comparedFeature.feature.name.equals(targetFeature.feature.name)){
+											if(compare(targetFeature, comparedFeature) == false)return false;											
+										}
+									}									
+								}
+							}
+						}
+					}
+					return true;
+				}				
+				return false;
 			}
 			for(ValueSnapshot snapshot: list){
 				Object_ object_ = (Object_)snapshot.getValue();

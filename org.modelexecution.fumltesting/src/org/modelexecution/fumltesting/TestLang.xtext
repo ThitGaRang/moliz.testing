@@ -17,26 +17,20 @@ VarDeclaration:
 ;
 
 TestCase:
-	'test' name=ID 'activity' activityUnderTest=[uml::Activity|QualifiedName] ('(' inputs+=ActivityInput (',' inputs+=ActivityInput)* ')')? ('on' contextObject=[ObjectSpecification|QualifiedName])? '{'
+	'test' name=ID 'activity' activityUnderTest=[uml::Activity|QualifiedName] ('(' inputs+=ActivityInput (',' inputs+=ActivityInput)* ')')? 
+	('on' contextObject=[ObjectSpecification|QualifiedName])? '{'
 		(variables+=VarDeclaration)*
 		(assertions+=Assertion)*
 	'}'
 ;
 
-ActivityInput:
-	parameter=[uml::ActivityParameterNode|QualifiedName] '=' value=Value
-;
+ActivityInput: parameter=[uml::ActivityParameterNode|QualifiedName] '=' value=Value;
 
-Value:
-	SimpleValue | ObjectValue
-;
+Value: SimpleValue|ObjectValue;
 
-SimpleValue:
-	value=XLiteral
-;
-ObjectValue:
-	value=[ObjectSpecification|QualifiedName]
-;
+SimpleValue: value=XLiteral;
+
+ObjectValue: value=[ObjectSpecification|QualifiedName];
 
 Scenario:
 	'scenario' name=ID '['
@@ -51,9 +45,7 @@ ObjectSpecification:
 	'}'
 ;
 
-Attribute:
-	att=[uml::Property|QualifiedName] '=' value=Value ';'
-;
+Attribute: att=[uml::Property|QualifiedName] '=' value=Value ';';
 
 Link:
 	'link' assoc=[uml::Association|QualifiedName] '{' 
@@ -62,18 +54,14 @@ Link:
 	'}' 
 ;
 
-Assertion:
-	OrderAssertion | StateAssertion
-;
+Assertion: OrderAssertion|StateAssertion;
 
 StateAssertion:
 	('assertState' temporalQuantifier=TemporalQuantifier temporalOperator=TemporalOperator) 
 		referenceAction=[uml::Action|QualifiedName] ('until' untilAction=[uml::Action|QualifiedName])? '{' expressions+=StateExpression+ '}'
 ;
 
-StateExpression:
-	ObjectStateExpression | PropertyStateExpression
-;
+StateExpression: ObjectStateExpression|PropertyStateExpression;
 
 ObjectStateExpression:
 	pin=[VarDeclaration] operator=ArithmeticOperator value=Value ';'
@@ -83,26 +71,14 @@ PropertyStateExpression:
 	pin=[VarDeclaration] '::' property=[uml::Property|QualifiedName] operator=ArithmeticOperator value=Value ';'
 ;
 
-OrderAssertion:
-	'assertOrder' order=NodeOrder ';' 
-;
+OrderAssertion: 'assertOrder' order=NodeOrder ';';
 
-NodeOrder:
-	nodes+=NodeSpecification (',' nodes+=NodeSpecification)*
-;
+NodeOrder: nodes+=NodeSpecification (',' nodes+=NodeSpecification)*;
 
 NodeSpecification:
 	node=[uml::ActivityNode|QualifiedName](':'size=XNumberLiteral)?('('subOrder=NodeOrder')')? | joker='*' | joker='_'
 ;
 
-enum ArithmeticOperator:
-	equal='='|not_equal='!='|greater='>'|smaller='<'|greater_equal='>='|smaller_equal='<='
-;
-
-enum TemporalOperator:
-	after|before
-;
-
-enum TemporalQuantifier:
-	exactly|always
-;
+enum ArithmeticOperator: equal='='|not_equal='!='|greater='>'|smaller='<'|greater_equal='>='|smaller_equal='<=';
+enum TemporalOperator: after|before;
+enum TemporalQuantifier: exactly|always;
