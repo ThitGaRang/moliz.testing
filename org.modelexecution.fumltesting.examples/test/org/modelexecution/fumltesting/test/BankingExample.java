@@ -9,27 +9,8 @@
  */
 package org.modelexecution.fumltesting.test;
 
-import java.io.File;
-
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.uml2.uml.NamedElement;
-import org.eclipse.uml2.uml.UMLPackage;
-import org.eclipse.uml2.uml.resource.UMLResource;
 import org.junit.Assert;
 import org.junit.Test;
-import org.modelexecution.fuml.convert.ConverterRegistry;
-import org.modelexecution.fuml.convert.IConversionResult;
-import org.modelexecution.fuml.convert.IConverter;
-import org.modelexecution.fumldebug.core.ExecutionContext;
-import org.modelexecution.fumldebug.core.ExecutionEventListener;
-import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
-import org.modelexecution.fumldebug.core.event.ActivityExitEvent;
-import org.modelexecution.fumldebug.core.event.Event;
-import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 import org.modelexecution.fumldebug.papyrus.PapyrusModelExecutor;
@@ -41,41 +22,11 @@ import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Semantics.Classes.Kernel.ValueList;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
-import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Classes.Kernel.Classifier;
 
-public class ExecutionTest implements ExecutionEventListener {
+public class BankingExample {
 	
-	/** Result obtained from converting UML to fUML model. */
-	private IConversionResult convertedModel;
-	private ResourceSet resourceSet;
-	private Resource resource;
-	private NamedElement model;
-	private int mainActivityID;
-	
-	private boolean running = false;
-	
-	private void setup() {
-		try{
-			resourceSet = new ResourceSetImpl();
-			resourceSet.getPackageRegistry().put(UMLPackage.eNS_URI, UMLPackage.eINSTANCE);
-			resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(UMLResource.FILE_EXTENSION, UMLResource.Factory.INSTANCE);
-			//model with UML elements under test, referenced by testing model
-			resource = resourceSet.getResource(URI.createFileURI(new File("model/interpreter_observation/interpreter_observation.uml").getAbsolutePath()), true);
-			resource.load(null);
-			
-			for (EObject model : resource.getContents()) {
-				if (model instanceof NamedElement){
-					this.model = (NamedElement)model;
-				}
-			}
-			ExecutionContext.getInstance().addEventListener(this);
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-	}
-	
-	//@Test
+	@Test
 	public void testBankingExampleCorrectScenario1() {
 		PapyrusModelExecutor executor = new PapyrusModelExecutor("model/banking_correct/banking.di");
 		clearLocus(executor);
@@ -93,7 +44,7 @@ public class ExecutionTest implements ExecutionEventListener {
 		Assert.assertEquals(500, ((IntegerValue)accountBalanceValues.get(0)).value);
 	}
 	
-	//@Test
+	@Test
 	public void testBankingExampleCorrectScenario2() {
 		PapyrusModelExecutor executor = new PapyrusModelExecutor("model/banking_correct/banking.di");
 		clearLocus(executor);
@@ -111,7 +62,7 @@ public class ExecutionTest implements ExecutionEventListener {
 		Assert.assertEquals(300, ((IntegerValue)accountBalanceValues.get(0)).value);		
 	}
 	
-	//@Test
+	@Test
 	public void testBankingExampleIncorrectScenario1() {
 		PapyrusModelExecutor executor = new PapyrusModelExecutor("model/banking_incorrect/banking.di");
 		clearLocus(executor);
@@ -130,7 +81,7 @@ public class ExecutionTest implements ExecutionEventListener {
 		Assert.assertEquals(-500, ((IntegerValue)accountBalanceValues.get(0)).value);
 	}
 	
-	//@Test
+	@Test
 	public void testBankingExampleIncorrectScenario2() {
 		PapyrusModelExecutor executor = new PapyrusModelExecutor("model/banking_incorrect/banking.di");
 		clearLocus(executor);
@@ -148,7 +99,7 @@ public class ExecutionTest implements ExecutionEventListener {
 		Assert.assertEquals(800, ((IntegerValue)accountBalanceValues.get(0)).value);		
 	}
 
-	//@Test
+	@Test
 	public void testBankingExampleIncorrectScenario3() {
 		PapyrusModelExecutor executor = new PapyrusModelExecutor("model/banking_incorrect/banking.di");
 		clearLocus(executor);
@@ -166,26 +117,7 @@ public class ExecutionTest implements ExecutionEventListener {
 		// error (balance was not reduced):
 		Assert.assertEquals(800, ((IntegerValue)accountBalanceValues.get(0)).value);
 	}
-	
-	@Test
-	public void testTwoCardsActivityStepwise() {
-		setup();
-		IConverter converter = ConverterRegistry.getInstance().getConverter(model);
-		convertedModel = converter.convert(model);
-		Activity fumlActivity = convertedModel.getActivity("TwoCardsActivity");
 		
-		ExecutionContext.getInstance().executeStepwise(fumlActivity, null, null);
-		while(running) {
-			ExecutionContext.getInstance().nextStep(mainActivityID);
-		}
-		Trace trace = ExecutionContext.getInstance().getTrace(mainActivityID);
-		ActivityExecution activityExecution = trace.getActivityExecutions().get(0);			
-		
-		Assert.assertEquals(3, trace.getActivityExecutions().size());
-		Assert.assertEquals("TwoCardsActivity", activityExecution.getActivity().name);
-		Assert.assertEquals(6, activityExecution.getNodeExecutions().size());
-	}
-	
 	private void clearLocus(PapyrusModelExecutor executor) {
 		executor.getExecutionContext().getLocus().extensionalValues.clear();
 	}
@@ -213,15 +145,5 @@ public class ExecutionTest implements ExecutionEventListener {
 		}
 		return null;
 	}
-	
-	@Override
-	public void notify(Event event) {
-		if(event instanceof ActivityEntryEvent && (((ActivityEntryEvent)event).getParent() == null)){
-			mainActivityID = ((ActivityEntryEvent)event).getActivityExecutionID();
-			running = true;
-		}
-		if(event instanceof ActivityExitEvent && (((ActivityExitEvent)event).getActivityExecutionID() == mainActivityID)){
-			running = false;			
-		}
-	}
+		
 }
