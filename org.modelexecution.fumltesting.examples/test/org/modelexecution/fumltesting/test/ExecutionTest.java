@@ -118,6 +118,17 @@ public class ExecutionTest {
 		Assert.assertEquals(800, ((IntegerValue)accountBalanceValues.get(0)).value);
 	}
 	
+	@Test
+	public void testTwoCardsActivityStepwise() {
+		PapyrusModelExecutor executor = new PapyrusModelExecutor("model/interpreter_observation/interpreter_observation.di");
+		clearLocus(executor);
+		Trace trace = executor.executeActivity("TwoCardsActivity", null, null);
+		Assert.assertEquals(3, trace.getActivityExecutions().size());
+		Assert.assertEquals("TwoCardsActivity", trace.getActivityExecutions().get(0).getActivity().name);
+		Assert.assertEquals("CardAccountActivity", trace.getActivityExecutions().get(1).getActivity().name);
+		Assert.assertEquals("CardAccountActivity", trace.getActivityExecutions().get(2).getActivity().name);
+	}
+	
 	private void clearLocus(PapyrusModelExecutor executor) {
 		executor.getExecutionContext().getLocus().extensionalValues.clear();
 	}
