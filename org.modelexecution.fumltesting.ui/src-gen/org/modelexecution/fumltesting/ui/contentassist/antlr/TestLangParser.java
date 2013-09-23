@@ -84,6 +84,8 @@ public class TestLangParser extends AbstractContentAssistParser {
 					put(grammarAccess.getTestCaseAccess().getGroup_4(), "rule__TestCase__Group_4__0");
 					put(grammarAccess.getTestCaseAccess().getGroup_4_2(), "rule__TestCase__Group_4_2__0");
 					put(grammarAccess.getTestCaseAccess().getGroup_5(), "rule__TestCase__Group_5__0");
+					put(grammarAccess.getTestCaseAccess().getGroup_7(), "rule__TestCase__Group_7__0");
+					put(grammarAccess.getTestCaseAccess().getGroup_7_3(), "rule__TestCase__Group_7_3__0");
 					put(grammarAccess.getActivityInputAccess().getGroup(), "rule__ActivityInput__Group__0");
 					put(grammarAccess.getScenarioAccess().getGroup(), "rule__Scenario__Group__0");
 					put(grammarAccess.getObjectSpecificationAccess().getGroup(), "rule__ObjectSpecification__Group__0");
@@ -92,6 +94,7 @@ public class TestLangParser extends AbstractContentAssistParser {
 					put(grammarAccess.getStateAssertionAccess().getGroup(), "rule__StateAssertion__Group__0");
 					put(grammarAccess.getStateAssertionAccess().getGroup_0(), "rule__StateAssertion__Group_0__0");
 					put(grammarAccess.getStateAssertionAccess().getGroup_2(), "rule__StateAssertion__Group_2__0");
+					put(grammarAccess.getFinallyStateAssertionAccess().getGroup(), "rule__FinallyStateAssertion__Group__0");
 					put(grammarAccess.getObjectStateExpressionAccess().getGroup(), "rule__ObjectStateExpression__Group__0");
 					put(grammarAccess.getPropertyStateExpressionAccess().getGroup(), "rule__PropertyStateExpression__Group__0");
 					put(grammarAccess.getOrderAssertionAccess().getGroup(), "rule__OrderAssertion__Group__0");
@@ -253,8 +256,10 @@ public class TestLangParser extends AbstractContentAssistParser {
 					put(grammarAccess.getTestCaseAccess().getInputsAssignment_4_1(), "rule__TestCase__InputsAssignment_4_1");
 					put(grammarAccess.getTestCaseAccess().getInputsAssignment_4_2_1(), "rule__TestCase__InputsAssignment_4_2_1");
 					put(grammarAccess.getTestCaseAccess().getContextObjectAssignment_5_1(), "rule__TestCase__ContextObjectAssignment_5_1");
-					put(grammarAccess.getTestCaseAccess().getVariablesAssignment_7(), "rule__TestCase__VariablesAssignment_7");
-					put(grammarAccess.getTestCaseAccess().getAssertionsAssignment_8(), "rule__TestCase__AssertionsAssignment_8");
+					put(grammarAccess.getTestCaseAccess().getInitScenariosAssignment_7_2(), "rule__TestCase__InitScenariosAssignment_7_2");
+					put(grammarAccess.getTestCaseAccess().getInitScenariosAssignment_7_3_1(), "rule__TestCase__InitScenariosAssignment_7_3_1");
+					put(grammarAccess.getTestCaseAccess().getVariablesAssignment_8(), "rule__TestCase__VariablesAssignment_8");
+					put(grammarAccess.getTestCaseAccess().getAssertionsAssignment_9(), "rule__TestCase__AssertionsAssignment_9");
 					put(grammarAccess.getActivityInputAccess().getParameterAssignment_0(), "rule__ActivityInput__ParameterAssignment_0");
 					put(grammarAccess.getActivityInputAccess().getValueAssignment_2(), "rule__ActivityInput__ValueAssignment_2");
 					put(grammarAccess.getSimpleValueAccess().getValueAssignment(), "rule__SimpleValue__ValueAssignment");
@@ -277,6 +282,7 @@ public class TestLangParser extends AbstractContentAssistParser {
 					put(grammarAccess.getStateAssertionAccess().getReferenceActionAssignment_1(), "rule__StateAssertion__ReferenceActionAssignment_1");
 					put(grammarAccess.getStateAssertionAccess().getUntilActionAssignment_2_1(), "rule__StateAssertion__UntilActionAssignment_2_1");
 					put(grammarAccess.getStateAssertionAccess().getExpressionsAssignment_4(), "rule__StateAssertion__ExpressionsAssignment_4");
+					put(grammarAccess.getFinallyStateAssertionAccess().getExpressionsAssignment_2(), "rule__FinallyStateAssertion__ExpressionsAssignment_2");
 					put(grammarAccess.getObjectStateExpressionAccess().getPinAssignment_0(), "rule__ObjectStateExpression__PinAssignment_0");
 					put(grammarAccess.getObjectStateExpressionAccess().getOperatorAssignment_1(), "rule__ObjectStateExpression__OperatorAssignment_1");
 					put(grammarAccess.getObjectStateExpressionAccess().getValueAssignment_2(), "rule__ObjectStateExpression__ValueAssignment_2");

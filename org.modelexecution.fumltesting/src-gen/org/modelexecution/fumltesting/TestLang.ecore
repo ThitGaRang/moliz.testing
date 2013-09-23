@@ -23,6 +23,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="inputs" upperBound="-1"
         eType="#//ActivityInput" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="contextObject" eType="#//ObjectSpecification"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="initScenarios" unique="false"
+        upperBound="-1" eType="#//Scenario"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="variables" upperBound="-1"
         eType="#//VarDeclaration" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="assertions" upperBound="-1"
@@ -72,6 +74,10 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="temporalOperator" eType="#//TemporalOperator"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="referenceAction" eType="ecore:EClass ../../../../../org.eclipse.uml2.uml/model/UML.ecore#//Action"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="untilAction" eType="ecore:EClass ../../../../../org.eclipse.uml2.uml/model/UML.ecore#//Action"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="expressions" upperBound="-1"
+        eType="#//StateExpression" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FinallyStateAssertion" eSuperTypes="#//Assertion">
     <eStructuralFeatures xsi:type="ecore:EReference" name="expressions" upperBound="-1"
         eType="#//StateExpression" containment="true"/>
   </eClassifiers>

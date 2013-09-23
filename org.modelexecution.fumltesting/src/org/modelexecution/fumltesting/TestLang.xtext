@@ -19,6 +19,7 @@ VarDeclaration:
 TestCase:
 	'test' name=ID 'activity' activityUnderTest=[uml::Activity|QualifiedName] ('(' inputs+=ActivityInput (',' inputs+=ActivityInput)* ')')? 
 	('on' contextObject=[ObjectSpecification|QualifiedName])? '{'
+		('initialize''['(initScenarios+=[Scenario]) (',' initScenarios+=[Scenario])*']'';')?
 		(variables+=VarDeclaration)*
 		(assertions+=Assertion)*
 	'}'
@@ -54,11 +55,15 @@ Link:
 	'}' 
 ;
 
-Assertion: OrderAssertion|StateAssertion;
+Assertion: OrderAssertion|StateAssertion|FinallyStateAssertion;
 
 StateAssertion:
 	('assertState' temporalQuantifier=TemporalQuantifier temporalOperator=TemporalOperator) 
 		referenceAction=[uml::Action|QualifiedName] ('until' untilAction=[uml::Action|QualifiedName])? '{' expressions+=StateExpression+ '}'
+;
+
+FinallyStateAssertion:
+	'finally' '{' expressions+=StateExpression+ '}'
 ;
 
 StateExpression: ObjectStateExpression|PropertyStateExpression;

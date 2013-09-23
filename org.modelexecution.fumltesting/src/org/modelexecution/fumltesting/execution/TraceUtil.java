@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.eclipse.uml2.uml.Action;
 import org.eclipse.uml2.uml.Activity;
+import org.eclipse.uml2.uml.ActivityNode;
 import org.modelexecution.fumldebug.core.ExecutionContext;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
@@ -98,5 +99,11 @@ public class TraceUtil {
 			else return isAfter(execution1.getChronologicalSuccessor(), execution2);
 		}
 		return false;
+	}
+	
+	public ActivityNode getLastExecutedNode(){
+		ActivityNodeExecution lastNodeExecution = trace.getLastActivityNodeExecution();		
+		ActivityNode lastNode = (ActivityNode)executor.getOriginal(lastNodeExecution.getNode());
+		return lastNode;
 	}
 }

@@ -25,6 +25,7 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot;
 import org.modelexecution.fumltesting.execution.TestDataConverter;
 import org.modelexecution.fumltesting.execution.TraceUtil;
 import org.modelexecution.fumltesting.testLang.ArithmeticOperator;
+import org.modelexecution.fumltesting.testLang.FinallyStateAssertion;
 import org.modelexecution.fumltesting.testLang.ObjectStateExpression;
 import org.modelexecution.fumltesting.testLang.ObjectValue;
 import org.modelexecution.fumltesting.testLang.PropertyStateExpression;
@@ -33,6 +34,7 @@ import org.modelexecution.fumltesting.testLang.StateAssertion;
 import org.modelexecution.fumltesting.testLang.StateExpression;
 import org.modelexecution.fumltesting.testLang.TemporalOperator;
 import org.modelexecution.fumltesting.testLang.TemporalQuantifier;
+import org.modelexecution.fumltesting.testLang.TestLangFactory;
 
 import UMLPrimitiveTypes.UnlimitedNatural;
 
@@ -64,8 +66,8 @@ public class StateAssertionValidator {
 	/** Utility class for managing the execution trace. */
 	private TraceUtil traceUtil;
 	
-	private ArrayList<ValueSnapshot> predecessors = new ArrayList<ValueSnapshot>();
-	private ArrayList<ValueSnapshot> successors = new ArrayList<ValueSnapshot>();
+	private ArrayList<ValueSnapshot> predecessors;
+	private ArrayList<ValueSnapshot> successors;
 		
 	private StateAssertion assertion;
 	private TemporalOperator operator;
@@ -77,6 +79,8 @@ public class StateAssertionValidator {
 	public StateAssertionValidator(TraceUtil traceUtil){
 		testDataConverter = TestDataConverter.getInstance();
 		this.traceUtil = traceUtil;
+		predecessors = new ArrayList<ValueSnapshot>();
+		successors = new ArrayList<ValueSnapshot>();
 	}
 	
 	public boolean check(StateAssertion assertion){
@@ -89,22 +93,38 @@ public class StateAssertionValidator {
 		return result;
 	}
 	
+	public boolean check(FinallyStateAssertion assertion){
+		StateAssertion stateAssertion = TestLangFactory.eINSTANCE.createStateAssertion();
+		
+		stateAssertion.setTemporalQuantifier(TemporalQuantifier.ALWAYS);
+		stateAssertion.setTemporalOperator(TemporalOperator.AFTER);
+		
+		stateAssertion.setReferenceAction((Action)traceUtil.getLastExecutedNode());
+		stateAssertion.getExpressions().addAll(assertion.getExpressions());
+		
+		return check(stateAssertion);
+	}
+	
 	private boolean check(StateExpression expression){
 		
+		// Clean up from other test executions
 		predecessors.removeAll(predecessors);
 		successors.removeAll(successors);
 		
+		//setup the parts of expression
 		assertion = (StateAssertion)expression.eContainer();
 		operator = assertion.getTemporalOperator();
 		quantifier = assertion.getTemporalQuantifier();
 		
 		//action of the state assertion
 		Action referredAction = assertion.getReferenceAction();
-		//action of the state expression which can be an action or activity
+		//action of the state expression
 		Object expressionAction = expression.getPin().getRef().eContainer();
 		
+		//execution of the node from the assertion specifying the time constraint
 		referredNodeExecution = (ActionExecution)traceUtil.getExecution(referredAction);
 		
+		//execution of the node from the expression specifying the object under consideration
 		if(expressionAction instanceof Action)
 			expressionNodeExecution = (ActionExecution)traceUtil.getExecution((Action)expressionAction);
 		if(expressionAction instanceof Activity){
@@ -113,71 +133,10 @@ public class StateAssertionValidator {
 		
 		if(expressionNodeExecution != null && referredNodeExecution != null){
 			
-			if(expression.getPin().getRef() instanceof OutputPin || expression.getPin().getRef() instanceof ActivityParameterNode){
-				if(expressionNodeExecution instanceof ActionExecution){
-					for(Output output: ((ActionExecution)expressionNodeExecution).getOutputs()){
-						if(output.getOutputPin().name.equals(expression.getPin().getRef().getName())){
-							if(output.getOutputValues().size()>0)
-								valueInstance = (ValueInstance)output.getOutputValues().get(0).getOutputValueSnapshot().eContainer();
-						}
-					}
-				}
-				if(expressionNodeExecution instanceof ActivityExecution){
-					for(OutputParameterSetting output: ((ActivityExecution)expressionNodeExecution).getActivityOutputs()){
-						if(output.getParameter().name.equals(expression.getPin().getRef().getName())){
-							if(output.getParameterValues().size()>0)
-								valueInstance = (ValueInstance)output.getParameterValues().get(0).getValueSnapshot().eContainer();
-						}
-					}
-				}
-			}
-			
-			if(expression.getPin().getRef() instanceof InputPin || expression.getPin().getRef() instanceof ActivityParameterNode){
-				if(expressionNodeExecution instanceof ActionExecution){
-					for(Input input: ((ActionExecution)expressionNodeExecution).getInputs()){
-						if(input.getInputPin().name.equals(expression.getPin().getRef().getName())){
-							if(input.getInputValues().size()>0)
-								valueInstance = (ValueInstance)input.getInputValues().get(0).getInputValueSnapshot().eContainer();
-						}
-					}
-				}
-				if(expressionNodeExecution instanceof ActivityExecution){
-					for(InputParameterSetting input: ((ActivityExecution)expressionNodeExecution).getActivityInputs()){
-						if(input.getParameter().name.equals(expression.getPin().getRef().getName())){
-							if(input.getParameterValues().size()>0)
-								valueInstance = (ValueInstance)input.getParameterValues().get(0).getValueSnapshot().eContainer();
-						}
-					}
-				}
-			}
-			
-			for(Output output: referredNodeExecution.getOutputs()){
-				if(output.getOutputValues().size()==0)continue;
-				ValueInstance referredValueInstance = (ValueInstance)output.getOutputValues().get(0).getOutputValueSnapshot().eContainer();
-				if(referredValueInstance == valueInstance && operator == TemporalOperator.AFTER)
-					if(successors.contains(output.getOutputValues().get(0).getOutputValueSnapshot()) == false)
-						successors.add(output.getOutputValues().get(0).getOutputValueSnapshot());
-			}
-			
-			for(Input input: referredNodeExecution.getInputs()){
-				if(input.getInputValues().size()==0)continue;
-				ValueInstance referredValueInstance = (ValueInstance)input.getInputValues().get(0).getInputValueSnapshot().eContainer();
-				if(referredValueInstance == valueInstance && operator == TemporalOperator.BEFORE){
-					if(predecessors.contains(input.getInputValues().get(0).getInputValueSnapshot()))
-						predecessors.add(input.getInputValues().get(0).getInputValueSnapshot());
-				}
-			}
-			
-			//adding snapshots of the valueInstance created before-after the referred one
-			if(referredNodeExecution.getNode() instanceof CallBehaviorAction || referredNodeExecution.getNode() instanceof CallOperationAction){
-				ActivityNodeList nodes = referredNodeExecution.getNode().activity.node;
-				ActivityNodeExecution lastNodeInBehavior = getLastChildNode(referredNodeExecution, nodes);
-				initializeSuccessorSnapshots(lastNodeInBehavior, successors);
-				initializePredecessorSnapshots(lastNodeInBehavior, predecessors);
-			}else{
-				initializeSuccessorSnapshots(referredNodeExecution, successors);
-				initializePredecessorSnapshots(referredNodeExecution, predecessors);
-			}
+			//Get the value instance from the trace based on expression
+			setupValueInstance(expression);			
+			//initialize the successors and predecessors of the value instance
+			setupSucessorsPredecessors();
 			
 			ArrayList<ValueSnapshot> list = new ArrayList<ValueSnapshot>();
 			if(operator == TemporalOperator.BEFORE){
@@ -206,7 +165,11 @@ public class StateAssertionValidator {
 			boolean result = false;
 			
 			if(expression.getValue() instanceof SimpleValue){
-				result = processSimple(expression, list);
+				if(expression instanceof PropertyStateExpression 
+						&& ((SimpleValue)expression.getValue()).getValue() instanceof XNullLiteral)//special case
+					result = processObject(expression, list);
+				else
+					result = processSimple(expression, list);
 				AssertionPrinter.print(expression, result);
 				return result;
 			}
@@ -227,6 +190,50 @@ public class StateAssertionValidator {
 		return false;
 	}
 	
+	/**
+	 * Getting the value instance from the trace based on the expression.
+	 * @param expression
+	 */
+	private void setupValueInstance(StateExpression expression){		
+		if(expression.getPin().getRef() instanceof OutputPin || expression.getPin().getRef() instanceof ActivityParameterNode){
+			if(expressionNodeExecution instanceof ActionExecution){
+				for(Output output: ((ActionExecution)expressionNodeExecution).getOutputs()){
+					if(output.getOutputPin().name.equals(expression.getPin().getRef().getName())){
+						if(output.getOutputValues().size()>0)
+							valueInstance = (ValueInstance)output.getOutputValues().get(0).getOutputValueSnapshot().eContainer();
+					}
+				}
+			}
+			if(expressionNodeExecution instanceof ActivityExecution){
+				for(OutputParameterSetting output: ((ActivityExecution)expressionNodeExecution).getActivityOutputs()){
+					if(output.getParameter().name.equals(expression.getPin().getRef().getName())){
+						if(output.getParameterValues().size()>0)
+							valueInstance = (ValueInstance)output.getParameterValues().get(0).getValueSnapshot().eContainer();
+					}
+				}
+			}
+		}
+		
+		if(expression.getPin().getRef() instanceof InputPin || expression.getPin().getRef() instanceof ActivityParameterNode){
+			if(expressionNodeExecution instanceof ActionExecution){
+				for(Input input: ((ActionExecution)expressionNodeExecution).getInputs()){
+					if(input.getInputPin().name.equals(expression.getPin().getRef().getName())){
+						if(input.getInputValues().size()>0)
+							valueInstance = (ValueInstance)input.getInputValues().get(0).getInputValueSnapshot().eContainer();
+					}
+				}
+			}
+			if(expressionNodeExecution instanceof ActivityExecution){
+				for(InputParameterSetting input: ((ActivityExecution)expressionNodeExecution).getActivityInputs()){
+					if(input.getParameter().name.equals(expression.getPin().getRef().getName())){
+						if(input.getParameterValues().size()>0)
+							valueInstance = (ValueInstance)input.getParameterValues().get(0).getValueSnapshot().eContainer();
+					}
+				}
+			}
+		}
+	}
+	
 	private boolean processSimple(StateExpression expression, List<ValueSnapshot> list){
 		SimpleValue simpleValue = (SimpleValue)expression.getValue();
 		
@@ -236,7 +243,7 @@ public class StateAssertionValidator {
 		}
 		
 		for(ValueSnapshot snapshot: list){
-			if(expression instanceof PropertyStateExpression){
+			if(expression instanceof PropertyStateExpression){				
 				Object_ object = (Object_)snapshot.getValue();
 				for(FeatureValue featureValue: object.featureValues){
 					String featureName = featureValue.feature.name;
@@ -380,9 +387,11 @@ public class StateAssertionValidator {
 				}
 				
 				Object_ target = null;
-				if(propertyExpression.getValue() instanceof XNullLiteral){
-					
-				}else{
+				if(propertyExpression.getValue() instanceof SimpleValue){//this is the case where we might compare null to a link
+					SimpleValue value = (SimpleValue)propertyExpression.getValue();
+					if(!(value.getValue() instanceof XNullLiteral))System.out.println("For links only null is allowed!");;
+				}
+				else{
 					target = (Object_)testDataConverter.getFUMLElement(propertyExpression.getValue());
 				}
 				
@@ -413,29 +422,12 @@ public class StateAssertionValidator {
 				}
 				links.removeAll(linksToRemove);
 				
-				//TODO continue
 				if(target == null){
 					if(links.size() > 0)return false;
 					if(links.size() == 0)return true;
 				}else{
 					if(links.size() == 0)return false;
-					
-					for(ValueInstance instance: links){
-						Link link = (Link)instance.getRuntimeValue();
-						for(FeatureValue feature: link.featureValues){
-							if(feature.feature.name.equals(propertyExpression.getProperty().getName())){
-								Object_ value = ((Reference)feature.values.get(0)).referent;
-								for(FeatureValue targetFeature: target.featureValues){
-									for(FeatureValue comparedFeature: value.featureValues){
-										if(comparedFeature.feature.name.equals(targetFeature.feature.name)){
-											if(compare(targetFeature, comparedFeature) == false)return false;											
-										}
-									}									
-								}
-							}
-						}
-					}
-					return true;
+					if(links.size() > 0)return true;					
 				}				
 				return false;
 			}
@@ -572,6 +564,40 @@ public class StateAssertionValidator {
 		}
 		initializeSuccessorSnapshots(successor, successorSnapshots);
 	}
+	
+	/**
+	 * Initialize successors and predecessors of the value instance.
+	 */
+	private void setupSucessorsPredecessors(){
+		for(Output output: referredNodeExecution.getOutputs()){
+			if(output.getOutputValues().size()==0)continue;
+			ValueInstance referredValueInstance = (ValueInstance)output.getOutputValues().get(0).getOutputValueSnapshot().eContainer();
+			if(referredValueInstance == valueInstance && operator == TemporalOperator.AFTER)
+				if(successors.contains(output.getOutputValues().get(0).getOutputValueSnapshot()) == false)
+					successors.add(output.getOutputValues().get(0).getOutputValueSnapshot());
+		}
+		
+		for(Input input: referredNodeExecution.getInputs()){
+			if(input.getInputValues().size()==0)continue;
+			ValueInstance referredValueInstance = (ValueInstance)input.getInputValues().get(0).getInputValueSnapshot().eContainer();
+			if(referredValueInstance == valueInstance && operator == TemporalOperator.BEFORE){
+				if(predecessors.contains(input.getInputValues().get(0).getInputValueSnapshot()))
+					predecessors.add(input.getInputValues().get(0).getInputValueSnapshot());
+			}
+		}
+		
+		//adding snapshots of the valueInstance created before-after the referred one
+		if(referredNodeExecution.getNode() instanceof CallBehaviorAction || referredNodeExecution.getNode() instanceof CallOperationAction){
+			ActivityNodeList nodes = referredNodeExecution.getNode().activity.node;
+			ActivityNodeExecution lastNodeInBehavior = getLastChildNode(referredNodeExecution, nodes);
+			initializeSuccessorSnapshots(lastNodeInBehavior, successors);
+			initializePredecessorSnapshots(lastNodeInBehavior, predecessors);
+		}else{
+			initializeSuccessorSnapshots(referredNodeExecution, successors);
+			initializePredecessorSnapshots(referredNodeExecution, predecessors);
+		}
+	}
+	
 	
 	private ActivityNodeExecution getLastChildNode(ActivityNodeExecution nodeExecution, ActivityNodeList nodes){
 		ActivityNode successor = nodeExecution.getChronologicalSuccessor().getNode();

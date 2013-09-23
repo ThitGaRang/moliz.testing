@@ -20,6 +20,7 @@ import org.eclipse.uml2.uml.Activity;
  *   <li>{@link org.modelexecution.fumltesting.testLang.TestCase#getActivityUnderTest <em>Activity Under Test</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.testLang.TestCase#getInputs <em>Inputs</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.testLang.TestCase#getContextObject <em>Context Object</em>}</li>
+ *   <li>{@link org.modelexecution.fumltesting.testLang.TestCase#getInitScenarios <em>Init Scenarios</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.testLang.TestCase#getVariables <em>Variables</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.testLang.TestCase#getAssertions <em>Assertions</em>}</li>
  * </ul>
@@ -124,6 +125,22 @@ public interface TestCase extends EObject
    * @generated
    */
   void setContextObject(ObjectSpecification value);
+
+  /**
+   * Returns the value of the '<em><b>Init Scenarios</b></em>' reference list.
+   * The list contents are of type {@link org.modelexecution.fumltesting.testLang.Scenario}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Init Scenarios</em>' reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Init Scenarios</em>' reference list.
+   * @see org.modelexecution.fumltesting.testLang.TestLangPackage#getTestCase_InitScenarios()
+   * @model
+   * @generated
+   */
+  EList<Scenario> getInitScenarios();
 
   /**
    * Returns the value of the '<em><b>Variables</b></em>' containment reference list.

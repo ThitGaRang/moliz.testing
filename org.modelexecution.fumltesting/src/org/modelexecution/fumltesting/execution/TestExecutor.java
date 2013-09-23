@@ -53,14 +53,14 @@ public class TestExecutor{
 			resourceSet.addLoadOption(XtextResource.OPTION_RESOLVE_ALL, Boolean.TRUE);
 
 			//model of the test suite to be executed, with references to UML model under test
-			resource = resourceSet.getResource(URI.createFileURI(new File("example/banking.fumltest").getAbsolutePath()), true);
+			resource = resourceSet.getResource(URI.createFileURI(new File("example/corrected/banking.fumltest").getAbsolutePath()), true);
 
 			resource.load(null);
 			if (resource != null){
 				resourceSet.getPackageRegistry().put(UMLPackage.eNS_URI, UMLPackage.eINSTANCE);
 				resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(UMLResource.FILE_EXTENSION, UMLResource.Factory.INSTANCE);
 				//model with UML elements under test, referenced by testing model
-				Resource r = resourceSet.getResource(URI.createFileURI(new File("example/banking.uml").getAbsolutePath()), true);
+				Resource r = resourceSet.getResource(URI.createFileURI(new File("example/corrected/banking.uml").getAbsolutePath()), true);
 				r.load(null);
 				
 				//replacement of references with the elements from UML model
@@ -85,9 +85,12 @@ public class TestExecutor{
 	public void test() {
 		setup();
 		for (int i = 0; i < suite.getTests().size(); i++) {
-			TestCase testCase = suite.getTests().get(i);			
+			TestCase testCase = suite.getTests().get(i);
 			AssertionPrinter.print(testCase);
 			Activity activity = testCase.getActivityUnderTest();
+			
+			executor.cleanUp();
+			executor.initScenarios(testCase.getInitScenarios());
 			
 			if(testCase.getContextObject() != null){
 				mainActivityExecutionID = executor.executeActivity(activity, testCase.getInputs(), testCase.getContextObject());

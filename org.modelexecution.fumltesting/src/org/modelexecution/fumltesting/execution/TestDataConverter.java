@@ -1,5 +1,7 @@
 package org.modelexecution.fumltesting.execution;
 
+import java.util.HashMap;
+
 import org.eclipse.uml2.uml.Property;
 import org.eclipse.xtext.xbase.XBooleanLiteral;
 import org.eclipse.xtext.xbase.XExpression;
@@ -38,9 +40,16 @@ public class TestDataConverter {
 	private static TestDataConverter INSTANCE;
 	private IConversionResult model;
 	private Locus locus;
+	private HashMap<Value, Object> fumlObjects;
 	
 	private TestDataConverter(){
 		locus = ExecutionContext.getInstance().getLocus();
+		fumlObjects = new HashMap<Value, Object>();
+	}
+	
+	public void cleanUp(){
+		fumlObjects = new HashMap<Value, Object>();
+		locus.extensionalValues.removeAll(locus.extensionalValues);
 	}
 	
 	public static TestDataConverter getInstance(){
@@ -54,7 +63,10 @@ public class TestDataConverter {
 		TestDataConverter.getInstance().model = model;
 	}
 	
-	public Object getFUMLElement(Value value){		
+	public Object getFUMLElement(Value value){
+		//TODO needs more testing..
+		if(fumlObjects.containsKey(value))return fumlObjects.get(value);
+		
 		if(value instanceof SimpleValue){
 			XExpression expression = ((SimpleValue)value).getValue();
 			return getFumlValue(expression);
@@ -76,7 +88,7 @@ public class TestDataConverter {
 						Object simpleValue = getFumlValue(expression);
 						featureValue.values.add((fUML.Semantics.Classes.Kernel.Value)simpleValue);
 					}
-				}				
+				}
 			}
 			
 			for(org.modelexecution.fumltesting.testLang.Link link: testData.getLinks()){

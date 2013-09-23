@@ -79,6 +79,7 @@ public class TestLangFactoryImpl extends EFactoryImpl implements TestLangFactory
       case TestLangPackage.LINK: return createLink();
       case TestLangPackage.ASSERTION: return createAssertion();
       case TestLangPackage.STATE_ASSERTION: return createStateAssertion();
+      case TestLangPackage.FINALLY_STATE_ASSERTION: return createFinallyStateAssertion();
       case TestLangPackage.STATE_EXPRESSION: return createStateExpression();
       case TestLangPackage.OBJECT_STATE_EXPRESSION: return createObjectStateExpression();
       case TestLangPackage.PROPERTY_STATE_EXPRESSION: return createPropertyStateExpression();
@@ -284,6 +285,17 @@ public class TestLangFactoryImpl extends EFactoryImpl implements TestLangFactory
   {
     StateAssertionImpl stateAssertion = new StateAssertionImpl();
     return stateAssertion;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public FinallyStateAssertion createFinallyStateAssertion()
+  {
+    FinallyStateAssertionImpl finallyStateAssertion = new FinallyStateAssertionImpl();
+    return finallyStateAssertion;
   }
 
   /**

@@ -412,19 +412,65 @@ ruleTestCase returns [EObject current=null]
     {
     	newLeafNode(otherlv_11, grammarAccess.getTestCaseAccess().getLeftCurlyBracketKeyword_6());
     }
+(	otherlv_12='initialize' 
+    {
+    	newLeafNode(otherlv_12, grammarAccess.getTestCaseAccess().getInitializeKeyword_7_0());
+    }
+	otherlv_13='[' 
+    {
+    	newLeafNode(otherlv_13, grammarAccess.getTestCaseAccess().getLeftSquareBracketKeyword_7_1());
+    }
 (
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getTestCaseRule());
+	        }
+        }
+	otherlv_14=RULE_ID
+	{
+		newLeafNode(otherlv_14, grammarAccess.getTestCaseAccess().getInitScenariosScenarioCrossReference_7_2_0()); 
+	}
+
+)
+)(	otherlv_15=',' 
+    {
+    	newLeafNode(otherlv_15, grammarAccess.getTestCaseAccess().getCommaKeyword_7_3_0());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getTestCaseRule());
+	        }
+        }
+	otherlv_16=RULE_ID
+	{
+		newLeafNode(otherlv_16, grammarAccess.getTestCaseAccess().getInitScenariosScenarioCrossReference_7_3_1_0()); 
+	}
+
+)
+))*	otherlv_17=']' 
+    {
+    	newLeafNode(otherlv_17, grammarAccess.getTestCaseAccess().getRightSquareBracketKeyword_7_4());
+    }
+	otherlv_18=';' 
+    {
+    	newLeafNode(otherlv_18, grammarAccess.getTestCaseAccess().getSemicolonKeyword_7_5());
+    }
+)?(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getTestCaseAccess().getVariablesVarDeclarationParserRuleCall_7_0()); 
+	        newCompositeNode(grammarAccess.getTestCaseAccess().getVariablesVarDeclarationParserRuleCall_8_0()); 
 	    }
-		lv_variables_12_0=ruleVarDeclaration		{
+		lv_variables_19_0=ruleVarDeclaration		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getTestCaseRule());
 	        }
        		add(
        			$current, 
        			"variables",
-        		lv_variables_12_0, 
+        		lv_variables_19_0, 
         		"VarDeclaration");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -433,24 +479,24 @@ ruleTestCase returns [EObject current=null]
 )*(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getTestCaseAccess().getAssertionsAssertionParserRuleCall_8_0()); 
+	        newCompositeNode(grammarAccess.getTestCaseAccess().getAssertionsAssertionParserRuleCall_9_0()); 
 	    }
-		lv_assertions_13_0=ruleAssertion		{
+		lv_assertions_20_0=ruleAssertion		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getTestCaseRule());
 	        }
        		add(
        			$current, 
        			"assertions",
-        		lv_assertions_13_0, 
+        		lv_assertions_20_0, 
         		"Assertion");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)*	otherlv_14='}' 
+)*	otherlv_21='}' 
     {
-    	newLeafNode(otherlv_14, grammarAccess.getTestCaseAccess().getRightCurlyBracketKeyword_9());
+    	newLeafNode(otherlv_21, grammarAccess.getTestCaseAccess().getRightCurlyBracketKeyword_10());
     }
 )
 ;
@@ -1026,6 +1072,16 @@ ruleAssertion returns [EObject current=null]
         $current = $this_StateAssertion_1.current; 
         afterParserOrEnumRuleCall();
     }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getAssertionAccess().getFinallyStateAssertionParserRuleCall_2()); 
+    }
+    this_FinallyStateAssertion_2=ruleFinallyStateAssertion
+    { 
+        $current = $this_FinallyStateAssertion_2.current; 
+        afterParserOrEnumRuleCall();
+    }
 )
 ;
 
@@ -1146,6 +1202,57 @@ ruleStateAssertion returns [EObject current=null]
 )+	otherlv_8='}' 
     {
     	newLeafNode(otherlv_8, grammarAccess.getStateAssertionAccess().getRightCurlyBracketKeyword_5());
+    }
+)
+;
+
+
+
+
+
+// Entry rule entryRuleFinallyStateAssertion
+entryRuleFinallyStateAssertion returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getFinallyStateAssertionRule()); }
+	 iv_ruleFinallyStateAssertion=ruleFinallyStateAssertion 
+	 { $current=$iv_ruleFinallyStateAssertion.current; } 
+	 EOF 
+;
+
+// Rule FinallyStateAssertion
+ruleFinallyStateAssertion returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(	otherlv_0='finally' 
+    {
+    	newLeafNode(otherlv_0, grammarAccess.getFinallyStateAssertionAccess().getFinallyKeyword_0());
+    }
+	otherlv_1='{' 
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getFinallyStateAssertionAccess().getLeftCurlyBracketKeyword_1());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getFinallyStateAssertionAccess().getExpressionsStateExpressionParserRuleCall_2_0()); 
+	    }
+		lv_expressions_2_0=ruleStateExpression		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getFinallyStateAssertionRule());
+	        }
+       		add(
+       			$current, 
+       			"expressions",
+        		lv_expressions_2_0, 
+        		"StateExpression");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)+	otherlv_3='}' 
+    {
+    	newLeafNode(otherlv_3, grammarAccess.getFinallyStateAssertionAccess().getRightCurlyBracketKeyword_3());
     }
 )
 ;

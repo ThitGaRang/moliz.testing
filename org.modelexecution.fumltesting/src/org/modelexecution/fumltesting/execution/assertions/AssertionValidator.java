@@ -5,6 +5,7 @@ import java.util.List;
 import org.modelexecution.fumltesting.execution.ActivityExecutor;
 import org.modelexecution.fumltesting.execution.TraceUtil;
 import org.modelexecution.fumltesting.testLang.Assertion;
+import org.modelexecution.fumltesting.testLang.FinallyStateAssertion;
 import org.modelexecution.fumltesting.testLang.NodeSpecification;
 import org.modelexecution.fumltesting.testLang.OrderAssertion;
 import org.modelexecution.fumltesting.testLang.StateAssertion;
@@ -16,14 +17,14 @@ import org.modelexecution.fumltesting.testLang.TestCase;
  */
 public class AssertionValidator {
 	
-	private OrderExecutionAssertionValidator orderValidator;
+	private OrderAssertionValidator orderValidator;
 	private StateAssertionValidator stateValidator;
 	private TraceUtil traceUtil;
 	
 	public AssertionValidator(int activityExecutionID, ActivityExecutor executor){
 		traceUtil = new TraceUtil(activityExecutionID, executor);		
 		stateValidator = new StateAssertionValidator(traceUtil);
-		orderValidator =  new OrderExecutionAssertionValidator();
+		orderValidator =  new OrderAssertionValidator();
 	}
 	
 	public boolean check(Assertion assertion){
@@ -35,6 +36,9 @@ public class AssertionValidator {
 		}
 		if(assertion instanceof StateAssertion){
 			return stateValidator.check((StateAssertion)assertion);
+		}
+		if(assertion instanceof FinallyStateAssertion){
+			return stateValidator.check((FinallyStateAssertion)assertion);
 		}
 		return false;
 	}

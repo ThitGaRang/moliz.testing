@@ -19,6 +19,7 @@ import org.modelexecution.fumltesting.testLang.ActivityInput;
 import org.modelexecution.fumltesting.testLang.ArithmeticOperator;
 import org.modelexecution.fumltesting.testLang.Assertion;
 import org.modelexecution.fumltesting.testLang.Attribute;
+import org.modelexecution.fumltesting.testLang.FinallyStateAssertion;
 import org.modelexecution.fumltesting.testLang.Import;
 import org.modelexecution.fumltesting.testLang.Link;
 import org.modelexecution.fumltesting.testLang.NodeOrder;
@@ -146,6 +147,13 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * @generated
    */
   private EClass stateAssertionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass finallyStateAssertionEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -422,7 +430,7 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getTestCase_Variables()
+  public EReference getTestCase_InitScenarios()
   {
     return (EReference)testCaseEClass.getEStructuralFeatures().get(4);
   }
@@ -432,9 +440,19 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getTestCase_Assertions()
+  public EReference getTestCase_Variables()
   {
     return (EReference)testCaseEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getTestCase_Assertions()
+  {
+    return (EReference)testCaseEClass.getEStructuralFeatures().get(6);
   }
 
   /**
@@ -762,6 +780,26 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getFinallyStateAssertion()
+  {
+    return finallyStateAssertionEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getFinallyStateAssertion_Expressions()
+  {
+    return (EReference)finallyStateAssertionEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getStateExpression()
   {
     return stateExpressionEClass;
@@ -994,6 +1032,7 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
     createEReference(testCaseEClass, TEST_CASE__ACTIVITY_UNDER_TEST);
     createEReference(testCaseEClass, TEST_CASE__INPUTS);
     createEReference(testCaseEClass, TEST_CASE__CONTEXT_OBJECT);
+    createEReference(testCaseEClass, TEST_CASE__INIT_SCENARIOS);
     createEReference(testCaseEClass, TEST_CASE__VARIABLES);
     createEReference(testCaseEClass, TEST_CASE__ASSERTIONS);
 
@@ -1038,6 +1077,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
     createEReference(stateAssertionEClass, STATE_ASSERTION__REFERENCE_ACTION);
     createEReference(stateAssertionEClass, STATE_ASSERTION__UNTIL_ACTION);
     createEReference(stateAssertionEClass, STATE_ASSERTION__EXPRESSIONS);
+
+    finallyStateAssertionEClass = createEClass(FINALLY_STATE_ASSERTION);
+    createEReference(finallyStateAssertionEClass, FINALLY_STATE_ASSERTION__EXPRESSIONS);
 
     stateExpressionEClass = createEClass(STATE_EXPRESSION);
     createEReference(stateExpressionEClass, STATE_EXPRESSION__PIN);
@@ -1104,6 +1146,7 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
     simpleValueEClass.getESuperTypes().add(this.getValue());
     objectValueEClass.getESuperTypes().add(this.getValue());
     stateAssertionEClass.getESuperTypes().add(this.getAssertion());
+    finallyStateAssertionEClass.getESuperTypes().add(this.getAssertion());
     objectStateExpressionEClass.getESuperTypes().add(this.getStateExpression());
     propertyStateExpressionEClass.getESuperTypes().add(this.getStateExpression());
     orderAssertionEClass.getESuperTypes().add(this.getAssertion());
@@ -1126,6 +1169,7 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
     initEReference(getTestCase_ActivityUnderTest(), theUMLPackage.getActivity(), null, "activityUnderTest", null, 0, 1, TestCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getTestCase_Inputs(), this.getActivityInput(), null, "inputs", null, 0, -1, TestCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getTestCase_ContextObject(), this.getObjectSpecification(), null, "contextObject", null, 0, 1, TestCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTestCase_InitScenarios(), this.getScenario(), null, "initScenarios", null, 0, -1, TestCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getTestCase_Variables(), this.getVarDeclaration(), null, "variables", null, 0, -1, TestCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getTestCase_Assertions(), this.getAssertion(), null, "assertions", null, 0, -1, TestCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -1170,6 +1214,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
     initEReference(getStateAssertion_ReferenceAction(), theUMLPackage.getAction(), null, "referenceAction", null, 0, 1, StateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getStateAssertion_UntilAction(), theUMLPackage.getAction(), null, "untilAction", null, 0, 1, StateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getStateAssertion_Expressions(), this.getStateExpression(), null, "expressions", null, 0, -1, StateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(finallyStateAssertionEClass, FinallyStateAssertion.class, "FinallyStateAssertion", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getFinallyStateAssertion_Expressions(), this.getStateExpression(), null, "expressions", null, 0, -1, FinallyStateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(stateExpressionEClass, StateExpression.class, "StateExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getStateExpression_Pin(), this.getVarDeclaration(), null, "pin", null, 0, 1, StateExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -53,6 +53,7 @@ import org.eclipse.xtext.xtype.XtypePackage;
 import org.modelexecution.fumltesting.services.TestLangGrammarAccess;
 import org.modelexecution.fumltesting.testLang.ActivityInput;
 import org.modelexecution.fumltesting.testLang.Attribute;
+import org.modelexecution.fumltesting.testLang.FinallyStateAssertion;
 import org.modelexecution.fumltesting.testLang.Import;
 import org.modelexecution.fumltesting.testLang.Link;
 import org.modelexecution.fumltesting.testLang.NodeOrder;
@@ -87,6 +88,13 @@ public class TestLangSemanticSequencer extends XbaseSemanticSequencer {
 			case TestLangPackage.ATTRIBUTE:
 				if(context == grammarAccess.getAttributeRule()) {
 					sequence_Attribute(context, (Attribute) semanticObject); 
+					return; 
+				}
+				else break;
+			case TestLangPackage.FINALLY_STATE_ASSERTION:
+				if(context == grammarAccess.getAssertionRule() ||
+				   context == grammarAccess.getFinallyStateAssertionRule()) {
+					sequence_FinallyStateAssertion(context, (FinallyStateAssertion) semanticObject); 
 					return; 
 				}
 				else break;
@@ -1086,6 +1094,15 @@ public class TestLangSemanticSequencer extends XbaseSemanticSequencer {
 	
 	/**
 	 * Constraint:
+	 *     expressions+=StateExpression+
+	 */
+	protected void sequence_FinallyStateAssertion(EObject context, FinallyStateAssertion semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     importedNamespace=QualifiedNameWithWildCard
 	 */
 	protected void sequence_Import(EObject context, Import semanticObject) {
@@ -1287,6 +1304,7 @@ public class TestLangSemanticSequencer extends XbaseSemanticSequencer {
 	 *         activityUnderTest=[Activity|QualifiedName] 
 	 *         (inputs+=ActivityInput inputs+=ActivityInput*)? 
 	 *         contextObject=[ObjectSpecification|QualifiedName]? 
+	 *         (initScenarios+=[Scenario|ID] initScenarios+=[Scenario|ID]*)? 
 	 *         variables+=VarDeclaration* 
 	 *         assertions+=Assertion*
 	 *     )

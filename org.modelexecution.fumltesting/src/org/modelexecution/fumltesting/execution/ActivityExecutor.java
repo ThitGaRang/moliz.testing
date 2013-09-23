@@ -10,10 +10,12 @@ import org.modelexecution.fuml.convert.IConverter;
 import org.modelexecution.fumldebug.core.ExecutionContext;
 import org.modelexecution.fumldebug.core.ExecutionEventListener;
 import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
+import org.modelexecution.fumldebug.core.event.ActivityExitEvent;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumltesting.testLang.ActivityInput;
 import org.modelexecution.fumltesting.testLang.ObjectSpecification;
 import org.modelexecution.fumltesting.testLang.ObjectValue;
+import org.modelexecution.fumltesting.testLang.Scenario;
 import org.modelexecution.fumltesting.testLang.TestLangFactory;
 
 import fUML.Semantics.Classes.Kernel.Object_;
@@ -39,6 +41,7 @@ public class ActivityExecutor implements ExecutionEventListener {
 	
 	/** ID of main Activity. */
 	private int mainActivityID;
+	private boolean running;
 	/** Original UML model under test. */
 	private NamedElement umlModel;
 	/** Result obtained from converting UML to fUML model. */
@@ -48,8 +51,24 @@ public class ActivityExecutor implements ExecutionEventListener {
 	/** Utility class for converting input data for activity under test. */
 	private TestDataConverter testDataConverter;
 	/** List of parameters for an activity. */
-	private ParameterValueList parameters;
-	List<ActivityNode> enabledNodes;
+	private ParameterValueList parameters;	
+
+	public void initScenarios(List<Scenario> scenarios){
+		for(Scenario scenario: scenarios){
+			for(ObjectSpecification objectSpecification: scenario.getObjects()){
+				org.modelexecution.fumltesting.testLang.ObjectValue value = TestLangFactory.eINSTANCE.createObjectValue();
+				value.setValue(objectSpecification);
+				//initializes fUML object, puts it into locus and returns it
+				//for each object existing links are created and put into locus also
+				testDataConverter.getFUMLElement(value);				
+			}			
+		}
+		System.out.println("debug here");
+	}
+	
+	public void cleanUp(){
+		testDataConverter.cleanUp();
+	}
 	
 	public ActivityExecutor(NamedElement umlModel){
 		this.umlModel = umlModel;
@@ -58,7 +77,7 @@ public class ActivityExecutor implements ExecutionEventListener {
 		replaceOpaqueBehaviors();
 		TestDataConverter.setModel(convertedModel);
 		testDataConverter = TestDataConverter.getInstance();
-		parameters = new ParameterValueList();
+		parameters = new ParameterValueList();		
 	}
 	
 	/**
@@ -66,6 +85,7 @@ public class ActivityExecutor implements ExecutionEventListener {
 	 */
 	public int executeActivity(org.eclipse.uml2.uml.Activity activity, List<ActivityInput> activityInputs, ObjectSpecification context){
 		Activity fumlActivity = convertedModel.getActivity(activity.getName());
+		
 		for(ActivityInput input: activityInputs){
 			Object object = testDataConverter.getFUMLElement(input.getValue());
 			
@@ -96,14 +116,18 @@ public class ActivityExecutor implements ExecutionEventListener {
 		
 		//add a listener
 		eventlist = new ArrayList<Event>();
-		getExecutionContext().addEventListener(this);
-		enabledNodes = new ArrayList<ActivityNode>();
+		getExecutionContext().addEventListener(this);		
 		
 		//insert the converted context object, if it exists
 		if(context != null){
-			getExecutionContext().execute(fumlActivity, contextObject, parameters);
+			running = true;
+			getExecutionContext().executeStepwise(fumlActivity, contextObject, parameters);			
 		}else{
-			getExecutionContext().execute(fumlActivity, null, parameters);
+			running = true;
+			getExecutionContext().executeStepwise(fumlActivity, null, parameters);
+		}		
+		while(running) {
+			ExecutionContext.getInstance().nextStep(mainActivityID);
 		}
 		
 		return mainActivityID;
@@ -164,20 +188,16 @@ public class ActivityExecutor implements ExecutionEventListener {
 		return convertedModel.getInputObject(element);
 	}
 	
-	/**
-	 * Returs the result of conversion of UML model to fUML.
-	 * @return
-	 */
-	public IConversionResult getConversionResult(){
-		return convertedModel;
-	}
-	
 	@Override
 	public void notify(Event event) {
 		if(event instanceof ActivityEntryEvent && (((ActivityEntryEvent)event).getParent() == null)){
 			mainActivityID = ((ActivityEntryEvent)event).getActivityExecutionID();
+			
 		}
-		eventlist.add(event);		
+		eventlist.add(event);
+		if(event instanceof ActivityExitEvent && (((ActivityExitEvent)event).getActivityExecutionID() == mainActivityID)){
+			running = false;
+		}		
 	}
 	
 	private ExecutionContext getExecutionContext(){

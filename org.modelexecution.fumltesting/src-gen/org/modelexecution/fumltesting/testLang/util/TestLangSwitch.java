@@ -173,6 +173,14 @@ public class TestLangSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case TestLangPackage.FINALLY_STATE_ASSERTION:
+      {
+        FinallyStateAssertion finallyStateAssertion = (FinallyStateAssertion)theEObject;
+        T result = caseFinallyStateAssertion(finallyStateAssertion);
+        if (result == null) result = caseAssertion(finallyStateAssertion);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case TestLangPackage.STATE_EXPRESSION:
       {
         StateExpression stateExpression = (StateExpression)theEObject;
@@ -442,6 +450,22 @@ public class TestLangSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseStateAssertion(StateAssertion object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Finally State Assertion</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Finally State Assertion</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseFinallyStateAssertion(FinallyStateAssertion object)
   {
     return null;
   }

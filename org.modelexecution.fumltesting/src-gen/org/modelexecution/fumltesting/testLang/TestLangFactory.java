@@ -149,6 +149,15 @@ public interface TestLangFactory extends EFactory
   StateAssertion createStateAssertion();
 
   /**
+   * Returns a new object of class '<em>Finally State Assertion</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Finally State Assertion</em>'.
+   * @generated
+   */
+  FinallyStateAssertion createFinallyStateAssertion();
+
+  /**
    * Returns a new object of class '<em>State Expression</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

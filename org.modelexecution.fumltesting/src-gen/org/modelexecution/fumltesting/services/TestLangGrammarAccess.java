@@ -173,26 +173,43 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		private final CrossReference cContextObjectObjectSpecificationCrossReference_5_1_0 = (CrossReference)cContextObjectAssignment_5_1.eContents().get(0);
 		private final RuleCall cContextObjectObjectSpecificationQualifiedNameParserRuleCall_5_1_0_1 = (RuleCall)cContextObjectObjectSpecificationCrossReference_5_1_0.eContents().get(1);
 		private final Keyword cLeftCurlyBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
-		private final Assignment cVariablesAssignment_7 = (Assignment)cGroup.eContents().get(7);
-		private final RuleCall cVariablesVarDeclarationParserRuleCall_7_0 = (RuleCall)cVariablesAssignment_7.eContents().get(0);
-		private final Assignment cAssertionsAssignment_8 = (Assignment)cGroup.eContents().get(8);
-		private final RuleCall cAssertionsAssertionParserRuleCall_8_0 = (RuleCall)cAssertionsAssignment_8.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_9 = (Keyword)cGroup.eContents().get(9);
+		private final Group cGroup_7 = (Group)cGroup.eContents().get(7);
+		private final Keyword cInitializeKeyword_7_0 = (Keyword)cGroup_7.eContents().get(0);
+		private final Keyword cLeftSquareBracketKeyword_7_1 = (Keyword)cGroup_7.eContents().get(1);
+		private final Assignment cInitScenariosAssignment_7_2 = (Assignment)cGroup_7.eContents().get(2);
+		private final CrossReference cInitScenariosScenarioCrossReference_7_2_0 = (CrossReference)cInitScenariosAssignment_7_2.eContents().get(0);
+		private final RuleCall cInitScenariosScenarioIDTerminalRuleCall_7_2_0_1 = (RuleCall)cInitScenariosScenarioCrossReference_7_2_0.eContents().get(1);
+		private final Group cGroup_7_3 = (Group)cGroup_7.eContents().get(3);
+		private final Keyword cCommaKeyword_7_3_0 = (Keyword)cGroup_7_3.eContents().get(0);
+		private final Assignment cInitScenariosAssignment_7_3_1 = (Assignment)cGroup_7_3.eContents().get(1);
+		private final CrossReference cInitScenariosScenarioCrossReference_7_3_1_0 = (CrossReference)cInitScenariosAssignment_7_3_1.eContents().get(0);
+		private final RuleCall cInitScenariosScenarioIDTerminalRuleCall_7_3_1_0_1 = (RuleCall)cInitScenariosScenarioCrossReference_7_3_1_0.eContents().get(1);
+		private final Keyword cRightSquareBracketKeyword_7_4 = (Keyword)cGroup_7.eContents().get(4);
+		private final Keyword cSemicolonKeyword_7_5 = (Keyword)cGroup_7.eContents().get(5);
+		private final Assignment cVariablesAssignment_8 = (Assignment)cGroup.eContents().get(8);
+		private final RuleCall cVariablesVarDeclarationParserRuleCall_8_0 = (RuleCall)cVariablesAssignment_8.eContents().get(0);
+		private final Assignment cAssertionsAssignment_9 = (Assignment)cGroup.eContents().get(9);
+		private final RuleCall cAssertionsAssertionParserRuleCall_9_0 = (RuleCall)cAssertionsAssignment_9.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_10 = (Keyword)cGroup.eContents().get(10);
 		
 		//TestCase:
 		//
 		//	"test" name=ID "activity" activityUnderTest=[uml::Activity|QualifiedName] ("(" inputs+=ActivityInput (","
 		//
-		//	inputs+=ActivityInput)* ")")? ("on" contextObject=[ObjectSpecification|QualifiedName])? "{"
+		//	inputs+=ActivityInput)* ")")? ("on" contextObject=[ObjectSpecification|QualifiedName])? "{" ("initialize" "["
 		//
-		//	variables+=VarDeclaration* assertions+=Assertion* "}";
+		//	initScenarios+=[Scenario] ("," initScenarios+=[Scenario])* "]" ";")? variables+=VarDeclaration*
+		//
+		//	assertions+=Assertion* "}";
 		public ParserRule getRule() { return rule; }
 
 		//"test" name=ID "activity" activityUnderTest=[uml::Activity|QualifiedName] ("(" inputs+=ActivityInput (","
 		//
-		//inputs+=ActivityInput)* ")")? ("on" contextObject=[ObjectSpecification|QualifiedName])? "{" variables+=VarDeclaration*
+		//inputs+=ActivityInput)* ")")? ("on" contextObject=[ObjectSpecification|QualifiedName])? "{" ("initialize" "["
 		//
-		//assertions+=Assertion* "}"
+		//initScenarios+=[Scenario] ("," initScenarios+=[Scenario])* "]" ";")? variables+=VarDeclaration* assertions+=Assertion*
+		//
+		//"}"
 		public Group getGroup() { return cGroup; }
 
 		//"test"
@@ -261,20 +278,59 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		//"{"
 		public Keyword getLeftCurlyBracketKeyword_6() { return cLeftCurlyBracketKeyword_6; }
 
+		//("initialize" "[" initScenarios+=[Scenario] ("," initScenarios+=[Scenario])* "]" ";")?
+		public Group getGroup_7() { return cGroup_7; }
+
+		//"initialize"
+		public Keyword getInitializeKeyword_7_0() { return cInitializeKeyword_7_0; }
+
+		//"["
+		public Keyword getLeftSquareBracketKeyword_7_1() { return cLeftSquareBracketKeyword_7_1; }
+
+		//initScenarios+=[Scenario]
+		public Assignment getInitScenariosAssignment_7_2() { return cInitScenariosAssignment_7_2; }
+
+		//[Scenario]
+		public CrossReference getInitScenariosScenarioCrossReference_7_2_0() { return cInitScenariosScenarioCrossReference_7_2_0; }
+
+		//ID
+		public RuleCall getInitScenariosScenarioIDTerminalRuleCall_7_2_0_1() { return cInitScenariosScenarioIDTerminalRuleCall_7_2_0_1; }
+
+		//("," initScenarios+=[Scenario])*
+		public Group getGroup_7_3() { return cGroup_7_3; }
+
+		//","
+		public Keyword getCommaKeyword_7_3_0() { return cCommaKeyword_7_3_0; }
+
+		//initScenarios+=[Scenario]
+		public Assignment getInitScenariosAssignment_7_3_1() { return cInitScenariosAssignment_7_3_1; }
+
+		//[Scenario]
+		public CrossReference getInitScenariosScenarioCrossReference_7_3_1_0() { return cInitScenariosScenarioCrossReference_7_3_1_0; }
+
+		//ID
+		public RuleCall getInitScenariosScenarioIDTerminalRuleCall_7_3_1_0_1() { return cInitScenariosScenarioIDTerminalRuleCall_7_3_1_0_1; }
+
+		//"]"
+		public Keyword getRightSquareBracketKeyword_7_4() { return cRightSquareBracketKeyword_7_4; }
+
+		//";"
+		public Keyword getSemicolonKeyword_7_5() { return cSemicolonKeyword_7_5; }
+
 		//variables+=VarDeclaration*
-		public Assignment getVariablesAssignment_7() { return cVariablesAssignment_7; }
+		public Assignment getVariablesAssignment_8() { return cVariablesAssignment_8; }
 
 		//VarDeclaration
-		public RuleCall getVariablesVarDeclarationParserRuleCall_7_0() { return cVariablesVarDeclarationParserRuleCall_7_0; }
+		public RuleCall getVariablesVarDeclarationParserRuleCall_8_0() { return cVariablesVarDeclarationParserRuleCall_8_0; }
 
 		//assertions+=Assertion*
-		public Assignment getAssertionsAssignment_8() { return cAssertionsAssignment_8; }
+		public Assignment getAssertionsAssignment_9() { return cAssertionsAssignment_9; }
 
 		//Assertion
-		public RuleCall getAssertionsAssertionParserRuleCall_8_0() { return cAssertionsAssertionParserRuleCall_8_0; }
+		public RuleCall getAssertionsAssertionParserRuleCall_9_0() { return cAssertionsAssertionParserRuleCall_9_0; }
 
 		//"}"
-		public Keyword getRightCurlyBracketKeyword_9() { return cRightCurlyBracketKeyword_9; }
+		public Keyword getRightCurlyBracketKeyword_10() { return cRightCurlyBracketKeyword_10; }
 	}
 
 	public class ActivityInputElements extends AbstractParserRuleElementFinder {
@@ -634,13 +690,14 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final RuleCall cOrderAssertionParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cStateAssertionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cFinallyStateAssertionParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		
 		//Assertion:
 		//
-		//	OrderAssertion | StateAssertion;
+		//	OrderAssertion | StateAssertion | FinallyStateAssertion;
 		public ParserRule getRule() { return rule; }
 
-		//OrderAssertion | StateAssertion
+		//OrderAssertion | StateAssertion | FinallyStateAssertion
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//OrderAssertion
@@ -648,6 +705,9 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 
 		//StateAssertion
 		public RuleCall getStateAssertionParserRuleCall_1() { return cStateAssertionParserRuleCall_1; }
+
+		//FinallyStateAssertion
+		public RuleCall getFinallyStateAssertionParserRuleCall_2() { return cFinallyStateAssertionParserRuleCall_2; }
 	}
 
 	public class StateAssertionElements extends AbstractParserRuleElementFinder {
@@ -741,6 +801,39 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_5() { return cRightCurlyBracketKeyword_5; }
+	}
+
+	public class FinallyStateAssertionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "FinallyStateAssertion");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cFinallyKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cLeftCurlyBracketKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cExpressionsAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cExpressionsStateExpressionParserRuleCall_2_0 = (RuleCall)cExpressionsAssignment_2.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		
+		//FinallyStateAssertion:
+		//
+		//	"finally" "{" expressions+=StateExpression+ "}";
+		public ParserRule getRule() { return rule; }
+
+		//"finally" "{" expressions+=StateExpression+ "}"
+		public Group getGroup() { return cGroup; }
+
+		//"finally"
+		public Keyword getFinallyKeyword_0() { return cFinallyKeyword_0; }
+
+		//"{"
+		public Keyword getLeftCurlyBracketKeyword_1() { return cLeftCurlyBracketKeyword_1; }
+
+		//expressions+=StateExpression+
+		public Assignment getExpressionsAssignment_2() { return cExpressionsAssignment_2; }
+
+		//StateExpression
+		public RuleCall getExpressionsStateExpressionParserRuleCall_2_0() { return cExpressionsStateExpressionParserRuleCall_2_0; }
+
+		//"}"
+		public Keyword getRightCurlyBracketKeyword_3() { return cRightCurlyBracketKeyword_3; }
 	}
 
 	public class StateExpressionElements extends AbstractParserRuleElementFinder {
@@ -1154,6 +1247,7 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 	private LinkElements pLink;
 	private AssertionElements pAssertion;
 	private StateAssertionElements pStateAssertion;
+	private FinallyStateAssertionElements pFinallyStateAssertion;
 	private StateExpressionElements pStateExpression;
 	private ObjectStateExpressionElements pObjectStateExpression;
 	private PropertyStateExpressionElements pPropertyStateExpression;
@@ -1250,9 +1344,11 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 	//
 	//	"test" name=ID "activity" activityUnderTest=[uml::Activity|QualifiedName] ("(" inputs+=ActivityInput (","
 	//
-	//	inputs+=ActivityInput)* ")")? ("on" contextObject=[ObjectSpecification|QualifiedName])? "{"
+	//	inputs+=ActivityInput)* ")")? ("on" contextObject=[ObjectSpecification|QualifiedName])? "{" ("initialize" "["
 	//
-	//	variables+=VarDeclaration* assertions+=Assertion* "}";
+	//	initScenarios+=[Scenario] ("," initScenarios+=[Scenario])* "]" ";")? variables+=VarDeclaration*
+	//
+	//	assertions+=Assertion* "}";
 	public TestCaseElements getTestCaseAccess() {
 		return (pTestCase != null) ? pTestCase : (pTestCase = new TestCaseElements());
 	}
@@ -1355,7 +1451,7 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 
 	//Assertion:
 	//
-	//	OrderAssertion | StateAssertion;
+	//	OrderAssertion | StateAssertion | FinallyStateAssertion;
 	public AssertionElements getAssertionAccess() {
 		return (pAssertion != null) ? pAssertion : (pAssertion = new AssertionElements());
 	}
@@ -1377,6 +1473,17 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getStateAssertionRule() {
 		return getStateAssertionAccess().getRule();
+	}
+
+	//FinallyStateAssertion:
+	//
+	//	"finally" "{" expressions+=StateExpression+ "}";
+	public FinallyStateAssertionElements getFinallyStateAssertionAccess() {
+		return (pFinallyStateAssertion != null) ? pFinallyStateAssertion : (pFinallyStateAssertion = new FinallyStateAssertionElements());
+	}
+	
+	public ParserRule getFinallyStateAssertionRule() {
+		return getFinallyStateAssertionAccess().getRule();
 	}
 
 	//StateExpression:

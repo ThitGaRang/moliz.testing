@@ -3,9 +3,19 @@
  */
 package org.modelexecution.fumltesting;
 
+import org.eclipse.xtext.naming.IQualifiedNameProvider;
+import org.eclipse.xtext.scoping.IScopeProvider;
+import org.eclipse.xtext.uml.UmlQualifiedNameProvider;
+import org.modelexecution.fumltesting.scoping.TestLangScopeProvider;
+
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
  */
-public class TestLangRuntimeModule extends org.modelexecution.fumltesting.AbstractTestLangRuntimeModule {
-
+public class TestLangRuntimeModule extends org.modelexecution.fumltesting.AbstractTestLangRuntimeModule {	
+	public Class<? extends IScopeProvider> bindIScopeProvider() {
+		return TestLangScopeProvider.class;
+	}
+	public Class<? extends IQualifiedNameProvider> bindIQualifiedNameProvider() {
+        return UmlQualifiedNameProvider.class;
+    }
 }

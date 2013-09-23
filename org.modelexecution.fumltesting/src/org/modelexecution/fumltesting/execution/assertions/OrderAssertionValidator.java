@@ -6,64 +6,64 @@ import java.util.List;
 import org.eclipse.uml2.uml.CallBehaviorAction;
 import org.eclipse.uml2.uml.CallOperationAction;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
+import org.modelexecution.fumltesting.execution.TraceUtil;
 import org.modelexecution.fumltesting.testLang.NodeSpecification;
 
 import fUML.Syntax.Actions.BasicActions.Action;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityFinalNode;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
+import fUML.Syntax.Activities.IntermediateActivities.ForkNode;
 import fUML.Syntax.Activities.IntermediateActivities.InitialNode;
 /**
  * Utility class for validation of order execution assertion.
  * @author Stefan Mijatov
  *
  */
-public class OrderExecutionAssertionValidator {
+public class OrderAssertionValidator {
 	private List<ActivityNodeExecution> executedNodes;
 	
+	/**
+	 * Check the order of executed nodes.
+	 * @param parentNodeName
+	 * @param specifiedOrder
+	 * @param executedNodes
+	 * @return
+	 */
 	public boolean checkOrder(String parentNodeName, List<NodeSpecification> specifiedOrder, List<ActivityNodeExecution> executedNodes){
 		this.executedNodes = executedNodes;
-		if(validate(parentNodeName, specifiedOrder, executedNodes) == false){
-			AssertionPrinter.print(specifiedOrder, false);
-			return false;
-		}else{
-			boolean result = compare(getTopNodes(parentNodeName, executedNodes), specifiedOrder);
-			AssertionPrinter.print(specifiedOrder, result);
-			return result;
-		}
+		boolean result = compare(getTopNodes(parentNodeName, executedNodes), specifiedOrder);
+		result &= checkParallelism(specifiedOrder, executedNodes);
+		AssertionPrinter.print(specifiedOrder, result);		
+		return result;
 	}
 	
-	private boolean validate(String parentNodeName, List<NodeSpecification> specifiedOrder, List<ActivityNodeExecution> executedNodes){
-		int numberOfNodes = 0;
-		int numberOfEmptyPlaces = 0;
-		List<ActivityNodeExecution> topNodes = getTopNodes(parentNodeName, executedNodes);
-		for(int i=0; i<specifiedOrder.size();i++){
-			if(specifiedOrder.get(i).getNode() != null){
-				numberOfNodes++;
-				continue;
+	private boolean checkParallelism(List<NodeSpecification> specifiedOrder, List<ActivityNodeExecution> executedNodes){
+		//TODO continue here
+		boolean result = true;
+		for(ActivityNodeExecution execution: executedNodes){
+			if(execution.getNode() instanceof ForkNode){
+				List<ActivityNode> included = new ArrayList<ActivityNode>();
+				for(ActivityNodeExecution successor: execution.getLogicalSuccessor()){
+					if(orderContainsNode(successor.getNode(), specifiedOrder))included.add(successor.getNode());
+				}
+				if(included.size() > 1){
+					System.out.print("Following nodes can be exchanged: ");
+					for(ActivityNode node: included)System.out.print(node.name + ", ");
+					System.out.println();
+					result = false;
+				}				
 			}
-			if(specifiedOrder.get(i).getJoker().equals("*")){
-				numberOfEmptyPlaces = -1;
-				continue;
-			}
-			if(specifiedOrder.get(i).getJoker().equals("_") & numberOfEmptyPlaces != -1){
-				numberOfEmptyPlaces++;
-				continue;
-			}
 		}
-		
-		if(numberOfNodes == topNodes.size()){
-			return true;
-		}
-		if(numberOfNodes > topNodes.size()){
-			return false;
-		}
-		if(numberOfNodes < topNodes.size()){
-			if(numberOfEmptyPlaces == -1)return true;
-			if((numberOfEmptyPlaces + numberOfNodes) == topNodes.size())return true;
-		}
-		return false;
+		return result;
 	}
 	
+	/**
+	 * Compares the specified order with executed nodes(for top nodes and each sub order).
+	 * @param executedNodes
+	 * @param nodeOrderList
+	 * @return
+	 */
 	private boolean compare(List<ActivityNodeExecution> executedNodes, List<NodeSpecification> nodeOrderList){
 		int executedNodeIndex = 0;;
 		for(int i=0;i<nodeOrderList.size();i++){
@@ -72,7 +72,7 @@ public class OrderExecutionAssertionValidator {
 			}
 			if(nodeOrderList.get(i).getNode() != null){
 				if(nodeOrderList.get(i).getSubOrder() != null){
-					OrderExecutionAssertionValidator validator = new OrderExecutionAssertionValidator();
+					OrderAssertionValidator validator = new OrderAssertionValidator();
 					String activityName = null;
 					if(nodeOrderList.get(i).getNode() instanceof CallBehaviorAction){
 						activityName = ((CallBehaviorAction)nodeOrderList.get(i).getNode()).getBehavior().getName();
@@ -112,6 +112,12 @@ public class OrderExecutionAssertionValidator {
 		return true;
 	}
 	
+	/**
+	 * Returns the index of the executed node with the given name.
+	 * @param name
+	 * @param executedNodes
+	 * @return
+	 */
 	private int getExecutedNodeIndex(String name, List<ActivityNodeExecution> executedNodes){
 		for(int i=0;i<executedNodes.size();i++){
 			if(executedNodes.get(i).getNode().name.equals(name))return i;
@@ -119,6 +125,13 @@ public class OrderExecutionAssertionValidator {
 		return -1;
 	}
 	
+	/**
+	 * Returns top nodes for the given parent node name. 
+	 * Either activity or CallBehaviorAction can be a parent node.
+	 * @param activityName
+	 * @param executedNodes
+	 * @return
+	 */
 	private List<ActivityNodeExecution> getTopNodes(String activityName, List<ActivityNodeExecution> executedNodes){
 		List<ActivityNodeExecution> topNodes = new ArrayList<ActivityNodeExecution>();
 		for(ActivityNodeExecution node: executedNodes ){
@@ -129,5 +142,12 @@ public class OrderExecutionAssertionValidator {
 			}
 		}
 		return topNodes;
-	}	
+	}
+	
+	private boolean orderContainsNode(ActivityNode node, List<NodeSpecification> specifiedOrder){
+		for(NodeSpecification specification: specifiedOrder){
+			if(specification.getNode() != null && specification.getNode().getName().equals(node.name))return true;
+		}
+		return false;
+	}
 }
