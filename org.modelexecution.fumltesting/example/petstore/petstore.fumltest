@@ -1,0 +1,28 @@
+import Model.structure.*
+import Model.behavior.*
+
+scenario TestData[
+	object product : Product{}
+	object item : Item{}
+	object cartItem : CartItem{}
+	link cartItem_item{cartItem_item.cartItem=cartItem; cartItem_item.item=item;}
+]
+
+test newProductTest activity NewProductActivity(NewProductActivity.mnemonic="x220", NewProductActivity.name="Lenovo Notebook x220") on TestData.product{
+	assertOrder NewProductActivity.init, NewProductActivity.createProduct, 
+		NewProductActivity.setMnemonic, NewProductActivity.setName, NewProductActivity.final;
+}
+
+test newItemTest activity NewItemActivity(NewItemActivity.product=TestData.product) on TestData.item{
+	 assertOrder NewItemActivity.init, NewItemActivity.createItem, NewItemActivity.setProduct, NewItemActivity.final;
+}
+
+test newCartItemTest activity NewCardItemActivity(NewCardItemActivity.catalogItem=TestData.item, NewCardItemActivity.quantity=10) on TestData.cartItem{
+	assertOrder NewCardItemActivity.init, NewCardItemActivity.createCartItem, 
+		NewCardItemActivity.setItem, NewCardItemActivity.setQuantity, NewCardItemActivity.final;
+}
+
+test unitCostTest activity UnitCostActivity on TestData.cartItem{
+	assertOrder UnitCostActivity.init, UnitCostActivity.self, UnitCostActivity.getItem, 
+		UnitCostActivity.getCost, UnitCostActivity.final;
+}

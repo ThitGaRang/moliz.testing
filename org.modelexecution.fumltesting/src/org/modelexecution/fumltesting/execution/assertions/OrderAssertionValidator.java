@@ -6,7 +6,6 @@ import java.util.List;
 import org.eclipse.uml2.uml.CallBehaviorAction;
 import org.eclipse.uml2.uml.CallOperationAction;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
-import org.modelexecution.fumltesting.execution.TraceUtil;
 import org.modelexecution.fumltesting.testLang.NodeSpecification;
 
 import fUML.Syntax.Actions.BasicActions.Action;
@@ -70,6 +69,7 @@ public class OrderAssertionValidator {
 			if(executedNodeIndex == -1){
 				return false;
 			}
+			
 			if(nodeOrderList.get(i).getNode() != null){
 				if(nodeOrderList.get(i).getSubOrder() != null){
 					OrderAssertionValidator validator = new OrderAssertionValidator();
@@ -87,7 +87,7 @@ public class OrderAssertionValidator {
 						return false;
 					}
 				}
-				if(!nodeOrderList.get(i).getNode().getName().equals(executedNodes.get(executedNodeIndex).getNode().name)){
+				if(executedNodeIndex >= executedNodes.size() || !nodeOrderList.get(i).getNode().getName().equals(executedNodes.get(executedNodeIndex).getNode().name)){
 					return false;
 				}				
 				executedNodeIndex++;

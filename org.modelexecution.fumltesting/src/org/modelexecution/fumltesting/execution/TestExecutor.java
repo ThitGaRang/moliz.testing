@@ -53,14 +53,14 @@ public class TestExecutor{
 			resourceSet.addLoadOption(XtextResource.OPTION_RESOLVE_ALL, Boolean.TRUE);
 
 			//model of the test suite to be executed, with references to UML model under test
-			resource = resourceSet.getResource(URI.createFileURI(new File("example/corrected/banking.fumltest").getAbsolutePath()), true);
+			resource = resourceSet.getResource(URI.createFileURI(new File("example/petstore/petstore.fumltest").getAbsolutePath()), true);
 
 			resource.load(null);
 			if (resource != null){
 				resourceSet.getPackageRegistry().put(UMLPackage.eNS_URI, UMLPackage.eINSTANCE);
 				resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(UMLResource.FILE_EXTENSION, UMLResource.Factory.INSTANCE);
 				//model with UML elements under test, referenced by testing model
-				Resource r = resourceSet.getResource(URI.createFileURI(new File("example/corrected/banking.uml").getAbsolutePath()), true);
+				Resource r = resourceSet.getResource(URI.createFileURI(new File("example/petstore/petstore.uml").getAbsolutePath()), true);
 				r.load(null);
 				
 				//replacement of references with the elements from UML model

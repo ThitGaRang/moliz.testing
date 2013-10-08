@@ -63,7 +63,6 @@ public class ActivityExecutor implements ExecutionEventListener {
 				testDataConverter.getFUMLElement(value);				
 			}			
 		}
-		System.out.println("debug here");
 	}
 	
 	public void cleanUp(){

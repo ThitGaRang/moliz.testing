@@ -184,7 +184,7 @@ public class StateAssertionValidator {
 				System.out.println(((Action)expressionAction).getName() + " was never executed!");
 			}
 			if(referredNodeExecution == null){
-				System.out.println(referredAction.getName() + " was never executed!");				
+				System.out.println(referredAction.getName() + " was never executed!");								
 			}
 		}
 		return false;
