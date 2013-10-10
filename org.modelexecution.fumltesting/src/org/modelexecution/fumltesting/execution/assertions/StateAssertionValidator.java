@@ -52,6 +52,7 @@ import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNodeList;
 import fUML.Syntax.Classes.Kernel.Class_;
 import fUML.Syntax.Classes.Kernel.Property;
+import fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
 /**
  * Utility class for state assertion validation.
  * @author Stefan Mijatov
@@ -238,7 +239,7 @@ public class StateAssertionValidator {
 		SimpleValue simpleValue = (SimpleValue)expression.getValue();
 		
 		if(list.size() == 0){
-			if(simpleValue instanceof XNullLiteral);
+			if(simpleValue.getValue() instanceof XNullLiteral);
 			else return false;
 		}
 		
@@ -444,14 +445,17 @@ public class StateAssertionValidator {
 					System.out.println("No such feature!");
 					return false;
 				}
-				for(FeatureValue targetValue: fumlTarget.featureValues){
-					if(targetValue.feature.name.equals(propertyExpression.getProperty().getName())){
-						if(expression.getOperator() == ArithmeticOperator.EQUAL)
-							if(compare(targetValue, featureValue) == false)return false;
-						if(expression.getOperator() == ArithmeticOperator.NOT_EQUAL)
-							if(compare(targetValue, featureValue) == true)return false;
+				if(fumlTarget != null){
+					for(FeatureValue targetValue: fumlTarget.featureValues){
+						if(targetValue.feature.name.equals(propertyExpression.getProperty().getName())){
+							if(expression.getOperator() == ArithmeticOperator.EQUAL)
+								if(compare(targetValue, featureValue) == false)return false;
+							if(expression.getOperator() == ArithmeticOperator.NOT_EQUAL)
+								if(compare(targetValue, featureValue) == true)return false;
+						}
 					}
 				}
+				if(fumlTarget == null && featureValue.values.size() != 0){return false;}
 			}
 		}		
 		return true;
@@ -587,7 +591,8 @@ public class StateAssertionValidator {
 		}
 		
 		//adding snapshots of the valueInstance created before-after the referred one
-		if(referredNodeExecution.getNode() instanceof CallBehaviorAction || referredNodeExecution.getNode() instanceof CallOperationAction){
+		if((referredNodeExecution.getNode() instanceof CallBehaviorAction && !(((CallBehaviorAction)referredNodeExecution.getNode()).behavior instanceof OpaqueBehavior)) 
+				|| referredNodeExecution.getNode() instanceof CallOperationAction){
 			ActivityNodeList nodes = referredNodeExecution.getNode().activity.node;
 			ActivityNodeExecution lastNodeInBehavior = getLastChildNode(referredNodeExecution, nodes);
 			initializeSuccessorSnapshots(lastNodeInBehavior, successors);

@@ -11,8 +11,6 @@ import org.modelexecution.fumltesting.testLang.NodeSpecification;
 import fUML.Syntax.Actions.BasicActions.Action;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityFinalNode;
-import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
-import fUML.Syntax.Activities.IntermediateActivities.ForkNode;
 import fUML.Syntax.Activities.IntermediateActivities.InitialNode;
 /**
  * Utility class for validation of order execution assertion.
@@ -32,28 +30,8 @@ public class OrderAssertionValidator {
 	public boolean checkOrder(String parentNodeName, List<NodeSpecification> specifiedOrder, List<ActivityNodeExecution> executedNodes){
 		this.executedNodes = executedNodes;
 		boolean result = compare(getTopNodes(parentNodeName, executedNodes), specifiedOrder);
-		result &= checkParallelism(specifiedOrder, executedNodes);
+		//result &= checkParallelism(specifiedOrder, executedNodes);
 		AssertionPrinter.print(specifiedOrder, result);		
-		return result;
-	}
-	
-	private boolean checkParallelism(List<NodeSpecification> specifiedOrder, List<ActivityNodeExecution> executedNodes){
-		//TODO continue here
-		boolean result = true;
-		for(ActivityNodeExecution execution: executedNodes){
-			if(execution.getNode() instanceof ForkNode){
-				List<ActivityNode> included = new ArrayList<ActivityNode>();
-				for(ActivityNodeExecution successor: execution.getLogicalSuccessor()){
-					if(orderContainsNode(successor.getNode(), specifiedOrder))included.add(successor.getNode());
-				}
-				if(included.size() > 1){
-					System.out.print("Following nodes can be exchanged: ");
-					for(ActivityNode node: included)System.out.print(node.name + ", ");
-					System.out.println();
-					result = false;
-				}				
-			}
-		}
 		return result;
 	}
 	
@@ -109,6 +87,12 @@ public class OrderAssertionValidator {
 				}
 			}
 		}
+		//in case that the number of specified nodes is smaller than number of executed ones, 
+		//and that the last specified node is not *, assertion should fail
+		if(executedNodeIndex < executedNodes.size()-1 && 
+				(nodeOrderList.get(nodeOrderList.size()-1).getJoker()==null || !nodeOrderList.get(nodeOrderList.size()-1).getJoker().equals("*"))){
+			return false;
+		}
 		return true;
 	}
 	
@@ -142,12 +126,5 @@ public class OrderAssertionValidator {
 			}
 		}
 		return topNodes;
-	}
-	
-	private boolean orderContainsNode(ActivityNode node, List<NodeSpecification> specifiedOrder){
-		for(NodeSpecification specification: specifiedOrder){
-			if(specification.getNode() != null && specification.getNode().getName().equals(node.name))return true;
-		}
-		return false;
 	}
 }
