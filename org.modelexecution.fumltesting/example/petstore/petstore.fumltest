@@ -8,10 +8,39 @@ scenario TestData[
 	link cartItem_item{cartItem_item.cartItem=cartItem; cartItem_item.item=item;}
 ]
 
-test totalCostTest activity TotalCostActivity on TestData.cartItem{
-	var cost = TotalCostActivity.totalCost;
+test catalogItemTest activity CatalogItemActivity{
+	var cartItem = CatalogItemActivity.self.result;
+	var item = CatalogItemActivity.catalogItem;
 	
-	assertState always after TotalCostActivity.calculateTotalCost{
-		cost = 500;
+	assertOrder CatalogItemActivity.init, CatalogItemActivity.self, CatalogItemActivity.geItem, CatalogItemActivity.final;
+	
+	assertState always before CatalogItemActivity.self{
+		cartItem = null;
+	}
+	assertState exactly before CatalogItemActivity.self{
+		cartItem = null;
+	}
+	assertState always after CatalogItemActivity.self{
+		cartItem != null;
+	}
+	assertState exactly after CatalogItemActivity.self{
+		cartItem != null;
+	}
+	
+	assertState always before CatalogItemActivity.geItem{
+		cartItem != null;
+		item = null;
+	}
+	assertState exactly before CatalogItemActivity.geItem{
+		cartItem != null;
+		item = null;
+	}
+	assertState always after CatalogItemActivity.geItem{
+		cartItem != null;		
+		item != null;
+	}
+	assertState exactly after CatalogItemActivity.geItem{
+		cartItem != null;
+		item != null;
 	}
 }

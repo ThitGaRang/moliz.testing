@@ -531,12 +531,14 @@ public class StateAssertionValidator {
 		
 		if(predecessor instanceof ActionExecution){
 			for(Input predecesorsInput: ((ActionExecution) predecessor).getInputs()){
-				if(predecesorsInput.getInputValues().get(0).getInputValueSnapshot().eContainer() == valueInstance)
+				if(predecesorsInput.getInputValues().get(0).getInputValueSnapshot() != null 
+						&& predecesorsInput.getInputValues().get(0).getInputValueSnapshot().eContainer() == valueInstance)
 					if(predecessorSnapshots.contains(predecesorsInput.getInputValues().get(0).getInputValueSnapshot()) == false)
 						predecessorSnapshots.add(predecesorsInput.getInputValues().get(0).getInputValueSnapshot());
 			}
 			for(Output predecesorsOutput: ((ActionExecution) predecessor).getOutputs()){
-				if(predecesorsOutput.getOutputValues().get(0).getOutputValueSnapshot().eContainer() == valueInstance)
+				if(predecesorsOutput.getOutputValues().get(0).getOutputValueSnapshot() != null 
+						&& predecesorsOutput.getOutputValues().get(0).getOutputValueSnapshot().eContainer() == valueInstance)
 					if(predecessorSnapshots.contains(predecesorsOutput.getOutputValues().get(0).getOutputValueSnapshot()) == false)
 						predecessorSnapshots.add(predecesorsOutput.getOutputValues().get(0).getOutputValueSnapshot());						
 			}
@@ -556,12 +558,14 @@ public class StateAssertionValidator {
 			return;
 		if(successor instanceof ActionExecution){
 			for(Input successorsInput: ((ActionExecution) successor).getInputs()){
-				if(successorsInput.getInputValues().get(0).getInputValueSnapshot().eContainer() == valueInstance)
+				if(successorsInput.getInputValues().get(0).getInputValueSnapshot() != null 
+						&& successorsInput.getInputValues().get(0).getInputValueSnapshot().eContainer() == valueInstance)
 					if(successorSnapshots.contains(successorsInput.getInputValues().get(0).getInputValueSnapshot()) == false)
 						successorSnapshots.add(successorsInput.getInputValues().get(0).getInputValueSnapshot());
 			}
 			for(Output successorsOutput: ((ActionExecution) successor).getOutputs()){
-				if(successorsOutput.getOutputValues().get(0).getOutputValueSnapshot().eContainer() == valueInstance)
+				if(successorsOutput.getOutputValues().get(0).getOutputValueSnapshot() != null 
+						&& successorsOutput.getOutputValues().get(0).getOutputValueSnapshot().eContainer() == valueInstance)
 					if(successorSnapshots.contains(successorsOutput.getOutputValues().get(0).getOutputValueSnapshot()) == false)
 						successorSnapshots.add(successorsOutput.getOutputValues().get(0).getOutputValueSnapshot());
 			}
@@ -575,6 +579,7 @@ public class StateAssertionValidator {
 	private void setupSucessorsPredecessors(){
 		for(Output output: referredNodeExecution.getOutputs()){
 			if(output.getOutputValues().size()==0)continue;
+			if(output.getOutputValues().get(0).getOutputValueSnapshot() == null)continue;
 			ValueInstance referredValueInstance = (ValueInstance)output.getOutputValues().get(0).getOutputValueSnapshot().eContainer();
 			if(referredValueInstance == valueInstance && operator == TemporalOperator.AFTER)
 				if(successors.contains(output.getOutputValues().get(0).getOutputValueSnapshot()) == false)
@@ -583,6 +588,7 @@ public class StateAssertionValidator {
 		
 		for(Input input: referredNodeExecution.getInputs()){
 			if(input.getInputValues().size()==0)continue;
+			if(input.getInputValues().get(0).getInputValueSnapshot() == null)continue;
 			ValueInstance referredValueInstance = (ValueInstance)input.getInputValues().get(0).getInputValueSnapshot().eContainer();
 			if(referredValueInstance == valueInstance && operator == TemporalOperator.BEFORE){
 				if(predecessors.contains(input.getInputValues().get(0).getInputValueSnapshot()))
