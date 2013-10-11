@@ -2,45 +2,15 @@ import Model.structure.*
 import Model.behavior.*
 
 scenario TestData[
+	object cart : Cart{}
 	object product : Product{}
 	object item : Item{Item.unitCost = 100;}
 	object cartItem : CartItem{CartItem.quantity=5;}
 	link cartItem_item{cartItem_item.cartItem=cartItem; cartItem_item.item=item;}
 ]
 
-test catalogItemTest activity CatalogItemActivity{
-	var cartItem = CatalogItemActivity.self.result;
-	var item = CatalogItemActivity.catalogItem;
+test addCartItemTest activity AddCartItemActivity(AddCartItemActivity.item=TestData.item, AddCartItemActivity.quantity=100) on TestData.cart{
 	
-	assertOrder CatalogItemActivity.init, CatalogItemActivity.self, CatalogItemActivity.geItem, CatalogItemActivity.final;
-	
-	assertState always before CatalogItemActivity.self{
-		cartItem = null;
-	}
-	assertState exactly before CatalogItemActivity.self{
-		cartItem = null;
-	}
-	assertState always after CatalogItemActivity.self{
-		cartItem != null;
-	}
-	assertState exactly after CatalogItemActivity.self{
-		cartItem != null;
-	}
-	
-	assertState always before CatalogItemActivity.geItem{
-		cartItem != null;
-		item = null;
-	}
-	assertState exactly before CatalogItemActivity.geItem{
-		cartItem != null;
-		item = null;
-	}
-	assertState always after CatalogItemActivity.geItem{
-		cartItem != null;		
-		item != null;
-	}
-	assertState exactly after CatalogItemActivity.geItem{
-		cartItem != null;
-		item != null;
-	}
+	assertOrder AddCartItemActivity.init, AddCartItemActivity.self, AddCartItemActivity.createCartItem, 
+		AddCartItemActivity.initCartItem, AddCartItemActivity.addCartItem, AddCartItemActivity.final;
 }

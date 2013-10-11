@@ -6,7 +6,10 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.uml2.uml.Activity;
+import org.eclipse.uml2.uml.ActivityNode;
 import org.eclipse.uml2.uml.NamedElement;
+import org.eclipse.uml2.uml.Node;
+import org.eclipse.uml2.uml.ReadSelfAction;
 import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.resource.UMLResource;
 import org.eclipse.xtext.resource.XtextResource;
@@ -92,9 +95,23 @@ public class TestExecutor{
 			executor.cleanUp();
 			executor.initScenarios(testCase.getInitScenarios());
 			
+			boolean requiresContext = false;
+			for(ActivityNode node: activity.getNodes()){
+				if(node instanceof ReadSelfAction){
+					requiresContext = true;
+					break;
+				}
+			}
+			
 			if(testCase.getContextObject() != null){
 				mainActivityExecutionID = executor.executeActivity(activity, testCase.getInputs(), testCase.getContextObject());
 			}else{
+				if(requiresContext){
+					System.out.println("CONTEXT for activity NOT defined. Please correct the test declaration.");
+					System.out.println("Test execution failed.");					
+					AssertionPrinter.printStartEnd();
+					break;
+				}
 				mainActivityExecutionID = executor.executeActivity(activity, testCase.getInputs(), null);
 			}
 			
