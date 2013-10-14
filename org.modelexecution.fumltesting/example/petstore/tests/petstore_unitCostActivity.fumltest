@@ -1,0 +1,62 @@
+import Model.structure.*
+import Model.behavior.*
+
+scenario TestData[
+	object cart : Cart{}
+	object product : Product{}
+	object item : Item{Item.unitCost = 100;}
+	object cartItem : CartItem{CartItem.quantity=5;}
+	link cartItem_item{cartItem_item.cartItem=cartItem; cartItem_item.item=item;}
+]
+
+test unitCostTest activity UnitCostActivity on TestData.cartItem{
+	var cartItem = UnitCostActivity.self.result;
+	var item = UnitCostActivity.getItem.result;
+	var cost = UnitCostActivity.getCost.result;
+	
+	assertOrder UnitCostActivity.init, UnitCostActivity.self, UnitCostActivity.getItem, 
+		UnitCostActivity.getCost, UnitCostActivity.final;
+	
+	assertState always before UnitCostActivity.self{
+		cartItem = null;
+	}
+	assertState exactly before UnitCostActivity.self{
+		cartItem = null;
+	}
+	assertState always after UnitCostActivity.self{
+		cartItem != null; 
+	}
+	assertState exactly after UnitCostActivity.self{
+		cartItem != null;
+	}
+	
+	assertState always before UnitCostActivity.getItem{
+		item = null;
+	}
+	assertState exactly before UnitCostActivity.getItem{
+		item = null;
+	}
+	assertState always after UnitCostActivity.getItem{
+		item != null;
+		item::Item.unitCost = 100;
+	}
+	assertState exactly after UnitCostActivity.getItem{
+		item != null;
+		item::Item.unitCost = 100;
+	}
+	
+	assertState always before UnitCostActivity.getCost{
+		cost = null;
+	}
+	assertState exactly before UnitCostActivity.getCost{
+		cost = null;
+	}
+	assertState always after UnitCostActivity.getCost{
+		cost != null;
+		cost = 100;
+	}
+	assertState exactly after UnitCostActivity.getCost{
+		cost != null;
+		cost = 100;
+	}
+}

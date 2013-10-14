@@ -1,0 +1,21 @@
+import Model.structure.*
+import Model.behavior.*
+
+scenario TestData[
+	object cart : Cart{}
+	object product : Product{}
+	object item : Item{Item.unitCost = 100;}
+	object cartItem : CartItem{CartItem.quantity=5;}
+	link cartItem_item{cartItem_item.cartItem=cartItem; cartItem_item.item=item;}
+]
+
+test addCartItemTest activity AddCartItemActivity(AddCartItemActivity.item=TestData.item, AddCartItemActivity.quantity=100) on TestData.cart{
+	var cartItem = AddCartItemActivity.initCartItem.result;
+	
+	assertOrder AddCartItemActivity.init, AddCartItemActivity.self, AddCartItemActivity.createCartItem, 
+		AddCartItemActivity.initCartItem, AddCartItemActivity.addCartItem, AddCartItemActivity.final;
+		
+	assertState always after AddCartItemActivity.addCartItem{
+		cartItem::cartItem_item.cartItem = TestData.item;
+	}
+}

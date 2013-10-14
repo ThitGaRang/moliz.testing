@@ -1,0 +1,33 @@
+import Model.structure.*
+import Model.behavior.*
+
+scenario TestData[
+	object cart : Cart{}
+	object product : Product{}
+	object item : Item{Item.unitCost = 100;}
+	object cartItem : CartItem{CartItem.quantity=5;}
+	link cartItem_item{cartItem_item.cartItem=cartItem; cartItem_item.item=item;}
+]
+
+test newProductTest activity NewProductActivity(NewProductActivity.mnemonic="x220", 
+	NewProductActivity.name="Lenovo Notebook x220")	on TestData.product{	
+	var product = NewProductActivity.product;
+	
+	assertOrder NewProductActivity.init, NewProductActivity.createProduct, 
+		NewProductActivity.setMnemonic, NewProductActivity.setName, NewProductActivity.final;
+	
+	assertState always before NewProductActivity.createProduct{product = null;}
+	assertState exactly before NewProductActivity.createProduct{product = null;}
+	assertState always after NewProductActivity.createProduct{product != null;}
+	assertState exactly after NewProductActivity.createProduct{product != null;}
+		
+	assertState always after NewProductActivity.setMnemonic{product::Product.mnemonic = "x220";}	
+	assertState exactly after NewProductActivity.setMnemonic{product::Product.mnemonic = "x220";}
+	assertState always before NewProductActivity.setMnemonic{product::Product.mnemonic = null;}
+	assertState exactly before NewProductActivity.setMnemonic{product::Product.mnemonic = null;}	
+	
+	assertState always after NewProductActivity.setName{product::Product.name = "Lenovo Notebook x220";}
+	assertState exactly after NewProductActivity.setName{product::Product.name = "Lenovo Notebook x220";}		
+	assertState always before NewProductActivity.setName{product::Product.name = null;}	
+	assertState exactly before NewProductActivity.setName{product::Product.name = null;}
+}

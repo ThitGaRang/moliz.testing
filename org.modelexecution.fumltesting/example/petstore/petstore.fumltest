@@ -11,8 +11,280 @@ scenario TestData[
 
 test addCartItemTest activity AddCartItemActivity(AddCartItemActivity.item=TestData.item, AddCartItemActivity.quantity=100) on TestData.cart{
 	var cartItem = AddCartItemActivity.initCartItem.result;
+	
+	assertOrder AddCartItemActivity.init, AddCartItemActivity.self, AddCartItemActivity.createCartItem, 
+		AddCartItemActivity.initCartItem, AddCartItemActivity.addCartItem, AddCartItemActivity.final;
 		
 	assertState always after AddCartItemActivity.addCartItem{
 		cartItem::cartItem_item.cartItem = TestData.item;
+	}
+}
+
+test catalogItemTest activity CatalogItemActivity on TestData.cartItem{
+	var cartItem = CatalogItemActivity.self.result;
+	var item = CatalogItemActivity.catalogItem;
+	
+	assertOrder CatalogItemActivity.init, CatalogItemActivity.self, CatalogItemActivity.geItem, CatalogItemActivity.final;
+	
+	assertState always before CatalogItemActivity.self{
+		cartItem = null;
+	}
+	assertState exactly before CatalogItemActivity.self{
+		cartItem = null;
+	}
+	assertState always after CatalogItemActivity.self{
+		cartItem != null;
+	}
+	assertState exactly after CatalogItemActivity.self{
+		cartItem != null;
+	}
+	
+	assertState always before CatalogItemActivity.geItem{
+		cartItem != null;
+		item = null;
+	}
+	assertState exactly before CatalogItemActivity.geItem{
+		cartItem != null;
+		item = null;
+	}
+	assertState always after CatalogItemActivity.geItem{
+		cartItem != null;		
+		item != null;
+	}
+	assertState exactly after CatalogItemActivity.geItem{
+		cartItem != null;
+		item != null;
+	}
+}
+
+test newCartItemTest activity NewCartItemActivity(NewCartItemActivity.catalogItem=TestData.item, NewCartItemActivity.quantity=10){
+	var cartItem = NewCartItemActivity.cartItem;
+	
+	assertOrder NewCartItemActivity.init, NewCartItemActivity.createCartItem, 
+		NewCartItemActivity.setItem, NewCartItemActivity.setQuantity, NewCartItemActivity.final;
+	
+	assertState always before NewCartItemActivity.createCartItem{
+		cartItem = null;
+	}
+	assertState exactly before NewCartItemActivity.createCartItem{
+		cartItem = null;
+	}
+	assertState always after NewCartItemActivity.createCartItem{
+		cartItem != null;
+	}
+	assertState exactly after NewCartItemActivity.createCartItem{
+		cartItem != null;
+	}
+	
+	assertState always before NewCartItemActivity.setItem{
+		cartItem::cartItem_item.item = null;
+	}
+	assertState exactly before NewCartItemActivity.setItem{
+		cartItem::cartItem_item.item = null;
+	}
+	assertState always after NewCartItemActivity.setItem{
+		cartItem::cartItem_item.item != null;
+	}
+	assertState exactly after NewCartItemActivity.setItem{
+		cartItem::cartItem_item.item != null;
+	}
+}
+
+test newItemTest activity NewItemActivity(NewItemActivity.product=TestData.product){
+	var item = NewItemActivity.item;
+	
+	assertOrder NewItemActivity.init, NewItemActivity.createItem, NewItemActivity.setProduct, NewItemActivity.final;
+	
+	assertState always before NewItemActivity.createItem{
+		item = null;
+	}
+	assertState exactly before NewItemActivity.createItem{
+		item = null;
+	}	
+	assertState always after NewItemActivity.createItem{
+		item != null;
+	}
+	assertState exactly after NewItemActivity.createItem{
+		item != null;
+	}
+	
+	assertState always before NewItemActivity.setProduct{
+		item::item_product.product = null;
+	}
+	assertState exactly before NewItemActivity.setProduct{
+		item::item_product.product = null;
+	}
+	assertState always after NewItemActivity.setProduct{
+		item::item_product.product = TestData.product;
+	}
+	assertState exactly after NewItemActivity.setProduct{
+		item::item_product.product = TestData.product;
+	}
+}
+
+test newProductTest activity NewProductActivity(NewProductActivity.mnemonic="x220", 
+	NewProductActivity.name="Lenovo Notebook x220")	on TestData.product{	
+	var product = NewProductActivity.product;
+	
+	assertOrder NewProductActivity.init, NewProductActivity.createProduct, 
+		NewProductActivity.setMnemonic, NewProductActivity.setName, NewProductActivity.final;
+	
+	assertState always before NewProductActivity.createProduct{product = null;}
+	assertState exactly before NewProductActivity.createProduct{product = null;}
+	assertState always after NewProductActivity.createProduct{product != null;}
+	assertState exactly after NewProductActivity.createProduct{product != null;}
+		
+	assertState always after NewProductActivity.setMnemonic{product::Product.mnemonic = "x220";}	
+	assertState exactly after NewProductActivity.setMnemonic{product::Product.mnemonic = "x220";}
+	assertState always before NewProductActivity.setMnemonic{product::Product.mnemonic = null;}
+	assertState exactly before NewProductActivity.setMnemonic{product::Product.mnemonic = null;}	
+	
+	assertState always after NewProductActivity.setName{product::Product.name = "Lenovo Notebook x220";}
+	assertState exactly after NewProductActivity.setName{product::Product.name = "Lenovo Notebook x220";}		
+	assertState always before NewProductActivity.setName{product::Product.name = null;}	
+	assertState exactly before NewProductActivity.setName{product::Product.name = null;}
+}
+
+test totalCostTest activity TotalCostActivity on TestData.cartItem{
+	var cost = TotalCostActivity.totalCost;
+	var cartItem = TotalCostActivity.self.result;
+	var unitCost = TotalCostActivity.getUnitCost.unitCost;
+	var quantity = TotalCostActivity.getQuantity.result;
+	
+	assertOrder TotalCostActivity.initial, TotalCostActivity.self, TotalCostActivity.getUnitCost, 
+		TotalCostActivity.getQuantity, TotalCostActivity.calculateTotalCost, TotalCostActivity.final;
+	
+	assertState always before TotalCostActivity.self{
+		cartItem = null;
+	}
+	assertState exactly before TotalCostActivity.self{
+		cartItem = null;
+	}
+	assertState always after TotalCostActivity.self{
+		cartItem != null;
+	}
+	assertState exactly after TotalCostActivity.self{
+		cartItem != null;
+	}
+	
+	assertState always before TotalCostActivity.getUnitCost{
+		cartItem != null;
+		unitCost = null;
+	}
+	assertState exactly before TotalCostActivity.getUnitCost{
+		cartItem != null;
+		unitCost = null;
+	}
+	assertState always after TotalCostActivity.getUnitCost{
+		cartItem != null;
+		unitCost != null;
+		unitCost = 100;
+	}
+	assertState exactly after TotalCostActivity.getUnitCost{
+		cartItem != null;
+		unitCost != null;
+		unitCost = 100;
+	}
+	
+	assertState always before TotalCostActivity.getQuantity{
+		cartItem != null;
+		quantity = null;
+	}
+	assertState exactly before TotalCostActivity.getQuantity{
+		cartItem != null;
+		quantity = null;
+	}
+	assertState always after TotalCostActivity.getQuantity{
+		cartItem != null;
+		quantity != null;
+		quantity = 5;
+	}
+	assertState exactly after TotalCostActivity.getQuantity{
+		cartItem != null;
+		quantity != null;
+		quantity = 5;
+	}
+	
+	assertState always before TotalCostActivity.calculateTotalCost{
+		cartItem != null;
+		unitCost != null;
+		unitCost = 100;
+		quantity = 5;
+		cost = null;
+	}
+	assertState exactly before TotalCostActivity.calculateTotalCost{
+		cartItem != null;
+		unitCost != null;
+		unitCost = 100;
+		quantity = 5;
+		cost = null;
+	}
+	assertState always after TotalCostActivity.calculateTotalCost{
+		cartItem != null;
+		unitCost != null;
+		unitCost = 100;
+		quantity = 5;
+		cost != null;
+		cost = 500;
+	}
+	assertState exactly after TotalCostActivity.calculateTotalCost{
+		cartItem != null;
+		unitCost != null;
+		unitCost = 100;
+		quantity = 5;
+		cost != null;
+		cost = 500;
+	}
+}
+
+test unitCostTest activity UnitCostActivity on TestData.cartItem{
+	var cartItem = UnitCostActivity.self.result;
+	var item = UnitCostActivity.getItem.result;
+	var cost = UnitCostActivity.getCost.result;
+	
+	assertOrder UnitCostActivity.init, UnitCostActivity.self, UnitCostActivity.getItem, 
+		UnitCostActivity.getCost, UnitCostActivity.final;
+	
+	assertState always before UnitCostActivity.self{
+		cartItem = null;
+	}
+	assertState exactly before UnitCostActivity.self{
+		cartItem = null;
+	}
+	assertState always after UnitCostActivity.self{
+		cartItem != null; 
+	}
+	assertState exactly after UnitCostActivity.self{
+		cartItem != null;
+	}
+	
+	assertState always before UnitCostActivity.getItem{
+		item = null;
+	}
+	assertState exactly before UnitCostActivity.getItem{
+		item = null;
+	}
+	assertState always after UnitCostActivity.getItem{
+		item != null;
+		item::Item.unitCost = 100;
+	}
+	assertState exactly after UnitCostActivity.getItem{
+		item != null;
+		item::Item.unitCost = 100;
+	}
+	
+	assertState always before UnitCostActivity.getCost{
+		cost = null;
+	}
+	assertState exactly before UnitCostActivity.getCost{
+		cost = null;
+	}
+	assertState always after UnitCostActivity.getCost{
+		cost != null;
+		cost = 100;
+	}
+	assertState exactly after UnitCostActivity.getCost{
+		cost != null;
+		cost = 100;
 	}
 }

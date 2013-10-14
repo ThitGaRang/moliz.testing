@@ -1,0 +1,43 @@
+import Model.structure.*
+import Model.behavior.*
+
+scenario TestData[
+	object cart : Cart{}
+	object product : Product{}
+	object item : Item{Item.unitCost = 100;}
+	object cartItem : CartItem{CartItem.quantity=5;}
+	link cartItem_item{cartItem_item.cartItem=cartItem; cartItem_item.item=item;}
+]
+
+test newCartItemTest activity NewCartItemActivity(NewCartItemActivity.catalogItem=TestData.item, NewCartItemActivity.quantity=10){
+	var cartItem = NewCartItemActivity.cartItem;
+	
+	assertOrder NewCartItemActivity.init, NewCartItemActivity.createCartItem, 
+		NewCartItemActivity.setItem, NewCartItemActivity.setQuantity, NewCartItemActivity.final;
+	
+	assertState always before NewCartItemActivity.createCartItem{
+		cartItem = null;
+	}
+	assertState exactly before NewCartItemActivity.createCartItem{
+		cartItem = null;
+	}
+	assertState always after NewCartItemActivity.createCartItem{
+		cartItem != null;
+	}
+	assertState exactly after NewCartItemActivity.createCartItem{
+		cartItem != null;
+	}
+	
+	assertState always before NewCartItemActivity.setItem{
+		cartItem::cartItem_item.item = null;
+	}
+	assertState exactly before NewCartItemActivity.setItem{
+		cartItem::cartItem_item.item = null;
+	}
+	assertState always after NewCartItemActivity.setItem{
+		cartItem::cartItem_item.item != null;
+	}
+	assertState exactly after NewCartItemActivity.setItem{
+		cartItem::cartItem_item.item != null;
+	}
+}
