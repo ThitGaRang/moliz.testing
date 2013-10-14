@@ -10,7 +10,9 @@ scenario TestData[
 ]
 
 test addCartItemTest activity AddCartItemActivity(AddCartItemActivity.item=TestData.item, AddCartItemActivity.quantity=100) on TestData.cart{
-	
-	assertOrder AddCartItemActivity.init, AddCartItemActivity.self, AddCartItemActivity.createCartItem, 
-		AddCartItemActivity.initCartItem, AddCartItemActivity.addCartItem, AddCartItemActivity.final;
+	var cartItem = AddCartItemActivity.initCartItem.result;
+		
+	assertState always after AddCartItemActivity.addCartItem{
+		cartItem::cartItem_item.cartItem = TestData.item;
+	}
 }

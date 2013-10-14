@@ -357,13 +357,13 @@ public class StateAssertionValidator {
 				Object_ source = null;
 				if(propertyExpression.getPin().getRef().eContainer() instanceof Action){
 					ActionExecution execution = (ActionExecution)traceUtil.getExecution(variableAction);
-					if(propertyExpression.getPin().getRef() instanceof OutputPin){
+					if(propertyExpression.getPin().getRef() instanceof InputPin){
 						for(Input input: execution.getInputs()){
 							if(input.getInputPin().name.equals(propertyExpression.getPin().getRef().getName()))
 								source = (Object_)input.getInputValues().get(0).getInputValueSnapshot().getValue();
 						}
 					}
-					if(propertyExpression.getPin().getRef() instanceof InputPin){
+					if(propertyExpression.getPin().getRef() instanceof OutputPin){
 						for(Output output: execution.getOutputs()){
 							if(output.getOutputPin().name.equals(propertyExpression.getPin().getRef().getName()))
 								source = (Object_)output.getOutputValues().get(0).getOutputValueSnapshot().getValue();
