@@ -28,6 +28,16 @@
     <availablePage>
       <emfPageIdentifier href="petstore.notation#_bXt3YDGwEeOCXMRXgX6zRg"/>
     </availablePage>
+    <availablePage/>
+    <availablePage/>
+    <availablePage/>
+    <availablePage>
+      <emfPageIdentifier href="petstore.notation#_z11HoDTHEeOb5rin66Mqvw"/>
+    </availablePage>
+    <availablePage/>
+    <availablePage>
+      <emfPageIdentifier href="petstore.notation#_OT0HoDWfEeOsxtM0FPMZGA"/>
+    </availablePage>
   </pageList>
   <sashModel currentSelection="//@sashModel/@windows.0/@children.0">
     <windows>
@@ -39,25 +49,10 @@
           <emfPageIdentifier href="petstore.notation#_PHcZgC_4EeOTpM28lqU8qA"/>
         </children>
         <children>
-          <emfPageIdentifier href="petstore.notation#_I0ERwDAKEeOTpM28lqU8qA"/>
+          <emfPageIdentifier href="petstore.notation#_z11HoDTHEeOb5rin66Mqvw"/>
         </children>
         <children>
-          <emfPageIdentifier href="petstore.notation#_pVj0wDAPEeOTpM28lqU8qA"/>
-        </children>
-        <children>
-          <emfPageIdentifier href="petstore.notation#_jZ4ZIDASEeOTpM28lqU8qA"/>
-        </children>
-        <children>
-          <emfPageIdentifier href="petstore.notation#_IVY7QDAWEeOTpM28lqU8qA"/>
-        </children>
-        <children>
-          <emfPageIdentifier href="petstore.notation#_HLbAcDDwEeO5a9X2Dk_YNQ"/>
-        </children>
-        <children>
-          <emfPageIdentifier href="petstore.notation#_CZNX8DGbEeOCXMRXgX6zRg"/>
-        </children>
-        <children>
-          <emfPageIdentifier href="petstore.notation#_bXt3YDGwEeOCXMRXgX6zRg"/>
+          <emfPageIdentifier href="petstore.notation#_OT0HoDWfEeOsxtM0FPMZGA"/>
         </children>
       </children>
     </windows>
