@@ -463,9 +463,13 @@ public class StateAssertionValidator {
 	
 	/** Compares all values for target and real feature values, and returns a result. */
 	private boolean compare(FeatureValue targetFeatureValue, FeatureValue featureValue){
-		if(targetFeatureValue.values.size() != featureValue.values.size())return false;
+		if(targetFeatureValue.values.size() != featureValue.values.size()){
+			System.out.println("Feature " + targetFeatureValue.feature.name + " of compared objects contain different values!");
+			return false;
+		}
 		Property property = (Property)targetFeatureValue.feature;
 		if(property.association == null){
+			if(targetFeatureValue.values.size() == 0 && featureValue.values.size() == 0)return true;
 			for(int i=0;i<targetFeatureValue.values.size();i++){
 				if(targetFeatureValue.values.get(i) instanceof StringValue){
 					StringValue targetValue = (StringValue)targetFeatureValue.values.get(i);

@@ -1,5 +1,5 @@
 import Model.structure.*
-import Model.scenarios.*
+import Model.behavior.*
 
 scenario TestData[
 	object cart : Cart{}
@@ -9,6 +9,11 @@ scenario TestData[
 	link cartItem_item{cartItem_item.cartItem=cartItem; cartItem_item.item=item;}
 ]
 
-test productsTest activity ProductsActivity{
-	assertOrder ProductsActivity.productA, ProductsActivity.productB, ProductsActivity.productC;
+test unitCostTest activity UnitCostActivity on TestData.cartItem{
+	var cost = UnitCostActivity.getCost.result;
+	
+	assertState always after UnitCostActivity.getCost{
+		cost != null;
+		cost = 100;
+	}	
 }

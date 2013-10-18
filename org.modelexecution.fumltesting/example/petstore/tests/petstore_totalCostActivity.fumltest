@@ -33,11 +33,11 @@ test totalCostTest activity TotalCostActivity on TestData.cartItem{
 	
 	assertState always before TotalCostActivity.getUnitCost{
 		cartItem != null;
-		unitCost = null;
+		unitCost = 100;
 	}
 	assertState exactly before TotalCostActivity.getUnitCost{
 		cartItem != null;
-		unitCost = null;
+		unitCost = 100;
 	}
 	assertState always after TotalCostActivity.getUnitCost{
 		cartItem != null;
