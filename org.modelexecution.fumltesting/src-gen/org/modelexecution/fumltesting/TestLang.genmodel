@@ -14,6 +14,8 @@
       <genEnumLiterals ecoreEnumLiteral="TestLang.ecore#//ArithmeticOperator/smaller"/>
       <genEnumLiterals ecoreEnumLiteral="TestLang.ecore#//ArithmeticOperator/greater_equal"/>
       <genEnumLiterals ecoreEnumLiteral="TestLang.ecore#//ArithmeticOperator/smaller_equal"/>
+      <genEnumLiterals ecoreEnumLiteral="TestLang.ecore#//ArithmeticOperator/includes"/>
+      <genEnumLiterals ecoreEnumLiteral="TestLang.ecore#//ArithmeticOperator/excludes"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="TestLang.ecore#//TemporalOperator">
       <genEnumLiterals ecoreEnumLiteral="TestLang.ecore#//TemporalOperator/after"/>

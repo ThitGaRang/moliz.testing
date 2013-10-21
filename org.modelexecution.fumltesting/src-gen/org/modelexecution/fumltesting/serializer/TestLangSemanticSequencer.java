@@ -1143,10 +1143,10 @@ public class TestLangSemanticSequencer extends XbaseSemanticSequencer {
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getLinkAccess().getAssocAssociationQualifiedNameParserRuleCall_1_0_1(), semanticObject.getAssoc());
-		feeder.accept(grammarAccess.getLinkAccess().getSourcePropertyPropertyQualifiedNameParserRuleCall_3_0_1(), semanticObject.getSourceProperty());
-		feeder.accept(grammarAccess.getLinkAccess().getSourceValueObjectSpecificationQualifiedNameParserRuleCall_5_0_1(), semanticObject.getSourceValue());
-		feeder.accept(grammarAccess.getLinkAccess().getTargetPropertyPropertyQualifiedNameParserRuleCall_7_0_1(), semanticObject.getTargetProperty());
-		feeder.accept(grammarAccess.getLinkAccess().getTargetValueObjectSpecificationQualifiedNameParserRuleCall_9_0_1(), semanticObject.getTargetValue());
+		feeder.accept(grammarAccess.getLinkAccess().getSourcePropertyPropertyQualifiedNameParserRuleCall_4_0_1(), semanticObject.getSourceProperty());
+		feeder.accept(grammarAccess.getLinkAccess().getSourceValueObjectSpecificationQualifiedNameParserRuleCall_6_0_1(), semanticObject.getSourceValue());
+		feeder.accept(grammarAccess.getLinkAccess().getTargetPropertyPropertyQualifiedNameParserRuleCall_9_0_1(), semanticObject.getTargetProperty());
+		feeder.accept(grammarAccess.getLinkAccess().getTargetValueObjectSpecificationQualifiedNameParserRuleCall_11_0_1(), semanticObject.getTargetValue());
 		feeder.finish();
 	}
 	

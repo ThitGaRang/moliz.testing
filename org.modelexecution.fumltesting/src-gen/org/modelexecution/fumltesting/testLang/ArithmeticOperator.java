@@ -77,7 +77,27 @@ public enum ArithmeticOperator implements Enumerator
    * @generated
    * @ordered
    */
-  SMALLER_EQUAL(5, "smaller_equal", "<=");
+  SMALLER_EQUAL(5, "smaller_equal", "<="),
+
+  /**
+   * The '<em><b>Includes</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #INCLUDES_VALUE
+   * @generated
+   * @ordered
+   */
+  INCLUDES(6, "includes", "includes"),
+
+  /**
+   * The '<em><b>Excludes</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #EXCLUDES_VALUE
+   * @generated
+   * @ordered
+   */
+  EXCLUDES(7, "excludes", "excludes");
 
   /**
    * The '<em><b>Equal</b></em>' literal value.
@@ -170,6 +190,36 @@ public enum ArithmeticOperator implements Enumerator
   public static final int SMALLER_EQUAL_VALUE = 5;
 
   /**
+   * The '<em><b>Includes</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>Includes</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #INCLUDES
+   * @model name="includes"
+   * @generated
+   * @ordered
+   */
+  public static final int INCLUDES_VALUE = 6;
+
+  /**
+   * The '<em><b>Excludes</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>Excludes</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #EXCLUDES
+   * @model name="excludes"
+   * @generated
+   * @ordered
+   */
+  public static final int EXCLUDES_VALUE = 7;
+
+  /**
    * An array of all the '<em><b>Arithmetic Operator</b></em>' enumerators.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -184,6 +234,8 @@ public enum ArithmeticOperator implements Enumerator
       SMALLER,
       GREATER_EQUAL,
       SMALLER_EQUAL,
+      INCLUDES,
+      EXCLUDES,
     };
 
   /**
@@ -248,6 +300,8 @@ public enum ArithmeticOperator implements Enumerator
       case SMALLER_VALUE: return SMALLER;
       case GREATER_EQUAL_VALUE: return GREATER_EQUAL;
       case SMALLER_EQUAL_VALUE: return SMALLER_EQUAL;
+      case INCLUDES_VALUE: return INCLUDES;
+      case EXCLUDES_VALUE: return EXCLUDES;
     }
     return null;
   }

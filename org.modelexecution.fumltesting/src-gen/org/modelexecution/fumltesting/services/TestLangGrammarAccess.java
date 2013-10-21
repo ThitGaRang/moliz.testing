@@ -584,36 +584,38 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		private final CrossReference cAssocAssociationCrossReference_1_0 = (CrossReference)cAssocAssignment_1.eContents().get(0);
 		private final RuleCall cAssocAssociationQualifiedNameParserRuleCall_1_0_1 = (RuleCall)cAssocAssociationCrossReference_1_0.eContents().get(1);
 		private final Keyword cLeftCurlyBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Assignment cSourcePropertyAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final CrossReference cSourcePropertyPropertyCrossReference_3_0 = (CrossReference)cSourcePropertyAssignment_3.eContents().get(0);
-		private final RuleCall cSourcePropertyPropertyQualifiedNameParserRuleCall_3_0_1 = (RuleCall)cSourcePropertyPropertyCrossReference_3_0.eContents().get(1);
-		private final Keyword cEqualsSignKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		private final Assignment cSourceValueAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final CrossReference cSourceValueObjectSpecificationCrossReference_5_0 = (CrossReference)cSourceValueAssignment_5.eContents().get(0);
-		private final RuleCall cSourceValueObjectSpecificationQualifiedNameParserRuleCall_5_0_1 = (RuleCall)cSourceValueObjectSpecificationCrossReference_5_0.eContents().get(1);
-		private final Keyword cSemicolonKeyword_6 = (Keyword)cGroup.eContents().get(6);
-		private final Assignment cTargetPropertyAssignment_7 = (Assignment)cGroup.eContents().get(7);
-		private final CrossReference cTargetPropertyPropertyCrossReference_7_0 = (CrossReference)cTargetPropertyAssignment_7.eContents().get(0);
-		private final RuleCall cTargetPropertyPropertyQualifiedNameParserRuleCall_7_0_1 = (RuleCall)cTargetPropertyPropertyCrossReference_7_0.eContents().get(1);
-		private final Keyword cEqualsSignKeyword_8 = (Keyword)cGroup.eContents().get(8);
-		private final Assignment cTargetValueAssignment_9 = (Assignment)cGroup.eContents().get(9);
-		private final CrossReference cTargetValueObjectSpecificationCrossReference_9_0 = (CrossReference)cTargetValueAssignment_9.eContents().get(0);
-		private final RuleCall cTargetValueObjectSpecificationQualifiedNameParserRuleCall_9_0_1 = (RuleCall)cTargetValueObjectSpecificationCrossReference_9_0.eContents().get(1);
-		private final Keyword cSemicolonKeyword_10 = (Keyword)cGroup.eContents().get(10);
-		private final Keyword cRightCurlyBracketKeyword_11 = (Keyword)cGroup.eContents().get(11);
+		private final Keyword cSourceKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Assignment cSourcePropertyAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final CrossReference cSourcePropertyPropertyCrossReference_4_0 = (CrossReference)cSourcePropertyAssignment_4.eContents().get(0);
+		private final RuleCall cSourcePropertyPropertyQualifiedNameParserRuleCall_4_0_1 = (RuleCall)cSourcePropertyPropertyCrossReference_4_0.eContents().get(1);
+		private final Keyword cEqualsSignKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Assignment cSourceValueAssignment_6 = (Assignment)cGroup.eContents().get(6);
+		private final CrossReference cSourceValueObjectSpecificationCrossReference_6_0 = (CrossReference)cSourceValueAssignment_6.eContents().get(0);
+		private final RuleCall cSourceValueObjectSpecificationQualifiedNameParserRuleCall_6_0_1 = (RuleCall)cSourceValueObjectSpecificationCrossReference_6_0.eContents().get(1);
+		private final Keyword cSemicolonKeyword_7 = (Keyword)cGroup.eContents().get(7);
+		private final Keyword cTargetKeyword_8 = (Keyword)cGroup.eContents().get(8);
+		private final Assignment cTargetPropertyAssignment_9 = (Assignment)cGroup.eContents().get(9);
+		private final CrossReference cTargetPropertyPropertyCrossReference_9_0 = (CrossReference)cTargetPropertyAssignment_9.eContents().get(0);
+		private final RuleCall cTargetPropertyPropertyQualifiedNameParserRuleCall_9_0_1 = (RuleCall)cTargetPropertyPropertyCrossReference_9_0.eContents().get(1);
+		private final Keyword cEqualsSignKeyword_10 = (Keyword)cGroup.eContents().get(10);
+		private final Assignment cTargetValueAssignment_11 = (Assignment)cGroup.eContents().get(11);
+		private final CrossReference cTargetValueObjectSpecificationCrossReference_11_0 = (CrossReference)cTargetValueAssignment_11.eContents().get(0);
+		private final RuleCall cTargetValueObjectSpecificationQualifiedNameParserRuleCall_11_0_1 = (RuleCall)cTargetValueObjectSpecificationCrossReference_11_0.eContents().get(1);
+		private final Keyword cSemicolonKeyword_12 = (Keyword)cGroup.eContents().get(12);
+		private final Keyword cRightCurlyBracketKeyword_13 = (Keyword)cGroup.eContents().get(13);
 		
 		//Link:
 		//
-		//	"link" assoc=[uml::Association|QualifiedName] "{" sourceProperty=[uml::Property|QualifiedName] "="
+		//	"link" assoc=[uml::Association|QualifiedName] "{" "source" sourceProperty=[uml::Property|QualifiedName] "="
 		//
-		//	sourceValue=[ObjectSpecification|QualifiedName] ";" targetProperty=[uml::Property|QualifiedName] "="
+		//	sourceValue=[ObjectSpecification|QualifiedName] ";" "target" targetProperty=[uml::Property|QualifiedName] "="
 		//
 		//	targetValue=[ObjectSpecification|QualifiedName] ";" "}";
 		public ParserRule getRule() { return rule; }
 
-		//"link" assoc=[uml::Association|QualifiedName] "{" sourceProperty=[uml::Property|QualifiedName] "="
+		//"link" assoc=[uml::Association|QualifiedName] "{" "source" sourceProperty=[uml::Property|QualifiedName] "="
 		//
-		//sourceValue=[ObjectSpecification|QualifiedName] ";" targetProperty=[uml::Property|QualifiedName] "="
+		//sourceValue=[ObjectSpecification|QualifiedName] ";" "target" targetProperty=[uml::Property|QualifiedName] "="
 		//
 		//targetValue=[ObjectSpecification|QualifiedName] ";" "}"
 		public Group getGroup() { return cGroup; }
@@ -633,56 +635,62 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		//"{"
 		public Keyword getLeftCurlyBracketKeyword_2() { return cLeftCurlyBracketKeyword_2; }
 
+		//"source"
+		public Keyword getSourceKeyword_3() { return cSourceKeyword_3; }
+
 		//sourceProperty=[uml::Property|QualifiedName]
-		public Assignment getSourcePropertyAssignment_3() { return cSourcePropertyAssignment_3; }
+		public Assignment getSourcePropertyAssignment_4() { return cSourcePropertyAssignment_4; }
 
 		//[uml::Property|QualifiedName]
-		public CrossReference getSourcePropertyPropertyCrossReference_3_0() { return cSourcePropertyPropertyCrossReference_3_0; }
+		public CrossReference getSourcePropertyPropertyCrossReference_4_0() { return cSourcePropertyPropertyCrossReference_4_0; }
 
 		//QualifiedName
-		public RuleCall getSourcePropertyPropertyQualifiedNameParserRuleCall_3_0_1() { return cSourcePropertyPropertyQualifiedNameParserRuleCall_3_0_1; }
+		public RuleCall getSourcePropertyPropertyQualifiedNameParserRuleCall_4_0_1() { return cSourcePropertyPropertyQualifiedNameParserRuleCall_4_0_1; }
 
 		//"="
-		public Keyword getEqualsSignKeyword_4() { return cEqualsSignKeyword_4; }
+		public Keyword getEqualsSignKeyword_5() { return cEqualsSignKeyword_5; }
 
 		//sourceValue=[ObjectSpecification|QualifiedName]
-		public Assignment getSourceValueAssignment_5() { return cSourceValueAssignment_5; }
+		public Assignment getSourceValueAssignment_6() { return cSourceValueAssignment_6; }
 
 		//[ObjectSpecification|QualifiedName]
-		public CrossReference getSourceValueObjectSpecificationCrossReference_5_0() { return cSourceValueObjectSpecificationCrossReference_5_0; }
+		public CrossReference getSourceValueObjectSpecificationCrossReference_6_0() { return cSourceValueObjectSpecificationCrossReference_6_0; }
 
 		//QualifiedName
-		public RuleCall getSourceValueObjectSpecificationQualifiedNameParserRuleCall_5_0_1() { return cSourceValueObjectSpecificationQualifiedNameParserRuleCall_5_0_1; }
+		public RuleCall getSourceValueObjectSpecificationQualifiedNameParserRuleCall_6_0_1() { return cSourceValueObjectSpecificationQualifiedNameParserRuleCall_6_0_1; }
 
 		//";"
-		public Keyword getSemicolonKeyword_6() { return cSemicolonKeyword_6; }
+		public Keyword getSemicolonKeyword_7() { return cSemicolonKeyword_7; }
+
+		//"target"
+		public Keyword getTargetKeyword_8() { return cTargetKeyword_8; }
 
 		//targetProperty=[uml::Property|QualifiedName]
-		public Assignment getTargetPropertyAssignment_7() { return cTargetPropertyAssignment_7; }
+		public Assignment getTargetPropertyAssignment_9() { return cTargetPropertyAssignment_9; }
 
 		//[uml::Property|QualifiedName]
-		public CrossReference getTargetPropertyPropertyCrossReference_7_0() { return cTargetPropertyPropertyCrossReference_7_0; }
+		public CrossReference getTargetPropertyPropertyCrossReference_9_0() { return cTargetPropertyPropertyCrossReference_9_0; }
 
 		//QualifiedName
-		public RuleCall getTargetPropertyPropertyQualifiedNameParserRuleCall_7_0_1() { return cTargetPropertyPropertyQualifiedNameParserRuleCall_7_0_1; }
+		public RuleCall getTargetPropertyPropertyQualifiedNameParserRuleCall_9_0_1() { return cTargetPropertyPropertyQualifiedNameParserRuleCall_9_0_1; }
 
 		//"="
-		public Keyword getEqualsSignKeyword_8() { return cEqualsSignKeyword_8; }
+		public Keyword getEqualsSignKeyword_10() { return cEqualsSignKeyword_10; }
 
 		//targetValue=[ObjectSpecification|QualifiedName]
-		public Assignment getTargetValueAssignment_9() { return cTargetValueAssignment_9; }
+		public Assignment getTargetValueAssignment_11() { return cTargetValueAssignment_11; }
 
 		//[ObjectSpecification|QualifiedName]
-		public CrossReference getTargetValueObjectSpecificationCrossReference_9_0() { return cTargetValueObjectSpecificationCrossReference_9_0; }
+		public CrossReference getTargetValueObjectSpecificationCrossReference_11_0() { return cTargetValueObjectSpecificationCrossReference_11_0; }
 
 		//QualifiedName
-		public RuleCall getTargetValueObjectSpecificationQualifiedNameParserRuleCall_9_0_1() { return cTargetValueObjectSpecificationQualifiedNameParserRuleCall_9_0_1; }
+		public RuleCall getTargetValueObjectSpecificationQualifiedNameParserRuleCall_11_0_1() { return cTargetValueObjectSpecificationQualifiedNameParserRuleCall_11_0_1; }
 
 		//";"
-		public Keyword getSemicolonKeyword_10() { return cSemicolonKeyword_10; }
+		public Keyword getSemicolonKeyword_12() { return cSemicolonKeyword_12; }
 
 		//"}"
-		public Keyword getRightCurlyBracketKeyword_11() { return cRightCurlyBracketKeyword_11; }
+		public Keyword getRightCurlyBracketKeyword_13() { return cRightCurlyBracketKeyword_13; }
 	}
 
 	public class AssertionElements extends AbstractParserRuleElementFinder {
@@ -1128,13 +1136,19 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cGreater_equalGreaterThanSignEqualsSignKeyword_4_0 = (Keyword)cGreater_equalEnumLiteralDeclaration_4.eContents().get(0);
 		private final EnumLiteralDeclaration cSmaller_equalEnumLiteralDeclaration_5 = (EnumLiteralDeclaration)cAlternatives.eContents().get(5);
 		private final Keyword cSmaller_equalLessThanSignEqualsSignKeyword_5_0 = (Keyword)cSmaller_equalEnumLiteralDeclaration_5.eContents().get(0);
+		private final EnumLiteralDeclaration cIncludesEnumLiteralDeclaration_6 = (EnumLiteralDeclaration)cAlternatives.eContents().get(6);
+		private final Keyword cIncludesIncludesKeyword_6_0 = (Keyword)cIncludesEnumLiteralDeclaration_6.eContents().get(0);
+		private final EnumLiteralDeclaration cExcludesEnumLiteralDeclaration_7 = (EnumLiteralDeclaration)cAlternatives.eContents().get(7);
+		private final Keyword cExcludesExcludesKeyword_7_0 = (Keyword)cExcludesEnumLiteralDeclaration_7.eContents().get(0);
 		
 		//enum ArithmeticOperator:
 		//
-		//	equal="=" | not_equal="!=" | greater=">" | smaller="<" | greater_equal=">=" | smaller_equal="<=";
+		//	equal="=" | not_equal="!=" | greater=">" | smaller="<" | greater_equal=">=" | smaller_equal="<=" | includes |
+		//
+		//	excludes;
 		public EnumRule getRule() { return rule; }
 
-		//equal="=" | not_equal="!=" | greater=">" | smaller="<" | greater_equal=">=" | smaller_equal="<="
+		//equal="=" | not_equal="!=" | greater=">" | smaller="<" | greater_equal=">=" | smaller_equal="<=" | includes | excludes
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//equal="="
@@ -1172,6 +1186,18 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 
 		//"<="
 		public Keyword getSmaller_equalLessThanSignEqualsSignKeyword_5_0() { return cSmaller_equalLessThanSignEqualsSignKeyword_5_0; }
+
+		//includes
+		public EnumLiteralDeclaration getIncludesEnumLiteralDeclaration_6() { return cIncludesEnumLiteralDeclaration_6; }
+
+		//"includes"
+		public Keyword getIncludesIncludesKeyword_6_0() { return cIncludesIncludesKeyword_6_0; }
+
+		//excludes
+		public EnumLiteralDeclaration getExcludesEnumLiteralDeclaration_7() { return cExcludesEnumLiteralDeclaration_7; }
+
+		//"excludes"
+		public Keyword getExcludesExcludesKeyword_7_0() { return cExcludesExcludesKeyword_7_0; }
 	}
 
 	public class TemporalOperatorElements extends AbstractEnumRuleElementFinder {
@@ -1436,9 +1462,9 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 
 	//Link:
 	//
-	//	"link" assoc=[uml::Association|QualifiedName] "{" sourceProperty=[uml::Property|QualifiedName] "="
+	//	"link" assoc=[uml::Association|QualifiedName] "{" "source" sourceProperty=[uml::Property|QualifiedName] "="
 	//
-	//	sourceValue=[ObjectSpecification|QualifiedName] ";" targetProperty=[uml::Property|QualifiedName] "="
+	//	sourceValue=[ObjectSpecification|QualifiedName] ";" "target" targetProperty=[uml::Property|QualifiedName] "="
 	//
 	//	targetValue=[ObjectSpecification|QualifiedName] ";" "}";
 	public LinkElements getLinkAccess() {
@@ -1556,7 +1582,9 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 
 	//enum ArithmeticOperator:
 	//
-	//	equal="=" | not_equal="!=" | greater=">" | smaller="<" | greater_equal=">=" | smaller_equal="<=";
+	//	equal="=" | not_equal="!=" | greater=">" | smaller="<" | greater_equal=">=" | smaller_equal="<=" | includes |
+	//
+	//	excludes;
 	public ArithmeticOperatorElements getArithmeticOperatorAccess() {
 		return (unknownRuleArithmeticOperator != null) ? unknownRuleArithmeticOperator : (unknownRuleArithmeticOperator = new ArithmeticOperatorElements());
 	}

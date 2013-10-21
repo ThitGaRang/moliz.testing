@@ -4,15 +4,15 @@ import Model.behavior.*
 scenario TestData[
 	object cart : Cart{}
 	object product : Product{}
-	object item : Item{Item.unitCost = 100;}
-	object cartItem : CartItem{CartItem.quantity=5;}
-	link cartItem_item{cartItem_item.cartItem=cartItem; cartItem_item.item=item;}
+	object item : Item{unitCost = 100;}
+	object cartItem : CartItem{quantity=5;}
+	link cartItem_item{source cartItem=cartItem; target item=item;}
 ]
 
 test unitCostTest activity UnitCostActivity on TestData.cartItem{
-	var cartItem = UnitCostActivity.self.result;
-	var item = UnitCostActivity.getItem.result;
-	var cost = UnitCostActivity.getCost.result;
+	var cartItem = getItem.^object;
+	var item = getItem.result;
+	var cost = getCost.result;
 	
 	assertOrder UnitCostActivity.init, UnitCostActivity.self, UnitCostActivity.getItem, 
 		UnitCostActivity.getCost, UnitCostActivity.final;
@@ -38,11 +38,11 @@ test unitCostTest activity UnitCostActivity on TestData.cartItem{
 	}
 	assertState always after UnitCostActivity.getItem{
 		item != null;
-		item::Item.unitCost = 100;
+		item::unitCost = 100;
 	}
 	assertState exactly after UnitCostActivity.getItem{
 		item != null;
-		item::Item.unitCost = 100;
+		item::unitCost = 100;
 	}
 	
 	assertState always before UnitCostActivity.getCost{

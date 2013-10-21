@@ -4,13 +4,13 @@ import Model.behavior.*
 scenario TestData[
 	object cart : Cart{}
 	object product : Product{}
-	object item : Item{Item.unitCost = 100;}
-	object cartItem : CartItem{CartItem.quantity=5;}
-	link cartItem_item{cartItem_item.cartItem=cartItem; cartItem_item.item=item;}
+	object item : Item{unitCost = 100;}
+	object cartItem : CartItem{quantity=5;}
+	link cartItem_item{source cartItem=cartItem; target item=item;}
 ]
 
-test newCartItemTest activity NewCartItemActivity(NewCartItemActivity.catalogItem=TestData.item, NewCartItemActivity.quantity=10){
-	var cartItem = NewCartItemActivity.cartItem;
+test newCartItemTest activity NewCartItemActivity(catalogItem=TestData.item, quantity=10){
+	var cartItem = cartItem;
 	
 	assertOrder NewCartItemActivity.init, NewCartItemActivity.createCartItem, 
 		NewCartItemActivity.setItem, NewCartItemActivity.setQuantity, NewCartItemActivity.final;
@@ -29,15 +29,15 @@ test newCartItemTest activity NewCartItemActivity(NewCartItemActivity.catalogIte
 	}
 	
 	assertState always before NewCartItemActivity.setItem{
-		cartItem::cartItem_item.item = null;
+		cartItem::item = null;
 	}
 	assertState exactly before NewCartItemActivity.setItem{
-		cartItem::cartItem_item.item = null;
+		cartItem::item = null;
 	}
 	assertState always after NewCartItemActivity.setItem{
-		cartItem::cartItem_item.item != null;
+		cartItem::item != null;
 	}
 	assertState exactly after NewCartItemActivity.setItem{
-		cartItem::cartItem_item.item != null;
+		cartItem::item != null;
 	}
 }

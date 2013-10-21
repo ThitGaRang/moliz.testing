@@ -1248,6 +1248,8 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
     addEEnumLiteral(arithmeticOperatorEEnum, ArithmeticOperator.SMALLER);
     addEEnumLiteral(arithmeticOperatorEEnum, ArithmeticOperator.GREATER_EQUAL);
     addEEnumLiteral(arithmeticOperatorEEnum, ArithmeticOperator.SMALLER_EQUAL);
+    addEEnumLiteral(arithmeticOperatorEEnum, ArithmeticOperator.INCLUDES);
+    addEEnumLiteral(arithmeticOperatorEEnum, ArithmeticOperator.EXCLUDES);
 
     initEEnum(temporalOperatorEEnum, TemporalOperator.class, "TemporalOperator");
     addEEnumLiteral(temporalOperatorEEnum, TemporalOperator.AFTER);

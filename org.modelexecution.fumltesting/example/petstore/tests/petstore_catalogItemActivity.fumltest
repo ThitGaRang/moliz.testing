@@ -4,14 +4,14 @@ import Model.behavior.*
 scenario TestData[
 	object cart : Cart{}
 	object product : Product{}
-	object item : Item{Item.unitCost = 100;}
-	object cartItem : CartItem{CartItem.quantity=5;}
-	link cartItem_item{cartItem_item.cartItem=cartItem; cartItem_item.item=item;}
+	object item : Item{unitCost = 100;}
+	object cartItem : CartItem{quantity=5;}
+	link cartItem_item{source cartItem=cartItem; target item=item;}
 ]
 
 test catalogItemTest activity CatalogItemActivity on TestData.cartItem{
-	var cartItem = CatalogItemActivity.self.result;
-	var item = CatalogItemActivity.catalogItem;
+	var cartItem = self.result;
+	var item = catalogItem;
 	
 	assertOrder CatalogItemActivity.init, CatalogItemActivity.self, CatalogItemActivity.geItem, CatalogItemActivity.final;
 	

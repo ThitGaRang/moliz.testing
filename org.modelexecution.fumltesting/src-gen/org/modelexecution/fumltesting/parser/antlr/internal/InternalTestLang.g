@@ -952,24 +952,9 @@ ruleLink returns [EObject current=null]
     {
     	newLeafNode(otherlv_2, grammarAccess.getLinkAccess().getLeftCurlyBracketKeyword_2());
     }
-(
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getLinkRule());
-	        }
-        }
-		{ 
-	        newCompositeNode(grammarAccess.getLinkAccess().getSourcePropertyPropertyCrossReference_3_0()); 
-	    }
-		ruleQualifiedName		{ 
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)	otherlv_4='=' 
+	otherlv_3='source' 
     {
-    	newLeafNode(otherlv_4, grammarAccess.getLinkAccess().getEqualsSignKeyword_4());
+    	newLeafNode(otherlv_3, grammarAccess.getLinkAccess().getSourceKeyword_3());
     }
 (
 (
@@ -979,16 +964,16 @@ ruleLink returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getLinkAccess().getSourceValueObjectSpecificationCrossReference_5_0()); 
+	        newCompositeNode(grammarAccess.getLinkAccess().getSourcePropertyPropertyCrossReference_4_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)	otherlv_6=';' 
+)	otherlv_5='=' 
     {
-    	newLeafNode(otherlv_6, grammarAccess.getLinkAccess().getSemicolonKeyword_6());
+    	newLeafNode(otherlv_5, grammarAccess.getLinkAccess().getEqualsSignKeyword_5());
     }
 (
 (
@@ -998,16 +983,20 @@ ruleLink returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getLinkAccess().getTargetPropertyPropertyCrossReference_7_0()); 
+	        newCompositeNode(grammarAccess.getLinkAccess().getSourceValueObjectSpecificationCrossReference_6_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)	otherlv_8='=' 
+)	otherlv_7=';' 
     {
-    	newLeafNode(otherlv_8, grammarAccess.getLinkAccess().getEqualsSignKeyword_8());
+    	newLeafNode(otherlv_7, grammarAccess.getLinkAccess().getSemicolonKeyword_7());
+    }
+	otherlv_8='target' 
+    {
+    	newLeafNode(otherlv_8, grammarAccess.getLinkAccess().getTargetKeyword_8());
     }
 (
 (
@@ -1017,20 +1006,39 @@ ruleLink returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getLinkAccess().getTargetValueObjectSpecificationCrossReference_9_0()); 
+	        newCompositeNode(grammarAccess.getLinkAccess().getTargetPropertyPropertyCrossReference_9_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)	otherlv_10=';' 
+)	otherlv_10='=' 
     {
-    	newLeafNode(otherlv_10, grammarAccess.getLinkAccess().getSemicolonKeyword_10());
+    	newLeafNode(otherlv_10, grammarAccess.getLinkAccess().getEqualsSignKeyword_10());
     }
-	otherlv_11='}' 
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getLinkRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getLinkAccess().getTargetValueObjectSpecificationCrossReference_11_0()); 
+	    }
+		ruleQualifiedName		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)	otherlv_12=';' 
     {
-    	newLeafNode(otherlv_11, grammarAccess.getLinkAccess().getRightCurlyBracketKeyword_11());
+    	newLeafNode(otherlv_12, grammarAccess.getLinkAccess().getSemicolonKeyword_12());
+    }
+	otherlv_13='}' 
+    {
+    	newLeafNode(otherlv_13, grammarAccess.getLinkAccess().getRightCurlyBracketKeyword_13());
     }
 )
 ;
@@ -6478,6 +6486,18 @@ ruleArithmeticOperator returns [Enumerator current=null]
 	{
         $current = grammarAccess.getArithmeticOperatorAccess().getSmaller_equalEnumLiteralDeclaration_5().getEnumLiteral().getInstance();
         newLeafNode(enumLiteral_5, grammarAccess.getArithmeticOperatorAccess().getSmaller_equalEnumLiteralDeclaration_5()); 
+    }
+)
+    |(	enumLiteral_6='includes' 
+	{
+        $current = grammarAccess.getArithmeticOperatorAccess().getIncludesEnumLiteralDeclaration_6().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_6, grammarAccess.getArithmeticOperatorAccess().getIncludesEnumLiteralDeclaration_6()); 
+    }
+)
+    |(	enumLiteral_7='excludes' 
+	{
+        $current = grammarAccess.getArithmeticOperatorAccess().getExcludesEnumLiteralDeclaration_7().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_7, grammarAccess.getArithmeticOperatorAccess().getExcludesEnumLiteralDeclaration_7()); 
     }
 ));
 

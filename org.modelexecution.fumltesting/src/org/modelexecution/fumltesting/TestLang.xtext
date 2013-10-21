@@ -50,8 +50,8 @@ Attribute: att=[uml::Property|QualifiedName] '=' value=Value ';';
 
 Link:
 	'link' assoc=[uml::Association|QualifiedName] '{' 
-		sourceProperty=[uml::Property|QualifiedName] '=' sourceValue=[ObjectSpecification|QualifiedName] ';'
-		targetProperty=[uml::Property|QualifiedName] '=' targetValue=[ObjectSpecification|QualifiedName] ';'
+		'source' sourceProperty=[uml::Property|QualifiedName] '=' sourceValue=[ObjectSpecification|QualifiedName] ';'
+		'target' targetProperty=[uml::Property|QualifiedName] '=' targetValue=[ObjectSpecification|QualifiedName] ';'
 	'}' 
 ;
 
@@ -84,6 +84,6 @@ NodeSpecification:
 	node=[uml::ActivityNode|QualifiedName](':'size=XNumberLiteral)?('('subOrder=NodeOrder')')? | joker='*' | joker='_'
 ;
 
-enum ArithmeticOperator: equal='='|not_equal='!='|greater='>'|smaller='<'|greater_equal='>='|smaller_equal='<=';
+enum ArithmeticOperator: equal='='|not_equal='!='|greater='>'|smaller='<'|greater_equal='>='|smaller_equal='<='|includes='includes'|excludes='excludes';
 enum TemporalOperator: after|before;
 enum TemporalQuantifier: exactly|always;

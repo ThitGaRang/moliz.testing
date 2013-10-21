@@ -273,10 +273,10 @@ public class TestLangParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAttributeAccess().getAttAssignment_0(), "rule__Attribute__AttAssignment_0");
 					put(grammarAccess.getAttributeAccess().getValueAssignment_2(), "rule__Attribute__ValueAssignment_2");
 					put(grammarAccess.getLinkAccess().getAssocAssignment_1(), "rule__Link__AssocAssignment_1");
-					put(grammarAccess.getLinkAccess().getSourcePropertyAssignment_3(), "rule__Link__SourcePropertyAssignment_3");
-					put(grammarAccess.getLinkAccess().getSourceValueAssignment_5(), "rule__Link__SourceValueAssignment_5");
-					put(grammarAccess.getLinkAccess().getTargetPropertyAssignment_7(), "rule__Link__TargetPropertyAssignment_7");
-					put(grammarAccess.getLinkAccess().getTargetValueAssignment_9(), "rule__Link__TargetValueAssignment_9");
+					put(grammarAccess.getLinkAccess().getSourcePropertyAssignment_4(), "rule__Link__SourcePropertyAssignment_4");
+					put(grammarAccess.getLinkAccess().getSourceValueAssignment_6(), "rule__Link__SourceValueAssignment_6");
+					put(grammarAccess.getLinkAccess().getTargetPropertyAssignment_9(), "rule__Link__TargetPropertyAssignment_9");
+					put(grammarAccess.getLinkAccess().getTargetValueAssignment_11(), "rule__Link__TargetValueAssignment_11");
 					put(grammarAccess.getStateAssertionAccess().getTemporalQuantifierAssignment_0_1(), "rule__StateAssertion__TemporalQuantifierAssignment_0_1");
 					put(grammarAccess.getStateAssertionAccess().getTemporalOperatorAssignment_0_2(), "rule__StateAssertion__TemporalOperatorAssignment_0_2");
 					put(grammarAccess.getStateAssertionAccess().getReferenceActionAssignment_1(), "rule__StateAssertion__ReferenceActionAssignment_1");

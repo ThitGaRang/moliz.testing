@@ -49,9 +49,6 @@
         <children>
           <emfPageIdentifier href="petstore.notation#_PHcZgC_4EeOTpM28lqU8qA"/>
         </children>
-        <children>
-          <emfPageIdentifier href="petstore.notation#_IVY7QDAWEeOTpM28lqU8qA"/>
-        </children>
       </children>
     </windows>
   </sashModel>

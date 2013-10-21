@@ -114,6 +114,8 @@
     <eLiterals name="smaller" value="3" literal="&lt;"/>
     <eLiterals name="greater_equal" value="4" literal=">="/>
     <eLiterals name="smaller_equal" value="5" literal="&lt;="/>
+    <eLiterals name="includes" value="6" literal="includes"/>
+    <eLiterals name="excludes" value="7" literal="excludes"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="TemporalOperator">
     <eLiterals name="after" literal="after"/>

@@ -312,7 +312,8 @@ public class StateAssertionValidator {
 	}
 	
 	private boolean processObject(StateExpression expression, List<ValueSnapshot> list){
-		if(expression.getOperator() != ArithmeticOperator.EQUAL && expression.getOperator() != ArithmeticOperator.NOT_EQUAL){
+		if(expression.getOperator() != ArithmeticOperator.EQUAL && expression.getOperator() != ArithmeticOperator.NOT_EQUAL 
+				&& expression.getOperator() != ArithmeticOperator.INCLUDES && expression.getOperator() != ArithmeticOperator.EXCLUDES){
 			System.out.println("Operator <, >, <=, and => not allowed!");
 			return false;
 		}
@@ -336,15 +337,21 @@ public class StateAssertionValidator {
 				if(sameType == false)return false;
 				
 				//compare each feature
-				for(FeatureValue featureValue: object_.featureValues){
-					for(FeatureValue targetFeatureValue: fumlTarget.featureValues){
-						if(targetFeatureValue.feature.name.equals(featureValue.feature.name)){
-							if(expression.getOperator() == ArithmeticOperator.EQUAL)
+				for(FeatureValue featureValue: object_.featureValues){					
+					if(expression.getOperator() == ArithmeticOperator.EQUAL){
+						for(FeatureValue targetFeatureValue: fumlTarget.featureValues){
+							if(targetFeatureValue.feature.name.equals(featureValue.feature.name)){
 								if(compare(targetFeatureValue, featureValue) == false)return false;
-							if(expression.getOperator() == ArithmeticOperator.NOT_EQUAL)
-								if(compare(targetFeatureValue, featureValue) == true)return false;
+							}
 						}
 					}
+					if(expression.getOperator() == ArithmeticOperator.NOT_EQUAL){
+						for(FeatureValue targetFeatureValue: fumlTarget.featureValues){
+							if(targetFeatureValue.feature.name.equals(featureValue.feature.name)){
+								if(compare(targetFeatureValue, featureValue) == false)return true;
+							}
+						}						
+					}	
 				}
 			}
 		}

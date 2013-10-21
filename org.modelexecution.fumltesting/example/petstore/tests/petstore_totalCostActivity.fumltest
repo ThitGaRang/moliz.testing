@@ -4,16 +4,16 @@ import Model.behavior.*
 scenario TestData[
 	object cart : Cart{}
 	object product : Product{}
-	object item : Item{Item.unitCost = 100;}
-	object cartItem : CartItem{CartItem.quantity=5;}
-	link cartItem_item{cartItem_item.cartItem=cartItem; cartItem_item.item=item;}
+	object item : Item{unitCost = 100;}
+	object cartItem : CartItem{quantity=5;}
+	link cartItem_item{source cartItem=cartItem; target item=item;}
 ]
 
 test totalCostTest activity TotalCostActivity on TestData.cartItem{
-	var cost = TotalCostActivity.totalCost;
-	var cartItem = TotalCostActivity.self.result;
-	var unitCost = TotalCostActivity.getUnitCost.unitCost;
-	var quantity = TotalCostActivity.getQuantity.result;
+	var cost = totalCost;
+	var cartItem = self.result;
+	var unitCost = getUnitCost.unitCost;
+	var quantity = getQuantity.result;
 	
 	assertOrder TotalCostActivity.initial, TotalCostActivity.self, TotalCostActivity.getUnitCost, 
 		TotalCostActivity.getQuantity, TotalCostActivity.calculateTotalCost, TotalCostActivity.final;

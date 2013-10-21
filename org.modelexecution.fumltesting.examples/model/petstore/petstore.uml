@@ -83,8 +83,8 @@
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_0xRhki_4EeOTpM28lqU8qA" value="1"/>
       </ownedEnd>
       <ownedEnd xmi:id="_0xSIoS_4EeOTpM28lqU8qA" name="item" type="_g_MeMC_4EeOTpM28lqU8qA" association="_0xSIoC_4EeOTpM28lqU8qA">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_0xSIoi_4EeOTpM28lqU8qA" value="1"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_0xSIoy_4EeOTpM28lqU8qA" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_0xSIoi_4EeOTpM28lqU8qA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_0xSIoy_4EeOTpM28lqU8qA" value="*"/>
       </ownedEnd>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_E-ORUC_5EeOTpM28lqU8qA" name="Customer">
@@ -152,7 +152,7 @@
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_or3Zgi_5EeOTpM28lqU8qA" value="1"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_or3Zgy_5EeOTpM28lqU8qA" value="1"/>
       </ownedEnd>
-      <ownedEnd xmi:id="_or2LYC_5EeOTpM28lqU8qA" name="addresses" type="_RR30QC_5EeOTpM28lqU8qA" association="_or3ZgC_5EeOTpM28lqU8qA">
+      <ownedEnd xmi:id="_or2LYC_5EeOTpM28lqU8qA" name="addresses" type="_RR30QC_5EeOTpM28lqU8qA" aggregation="composite" association="_or3ZgC_5EeOTpM28lqU8qA">
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_or2LYS_5EeOTpM28lqU8qA"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_or2LYi_5EeOTpM28lqU8qA" value="*"/>
       </ownedEnd>
@@ -226,7 +226,7 @@
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Hi0bYjABEeOTpM28lqU8qA" value="1"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Hi0bYzABEeOTpM28lqU8qA" value="1"/>
       </ownedEnd>
-      <ownedEnd xmi:id="_HizNQDABEeOTpM28lqU8qA" name="items" type="_-ovggC_5EeOTpM28lqU8qA" association="_Hi0bYDABEeOTpM28lqU8qA">
+      <ownedEnd xmi:id="_HizNQDABEeOTpM28lqU8qA" name="items" type="_-ovggC_5EeOTpM28lqU8qA" aggregation="composite" association="_Hi0bYDABEeOTpM28lqU8qA">
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Hiz0UDABEeOTpM28lqU8qA"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Hiz0UTABEeOTpM28lqU8qA" value="*"/>
       </ownedEnd>
