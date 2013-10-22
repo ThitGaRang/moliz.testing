@@ -354,10 +354,6 @@
       </eAnnotations>
       <children xmi:type="notation:DecorationNode" xmi:id="_-aw5ci_6EeOTpM28lqU8qA" type="5029"/>
       <children xmi:type="notation:BasicCompartment" xmi:id="_-aw5cy_6EeOTpM28lqU8qA" type="7017">
-        <children xmi:type="notation:Shape" xmi:id="_3zkCYDGvEeOCXMRXgX6zRg" type="3012" fontHeight="8" lineColor="0">
-          <element xmi:type="uml:Property" href="petstore.uml#_3ytt0DGvEeOCXMRXgX6zRg"/>
-          <layoutConstraint xmi:type="notation:Location" xmi:id="_3zkCYTGvEeOCXMRXgX6zRg"/>
-        </children>
         <styles xmi:type="notation:TitleStyle" xmi:id="_-aw5dC_6EeOTpM28lqU8qA"/>
         <styles xmi:type="notation:SortingStyle" xmi:id="_-aw5dS_6EeOTpM28lqU8qA"/>
         <styles xmi:type="notation:FilteringStyle" xmi:id="_-aw5di_6EeOTpM28lqU8qA"/>

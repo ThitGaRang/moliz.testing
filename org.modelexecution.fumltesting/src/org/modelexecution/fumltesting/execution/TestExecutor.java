@@ -47,7 +47,7 @@ public class TestExecutor{
 	/** Sets up all the resources, UML model and testing model,
 	 *	and initializes the testSuite.
 	 */
-	private void setup() {
+	private void setup(String fumlTestLocation) {
 		try{
 			new UmlSupport().registerServices(true);
 			Injector injector = new TestLangStandaloneSetup().createInjectorAndDoEMFRegistration();
@@ -55,7 +55,7 @@ public class TestExecutor{
 			resourceSet.addLoadOption(XtextResource.OPTION_RESOLVE_ALL, Boolean.TRUE);
 
 			//model of the test suite to be executed, with references to UML model under test
-			resource = resourceSet.getResource(URI.createFileURI(new File("example/petstore/petstore.fumltest").getAbsolutePath()), true);
+			resource = resourceSet.getResource(URI.createFileURI(new File(fumlTestLocation).getAbsolutePath()), true);
 
 			resource.load(null);
 			if (resource != null){
@@ -85,7 +85,18 @@ public class TestExecutor{
 	/** Main method of the testing framework. */
 	@Test
 	public void test() {
-		setup();
+		File folder = new File("example/petstore");
+		File[] files = folder.listFiles();
+		for(File file: files){
+			if(file.isFile() && file.getName().endsWith("fumltest")){
+				String path = "example/petstore/" + file.getName();
+				setup(path);
+				testsEvaluation();
+			}			
+		}
+	}
+	
+	private void testsEvaluation(){
 		for (int i = 0; i < suite.getTests().size(); i++) {
 			TestCase testCase = suite.getTests().get(i);
 			AssertionPrinter.print(testCase);

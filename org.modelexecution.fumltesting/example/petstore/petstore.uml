@@ -83,8 +83,8 @@
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_0xRhki_4EeOTpM28lqU8qA" value="1"/>
       </ownedEnd>
       <ownedEnd xmi:id="_0xSIoS_4EeOTpM28lqU8qA" name="item" type="_g_MeMC_4EeOTpM28lqU8qA" association="_0xSIoC_4EeOTpM28lqU8qA">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_0xSIoi_4EeOTpM28lqU8qA" value="1"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_0xSIoy_4EeOTpM28lqU8qA" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_0xSIoi_4EeOTpM28lqU8qA"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_0xSIoy_4EeOTpM28lqU8qA" value="*"/>
       </ownedEnd>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_E-ORUC_5EeOTpM28lqU8qA" name="Customer">
@@ -152,7 +152,7 @@
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_or3Zgi_5EeOTpM28lqU8qA" value="1"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_or3Zgy_5EeOTpM28lqU8qA" value="1"/>
       </ownedEnd>
-      <ownedEnd xmi:id="_or2LYC_5EeOTpM28lqU8qA" name="addresses" type="_RR30QC_5EeOTpM28lqU8qA" association="_or3ZgC_5EeOTpM28lqU8qA">
+      <ownedEnd xmi:id="_or2LYC_5EeOTpM28lqU8qA" name="addresses" type="_RR30QC_5EeOTpM28lqU8qA" aggregation="composite" association="_or3ZgC_5EeOTpM28lqU8qA">
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_or2LYS_5EeOTpM28lqU8qA"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_or2LYi_5EeOTpM28lqU8qA" value="*"/>
       </ownedEnd>
@@ -188,13 +188,6 @@
       </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_-atPEC_6EeOTpM28lqU8qA" name="Cart">
-      <ownedAttribute xmi:id="_3ytt0DGvEeOCXMRXgX6zRg" name="items" visibility="public" type="_-ovggC_5EeOTpM28lqU8qA" isUnique="false">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_9Q5NwDGvEeOCXMRXgX6zRg"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_9Q6b4DGvEeOCXMRXgX6zRg" value="*"/>
-        <defaultValue xmi:type="uml:LiteralString" xmi:id="_9Q9fMDGvEeOCXMRXgX6zRg">
-          <value xsi:nil="true"/>
-        </defaultValue>
-      </ownedAttribute>
       <ownedOperation xmi:id="_keBOIC_7EeOTpM28lqU8qA" name="addItem" method="_YbU-wDGwEeOCXMRXgX6zRg">
         <ownedParameter xmi:id="_n_vocC_7EeOTpM28lqU8qA" name="catalogItem" type="_g_MeMC_4EeOTpM28lqU8qA"/>
         <ownedParameter xmi:id="_4fJA0DAAEeOTpM28lqU8qA" name="quantity">
@@ -226,7 +219,7 @@
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Hi0bYjABEeOTpM28lqU8qA" value="1"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Hi0bYzABEeOTpM28lqU8qA" value="1"/>
       </ownedEnd>
-      <ownedEnd xmi:id="_HizNQDABEeOTpM28lqU8qA" name="items" type="_-ovggC_5EeOTpM28lqU8qA" association="_Hi0bYDABEeOTpM28lqU8qA">
+      <ownedEnd xmi:id="_HizNQDABEeOTpM28lqU8qA" name="items" type="_-ovggC_5EeOTpM28lqU8qA" aggregation="composite" association="_Hi0bYDABEeOTpM28lqU8qA">
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Hiz0UDABEeOTpM28lqU8qA"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Hiz0UTABEeOTpM28lqU8qA" value="*"/>
       </ownedEnd>
@@ -793,11 +786,11 @@
           <upperBound xmi:type="uml:LiteralInteger" xmi:id="_URJjsTG4EeOCXMRXgX6zRg" value="1"/>
         </result>
       </node>
-      <node xmi:type="uml:AddStructuralFeatureValueAction" xmi:id="_IiLwQDG6EeOCXMRXgX6zRg" name="addCartItem" outgoing="_DhVQEDG7EeOCXMRXgX6zRg" structuralFeature="_3ytt0DGvEeOCXMRXgX6zRg">
-        <object xmi:id="_IiPaoDG6EeOCXMRXgX6zRg" name="object" incoming="_ii_mwDG6EeOCXMRXgX6zRg" type="_-atPEC_6EeOTpM28lqU8qA">
+      <node xmi:type="uml:AddStructuralFeatureValueAction" xmi:id="_IiLwQDG6EeOCXMRXgX6zRg" name="addCartItem" outgoing="_DhVQEDG7EeOCXMRXgX6zRg" structuralFeature="_HizNQDABEeOTpM28lqU8qA">
+        <object xmi:id="_IiPaoDG6EeOCXMRXgX6zRg" name="object" incoming="_ii_mwDG6EeOCXMRXgX6zRg" type="_Hi0bYDABEeOTpM28lqU8qA">
           <upperBound xmi:type="uml:LiteralInteger" xmi:id="_IiPaoTG6EeOCXMRXgX6zRg" value="1"/>
         </object>
-        <result xmi:id="_IiQBsDG6EeOCXMRXgX6zRg" name="result" type="_-atPEC_6EeOTpM28lqU8qA">
+        <result xmi:id="_IiQBsDG6EeOCXMRXgX6zRg" name="result" type="_Hi0bYDABEeOTpM28lqU8qA">
           <upperBound xmi:type="uml:LiteralInteger" xmi:id="_IiQBsTG6EeOCXMRXgX6zRg" value="1"/>
         </result>
         <value xmi:id="_IiOMgDG6EeOCXMRXgX6zRg" name="value" incoming="_CDTg8DG9EeOCXMRXgX6zRg" type="_-ovggC_5EeOTpM28lqU8qA">

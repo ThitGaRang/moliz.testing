@@ -49,6 +49,21 @@
         <children>
           <emfPageIdentifier href="petstore.notation#_PHcZgC_4EeOTpM28lqU8qA"/>
         </children>
+        <children>
+          <emfPageIdentifier href="petstore.notation#_pVj0wDAPEeOTpM28lqU8qA"/>
+        </children>
+        <children>
+          <emfPageIdentifier href="petstore.notation#_jZ4ZIDASEeOTpM28lqU8qA"/>
+        </children>
+        <children>
+          <emfPageIdentifier href="petstore.notation#_IVY7QDAWEeOTpM28lqU8qA"/>
+        </children>
+        <children>
+          <emfPageIdentifier href="petstore.notation#_CZNX8DGbEeOCXMRXgX6zRg"/>
+        </children>
+        <children>
+          <emfPageIdentifier href="petstore.notation#_bXt3YDGwEeOCXMRXgX6zRg"/>
+        </children>
       </children>
     </windows>
   </sashModel>
