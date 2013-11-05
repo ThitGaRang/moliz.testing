@@ -1,0 +1,7 @@
+import Model.structure.*
+import Model.scenarios.*
+
+test defaultProductTest activity DefaultProductActivity{
+	assertOrder DefaultProductActivity.init, DefaultProductActivity.productName, 
+		DefaultProductActivity.productMnemonic, DefaultProductActivity.defaultProduct, DefaultProductActivity.final;
+}

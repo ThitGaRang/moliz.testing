@@ -22,6 +22,11 @@ import fUML.Syntax.Actions.BasicActions.Action;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityFinalNode;
 import fUML.Syntax.Activities.IntermediateActivities.InitialNode;
 
+/**
+ * Class for printing assertions, expressions, and test evaluation results to console.
+ * @author Stefan Mijatov
+ *
+ */
 @SuppressWarnings("restriction")
 public class AssertionPrinter {
 	

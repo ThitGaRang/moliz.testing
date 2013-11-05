@@ -29,4 +29,6 @@ test newProductTest activity NewProductActivity(mnemonic="x220", name="Lenovo No
 	assertState exactly after NewProductActivity.setName{product::name = "Lenovo Notebook x220";}		
 	assertState always before NewProductActivity.setName{product::name = null;}	
 	assertState exactly before NewProductActivity.setName{product::name = null;}
+	
+	finally {product::name = "Lenovo Notebook x220";}
 }

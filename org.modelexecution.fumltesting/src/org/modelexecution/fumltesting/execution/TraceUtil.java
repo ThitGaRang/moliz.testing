@@ -12,6 +12,8 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.CallActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
+import org.modelexecution.fumltesting.parallelism.ExecutionGraph;
+import org.modelexecution.fumltesting.sequence.SequenceTrace;
 
 import fUML.Semantics.Classes.Kernel.Link;
 
@@ -23,6 +25,15 @@ import fUML.Semantics.Classes.Kernel.Link;
 public class TraceUtil {
 	/** Trace of an activity execution. */
 	private Trace trace;
+	
+	/** Trace as a sequence of snapshots. */
+	private SequenceTrace sTrace;
+	/** Sequence trace generator utility class. */
+	private SequenceGenerator sequenceGenerator;
+	
+	/** Unidirectional graph of execution. */
+	private ExecutionGraph executionGraph;
+	
 	/** Used to generate flat list with all node executions, from main activity and all its children activities. */
 	private List<ActivityNodeExecution> executedNodes;
 	/** Flag indicating if the flat list of executed nodes has already been generated. */
@@ -35,7 +46,13 @@ public class TraceUtil {
 		this.executor = executor;
 		executedNodes = new ArrayList<ActivityNodeExecution>();
 		executedNodesListGenerated = false;
-		initializeExecutedNodesList(activityExecutionID);		
+		initializeExecutedNodesList(activityExecutionID);
+		
+		sequenceGenerator = new SequenceGenerator();
+		sTrace = sequenceGenerator.generateTrace(trace);
+		
+		executionGraph = new ExecutionGraph();
+		executionGraph.initGraph(trace.getActivityExecutionByID(activityExecutionID));		
 	}
 	
 	/** Generates flat list of all executed nodes, from main activity and all nested activities. */
@@ -101,9 +118,19 @@ public class TraceUtil {
 		return false;
 	}
 	
-	public ActivityNode getLastExecutedNode(){
-		ActivityNodeExecution lastNodeExecution = trace.getLastActivityNodeExecution();		
-		ActivityNode lastNode = (ActivityNode)executor.getOriginal(lastNodeExecution.getNode());
-		return lastNode;
+	public ActivityNode getLastExecutedAction(){
+		ActivityNodeExecution lastNodeExecution = trace.getLastActivityNodeExecution();
+		ActivityNodeExecution lastActionExecution = lastAction(lastNodeExecution);
+		ActivityNode lastAction = (ActivityNode)executor.getOriginal(lastActionExecution.getNode());
+		return lastAction;
+	}
+	private ActivityNodeExecution lastAction(ActivityNodeExecution lastNode){
+		if(lastNode.getNode() instanceof fUML.Syntax.Actions.BasicActions.Action)
+			return lastNode;
+		if(lastNode.getChronologicalPredecessor() == null){
+			System.out.println("No action in the trace found!");
+			return null;			
+		}
+		return lastAction(lastNode.getChronologicalPredecessor());		
 	}
 }

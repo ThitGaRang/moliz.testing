@@ -100,7 +100,7 @@ public class StateAssertionValidator {
 		stateAssertion.setTemporalQuantifier(TemporalQuantifier.ALWAYS);
 		stateAssertion.setTemporalOperator(TemporalOperator.AFTER);
 		
-		stateAssertion.setReferenceAction((Action)traceUtil.getLastExecutedNode());
+		stateAssertion.setReferenceAction((Action)traceUtil.getLastExecutedAction());
 		stateAssertion.getExpressions().addAll(assertion.getExpressions());
 		
 		return check(stateAssertion);
