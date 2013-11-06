@@ -22,6 +22,7 @@ import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Syntax.Actions.BasicActions.CallBehaviorAction;
 import fUML.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction;
 import fUML.Syntax.Actions.IntermediateActions.CreateObjectAction;
+import fUML.Syntax.Actions.IntermediateActions.DestroyObjectAction;
 import fUML.Syntax.Actions.IntermediateActions.ReadSelfAction;
 import fUML.Syntax.Classes.Kernel.Property;
 
@@ -33,20 +34,91 @@ public class SequenceGenerator {
 	
 	public SequenceTrace generateTrace(Trace trace){
 		this.trace = SequenceFactory.eINSTANCE.createSequenceTrace();
-		this.instanceSnapshotMappings = new HashMap<Object, ValueInstance>();
-		
+		this.instanceSnapshotMappings = new HashMap<Object, ValueInstance>();		
 		for(ActivityExecution activityExecution: trace.getActivityExecutions()){
-			Sequence sequence = SequenceFactory.eINSTANCE.createSequence();
-			sequence.setActivityExecution(activityExecution);
-			this.trace.getSequences().add(sequence);
-			for(ActivityNodeExecution nodeExecution: activityExecution.getNodeExecutions()){
+			
+			Sequence sequence = createSequence(activityExecution);			
+			boolean alreadyAdded = false;
+			
+			for(Sequence theSequence: this.trace.getSequences()){
+				if(theSequence.getActivityExecution().getActivity() == sequence.getActivityExecution().getActivity()){
+					alreadyAdded = true;
+					break;
+				}
+			}
+			
+			if(alreadyAdded == false){
+				this.trace.getSequences().add(sequence);
+			}
+		}		
+		return this.trace;
+	}
+	
+	private Sequence createSequence(ActivityExecution activityExecution){
+		Sequence sequence = SequenceFactory.eINSTANCE.createSequence();
+		sequence.setActivityExecution(activityExecution);
+		for(ActivityNodeExecution nodeExecution: activityExecution.getNodeExecutions()){
+			
+			if(nodeExecution instanceof ActionExecution){
 				
-				if(nodeExecution instanceof ActionExecution){
+				if(nodeExecution.getNode() instanceof ReadSelfAction){
+					//create new state, add it to the sequence, 
+					//and copy all links and objects from previous state
+					State state = createNewState(sequence, nodeExecution);
 					
-					if(nodeExecution.getNode() instanceof ReadSelfAction){
-						//create new state, add it to the sequence, 
-						//and copy all links and objects from previous state
-						State state = createNewState(sequence, nodeExecution);
+					for(Output output: ((ActionExecution)nodeExecution).getOutputs()){
+						ValueSnapshot snapshot = output.getOutputValues().get(0).getOutputValueSnapshot();
+						ValueInstance instance = (ValueInstance)snapshot.eContainer();
+						
+						Object original = getLastVersion(sequence, instance);								
+						if(original != null){
+							state.getObjects().remove(original);									
+						}
+						Object newObject = mapper.map((Object_)snapshot.getValue());
+						state.getObjects().add(newObject);
+					}
+				}
+				
+				if(nodeExecution.getNode() instanceof CreateObjectAction){
+					//create new state, add it to the sequence, 
+					//and copy all links and objects from previous state
+					State state = createNewState(sequence, nodeExecution);
+					
+					for(Output output: ((ActionExecution)nodeExecution).getOutputs()){
+						ValueSnapshot snapshot = output.getOutputValues().get(0).getOutputValueSnapshot();
+						ValueInstance instance = (ValueInstance)snapshot.eContainer();
+						
+						Object object = mapper.map((Object_)snapshot.getValue());
+						instanceSnapshotMappings.put(object, instance);
+						state.getObjects().add(object);
+					}
+				}
+				
+				if(nodeExecution.getNode() instanceof DestroyObjectAction){
+					//create new state, add it to the sequence, 
+					//and copy all links and objects from previous state
+					State state = createNewState(sequence, nodeExecution);
+					
+					for(Output output: ((ActionExecution)nodeExecution).getOutputs()){
+						ValueSnapshot snapshot = output.getOutputValues().get(0).getOutputValueSnapshot();
+						
+						Object object = mapper.map((Object_)snapshot.getValue());
+						instanceSnapshotMappings.remove(object);
+						state.getObjects().remove(object);
+					}
+					
+					//TODO handle links from this object, or to this object..
+				}
+				
+				if(nodeExecution.getNode() instanceof AddStructuralFeatureValueAction){
+					Property property = (Property)((AddStructuralFeatureValueAction)nodeExecution.getNode()).structuralFeature;
+					
+					//create new state, add it to the sequence, 
+					//and copy all links and objects from previous state
+					State state = createNewState(sequence, nodeExecution);
+					AddStructuralFeatureValueAction theAction = (AddStructuralFeatureValueAction)nodeExecution.getNode();
+					
+					if(property.association == null){//case for setting the attribute of the object
 						
 						for(Output output: ((ActionExecution)nodeExecution).getOutputs()){
 							ValueSnapshot snapshot = output.getOutputValues().get(0).getOutputValueSnapshot();
@@ -59,95 +131,70 @@ public class SequenceGenerator {
 							Object newObject = mapper.map((Object_)snapshot.getValue());
 							state.getObjects().add(newObject);
 						}
-					}
-					
-					if(nodeExecution.getNode() instanceof CreateObjectAction){
-						//create new state, add it to the sequence, 
-						//and copy all links and objects from previous state
-						State state = createNewState(sequence, nodeExecution);
+						
+					}else{//case for setting a new link to the object
+						
+						//add new link to the new state
+						for(ValueInstance link: ((Trace)activityExecution.eContainer()).getValueInstances()){
+							if(link.getCreator() == nodeExecution){
+								state.getLinks().add(mapper.map((Link)link.getRuntimeValue()));
+							}
+						}
+						
+						//process output to add new version of output object to the new state
+						ValueSnapshot outputSnapshot = null;
+						ValueInstance outputInstance = null;
 						
 						for(Output output: ((ActionExecution)nodeExecution).getOutputs()){
-							ValueSnapshot snapshot = output.getOutputValues().get(0).getOutputValueSnapshot();
-							ValueInstance instance = (ValueInstance)snapshot.eContainer();
-							
-							Object object = mapper.map((Object_)snapshot.getValue());
-							instanceSnapshotMappings.put(object, instance);
-							state.getObjects().add(object);
+							outputSnapshot = output.getOutputValues().get(0).getOutputValueSnapshot();
+							outputInstance = (ValueInstance)outputSnapshot.eContainer();
 						}
-					}
-					
-					if(nodeExecution.getNode() instanceof AddStructuralFeatureValueAction){
-						Property property = (Property)((AddStructuralFeatureValueAction)nodeExecution.getNode()).structuralFeature;
 						
-						//create new state, add it to the sequence, 
-						//and copy all links and objects from previous state
-						State state = createNewState(sequence, nodeExecution);
-						AddStructuralFeatureValueAction theAction = (AddStructuralFeatureValueAction)nodeExecution.getNode();
+						Object original = getLastVersion(sequence, outputInstance);								
+						if(original != null){
+							state.getObjects().remove(original);									
+						}
+						Object newObject = mapper.map((Object_)outputSnapshot.getValue());
+						state.getObjects().add(newObject);
 						
-						if(property.association == null){//case for setting the attribute of the object
+						//process input to add the value object to the new state
+						for(Input input: ((ActionExecution) nodeExecution).getInputs()){
+							ValueSnapshot snapshot = input.getInputValues().get(0).getInputValueSnapshot();
+							ValueInstance instance = (ValueInstance)snapshot.eContainer();								
 							
-							for(Output output: ((ActionExecution)nodeExecution).getOutputs()){
-								ValueSnapshot snapshot = output.getOutputValues().get(0).getOutputValueSnapshot();
-								ValueInstance instance = (ValueInstance)snapshot.eContainer();
-								
-								Object original = getLastVersion(sequence, instance);								
-								if(original != null){
-									state.getObjects().remove(original);									
+							if(input.getInputPin() == theAction.value){
+								Object originalValue = getLastVersion(sequence, instance);								
+								if(originalValue != null){
+									state.getObjects().remove(originalValue);									
 								}
-								Object newObject = mapper.map((Object_)snapshot.getValue());
-								state.getObjects().add(newObject);
-							}
-							
-						}else{//case for setting a new link to the object
-							
-							//add new link to the new state
-							for(ValueInstance link: trace.getValueInstances()){
-								if(link.getCreator() == nodeExecution){
-									state.getLinks().add(mapper.map((Link)link.getRuntimeValue()));
-								}
-							}
-							
-							//process output to add new version of output object to the new state
-							ValueSnapshot outputSnapshot = null;
-							ValueInstance outputInstance = null;
-							
-							for(Output output: ((ActionExecution)nodeExecution).getOutputs()){
-								outputSnapshot = output.getOutputValues().get(0).getOutputValueSnapshot();
-								outputInstance = (ValueInstance)outputSnapshot.eContainer();
-							}
-							
-							Object original = getLastVersion(sequence, outputInstance);								
-							if(original != null){
-								state.getObjects().remove(original);									
-							}
-							Object newObject = mapper.map((Object_)outputSnapshot.getValue());
-							state.getObjects().add(newObject);
-							
-							//process input to add the value object to the new state
-							for(Input input: ((ActionExecution) nodeExecution).getInputs()){
-								ValueSnapshot snapshot = input.getInputValues().get(0).getInputValueSnapshot();
-								ValueInstance instance = (ValueInstance)snapshot.eContainer();								
-								
-								if(input.getInputPin() == theAction.value){
-									Object originalValue = getLastVersion(sequence, instance);								
-									if(originalValue != null){
-										state.getObjects().remove(originalValue);									
-									}
-									Object newValue = mapper.map((Object_)snapshot.getValue());
-									state.getObjects().add(newValue);
-								}
+								Object newValue = mapper.map((Object_)snapshot.getValue());
+								state.getObjects().add(newValue);
 							}
 						}
 					}
-					
-					if(nodeExecution.getNode() instanceof CallBehaviorAction){
-						
+				}
+				
+				if(nodeExecution.getNode() instanceof CallBehaviorAction){
+					Trace trace = (Trace)activityExecution.eContainer();
+					Sequence calledActionSequence = null;
+					for(ActivityExecution execution: trace.getActivityExecutions()){
+						if(execution.getActivity() == ((CallBehaviorAction)nodeExecution.getNode()).behavior){
+							calledActionSequence = createSequence(execution);							
+							break;
+						}
+					}
+					if(calledActionSequence != null){						
+						State lastStateOfCalled = calledActionSequence.lastState();
+						State state = SequenceFactory.eINSTANCE.createState();
+						state.setNodeExecution(nodeExecution);		
+						state.getObjects().addAll(lastStateOfCalled.getObjects());
+						state.getLinks().addAll(lastStateOfCalled.getLinks());
+						sequence.addState(state);
 					}
 				}
 			}
 		}
-		
-		return this.trace;
+		return sequence;
 	}
 	
 	private State createNewState(Sequence sequence, ActivityNodeExecution creatorNode){
