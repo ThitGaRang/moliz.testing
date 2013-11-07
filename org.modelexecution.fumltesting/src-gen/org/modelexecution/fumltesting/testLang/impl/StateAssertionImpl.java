@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.uml2.uml.Action;
 
+import org.modelexecution.fumltesting.testLang.OCLInvariants;
 import org.modelexecution.fumltesting.testLang.StateAssertion;
 import org.modelexecution.fumltesting.testLang.StateExpression;
 import org.modelexecution.fumltesting.testLang.TemporalOperator;
@@ -36,6 +37,7 @@ import org.modelexecution.fumltesting.testLang.TestLangPackage;
  *   <li>{@link org.modelexecution.fumltesting.testLang.impl.StateAssertionImpl#getTemporalOperator <em>Temporal Operator</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.testLang.impl.StateAssertionImpl#getReferenceAction <em>Reference Action</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.testLang.impl.StateAssertionImpl#getUntilAction <em>Until Action</em>}</li>
+ *   <li>{@link org.modelexecution.fumltesting.testLang.impl.StateAssertionImpl#getInvariants <em>Invariants</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.testLang.impl.StateAssertionImpl#getExpressions <em>Expressions</em>}</li>
  * </ul>
  * </p>
@@ -103,6 +105,16 @@ public class StateAssertionImpl extends AssertionImpl implements StateAssertion
    * @ordered
    */
   protected Action untilAction;
+
+  /**
+   * The cached value of the '{@link #getInvariants() <em>Invariants</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getInvariants()
+   * @generated
+   * @ordered
+   */
+  protected OCLInvariants invariants;
 
   /**
    * The cached value of the '{@link #getExpressions() <em>Expressions</em>}' containment reference list.
@@ -272,6 +284,54 @@ public class StateAssertionImpl extends AssertionImpl implements StateAssertion
    * <!-- end-user-doc -->
    * @generated
    */
+  public OCLInvariants getInvariants()
+  {
+    return invariants;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetInvariants(OCLInvariants newInvariants, NotificationChain msgs)
+  {
+    OCLInvariants oldInvariants = invariants;
+    invariants = newInvariants;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TestLangPackage.STATE_ASSERTION__INVARIANTS, oldInvariants, newInvariants);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setInvariants(OCLInvariants newInvariants)
+  {
+    if (newInvariants != invariants)
+    {
+      NotificationChain msgs = null;
+      if (invariants != null)
+        msgs = ((InternalEObject)invariants).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - TestLangPackage.STATE_ASSERTION__INVARIANTS, null, msgs);
+      if (newInvariants != null)
+        msgs = ((InternalEObject)newInvariants).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - TestLangPackage.STATE_ASSERTION__INVARIANTS, null, msgs);
+      msgs = basicSetInvariants(newInvariants, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, TestLangPackage.STATE_ASSERTION__INVARIANTS, newInvariants, newInvariants));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<StateExpression> getExpressions()
   {
     if (expressions == null)
@@ -291,6 +351,8 @@ public class StateAssertionImpl extends AssertionImpl implements StateAssertion
   {
     switch (featureID)
     {
+      case TestLangPackage.STATE_ASSERTION__INVARIANTS:
+        return basicSetInvariants(null, msgs);
       case TestLangPackage.STATE_ASSERTION__EXPRESSIONS:
         return ((InternalEList<?>)getExpressions()).basicRemove(otherEnd, msgs);
     }
@@ -317,6 +379,8 @@ public class StateAssertionImpl extends AssertionImpl implements StateAssertion
       case TestLangPackage.STATE_ASSERTION__UNTIL_ACTION:
         if (resolve) return getUntilAction();
         return basicGetUntilAction();
+      case TestLangPackage.STATE_ASSERTION__INVARIANTS:
+        return getInvariants();
       case TestLangPackage.STATE_ASSERTION__EXPRESSIONS:
         return getExpressions();
     }
@@ -345,6 +409,9 @@ public class StateAssertionImpl extends AssertionImpl implements StateAssertion
         return;
       case TestLangPackage.STATE_ASSERTION__UNTIL_ACTION:
         setUntilAction((Action)newValue);
+        return;
+      case TestLangPackage.STATE_ASSERTION__INVARIANTS:
+        setInvariants((OCLInvariants)newValue);
         return;
       case TestLangPackage.STATE_ASSERTION__EXPRESSIONS:
         getExpressions().clear();
@@ -376,6 +443,9 @@ public class StateAssertionImpl extends AssertionImpl implements StateAssertion
       case TestLangPackage.STATE_ASSERTION__UNTIL_ACTION:
         setUntilAction((Action)null);
         return;
+      case TestLangPackage.STATE_ASSERTION__INVARIANTS:
+        setInvariants((OCLInvariants)null);
+        return;
       case TestLangPackage.STATE_ASSERTION__EXPRESSIONS:
         getExpressions().clear();
         return;
@@ -401,6 +471,8 @@ public class StateAssertionImpl extends AssertionImpl implements StateAssertion
         return referenceAction != null;
       case TestLangPackage.STATE_ASSERTION__UNTIL_ACTION:
         return untilAction != null;
+      case TestLangPackage.STATE_ASSERTION__INVARIANTS:
+        return invariants != null;
       case TestLangPackage.STATE_ASSERTION__EXPRESSIONS:
         return expressions != null && !expressions.isEmpty();
     }

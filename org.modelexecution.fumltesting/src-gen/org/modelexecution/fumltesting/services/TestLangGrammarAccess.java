@@ -186,11 +186,13 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cInitScenariosScenarioIDTerminalRuleCall_7_3_1_0_1 = (RuleCall)cInitScenariosScenarioCrossReference_7_3_1_0.eContents().get(1);
 		private final Keyword cRightSquareBracketKeyword_7_4 = (Keyword)cGroup_7.eContents().get(4);
 		private final Keyword cSemicolonKeyword_7_5 = (Keyword)cGroup_7.eContents().get(5);
-		private final Assignment cVariablesAssignment_8 = (Assignment)cGroup.eContents().get(8);
-		private final RuleCall cVariablesVarDeclarationParserRuleCall_8_0 = (RuleCall)cVariablesAssignment_8.eContents().get(0);
-		private final Assignment cAssertionsAssignment_9 = (Assignment)cGroup.eContents().get(9);
-		private final RuleCall cAssertionsAssertionParserRuleCall_9_0 = (RuleCall)cAssertionsAssignment_9.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_10 = (Keyword)cGroup.eContents().get(10);
+		private final Assignment cInvariantsAssignment_8 = (Assignment)cGroup.eContents().get(8);
+		private final RuleCall cInvariantsOCLInvariantsParserRuleCall_8_0 = (RuleCall)cInvariantsAssignment_8.eContents().get(0);
+		private final Assignment cVariablesAssignment_9 = (Assignment)cGroup.eContents().get(9);
+		private final RuleCall cVariablesVarDeclarationParserRuleCall_9_0 = (RuleCall)cVariablesAssignment_9.eContents().get(0);
+		private final Assignment cAssertionsAssignment_10 = (Assignment)cGroup.eContents().get(10);
+		private final RuleCall cAssertionsAssertionParserRuleCall_10_0 = (RuleCall)cAssertionsAssignment_10.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_11 = (Keyword)cGroup.eContents().get(11);
 		
 		//TestCase:
 		//
@@ -198,18 +200,18 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		//
 		//	inputs+=ActivityInput)* ")")? ("on" contextObject=[ObjectSpecification|QualifiedName])? "{" ("initialize" "["
 		//
-		//	initScenarios+=[Scenario] ("," initScenarios+=[Scenario])* "]" ";")? variables+=VarDeclaration*
+		//	initScenarios+=[Scenario] ("," initScenarios+=[Scenario])* "]" ";")? invariants=OCLInvariants?
 		//
-		//	assertions+=Assertion* "}";
+		//	variables+=VarDeclaration* assertions+=Assertion* "}";
 		public ParserRule getRule() { return rule; }
 
 		//"test" name=ID "activity" activityUnderTest=[uml::Activity|QualifiedName] ("(" inputs+=ActivityInput (","
 		//
 		//inputs+=ActivityInput)* ")")? ("on" contextObject=[ObjectSpecification|QualifiedName])? "{" ("initialize" "["
 		//
-		//initScenarios+=[Scenario] ("," initScenarios+=[Scenario])* "]" ";")? variables+=VarDeclaration* assertions+=Assertion*
+		//initScenarios+=[Scenario] ("," initScenarios+=[Scenario])* "]" ";")? invariants=OCLInvariants?
 		//
-		//"}"
+		//variables+=VarDeclaration* assertions+=Assertion* "}"
 		public Group getGroup() { return cGroup; }
 
 		//"test"
@@ -317,20 +319,26 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_7_5() { return cSemicolonKeyword_7_5; }
 
+		//invariants=OCLInvariants?
+		public Assignment getInvariantsAssignment_8() { return cInvariantsAssignment_8; }
+
+		//OCLInvariants
+		public RuleCall getInvariantsOCLInvariantsParserRuleCall_8_0() { return cInvariantsOCLInvariantsParserRuleCall_8_0; }
+
 		//variables+=VarDeclaration*
-		public Assignment getVariablesAssignment_8() { return cVariablesAssignment_8; }
+		public Assignment getVariablesAssignment_9() { return cVariablesAssignment_9; }
 
 		//VarDeclaration
-		public RuleCall getVariablesVarDeclarationParserRuleCall_8_0() { return cVariablesVarDeclarationParserRuleCall_8_0; }
+		public RuleCall getVariablesVarDeclarationParserRuleCall_9_0() { return cVariablesVarDeclarationParserRuleCall_9_0; }
 
 		//assertions+=Assertion*
-		public Assignment getAssertionsAssignment_9() { return cAssertionsAssignment_9; }
+		public Assignment getAssertionsAssignment_10() { return cAssertionsAssignment_10; }
 
 		//Assertion
-		public RuleCall getAssertionsAssertionParserRuleCall_9_0() { return cAssertionsAssertionParserRuleCall_9_0; }
+		public RuleCall getAssertionsAssertionParserRuleCall_10_0() { return cAssertionsAssertionParserRuleCall_10_0; }
 
 		//"}"
-		public Keyword getRightCurlyBracketKeyword_10() { return cRightCurlyBracketKeyword_10; }
+		public Keyword getRightCurlyBracketKeyword_11() { return cRightCurlyBracketKeyword_11; }
 	}
 
 	public class ActivityInputElements extends AbstractParserRuleElementFinder {
@@ -736,9 +744,11 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		private final CrossReference cUntilActionActionCrossReference_2_1_0 = (CrossReference)cUntilActionAssignment_2_1.eContents().get(0);
 		private final RuleCall cUntilActionActionQualifiedNameParserRuleCall_2_1_0_1 = (RuleCall)cUntilActionActionCrossReference_2_1_0.eContents().get(1);
 		private final Keyword cLeftCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Assignment cExpressionsAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final RuleCall cExpressionsStateExpressionParserRuleCall_4_0 = (RuleCall)cExpressionsAssignment_4.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Assignment cInvariantsAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cInvariantsOCLInvariantsParserRuleCall_4_0 = (RuleCall)cInvariantsAssignment_4.eContents().get(0);
+		private final Assignment cExpressionsAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final RuleCall cExpressionsStateExpressionParserRuleCall_5_0 = (RuleCall)cExpressionsAssignment_5.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//StateAssertion:
 		//
@@ -746,14 +756,14 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		//
 		//	referenceAction=[uml::Action|QualifiedName] ("until" untilAction=[uml::Action|QualifiedName])? "{"
 		//
-		//	expressions+=StateExpression+ "}";
+		//	invariants=OCLInvariants? expressions+=StateExpression+ "}";
 		public ParserRule getRule() { return rule; }
 
 		//("assertState" temporalQuantifier=TemporalQuantifier temporalOperator=TemporalOperator)
 		//
 		//referenceAction=[uml::Action|QualifiedName] ("until" untilAction=[uml::Action|QualifiedName])? "{"
 		//
-		//expressions+=StateExpression+ "}"
+		//invariants=OCLInvariants? expressions+=StateExpression+ "}"
 		public Group getGroup() { return cGroup; }
 
 		//"assertState" temporalQuantifier=TemporalQuantifier temporalOperator=TemporalOperator
@@ -801,14 +811,20 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		//"{"
 		public Keyword getLeftCurlyBracketKeyword_3() { return cLeftCurlyBracketKeyword_3; }
 
+		//invariants=OCLInvariants?
+		public Assignment getInvariantsAssignment_4() { return cInvariantsAssignment_4; }
+
+		//OCLInvariants
+		public RuleCall getInvariantsOCLInvariantsParserRuleCall_4_0() { return cInvariantsOCLInvariantsParserRuleCall_4_0; }
+
 		//expressions+=StateExpression+
-		public Assignment getExpressionsAssignment_4() { return cExpressionsAssignment_4; }
+		public Assignment getExpressionsAssignment_5() { return cExpressionsAssignment_5; }
 
 		//StateExpression
-		public RuleCall getExpressionsStateExpressionParserRuleCall_4_0() { return cExpressionsStateExpressionParserRuleCall_4_0; }
+		public RuleCall getExpressionsStateExpressionParserRuleCall_5_0() { return cExpressionsStateExpressionParserRuleCall_5_0; }
 
 		//"}"
-		public Keyword getRightCurlyBracketKeyword_5() { return cRightCurlyBracketKeyword_5; }
+		public Keyword getRightCurlyBracketKeyword_6() { return cRightCurlyBracketKeyword_6; }
 	}
 
 	public class FinallyStateAssertionElements extends AbstractParserRuleElementFinder {
@@ -1119,6 +1135,71 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		//"_"
 		public Keyword getJoker_Keyword_2_0() { return cJoker_Keyword_2_0; }
 	}
+
+	public class OCLInvariantsElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "OCLInvariants");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cCheckInvariantsKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Keyword cLeftSquareBracketKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cInvariantsAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final CrossReference cInvariantsInvCSCrossReference_2_0 = (CrossReference)cInvariantsAssignment_2.eContents().get(0);
+		private final RuleCall cInvariantsInvCSQualifiedNameParserRuleCall_2_0_1 = (RuleCall)cInvariantsInvCSCrossReference_2_0.eContents().get(1);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Keyword cCommaKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final Assignment cInvariantsAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
+		private final CrossReference cInvariantsInvCSCrossReference_3_1_0 = (CrossReference)cInvariantsAssignment_3_1.eContents().get(0);
+		private final RuleCall cInvariantsInvCSQualifiedNameParserRuleCall_3_1_0_1 = (RuleCall)cInvariantsInvCSCrossReference_3_1_0.eContents().get(1);
+		private final Keyword cRightSquareBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		
+		//OCLInvariants:
+		//
+		//	"checkInvariants" "[" invariants+=[completeOCL::InvCS|QualifiedName] (","
+		//
+		//	invariants+=[completeOCL::InvCS|QualifiedName])* "]" ";";
+		public ParserRule getRule() { return rule; }
+
+		//"checkInvariants" "[" invariants+=[completeOCL::InvCS|QualifiedName] (","
+		//
+		//invariants+=[completeOCL::InvCS|QualifiedName])* "]" ";"
+		public Group getGroup() { return cGroup; }
+
+		//"checkInvariants"
+		public Keyword getCheckInvariantsKeyword_0() { return cCheckInvariantsKeyword_0; }
+
+		//"["
+		public Keyword getLeftSquareBracketKeyword_1() { return cLeftSquareBracketKeyword_1; }
+
+		//invariants+=[completeOCL::InvCS|QualifiedName]
+		public Assignment getInvariantsAssignment_2() { return cInvariantsAssignment_2; }
+
+		//[completeOCL::InvCS|QualifiedName]
+		public CrossReference getInvariantsInvCSCrossReference_2_0() { return cInvariantsInvCSCrossReference_2_0; }
+
+		//QualifiedName
+		public RuleCall getInvariantsInvCSQualifiedNameParserRuleCall_2_0_1() { return cInvariantsInvCSQualifiedNameParserRuleCall_2_0_1; }
+
+		//("," invariants+=[completeOCL::InvCS|QualifiedName])*
+		public Group getGroup_3() { return cGroup_3; }
+
+		//","
+		public Keyword getCommaKeyword_3_0() { return cCommaKeyword_3_0; }
+
+		//invariants+=[completeOCL::InvCS|QualifiedName]
+		public Assignment getInvariantsAssignment_3_1() { return cInvariantsAssignment_3_1; }
+
+		//[completeOCL::InvCS|QualifiedName]
+		public CrossReference getInvariantsInvCSCrossReference_3_1_0() { return cInvariantsInvCSCrossReference_3_1_0; }
+
+		//QualifiedName
+		public RuleCall getInvariantsInvCSQualifiedNameParserRuleCall_3_1_0_1() { return cInvariantsInvCSQualifiedNameParserRuleCall_3_1_0_1; }
+
+		//"]"
+		public Keyword getRightSquareBracketKeyword_4() { return cRightSquareBracketKeyword_4; }
+
+		//";"
+		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
+	}
 	
 	
 	public class ArithmeticOperatorElements extends AbstractEnumRuleElementFinder {
@@ -1280,6 +1361,7 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 	private OrderAssertionElements pOrderAssertion;
 	private NodeOrderElements pNodeOrder;
 	private NodeSpecificationElements pNodeSpecification;
+	private OCLInvariantsElements pOCLInvariants;
 	private ArithmeticOperatorElements unknownRuleArithmeticOperator;
 	private TemporalOperatorElements unknownRuleTemporalOperator;
 	private TemporalQuantifierElements unknownRuleTemporalQuantifier;
@@ -1372,9 +1454,9 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 	//
 	//	inputs+=ActivityInput)* ")")? ("on" contextObject=[ObjectSpecification|QualifiedName])? "{" ("initialize" "["
 	//
-	//	initScenarios+=[Scenario] ("," initScenarios+=[Scenario])* "]" ";")? variables+=VarDeclaration*
+	//	initScenarios+=[Scenario] ("," initScenarios+=[Scenario])* "]" ";")? invariants=OCLInvariants?
 	//
-	//	assertions+=Assertion* "}";
+	//	variables+=VarDeclaration* assertions+=Assertion* "}";
 	public TestCaseElements getTestCaseAccess() {
 		return (pTestCase != null) ? pTestCase : (pTestCase = new TestCaseElements());
 	}
@@ -1492,7 +1574,7 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 	//
 	//	referenceAction=[uml::Action|QualifiedName] ("until" untilAction=[uml::Action|QualifiedName])? "{"
 	//
-	//	expressions+=StateExpression+ "}";
+	//	invariants=OCLInvariants? expressions+=StateExpression+ "}";
 	public StateAssertionElements getStateAssertionAccess() {
 		return (pStateAssertion != null) ? pStateAssertion : (pStateAssertion = new StateAssertionElements());
 	}
@@ -1578,6 +1660,19 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getNodeSpecificationRule() {
 		return getNodeSpecificationAccess().getRule();
+	}
+
+	//OCLInvariants:
+	//
+	//	"checkInvariants" "[" invariants+=[completeOCL::InvCS|QualifiedName] (","
+	//
+	//	invariants+=[completeOCL::InvCS|QualifiedName])* "]" ";";
+	public OCLInvariantsElements getOCLInvariantsAccess() {
+		return (pOCLInvariants != null) ? pOCLInvariants : (pOCLInvariants = new OCLInvariantsElements());
+	}
+	
+	public ParserRule getOCLInvariantsRule() {
+		return getOCLInvariantsAccess().getRule();
 	}
 
 	//enum ArithmeticOperator:

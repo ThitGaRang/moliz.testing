@@ -212,6 +212,15 @@ public interface TestLangFactory extends EFactory
   NodeSpecification createNodeSpecification();
 
   /**
+   * Returns a new object of class '<em>OCL Invariants</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>OCL Invariants</em>'.
+   * @generated
+   */
+  OCLInvariants createOCLInvariants();
+
+  /**
    * Returns the package supported by this factory.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

@@ -103,6 +103,8 @@ public class TestLangParser extends AbstractContentAssistParser {
 					put(grammarAccess.getNodeSpecificationAccess().getGroup_0(), "rule__NodeSpecification__Group_0__0");
 					put(grammarAccess.getNodeSpecificationAccess().getGroup_0_1(), "rule__NodeSpecification__Group_0_1__0");
 					put(grammarAccess.getNodeSpecificationAccess().getGroup_0_2(), "rule__NodeSpecification__Group_0_2__0");
+					put(grammarAccess.getOCLInvariantsAccess().getGroup(), "rule__OCLInvariants__Group__0");
+					put(grammarAccess.getOCLInvariantsAccess().getGroup_3(), "rule__OCLInvariants__Group_3__0");
 					put(grammarAccess.getXAssignmentAccess().getGroup_0(), "rule__XAssignment__Group_0__0");
 					put(grammarAccess.getXAssignmentAccess().getGroup_1(), "rule__XAssignment__Group_1__0");
 					put(grammarAccess.getXAssignmentAccess().getGroup_1_1(), "rule__XAssignment__Group_1_1__0");
@@ -258,8 +260,9 @@ public class TestLangParser extends AbstractContentAssistParser {
 					put(grammarAccess.getTestCaseAccess().getContextObjectAssignment_5_1(), "rule__TestCase__ContextObjectAssignment_5_1");
 					put(grammarAccess.getTestCaseAccess().getInitScenariosAssignment_7_2(), "rule__TestCase__InitScenariosAssignment_7_2");
 					put(grammarAccess.getTestCaseAccess().getInitScenariosAssignment_7_3_1(), "rule__TestCase__InitScenariosAssignment_7_3_1");
-					put(grammarAccess.getTestCaseAccess().getVariablesAssignment_8(), "rule__TestCase__VariablesAssignment_8");
-					put(grammarAccess.getTestCaseAccess().getAssertionsAssignment_9(), "rule__TestCase__AssertionsAssignment_9");
+					put(grammarAccess.getTestCaseAccess().getInvariantsAssignment_8(), "rule__TestCase__InvariantsAssignment_8");
+					put(grammarAccess.getTestCaseAccess().getVariablesAssignment_9(), "rule__TestCase__VariablesAssignment_9");
+					put(grammarAccess.getTestCaseAccess().getAssertionsAssignment_10(), "rule__TestCase__AssertionsAssignment_10");
 					put(grammarAccess.getActivityInputAccess().getParameterAssignment_0(), "rule__ActivityInput__ParameterAssignment_0");
 					put(grammarAccess.getActivityInputAccess().getValueAssignment_2(), "rule__ActivityInput__ValueAssignment_2");
 					put(grammarAccess.getSimpleValueAccess().getValueAssignment(), "rule__SimpleValue__ValueAssignment");
@@ -281,7 +284,8 @@ public class TestLangParser extends AbstractContentAssistParser {
 					put(grammarAccess.getStateAssertionAccess().getTemporalOperatorAssignment_0_2(), "rule__StateAssertion__TemporalOperatorAssignment_0_2");
 					put(grammarAccess.getStateAssertionAccess().getReferenceActionAssignment_1(), "rule__StateAssertion__ReferenceActionAssignment_1");
 					put(grammarAccess.getStateAssertionAccess().getUntilActionAssignment_2_1(), "rule__StateAssertion__UntilActionAssignment_2_1");
-					put(grammarAccess.getStateAssertionAccess().getExpressionsAssignment_4(), "rule__StateAssertion__ExpressionsAssignment_4");
+					put(grammarAccess.getStateAssertionAccess().getInvariantsAssignment_4(), "rule__StateAssertion__InvariantsAssignment_4");
+					put(grammarAccess.getStateAssertionAccess().getExpressionsAssignment_5(), "rule__StateAssertion__ExpressionsAssignment_5");
 					put(grammarAccess.getFinallyStateAssertionAccess().getExpressionsAssignment_2(), "rule__FinallyStateAssertion__ExpressionsAssignment_2");
 					put(grammarAccess.getObjectStateExpressionAccess().getPinAssignment_0(), "rule__ObjectStateExpression__PinAssignment_0");
 					put(grammarAccess.getObjectStateExpressionAccess().getOperatorAssignment_1(), "rule__ObjectStateExpression__OperatorAssignment_1");
@@ -298,6 +302,8 @@ public class TestLangParser extends AbstractContentAssistParser {
 					put(grammarAccess.getNodeSpecificationAccess().getSubOrderAssignment_0_2_1(), "rule__NodeSpecification__SubOrderAssignment_0_2_1");
 					put(grammarAccess.getNodeSpecificationAccess().getJokerAssignment_1(), "rule__NodeSpecification__JokerAssignment_1");
 					put(grammarAccess.getNodeSpecificationAccess().getJokerAssignment_2(), "rule__NodeSpecification__JokerAssignment_2");
+					put(grammarAccess.getOCLInvariantsAccess().getInvariantsAssignment_2(), "rule__OCLInvariants__InvariantsAssignment_2");
+					put(grammarAccess.getOCLInvariantsAccess().getInvariantsAssignment_3_1(), "rule__OCLInvariants__InvariantsAssignment_3_1");
 					put(grammarAccess.getXAssignmentAccess().getFeatureAssignment_0_1(), "rule__XAssignment__FeatureAssignment_0_1");
 					put(grammarAccess.getXAssignmentAccess().getValueAssignment_0_3(), "rule__XAssignment__ValueAssignment_0_3");
 					put(grammarAccess.getXAssignmentAccess().getFeatureAssignment_1_1_0_0_1(), "rule__XAssignment__FeatureAssignment_1_1_0_0_1");

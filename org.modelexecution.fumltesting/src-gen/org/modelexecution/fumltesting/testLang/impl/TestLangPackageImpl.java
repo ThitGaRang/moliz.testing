@@ -11,6 +11,8 @@ import org.eclipse.emf.ecore.EcorePackage;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
+import org.eclipse.ocl.examples.xtext.completeocl.completeOCLCST.CompleteOCLCSTPackage;
+
 import org.eclipse.uml2.uml.UMLPackage;
 
 import org.eclipse.xtext.xbase.XbasePackage;
@@ -24,6 +26,7 @@ import org.modelexecution.fumltesting.testLang.Import;
 import org.modelexecution.fumltesting.testLang.Link;
 import org.modelexecution.fumltesting.testLang.NodeOrder;
 import org.modelexecution.fumltesting.testLang.NodeSpecification;
+import org.modelexecution.fumltesting.testLang.OCLInvariants;
 import org.modelexecution.fumltesting.testLang.ObjectSpecification;
 import org.modelexecution.fumltesting.testLang.ObjectStateExpression;
 import org.modelexecution.fumltesting.testLang.ObjectValue;
@@ -202,6 +205,13 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass oclInvariantsEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EEnum arithmeticOperatorEEnum = null;
 
   /**
@@ -267,6 +277,7 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
     isInited = true;
 
     // Initialize simple dependencies
+    CompleteOCLCSTPackage.eINSTANCE.eClass();
     UMLPackage.eINSTANCE.eClass();
     XbasePackage.eINSTANCE.eClass();
 
@@ -440,7 +451,7 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getTestCase_Variables()
+  public EReference getTestCase_Invariants()
   {
     return (EReference)testCaseEClass.getEStructuralFeatures().get(5);
   }
@@ -450,9 +461,19 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getTestCase_Assertions()
+  public EReference getTestCase_Variables()
   {
     return (EReference)testCaseEClass.getEStructuralFeatures().get(6);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getTestCase_Assertions()
+  {
+    return (EReference)testCaseEClass.getEStructuralFeatures().get(7);
   }
 
   /**
@@ -770,9 +791,19 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getStateAssertion_Expressions()
+  public EReference getStateAssertion_Invariants()
   {
     return (EReference)stateAssertionEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getStateAssertion_Expressions()
+  {
+    return (EReference)stateAssertionEClass.getEStructuralFeatures().get(5);
   }
 
   /**
@@ -960,6 +991,26 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getOCLInvariants()
+  {
+    return oclInvariantsEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getOCLInvariants_Invariants()
+  {
+    return (EReference)oclInvariantsEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EEnum getArithmeticOperator()
   {
     return arithmeticOperatorEEnum;
@@ -1033,6 +1084,7 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
     createEReference(testCaseEClass, TEST_CASE__INPUTS);
     createEReference(testCaseEClass, TEST_CASE__CONTEXT_OBJECT);
     createEReference(testCaseEClass, TEST_CASE__INIT_SCENARIOS);
+    createEReference(testCaseEClass, TEST_CASE__INVARIANTS);
     createEReference(testCaseEClass, TEST_CASE__VARIABLES);
     createEReference(testCaseEClass, TEST_CASE__ASSERTIONS);
 
@@ -1076,6 +1128,7 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
     createEAttribute(stateAssertionEClass, STATE_ASSERTION__TEMPORAL_OPERATOR);
     createEReference(stateAssertionEClass, STATE_ASSERTION__REFERENCE_ACTION);
     createEReference(stateAssertionEClass, STATE_ASSERTION__UNTIL_ACTION);
+    createEReference(stateAssertionEClass, STATE_ASSERTION__INVARIANTS);
     createEReference(stateAssertionEClass, STATE_ASSERTION__EXPRESSIONS);
 
     finallyStateAssertionEClass = createEClass(FINALLY_STATE_ASSERTION);
@@ -1102,6 +1155,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
     createEReference(nodeSpecificationEClass, NODE_SPECIFICATION__SIZE);
     createEReference(nodeSpecificationEClass, NODE_SPECIFICATION__SUB_ORDER);
     createEAttribute(nodeSpecificationEClass, NODE_SPECIFICATION__JOKER);
+
+    oclInvariantsEClass = createEClass(OCL_INVARIANTS);
+    createEReference(oclInvariantsEClass, OCL_INVARIANTS__INVARIANTS);
 
     // Create enums
     arithmeticOperatorEEnum = createEEnum(ARITHMETIC_OPERATOR);
@@ -1137,6 +1193,7 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
     EcorePackage theEcorePackage = (EcorePackage)EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI);
     UMLPackage theUMLPackage = (UMLPackage)EPackage.Registry.INSTANCE.getEPackage(UMLPackage.eNS_URI);
     XbasePackage theXbasePackage = (XbasePackage)EPackage.Registry.INSTANCE.getEPackage(XbasePackage.eNS_URI);
+    CompleteOCLCSTPackage theCompleteOCLCSTPackage = (CompleteOCLCSTPackage)EPackage.Registry.INSTANCE.getEPackage(CompleteOCLCSTPackage.eNS_URI);
 
     // Create type parameters
 
@@ -1170,6 +1227,7 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
     initEReference(getTestCase_Inputs(), this.getActivityInput(), null, "inputs", null, 0, -1, TestCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getTestCase_ContextObject(), this.getObjectSpecification(), null, "contextObject", null, 0, 1, TestCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getTestCase_InitScenarios(), this.getScenario(), null, "initScenarios", null, 0, -1, TestCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTestCase_Invariants(), this.getOCLInvariants(), null, "invariants", null, 0, 1, TestCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getTestCase_Variables(), this.getVarDeclaration(), null, "variables", null, 0, -1, TestCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getTestCase_Assertions(), this.getAssertion(), null, "assertions", null, 0, -1, TestCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
@@ -1213,6 +1271,7 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
     initEAttribute(getStateAssertion_TemporalOperator(), this.getTemporalOperator(), "temporalOperator", null, 0, 1, StateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getStateAssertion_ReferenceAction(), theUMLPackage.getAction(), null, "referenceAction", null, 0, 1, StateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getStateAssertion_UntilAction(), theUMLPackage.getAction(), null, "untilAction", null, 0, 1, StateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getStateAssertion_Invariants(), this.getOCLInvariants(), null, "invariants", null, 0, 1, StateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getStateAssertion_Expressions(), this.getStateExpression(), null, "expressions", null, 0, -1, StateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(finallyStateAssertionEClass, FinallyStateAssertion.class, "FinallyStateAssertion", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1239,6 +1298,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
     initEReference(getNodeSpecification_Size(), theXbasePackage.getXExpression(), null, "size", null, 0, 1, NodeSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getNodeSpecification_SubOrder(), this.getNodeOrder(), null, "subOrder", null, 0, 1, NodeSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getNodeSpecification_Joker(), theEcorePackage.getEString(), "joker", null, 0, 1, NodeSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(oclInvariantsEClass, OCLInvariants.class, "OCLInvariants", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getOCLInvariants_Invariants(), theCompleteOCLCSTPackage.getInvCS(), null, "invariants", null, 0, -1, OCLInvariants.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Initialize enums and add enum literals
     initEEnum(arithmeticOperatorEEnum, ArithmeticOperator.class, "ArithmeticOperator");

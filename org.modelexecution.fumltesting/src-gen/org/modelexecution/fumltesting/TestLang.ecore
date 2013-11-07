@@ -25,6 +25,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="contextObject" eType="#//ObjectSpecification"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="initScenarios" unique="false"
         upperBound="-1" eType="#//Scenario"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="invariants" eType="#//OCLInvariants"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="variables" upperBound="-1"
         eType="#//VarDeclaration" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="assertions" upperBound="-1"
@@ -74,6 +76,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="temporalOperator" eType="#//TemporalOperator"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="referenceAction" eType="ecore:EClass ../../../../../org.eclipse.uml2.uml/model/UML.ecore#//Action"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="untilAction" eType="ecore:EClass ../../../../../org.eclipse.uml2.uml/model/UML.ecore#//Action"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="invariants" eType="#//OCLInvariants"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="expressions" upperBound="-1"
         eType="#//StateExpression" containment="true"/>
   </eClassifiers>
@@ -106,6 +110,10 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="subOrder" eType="#//NodeOrder"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="joker" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="OCLInvariants">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="invariants" unique="false"
+        upperBound="-1" eType="ecore:EClass ../../../../../org.eclipse.ocl.examples.xtext.completeocl/model/CompleteOCLCST.ecore#//InvCS"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="ArithmeticOperator">
     <eLiterals name="equal" literal="="/>

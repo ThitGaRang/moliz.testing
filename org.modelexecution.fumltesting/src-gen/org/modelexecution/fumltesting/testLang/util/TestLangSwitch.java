@@ -226,6 +226,13 @@ public class TestLangSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case TestLangPackage.OCL_INVARIANTS:
+      {
+        OCLInvariants oclInvariants = (OCLInvariants)theEObject;
+        T result = caseOCLInvariants(oclInvariants);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       default: return defaultCase(theEObject);
     }
   }
@@ -562,6 +569,22 @@ public class TestLangSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseNodeSpecification(NodeSpecification object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>OCL Invariants</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>OCL Invariants</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseOCLInvariants(OCLInvariants object)
   {
     return null;
   }

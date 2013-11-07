@@ -58,6 +58,7 @@ import org.modelexecution.fumltesting.testLang.Import;
 import org.modelexecution.fumltesting.testLang.Link;
 import org.modelexecution.fumltesting.testLang.NodeOrder;
 import org.modelexecution.fumltesting.testLang.NodeSpecification;
+import org.modelexecution.fumltesting.testLang.OCLInvariants;
 import org.modelexecution.fumltesting.testLang.ObjectSpecification;
 import org.modelexecution.fumltesting.testLang.ObjectStateExpression;
 import org.modelexecution.fumltesting.testLang.ObjectValue;
@@ -119,6 +120,12 @@ public class TestLangSemanticSequencer extends XbaseSemanticSequencer {
 			case TestLangPackage.NODE_SPECIFICATION:
 				if(context == grammarAccess.getNodeSpecificationRule()) {
 					sequence_NodeSpecification(context, (NodeSpecification) semanticObject); 
+					return; 
+				}
+				else break;
+			case TestLangPackage.OCL_INVARIANTS:
+				if(context == grammarAccess.getOCLInvariantsRule()) {
+					sequence_OCLInvariants(context, (OCLInvariants) semanticObject); 
 					return; 
 				}
 				else break;
@@ -1171,6 +1178,15 @@ public class TestLangSemanticSequencer extends XbaseSemanticSequencer {
 	
 	/**
 	 * Constraint:
+	 *     (invariants+=[InvCS|QualifiedName] invariants+=[InvCS|QualifiedName]*)
+	 */
+	protected void sequence_OCLInvariants(EObject context, OCLInvariants semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (name=ID type=[Class|QualifiedName] attributes+=Attribute*)
 	 */
 	protected void sequence_ObjectSpecification(EObject context, ObjectSpecification semanticObject) {
@@ -1289,6 +1305,7 @@ public class TestLangSemanticSequencer extends XbaseSemanticSequencer {
 	 *         temporalOperator=TemporalOperator 
 	 *         referenceAction=[Action|QualifiedName] 
 	 *         untilAction=[Action|QualifiedName]? 
+	 *         invariants=OCLInvariants? 
 	 *         expressions+=StateExpression+
 	 *     )
 	 */
@@ -1305,6 +1322,7 @@ public class TestLangSemanticSequencer extends XbaseSemanticSequencer {
 	 *         (inputs+=ActivityInput inputs+=ActivityInput*)? 
 	 *         contextObject=[ObjectSpecification|QualifiedName]? 
 	 *         (initScenarios+=[Scenario|ID] initScenarios+=[Scenario|ID]*)? 
+	 *         invariants=OCLInvariants? 
 	 *         variables+=VarDeclaration* 
 	 *         assertions+=Assertion*
 	 *     )

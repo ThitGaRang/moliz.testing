@@ -7,11 +7,14 @@
     <metamodelDeclarations xsi:type="xtext:ReferencedMetamodel" alias="ecore">
       <ePackage href="http://www.eclipse.org/emf/2002/Ecore#/"/>
     </metamodelDeclarations>
+    <metamodelDeclarations xsi:type="xtext:ReferencedMetamodel" alias="completeOCL">
+      <ePackage href="http://www.eclipse.org/ocl/3.1.0/CompleteOCLCST#/"/>
+    </metamodelDeclarations>
     <metamodelDeclarations xsi:type="xtext:GeneratedMetamodel" name="testLang">
       <ePackage href="http://www.modelexecution.org/fumltesting/TestLang#/"/>
     </metamodelDeclarations>
     <rules xsi:type="xtext:ParserRule" name="TestSuite">
-      <type metamodel="/0/@metamodelDeclarations.2">
+      <type metamodel="/0/@metamodelDeclarations.3">
         <classifier xsi:type="ecore:EClass" href="http://www.modelexecution.org/fumltesting/TestLang#//TestSuite"/>
       </type>
       <alternatives xsi:type="xtext:Group">
@@ -27,7 +30,7 @@
       </alternatives>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="Import">
-      <type metamodel="/0/@metamodelDeclarations.2">
+      <type metamodel="/0/@metamodelDeclarations.3">
         <classifier xsi:type="ecore:EClass" href="http://www.modelexecution.org/fumltesting/TestLang#//Import"/>
       </type>
       <alternatives xsi:type="xtext:Group">
@@ -47,7 +50,7 @@
       </alternatives>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="VarDeclaration">
-      <type metamodel="/0/@metamodelDeclarations.2">
+      <type metamodel="/0/@metamodelDeclarations.3">
         <classifier xsi:type="ecore:EClass" href="http://www.modelexecution.org/fumltesting/TestLang#//VarDeclaration"/>
       </type>
       <alternatives xsi:type="xtext:Group">
@@ -68,7 +71,7 @@
       </alternatives>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="TestCase">
-      <type metamodel="/0/@metamodelDeclarations.2">
+      <type metamodel="/0/@metamodelDeclarations.3">
         <classifier xsi:type="ecore:EClass" href="http://www.modelexecution.org/fumltesting/TestLang#//TestCase"/>
       </type>
       <alternatives xsi:type="xtext:Group">
@@ -102,7 +105,7 @@
           <elements xsi:type="xtext:Keyword" value="on"/>
           <elements xsi:type="xtext:Assignment" feature="contextObject" operator="=">
             <terminal xsi:type="xtext:CrossReference">
-              <type metamodel="/0/@metamodelDeclarations.2">
+              <type metamodel="/0/@metamodelDeclarations.3">
                 <classifier xsi:type="ecore:EClass" href="http://www.modelexecution.org/fumltesting/TestLang#//ObjectSpecification"/>
               </type>
               <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.52"/>
@@ -115,7 +118,7 @@
           <elements xsi:type="xtext:Keyword" value="["/>
           <elements xsi:type="xtext:Assignment" feature="initScenarios" operator="+=">
             <terminal xsi:type="xtext:CrossReference">
-              <type metamodel="/0/@metamodelDeclarations.2">
+              <type metamodel="/0/@metamodelDeclarations.3">
                 <classifier xsi:type="ecore:EClass" href="http://www.modelexecution.org/fumltesting/TestLang#//Scenario"/>
               </type>
               <terminal xsi:type="xtext:RuleCall" rule="/2/@rules.11"/>
@@ -125,7 +128,7 @@
             <elements xsi:type="xtext:Keyword" value=","/>
             <elements xsi:type="xtext:Assignment" feature="initScenarios" operator="+=">
               <terminal xsi:type="xtext:CrossReference">
-                <type metamodel="/0/@metamodelDeclarations.2">
+                <type metamodel="/0/@metamodelDeclarations.3">
                   <classifier xsi:type="ecore:EClass" href="http://www.modelexecution.org/fumltesting/TestLang#//Scenario"/>
                 </type>
                 <terminal xsi:type="xtext:RuleCall" rule="/2/@rules.11"/>
@@ -134,6 +137,9 @@
           </elements>
           <elements xsi:type="xtext:Keyword" value="]"/>
           <elements xsi:type="xtext:Keyword" value=";"/>
+        </elements>
+        <elements xsi:type="xtext:Assignment" cardinality="?" feature="invariants" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.22"/>
         </elements>
         <elements xsi:type="xtext:Assignment" cardinality="*" feature="variables" operator="+=">
           <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.3"/>
@@ -145,7 +151,7 @@
       </alternatives>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="ActivityInput">
-      <type metamodel="/0/@metamodelDeclarations.2">
+      <type metamodel="/0/@metamodelDeclarations.3">
         <classifier xsi:type="ecore:EClass" href="http://www.modelexecution.org/fumltesting/TestLang#//ActivityInput"/>
       </type>
       <alternatives xsi:type="xtext:Group">
@@ -164,7 +170,7 @@
       </alternatives>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="Value">
-      <type metamodel="/0/@metamodelDeclarations.2">
+      <type metamodel="/0/@metamodelDeclarations.3">
         <classifier xsi:type="ecore:EClass" href="http://www.modelexecution.org/fumltesting/TestLang#//Value"/>
       </type>
       <alternatives xsi:type="xtext:Alternatives">
@@ -173,7 +179,7 @@
       </alternatives>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="SimpleValue">
-      <type metamodel="/0/@metamodelDeclarations.2">
+      <type metamodel="/0/@metamodelDeclarations.3">
         <classifier xsi:type="ecore:EClass" href="http://www.modelexecution.org/fumltesting/TestLang#//SimpleValue"/>
       </type>
       <alternatives xsi:type="xtext:Assignment" feature="value" operator="=">
@@ -181,12 +187,12 @@
       </alternatives>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="ObjectValue">
-      <type metamodel="/0/@metamodelDeclarations.2">
+      <type metamodel="/0/@metamodelDeclarations.3">
         <classifier xsi:type="ecore:EClass" href="http://www.modelexecution.org/fumltesting/TestLang#//ObjectValue"/>
       </type>
       <alternatives xsi:type="xtext:Assignment" feature="value" operator="=">
         <terminal xsi:type="xtext:CrossReference">
-          <type metamodel="/0/@metamodelDeclarations.2">
+          <type metamodel="/0/@metamodelDeclarations.3">
             <classifier xsi:type="ecore:EClass" href="http://www.modelexecution.org/fumltesting/TestLang#//ObjectSpecification"/>
           </type>
           <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.52"/>
@@ -194,7 +200,7 @@
       </alternatives>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="Scenario">
-      <type metamodel="/0/@metamodelDeclarations.2">
+      <type metamodel="/0/@metamodelDeclarations.3">
         <classifier xsi:type="ecore:EClass" href="http://www.modelexecution.org/fumltesting/TestLang#//Scenario"/>
       </type>
       <alternatives xsi:type="xtext:Group">
@@ -213,7 +219,7 @@
       </alternatives>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="ObjectSpecification">
-      <type metamodel="/0/@metamodelDeclarations.2">
+      <type metamodel="/0/@metamodelDeclarations.3">
         <classifier xsi:type="ecore:EClass" href="http://www.modelexecution.org/fumltesting/TestLang#//ObjectSpecification"/>
       </type>
       <alternatives xsi:type="xtext:Group">
@@ -238,7 +244,7 @@
       </alternatives>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="Attribute">
-      <type metamodel="/0/@metamodelDeclarations.2">
+      <type metamodel="/0/@metamodelDeclarations.3">
         <classifier xsi:type="ecore:EClass" href="http://www.modelexecution.org/fumltesting/TestLang#//Attribute"/>
       </type>
       <alternatives xsi:type="xtext:Group">
@@ -258,7 +264,7 @@
       </alternatives>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="Link">
-      <type metamodel="/0/@metamodelDeclarations.2">
+      <type metamodel="/0/@metamodelDeclarations.3">
         <classifier xsi:type="ecore:EClass" href="http://www.modelexecution.org/fumltesting/TestLang#//Link"/>
       </type>
       <alternatives xsi:type="xtext:Group">
@@ -284,7 +290,7 @@
         <elements xsi:type="xtext:Keyword" value="="/>
         <elements xsi:type="xtext:Assignment" feature="sourceValue" operator="=">
           <terminal xsi:type="xtext:CrossReference">
-            <type metamodel="/0/@metamodelDeclarations.2">
+            <type metamodel="/0/@metamodelDeclarations.3">
               <classifier xsi:type="ecore:EClass" href="http://www.modelexecution.org/fumltesting/TestLang#//ObjectSpecification"/>
             </type>
             <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.52"/>
@@ -303,7 +309,7 @@
         <elements xsi:type="xtext:Keyword" value="="/>
         <elements xsi:type="xtext:Assignment" feature="targetValue" operator="=">
           <terminal xsi:type="xtext:CrossReference">
-            <type metamodel="/0/@metamodelDeclarations.2">
+            <type metamodel="/0/@metamodelDeclarations.3">
               <classifier xsi:type="ecore:EClass" href="http://www.modelexecution.org/fumltesting/TestLang#//ObjectSpecification"/>
             </type>
             <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.52"/>
@@ -314,7 +320,7 @@
       </alternatives>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="Assertion">
-      <type metamodel="/0/@metamodelDeclarations.2">
+      <type metamodel="/0/@metamodelDeclarations.3">
         <classifier xsi:type="ecore:EClass" href="http://www.modelexecution.org/fumltesting/TestLang#//Assertion"/>
       </type>
       <alternatives xsi:type="xtext:Alternatives">
@@ -324,17 +330,17 @@
       </alternatives>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="StateAssertion">
-      <type metamodel="/0/@metamodelDeclarations.2">
+      <type metamodel="/0/@metamodelDeclarations.3">
         <classifier xsi:type="ecore:EClass" href="http://www.modelexecution.org/fumltesting/TestLang#//StateAssertion"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Group">
           <elements xsi:type="xtext:Keyword" value="assertState"/>
           <elements xsi:type="xtext:Assignment" feature="temporalQuantifier" operator="=">
-            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.24"/>
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.25"/>
           </elements>
           <elements xsi:type="xtext:Assignment" feature="temporalOperator" operator="=">
-            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.23"/>
+            <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.24"/>
           </elements>
         </elements>
         <elements xsi:type="xtext:Assignment" feature="referenceAction" operator="=">
@@ -357,6 +363,9 @@
           </elements>
         </elements>
         <elements xsi:type="xtext:Keyword" value="{"/>
+        <elements xsi:type="xtext:Assignment" cardinality="?" feature="invariants" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.22"/>
+        </elements>
         <elements xsi:type="xtext:Assignment" cardinality="+" feature="expressions" operator="+=">
           <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.16"/>
         </elements>
@@ -364,7 +373,7 @@
       </alternatives>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="FinallyStateAssertion">
-      <type metamodel="/0/@metamodelDeclarations.2">
+      <type metamodel="/0/@metamodelDeclarations.3">
         <classifier xsi:type="ecore:EClass" href="http://www.modelexecution.org/fumltesting/TestLang#//FinallyStateAssertion"/>
       </type>
       <alternatives xsi:type="xtext:Group">
@@ -377,7 +386,7 @@
       </alternatives>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="StateExpression">
-      <type metamodel="/0/@metamodelDeclarations.2">
+      <type metamodel="/0/@metamodelDeclarations.3">
         <classifier xsi:type="ecore:EClass" href="http://www.modelexecution.org/fumltesting/TestLang#//StateExpression"/>
       </type>
       <alternatives xsi:type="xtext:Alternatives">
@@ -386,20 +395,20 @@
       </alternatives>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="ObjectStateExpression">
-      <type metamodel="/0/@metamodelDeclarations.2">
+      <type metamodel="/0/@metamodelDeclarations.3">
         <classifier xsi:type="ecore:EClass" href="http://www.modelexecution.org/fumltesting/TestLang#//ObjectStateExpression"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Assignment" feature="pin" operator="=">
           <terminal xsi:type="xtext:CrossReference">
-            <type metamodel="/0/@metamodelDeclarations.2">
+            <type metamodel="/0/@metamodelDeclarations.3">
               <classifier xsi:type="ecore:EClass" href="http://www.modelexecution.org/fumltesting/TestLang#//VarDeclaration"/>
             </type>
             <terminal xsi:type="xtext:RuleCall" rule="/2/@rules.11"/>
           </terminal>
         </elements>
         <elements xsi:type="xtext:Assignment" feature="operator" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.22"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.23"/>
         </elements>
         <elements xsi:type="xtext:Assignment" feature="value" operator="=">
           <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.6"/>
@@ -408,13 +417,13 @@
       </alternatives>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="PropertyStateExpression">
-      <type metamodel="/0/@metamodelDeclarations.2">
+      <type metamodel="/0/@metamodelDeclarations.3">
         <classifier xsi:type="ecore:EClass" href="http://www.modelexecution.org/fumltesting/TestLang#//PropertyStateExpression"/>
       </type>
       <alternatives xsi:type="xtext:Group">
         <elements xsi:type="xtext:Assignment" feature="pin" operator="=">
           <terminal xsi:type="xtext:CrossReference">
-            <type metamodel="/0/@metamodelDeclarations.2">
+            <type metamodel="/0/@metamodelDeclarations.3">
               <classifier xsi:type="ecore:EClass" href="http://www.modelexecution.org/fumltesting/TestLang#//VarDeclaration"/>
             </type>
             <terminal xsi:type="xtext:RuleCall" rule="/2/@rules.11"/>
@@ -430,7 +439,7 @@
           </terminal>
         </elements>
         <elements xsi:type="xtext:Assignment" feature="operator" operator="=">
-          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.22"/>
+          <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.23"/>
         </elements>
         <elements xsi:type="xtext:Assignment" feature="value" operator="=">
           <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.6"/>
@@ -439,7 +448,7 @@
       </alternatives>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="OrderAssertion">
-      <type metamodel="/0/@metamodelDeclarations.2">
+      <type metamodel="/0/@metamodelDeclarations.3">
         <classifier xsi:type="ecore:EClass" href="http://www.modelexecution.org/fumltesting/TestLang#//OrderAssertion"/>
       </type>
       <alternatives xsi:type="xtext:Group">
@@ -451,7 +460,7 @@
       </alternatives>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="NodeOrder">
-      <type metamodel="/0/@metamodelDeclarations.2">
+      <type metamodel="/0/@metamodelDeclarations.3">
         <classifier xsi:type="ecore:EClass" href="http://www.modelexecution.org/fumltesting/TestLang#//NodeOrder"/>
       </type>
       <alternatives xsi:type="xtext:Group">
@@ -467,7 +476,7 @@
       </alternatives>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="NodeSpecification">
-      <type metamodel="/0/@metamodelDeclarations.2">
+      <type metamodel="/0/@metamodelDeclarations.3">
         <classifier xsi:type="ecore:EClass" href="http://www.modelexecution.org/fumltesting/TestLang#//NodeSpecification"/>
       </type>
       <alternatives xsi:type="xtext:Alternatives">
@@ -502,8 +511,38 @@
         </elements>
       </alternatives>
     </rules>
+    <rules xsi:type="xtext:ParserRule" name="OCLInvariants">
+      <type metamodel="/0/@metamodelDeclarations.3">
+        <classifier xsi:type="ecore:EClass" href="http://www.modelexecution.org/fumltesting/TestLang#//OCLInvariants"/>
+      </type>
+      <alternatives xsi:type="xtext:Group">
+        <elements xsi:type="xtext:Keyword" value="checkInvariants"/>
+        <elements xsi:type="xtext:Keyword" value="["/>
+        <elements xsi:type="xtext:Assignment" feature="invariants" operator="+=">
+          <terminal xsi:type="xtext:CrossReference">
+            <type metamodel="/0/@metamodelDeclarations.2">
+              <classifier xsi:type="ecore:EClass" href="http://www.eclipse.org/ocl/3.1.0/CompleteOCLCST#//InvCS"/>
+            </type>
+            <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.52"/>
+          </terminal>
+        </elements>
+        <elements xsi:type="xtext:Group" cardinality="*">
+          <elements xsi:type="xtext:Keyword" value=","/>
+          <elements xsi:type="xtext:Assignment" feature="invariants" operator="+=">
+            <terminal xsi:type="xtext:CrossReference">
+              <type metamodel="/0/@metamodelDeclarations.2">
+                <classifier xsi:type="ecore:EClass" href="http://www.eclipse.org/ocl/3.1.0/CompleteOCLCST#//InvCS"/>
+              </type>
+              <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.52"/>
+            </terminal>
+          </elements>
+        </elements>
+        <elements xsi:type="xtext:Keyword" value="]"/>
+        <elements xsi:type="xtext:Keyword" value=";"/>
+      </alternatives>
+    </rules>
     <rules xsi:type="xtext:EnumRule" name="ArithmeticOperator">
-      <type metamodel="/0/@metamodelDeclarations.2">
+      <type metamodel="/0/@metamodelDeclarations.3">
         <classifier xsi:type="ecore:EEnum" href="http://www.modelexecution.org/fumltesting/TestLang#//ArithmeticOperator"/>
       </type>
       <alternatives xsi:type="xtext:Alternatives">
@@ -542,7 +581,7 @@
       </alternatives>
     </rules>
     <rules xsi:type="xtext:EnumRule" name="TemporalOperator">
-      <type metamodel="/0/@metamodelDeclarations.2">
+      <type metamodel="/0/@metamodelDeclarations.3">
         <classifier xsi:type="ecore:EEnum" href="http://www.modelexecution.org/fumltesting/TestLang#//TemporalOperator"/>
       </type>
       <alternatives xsi:type="xtext:Alternatives">
@@ -557,7 +596,7 @@
       </alternatives>
     </rules>
     <rules xsi:type="xtext:EnumRule" name="TemporalQuantifier">
-      <type metamodel="/0/@metamodelDeclarations.2">
+      <type metamodel="/0/@metamodelDeclarations.3">
         <classifier xsi:type="ecore:EEnum" href="http://www.modelexecution.org/fumltesting/TestLang#//TemporalQuantifier"/>
       </type>
       <alternatives xsi:type="xtext:Alternatives">

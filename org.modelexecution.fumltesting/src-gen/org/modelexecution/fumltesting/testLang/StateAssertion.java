@@ -18,6 +18,7 @@ import org.eclipse.uml2.uml.Action;
  *   <li>{@link org.modelexecution.fumltesting.testLang.StateAssertion#getTemporalOperator <em>Temporal Operator</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.testLang.StateAssertion#getReferenceAction <em>Reference Action</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.testLang.StateAssertion#getUntilAction <em>Until Action</em>}</li>
+ *   <li>{@link org.modelexecution.fumltesting.testLang.StateAssertion#getInvariants <em>Invariants</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.testLang.StateAssertion#getExpressions <em>Expressions</em>}</li>
  * </ul>
  * </p>
@@ -137,6 +138,32 @@ public interface StateAssertion extends Assertion
    * @generated
    */
   void setUntilAction(Action value);
+
+  /**
+   * Returns the value of the '<em><b>Invariants</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Invariants</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Invariants</em>' containment reference.
+   * @see #setInvariants(OCLInvariants)
+   * @see org.modelexecution.fumltesting.testLang.TestLangPackage#getStateAssertion_Invariants()
+   * @model containment="true"
+   * @generated
+   */
+  OCLInvariants getInvariants();
+
+  /**
+   * Sets the value of the '{@link org.modelexecution.fumltesting.testLang.StateAssertion#getInvariants <em>Invariants</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Invariants</em>' containment reference.
+   * @see #getInvariants()
+   * @generated
+   */
+  void setInvariants(OCLInvariants value);
 
   /**
    * Returns the value of the '<em><b>Expressions</b></em>' containment reference list.
