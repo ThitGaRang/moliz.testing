@@ -16,8 +16,14 @@ test newProductTest activity NewProductActivity(mnemonic="x220", name="Lenovo No
 		NewProductActivity.setMnemonic, NewProductActivity.setName, NewProductActivity.final;
 	
 	assertState always before NewProductActivity.createProduct{product = null;}
-	assertState exactly before NewProductActivity.createProduct{product = null;}
-	assertState always after NewProductActivity.createProduct{product != null;}
+	assertState exactly before NewProductActivity.createProduct{
+		checkInvariants[noProduct];
+		product = null;
+	}
+	assertState always after NewProductActivity.createProduct{
+		checkInvariants[singleProduct];
+		product != null;
+	}
 	assertState exactly after NewProductActivity.createProduct{product != null;}
 		
 	assertState always after NewProductActivity.setMnemonic{product::mnemonic = "x220";}	
@@ -26,7 +32,8 @@ test newProductTest activity NewProductActivity(mnemonic="x220", name="Lenovo No
 	assertState exactly before NewProductActivity.setMnemonic{product::mnemonic = null;}	
 	
 	assertState always after NewProductActivity.setName{product::name = "Lenovo Notebook x220";}
-	assertState exactly after NewProductActivity.setName{product::name = "Lenovo Notebook x220";}		
+	assertState exactly after NewProductActivity.setName{product::name = "Lenovo Notebook x220";
+	}		
 	assertState always before NewProductActivity.setName{product::name = null;}	
 	assertState exactly before NewProductActivity.setName{product::name = null;}
 	

@@ -1,4 +1,4 @@
-package org.modelexecution.fumltesting.sequence;
+package org.modelexecution.fumltesting.sequence.execution;
 
 import java.util.HashMap;
 
@@ -20,18 +20,16 @@ import fUML.Semantics.Classes.Kernel.StringValue;
 import fUML.Syntax.Classes.Kernel.Class_;
 import fUML.Syntax.Classes.Kernel.NamedElement;
 
+/** Mappings from fUML implementation classes to fUML meta model classes */
 public class SequenceMapper {
-	private HashMap<Class_, Class> mappedClasses;
-	private HashMap<fUML.Syntax.Classes.Kernel.Association, Association> mappedAssociations;
+	private HashMap<Class_, Class> mappedClasses= new HashMap<Class_, Class>();
+	private HashMap<fUML.Syntax.Classes.Kernel.Association, Association> mappedAssociations= new HashMap<fUML.Syntax.Classes.Kernel.Association, Association>();
 	
-	public SequenceMapper(){
-		this.mappedClasses = new HashMap<Class_, Class>();
-		this.mappedAssociations = new HashMap<fUML.Syntax.Classes.Kernel.Association, Association>();
-	}
+	public SequenceMapper(){}
 	
 	public Object map(Object_ object_){
 		Object object = KernelFactory.eINSTANCE.createObject();
-		object.getTypes().add(map(object_.types.get(0)));
+		object.getTypes().add(map(object_.types.get(0)));		
 		
 		for(FeatureValue featureValue: object_.featureValues){
 			org.modelexecution.fuml.Semantics.Classes.Kernel.FeatureValue mappedFeatureValue = KernelFactory.eINSTANCE.createFeatureValue();
@@ -47,7 +45,7 @@ public class SequenceMapper {
 	
 	public Link map(fUML.Semantics.Classes.Kernel.Link link){
 		Link mappedLink = KernelFactory.eINSTANCE.createLink();		
-		mappedLink.setType(map(link.type));
+		mappedLink.setType(map(link.type));		
 		
 		for(FeatureValue featureValue: link.featureValues){
 			org.modelexecution.fuml.Semantics.Classes.Kernel.FeatureValue mappedFeatureValue = KernelFactory.eINSTANCE.createFeatureValue();

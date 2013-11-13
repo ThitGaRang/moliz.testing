@@ -121,6 +121,15 @@ public class TestLangScopeProvider extends XbaseScopeProvider {
 			return Scopes.scopeFor(nodes, new UmlQualifiedNameProvider(), IScope.NULLSCOPE);
 		}
 		
+		if(context instanceof StateAssertion && reference.getName().equals("untilAction")){
+			Activity activity = ((TestCase)((StateAssertion)context).eContainer()).getActivityUnderTest();
+			ArrayList<ActivityNode> nodes = new ArrayList<ActivityNode>();
+			for(ActivityNode node: activity.getNodes()){
+				if(node instanceof Action)nodes.add(node);
+			}
+			return Scopes.scopeFor(nodes, new UmlQualifiedNameProvider(), IScope.NULLSCOPE);
+		}
+		
 		if(context instanceof PropertyStateExpression && reference.getName().equals("property")){
 			Type type = ((PropertyStateExpression)context).getPin().getRef().getType();
 			ArrayList<Property> properties = new ArrayList<Property>();

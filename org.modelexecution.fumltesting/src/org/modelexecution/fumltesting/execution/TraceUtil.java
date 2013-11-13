@@ -14,6 +14,7 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 import org.modelexecution.fumltesting.parallelism.ExecutionGraph;
 import org.modelexecution.fumltesting.sequence.SequenceTrace;
+import org.modelexecution.fumltesting.sequence.execution.SequenceGenerator;
 
 import fUML.Semantics.Classes.Kernel.Link;
 
