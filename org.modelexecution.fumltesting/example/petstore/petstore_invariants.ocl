@@ -1,0 +1,9 @@
+import 'platform:/resource/org.modelexecution.fumltesting/example/petstore/petstore.uml'
+
+package petstore
+context structure::Product
+inv noProduct: self->size()=0
+inv singleProduct : self->size() = 1
+inv twoProducts : self->size() = 2
+inv productMnemonic : self->select(p|p.mnemonic='x220')->size()=1
+endpackage

@@ -1,0 +1,6 @@
+import petstore.structure.*
+import petstore.scenarios.*
+
+test severalProductsTest activity SeveralEmptyProductsActivity{
+	
+}

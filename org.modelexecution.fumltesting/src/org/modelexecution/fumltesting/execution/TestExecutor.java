@@ -2,9 +2,11 @@ package org.modelexecution.fumltesting.execution;
 
 import java.io.File;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.ocl.examples.xtext.completeocl.completeOCLCST.InvCS;
 import org.eclipse.uml2.uml.Activity;
 import org.eclipse.uml2.uml.ActivityNode;
 import org.eclipse.uml2.uml.NamedElement;
@@ -18,6 +20,7 @@ import org.junit.Test;
 import org.modelexecution.fumltesting.TestLangStandaloneSetup;
 import org.modelexecution.fumltesting.execution.assertions.AssertionPrinter;
 import org.modelexecution.fumltesting.execution.assertions.AssertionValidator;
+import org.modelexecution.fumltesting.ocl.OclUmlLoader;
 import org.modelexecution.fumltesting.testLang.Assertion;
 import org.modelexecution.fumltesting.testLang.TestCase;
 import org.modelexecution.fumltesting.testLang.TestSuite;
@@ -47,26 +50,31 @@ public class TestExecutor{
 	/** Sets up all the resources, UML model and testing model,
 	 *	and initializes the testSuite.
 	 */
-	private void setup(String fumlTestLocation) {
-		try{
+	private void setup(String fumlTestLocation) {		
+		try{			
 			new UmlSupport().registerServices(true);
 			Injector injector = new TestLangStandaloneSetup().createInjectorAndDoEMFRegistration();
 			resourceSet = injector.getInstance(XtextResourceSet.class);
-			resourceSet.addLoadOption(XtextResource.OPTION_RESOLVE_ALL, Boolean.TRUE);
-
-			//model of the test suite to be executed, with references to UML model under test
+			resourceSet.addLoadOption(XtextResource.OPTION_RESOLVE_ALL, Boolean.TRUE);			
+			
+			//model of the test suite to be executed
 			resource = resourceSet.getResource(URI.createFileURI(new File(fumlTestLocation).getAbsolutePath()), true);
-
+			
 			resource.load(null);
 			if (resource != null){
 				resourceSet.getPackageRegistry().put(UMLPackage.eNS_URI, UMLPackage.eINSTANCE);
 				resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(UMLResource.FILE_EXTENSION, UMLResource.Factory.INSTANCE);
-				//model with UML elements under test, referenced by testing model
+				//model with UML elements under test
 				Resource r = resourceSet.getResource(URI.createFileURI(new File("example/petstore/petstore.uml").getAbsolutePath()), true);
 				r.load(null);
 				
-				//replacement of references with the elements from UML model
+				//adds elements from UML model to test suite
 				resource.getContents().addAll(r.getContents());
+				
+				//adds OCL constraints to test suite
+				OclUmlLoader loader = new OclUmlLoader();
+				loader.loadOCL("example/petstore/petstore_invariants.ocl");
+				resource.getContents().addAll(loader.getOclResource().getContents());				
 				
 				for (EObject model : resource.getContents()) {
 					if (model instanceof NamedElement){
@@ -85,11 +93,11 @@ public class TestExecutor{
 	/** Main method of the testing framework. */
 	@Test
 	public void test() {
-		File folder = new File("example/petstore");
+		File folder = new File("example/petstore/tests");
 		File[] files = folder.listFiles();
 		for(File file: files){
-			if(file.isFile() && file.getName().endsWith("fumltest")){
-				String path = "example/petstore/" + file.getName();
+			if(file.isFile() && file.getName().endsWith("severalEmptyProductsActivity.fumltest")){
+				String path = "example/petstore/tests/" + file.getName();
 				setup(path);
 				testsEvaluation();
 			}			
@@ -126,6 +134,15 @@ public class TestExecutor{
 			}
 			
 			validator = new AssertionValidator(mainActivityExecutionID, executor);
+			
+			if(testCase.getInvariants() != null && testCase.getInvariants().getInvariants() != null){
+				EList<InvCS> invariants = testCase.getInvariants().getInvariants();
+				
+				for(int k=0; k < invariants.size(); k++){
+					InvCS inv = invariants.get(k);
+					System.out.println();
+				}
+			}			
 			
 			for(int j=0;j<testCase.getAssertions().size();j++){
 				Assertion assertion = testCase.getAssertions().get(j);

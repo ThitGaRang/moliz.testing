@@ -1,5 +1,5 @@
-import Model.structure.*
-import Model.scenarios.*
+import petstore.structure.*
+import petstore.scenarios.*
 
 test defaultProductTest activity DefaultProductActivity{
 	assertOrder DefaultProductActivity.init, DefaultProductActivity.productName, 

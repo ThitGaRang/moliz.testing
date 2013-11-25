@@ -45,12 +45,18 @@
     <availablePage/>
     <availablePage/>
     <availablePage/>
+    <availablePage>
+      <emfPageIdentifier href="petstore.notation#_13MdwFNYEeO6uYBwzyfZpQ"/>
+    </availablePage>
   </pageList>
   <sashModel currentSelection="//@sashModel/@windows.0/@children.0">
     <windows>
       <children xsi:type="di:TabFolder">
         <children>
           <emfPageIdentifier href="petstore.notation#_EwtPMC_4EeOTpM28lqU8qA"/>
+        </children>
+        <children>
+          <emfPageIdentifier href="petstore.notation#_13MdwFNYEeO6uYBwzyfZpQ"/>
         </children>
       </children>
     </windows>

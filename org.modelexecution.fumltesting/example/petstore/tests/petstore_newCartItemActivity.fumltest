@@ -1,5 +1,5 @@
-import Model.structure.*
-import Model.behavior.*
+import petstore.structure.*
+import petstore.behavior.*
 
 scenario TestData[
 	object cart : Cart{}

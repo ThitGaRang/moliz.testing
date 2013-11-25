@@ -53,7 +53,8 @@ public class TraceUtil {
 		sTrace = sequenceGenerator.generateTrace(trace);
 		
 		executionGraph = new ExecutionGraph();
-		executionGraph.initGraph(trace.getActivityExecutionByID(activityExecutionID));		
+		executionGraph.initGraph(trace.getActivityExecutionByID(activityExecutionID));
+		System.out.println();
 	}
 	
 	/** Generates flat list of all executed nodes, from main activity and all nested activities. */
