@@ -4,3 +4,7 @@ import petstore.scenarios.*
 test severalProductsTest activity SeveralEmptyProductsActivity{
 	
 }
+
+test severalProductsTest2 activity SeveralEmptyProducts2Activity{
+	
+}
