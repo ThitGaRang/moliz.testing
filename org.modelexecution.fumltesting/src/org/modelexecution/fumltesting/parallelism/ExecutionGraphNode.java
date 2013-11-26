@@ -1,6 +1,8 @@
 package org.modelexecution.fumltesting.parallelism;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 
@@ -17,6 +19,10 @@ public class ExecutionGraphNode {
 	public void addSuccessor(ExecutionGraphNode successor){
 		successors.add(successor);
 		successor.parent = this;
+	}
+	
+	public List<ExecutionGraphNode> getSuccessors(){
+		return Collections.unmodifiableList(successors);
 	}
 	
 	public boolean containsPredecessor(ActivityNodeExecution node){

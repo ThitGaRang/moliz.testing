@@ -1,6 +1,7 @@
 package org.modelexecution.fumltesting.execution;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.uml2.uml.Action;
@@ -12,7 +13,8 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.CallActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
-import org.modelexecution.fumltesting.parallelism.ExecutionGraph;
+import org.modelexecution.fumltesting.parallelism.ExecutionGraphNode;
+import org.modelexecution.fumltesting.parallelism.ExecutionPathFinder;
 import org.modelexecution.fumltesting.sequence.SequenceTrace;
 import org.modelexecution.fumltesting.sequence.execution.SequenceGenerator;
 
@@ -32,8 +34,8 @@ public class TraceUtil {
 	/** Sequence trace generator utility class. */
 	private SequenceGenerator sequenceGenerator;
 	
-	/** Unidirectional graph of execution. */
-	private ExecutionGraph executionGraph;
+	/** Execution paths utility class. */
+	private ExecutionPathFinder pathFinder;
 	
 	/** Used to generate flat list with all node executions, from main activity and all its children activities. */
 	private List<ActivityNodeExecution> executedNodes;
@@ -52,9 +54,19 @@ public class TraceUtil {
 		sequenceGenerator = new SequenceGenerator();
 		sTrace = sequenceGenerator.generateTrace(trace);
 		
-		executionGraph = new ExecutionGraph();
-		executionGraph.initGraph(trace.getActivityExecutionByID(activityExecutionID));
-		System.out.println();
+		pathFinder = new ExecutionPathFinder();
+		pathFinder.init(trace.getActivityExecutionByID(activityExecutionID));
+		
+		System.out.println("Number of executions found: " + pathFinder.getPaths().size());
+		int numberOfPath = 0;		
+		for(LinkedList<ExecutionGraphNode> path: pathFinder.getPaths()){
+			numberOfPath++;
+			System.out.print(numberOfPath + ": ");
+			for(int i=0;i<path.size();i++){
+				System.out.print(path.get(i).getData().getNode().name + ", ");
+			}
+			System.out.println();
+		}
 	}
 	
 	/** Generates flat list of all executed nodes, from main activity and all nested activities. */

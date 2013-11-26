@@ -83,4 +83,20 @@ public class ExecutionGraph {
 	public void initGraph(ActivityExecution execution){
 		root = generateExecutionGraphNode(new ExecutionGraphNode(execution.getNodeExecutions().get(0)));
 	}
+	
+	/** Returns the node without the successors. */
+	public ExecutionGraphNode getEndNode(){
+		return getEndNode(root);
+	}
+	
+	private ExecutionGraphNode getEndNode(ExecutionGraphNode node){		
+		for(ExecutionGraphNode child: node.getSuccessors()){
+			if(child.getSuccessors().size() == 0){
+				return child;
+			}else{
+				return getEndNode(child);
+			}
+		}
+		return node;
+	}
 }
