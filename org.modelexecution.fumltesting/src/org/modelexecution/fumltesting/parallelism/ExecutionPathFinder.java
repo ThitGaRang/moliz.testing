@@ -33,6 +33,20 @@ public class ExecutionPathFinder {
 		generatePaths(execution);
 	}
 	
+	/** Prints all the paths to the console. */
+	public void printPaths(){
+		System.out.println("Number of executions found: " + getPaths().size());
+		int numberOfPath = 0;		
+		for(LinkedList<ExecutionGraphNode> path: getPaths()){
+			numberOfPath++;
+			System.out.print(numberOfPath + ": ");
+			for(int i=0;i<path.size();i++){
+				System.out.print(path.get(i).getData().getNode().name + ", ");
+			}
+			System.out.println();
+		}
+	}
+	
 	/** Finds all the paths in the execution graph, and stores them into 'paths' list. */
 	private void generatePaths(ActivityExecution execution){
 		LinkedList<ExecutionGraphNode> visited = new LinkedList<ExecutionGraphNode>();

@@ -55,18 +55,8 @@ public class TraceUtil {
 		sTrace = sequenceGenerator.generateTrace(trace);
 		
 		pathFinder = new ExecutionPathFinder();
-		pathFinder.init(trace.getActivityExecutionByID(activityExecutionID));
-		
-		System.out.println("Number of executions found: " + pathFinder.getPaths().size());
-		int numberOfPath = 0;		
-		for(LinkedList<ExecutionGraphNode> path: pathFinder.getPaths()){
-			numberOfPath++;
-			System.out.print(numberOfPath + ": ");
-			for(int i=0;i<path.size();i++){
-				System.out.print(path.get(i).getData().getNode().name + ", ");
-			}
-			System.out.println();
-		}
+		pathFinder.init(trace.getActivityExecutionByID(activityExecutionID));		
+		pathFinder.printPaths();
 	}
 	
 	/** Generates flat list of all executed nodes, from main activity and all nested activities. */
