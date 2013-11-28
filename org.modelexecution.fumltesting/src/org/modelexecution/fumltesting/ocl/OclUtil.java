@@ -15,25 +15,27 @@ public class OclUtil {
 	private OCL ocl;
 	private OCLHelper<EClassifier, ?, ?, Constraint> helper;
 	private static OclUtil INSTANCE;
-	
-	private OclUtil(){
+
+	private OclUtil() {
 		ocl = OCL.newInstance(EcoreEnvironmentFactory.INSTANCE);
 		helper = ocl.createOCLHelper();
-	}	
-	
-	public static OclUtil getInstance(){
-		if(INSTANCE == null)INSTANCE = new OclUtil();
+	}
+
+	public static OclUtil getInstance() {
+		if (INSTANCE == null)
+			INSTANCE = new OclUtil();
 		return INSTANCE;
 	}
-	
-	public boolean evaluate(State context, String invariant)throws ParserException{
+
+	public boolean evaluate(State context, String invariant)
+			throws ParserException {
 		helper.setContext(SequencePackage.Literals.STATE);
 		OCLExpression<EClassifier> constraint = helper.createQuery(invariant);
 		Query constraintEvaluation = ocl.createQuery(constraint);
-		return constraintEvaluation.check(context);		
+		return constraintEvaluation.check(context);
 	}
-	
-	public Object query(State context, String query)throws ParserException{
+
+	public Object query(State context, String query) throws ParserException {
 		helper.setContext(SequencePackage.Literals.STATE);
 		OCLExpression<EClassifier> queryExpression = helper.createQuery(query);
 		Query queryEvaluation = ocl.createQuery(queryExpression);

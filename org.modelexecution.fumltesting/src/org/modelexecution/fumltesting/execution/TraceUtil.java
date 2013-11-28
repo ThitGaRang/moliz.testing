@@ -22,119 +22,148 @@ import fUML.Semantics.Classes.Kernel.Link;
 
 /**
  * Utility class for managing the trace of execution.
+ * 
  * @author Stefan Mijatov
- *
+ * 
  */
 public class TraceUtil {
 	/** Trace of an activity execution. */
 	private Trace trace;
-	
+
 	/** Trace as a sequence of snapshots. */
 	private SequenceTrace sTrace;
 	/** Sequence trace generator utility class. */
 	private SequenceGenerator sequenceGenerator;
-	
+
 	/** Execution paths utility class. */
 	private ExecutionPathFinder pathFinder;
-	
-	/** Used to generate flat list with all node executions, from main activity and all its children activities. */
+
+	/**
+	 * Used to generate flat list with all node executions, from main activity
+	 * and all its children activities.
+	 */
 	private List<ActivityNodeExecution> executedNodes;
-	/** Flag indicating if the flat list of executed nodes has already been generated. */
+	/**
+	 * Flag indicating if the flat list of executed nodes has already been
+	 * generated.
+	 */
 	private boolean executedNodesListGenerated;
 	/** Utility class for executing fUML activities. */
 	private ActivityExecutor executor;
-	
-	public TraceUtil(int activityExecutionID, ActivityExecutor executor){
+
+	public TraceUtil(int activityExecutionID, ActivityExecutor executor) {
 		trace = ExecutionContext.getInstance().getTrace(activityExecutionID);
 		this.executor = executor;
 		executedNodes = new ArrayList<ActivityNodeExecution>();
 		executedNodesListGenerated = false;
 		initializeExecutedNodesList(activityExecutionID);
-		
+
 		sequenceGenerator = new SequenceGenerator();
 		sTrace = sequenceGenerator.generateTrace(trace);
-		
+
 		pathFinder = new ExecutionPathFinder();
-		pathFinder.init(trace.getActivityExecutionByID(activityExecutionID));		
+		pathFinder.init(trace.getActivityExecutionByID(activityExecutionID));
 		pathFinder.printPaths();
 	}
-	
-	/** Generates flat list of all executed nodes, from main activity and all nested activities. */
-	private void generateExecutionOrderList(List<ActivityNodeExecution> nodes){
-		for(ActivityNodeExecution exe : nodes){
+
+	/**
+	 * Generates flat list of all executed nodes, from main activity and all
+	 * nested activities.
+	 */
+	private void generateExecutionOrderList(List<ActivityNodeExecution> nodes) {
+		for (ActivityNodeExecution exe : nodes) {
 			executedNodes.add(exe);
-			if(exe instanceof CallActionExecution){
-				if(((CallActionExecution)exe).getCallee() != null)
-					generateExecutionOrderList(((CallActionExecution)exe).getCallee().getNodeExecutions());
-			}		
+			if (exe instanceof CallActionExecution) {
+				if (((CallActionExecution) exe).getCallee() != null)
+					generateExecutionOrderList(((CallActionExecution) exe)
+							.getCallee().getNodeExecutions());
+			}
 		}
 	}
-	
-	/** Returns a flat list of all executed nodes, from main activity and any nested inside it.*/
-	private List<ActivityNodeExecution> initializeExecutedNodesList(int activityExecutionID){
-		ActivityExecution activityExecution = trace.getActivityExecutionByID(activityExecutionID);
-		List<ActivityNodeExecution> nodeExecutions = activityExecution.getNodeExecutions();
-		if(executedNodesListGenerated == false){
+
+	/**
+	 * Returns a flat list of all executed nodes, from main activity and any
+	 * nested inside it.
+	 */
+	private List<ActivityNodeExecution> initializeExecutedNodesList(
+			int activityExecutionID) {
+		ActivityExecution activityExecution = trace
+				.getActivityExecutionByID(activityExecutionID);
+		List<ActivityNodeExecution> nodeExecutions = activityExecution
+				.getNodeExecutions();
+		if (executedNodesListGenerated == false) {
 			generateExecutionOrderList(nodeExecutions);
 			executedNodesListGenerated = true;
 		}
 		return executedNodes;
 	}
-	
-	/** Gets a node execution for UML node that was converted to corresponding fUML element. */
-	public Object getExecution(Object node){
-		if(node instanceof Action){
-			for(ActivityNodeExecution execution: this.executedNodes){
-				if(executor.getOriginal(execution.getNode()) == node)
+
+	/**
+	 * Gets a node execution for UML node that was converted to corresponding
+	 * fUML element.
+	 */
+	public Object getExecution(Object node) {
+		if (node instanceof Action) {
+			for (ActivityNodeExecution execution : this.executedNodes) {
+				if (executor.getOriginal(execution.getNode()) == node)
 					return execution;
 			}
 		}
-		if(node instanceof Activity){
-			for(ActivityExecution execution: this.trace.getActivityExecutions()){
-				if(execution.getActivity().name.equals(((Activity) node).getName())){
+		if (node instanceof Activity) {
+			for (ActivityExecution execution : this.trace
+					.getActivityExecutions()) {
+				if (execution.getActivity().name.equals(((Activity) node)
+						.getName())) {
 					return execution;
 				}
 			}
 		}
 		return null;
 	}
-	
+
 	/** Gets all links in the trace. */
-	public ArrayList<ValueInstance> getAllLinks(){
+	public ArrayList<ValueInstance> getAllLinks() {
 		ArrayList<ValueInstance> links = new ArrayList<ValueInstance>();
-		for(ValueInstance instance: trace.getValueInstances()){
-			if(instance.getRuntimeValue() != null && instance.getRuntimeValue() instanceof Link)
+		for (ValueInstance instance : trace.getValueInstances()) {
+			if (instance.getRuntimeValue() != null
+					&& instance.getRuntimeValue() instanceof Link)
 				links.add(instance);
 		}
 		return links;
 	}
-	
-	public List<ActivityNodeExecution> getExecutedNodesList(){
+
+	public List<ActivityNodeExecution> getExecutedNodesList() {
 		return executedNodes;
 	}
-	
-	public boolean isAfter(ActivityNodeExecution execution1, ActivityNodeExecution execution2){
-		if(execution1.getChronologicalSuccessor() != null){
-			if(execution1.getChronologicalSuccessor() == execution2)
+
+	public boolean isAfter(ActivityNodeExecution execution1,
+			ActivityNodeExecution execution2) {
+		if (execution1.getChronologicalSuccessor() != null) {
+			if (execution1.getChronologicalSuccessor() == execution2)
 				return true;
-			else return isAfter(execution1.getChronologicalSuccessor(), execution2);
+			else
+				return isAfter(execution1.getChronologicalSuccessor(),
+						execution2);
 		}
 		return false;
 	}
-	
-	public ActivityNode getLastExecutedAction(){
-		ActivityNodeExecution lastNodeExecution = trace.getLastActivityNodeExecution();
+
+	public ActivityNode getLastExecutedAction() {
+		ActivityNodeExecution lastNodeExecution = trace
+				.getLastActivityNodeExecution();
 		ActivityNodeExecution lastActionExecution = lastAction(lastNodeExecution);
-		ActivityNode lastAction = (ActivityNode)executor.getOriginal(lastActionExecution.getNode());
+		ActivityNode lastAction = (ActivityNode) executor
+				.getOriginal(lastActionExecution.getNode());
 		return lastAction;
 	}
-	private ActivityNodeExecution lastAction(ActivityNodeExecution lastNode){
-		if(lastNode.getNode() instanceof fUML.Syntax.Actions.BasicActions.Action)
+
+	private ActivityNodeExecution lastAction(ActivityNodeExecution lastNode) {
+		if (lastNode.getNode() instanceof fUML.Syntax.Actions.BasicActions.Action)
 			return lastNode;
-		if(lastNode.getChronologicalPredecessor() == null){
+		if (lastNode.getChronologicalPredecessor() == null) {
 			System.out.println("No action in the trace found!");
-			return null;			
+			return null;
 		}
-		return lastAction(lastNode.getChronologicalPredecessor());		
+		return lastAction(lastNode.getChronologicalPredecessor());
 	}
 }

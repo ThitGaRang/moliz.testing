@@ -32,13 +32,15 @@ import fUML.Syntax.Activities.IntermediateActivities.DecisionNode;
 import fUML.Syntax.Classes.Kernel.Element;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
+
 /**
  * Utility class for executing UML activities.
+ * 
  * @author Stefan Mijatov
- *
+ * 
  */
 public class ActivityExecutor implements ExecutionEventListener {
-	
+
 	/** ID of main Activity. */
 	private int mainActivityID;
 	private boolean running;
@@ -51,87 +53,98 @@ public class ActivityExecutor implements ExecutionEventListener {
 	/** Utility class for converting input data for activity under test. */
 	private TestDataConverter testDataConverter;
 	/** List of parameters for an activity. */
-	private ParameterValueList parameters;	
+	private ParameterValueList parameters;
 
-	public void initScenarios(List<Scenario> scenarios){
-		for(Scenario scenario: scenarios){
-			for(ObjectSpecification objectSpecification: scenario.getObjects()){
-				org.modelexecution.fumltesting.testLang.ObjectValue value = TestLangFactory.eINSTANCE.createObjectValue();
+	public void initScenarios(List<Scenario> scenarios) {
+		for (Scenario scenario : scenarios) {
+			for (ObjectSpecification objectSpecification : scenario
+					.getObjects()) {
+				org.modelexecution.fumltesting.testLang.ObjectValue value = TestLangFactory.eINSTANCE
+						.createObjectValue();
 				value.setValue(objectSpecification);
-				//initializes fUML object, puts it into locus and returns it
-				//for each object existing links are created and put into locus also
-				testDataConverter.getFUMLElement(value);				
-			}			
+				// initializes fUML object, puts it into locus and returns it
+				// for each object existing links are created and put into locus
+				// also
+				testDataConverter.getFUMLElement(value);
+			}
 		}
 	}
-	
-	public void cleanUp(){
+
+	public void cleanUp() {
 		testDataConverter.cleanUp();
 	}
-	
-	public ActivityExecutor(NamedElement umlModel){
+
+	public ActivityExecutor(NamedElement umlModel) {
 		this.umlModel = umlModel;
-		IConverter converter = ConverterRegistry.getInstance().getConverter(umlModel);
+		IConverter converter = ConverterRegistry.getInstance().getConverter(
+				umlModel);
 		convertedModel = converter.convert(this.umlModel);
 		replaceOpaqueBehaviors();
 		TestDataConverter.setModel(convertedModel);
 		testDataConverter = TestDataConverter.getInstance();
-		parameters = new ParameterValueList();		
+		parameters = new ParameterValueList();
 	}
-	
+
 	/**
-	 * Converts the specified {@code activity} into fUML Activity and executes it.
+	 * Converts the specified {@code activity} into fUML Activity and executes
+	 * it.
 	 */
-	public int executeActivity(org.eclipse.uml2.uml.Activity activity, List<ActivityInput> activityInputs, ObjectSpecification context){
+	public int executeActivity(org.eclipse.uml2.uml.Activity activity,
+			List<ActivityInput> activityInputs, ObjectSpecification context) {
 		Activity fumlActivity = convertedModel.getActivity(activity.getName());
-		
-		for(ActivityInput input: activityInputs){
+
+		for (ActivityInput input : activityInputs) {
 			Object object = testDataConverter.getFUMLElement(input.getValue());
-			
+
 			ParameterValue parameterValue = new ParameterValue();
-			for(ActivityNode node: fumlActivity.node){
-				if(node instanceof ActivityParameterNode && node.name.equals(input.getParameter().getName())){
-					parameterValue.parameter = ((ActivityParameterNode)node).parameter;
+			for (ActivityNode node : fumlActivity.node) {
+				if (node instanceof ActivityParameterNode
+						&& node.name.equals(input.getParameter().getName())) {
+					parameterValue.parameter = ((ActivityParameterNode) node).parameter;
 					break;
 				}
 			}
-			if(object instanceof Object_){
+			if (object instanceof Object_) {
 				Reference reference = new Reference();
-				reference.referent = (Object_)object;
+				reference.referent = (Object_) object;
 				parameterValue.values.add(reference);
-			}else{
-				parameterValue.values.add((Value)object);
+			} else {
+				parameterValue.values.add((Value) object);
 			}
 			parameters.add(parameterValue);
 		}
-		
-		//converting and setting the context object
+
+		// converting and setting the context object
 		Object_ contextObject = null;
-		if(context != null){
-			ObjectValue contextValue = TestLangFactory.eINSTANCE.createObjectValue();
+		if (context != null) {
+			ObjectValue contextValue = TestLangFactory.eINSTANCE
+					.createObjectValue();
 			contextValue.setValue(context);
-			contextObject = (Object_)testDataConverter.getFUMLElement(contextValue);
+			contextObject = (Object_) testDataConverter
+					.getFUMLElement(contextValue);
 		}
-		
-		//add a listener
+
+		// add a listener
 		eventlist = new ArrayList<Event>();
-		getExecutionContext().addEventListener(this);		
-		
-		//insert the converted context object, if it exists
-		if(context != null){
+		getExecutionContext().addEventListener(this);
+
+		// insert the converted context object, if it exists
+		if (context != null) {
 			running = true;
-			getExecutionContext().executeStepwise(fumlActivity, contextObject, parameters);			
-		}else{
+			getExecutionContext().executeStepwise(fumlActivity, contextObject,
+					parameters);
+		} else {
 			running = true;
-			getExecutionContext().executeStepwise(fumlActivity, null, parameters);
-		}		
-		while(running) {
+			getExecutionContext().executeStepwise(fumlActivity, null,
+					parameters);
+		}
+		while (running) {
 			ExecutionContext.getInstance().nextStep(mainActivityID);
 		}
-		
+
 		return mainActivityID;
 	}
-	
+
 	private void replaceOpaqueBehaviors() {
 		List<ActivityNode> nodesWithBehavior = new ArrayList<ActivityNode>();
 		for (fUML.Syntax.Activities.IntermediateActivities.Activity activity : convertedModel
@@ -159,7 +172,7 @@ public class ActivityExecutor implements ExecutionEventListener {
 			}
 		}
 	}
-	
+
 	private List<ActivityNode> getBehaviorNodes(List<ActivityNode> nodes) {
 		List<ActivityNode> nodesWithBehavior = new ArrayList<ActivityNode>();
 		for (ActivityNode node : nodes) {
@@ -179,27 +192,30 @@ public class ActivityExecutor implements ExecutionEventListener {
 		}
 		return nodesWithBehavior;
 	}
-	
-	/** 
-	 * Returns original UML element that was converted to {@code element}. 
+
+	/**
+	 * Returns original UML element that was converted to {@code element}.
 	 */
-	public Object getOriginal(Element element){
+	public Object getOriginal(Element element) {
 		return convertedModel.getInputObject(element);
 	}
-	
+
 	@Override
 	public void notify(Event event) {
-		if(event instanceof ActivityEntryEvent && (((ActivityEntryEvent)event).getParent() == null)){
-			mainActivityID = ((ActivityEntryEvent)event).getActivityExecutionID();
-			
+		if (event instanceof ActivityEntryEvent
+				&& (((ActivityEntryEvent) event).getParent() == null)) {
+			mainActivityID = ((ActivityEntryEvent) event)
+					.getActivityExecutionID();
+
 		}
 		eventlist.add(event);
-		if(event instanceof ActivityExitEvent && (((ActivityExitEvent)event).getActivityExecutionID() == mainActivityID)){
+		if (event instanceof ActivityExitEvent
+				&& (((ActivityExitEvent) event).getActivityExecutionID() == mainActivityID)) {
 			running = false;
-		}		
+		}
 	}
-	
-	private ExecutionContext getExecutionContext(){
+
+	private ExecutionContext getExecutionContext() {
 		return ExecutionContext.getInstance();
 	}
 }

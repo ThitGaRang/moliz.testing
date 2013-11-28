@@ -27,41 +27,50 @@ import com.google.inject.Injector;
 public class OclUmlLoader {
 	private List<Constraint> constraints;
 	private Resource resource;
-	
-	public OclUmlLoader(){}
-	
-	public void loadOCL(String path) throws FileNotFoundException, ParserException, IOException{
+
+	public OclUmlLoader() {
+	}
+
+	public void loadOCL(String path) throws FileNotFoundException,
+			ParserException, IOException {
 		EPackage.Registry registry = new EPackageRegistryImpl();
 		registry.put(UMLPackage.eNS_URI, UMLPackage.eINSTANCE);
-		PivotEnvironmentFactory environmentFactory = new PivotEnvironmentFactory(registry, null);
+		PivotEnvironmentFactory environmentFactory = new PivotEnvironmentFactory(
+				registry, null);
 		OCL ocl = OCL.newInstance(environmentFactory);
-		
-		Injector injector = new CompleteOCLStandaloneSetup().createInjectorAndDoEMFRegistration();
+
+		Injector injector = new CompleteOCLStandaloneSetup()
+				.createInjectorAndDoEMFRegistration();
 		ResourceSet resourceSet = injector.getInstance(ResourceSet.class);
-		resourceSet.getPackageRegistry().put(UMLPackage.eNS_URI, UMLPackage.eINSTANCE);
-		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(UMLResource.FILE_EXTENSION, UMLResource.Factory.INSTANCE);
-		
+		resourceSet.getPackageRegistry().put(UMLPackage.eNS_URI,
+				UMLPackage.eINSTANCE);
+		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap()
+				.put(UMLResource.FILE_EXTENSION, UMLResource.Factory.INSTANCE);
+
 		OCLstdlib.install();
 		UML2Pivot.initialize(resourceSet);
 		CompleteOCLStandaloneSetup.doSetup();
-		
+
 		URI uri = URI.createFileURI(path);
 		resource = ocl.parse(uri);
 		resource.load(null);
-		
+
 		constraints = new ArrayList<Constraint>();
-		
-		for(TreeIterator<EObject> iterator = resource.getAllContents();iterator.hasNext();){
+
+		for (TreeIterator<EObject> iterator = resource.getAllContents(); iterator
+				.hasNext();) {
 			EObject next = iterator.next();
-			if(next instanceof Constraint){
-				constraints.add((Constraint)next);
+			if (next instanceof Constraint) {
+				constraints.add((Constraint) next);
 			}
 		}
 	}
-	
-	public List<Constraint> getConstraints(){
+
+	public List<Constraint> getConstraints() {
 		return constraints;
 	}
-	
-	public Resource getOclResource(){return resource;}
+
+	public Resource getOclResource() {
+		return resource;
+	}
 }
