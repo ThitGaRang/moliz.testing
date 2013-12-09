@@ -75,8 +75,7 @@ public class TraceUtil {
 			executedNodes.add(exe);
 			if (exe instanceof CallActionExecution) {
 				if (((CallActionExecution) exe).getCallee() != null)
-					generateExecutionOrderList(((CallActionExecution) exe)
-							.getCallee().getNodeExecutions());
+					generateExecutionOrderList(((CallActionExecution) exe).getCallee().getNodeExecutions());
 			}
 		}
 	}
@@ -85,12 +84,9 @@ public class TraceUtil {
 	 * Returns a flat list of all executed nodes, from main activity and any
 	 * nested inside it.
 	 */
-	private List<ActivityNodeExecution> initializeExecutedNodesList(
-			int activityExecutionID) {
-		ActivityExecution activityExecution = trace
-				.getActivityExecutionByID(activityExecutionID);
-		List<ActivityNodeExecution> nodeExecutions = activityExecution
-				.getNodeExecutions();
+	private List<ActivityNodeExecution> initializeExecutedNodesList(int activityExecutionID) {
+		ActivityExecution activityExecution = trace.getActivityExecutionByID(activityExecutionID);
+		List<ActivityNodeExecution> nodeExecutions = activityExecution.getNodeExecutions();
 		if (executedNodesListGenerated == false) {
 			generateExecutionOrderList(nodeExecutions);
 			executedNodesListGenerated = true;
@@ -110,10 +106,8 @@ public class TraceUtil {
 			}
 		}
 		if (node instanceof Activity) {
-			for (ActivityExecution execution : this.trace
-					.getActivityExecutions()) {
-				if (execution.getActivity().name.equals(((Activity) node)
-						.getName())) {
+			for (ActivityExecution execution : this.trace.getActivityExecutions()) {
+				if (execution.getActivity().name.equals(((Activity) node).getName())) {
 					return execution;
 				}
 			}
@@ -125,8 +119,7 @@ public class TraceUtil {
 	public ArrayList<ValueInstance> getAllLinks() {
 		ArrayList<ValueInstance> links = new ArrayList<ValueInstance>();
 		for (ValueInstance instance : trace.getValueInstances()) {
-			if (instance.getRuntimeValue() != null
-					&& instance.getRuntimeValue() instanceof Link)
+			if (instance.getRuntimeValue() != null && instance.getRuntimeValue() instanceof Link)
 				links.add(instance);
 		}
 		return links;
@@ -136,24 +129,20 @@ public class TraceUtil {
 		return executedNodes;
 	}
 
-	public boolean isAfter(ActivityNodeExecution execution1,
-			ActivityNodeExecution execution2) {
+	public boolean isAfter(ActivityNodeExecution execution1, ActivityNodeExecution execution2) {
 		if (execution1.getChronologicalSuccessor() != null) {
 			if (execution1.getChronologicalSuccessor() == execution2)
 				return true;
 			else
-				return isAfter(execution1.getChronologicalSuccessor(),
-						execution2);
+				return isAfter(execution1.getChronologicalSuccessor(), execution2);
 		}
 		return false;
 	}
 
 	public ActivityNode getLastExecutedAction() {
-		ActivityNodeExecution lastNodeExecution = trace
-				.getLastActivityNodeExecution();
+		ActivityNodeExecution lastNodeExecution = trace.getLastActivityNodeExecution();
 		ActivityNodeExecution lastActionExecution = lastAction(lastNodeExecution);
-		ActivityNode lastAction = (ActivityNode) executor
-				.getOriginal(lastActionExecution.getNode());
+		ActivityNode lastAction = (ActivityNode) executor.getOriginal(lastActionExecution.getNode());
 		return lastAction;
 	}
 

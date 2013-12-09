@@ -31,13 +31,10 @@ public class AssertionValidator {
 
 	public boolean check(Assertion assertion) {
 		if (assertion instanceof OrderAssertion) {
-			String parentNodeName = ((TestCase) assertion.eContainer())
-					.getActivityUnderTest().getName();
-			List<NodeSpecification> nodeOrder = ((OrderAssertion) assertion)
-					.getOrder().getNodes();
+			String parentNodeName = ((TestCase) assertion.eContainer()).getActivityUnderTest().getName();
+			List<NodeSpecification> nodeOrder = ((OrderAssertion) assertion).getOrder().getNodes();
 			AssertionPrinter.print(traceUtil.getExecutedNodesList());
-			return orderValidator.checkOrder(parentNodeName, nodeOrder,
-					traceUtil.getExecutedNodesList());
+			return orderValidator.checkOrder(parentNodeName, nodeOrder, traceUtil.getExecutedNodesList());
 		}
 		if (assertion instanceof StateAssertion) {
 			return stateValidator.check((StateAssertion) assertion);

@@ -12,6 +12,7 @@ import org.modelexecution.fumldebug.core.ExecutionEventListener;
 import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityExitEvent;
 import org.modelexecution.fumldebug.core.event.Event;
+import org.modelexecution.fumldebug.core.util.ActivityFactory;
 import org.modelexecution.fumltesting.testLang.ActivityInput;
 import org.modelexecution.fumltesting.testLang.ObjectSpecification;
 import org.modelexecution.fumltesting.testLang.ObjectValue;
@@ -23,12 +24,19 @@ import fUML.Semantics.Classes.Kernel.Reference;
 import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
+import fUML.Syntax.Actions.BasicActions.Action;
 import fUML.Syntax.Actions.BasicActions.CallBehaviorAction;
 import fUML.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityEdge;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
+import fUML.Syntax.Activities.IntermediateActivities.ControlFlow;
 import fUML.Syntax.Activities.IntermediateActivities.DecisionNode;
+import fUML.Syntax.Activities.IntermediateActivities.FinalNode;
+import fUML.Syntax.Activities.IntermediateActivities.ForkNode;
+import fUML.Syntax.Activities.IntermediateActivities.InitialNode;
+import fUML.Syntax.Activities.IntermediateActivities.ObjectFlow;
 import fUML.Syntax.Classes.Kernel.Element;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
@@ -57,10 +65,8 @@ public class ActivityExecutor implements ExecutionEventListener {
 
 	public void initScenarios(List<Scenario> scenarios) {
 		for (Scenario scenario : scenarios) {
-			for (ObjectSpecification objectSpecification : scenario
-					.getObjects()) {
-				org.modelexecution.fumltesting.testLang.ObjectValue value = TestLangFactory.eINSTANCE
-						.createObjectValue();
+			for (ObjectSpecification objectSpecification : scenario.getObjects()) {
+				org.modelexecution.fumltesting.testLang.ObjectValue value = TestLangFactory.eINSTANCE.createObjectValue();
 				value.setValue(objectSpecification);
 				// initializes fUML object, puts it into locus and returns it
 				// for each object existing links are created and put into locus
@@ -76,8 +82,7 @@ public class ActivityExecutor implements ExecutionEventListener {
 
 	public ActivityExecutor(NamedElement umlModel) {
 		this.umlModel = umlModel;
-		IConverter converter = ConverterRegistry.getInstance().getConverter(
-				umlModel);
+		IConverter converter = ConverterRegistry.getInstance().getConverter(umlModel);
 		convertedModel = converter.convert(this.umlModel);
 		replaceOpaqueBehaviors();
 		TestDataConverter.setModel(convertedModel);
@@ -89,17 +94,16 @@ public class ActivityExecutor implements ExecutionEventListener {
 	 * Converts the specified {@code activity} into fUML Activity and executes
 	 * it.
 	 */
-	public int executeActivity(org.eclipse.uml2.uml.Activity activity,
-			List<ActivityInput> activityInputs, ObjectSpecification context) {
+	public int executeActivity(org.eclipse.uml2.uml.Activity activity, List<ActivityInput> activityInputs, ObjectSpecification context) {
 		Activity fumlActivity = convertedModel.getActivity(activity.getName());
+		prepActivity(fumlActivity);
 
 		for (ActivityInput input : activityInputs) {
 			Object object = testDataConverter.getFUMLElement(input.getValue());
 
 			ParameterValue parameterValue = new ParameterValue();
 			for (ActivityNode node : fumlActivity.node) {
-				if (node instanceof ActivityParameterNode
-						&& node.name.equals(input.getParameter().getName())) {
+				if (node instanceof ActivityParameterNode && node.name.equals(input.getParameter().getName())) {
 					parameterValue.parameter = ((ActivityParameterNode) node).parameter;
 					break;
 				}
@@ -117,11 +121,9 @@ public class ActivityExecutor implements ExecutionEventListener {
 		// converting and setting the context object
 		Object_ contextObject = null;
 		if (context != null) {
-			ObjectValue contextValue = TestLangFactory.eINSTANCE
-					.createObjectValue();
+			ObjectValue contextValue = TestLangFactory.eINSTANCE.createObjectValue();
 			contextValue.setValue(context);
-			contextObject = (Object_) testDataConverter
-					.getFUMLElement(contextValue);
+			contextObject = (Object_) testDataConverter.getFUMLElement(contextValue);
 		}
 
 		// add a listener
@@ -131,12 +133,10 @@ public class ActivityExecutor implements ExecutionEventListener {
 		// insert the converted context object, if it exists
 		if (context != null) {
 			running = true;
-			getExecutionContext().executeStepwise(fumlActivity, contextObject,
-					parameters);
+			getExecutionContext().executeStepwise(fumlActivity, contextObject, parameters);
 		} else {
 			running = true;
-			getExecutionContext().executeStepwise(fumlActivity, null,
-					parameters);
+			getExecutionContext().executeStepwise(fumlActivity, null, parameters);
 		}
 		while (running) {
 			ExecutionContext.getInstance().nextStep(mainActivityID);
@@ -147,8 +147,7 @@ public class ActivityExecutor implements ExecutionEventListener {
 
 	private void replaceOpaqueBehaviors() {
 		List<ActivityNode> nodesWithBehavior = new ArrayList<ActivityNode>();
-		for (fUML.Syntax.Activities.IntermediateActivities.Activity activity : convertedModel
-				.getAllActivities()) {
+		for (fUML.Syntax.Activities.IntermediateActivities.Activity activity : convertedModel.getAllActivities()) {
 			nodesWithBehavior.addAll(getBehaviorNodes(activity.node));
 		}
 
@@ -156,16 +155,14 @@ public class ActivityExecutor implements ExecutionEventListener {
 			if (node instanceof CallBehaviorAction) {
 				CallBehaviorAction callBehaviorAction = (CallBehaviorAction) node;
 				Behavior behavior = callBehaviorAction.behavior;
-				OpaqueBehavior behaviorReplacement = getExecutionContext()
-						.getOpaqueBehavior(behavior.name);
+				OpaqueBehavior behaviorReplacement = getExecutionContext().getOpaqueBehavior(behavior.name);
 				if (behaviorReplacement != null) {
 					callBehaviorAction.behavior = behaviorReplacement;
 				}
 			} else if (node instanceof DecisionNode) {
 				DecisionNode decision = (DecisionNode) node;
 				Behavior behavior = decision.decisionInput;
-				OpaqueBehavior behaviorReplacement = getExecutionContext()
-						.getOpaqueBehavior(behavior.name);
+				OpaqueBehavior behaviorReplacement = getExecutionContext().getOpaqueBehavior(behavior.name);
 				if (behaviorReplacement != null) {
 					decision.decisionInput = behaviorReplacement;
 				}
@@ -202,16 +199,72 @@ public class ActivityExecutor implements ExecutionEventListener {
 
 	@Override
 	public void notify(Event event) {
-		if (event instanceof ActivityEntryEvent
-				&& (((ActivityEntryEvent) event).getParent() == null)) {
-			mainActivityID = ((ActivityEntryEvent) event)
-					.getActivityExecutionID();
+		if (event instanceof ActivityEntryEvent && (((ActivityEntryEvent) event).getParent() == null)) {
+			mainActivityID = ((ActivityEntryEvent) event).getActivityExecutionID();
 
 		}
 		eventlist.add(event);
-		if (event instanceof ActivityExitEvent
-				&& (((ActivityExitEvent) event).getActivityExecutionID() == mainActivityID)) {
+		if (event instanceof ActivityExitEvent && (((ActivityExitEvent) event).getActivityExecutionID() == mainActivityID)) {
 			running = false;
+		}
+	}
+
+	/** Insert fake initial-fork if needed, and fake control flows. */
+	private void prepActivity(Activity activity) {
+
+		boolean containsFinal = false;
+		FinalNode finalNode = null;
+		ArrayList<ActivityNode> freeNodes = new ArrayList<ActivityNode>();
+
+		for (ActivityNode node : activity.node) {
+			if (node instanceof FinalNode) {
+				containsFinal = true;
+				finalNode = (FinalNode) node;
+			}
+			boolean isFree = true;
+			for (ActivityEdge edge : node.incoming) {
+				if (edge instanceof ControlFlow)
+					isFree = false;
+				if (edge instanceof ObjectFlow) {
+					if (!(edge.source instanceof ActivityParameterNode))
+						isFree = false;
+				}
+			}
+			if (isFree)
+				freeNodes.add(node);
+		}
+
+		if (freeNodes.size() > 1) {
+			InitialNode initFake = ActivityFactory.createInitialNode(activity, "fake_init");
+			ForkNode forkFake = ActivityFactory.createForkNode(activity, "fake_fork");
+			ActivityFactory.createControlFlow(activity, initFake, forkFake);
+
+			for (ActivityNode freeNode : freeNodes) {
+				ActivityFactory.createControlFlow(activity, forkFake, freeNode);
+			}
+		}
+		// empty free nodes collection
+		if (!freeNodes.isEmpty())
+			freeNodes.removeAll(freeNodes);
+
+		if (containsFinal) {
+			for (ActivityNode node : activity.node) {
+				boolean isFree = true;
+				for (ActivityEdge edge : node.outgoing) {
+					if (edge instanceof ControlFlow)
+						isFree = false;
+					if (edge instanceof ObjectFlow) {
+						if (edge.target instanceof Action)
+							isFree = false;
+					}
+				}
+				if (isFree)
+					freeNodes.add(node);
+			}
+
+			for (ActivityNode freeNode : freeNodes) {
+				ActivityFactory.createControlFlow(activity, freeNode, finalNode);
+			}
 		}
 	}
 

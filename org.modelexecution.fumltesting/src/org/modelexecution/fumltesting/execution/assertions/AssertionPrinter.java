@@ -40,28 +40,19 @@ public class AssertionPrinter {
 				if (((SimpleValue) expression.getValue()).getValue() instanceof XNullLiteral) {
 					valueStr = "null";
 				} else if (((SimpleValue) expression.getValue()).getValue() instanceof XNumberLiteral) {
-					valueStr = ((XNumberLiteral) ((SimpleValue) expression
-							.getValue()).getValue()).getValue();
+					valueStr = ((XNumberLiteral) ((SimpleValue) expression.getValue()).getValue()).getValue();
 				} else if (((SimpleValue) expression.getValue()).getValue() instanceof XBooleanLiteral) {
-					valueStr = String
-							.valueOf(((XBooleanLiteral) ((SimpleValue) expression
-									.getValue()).getValue()).isIsTrue());
+					valueStr = String.valueOf(((XBooleanLiteral) ((SimpleValue) expression.getValue()).getValue()).isIsTrue());
 				} else if (((SimpleValue) expression.getValue()).getValue() instanceof XStringLiteral) {
-					valueStr = ((XStringLiteral) ((SimpleValue) expression
-							.getValue())).getValue();
+					valueStr = ((XStringLiteral) ((SimpleValue) expression.getValue())).getValue();
 				} else {
 					valueStr = expression.getValue().toString();
 				}
-				System.out.println(expression.getPin().getRef().getName() + " "
-						+ expression.getOperator() + " " + valueStr);
+				System.out.println(expression.getPin().getRef().getName() + " " + expression.getOperator() + " " + valueStr);
 			}
 			if (expression.getValue() instanceof ObjectValue) {
-				System.out.println(expression.getPin().getName()
-						+ " "
-						+ expression.getOperator()
-						+ " "
-						+ ((ObjectValue) expression.getValue()).getValue()
-								.getName());
+				System.out.println(expression.getPin().getName() + " " + expression.getOperator() + " "
+						+ ((ObjectValue) expression.getValue()).getValue().getName());
 			}
 			if (result)
 				System.out.println("Assertion success!");
@@ -72,31 +63,26 @@ public class AssertionPrinter {
 			PropertyStateExpression expression = (PropertyStateExpression) stateExpression;
 			String valueStr = null;
 			if (expression.getValue() instanceof SimpleValue) {
-				XExpression literal = ((SimpleValue) expression.getValue())
-						.getValue();
+				XExpression literal = ((SimpleValue) expression.getValue()).getValue();
 				if (literal instanceof XNullLiteral) {
 					valueStr = "null";
 				} else if (literal instanceof XNumberLiteral) {
 					valueStr = ((XNumberLiteral) literal).getValue();
 				} else if (literal instanceof XBooleanLiteral) {
-					valueStr = String.valueOf(((XBooleanLiteral) literal)
-							.isIsTrue());
+					valueStr = String.valueOf(((XBooleanLiteral) literal).isIsTrue());
 				} else if (literal instanceof XStringLiteral) {
 					valueStr = ((XStringLiteral) literal).getValue();
 				} else {
 					valueStr = expression.getValue().toString();
 				}
-				System.out.println(expression.getPin().getName() + " -> "
-						+ expression.getProperty().getName() + " "
-						+ expression.getOperator() + " " + valueStr);
+				System.out.println(expression.getPin().getName() + " -> " + expression.getProperty().getName() + " " + expression.getOperator() + " "
+						+ valueStr);
 			}
 			if (expression.getValue() instanceof ObjectValue) {
-				ObjectSpecification literal = ((ObjectValue) expression
-						.getValue()).getValue();
+				ObjectSpecification literal = ((ObjectValue) expression.getValue()).getValue();
 				valueStr = literal.getName();
-				System.out.println(expression.getPin().getName() + " -> "
-						+ expression.getProperty().getName() + " "
-						+ expression.getOperator() + " " + valueStr);
+				System.out.println(expression.getPin().getName() + " -> " + expression.getProperty().getName() + " " + expression.getOperator() + " "
+						+ valueStr);
 			}
 			if (result)
 				System.out.println("Assertion success!");
@@ -123,8 +109,7 @@ public class AssertionPrinter {
 	public static void print(List<ActivityNodeExecution> executions) {
 		System.out.print("Executed nodes: ");
 		for (ActivityNodeExecution execution : executions) {
-			if (execution.getNode() instanceof Action
-					|| execution.getNode() instanceof InitialNode
+			if (execution.getNode() instanceof Action || execution.getNode() instanceof InitialNode
 					|| execution.getNode() instanceof ActivityFinalNode)
 				System.out.print(execution.getNode().name + ", ");
 		}
@@ -132,9 +117,7 @@ public class AssertionPrinter {
 	}
 
 	public static void printStateAssertion(StateAssertion assertion) {
-		System.out.print("State assertion: "
-				+ assertion.getTemporalQuantifier() + " "
-				+ assertion.getTemporalOperator() + " "
+		System.out.print("State assertion: " + assertion.getTemporalQuantifier() + " " + assertion.getTemporalOperator() + " "
 				+ assertion.getReferenceAction().getName());
 		if (assertion.getUntilAction() != null)
 			System.out.print(" until " + assertion.getUntilAction().getName());
@@ -143,8 +126,7 @@ public class AssertionPrinter {
 
 	public static void print(TestCase testCase) {
 		System.out.println("Running test: " + testCase.getName());
-		System.out.println("Activity under test: "
-				+ testCase.getActivityUnderTest().getName());
+		System.out.println("Activity under test: " + testCase.getActivityUnderTest().getName());
 	}
 
 	public static void printStartEnd() {

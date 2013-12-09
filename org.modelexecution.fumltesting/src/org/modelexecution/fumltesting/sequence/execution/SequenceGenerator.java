@@ -25,6 +25,12 @@ import fUML.Syntax.Actions.IntermediateActions.DestroyObjectAction;
 import fUML.Syntax.Actions.IntermediateActions.ReadSelfAction;
 import fUML.Syntax.Classes.Kernel.Property;
 
+/**
+ * Utility class for generating state sequences.
+ * 
+ * @author Stefan Mijatov
+ * 
+ */
 public class SequenceGenerator {
 	private SequenceTrace trace;
 	/** Object and Link instances added to the sequence. */
@@ -34,13 +40,11 @@ public class SequenceGenerator {
 	public SequenceTrace generateTrace(Trace trace) {
 		this.trace = SequenceFactory.eINSTANCE.createSequenceTrace();
 		this.instanceSnapshotMappings = new HashMap<Object, ValueInstance>();
-		for (ActivityExecution activityExecution : trace
-				.getActivityExecutions()) {
+		for (ActivityExecution activityExecution : trace.getActivityExecutions()) {
 			Sequence sequence = createSequence(activityExecution);
 			boolean alreadyAdded = false;
 			for (Sequence theSequence : this.trace.getSequences()) {
-				if (theSequence.getActivityExecution().getActivity() == sequence
-						.getActivityExecution().getActivity()) {
+				if (theSequence.getActivityExecution().getActivity() == sequence.getActivityExecution().getActivity()) {
 					alreadyAdded = true;
 					break;
 				}
@@ -55,37 +59,28 @@ public class SequenceGenerator {
 	private Sequence createSequence(ActivityExecution activityExecution) {
 		Sequence sequence = SequenceFactory.eINSTANCE.createSequence();
 		sequence.setActivityExecution(activityExecution);
-		for (ActivityNodeExecution nodeExecution : activityExecution
-				.getNodeExecutions()) {
+		for (ActivityNodeExecution nodeExecution : activityExecution.getNodeExecutions()) {
 
 			if (nodeExecution instanceof ActionExecution) {
-				if (nodeExecution.getNode() instanceof ReadSelfAction
-						|| nodeExecution.getNode() instanceof CreateObjectAction) {
+				if (nodeExecution.getNode() instanceof ReadSelfAction || nodeExecution.getNode() instanceof CreateObjectAction) {
 					State state = createNewState(sequence, nodeExecution);
-					for (Output output : ((ActionExecution) nodeExecution)
-							.getOutputs()) {
-						ValueSnapshot snapshot = output.getOutputValues()
-								.get(0).getOutputValueSnapshot();
-						ValueInstance instance = (ValueInstance) snapshot
-								.eContainer();
+					for (Output output : ((ActionExecution) nodeExecution).getOutputs()) {
+						ValueSnapshot snapshot = output.getOutputValues().get(0).getOutputValueSnapshot();
+						ValueInstance instance = (ValueInstance) snapshot.eContainer();
 						Object original = getLastVersion(sequence, instance);
 						if (original != null) {
 							state.getObjects().remove(original);
 						}
-						Object newObject = mapper.map((Object_) snapshot
-								.getValue());
+						Object newObject = mapper.map((Object_) snapshot.getValue());
 						state.getObjects().add(newObject);
 						instanceSnapshotMappings.put(newObject, instance);
 					}
 				}
 				if (nodeExecution.getNode() instanceof DestroyObjectAction) {
 					State state = createNewState(sequence, nodeExecution);
-					for (Input input : ((ActionExecution) nodeExecution)
-							.getInputs()) {
-						ValueSnapshot snapshot = input.getInputValues().get(0)
-								.getInputValueSnapshot();
-						Object object = mapper.map((Object_) snapshot
-								.getValue());
+					for (Input input : ((ActionExecution) nodeExecution).getInputs()) {
+						ValueSnapshot snapshot = input.getInputValues().get(0).getInputValueSnapshot();
+						Object object = mapper.map((Object_) snapshot.getValue());
 						instanceSnapshotMappings.remove(object);
 						state.getObjects().remove(object);
 					}
@@ -93,71 +88,50 @@ public class SequenceGenerator {
 				}
 				if (nodeExecution.getNode() instanceof AddStructuralFeatureValueAction) {
 					State state = createNewState(sequence, nodeExecution);
-					AddStructuralFeatureValueAction theAction = (AddStructuralFeatureValueAction) nodeExecution
-							.getNode();
-					Property property = (Property) ((AddStructuralFeatureValueAction) nodeExecution
-							.getNode()).structuralFeature;
+					AddStructuralFeatureValueAction theAction = (AddStructuralFeatureValueAction) nodeExecution.getNode();
+					Property property = (Property) ((AddStructuralFeatureValueAction) nodeExecution.getNode()).structuralFeature;
 
 					if (property.association == null) {// attribute
-						for (Output output : ((ActionExecution) nodeExecution)
-								.getOutputs()) {
-							ValueSnapshot snapshot = output.getOutputValues()
-									.get(0).getOutputValueSnapshot();
-							ValueInstance instance = (ValueInstance) snapshot
-									.eContainer();
+						for (Output output : ((ActionExecution) nodeExecution).getOutputs()) {
+							ValueSnapshot snapshot = output.getOutputValues().get(0).getOutputValueSnapshot();
+							ValueInstance instance = (ValueInstance) snapshot.eContainer();
 							Object original = getLastVersion(sequence, instance);
 							if (original != null) {
 								state.getObjects().remove(original);
 							}
-							Object newObject = mapper.map((Object_) snapshot
-									.getValue());
+							Object newObject = mapper.map((Object_) snapshot.getValue());
 							state.getObjects().add(newObject);
 							instanceSnapshotMappings.put(newObject, instance);
 						}
 					} else {// link
-						for (ValueInstance link : ((Trace) activityExecution
-								.eContainer()).getValueInstances()) {
+						for (ValueInstance link : ((Trace) activityExecution.eContainer()).getValueInstances()) {
 							if (link.getCreator() == nodeExecution) {
-								state.getLinks().add(
-										mapper.map((Link) link
-												.getRuntimeValue()));
+								state.getLinks().add(mapper.map((Link) link.getRuntimeValue()));
 							}
 						}
 						// add new version of output
-						for (Output output : ((ActionExecution) nodeExecution)
-								.getOutputs()) {
-							ValueSnapshot outputSnapshot = output
-									.getOutputValues().get(0)
-									.getOutputValueSnapshot();
-							ValueInstance outputInstance = (ValueInstance) outputSnapshot
-									.eContainer();
+						for (Output output : ((ActionExecution) nodeExecution).getOutputs()) {
+							ValueSnapshot outputSnapshot = output.getOutputValues().get(0).getOutputValueSnapshot();
+							ValueInstance outputInstance = (ValueInstance) outputSnapshot.eContainer();
 							if (output.getOutputPin() == theAction.result) {
-								Object original = getLastVersion(sequence,
-										outputInstance);
+								Object original = getLastVersion(sequence, outputInstance);
 								if (original != null) {
 									state.getObjects().remove(original);
 								}
-								Object newObject = mapper
-										.map((Object_) outputSnapshot
-												.getValue());
+								Object newObject = mapper.map((Object_) outputSnapshot.getValue());
 								state.getObjects().add(newObject);
 							}
 						}
 						// add new version input
-						for (Input input : ((ActionExecution) nodeExecution)
-								.getInputs()) {
-							ValueSnapshot snapshot = input.getInputValues()
-									.get(0).getInputValueSnapshot();
-							ValueInstance instance = (ValueInstance) snapshot
-									.eContainer();
+						for (Input input : ((ActionExecution) nodeExecution).getInputs()) {
+							ValueSnapshot snapshot = input.getInputValues().get(0).getInputValueSnapshot();
+							ValueInstance instance = (ValueInstance) snapshot.eContainer();
 							if (input.getInputPin() == theAction.value) {
-								Object originalValue = getLastVersion(sequence,
-										instance);
+								Object originalValue = getLastVersion(sequence, instance);
 								if (originalValue != null) {
 									state.getObjects().remove(originalValue);
 								}
-								Object newValue = mapper.map((Object_) snapshot
-										.getValue());
+								Object newValue = mapper.map((Object_) snapshot.getValue());
 								state.getObjects().add(newValue);
 							}
 						}
@@ -166,21 +140,17 @@ public class SequenceGenerator {
 				if (nodeExecution.getNode() instanceof CallBehaviorAction) {
 					Trace trace = (Trace) activityExecution.eContainer();
 					Sequence calledActionSequence = null;
-					for (ActivityExecution execution : trace
-							.getActivityExecutions()) {
-						if (execution.getActivity() == ((CallBehaviorAction) nodeExecution
-								.getNode()).behavior) {
+					for (ActivityExecution execution : trace.getActivityExecutions()) {
+						if (execution.getActivity() == ((CallBehaviorAction) nodeExecution.getNode()).behavior) {
 							calledActionSequence = createSequence(execution);
 							break;
 						}
 					}
 					if (calledActionSequence != null) {
-						State lastStateOfCalled = calledActionSequence
-								.lastState();
+						State lastStateOfCalled = calledActionSequence.lastState();
 						State state = SequenceFactory.eINSTANCE.createState();
 						state.setNodeExecution(nodeExecution);
-						state.getObjects().addAll(
-								lastStateOfCalled.getObjects());
+						state.getObjects().addAll(lastStateOfCalled.getObjects());
 						state.getLinks().addAll(lastStateOfCalled.getLinks());
 						sequence.addState(state);
 					}
@@ -190,8 +160,7 @@ public class SequenceGenerator {
 		return sequence;
 	}
 
-	private State createNewState(Sequence sequence,
-			ActivityNodeExecution creatorNode) {
+	private State createNewState(Sequence sequence, ActivityNodeExecution creatorNode) {
 		State state = SequenceFactory.eINSTANCE.createState();
 		state.setNodeExecution(creatorNode);
 		// add links and objects from last state

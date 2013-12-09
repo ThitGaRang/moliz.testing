@@ -1128,6 +1128,23 @@
       <node xmi:type="uml:JoinNode" xmi:id="_HUbkUFYEEeOH4K9DCcU0VQ" name="join" outgoing="_Qx5kUFYEEeOH4K9DCcU0VQ" incoming="_JwewAFYEEeOH4K9DCcU0VQ _MEINoFYEEeOH4K9DCcU0VQ"/>
       <node xmi:type="uml:ActivityFinalNode" xmi:id="_OQcUMFYEEeOH4K9DCcU0VQ" name="final" incoming="_Qx5kUFYEEeOH4K9DCcU0VQ"/>
     </packagedElement>
+    <packagedElement xmi:type="uml:Activity" xmi:id="_xKLUwFjZEeO9FfFY5UJz4g" name="RandomActivity" node="_5QU8gFjZEeO9FfFY5UJz4g _6kiWYFjZEeO9FfFY5UJz4g _8b8j8FjZEeO9FfFY5UJz4g">
+      <edge xmi:type="uml:ControlFlow" xmi:id="_-CNXIFjZEeO9FfFY5UJz4g" name="ControlFlow1" source="_5QU8gFjZEeO9FfFY5UJz4g" target="_8b8j8FjZEeO9FfFY5UJz4g">
+        <guard xmi:type="uml:LiteralBoolean" xmi:id="_-CSPoFjZEeO9FfFY5UJz4g" value="true"/>
+        <weight xmi:type="uml:LiteralInteger" xmi:id="_-CTdwFjZEeO9FfFY5UJz4g"/>
+      </edge>
+      <node xmi:type="uml:CreateObjectAction" xmi:id="_5QU8gFjZEeO9FfFY5UJz4g" name="createA" outgoing="_-CNXIFjZEeO9FfFY5UJz4g" classifier="_P0H5UC_4EeOTpM28lqU8qA">
+        <result xmi:id="_5QyPgFjZEeO9FfFY5UJz4g" name="result" type="_P0H5UC_4EeOTpM28lqU8qA">
+          <upperBound xmi:type="uml:LiteralInteger" xmi:id="_5QyPgVjZEeO9FfFY5UJz4g" value="1"/>
+        </result>
+      </node>
+      <node xmi:type="uml:CreateObjectAction" xmi:id="_6kiWYFjZEeO9FfFY5UJz4g" name="createB" classifier="_P0H5UC_4EeOTpM28lqU8qA">
+        <result xmi:id="_6kkyoFjZEeO9FfFY5UJz4g" name="result" type="_P0H5UC_4EeOTpM28lqU8qA">
+          <upperBound xmi:type="uml:LiteralInteger" xmi:id="_6kkyoVjZEeO9FfFY5UJz4g" value="1"/>
+        </result>
+      </node>
+      <node xmi:type="uml:ActivityFinalNode" xmi:id="_8b8j8FjZEeO9FfFY5UJz4g" name="final" incoming="_-CNXIFjZEeO9FfFY5UJz4g"/>
+    </packagedElement>
   </packagedElement>
   <packagedElement xmi:type="uml:Package" xmi:id="_Oc6XIEhUEeO_YbtwEefNUw" name="mathlib">
     <packagedElement xmi:type="uml:OpaqueBehavior" xmi:id="_828YkDDyEeO5a9X2Dk_YNQ" name="multiply">

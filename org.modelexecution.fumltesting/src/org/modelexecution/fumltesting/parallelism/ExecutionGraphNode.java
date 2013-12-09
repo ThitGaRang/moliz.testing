@@ -6,6 +6,12 @@ import java.util.List;
 
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 
+/**
+ * Class representing a single node of execution graph.
+ * 
+ * @author Stefan Mijatov
+ * 
+ */
 public class ExecutionGraphNode {
 
 	public ExecutionGraphNode(ActivityNodeExecution data) {
@@ -30,9 +36,7 @@ public class ExecutionGraphNode {
 	}
 
 	public boolean containsPredecessor(ActivityNodeExecution node) {
-		if (parent != null
-				&& (parent.getData() == node || parent
-						.containsPredecessor(node)))
+		if (parent != null && (parent.getData() == node || parent.containsPredecessor(node)))
 			return true;
 		return false;
 	}

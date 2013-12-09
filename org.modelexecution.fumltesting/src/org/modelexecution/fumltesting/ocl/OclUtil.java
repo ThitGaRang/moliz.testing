@@ -11,6 +11,12 @@ import org.eclipse.ocl.helper.OCLHelper;
 import org.modelexecution.fumltesting.sequence.SequencePackage;
 import org.modelexecution.fumltesting.sequence.State;
 
+/**
+ * Utility class for loading and evaluating OCL constraints.
+ * 
+ * @author Stefan Mijatov
+ * 
+ */
 public class OclUtil {
 	private OCL ocl;
 	private OCLHelper<EClassifier, ?, ?, Constraint> helper;
@@ -27,8 +33,7 @@ public class OclUtil {
 		return INSTANCE;
 	}
 
-	public boolean evaluate(State context, String invariant)
-			throws ParserException {
+	public boolean evaluate(State context, String invariant) throws ParserException {
 		helper.setContext(SequencePackage.Literals.STATE);
 		OCLExpression<EClassifier> constraint = helper.createQuery(invariant);
 		Query constraintEvaluation = ocl.createQuery(constraint);

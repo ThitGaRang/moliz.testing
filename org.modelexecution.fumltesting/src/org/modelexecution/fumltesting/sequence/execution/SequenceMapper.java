@@ -20,7 +20,13 @@ import fUML.Semantics.Classes.Kernel.StringValue;
 import fUML.Syntax.Classes.Kernel.Class_;
 import fUML.Syntax.Classes.Kernel.NamedElement;
 
-/** Mappings from fUML implementation classes to fUML meta model classes */
+/**
+ * Utility class that provides mapping from fUML implementation classes to fUML
+ * meta model classes.
+ * 
+ * @author Stefan Mijatov
+ * 
+ */
 public class SequenceMapper {
 	private HashMap<Class_, Class> mappedClasses = new HashMap<Class_, Class>();
 	private HashMap<fUML.Syntax.Classes.Kernel.Association, Association> mappedAssociations = new HashMap<fUML.Syntax.Classes.Kernel.Association, Association>();
@@ -33,8 +39,7 @@ public class SequenceMapper {
 		object.getTypes().add(map(object_.types.get(0)));
 
 		for (FeatureValue featureValue : object_.featureValues) {
-			org.modelexecution.fuml.Semantics.Classes.Kernel.FeatureValue mappedFeatureValue = KernelFactory.eINSTANCE
-					.createFeatureValue();
+			org.modelexecution.fuml.Semantics.Classes.Kernel.FeatureValue mappedFeatureValue = KernelFactory.eINSTANCE.createFeatureValue();
 			mappedFeatureValue.setFeature(map(featureValue.feature));
 			for (fUML.Semantics.Classes.Kernel.Value value : featureValue.values) {
 				mappedFeatureValue.getValues().add(map(value));
@@ -50,8 +55,7 @@ public class SequenceMapper {
 		mappedLink.setType(map(link.type));
 
 		for (FeatureValue featureValue : link.featureValues) {
-			org.modelexecution.fuml.Semantics.Classes.Kernel.FeatureValue mappedFeatureValue = KernelFactory.eINSTANCE
-					.createFeatureValue();
+			org.modelexecution.fuml.Semantics.Classes.Kernel.FeatureValue mappedFeatureValue = KernelFactory.eINSTANCE.createFeatureValue();
 			mappedFeatureValue.setFeature(map(featureValue.feature));
 			for (fUML.Semantics.Classes.Kernel.Value value : featureValue.values) {
 				mappedFeatureValue.getValues().add(map(value));
@@ -66,8 +70,7 @@ public class SequenceMapper {
 		if (mappedClasses.containsKey(class_)) {
 			return mappedClasses.get(class_);
 		} else {
-			Class mappedClass = org.modelexecution.fuml.Syntax.Classes.Kernel.KernelFactory.eINSTANCE
-					.createClass();
+			Class mappedClass = org.modelexecution.fuml.Syntax.Classes.Kernel.KernelFactory.eINSTANCE.createClass();
 
 			mappedClass.setAbstract(class_.isAbstract);
 			mappedClass.setActive(class_.isActive);
@@ -89,13 +92,11 @@ public class SequenceMapper {
 		if (mappedAssociations.containsKey(association)) {
 			return mappedAssociations.get(association);
 		} else {
-			Association mappedAssociation = org.modelexecution.fuml.Syntax.Classes.Kernel.KernelFactory.eINSTANCE
-					.createAssociation();
+			Association mappedAssociation = org.modelexecution.fuml.Syntax.Classes.Kernel.KernelFactory.eINSTANCE.createAssociation();
 
 			mappedAssociation.setAbstract(association.isAbstract);
 			mappedAssociation.setAbstract(association.isDerived);
-			mappedAssociation
-					.setFinalSpecialization(association.isFinalSpecialization);
+			mappedAssociation.setFinalSpecialization(association.isFinalSpecialization);
 			mappedAssociation.setName(association.name);
 			mappedAssociation.setQualifiedName(association.qualifiedName);
 			mappedAssociation.setVisibility(mapVisibility(association));
@@ -106,22 +107,18 @@ public class SequenceMapper {
 		}
 	}
 
-	private StructuralFeature map(
-			fUML.Syntax.Classes.Kernel.StructuralFeature structuralFeature) {
-		StructuralFeature mappedFeature = org.modelexecution.fuml.Syntax.Classes.Kernel.KernelFactory.eINSTANCE
-				.createProperty();
+	private StructuralFeature map(fUML.Syntax.Classes.Kernel.StructuralFeature structuralFeature) {
+		StructuralFeature mappedFeature = org.modelexecution.fuml.Syntax.Classes.Kernel.KernelFactory.eINSTANCE.createProperty();
 
 		mappedFeature.setLeaf(structuralFeature.isLeaf);
 		mappedFeature.setLower(structuralFeature.multiplicityElement.lower);
 		mappedFeature.setName(structuralFeature.name);
-		mappedFeature
-				.setOrdered(structuralFeature.multiplicityElement.isOrdered);
+		mappedFeature.setOrdered(structuralFeature.multiplicityElement.isOrdered);
 		mappedFeature.setQualifiedName(structuralFeature.qualifiedName);
 		mappedFeature.setReadOnly(structuralFeature.isReadOnly);
 		mappedFeature.setStatic(structuralFeature.isStatic);
 		mappedFeature.setUnique(structuralFeature.multiplicityElement.isUnique);
-		mappedFeature
-				.setUpper(structuralFeature.multiplicityElement.upper.naturalValue);
+		mappedFeature.setUpper(structuralFeature.multiplicityElement.upper.naturalValue);
 		mappedFeature.setVisibility(mapVisibility(structuralFeature));
 
 		/**
@@ -136,18 +133,15 @@ public class SequenceMapper {
 
 		if (value instanceof BooleanValue) {
 			mappedValue = KernelFactory.eINSTANCE.createBooleanValue();
-			((org.modelexecution.fuml.Semantics.Classes.Kernel.BooleanValue) mappedValue)
-					.setValue(((BooleanValue) value).value);
+			((org.modelexecution.fuml.Semantics.Classes.Kernel.BooleanValue) mappedValue).setValue(((BooleanValue) value).value);
 		}
 		if (value instanceof StringValue) {
 			mappedValue = KernelFactory.eINSTANCE.createStringValue();
-			((org.modelexecution.fuml.Semantics.Classes.Kernel.StringValue) mappedValue)
-					.setValue(((StringValue) value).value);
+			((org.modelexecution.fuml.Semantics.Classes.Kernel.StringValue) mappedValue).setValue(((StringValue) value).value);
 		}
 		if (value instanceof IntegerValue) {
 			mappedValue = KernelFactory.eINSTANCE.createIntegerValue();
-			((org.modelexecution.fuml.Semantics.Classes.Kernel.IntegerValue) mappedValue)
-					.setValue(((IntegerValue) value).value);
+			((org.modelexecution.fuml.Semantics.Classes.Kernel.IntegerValue) mappedValue).setValue(((IntegerValue) value).value);
 		}
 		if (value instanceof Reference) {
 			mappedValue = map(((Reference) value).referent);

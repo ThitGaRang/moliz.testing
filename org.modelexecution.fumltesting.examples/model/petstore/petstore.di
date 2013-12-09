@@ -51,6 +51,9 @@
     <availablePage>
       <emfPageIdentifier href="petstore.notation#_Z6sKQFYDEeOH4K9DCcU0VQ"/>
     </availablePage>
+    <availablePage>
+      <emfPageIdentifier href="petstore.notation#_zyYGEFjZEeO9FfFY5UJz4g"/>
+    </availablePage>
   </pageList>
   <sashModel currentSelection="//@sashModel/@windows.0/@children.0">
     <windows>
@@ -63,6 +66,9 @@
         </children>
         <children>
           <emfPageIdentifier href="petstore.notation#_Z6sKQFYDEeOH4K9DCcU0VQ"/>
+        </children>
+        <children>
+          <emfPageIdentifier href="petstore.notation#_zyYGEFjZEeO9FfFY5UJz4g"/>
         </children>
       </children>
     </windows>

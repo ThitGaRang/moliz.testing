@@ -55,30 +55,19 @@ public class TestExecutor {
 	private void setup(String fumlTestLocation) {
 		try {
 			new UmlSupport().registerServices(true);
-			Injector injector = new TestLangStandaloneSetup()
-					.createInjectorAndDoEMFRegistration();
+			Injector injector = new TestLangStandaloneSetup().createInjectorAndDoEMFRegistration();
 			resourceSet = injector.getInstance(XtextResourceSet.class);
-			resourceSet.addLoadOption(XtextResource.OPTION_RESOLVE_ALL,
-					Boolean.TRUE);
+			resourceSet.addLoadOption(XtextResource.OPTION_RESOLVE_ALL, Boolean.TRUE);
 
 			// model of the test suite to be executed
-			resource = resourceSet.getResource(URI.createFileURI(new File(
-					fumlTestLocation).getAbsolutePath()), true);
+			resource = resourceSet.getResource(URI.createFileURI(new File(fumlTestLocation).getAbsolutePath()), true);
 
 			resource.load(null);
 			if (resource != null) {
-				resourceSet.getPackageRegistry().put(UMLPackage.eNS_URI,
-						UMLPackage.eINSTANCE);
-				resourceSet
-						.getResourceFactoryRegistry()
-						.getExtensionToFactoryMap()
-						.put(UMLResource.FILE_EXTENSION,
-								UMLResource.Factory.INSTANCE);
+				resourceSet.getPackageRegistry().put(UMLPackage.eNS_URI, UMLPackage.eINSTANCE);
+				resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(UMLResource.FILE_EXTENSION, UMLResource.Factory.INSTANCE);
 				// model with UML elements under test
-				Resource r = resourceSet.getResource(
-						URI.createFileURI(new File(
-								"example/petstore/petstore.uml")
-								.getAbsolutePath()), true);
+				Resource r = resourceSet.getResource(URI.createFileURI(new File("example/petstore/petstore.uml").getAbsolutePath()), true);
 				r.load(null);
 
 				// adds elements from UML model to test suite
@@ -87,8 +76,7 @@ public class TestExecutor {
 				// adds OCL constraints to test suite
 				OclUmlLoader loader = new OclUmlLoader();
 				loader.loadOCL("example/petstore/petstore_invariants.ocl");
-				resource.getContents().addAll(
-						loader.getOclResource().getContents());
+				resource.getContents().addAll(loader.getOclResource().getContents());
 
 				for (EObject model : resource.getContents()) {
 					if (model instanceof NamedElement) {
@@ -111,9 +99,7 @@ public class TestExecutor {
 		File folder = new File("example/petstore/tests");
 		File[] files = folder.listFiles();
 		for (File file : files) {
-			if (file.isFile()
-					&& file.getName().endsWith(
-							"severalEmptyProductsActivity.fumltest")) {
+			if (file.isFile() && file.getName().endsWith("randomActivity.fumltest")) {
 				String path = "example/petstore/tests/" + file.getName();
 				setup(path);
 				testsEvaluation();
@@ -139,27 +125,21 @@ public class TestExecutor {
 			}
 
 			if (testCase.getContextObject() != null) {
-				mainActivityExecutionID = executor.executeActivity(activity,
-						testCase.getInputs(), testCase.getContextObject());
+				mainActivityExecutionID = executor.executeActivity(activity, testCase.getInputs(), testCase.getContextObject());
 			} else {
 				if (requiresContext) {
-					System.out
-							.println("CONTEXT for activity NOT defined. Please correct the test declaration.");
+					System.out.println("CONTEXT for activity NOT defined. Please correct the test declaration.");
 					System.out.println("Test execution failed.");
 					AssertionPrinter.printStartEnd();
 					break;
 				}
-				mainActivityExecutionID = executor.executeActivity(activity,
-						testCase.getInputs(), null);
+				mainActivityExecutionID = executor.executeActivity(activity, testCase.getInputs(), null);
 			}
 
-			validator = new AssertionValidator(mainActivityExecutionID,
-					executor);
+			validator = new AssertionValidator(mainActivityExecutionID, executor);
 
-			if (testCase.getInvariants() != null
-					&& testCase.getInvariants().getInvariants() != null) {
-				EList<InvCS> invariants = testCase.getInvariants()
-						.getInvariants();
+			if (testCase.getInvariants() != null && testCase.getInvariants().getInvariants() != null) {
+				EList<InvCS> invariants = testCase.getInvariants().getInvariants();
 
 				for (int k = 0; k < invariants.size(); k++) {
 					InvCS inv = invariants.get(k);

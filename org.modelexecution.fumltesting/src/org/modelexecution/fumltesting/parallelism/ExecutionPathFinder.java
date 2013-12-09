@@ -61,10 +61,8 @@ public class ExecutionPathFinder {
 	}
 
 	/** Breadth first search to find all paths. */
-	private void generatePath(ExecutionGraph graph,
-			LinkedList<ExecutionGraphNode> visited) {
-		LinkedList<ExecutionGraphNode> nodes = new LinkedList<ExecutionGraphNode>(
-				visited.getLast().getSuccessors());
+	private void generatePath(ExecutionGraph graph, LinkedList<ExecutionGraphNode> visited) {
+		LinkedList<ExecutionGraphNode> nodes = new LinkedList<ExecutionGraphNode>(visited.getLast().getSuccessors());
 
 		for (ExecutionGraphNode node : nodes) {
 			if (visited.contains(node)) {

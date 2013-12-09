@@ -1,0 +1,6 @@
+import Model.structure.*
+import Mode.scenarios.*
+
+test randomTest activity petstore.scenarios.RandomActivity{
+	
+}

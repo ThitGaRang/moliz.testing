@@ -24,6 +24,12 @@ import org.eclipse.uml2.uml.resource.UMLResource;
 
 import com.google.inject.Injector;
 
+/**
+ * Utility class for loading OCL files.
+ * 
+ * @author Stefan Mijatov
+ * 
+ */
 public class OclUmlLoader {
 	private List<Constraint> constraints;
 	private Resource resource;
@@ -31,21 +37,16 @@ public class OclUmlLoader {
 	public OclUmlLoader() {
 	}
 
-	public void loadOCL(String path) throws FileNotFoundException,
-			ParserException, IOException {
+	public void loadOCL(String path) throws FileNotFoundException, ParserException, IOException {
 		EPackage.Registry registry = new EPackageRegistryImpl();
 		registry.put(UMLPackage.eNS_URI, UMLPackage.eINSTANCE);
-		PivotEnvironmentFactory environmentFactory = new PivotEnvironmentFactory(
-				registry, null);
+		PivotEnvironmentFactory environmentFactory = new PivotEnvironmentFactory(registry, null);
 		OCL ocl = OCL.newInstance(environmentFactory);
 
-		Injector injector = new CompleteOCLStandaloneSetup()
-				.createInjectorAndDoEMFRegistration();
+		Injector injector = new CompleteOCLStandaloneSetup().createInjectorAndDoEMFRegistration();
 		ResourceSet resourceSet = injector.getInstance(ResourceSet.class);
-		resourceSet.getPackageRegistry().put(UMLPackage.eNS_URI,
-				UMLPackage.eINSTANCE);
-		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap()
-				.put(UMLResource.FILE_EXTENSION, UMLResource.Factory.INSTANCE);
+		resourceSet.getPackageRegistry().put(UMLPackage.eNS_URI, UMLPackage.eINSTANCE);
+		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(UMLResource.FILE_EXTENSION, UMLResource.Factory.INSTANCE);
 
 		OCLstdlib.install();
 		UML2Pivot.initialize(resourceSet);
@@ -57,8 +58,7 @@ public class OclUmlLoader {
 
 		constraints = new ArrayList<Constraint>();
 
-		for (TreeIterator<EObject> iterator = resource.getAllContents(); iterator
-				.hasNext();) {
+		for (TreeIterator<EObject> iterator = resource.getAllContents(); iterator.hasNext();) {
 			EObject next = iterator.next();
 			if (next instanceof Constraint) {
 				constraints.add((Constraint) next);
