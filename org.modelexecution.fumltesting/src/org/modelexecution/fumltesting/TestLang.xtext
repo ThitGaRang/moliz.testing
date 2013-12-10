@@ -10,10 +10,7 @@ TestSuite:
 	(tests+=TestCase)*;
 
 Import:
-	'import' importedNamespace=QualifiedNameWithWildCard;
-
-QualifiedNameWithWildCard:
-	QualifiedName '.*'?;
+	'import' importedNamespace=QualifiedNameWithWildcard;
 
 VarDeclaration:
 	'var' name=ID '=' ref=[uml::ObjectNode|QualifiedName] ';';

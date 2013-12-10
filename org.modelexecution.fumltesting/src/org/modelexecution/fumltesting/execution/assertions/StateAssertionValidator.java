@@ -409,18 +409,8 @@ public class StateAssertionValidator {
 				}
 
 				Object_ target = null;
-				if (propertyExpression.getValue() instanceof SimpleValue) {// this
-																			// is
-																			// the
-																			// case
-																			// where
-																			// we
-																			// might
-																			// compare
-																			// null
-																			// to
-																			// a
-																			// link
+				if (propertyExpression.getValue() instanceof SimpleValue) {
+					// this is the case where we might compare null to a link
 					SimpleValue value = (SimpleValue) propertyExpression.getValue();
 					if (!(value.getValue() instanceof XNullLiteral))
 						System.out.println("For links only null is allowed!");
@@ -448,9 +438,8 @@ public class StateAssertionValidator {
 				}
 
 				// for each temporal constraint it is enough to remove all those
-				// links
-				// that the destroyer is not null and is before the referenced
-				// action
+				// links that the destroyer is not null and is before the
+				// referenced action
 				List<ValueInstance> linksToRemove = new ArrayList<ValueInstance>();
 
 				for (ValueInstance link : links) {
@@ -569,8 +558,8 @@ public class StateAssertionValidator {
 				}
 			}
 		} else {
-			// for links, there are features without any values that we want to
-			// skip
+			// for links, there are features without any values that
+			// we want to skip
 			return true;
 		}
 		return false;

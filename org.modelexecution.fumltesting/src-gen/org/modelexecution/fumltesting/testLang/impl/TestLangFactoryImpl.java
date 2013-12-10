@@ -31,7 +31,7 @@ public class TestLangFactoryImpl extends EFactoryImpl implements TestLangFactory
   {
     try
     {
-      TestLangFactory theTestLangFactory = (TestLangFactory)EPackage.Registry.INSTANCE.getEFactory("http://www.modelexecution.org/fumltesting/TestLang"); 
+      TestLangFactory theTestLangFactory = (TestLangFactory)EPackage.Registry.INSTANCE.getEFactory(TestLangPackage.eNS_URI);
       if (theTestLangFactory != null)
       {
         return theTestLangFactory;

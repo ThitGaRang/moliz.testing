@@ -71,8 +71,8 @@ public class ActivityExecutor implements ExecutionEventListener {
 				org.modelexecution.fumltesting.testLang.ObjectValue value = TestLangFactory.eINSTANCE.createObjectValue();
 				value.setValue(objectSpecification);
 				// initializes fUML object, puts it into locus and returns it
-				// for each object existing links are created and put into locus
-				// also
+				// for each object existing links are created and
+				// put into locus also
 				testDataConverter.getFUMLElement(value);
 			}
 		}
@@ -238,7 +238,7 @@ public class ActivityExecutor implements ExecutionEventListener {
 						isFree = false;
 				}
 			}
-			if(node instanceof InitialNode || node instanceof ActivityParameterNode){
+			if (node instanceof InitialNode || node instanceof ActivityParameterNode) {
 				isFree = false;
 			}
 			if (isFree)

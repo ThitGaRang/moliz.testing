@@ -48,7 +48,7 @@ public class AssertionPrinter {
 				} else {
 					valueStr = expression.getValue().toString();
 				}
-				System.out.println(expression.getPin().getRef().getName() + " " + expression.getOperator() + " " + valueStr);
+				System.out.println(expression.getPin().getName() + " " + expression.getOperator() + " " + valueStr);
 			}
 			if (expression.getValue() instanceof ObjectValue) {
 				System.out.println(expression.getPin().getName() + " " + expression.getOperator() + " "
