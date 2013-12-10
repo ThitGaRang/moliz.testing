@@ -86,7 +86,6 @@ public class TestLangFactoryImpl extends EFactoryImpl implements TestLangFactory
       case TestLangPackage.ORDER_ASSERTION: return createOrderAssertion();
       case TestLangPackage.NODE_ORDER: return createNodeOrder();
       case TestLangPackage.NODE_SPECIFICATION: return createNodeSpecification();
-      case TestLangPackage.OCL_INVARIANTS: return createOCLInvariants();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -363,17 +362,6 @@ public class TestLangFactoryImpl extends EFactoryImpl implements TestLangFactory
   {
     NodeSpecificationImpl nodeSpecification = new NodeSpecificationImpl();
     return nodeSpecification;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public OCLInvariants createOCLInvariants()
-  {
-    OCLInvariantsImpl oclInvariants = new OCLInvariantsImpl();
-    return oclInvariants;
   }
 
   /**

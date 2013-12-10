@@ -14,6 +14,7 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 public class ExecutionGraph {
 
 	private ExecutionGraphNode root;
+	private ArrayList<ExecutionGraphNode> endNodes;
 
 	public ExecutionGraphNode getRoot() {
 		return root;
@@ -58,8 +59,7 @@ public class ExecutionGraph {
 			allSuccessors.add(successor);
 			for (ActivityNodeExecution predecessor : getAllLogicalPredecessors(nodeExecution, new ArrayList<ActivityNodeExecution>())) {
 				for (ActivityNodeExecution successorOfPredecessor : getAllLogicalSuccessors(predecessor, new ArrayList<ActivityNodeExecution>())) {
-					if (successorOfPredecessor != nodeExecution && !allLogicalSuccessors.contains(successorOfPredecessor)
-							&& !allLogicalPredecessors.contains(successorOfPredecessor)) {
+					if (successorOfPredecessor != nodeExecution && !allLogicalSuccessors.contains(successorOfPredecessor) && !allLogicalPredecessors.contains(successorOfPredecessor)) {
 						if (!allSuccessors.contains(successorOfPredecessor))
 							allSuccessors.add(successorOfPredecessor);
 					}
@@ -87,8 +87,7 @@ public class ExecutionGraph {
 	 * Returns all logical predecessors of the node, and logical predecessors of
 	 * the predecessors.
 	 */
-	private List<ActivityNodeExecution> getAllLogicalPredecessors(ActivityNodeExecution nodeExecution,
-			List<ActivityNodeExecution> allLogicalPredecessors) {
+	private List<ActivityNodeExecution> getAllLogicalPredecessors(ActivityNodeExecution nodeExecution, List<ActivityNodeExecution> allLogicalPredecessors) {
 		for (ActivityNodeExecution predecessor : nodeExecution.getLogicalPredecessor()) {
 			if (!allLogicalPredecessors.contains(predecessor))
 				allLogicalPredecessors.add(predecessor);
@@ -103,19 +102,20 @@ public class ExecutionGraph {
 		root = generateExecutionGraphNode(new ExecutionGraphNode(execution.getNodeExecutions().get(0)));
 	}
 
-	/** Returns the node without the successors. */
-	public ExecutionGraphNode getEndNode() {
-		return getEndNode(root);
+	/** Returns all nodes without the successors. */
+	public ArrayList<ExecutionGraphNode> getEndNodes() {
+		endNodes = new ArrayList<ExecutionGraphNode>();
+		getEndNodes(root);
+		return endNodes;
 	}
 
-	private ExecutionGraphNode getEndNode(ExecutionGraphNode node) {
+	private void getEndNodes(ExecutionGraphNode node) {
 		for (ExecutionGraphNode child : node.getSuccessors()) {
 			if (child.getSuccessors().size() == 0) {
-				return child;
+				endNodes.add(child);
 			} else {
-				return getEndNode(child);
+				getEndNodes(child);
 			}
 		}
-		return node;
 	}
 }

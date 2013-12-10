@@ -224,22 +224,13 @@ public interface TestLangPackage extends EPackage
   int TEST_CASE__INIT_SCENARIOS = 4;
 
   /**
-   * The feature id for the '<em><b>Invariants</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int TEST_CASE__INVARIANTS = 5;
-
-  /**
    * The feature id for the '<em><b>Variables</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int TEST_CASE__VARIABLES = 6;
+  int TEST_CASE__VARIABLES = 5;
 
   /**
    * The feature id for the '<em><b>Assertions</b></em>' containment reference list.
@@ -248,7 +239,7 @@ public interface TestLangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int TEST_CASE__ASSERTIONS = 7;
+  int TEST_CASE__ASSERTIONS = 6;
 
   /**
    * The number of structural features of the '<em>Test Case</em>' class.
@@ -257,7 +248,7 @@ public interface TestLangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int TEST_CASE_FEATURE_COUNT = 8;
+  int TEST_CASE_FEATURE_COUNT = 7;
 
   /**
    * The meta object id for the '{@link org.modelexecution.fumltesting.testLang.impl.ActivityInputImpl <em>Activity Input</em>}' class.
@@ -630,22 +621,13 @@ public interface TestLangPackage extends EPackage
   int STATE_ASSERTION__UNTIL_ACTION = ASSERTION_FEATURE_COUNT + 3;
 
   /**
-   * The feature id for the '<em><b>Invariants</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int STATE_ASSERTION__INVARIANTS = ASSERTION_FEATURE_COUNT + 4;
-
-  /**
    * The feature id for the '<em><b>Expressions</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int STATE_ASSERTION__EXPRESSIONS = ASSERTION_FEATURE_COUNT + 5;
+  int STATE_ASSERTION__EXPRESSIONS = ASSERTION_FEATURE_COUNT + 4;
 
   /**
    * The number of structural features of the '<em>State Assertion</em>' class.
@@ -654,7 +636,7 @@ public interface TestLangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int STATE_ASSERTION_FEATURE_COUNT = ASSERTION_FEATURE_COUNT + 6;
+  int STATE_ASSERTION_FEATURE_COUNT = ASSERTION_FEATURE_COUNT + 5;
 
   /**
    * The meta object id for the '{@link org.modelexecution.fumltesting.testLang.impl.FinallyStateAssertionImpl <em>Finally State Assertion</em>}' class.
@@ -943,34 +925,6 @@ public interface TestLangPackage extends EPackage
   int NODE_SPECIFICATION_FEATURE_COUNT = 4;
 
   /**
-   * The meta object id for the '{@link org.modelexecution.fumltesting.testLang.impl.OCLInvariantsImpl <em>OCL Invariants</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.modelexecution.fumltesting.testLang.impl.OCLInvariantsImpl
-   * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getOCLInvariants()
-   * @generated
-   */
-  int OCL_INVARIANTS = 21;
-
-  /**
-   * The feature id for the '<em><b>Invariants</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int OCL_INVARIANTS__INVARIANTS = 0;
-
-  /**
-   * The number of structural features of the '<em>OCL Invariants</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int OCL_INVARIANTS_FEATURE_COUNT = 1;
-
-  /**
    * The meta object id for the '{@link org.modelexecution.fumltesting.testLang.ArithmeticOperator <em>Arithmetic Operator</em>}' enum.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -978,7 +932,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getArithmeticOperator()
    * @generated
    */
-  int ARITHMETIC_OPERATOR = 22;
+  int ARITHMETIC_OPERATOR = 21;
 
   /**
    * The meta object id for the '{@link org.modelexecution.fumltesting.testLang.TemporalOperator <em>Temporal Operator</em>}' enum.
@@ -988,7 +942,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getTemporalOperator()
    * @generated
    */
-  int TEMPORAL_OPERATOR = 23;
+  int TEMPORAL_OPERATOR = 22;
 
   /**
    * The meta object id for the '{@link org.modelexecution.fumltesting.testLang.TemporalQuantifier <em>Temporal Quantifier</em>}' enum.
@@ -998,7 +952,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getTemporalQuantifier()
    * @generated
    */
-  int TEMPORAL_QUANTIFIER = 24;
+  int TEMPORAL_QUANTIFIER = 23;
 
 
   /**
@@ -1161,17 +1115,6 @@ public interface TestLangPackage extends EPackage
    * @generated
    */
   EReference getTestCase_InitScenarios();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.modelexecution.fumltesting.testLang.TestCase#getInvariants <em>Invariants</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Invariants</em>'.
-   * @see org.modelexecution.fumltesting.testLang.TestCase#getInvariants()
-   * @see #getTestCase()
-   * @generated
-   */
-  EReference getTestCase_Invariants();
 
   /**
    * Returns the meta object for the containment reference list '{@link org.modelexecution.fumltesting.testLang.TestCase#getVariables <em>Variables</em>}'.
@@ -1527,17 +1470,6 @@ public interface TestLangPackage extends EPackage
   EReference getStateAssertion_UntilAction();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.modelexecution.fumltesting.testLang.StateAssertion#getInvariants <em>Invariants</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Invariants</em>'.
-   * @see org.modelexecution.fumltesting.testLang.StateAssertion#getInvariants()
-   * @see #getStateAssertion()
-   * @generated
-   */
-  EReference getStateAssertion_Invariants();
-
-  /**
    * Returns the meta object for the containment reference list '{@link org.modelexecution.fumltesting.testLang.StateAssertion#getExpressions <em>Expressions</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1740,27 +1672,6 @@ public interface TestLangPackage extends EPackage
   EAttribute getNodeSpecification_Joker();
 
   /**
-   * Returns the meta object for class '{@link org.modelexecution.fumltesting.testLang.OCLInvariants <em>OCL Invariants</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>OCL Invariants</em>'.
-   * @see org.modelexecution.fumltesting.testLang.OCLInvariants
-   * @generated
-   */
-  EClass getOCLInvariants();
-
-  /**
-   * Returns the meta object for the reference list '{@link org.modelexecution.fumltesting.testLang.OCLInvariants#getInvariants <em>Invariants</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Invariants</em>'.
-   * @see org.modelexecution.fumltesting.testLang.OCLInvariants#getInvariants()
-   * @see #getOCLInvariants()
-   * @generated
-   */
-  EReference getOCLInvariants_Invariants();
-
-  /**
    * Returns the meta object for enum '{@link org.modelexecution.fumltesting.testLang.ArithmeticOperator <em>Arithmetic Operator</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1940,14 +1851,6 @@ public interface TestLangPackage extends EPackage
      * @generated
      */
     EReference TEST_CASE__INIT_SCENARIOS = eINSTANCE.getTestCase_InitScenarios();
-
-    /**
-     * The meta object literal for the '<em><b>Invariants</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference TEST_CASE__INVARIANTS = eINSTANCE.getTestCase_Invariants();
 
     /**
      * The meta object literal for the '<em><b>Variables</b></em>' containment reference list feature.
@@ -2234,14 +2137,6 @@ public interface TestLangPackage extends EPackage
     EReference STATE_ASSERTION__UNTIL_ACTION = eINSTANCE.getStateAssertion_UntilAction();
 
     /**
-     * The meta object literal for the '<em><b>Invariants</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference STATE_ASSERTION__INVARIANTS = eINSTANCE.getStateAssertion_Invariants();
-
-    /**
      * The meta object literal for the '<em><b>Expressions</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2406,24 +2301,6 @@ public interface TestLangPackage extends EPackage
      * @generated
      */
     EAttribute NODE_SPECIFICATION__JOKER = eINSTANCE.getNodeSpecification_Joker();
-
-    /**
-     * The meta object literal for the '{@link org.modelexecution.fumltesting.testLang.impl.OCLInvariantsImpl <em>OCL Invariants</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.modelexecution.fumltesting.testLang.impl.OCLInvariantsImpl
-     * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getOCLInvariants()
-     * @generated
-     */
-    EClass OCL_INVARIANTS = eINSTANCE.getOCLInvariants();
-
-    /**
-     * The meta object literal for the '<em><b>Invariants</b></em>' reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference OCL_INVARIANTS__INVARIANTS = eINSTANCE.getOCLInvariants_Invariants();
 
     /**
      * The meta object literal for the '{@link org.modelexecution.fumltesting.testLang.ArithmeticOperator <em>Arithmetic Operator</em>}' enum.

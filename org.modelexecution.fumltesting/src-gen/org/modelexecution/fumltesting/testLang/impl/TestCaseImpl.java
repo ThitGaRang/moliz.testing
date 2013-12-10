@@ -23,7 +23,6 @@ import org.eclipse.uml2.uml.Activity;
 
 import org.modelexecution.fumltesting.testLang.ActivityInput;
 import org.modelexecution.fumltesting.testLang.Assertion;
-import org.modelexecution.fumltesting.testLang.OCLInvariants;
 import org.modelexecution.fumltesting.testLang.ObjectSpecification;
 import org.modelexecution.fumltesting.testLang.Scenario;
 import org.modelexecution.fumltesting.testLang.TestCase;
@@ -42,7 +41,6 @@ import org.modelexecution.fumltesting.testLang.VarDeclaration;
  *   <li>{@link org.modelexecution.fumltesting.testLang.impl.TestCaseImpl#getInputs <em>Inputs</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.testLang.impl.TestCaseImpl#getContextObject <em>Context Object</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.testLang.impl.TestCaseImpl#getInitScenarios <em>Init Scenarios</em>}</li>
- *   <li>{@link org.modelexecution.fumltesting.testLang.impl.TestCaseImpl#getInvariants <em>Invariants</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.testLang.impl.TestCaseImpl#getVariables <em>Variables</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.testLang.impl.TestCaseImpl#getAssertions <em>Assertions</em>}</li>
  * </ul>
@@ -111,16 +109,6 @@ public class TestCaseImpl extends MinimalEObjectImpl.Container implements TestCa
    * @ordered
    */
   protected EList<Scenario> initScenarios;
-
-  /**
-   * The cached value of the '{@link #getInvariants() <em>Invariants</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getInvariants()
-   * @generated
-   * @ordered
-   */
-  protected OCLInvariants invariants;
 
   /**
    * The cached value of the '{@link #getVariables() <em>Variables</em>}' containment reference list.
@@ -305,54 +293,6 @@ public class TestCaseImpl extends MinimalEObjectImpl.Container implements TestCa
    * <!-- end-user-doc -->
    * @generated
    */
-  public OCLInvariants getInvariants()
-  {
-    return invariants;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetInvariants(OCLInvariants newInvariants, NotificationChain msgs)
-  {
-    OCLInvariants oldInvariants = invariants;
-    invariants = newInvariants;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TestLangPackage.TEST_CASE__INVARIANTS, oldInvariants, newInvariants);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setInvariants(OCLInvariants newInvariants)
-  {
-    if (newInvariants != invariants)
-    {
-      NotificationChain msgs = null;
-      if (invariants != null)
-        msgs = ((InternalEObject)invariants).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - TestLangPackage.TEST_CASE__INVARIANTS, null, msgs);
-      if (newInvariants != null)
-        msgs = ((InternalEObject)newInvariants).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - TestLangPackage.TEST_CASE__INVARIANTS, null, msgs);
-      msgs = basicSetInvariants(newInvariants, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, TestLangPackage.TEST_CASE__INVARIANTS, newInvariants, newInvariants));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EList<VarDeclaration> getVariables()
   {
     if (variables == null)
@@ -388,8 +328,6 @@ public class TestCaseImpl extends MinimalEObjectImpl.Container implements TestCa
     {
       case TestLangPackage.TEST_CASE__INPUTS:
         return ((InternalEList<?>)getInputs()).basicRemove(otherEnd, msgs);
-      case TestLangPackage.TEST_CASE__INVARIANTS:
-        return basicSetInvariants(null, msgs);
       case TestLangPackage.TEST_CASE__VARIABLES:
         return ((InternalEList<?>)getVariables()).basicRemove(otherEnd, msgs);
       case TestLangPackage.TEST_CASE__ASSERTIONS:
@@ -420,8 +358,6 @@ public class TestCaseImpl extends MinimalEObjectImpl.Container implements TestCa
         return basicGetContextObject();
       case TestLangPackage.TEST_CASE__INIT_SCENARIOS:
         return getInitScenarios();
-      case TestLangPackage.TEST_CASE__INVARIANTS:
-        return getInvariants();
       case TestLangPackage.TEST_CASE__VARIABLES:
         return getVariables();
       case TestLangPackage.TEST_CASE__ASSERTIONS:
@@ -457,9 +393,6 @@ public class TestCaseImpl extends MinimalEObjectImpl.Container implements TestCa
       case TestLangPackage.TEST_CASE__INIT_SCENARIOS:
         getInitScenarios().clear();
         getInitScenarios().addAll((Collection<? extends Scenario>)newValue);
-        return;
-      case TestLangPackage.TEST_CASE__INVARIANTS:
-        setInvariants((OCLInvariants)newValue);
         return;
       case TestLangPackage.TEST_CASE__VARIABLES:
         getVariables().clear();
@@ -498,9 +431,6 @@ public class TestCaseImpl extends MinimalEObjectImpl.Container implements TestCa
       case TestLangPackage.TEST_CASE__INIT_SCENARIOS:
         getInitScenarios().clear();
         return;
-      case TestLangPackage.TEST_CASE__INVARIANTS:
-        setInvariants((OCLInvariants)null);
-        return;
       case TestLangPackage.TEST_CASE__VARIABLES:
         getVariables().clear();
         return;
@@ -531,8 +461,6 @@ public class TestCaseImpl extends MinimalEObjectImpl.Container implements TestCa
         return contextObject != null;
       case TestLangPackage.TEST_CASE__INIT_SCENARIOS:
         return initScenarios != null && !initScenarios.isEmpty();
-      case TestLangPackage.TEST_CASE__INVARIANTS:
-        return invariants != null;
       case TestLangPackage.TEST_CASE__VARIABLES:
         return variables != null && !variables.isEmpty();
       case TestLangPackage.TEST_CASE__ASSERTIONS:

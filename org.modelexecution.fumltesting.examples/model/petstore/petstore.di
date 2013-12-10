@@ -62,12 +62,6 @@
           <emfPageIdentifier href="petstore.notation#_EwtPMC_4EeOTpM28lqU8qA"/>
         </children>
         <children>
-          <emfPageIdentifier href="petstore.notation#_13MdwFNYEeO6uYBwzyfZpQ"/>
-        </children>
-        <children>
-          <emfPageIdentifier href="petstore.notation#_Z6sKQFYDEeOH4K9DCcU0VQ"/>
-        </children>
-        <children>
           <emfPageIdentifier href="petstore.notation#_zyYGEFjZEeO9FfFY5UJz4g"/>
         </children>
       </children>

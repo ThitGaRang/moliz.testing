@@ -14,7 +14,7 @@ public class ExecutionPathFinder {
 
 	private ExecutionGraph graph;
 	private ExecutionGraphNode startNode;
-	private ExecutionGraphNode endNode;
+	private ArrayList<ExecutionGraphNode> endNodes;
 	private ArrayList<LinkedList<ExecutionGraphNode>> paths;
 
 	public ExecutionPathFinder() {
@@ -31,7 +31,7 @@ public class ExecutionPathFinder {
 		graph.initGraph(execution);
 
 		startNode = graph.getRoot();
-		endNode = graph.getEndNode();
+		endNodes = graph.getEndNodes();
 
 		generatePaths(execution);
 	}
@@ -64,22 +64,28 @@ public class ExecutionPathFinder {
 	private void generatePath(ExecutionGraph graph, LinkedList<ExecutionGraphNode> visited) {
 		LinkedList<ExecutionGraphNode> nodes = new LinkedList<ExecutionGraphNode>(visited.getLast().getSuccessors());
 
+		Outer:
 		for (ExecutionGraphNode node : nodes) {
 			if (visited.contains(node)) {
 				continue;
 			}
-			if (node.getData() == endNode.getData()) {
-				visited.add(node);
-				addNewPath(visited);
-				visited.removeLast();
-				break;
-			}
+			for(ExecutionGraphNode endNode: endNodes){
+				if (node.getData() == endNode.getData()) {
+					visited.add(node);
+					addNewPath(visited);
+					visited.removeLast();
+					break Outer;
+				}
+			}			
 		}
 
+		Outer:
 		for (ExecutionGraphNode node : nodes) {
-			if (visited.contains(node) || node.getData() == endNode.getData()) {
-				continue;
-			}
+			for(ExecutionGraphNode endNode: endNodes){
+				if (visited.contains(node) || node.getData() == endNode.getData()) {
+					continue Outer;
+				}
+			}			
 			visited.addLast(node);
 			generatePath(graph, visited);
 			visited.removeLast();

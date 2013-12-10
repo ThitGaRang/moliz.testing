@@ -21,7 +21,6 @@ import org.eclipse.uml2.uml.Activity;
  *   <li>{@link org.modelexecution.fumltesting.testLang.TestCase#getInputs <em>Inputs</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.testLang.TestCase#getContextObject <em>Context Object</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.testLang.TestCase#getInitScenarios <em>Init Scenarios</em>}</li>
- *   <li>{@link org.modelexecution.fumltesting.testLang.TestCase#getInvariants <em>Invariants</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.testLang.TestCase#getVariables <em>Variables</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.testLang.TestCase#getAssertions <em>Assertions</em>}</li>
  * </ul>
@@ -142,32 +141,6 @@ public interface TestCase extends EObject
    * @generated
    */
   EList<Scenario> getInitScenarios();
-
-  /**
-   * Returns the value of the '<em><b>Invariants</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Invariants</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Invariants</em>' containment reference.
-   * @see #setInvariants(OCLInvariants)
-   * @see org.modelexecution.fumltesting.testLang.TestLangPackage#getTestCase_Invariants()
-   * @model containment="true"
-   * @generated
-   */
-  OCLInvariants getInvariants();
-
-  /**
-   * Sets the value of the '{@link org.modelexecution.fumltesting.testLang.TestCase#getInvariants <em>Invariants</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Invariants</em>' containment reference.
-   * @see #getInvariants()
-   * @generated
-   */
-  void setInvariants(OCLInvariants value);
 
   /**
    * Returns the value of the '<em><b>Variables</b></em>' containment reference list.

@@ -461,34 +461,16 @@ ruleTestCase returns [EObject current=null]
 )?(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getTestCaseAccess().getInvariantsOCLInvariantsParserRuleCall_8_0()); 
+	        newCompositeNode(grammarAccess.getTestCaseAccess().getVariablesVarDeclarationParserRuleCall_8_0()); 
 	    }
-		lv_invariants_19_0=ruleOCLInvariants		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getTestCaseRule());
-	        }
-       		set(
-       			$current, 
-       			"invariants",
-        		lv_invariants_19_0, 
-        		"OCLInvariants");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)?(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getTestCaseAccess().getVariablesVarDeclarationParserRuleCall_9_0()); 
-	    }
-		lv_variables_20_0=ruleVarDeclaration		{
+		lv_variables_19_0=ruleVarDeclaration		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getTestCaseRule());
 	        }
        		add(
        			$current, 
        			"variables",
-        		lv_variables_20_0, 
+        		lv_variables_19_0, 
         		"VarDeclaration");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -497,24 +479,24 @@ ruleTestCase returns [EObject current=null]
 )*(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getTestCaseAccess().getAssertionsAssertionParserRuleCall_10_0()); 
+	        newCompositeNode(grammarAccess.getTestCaseAccess().getAssertionsAssertionParserRuleCall_9_0()); 
 	    }
-		lv_assertions_21_0=ruleAssertion		{
+		lv_assertions_20_0=ruleAssertion		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getTestCaseRule());
 	        }
        		add(
        			$current, 
        			"assertions",
-        		lv_assertions_21_0, 
+        		lv_assertions_20_0, 
         		"Assertion");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)*	otherlv_22='}' 
+)*	otherlv_21='}' 
     {
-    	newLeafNode(otherlv_22, grammarAccess.getTestCaseAccess().getRightCurlyBracketKeyword_11());
+    	newLeafNode(otherlv_21, grammarAccess.getTestCaseAccess().getRightCurlyBracketKeyword_10());
     }
 )
 ;
@@ -1210,42 +1192,24 @@ ruleStateAssertion returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getStateAssertionAccess().getInvariantsOCLInvariantsParserRuleCall_4_0()); 
+	        newCompositeNode(grammarAccess.getStateAssertionAccess().getExpressionsStateExpressionParserRuleCall_4_0()); 
 	    }
-		lv_invariants_7_0=ruleOCLInvariants		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getStateAssertionRule());
-	        }
-       		set(
-       			$current, 
-       			"invariants",
-        		lv_invariants_7_0, 
-        		"OCLInvariants");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)?(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getStateAssertionAccess().getExpressionsStateExpressionParserRuleCall_5_0()); 
-	    }
-		lv_expressions_8_0=ruleStateExpression		{
+		lv_expressions_7_0=ruleStateExpression		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getStateAssertionRule());
 	        }
        		add(
        			$current, 
        			"expressions",
-        		lv_expressions_8_0, 
+        		lv_expressions_7_0, 
         		"StateExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)+	otherlv_9='}' 
+)+	otherlv_8='}' 
     {
-    	newLeafNode(otherlv_9, grammarAccess.getStateAssertionAccess().getRightCurlyBracketKeyword_6());
+    	newLeafNode(otherlv_8, grammarAccess.getStateAssertionAccess().getRightCurlyBracketKeyword_5());
     }
 )
 ;
@@ -1730,77 +1694,6 @@ ruleNodeSpecification returns [EObject current=null]
 
 )
 ))
-;
-
-
-
-
-
-// Entry rule entryRuleOCLInvariants
-entryRuleOCLInvariants returns [EObject current=null] 
-	:
-	{ newCompositeNode(grammarAccess.getOCLInvariantsRule()); }
-	 iv_ruleOCLInvariants=ruleOCLInvariants 
-	 { $current=$iv_ruleOCLInvariants.current; } 
-	 EOF 
-;
-
-// Rule OCLInvariants
-ruleOCLInvariants returns [EObject current=null] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-(	otherlv_0='checkInvariants' 
-    {
-    	newLeafNode(otherlv_0, grammarAccess.getOCLInvariantsAccess().getCheckInvariantsKeyword_0());
-    }
-	otherlv_1='[' 
-    {
-    	newLeafNode(otherlv_1, grammarAccess.getOCLInvariantsAccess().getLeftSquareBracketKeyword_1());
-    }
-(
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getOCLInvariantsRule());
-	        }
-        }
-		{ 
-	        newCompositeNode(grammarAccess.getOCLInvariantsAccess().getInvariantsInvCSCrossReference_2_0()); 
-	    }
-		ruleQualifiedName		{ 
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)(	otherlv_3=',' 
-    {
-    	newLeafNode(otherlv_3, grammarAccess.getOCLInvariantsAccess().getCommaKeyword_3_0());
-    }
-(
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getOCLInvariantsRule());
-	        }
-        }
-		{ 
-	        newCompositeNode(grammarAccess.getOCLInvariantsAccess().getInvariantsInvCSCrossReference_3_1_0()); 
-	    }
-		ruleQualifiedName		{ 
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-))*	otherlv_5=']' 
-    {
-    	newLeafNode(otherlv_5, grammarAccess.getOCLInvariantsAccess().getRightSquareBracketKeyword_4());
-    }
-	otherlv_6=';' 
-    {
-    	newLeafNode(otherlv_6, grammarAccess.getOCLInvariantsAccess().getSemicolonKeyword_5());
-    }
-)
 ;
 
 

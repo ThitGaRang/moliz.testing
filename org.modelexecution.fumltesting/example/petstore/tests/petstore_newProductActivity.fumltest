@@ -10,7 +10,6 @@ scenario TestData[
 ]
 
 test newProductTest activity NewProductActivity(mnemonic="x220", name="Lenovo Notebook x220")	on TestData.product{	
-	checkInvariants[noProducts];
 	var product = product;
 	
 	assertOrder NewProductActivity.init, NewProductActivity.createProduct, 
@@ -18,21 +17,17 @@ test newProductTest activity NewProductActivity(mnemonic="x220", name="Lenovo No
 	
 	assertState always before NewProductActivity.createProduct{product = null;}
 	assertState exactly before NewProductActivity.createProduct{
-		checkInvariants[noProduct];
 		product = null;
 	}
 	assertState always after NewProductActivity.createProduct{
-		checkInvariants[singleProduct];
 		product != null;
 	}
 	assertState exactly after NewProductActivity.createProduct{product != null;}
 		
 	assertState always after NewProductActivity.setMnemonic{
-		checkInvariants[singleProduct, productMnemonic];
 		product::mnemonic = "x220";
 	}	
 	assertState exactly after NewProductActivity.setMnemonic{
-		checkInvariants[singleProduct, productMnemonic];
 		product::mnemonic = "x220";
 	}
 	assertState always before NewProductActivity.setMnemonic{product::mnemonic = null;}

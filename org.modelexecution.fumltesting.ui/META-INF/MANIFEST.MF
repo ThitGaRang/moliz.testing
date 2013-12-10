@@ -22,5 +22,6 @@ Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: org.modelexecution.fumltesting.ui.contentassist,
  org.modelexecution.fumltesting.ui.contentassist.antlr,
- org.modelexecution.fumltesting.ui.internal
+ org.modelexecution.fumltesting.ui.internal,
+ org.modelexecution.fumltesting.ui.quickfix
 Bundle-Activator: org.modelexecution.fumltesting.ui.internal.TestLangActivator

@@ -4,7 +4,7 @@
     editorDirectory="/org.modelexecution.fumltesting.editor/src" modelPluginID="org.modelexecution.fumltesting"
     forceOverwrite="true" modelName="TestLang" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     complianceLevel="5.0" copyrightFields="false" editPluginID="org.modelexecution.fumltesting.edit"
-    editorPluginID="org.modelexecution.fumltesting.editor" runtimeVersion="2.8" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore ../../../../../org.eclipse.ocl.examples.xtext.completeocl/model/CompleteOCLCST.genmodel#//completeOCLCST ../../../../../org.eclipse.uml2.uml/model/UML.genmodel#//uml ../../../../../org.eclipse.xtext.xbase/model/Xbase.genmodel#//xbase">
+    editorPluginID="org.modelexecution.fumltesting.editor" runtimeVersion="2.8" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore ../../../../../org.eclipse.uml2.uml/model/UML.genmodel#//uml ../../../../../org.eclipse.xtext.xbase/model/Xbase.genmodel#//xbase">
   <genPackages prefix="TestLang" basePackage="org.modelexecution.fumltesting" resource="XML"
       disposableProviderFactory="true" ecorePackage="TestLang.ecore#/">
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="TestLang.ecore#//ArithmeticOperator">
@@ -43,7 +43,6 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TestLang.ecore#//TestCase/inputs"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference TestLang.ecore#//TestCase/contextObject"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference TestLang.ecore#//TestCase/initScenarios"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TestLang.ecore#//TestCase/invariants"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TestLang.ecore#//TestCase/variables"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TestLang.ecore#//TestCase/assertions"/>
     </genClasses>
@@ -85,7 +84,6 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TestLang.ecore#//StateAssertion/temporalOperator"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference TestLang.ecore#//StateAssertion/referenceAction"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference TestLang.ecore#//StateAssertion/untilAction"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TestLang.ecore#//StateAssertion/invariants"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TestLang.ecore#//StateAssertion/expressions"/>
     </genClasses>
     <genClasses ecoreClass="TestLang.ecore#//FinallyStateAssertion">
@@ -111,9 +109,6 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TestLang.ecore#//NodeSpecification/size"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TestLang.ecore#//NodeSpecification/subOrder"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TestLang.ecore#//NodeSpecification/joker"/>
-    </genClasses>
-    <genClasses ecoreClass="TestLang.ecore#//OCLInvariants">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference TestLang.ecore#//OCLInvariants/invariants"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

@@ -26,6 +26,8 @@ import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
 import fUML.Syntax.Actions.BasicActions.Action;
 import fUML.Syntax.Actions.BasicActions.CallBehaviorAction;
+import fUML.Syntax.Actions.BasicActions.InputPin;
+import fUML.Syntax.Actions.BasicActions.OutputPin;
 import fUML.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityEdge;
@@ -230,11 +232,21 @@ public class ActivityExecutor implements ExecutionEventListener {
 						isFree = false;
 				}
 			}
+			if (node instanceof Action) {
+				for (InputPin pin : ((Action) node).input) {
+					if (pin.incoming.size() > 0)
+						isFree = false;
+				}
+			}
+			if(node instanceof InitialNode || node instanceof ActivityParameterNode){
+				isFree = false;
+			}
 			if (isFree)
 				freeNodes.add(node);
 		}
 
 		if (freeNodes.size() > 1) {
+			System.out.println("Fake initial-join nodes added.");
 			InitialNode initFake = ActivityFactory.createInitialNode(activity, "fake_init");
 			ForkNode forkFake = ActivityFactory.createForkNode(activity, "fake_fork");
 			ActivityFactory.createControlFlow(activity, initFake, forkFake);
@@ -254,15 +266,25 @@ public class ActivityExecutor implements ExecutionEventListener {
 					if (edge instanceof ControlFlow)
 						isFree = false;
 					if (edge instanceof ObjectFlow) {
-						if (edge.target instanceof Action)
+						if (edge.target instanceof Action || edge.target instanceof InputPin)
 							isFree = false;
 					}
+				}
+				if (node instanceof Action) {
+					for (OutputPin pin : ((Action) node).output) {
+						if (pin.outgoing.size() > 0)
+							isFree = false;
+					}
+				}
+				if (node instanceof ActivityParameterNode || node instanceof FinalNode) {
+					isFree = false;
 				}
 				if (isFree)
 					freeNodes.add(node);
 			}
 
 			for (ActivityNode freeNode : freeNodes) {
+				System.out.println("Fake control flow from " + freeNode.name + " to " + finalNode.name + " added.");
 				ActivityFactory.createControlFlow(activity, freeNode, finalNode);
 			}
 		}
