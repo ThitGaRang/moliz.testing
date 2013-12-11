@@ -15,7 +15,5 @@ test addCartItemTest activity AddCartItemActivity(item=TestData.item, quantity=1
 	assertOrder AddCartItemActivity.init, AddCartItemActivity.self, AddCartItemActivity.createCartItem, 
 		AddCartItemActivity.initCartItem, AddCartItemActivity.addCartItem, AddCartItemActivity.final;
 		
-	assertState always after AddCartItemActivity.addCartItem{
-		cartItem::item = TestData.item;
-	}
+	assertState always after AddCartItemActivity.addCartItem{cartItem::item = TestData.item;}
 }

@@ -576,7 +576,7 @@
         <weight xmi:type="uml:LiteralInteger" xmi:id="_bssRsDAXEeOTpM28lqU8qA"/>
       </edge>
       <node xmi:type="uml:InitialNode" xmi:id="_J8Bh4DAWEeOTpM28lqU8qA" name="init" outgoing="_V-xiEDAWEeOTpM28lqU8qA"/>
-      <node xmi:type="uml:ReadSelfAction" xmi:id="_N7MGIDAWEeOTpM28lqU8qA" name="self" incoming="_V-xiEDAWEeOTpM28lqU8qA">
+      <node xmi:type="uml:ReadSelfAction" xmi:id="_N7MGIDAWEeOTpM28lqU8qA" name="unitCostSelf" incoming="_V-xiEDAWEeOTpM28lqU8qA">
         <result xmi:type="uml:OutputPin" xmi:id="_T-UtQDAWEeOTpM28lqU8qA" name="result" outgoing="__EDdUDAWEeOTpM28lqU8qA" type="_-ovggC_5EeOTpM28lqU8qA">
           <upperBound xmi:type="uml:LiteralInteger" xmi:id="_-Obc4DAWEeOTpM28lqU8qA" value="1"/>
         </result>
@@ -624,10 +624,6 @@
         <guard xmi:type="uml:LiteralBoolean" xmi:id="_gmE5EDD0EeO5a9X2Dk_YNQ" value="true"/>
         <weight xmi:type="uml:LiteralInteger" xmi:id="_gmGHMDD0EeO5a9X2Dk_YNQ" value="1"/>
       </edge>
-      <edge xmi:type="uml:ControlFlow" xmi:id="_zDlgwDD1EeO5a9X2Dk_YNQ" name="ControlFlow2" source="_pVGbgDDwEeO5a9X2Dk_YNQ" target="_iFqj4DDxEeO5a9X2Dk_YNQ">
-        <guard xmi:type="uml:LiteralBoolean" xmi:id="_zDokEDD1EeO5a9X2Dk_YNQ" value="true"/>
-        <weight xmi:type="uml:LiteralInteger" xmi:id="_zDpyMDD1EeO5a9X2Dk_YNQ"/>
-      </edge>
       <edge xmi:type="uml:ObjectFlow" xmi:id="_BlLh8DD2EeO5a9X2Dk_YNQ" name="ObjectFlow6" source="_Rcm8YDDwEeO5a9X2Dk_YNQ" target="_-O3GYDD1EeO5a9X2Dk_YNQ">
         <guard xmi:type="uml:LiteralBoolean" xmi:id="_BlOlQDD2EeO5a9X2Dk_YNQ" value="true"/>
         <weight xmi:type="uml:LiteralInteger" xmi:id="_BlPMUDD2EeO5a9X2Dk_YNQ" value="1"/>
@@ -645,12 +641,12 @@
         <weight xmi:type="uml:LiteralInteger" xmi:id="_i0b8IDD2EeO5a9X2Dk_YNQ"/>
       </edge>
       <node xmi:type="uml:InitialNode" xmi:id="_KXhJADDwEeO5a9X2Dk_YNQ" name="initial" outgoing="_UPRRQDDwEeO5a9X2Dk_YNQ"/>
-      <node xmi:type="uml:ReadSelfAction" xmi:id="_OKnAIDDwEeO5a9X2Dk_YNQ" name="self" incoming="_UPRRQDDwEeO5a9X2Dk_YNQ">
+      <node xmi:type="uml:ReadSelfAction" xmi:id="_OKnAIDDwEeO5a9X2Dk_YNQ" name="totalCostSelf" incoming="_UPRRQDDwEeO5a9X2Dk_YNQ">
         <result xmi:type="uml:OutputPin" xmi:id="_Rcm8YDDwEeO5a9X2Dk_YNQ" name="result" outgoing="_BlLh8DD2EeO5a9X2Dk_YNQ" type="_-ovggC_5EeOTpM28lqU8qA">
           <upperBound xmi:type="uml:LiteralInteger" xmi:id="_2VV-sDDwEeO5a9X2Dk_YNQ" value="1"/>
         </result>
       </node>
-      <node xmi:type="uml:CallOperationAction" xmi:id="_pVGbgDDwEeO5a9X2Dk_YNQ" name="getUnitCost" outgoing="_zDlgwDD1EeO5a9X2Dk_YNQ" operation="_oXH-8DABEeOTpM28lqU8qA">
+      <node xmi:type="uml:CallOperationAction" xmi:id="_pVGbgDDwEeO5a9X2Dk_YNQ" name="getUnitCost" operation="_oXH-8DABEeOTpM28lqU8qA">
         <result xmi:type="uml:OutputPin" xmi:id="_pVKs8DDwEeO5a9X2Dk_YNQ" name="unitCost" outgoing="_2Yyz8DDzEeO5a9X2Dk_YNQ">
           <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_pVKs8jDwEeO5a9X2Dk_YNQ" source="PinToParameterLink">
             <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_pVKs8zDwEeO5a9X2Dk_YNQ" key="PinToParameterLink" value="_saE3ADABEeOTpM28lqU8qA"/>
@@ -662,7 +658,7 @@
           <upperBound xmi:type="uml:LiteralInteger" xmi:id="_pVNwQTDwEeO5a9X2Dk_YNQ" value="1"/>
         </target>
       </node>
-      <node xmi:type="uml:ReadStructuralFeatureAction" xmi:id="_iFqj4DDxEeO5a9X2Dk_YNQ" name="getQuantity" incoming="_zDlgwDD1EeO5a9X2Dk_YNQ" structuralFeature="_AyUcIC_6EeOTpM28lqU8qA">
+      <node xmi:type="uml:ReadStructuralFeatureAction" xmi:id="_iFqj4DDxEeO5a9X2Dk_YNQ" name="getQuantity" structuralFeature="_AyUcIC_6EeOTpM28lqU8qA">
         <object xmi:type="uml:InputPin" xmi:id="_iFx4oDDxEeO5a9X2Dk_YNQ" name="object" incoming="_Du8q0DD2EeO5a9X2Dk_YNQ" type="_-ovggC_5EeOTpM28lqU8qA">
           <upperBound xmi:type="uml:LiteralInteger" xmi:id="_iFx4oTDxEeO5a9X2Dk_YNQ" value="1"/>
         </object>
@@ -700,40 +696,34 @@
     </packagedElement>
     <packagedElement xmi:type="uml:Activity" xmi:id="_BkOQsDGbEeOCXMRXgX6zRg" name="CatalogItemActivity" specification="_zxDEkDABEeOTpM28lqU8qA" node="_K5c6sDGbEeOCXMRXgX6zRg _N5N3cDGbEeOCXMRXgX6zRg _ZoIVoDGbEeOCXMRXgX6zRg _6lJwUDGbEeOCXMRXgX6zRg _sfj5MDGcEeOCXMRXgX6zRg">
       <ownedParameter xmi:type="uml:Parameter" xmi:id="_6kgQEDGbEeOCXMRXgX6zRg" name="catalogItem" type="_g_MeMC_4EeOTpM28lqU8qA" direction="out"/>
-      <edge xmi:type="uml:ControlFlow" xmi:id="_UKrOcDGbEeOCXMRXgX6zRg" name="ControlFlow1" source="_K5c6sDGbEeOCXMRXgX6zRg" target="_N5N3cDGbEeOCXMRXgX6zRg">
-        <guard xmi:type="uml:LiteralBoolean" xmi:id="_UKu40DGbEeOCXMRXgX6zRg" value="true"/>
-        <weight xmi:type="uml:LiteralInteger" xmi:id="_UKwG8DGbEeOCXMRXgX6zRg"/>
+      <edge xmi:type="uml:ControlFlow" xmi:id="_AuDz0GJmEeOD_7ArAIbbpg" name="ControlFlow1" source="_K5c6sDGbEeOCXMRXgX6zRg" target="_N5N3cDGbEeOCXMRXgX6zRg"/>
+      <edge xmi:type="uml:ControlFlow" xmi:id="_B0aX4GJmEeOD_7ArAIbbpg" name="ControlFlow2" source="_ZoIVoDGbEeOCXMRXgX6zRg" target="_sfj5MDGcEeOCXMRXgX6zRg"/>
+      <edge xmi:type="uml:ObjectFlow" xmi:id="_Ej-8gGJmEeOD_7ArAIbbpg" name="ObjectFlow1" source="_SKCzcDGbEeOCXMRXgX6zRg" target="_ZoNOIDGbEeOCXMRXgX6zRg">
+        <guard xmi:type="uml:LiteralBoolean" xmi:id="_EnQ6AGJmEeOD_7ArAIbbpg" value="true"/>
+        <weight xmi:type="uml:LiteralInteger" xmi:id="_EnRhEGJmEeOD_7ArAIbbpg" value="1"/>
       </edge>
-      <edge xmi:type="uml:ObjectFlow" xmi:id="_0K4bkDGbEeOCXMRXgX6zRg" name="ObjectFlow1" source="_SKCzcDGbEeOCXMRXgX6zRg" target="_ZoNOIDGbEeOCXMRXgX6zRg">
-        <guard xmi:type="uml:LiteralBoolean" xmi:id="_0K8F8DGbEeOCXMRXgX6zRg" value="true"/>
-        <weight xmi:type="uml:LiteralInteger" xmi:id="_0K9UEDGbEeOCXMRXgX6zRg" value="1"/>
+      <edge xmi:type="uml:ObjectFlow" xmi:id="_F_LIIGJmEeOD_7ArAIbbpg" name="ObjectFlow2" source="_ZoMAADGbEeOCXMRXgX6zRg" target="_6lJwUDGbEeOCXMRXgX6zRg">
+        <guard xmi:type="uml:LiteralBoolean" xmi:id="_F_M9UGJmEeOD_7ArAIbbpg" value="true"/>
+        <weight xmi:type="uml:LiteralInteger" xmi:id="_F_NkYGJmEeOD_7ArAIbbpg" value="1"/>
       </edge>
-      <edge xmi:type="uml:ObjectFlow" xmi:id="_8raSMDGbEeOCXMRXgX6zRg" name="ObjectFlow2" source="_ZoMAADGbEeOCXMRXgX6zRg" target="_6lJwUDGbEeOCXMRXgX6zRg">
-        <guard xmi:type="uml:LiteralBoolean" xmi:id="_8rd8kDGbEeOCXMRXgX6zRg" value="true"/>
-        <weight xmi:type="uml:LiteralInteger" xmi:id="_8rejoDGbEeOCXMRXgX6zRg" value="1"/>
-      </edge>
-      <edge xmi:type="uml:ControlFlow" xmi:id="_uljVUDGcEeOCXMRXgX6zRg" name="ControlFlow2" source="_ZoIVoDGbEeOCXMRXgX6zRg" target="_sfj5MDGcEeOCXMRXgX6zRg">
-        <guard xmi:type="uml:LiteralBoolean" xmi:id="_ulmYoDGcEeOCXMRXgX6zRg" value="true"/>
-        <weight xmi:type="uml:LiteralInteger" xmi:id="_ulm_sDGcEeOCXMRXgX6zRg"/>
-      </edge>
-      <node xmi:type="uml:InitialNode" xmi:id="_K5c6sDGbEeOCXMRXgX6zRg" name="init" outgoing="_UKrOcDGbEeOCXMRXgX6zRg"/>
-      <node xmi:type="uml:ReadSelfAction" xmi:id="_N5N3cDGbEeOCXMRXgX6zRg" name="self" incoming="_UKrOcDGbEeOCXMRXgX6zRg">
-        <result xmi:type="uml:OutputPin" xmi:id="_SKCzcDGbEeOCXMRXgX6zRg" name="result" outgoing="_0K4bkDGbEeOCXMRXgX6zRg" type="_-ovggC_5EeOTpM28lqU8qA">
+      <node xmi:type="uml:InitialNode" xmi:id="_K5c6sDGbEeOCXMRXgX6zRg" name="init" outgoing="_AuDz0GJmEeOD_7ArAIbbpg"/>
+      <node xmi:type="uml:ReadSelfAction" xmi:id="_N5N3cDGbEeOCXMRXgX6zRg" name="catalogItemSelf" incoming="_AuDz0GJmEeOD_7ArAIbbpg">
+        <result xmi:type="uml:OutputPin" xmi:id="_SKCzcDGbEeOCXMRXgX6zRg" name="result" outgoing="_Ej-8gGJmEeOD_7ArAIbbpg" type="_-ovggC_5EeOTpM28lqU8qA">
           <upperBound xmi:type="uml:LiteralInteger" xmi:id="_qxhfgDGbEeOCXMRXgX6zRg" value="1"/>
         </result>
       </node>
-      <node xmi:type="uml:ReadStructuralFeatureAction" xmi:id="_ZoIVoDGbEeOCXMRXgX6zRg" name="geItem" outgoing="_uljVUDGcEeOCXMRXgX6zRg" structuralFeature="_c7BIADABEeOTpM28lqU8qA">
-        <object xmi:type="uml:InputPin" xmi:id="_ZoNOIDGbEeOCXMRXgX6zRg" name="object" incoming="_0K4bkDGbEeOCXMRXgX6zRg" type="_-ovggC_5EeOTpM28lqU8qA">
+      <node xmi:type="uml:ReadStructuralFeatureAction" xmi:id="_ZoIVoDGbEeOCXMRXgX6zRg" name="geItem" outgoing="_B0aX4GJmEeOD_7ArAIbbpg" structuralFeature="_c7BIADABEeOTpM28lqU8qA">
+        <object xmi:type="uml:InputPin" xmi:id="_ZoNOIDGbEeOCXMRXgX6zRg" name="object" incoming="_Ej-8gGJmEeOD_7ArAIbbpg" type="_-ovggC_5EeOTpM28lqU8qA">
           <upperBound xmi:type="uml:LiteralInteger" xmi:id="_ZoNOITGbEeOCXMRXgX6zRg" value="1"/>
         </object>
-        <result xmi:type="uml:OutputPin" xmi:id="_ZoMAADGbEeOCXMRXgX6zRg" name="result" outgoing="_8raSMDGbEeOCXMRXgX6zRg" type="_g_MeMC_4EeOTpM28lqU8qA">
+        <result xmi:type="uml:OutputPin" xmi:id="_ZoMAADGbEeOCXMRXgX6zRg" name="result" outgoing="_F_LIIGJmEeOD_7ArAIbbpg" type="_g_MeMC_4EeOTpM28lqU8qA">
           <upperBound xmi:type="uml:LiteralInteger" xmi:id="_ZoMAATGbEeOCXMRXgX6zRg" value="1"/>
         </result>
       </node>
-      <node xmi:type="uml:ActivityParameterNode" xmi:id="_6lJwUDGbEeOCXMRXgX6zRg" name="catalogItem" incoming="_8raSMDGbEeOCXMRXgX6zRg" type="_g_MeMC_4EeOTpM28lqU8qA" isControlType="true" parameter="_6kgQEDGbEeOCXMRXgX6zRg">
+      <node xmi:type="uml:ActivityParameterNode" xmi:id="_6lJwUDGbEeOCXMRXgX6zRg" name="catalogItem" incoming="_F_LIIGJmEeOD_7ArAIbbpg" type="_g_MeMC_4EeOTpM28lqU8qA" isControlType="true" parameter="_6kgQEDGbEeOCXMRXgX6zRg">
         <upperBound xmi:type="uml:LiteralInteger" xmi:id="_6lKXYDGbEeOCXMRXgX6zRg" value="1"/>
       </node>
-      <node xmi:type="uml:ActivityFinalNode" xmi:id="_sfj5MDGcEeOCXMRXgX6zRg" name="final" incoming="_uljVUDGcEeOCXMRXgX6zRg"/>
+      <node xmi:type="uml:ActivityFinalNode" xmi:id="_sfj5MDGcEeOCXMRXgX6zRg" name="final" incoming="_B0aX4GJmEeOD_7ArAIbbpg"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Activity" xmi:id="_YbU-wDGwEeOCXMRXgX6zRg" name="AddCartItemActivity" specification="_keBOIC_7EeOTpM28lqU8qA" node="_3-_AgDG1EeOCXMRXgX6zRg _7mLJoDG1EeOCXMRXgX6zRg _LpDFcDG4EeOCXMRXgX6zRg _ONVAEDG4EeOCXMRXgX6zRg _URHHcDG4EeOCXMRXgX6zRg _IiLwQDG6EeOCXMRXgX6zRg _BRy2YDG7EeOCXMRXgX6zRg _dZV6cDG8EeOCXMRXgX6zRg">
       <ownedParameter xmi:type="uml:Parameter" xmi:id="_LoK7sDG4EeOCXMRXgX6zRg" name="item" type="_g_MeMC_4EeOTpM28lqU8qA"/>

@@ -11,92 +11,28 @@ scenario TestData[
 
 test totalCostTest activity TotalCostActivity on TestData.cartItem{
 	var cost = totalCost;
-	var cartItem = self.result;
+	var cartItem = totalCostSelf.result;
 	var unitCost = getUnitCost.unitCost;
 	var quantity = getQuantity.result;
 	
-	assertOrder TotalCostActivity.initial, TotalCostActivity.self, TotalCostActivity.getUnitCost, 
+	assertOrder TotalCostActivity.initial, TotalCostActivity.totalCostSelf, TotalCostActivity.getUnitCost, 
 		TotalCostActivity.getQuantity, TotalCostActivity.calculateTotalCost, TotalCostActivity.final;
 	
-	assertState always before TotalCostActivity.self{
-		cartItem = null;
-	}
-	assertState exactly before TotalCostActivity.self{
-		cartItem = null;
-	}
-	assertState always after TotalCostActivity.self{
-		cartItem != null;
-	}
-	assertState exactly after TotalCostActivity.self{
-		cartItem != null;
-	}
+	assertState always before TotalCostActivity.totalCostSelf{cartItem = null;}
+	assertState exactly before TotalCostActivity.totalCostSelf{cartItem = null;}
+	assertState always after TotalCostActivity.totalCostSelf{cartItem != null;}
+	assertState exactly after TotalCostActivity.totalCostSelf{cartItem != null;}
 	
-	assertState always before TotalCostActivity.getUnitCost{
-		cartItem != null;
-		unitCost = 100;
-	}
-	assertState exactly before TotalCostActivity.getUnitCost{
-		cartItem != null;
-		unitCost = 100;
-	}
-	assertState always after TotalCostActivity.getUnitCost{
-		cartItem != null;
-		unitCost != null;
-		unitCost = 100;
-	}
-	assertState exactly after TotalCostActivity.getUnitCost{
-		cartItem != null;
-		unitCost != null;
-		unitCost = 100;
-	}
+	assertState always before TotalCostActivity.getUnitCost{cartItem != null; unitCost = 100;}
+	assertState exactly before TotalCostActivity.getUnitCost{cartItem != null; unitCost = 100;}
+	assertState always after TotalCostActivity.getUnitCost{cartItem != null; unitCost = 100;}
+	assertState exactly after TotalCostActivity.getUnitCost{cartItem != null; unitCost = 100;}
 	
-	assertState always before TotalCostActivity.getQuantity{
-		cartItem != null;
-		quantity = null;
-	}
-	assertState exactly before TotalCostActivity.getQuantity{
-		cartItem != null;
-		quantity = null;
-	}
-	assertState always after TotalCostActivity.getQuantity{
-		cartItem != null;
-		quantity != null;
-		quantity = 5;
-	}
-	assertState exactly after TotalCostActivity.getQuantity{
-		cartItem != null;
-		quantity != null;
-		quantity = 5;
-	}
+	assertState always before TotalCostActivity.getQuantity{cartItem != null; quantity = null;}
+	assertState exactly before TotalCostActivity.getQuantity{cartItem != null; quantity = null;}
+	assertState always after TotalCostActivity.getQuantity{cartItem != null; quantity = 5;}
+	assertState exactly after TotalCostActivity.getQuantity{cartItem != null; quantity = 5;}
 	
-	assertState always before TotalCostActivity.calculateTotalCost{
-		cartItem != null;
-		unitCost != null;
-		unitCost = 100;
-		quantity = 5;
-		cost = null;
-	}
-	assertState exactly before TotalCostActivity.calculateTotalCost{
-		cartItem != null;
-		unitCost != null;
-		unitCost = 100;
-		quantity = 5;
-		cost = null;
-	}
-	assertState always after TotalCostActivity.calculateTotalCost{
-		cartItem != null;
-		unitCost != null;
-		unitCost = 100;
-		quantity = 5;
-		cost != null;
-		cost = 500;
-	}
-	assertState exactly after TotalCostActivity.calculateTotalCost{
-		cartItem != null;
-		unitCost != null;
-		unitCost = 100;
-		quantity = 5;
-		cost != null;
-		cost = 500;
-	}
+	assertState always after TotalCostActivity.calculateTotalCost{unitCost = 100; quantity = 5; cost = 500;}
+	assertState exactly after TotalCostActivity.calculateTotalCost{unitCost = 100; quantity = 5; cost = 500;}
 }

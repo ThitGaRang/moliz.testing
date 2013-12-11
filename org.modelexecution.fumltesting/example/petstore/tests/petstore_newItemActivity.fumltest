@@ -14,29 +14,13 @@ test newItemTest activity NewItemActivity(product=TestData.product){
 	
 	assertOrder NewItemActivity.init, NewItemActivity.createItem, NewItemActivity.setProduct, NewItemActivity.final;
 	
-	assertState always before NewItemActivity.createItem{
-		item = null;
-	}
-	assertState exactly before NewItemActivity.createItem{
-		item = null;
-	}	
-	assertState always after NewItemActivity.createItem{
-		item != null;
-	}
-	assertState exactly after NewItemActivity.createItem{
-		item != null;
-	}
+	assertState always before NewItemActivity.createItem{item = null;}
+	assertState exactly before NewItemActivity.createItem{item = null;}	
+	assertState always after NewItemActivity.createItem{item != null;}
+	assertState exactly after NewItemActivity.createItem{item != null;}
 	
-	assertState always before NewItemActivity.setProduct{
-		item::product = null;
-	}
-	assertState exactly before NewItemActivity.setProduct{
-		item::product = null;
-	}
-	assertState always after NewItemActivity.setProduct{
-		item::product = TestData.product;
-	}
-	assertState exactly after NewItemActivity.setProduct{
-		item::product = TestData.product;
-	}
+	assertState always before NewItemActivity.setProduct{item::product = null;}
+	assertState exactly before NewItemActivity.setProduct{item::product = null;}
+	assertState always after NewItemActivity.setProduct{item::product = TestData.product;}
+	assertState exactly after NewItemActivity.setProduct{item::product = TestData.product;}
 }

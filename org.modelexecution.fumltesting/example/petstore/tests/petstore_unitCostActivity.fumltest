@@ -14,49 +14,21 @@ test unitCostTest activity UnitCostActivity on TestData.cartItem{
 	var item = getItem.result;
 	var cost = getCost.result;
 	
-	assertOrder UnitCostActivity.init, UnitCostActivity.self, UnitCostActivity.getItem, 
+	assertOrder UnitCostActivity.init, UnitCostActivity.unitCostSelf, UnitCostActivity.getItem, 
 		UnitCostActivity.getCost, UnitCostActivity.final;
 	
-	assertState always before UnitCostActivity.self{
-		cartItem = null;
-	}
-	assertState exactly before UnitCostActivity.self{
-		cartItem = null;
-	}
-	assertState always after UnitCostActivity.self{
-		cartItem != null; 
-	}
-	assertState exactly after UnitCostActivity.self{
-		cartItem != null;
-	}
+	assertState always before UnitCostActivity.unitCostSelf{cartItem = null;}
+	assertState exactly before UnitCostActivity.unitCostSelf{cartItem = null;}
+	assertState always after UnitCostActivity.unitCostSelf{cartItem != null;}
+	assertState exactly after UnitCostActivity.unitCostSelf{cartItem != null;}
 	
-	assertState always before UnitCostActivity.getItem{
-		item = null;
-	}
-	assertState exactly before UnitCostActivity.getItem{
-		item = null;
-	}
-	assertState always after UnitCostActivity.getItem{
-		item != null;
-		item::unitCost = 100;
-	}
-	assertState exactly after UnitCostActivity.getItem{
-		item != null;
-		item::unitCost = 100;
-	}
+	assertState always before UnitCostActivity.getItem{item = null;}
+	assertState exactly before UnitCostActivity.getItem{item = null;}
+	assertState always after UnitCostActivity.getItem{item::unitCost = 100;}
+	assertState exactly after UnitCostActivity.getItem{item::unitCost = 100;}
 	
-	assertState always before UnitCostActivity.getCost{
-		cost = null;
-	}
-	assertState exactly before UnitCostActivity.getCost{
-		cost = null;
-	}
-	assertState always after UnitCostActivity.getCost{
-		cost != null;
-		cost = 100;
-	}
-	assertState exactly after UnitCostActivity.getCost{
-		cost != null;
-		cost = 100;
-	}
+	assertState always before UnitCostActivity.getCost{cost = null;}
+	assertState exactly before UnitCostActivity.getCost{cost = null;}
+	assertState always after UnitCostActivity.getCost{cost = 100;}
+	assertState exactly after UnitCostActivity.getCost{cost = 100;}
 }
