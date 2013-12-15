@@ -11,6 +11,8 @@ import org.eclipse.emf.ecore.EcorePackage;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
+import org.eclipse.ocl.examples.xtext.essentialocl.essentialOCLCST.EssentialOCLCSTPackage;
+
 import org.eclipse.uml2.uml.UMLPackage;
 
 import org.eclipse.xtext.xbase.XbasePackage;
@@ -267,6 +269,7 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
     isInited = true;
 
     // Initialize simple dependencies
+    EssentialOCLCSTPackage.eINSTANCE.eClass();
     UMLPackage.eINSTANCE.eClass();
     XbasePackage.eINSTANCE.eClass();
 
@@ -770,9 +773,19 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getStateAssertion_Expressions()
+  public EReference getStateAssertion_Constraints()
   {
     return (EReference)stateAssertionEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getStateAssertion_Expressions()
+  {
+    return (EReference)stateAssertionEClass.getEStructuralFeatures().get(5);
   }
 
   /**
@@ -1076,6 +1089,7 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
     createEAttribute(stateAssertionEClass, STATE_ASSERTION__TEMPORAL_OPERATOR);
     createEReference(stateAssertionEClass, STATE_ASSERTION__REFERENCE_ACTION);
     createEReference(stateAssertionEClass, STATE_ASSERTION__UNTIL_ACTION);
+    createEReference(stateAssertionEClass, STATE_ASSERTION__CONSTRAINTS);
     createEReference(stateAssertionEClass, STATE_ASSERTION__EXPRESSIONS);
 
     finallyStateAssertionEClass = createEClass(FINALLY_STATE_ASSERTION);
@@ -1137,6 +1151,7 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
     EcorePackage theEcorePackage = (EcorePackage)EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI);
     UMLPackage theUMLPackage = (UMLPackage)EPackage.Registry.INSTANCE.getEPackage(UMLPackage.eNS_URI);
     XbasePackage theXbasePackage = (XbasePackage)EPackage.Registry.INSTANCE.getEPackage(XbasePackage.eNS_URI);
+    EssentialOCLCSTPackage theEssentialOCLCSTPackage = (EssentialOCLCSTPackage)EPackage.Registry.INSTANCE.getEPackage(EssentialOCLCSTPackage.eNS_URI);
 
     // Create type parameters
 
@@ -1213,6 +1228,7 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
     initEAttribute(getStateAssertion_TemporalOperator(), this.getTemporalOperator(), "temporalOperator", null, 0, 1, StateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getStateAssertion_ReferenceAction(), theUMLPackage.getAction(), null, "referenceAction", null, 0, 1, StateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getStateAssertion_UntilAction(), theUMLPackage.getAction(), null, "untilAction", null, 0, 1, StateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getStateAssertion_Constraints(), theEssentialOCLCSTPackage.getExpCS(), null, "constraints", null, 0, -1, StateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getStateAssertion_Expressions(), this.getStateExpression(), null, "expressions", null, 0, -1, StateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(finallyStateAssertionEClass, FinallyStateAssertion.class, "FinallyStateAssertion", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

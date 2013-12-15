@@ -691,19 +691,33 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		private final CrossReference cUntilActionActionCrossReference_2_1_0 = (CrossReference)cUntilActionAssignment_2_1.eContents().get(0);
 		private final RuleCall cUntilActionActionQualifiedNameParserRuleCall_2_1_0_1 = (RuleCall)cUntilActionActionCrossReference_2_1_0.eContents().get(1);
 		private final Keyword cLeftCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Assignment cExpressionsAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final RuleCall cExpressionsStateExpressionParserRuleCall_4_0 = (RuleCall)cExpressionsAssignment_4.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Keyword cCheckKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Keyword cLeftSquareBracketKeyword_4_1 = (Keyword)cGroup_4.eContents().get(1);
+		private final Assignment cConstraintsAssignment_4_2 = (Assignment)cGroup_4.eContents().get(2);
+		private final CrossReference cConstraintsExpCSCrossReference_4_2_0 = (CrossReference)cConstraintsAssignment_4_2.eContents().get(0);
+		private final RuleCall cConstraintsExpCSQualifiedNameParserRuleCall_4_2_0_1 = (RuleCall)cConstraintsExpCSCrossReference_4_2_0.eContents().get(1);
+		private final Group cGroup_4_3 = (Group)cGroup_4.eContents().get(3);
+		private final Keyword cCommaKeyword_4_3_0 = (Keyword)cGroup_4_3.eContents().get(0);
+		private final Assignment cConstraintsAssignment_4_3_1 = (Assignment)cGroup_4_3.eContents().get(1);
+		private final CrossReference cConstraintsExpCSCrossReference_4_3_1_0 = (CrossReference)cConstraintsAssignment_4_3_1.eContents().get(0);
+		private final RuleCall cConstraintsExpCSQualifiedNameParserRuleCall_4_3_1_0_1 = (RuleCall)cConstraintsExpCSCrossReference_4_3_1_0.eContents().get(1);
+		private final Keyword cRightSquareBracketKeyword_4_4 = (Keyword)cGroup_4.eContents().get(4);
+		private final Assignment cExpressionsAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final RuleCall cExpressionsStateExpressionParserRuleCall_5_0 = (RuleCall)cExpressionsAssignment_5.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//StateAssertion:
 		//	("assertState" temporalQuantifier=TemporalQuantifier temporalOperator=TemporalOperator)
-		//	referenceAction=[uml::Action|QualifiedName] ("until" untilAction=[uml::Action|QualifiedName])? "{"
-		//	expressions+=StateExpression+ "}";
+		//	referenceAction=[uml::Action|QualifiedName] ("until" untilAction=[uml::Action|QualifiedName])? "{" ("check" "["
+		//	constraints+=[essentialOCL::ExpCS|QualifiedName] ("," constraints+=[essentialOCL::ExpCS|QualifiedName])* "]")?
+		//	expressions+=StateExpression* "}";
 		public ParserRule getRule() { return rule; }
 
 		//("assertState" temporalQuantifier=TemporalQuantifier temporalOperator=TemporalOperator)
-		//referenceAction=[uml::Action|QualifiedName] ("until" untilAction=[uml::Action|QualifiedName])? "{"
-		//expressions+=StateExpression+ "}"
+		//referenceAction=[uml::Action|QualifiedName] ("until" untilAction=[uml::Action|QualifiedName])? "{" ("check" "["
+		//constraints+=[essentialOCL::ExpCS|QualifiedName] ("," constraints+=[essentialOCL::ExpCS|QualifiedName])* "]")?
+		//expressions+=StateExpression* "}"
 		public Group getGroup() { return cGroup; }
 
 		//"assertState" temporalQuantifier=TemporalQuantifier temporalOperator=TemporalOperator
@@ -751,14 +765,51 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		//"{"
 		public Keyword getLeftCurlyBracketKeyword_3() { return cLeftCurlyBracketKeyword_3; }
 
-		//expressions+=StateExpression+
-		public Assignment getExpressionsAssignment_4() { return cExpressionsAssignment_4; }
+		//("check" "[" constraints+=[essentialOCL::ExpCS|QualifiedName] ("," constraints+=[essentialOCL::ExpCS|QualifiedName])*
+		//"]")?
+		public Group getGroup_4() { return cGroup_4; }
+
+		//"check"
+		public Keyword getCheckKeyword_4_0() { return cCheckKeyword_4_0; }
+
+		//"["
+		public Keyword getLeftSquareBracketKeyword_4_1() { return cLeftSquareBracketKeyword_4_1; }
+
+		//constraints+=[essentialOCL::ExpCS|QualifiedName]
+		public Assignment getConstraintsAssignment_4_2() { return cConstraintsAssignment_4_2; }
+
+		//[essentialOCL::ExpCS|QualifiedName]
+		public CrossReference getConstraintsExpCSCrossReference_4_2_0() { return cConstraintsExpCSCrossReference_4_2_0; }
+
+		//QualifiedName
+		public RuleCall getConstraintsExpCSQualifiedNameParserRuleCall_4_2_0_1() { return cConstraintsExpCSQualifiedNameParserRuleCall_4_2_0_1; }
+
+		//("," constraints+=[essentialOCL::ExpCS|QualifiedName])*
+		public Group getGroup_4_3() { return cGroup_4_3; }
+
+		//","
+		public Keyword getCommaKeyword_4_3_0() { return cCommaKeyword_4_3_0; }
+
+		//constraints+=[essentialOCL::ExpCS|QualifiedName]
+		public Assignment getConstraintsAssignment_4_3_1() { return cConstraintsAssignment_4_3_1; }
+
+		//[essentialOCL::ExpCS|QualifiedName]
+		public CrossReference getConstraintsExpCSCrossReference_4_3_1_0() { return cConstraintsExpCSCrossReference_4_3_1_0; }
+
+		//QualifiedName
+		public RuleCall getConstraintsExpCSQualifiedNameParserRuleCall_4_3_1_0_1() { return cConstraintsExpCSQualifiedNameParserRuleCall_4_3_1_0_1; }
+
+		//"]"
+		public Keyword getRightSquareBracketKeyword_4_4() { return cRightSquareBracketKeyword_4_4; }
+
+		//expressions+=StateExpression*
+		public Assignment getExpressionsAssignment_5() { return cExpressionsAssignment_5; }
 
 		//StateExpression
-		public RuleCall getExpressionsStateExpressionParserRuleCall_4_0() { return cExpressionsStateExpressionParserRuleCall_4_0; }
+		public RuleCall getExpressionsStateExpressionParserRuleCall_5_0() { return cExpressionsStateExpressionParserRuleCall_5_0; }
 
 		//"}"
-		public Keyword getRightCurlyBracketKeyword_5() { return cRightCurlyBracketKeyword_5; }
+		public Keyword getRightCurlyBracketKeyword_6() { return cRightCurlyBracketKeyword_6; }
 	}
 
 	public class FinallyStateAssertionElements extends AbstractParserRuleElementFinder {
@@ -1396,8 +1447,9 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 
 	//StateAssertion:
 	//	("assertState" temporalQuantifier=TemporalQuantifier temporalOperator=TemporalOperator)
-	//	referenceAction=[uml::Action|QualifiedName] ("until" untilAction=[uml::Action|QualifiedName])? "{"
-	//	expressions+=StateExpression+ "}";
+	//	referenceAction=[uml::Action|QualifiedName] ("until" untilAction=[uml::Action|QualifiedName])? "{" ("check" "["
+	//	constraints+=[essentialOCL::ExpCS|QualifiedName] ("," constraints+=[essentialOCL::ExpCS|QualifiedName])* "]")?
+	//	expressions+=StateExpression* "}";
 	public StateAssertionElements getStateAssertionAccess() {
 		return (pStateAssertion != null) ? pStateAssertion : (pStateAssertion = new StateAssertionElements());
 	}

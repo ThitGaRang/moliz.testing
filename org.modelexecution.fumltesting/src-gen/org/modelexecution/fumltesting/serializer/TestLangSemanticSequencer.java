@@ -1375,7 +1375,8 @@ public class TestLangSemanticSequencer extends XbaseSemanticSequencer {
 	 *         temporalOperator=TemporalOperator 
 	 *         referenceAction=[Action|QualifiedName] 
 	 *         untilAction=[Action|QualifiedName]? 
-	 *         expressions+=StateExpression+
+	 *         (constraints+=[ExpCS|QualifiedName] constraints+=[ExpCS|QualifiedName]*)? 
+	 *         expressions+=StateExpression*
 	 *     )
 	 */
 	protected void sequence_StateAssertion(EObject context, StateAssertion semanticObject) {

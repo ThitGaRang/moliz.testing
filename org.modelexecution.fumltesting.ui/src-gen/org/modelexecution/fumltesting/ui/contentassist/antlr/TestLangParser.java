@@ -98,6 +98,8 @@ public class TestLangParser extends AbstractContentAssistParser {
 					put(grammarAccess.getStateAssertionAccess().getGroup(), "rule__StateAssertion__Group__0");
 					put(grammarAccess.getStateAssertionAccess().getGroup_0(), "rule__StateAssertion__Group_0__0");
 					put(grammarAccess.getStateAssertionAccess().getGroup_2(), "rule__StateAssertion__Group_2__0");
+					put(grammarAccess.getStateAssertionAccess().getGroup_4(), "rule__StateAssertion__Group_4__0");
+					put(grammarAccess.getStateAssertionAccess().getGroup_4_3(), "rule__StateAssertion__Group_4_3__0");
 					put(grammarAccess.getFinallyStateAssertionAccess().getGroup(), "rule__FinallyStateAssertion__Group__0");
 					put(grammarAccess.getObjectStateExpressionAccess().getGroup(), "rule__ObjectStateExpression__Group__0");
 					put(grammarAccess.getPropertyStateExpressionAccess().getGroup(), "rule__PropertyStateExpression__Group__0");
@@ -296,7 +298,9 @@ public class TestLangParser extends AbstractContentAssistParser {
 					put(grammarAccess.getStateAssertionAccess().getTemporalOperatorAssignment_0_2(), "rule__StateAssertion__TemporalOperatorAssignment_0_2");
 					put(grammarAccess.getStateAssertionAccess().getReferenceActionAssignment_1(), "rule__StateAssertion__ReferenceActionAssignment_1");
 					put(grammarAccess.getStateAssertionAccess().getUntilActionAssignment_2_1(), "rule__StateAssertion__UntilActionAssignment_2_1");
-					put(grammarAccess.getStateAssertionAccess().getExpressionsAssignment_4(), "rule__StateAssertion__ExpressionsAssignment_4");
+					put(grammarAccess.getStateAssertionAccess().getConstraintsAssignment_4_2(), "rule__StateAssertion__ConstraintsAssignment_4_2");
+					put(grammarAccess.getStateAssertionAccess().getConstraintsAssignment_4_3_1(), "rule__StateAssertion__ConstraintsAssignment_4_3_1");
+					put(grammarAccess.getStateAssertionAccess().getExpressionsAssignment_5(), "rule__StateAssertion__ExpressionsAssignment_5");
 					put(grammarAccess.getFinallyStateAssertionAccess().getExpressionsAssignment_2(), "rule__FinallyStateAssertion__ExpressionsAssignment_2");
 					put(grammarAccess.getObjectStateExpressionAccess().getPinAssignment_0(), "rule__ObjectStateExpression__PinAssignment_0");
 					put(grammarAccess.getObjectStateExpressionAccess().getOperatorAssignment_1(), "rule__ObjectStateExpression__OperatorAssignment_1");

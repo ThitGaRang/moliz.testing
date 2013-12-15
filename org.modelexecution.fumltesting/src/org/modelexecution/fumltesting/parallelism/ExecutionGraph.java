@@ -22,7 +22,7 @@ public class ExecutionGraph {
 
 	/** Takes a node and generates executions from it till the last node. */
 	private ExecutionGraphNode generateExecutionGraphNode(ExecutionGraphNode node) {
-		List<ActivityNodeExecution> allPossibleSuccessors = getAllPossibleSuccessors(node.getData(), new ArrayList<ActivityNodeExecution>());
+		List<ActivityNodeExecution> allPossibleSuccessors = getAllPossibleSuccessors(node, new ArrayList<ActivityNodeExecution>());
 
 		for (ActivityNodeExecution successor : allPossibleSuccessors) {
 			boolean canAdd = canAddSuccessor(node, successor);
@@ -43,23 +43,39 @@ public class ExecutionGraph {
 	 */
 	private boolean canAddSuccessor(ExecutionGraphNode node, ActivityNodeExecution successor) {
 		for (ActivityNodeExecution predecessor : successor.getLogicalPredecessor()) {
-			if (!node.containsPredecessor(predecessor) && node.getData() != predecessor && node.getData() != successor) {
+			if (!node.containsPredecessor(predecessor) && node.getData() != predecessor 
+					&& node.getData() != successor && !node.containsPredecessor(successor)) {
 				return false;
 			}
+			if(node.containsSuccessor(successor))return false;
 		}
 		return true;
 	}
 
 	/** Returns all logical and all possible non-logical successors of the node. */
-	private List<ActivityNodeExecution> getAllPossibleSuccessors(ActivityNodeExecution nodeExecution, List<ActivityNodeExecution> allSuccessors) {
+	private List<ActivityNodeExecution> getAllPossibleSuccessors(ExecutionGraphNode node, List<ActivityNodeExecution> allSuccessors) {
+		ActivityNodeExecution nodeExecution = node.getData();
+		
 		List<ActivityNodeExecution> allLogicalSuccessors = getAllLogicalSuccessors(nodeExecution, new ArrayList<ActivityNodeExecution>());
 		List<ActivityNodeExecution> allLogicalPredecessors = getAllLogicalPredecessors(nodeExecution, new ArrayList<ActivityNodeExecution>());
-
+				
+		List<ActivityNodeExecution> freeNodes = getAllFreeNodes(nodeExecution.getActivityExecution());
+		for(ActivityNodeExecution aNodeExecution: freeNodes){
+			if(aNodeExecution != nodeExecution){
+				allSuccessors.add(aNodeExecution);
+				ArrayList<ActivityNodeExecution> successorsOfANode = new ArrayList<ActivityNodeExecution>(getAllLogicalSuccessors(aNodeExecution, new ArrayList<ActivityNodeExecution>()));
+				successorsOfANode.removeAll(getAllLogicalSuccessors(node.getData(), new ArrayList<ActivityNodeExecution>()));
+				successorsOfANode.remove(node.getData());
+				allSuccessors.addAll(successorsOfANode);
+			}
+		}
+		
 		for (ActivityNodeExecution successor : nodeExecution.getLogicalSuccessor()) {
 			allSuccessors.add(successor);
 			for (ActivityNodeExecution predecessor : getAllLogicalPredecessors(nodeExecution, new ArrayList<ActivityNodeExecution>())) {
 				for (ActivityNodeExecution successorOfPredecessor : getAllLogicalSuccessors(predecessor, new ArrayList<ActivityNodeExecution>())) {
-					if (successorOfPredecessor != nodeExecution && !allLogicalSuccessors.contains(successorOfPredecessor) && !allLogicalPredecessors.contains(successorOfPredecessor)) {
+					if (successorOfPredecessor != nodeExecution && !allLogicalSuccessors.contains(successorOfPredecessor)
+							&& !allLogicalPredecessors.contains(successorOfPredecessor)) {
 						if (!allSuccessors.contains(successorOfPredecessor))
 							allSuccessors.add(successorOfPredecessor);
 					}
@@ -87,7 +103,8 @@ public class ExecutionGraph {
 	 * Returns all logical predecessors of the node, and logical predecessors of
 	 * the predecessors.
 	 */
-	private List<ActivityNodeExecution> getAllLogicalPredecessors(ActivityNodeExecution nodeExecution, List<ActivityNodeExecution> allLogicalPredecessors) {
+	private List<ActivityNodeExecution> getAllLogicalPredecessors(ActivityNodeExecution nodeExecution,
+			List<ActivityNodeExecution> allLogicalPredecessors) {
 		for (ActivityNodeExecution predecessor : nodeExecution.getLogicalPredecessor()) {
 			if (!allLogicalPredecessors.contains(predecessor))
 				allLogicalPredecessors.add(predecessor);
@@ -98,8 +115,8 @@ public class ExecutionGraph {
 	}
 
 	/** Method to generate execution graph for the root node. */
-	public void initGraph(ActivityExecution execution) {
-		root = generateExecutionGraphNode(new ExecutionGraphNode(execution.getNodeExecutions().get(0)));
+	public void initGraph(ActivityNodeExecution execution) {
+		root = generateExecutionGraphNode(new ExecutionGraphNode(execution));
 	}
 
 	/** Returns all nodes without the successors. */
@@ -111,11 +128,24 @@ public class ExecutionGraph {
 
 	private void getEndNodes(ExecutionGraphNode node) {
 		for (ExecutionGraphNode child : node.getSuccessors()) {
-			if (child.getSuccessors().size() == 0) {
-				endNodes.add(child);
+			if (child.getData().getLogicalSuccessor().size() == 0) {
+				boolean isContained = false;
+				for(ExecutionGraphNode successor: endNodes){
+					if(successor.getData() == child.getData())isContained = true;
+				}
+				if(!isContained)endNodes.add(child);
 			} else {
 				getEndNodes(child);
 			}
 		}
+	}
+
+	private ArrayList<ActivityNodeExecution> getAllFreeNodes(ActivityExecution activityExecution) {
+		ArrayList<ActivityNodeExecution> freeNodes = new ArrayList<ActivityNodeExecution>();
+		for (ActivityNodeExecution nodeExecution : activityExecution.getNodeExecutions()) {
+			if (nodeExecution.getLogicalPredecessor().size() == 0)
+				freeNodes.add(nodeExecution);
+		}
+		return freeNodes;
 	}
 }

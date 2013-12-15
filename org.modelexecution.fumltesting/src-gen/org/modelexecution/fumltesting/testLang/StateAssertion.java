@@ -4,6 +4,8 @@ package org.modelexecution.fumltesting.testLang;
 
 import org.eclipse.emf.common.util.EList;
 
+import org.eclipse.ocl.examples.xtext.essentialocl.essentialOCLCST.ExpCS;
+
 import org.eclipse.uml2.uml.Action;
 
 /**
@@ -18,6 +20,7 @@ import org.eclipse.uml2.uml.Action;
  *   <li>{@link org.modelexecution.fumltesting.testLang.StateAssertion#getTemporalOperator <em>Temporal Operator</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.testLang.StateAssertion#getReferenceAction <em>Reference Action</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.testLang.StateAssertion#getUntilAction <em>Until Action</em>}</li>
+ *   <li>{@link org.modelexecution.fumltesting.testLang.StateAssertion#getConstraints <em>Constraints</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.testLang.StateAssertion#getExpressions <em>Expressions</em>}</li>
  * </ul>
  * </p>
@@ -137,6 +140,22 @@ public interface StateAssertion extends Assertion
    * @generated
    */
   void setUntilAction(Action value);
+
+  /**
+   * Returns the value of the '<em><b>Constraints</b></em>' reference list.
+   * The list contents are of type {@link org.eclipse.ocl.examples.xtext.essentialocl.essentialOCLCST.ExpCS}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Constraints</em>' reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Constraints</em>' reference list.
+   * @see org.modelexecution.fumltesting.testLang.TestLangPackage#getStateAssertion_Constraints()
+   * @model
+   * @generated
+   */
+  EList<ExpCS> getConstraints();
 
   /**
    * Returns the value of the '<em><b>Expressions</b></em>' containment reference list.

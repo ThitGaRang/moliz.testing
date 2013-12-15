@@ -100,7 +100,7 @@ public class ActivityExecutor implements ExecutionEventListener {
 	 */
 	public int executeActivity(org.eclipse.uml2.uml.Activity activity, List<ActivityInput> activityInputs, ObjectSpecification context) {
 		Activity fumlActivity = convertedModel.getActivity(activity.getName());
-		prepActivity(fumlActivity);
+		//prepActivity(fumlActivity);
 
 		for (ActivityInput input : activityInputs) {
 			Object object = testDataConverter.getFUMLElement(input.getValue());

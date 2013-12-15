@@ -1151,27 +1151,73 @@ ruleStateAssertion returns [EObject current=null]
     {
     	newLeafNode(otherlv_6, grammarAccess.getStateAssertionAccess().getLeftCurlyBracketKeyword_3());
     }
+(	otherlv_7='check' 
+    {
+    	newLeafNode(otherlv_7, grammarAccess.getStateAssertionAccess().getCheckKeyword_4_0());
+    }
+	otherlv_8='[' 
+    {
+    	newLeafNode(otherlv_8, grammarAccess.getStateAssertionAccess().getLeftSquareBracketKeyword_4_1());
+    }
 (
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getStateAssertionRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getStateAssertionAccess().getConstraintsExpCSCrossReference_4_2_0()); 
+	    }
+		ruleQualifiedName		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)(	otherlv_10=',' 
+    {
+    	newLeafNode(otherlv_10, grammarAccess.getStateAssertionAccess().getCommaKeyword_4_3_0());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getStateAssertionRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getStateAssertionAccess().getConstraintsExpCSCrossReference_4_3_1_0()); 
+	    }
+		ruleQualifiedName		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))*	otherlv_12=']' 
+    {
+    	newLeafNode(otherlv_12, grammarAccess.getStateAssertionAccess().getRightSquareBracketKeyword_4_4());
+    }
+)?(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getStateAssertionAccess().getExpressionsStateExpressionParserRuleCall_4_0()); 
+	        newCompositeNode(grammarAccess.getStateAssertionAccess().getExpressionsStateExpressionParserRuleCall_5_0()); 
 	    }
-		lv_expressions_7_0=ruleStateExpression		{
+		lv_expressions_13_0=ruleStateExpression		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getStateAssertionRule());
 	        }
        		add(
        			$current, 
        			"expressions",
-        		lv_expressions_7_0, 
+        		lv_expressions_13_0, 
         		"StateExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)+	otherlv_8='}' 
+)*	otherlv_14='}' 
     {
-    	newLeafNode(otherlv_8, grammarAccess.getStateAssertionAccess().getRightCurlyBracketKeyword_5());
+    	newLeafNode(otherlv_14, grammarAccess.getStateAssertionAccess().getRightCurlyBracketKeyword_6());
     }
 )
 ;

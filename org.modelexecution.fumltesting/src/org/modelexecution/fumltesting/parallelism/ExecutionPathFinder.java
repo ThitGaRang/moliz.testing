@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 
 /**
  * Utility class for generating all possible paths in the execution graph.
@@ -14,7 +15,7 @@ public class ExecutionPathFinder {
 
 	private ExecutionGraph graph;
 	private ExecutionGraphNode startNode;
-	private ArrayList<ExecutionGraphNode> endNodes;
+	private ExecutionGraphNode endNode;
 	private ArrayList<LinkedList<ExecutionGraphNode>> paths;
 
 	public ExecutionPathFinder() {
@@ -27,13 +28,18 @@ public class ExecutionPathFinder {
 
 	/** Initializes the execution graph, start and end node. */
 	public void init(ActivityExecution execution) {
-		graph = new ExecutionGraph();
-		graph.initGraph(execution);
+		for(ActivityNodeExecution nodeExecution: execution.getNodeExecutions()){
+			if(nodeExecution.getLogicalPredecessor().size() == 0){
+				graph = new ExecutionGraph();
+				graph.initGraph(nodeExecution);
 
-		startNode = graph.getRoot();
-		endNodes = graph.getEndNodes();
-
-		generatePaths(execution);
+				startNode = graph.getRoot();
+				for(ExecutionGraphNode theEndNode: graph.getEndNodes()){
+					endNode = theEndNode;
+					generatePaths(execution);
+				}
+			}
+		}
 	}
 
 	/** Prints all the paths to the console. */
@@ -69,22 +75,18 @@ public class ExecutionPathFinder {
 			if (visited.contains(node)) {
 				continue;
 			}
-			for(ExecutionGraphNode endNode: endNodes){
-				if (node.getData() == endNode.getData()) {
-					visited.add(node);
-					addNewPath(visited);
-					visited.removeLast();
-					break Outer;
-				}
+			if (node.getData() == endNode.getData() && node.getSuccessors().size() == 0) {
+				visited.add(node);
+				addNewPath(visited);
+				visited.removeLast();
+				break Outer;
 			}			
 		}
 
 		Outer:
 		for (ExecutionGraphNode node : nodes) {
-			for(ExecutionGraphNode endNode: endNodes){
-				if (visited.contains(node) || node.getData() == endNode.getData()) {
-					continue Outer;
-				}
+			if (visited.contains(node) || node.getData() == endNode.getData()) {
+				continue Outer;
 			}			
 			visited.addLast(node);
 			generatePath(graph, visited);

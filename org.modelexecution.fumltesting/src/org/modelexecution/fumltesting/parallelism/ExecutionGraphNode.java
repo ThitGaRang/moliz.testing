@@ -25,6 +25,10 @@ public class ExecutionGraphNode {
 	public ActivityNodeExecution getData() {
 		return data;
 	}
+	
+	public ExecutionGraphNode getParent(){
+		return parent;
+	}
 
 	public void addSuccessor(ExecutionGraphNode successor) {
 		successors.add(successor);
@@ -38,6 +42,13 @@ public class ExecutionGraphNode {
 	public boolean containsPredecessor(ActivityNodeExecution node) {
 		if (parent != null && (parent.getData() == node || parent.containsPredecessor(node)))
 			return true;
+		return false;
+	}
+	
+	public boolean containsSuccessor(ActivityNodeExecution node){
+		for(ExecutionGraphNode successor: getSuccessors()){
+			if(successor.getData() == node)return true;
+		}
 		return false;
 	}
 }

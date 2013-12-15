@@ -621,13 +621,22 @@ public interface TestLangPackage extends EPackage
   int STATE_ASSERTION__UNTIL_ACTION = ASSERTION_FEATURE_COUNT + 3;
 
   /**
+   * The feature id for the '<em><b>Constraints</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int STATE_ASSERTION__CONSTRAINTS = ASSERTION_FEATURE_COUNT + 4;
+
+  /**
    * The feature id for the '<em><b>Expressions</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int STATE_ASSERTION__EXPRESSIONS = ASSERTION_FEATURE_COUNT + 4;
+  int STATE_ASSERTION__EXPRESSIONS = ASSERTION_FEATURE_COUNT + 5;
 
   /**
    * The number of structural features of the '<em>State Assertion</em>' class.
@@ -636,7 +645,7 @@ public interface TestLangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int STATE_ASSERTION_FEATURE_COUNT = ASSERTION_FEATURE_COUNT + 5;
+  int STATE_ASSERTION_FEATURE_COUNT = ASSERTION_FEATURE_COUNT + 6;
 
   /**
    * The meta object id for the '{@link org.modelexecution.fumltesting.testLang.impl.FinallyStateAssertionImpl <em>Finally State Assertion</em>}' class.
@@ -1470,6 +1479,17 @@ public interface TestLangPackage extends EPackage
   EReference getStateAssertion_UntilAction();
 
   /**
+   * Returns the meta object for the reference list '{@link org.modelexecution.fumltesting.testLang.StateAssertion#getConstraints <em>Constraints</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference list '<em>Constraints</em>'.
+   * @see org.modelexecution.fumltesting.testLang.StateAssertion#getConstraints()
+   * @see #getStateAssertion()
+   * @generated
+   */
+  EReference getStateAssertion_Constraints();
+
+  /**
    * Returns the meta object for the containment reference list '{@link org.modelexecution.fumltesting.testLang.StateAssertion#getExpressions <em>Expressions</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2135,6 +2155,14 @@ public interface TestLangPackage extends EPackage
      * @generated
      */
     EReference STATE_ASSERTION__UNTIL_ACTION = eINSTANCE.getStateAssertion_UntilAction();
+
+    /**
+     * The meta object literal for the '<em><b>Constraints</b></em>' reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference STATE_ASSERTION__CONSTRAINTS = eINSTANCE.getStateAssertion_Constraints();
 
     /**
      * The meta object literal for the '<em><b>Expressions</b></em>' containment reference list feature.

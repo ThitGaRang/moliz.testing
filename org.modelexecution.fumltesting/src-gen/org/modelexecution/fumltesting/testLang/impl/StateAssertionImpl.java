@@ -15,7 +15,10 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+
+import org.eclipse.ocl.examples.xtext.essentialocl.essentialOCLCST.ExpCS;
 
 import org.eclipse.uml2.uml.Action;
 
@@ -36,6 +39,7 @@ import org.modelexecution.fumltesting.testLang.TestLangPackage;
  *   <li>{@link org.modelexecution.fumltesting.testLang.impl.StateAssertionImpl#getTemporalOperator <em>Temporal Operator</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.testLang.impl.StateAssertionImpl#getReferenceAction <em>Reference Action</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.testLang.impl.StateAssertionImpl#getUntilAction <em>Until Action</em>}</li>
+ *   <li>{@link org.modelexecution.fumltesting.testLang.impl.StateAssertionImpl#getConstraints <em>Constraints</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.testLang.impl.StateAssertionImpl#getExpressions <em>Expressions</em>}</li>
  * </ul>
  * </p>
@@ -103,6 +107,16 @@ public class StateAssertionImpl extends AssertionImpl implements StateAssertion
    * @ordered
    */
   protected Action untilAction;
+
+  /**
+   * The cached value of the '{@link #getConstraints() <em>Constraints</em>}' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getConstraints()
+   * @generated
+   * @ordered
+   */
+  protected EList<ExpCS> constraints;
 
   /**
    * The cached value of the '{@link #getExpressions() <em>Expressions</em>}' containment reference list.
@@ -272,6 +286,20 @@ public class StateAssertionImpl extends AssertionImpl implements StateAssertion
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<ExpCS> getConstraints()
+  {
+    if (constraints == null)
+    {
+      constraints = new EObjectResolvingEList<ExpCS>(ExpCS.class, this, TestLangPackage.STATE_ASSERTION__CONSTRAINTS);
+    }
+    return constraints;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EList<StateExpression> getExpressions()
   {
     if (expressions == null)
@@ -317,6 +345,8 @@ public class StateAssertionImpl extends AssertionImpl implements StateAssertion
       case TestLangPackage.STATE_ASSERTION__UNTIL_ACTION:
         if (resolve) return getUntilAction();
         return basicGetUntilAction();
+      case TestLangPackage.STATE_ASSERTION__CONSTRAINTS:
+        return getConstraints();
       case TestLangPackage.STATE_ASSERTION__EXPRESSIONS:
         return getExpressions();
     }
@@ -345,6 +375,10 @@ public class StateAssertionImpl extends AssertionImpl implements StateAssertion
         return;
       case TestLangPackage.STATE_ASSERTION__UNTIL_ACTION:
         setUntilAction((Action)newValue);
+        return;
+      case TestLangPackage.STATE_ASSERTION__CONSTRAINTS:
+        getConstraints().clear();
+        getConstraints().addAll((Collection<? extends ExpCS>)newValue);
         return;
       case TestLangPackage.STATE_ASSERTION__EXPRESSIONS:
         getExpressions().clear();
@@ -376,6 +410,9 @@ public class StateAssertionImpl extends AssertionImpl implements StateAssertion
       case TestLangPackage.STATE_ASSERTION__UNTIL_ACTION:
         setUntilAction((Action)null);
         return;
+      case TestLangPackage.STATE_ASSERTION__CONSTRAINTS:
+        getConstraints().clear();
+        return;
       case TestLangPackage.STATE_ASSERTION__EXPRESSIONS:
         getExpressions().clear();
         return;
@@ -401,6 +438,8 @@ public class StateAssertionImpl extends AssertionImpl implements StateAssertion
         return referenceAction != null;
       case TestLangPackage.STATE_ASSERTION__UNTIL_ACTION:
         return untilAction != null;
+      case TestLangPackage.STATE_ASSERTION__CONSTRAINTS:
+        return constraints != null && !constraints.isEmpty();
       case TestLangPackage.STATE_ASSERTION__EXPRESSIONS:
         return expressions != null && !expressions.isEmpty();
     }
