@@ -12,7 +12,6 @@ import org.modelexecution.fumldebug.core.ExecutionEventListener;
 import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityExitEvent;
 import org.modelexecution.fumldebug.core.event.Event;
-import org.modelexecution.fumldebug.core.util.ActivityFactory;
 import org.modelexecution.fumltesting.testLang.ActivityInput;
 import org.modelexecution.fumltesting.testLang.ObjectSpecification;
 import org.modelexecution.fumltesting.testLang.ObjectValue;
@@ -24,23 +23,12 @@ import fUML.Semantics.Classes.Kernel.Reference;
 import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
-import fUML.Syntax.Actions.BasicActions.Action;
 import fUML.Syntax.Actions.BasicActions.CallBehaviorAction;
-import fUML.Syntax.Actions.BasicActions.InputPin;
-import fUML.Syntax.Actions.BasicActions.OutputPin;
 import fUML.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
-import fUML.Syntax.Activities.IntermediateActivities.ActivityEdge;
-import fUML.Syntax.Activities.IntermediateActivities.ActivityFinalNode;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
-import fUML.Syntax.Activities.IntermediateActivities.ControlFlow;
 import fUML.Syntax.Activities.IntermediateActivities.DecisionNode;
-import fUML.Syntax.Activities.IntermediateActivities.FinalNode;
-import fUML.Syntax.Activities.IntermediateActivities.ForkNode;
-import fUML.Syntax.Activities.IntermediateActivities.InitialNode;
-import fUML.Syntax.Activities.IntermediateActivities.JoinNode;
-import fUML.Syntax.Activities.IntermediateActivities.ObjectFlow;
 import fUML.Syntax.Classes.Kernel.Element;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
@@ -100,7 +88,6 @@ public class ActivityExecutor implements ExecutionEventListener {
 	 */
 	public int executeActivity(org.eclipse.uml2.uml.Activity activity, List<ActivityInput> activityInputs, ObjectSpecification context) {
 		Activity fumlActivity = convertedModel.getActivity(activity.getName());
-		//prepActivity(fumlActivity);
 
 		for (ActivityInput input : activityInputs) {
 			Object object = testDataConverter.getFUMLElement(input.getValue());
@@ -210,95 +197,6 @@ public class ActivityExecutor implements ExecutionEventListener {
 		eventlist.add(event);
 		if (event instanceof ActivityExitEvent && (((ActivityExitEvent) event).getActivityExecutionID() == mainActivityID)) {
 			running = false;
-		}
-	}
-
-	/** Insert fake initial-fork if needed, and fake control flows. */
-	private void prepActivity(Activity activity) {
-
-		boolean containsFinal = false;
-		FinalNode finalNode = null;
-		ArrayList<ActivityNode> freeNodes = new ArrayList<ActivityNode>();
-
-		for (ActivityNode node : activity.node) {
-			if (node instanceof FinalNode) {
-				containsFinal = true;
-				finalNode = (FinalNode) node;
-			}
-			boolean isFree = true;
-			for (ActivityEdge edge : node.incoming) {
-				if (edge instanceof ControlFlow)
-					isFree = false;
-				if (edge instanceof ObjectFlow) {
-					if (!(edge.source instanceof ActivityParameterNode))
-						isFree = false;
-				}
-			}
-			if (node instanceof Action) {
-				for (InputPin pin : ((Action) node).input) {
-					if (pin.incoming.size() > 0)
-						isFree = false;
-				}
-			}
-			if (node instanceof InitialNode || node instanceof ActivityParameterNode) {
-				isFree = false;
-			}
-			if (isFree)
-				freeNodes.add(node);
-		}
-
-		if (freeNodes.size() > 1) {
-			System.out.println("Fake initial-fork nodes added.");
-			InitialNode initFake = ActivityFactory.createInitialNode(activity, "fake_init");
-			ForkNode forkFake = ActivityFactory.createForkNode(activity, "fake_fork");
-			ActivityFactory.createControlFlow(activity, initFake, forkFake);
-
-			for (ActivityNode freeNode : freeNodes) {
-				ActivityFactory.createControlFlow(activity, forkFake, freeNode);
-			}
-		}
-		// empty free nodes collection
-		if (!freeNodes.isEmpty())
-			freeNodes.removeAll(freeNodes);
-
-		for (ActivityNode node : activity.node) {
-			boolean isFree = true;
-			for (ActivityEdge edge : node.outgoing) {
-				if (edge instanceof ControlFlow)
-					isFree = false;
-				if (edge instanceof ObjectFlow) {
-					if (edge.target instanceof Action || edge.target instanceof InputPin)
-						isFree = false;
-				}
-			}
-			if (node instanceof Action) {
-				for (OutputPin pin : ((Action) node).output) {
-					if (pin.outgoing.size() > 0)
-						isFree = false;
-				}
-			}
-			if (node instanceof ActivityParameterNode || node instanceof FinalNode) {
-				isFree = false;
-			}
-			if (isFree)
-				freeNodes.add(node);
-		}
-		
-		if (containsFinal) {
-			for (ActivityNode freeNode : freeNodes) {
-				System.out.println("Fake control flow from " + freeNode.name + " to " + finalNode.name + " added.");
-				ActivityFactory.createControlFlow(activity, freeNode, finalNode);
-			}
-		}else{
-			System.out.println("Fake join-final nodes added.");
-			JoinNode fakeJoin = ActivityFactory.createJoinNode(activity, "fake_join");
-			ActivityFinalNode fakeFinal = ActivityFactory.createActivityFinalNode(activity, "fake_final");
-			ActivityFactory.createControlFlow(activity, fakeJoin, fakeFinal);
-			
-			for(ActivityNode freeNode: freeNodes){
-				System.out.println("Fake control flow from " + freeNode.name + " to " + fakeJoin.name + " added.");
-				ActivityFactory.createControlFlow(activity, freeNode, fakeJoin);
-			}
 		}
 	}
 

@@ -64,7 +64,7 @@ public class TestExecutor {
 				resourceSet.getPackageRegistry().put(UMLPackage.eNS_URI, UMLPackage.eINSTANCE);
 				resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(UMLResource.FILE_EXTENSION, UMLResource.Factory.INSTANCE);
 				// model with UML elements under test
-				Resource r = resourceSet.getResource(URI.createFileURI(new File("example/petstore/petstore.uml").getAbsolutePath()), true);
+				Resource r = resourceSet.getResource(URI.createFileURI(new File("../org.modelexecution.fumltesting.examples/model/petstore/petstore.uml").getAbsolutePath()), true);
 				r.load(null);
 
 				// adds elements from UML model to test suite
@@ -88,11 +88,11 @@ public class TestExecutor {
 	/** Main method of the testing framework. */
 	@Test
 	public void test() {
-		File folder = new File("example/petstore/tests");
+		File folder = new File("example/petstore");
 		File[] files = folder.listFiles();
 		for (File file : files) {
-			if (file.isFile() && file.getName().endsWith("randomActivity.fumltest")) {
-				String path = "example/petstore/tests/" + file.getName();
+			if (file.isFile() && file.getName().endsWith("fumltest")) {
+				String path = "example/petstore/" + file.getName();
 				setup(path);
 				testsEvaluation();
 			}
