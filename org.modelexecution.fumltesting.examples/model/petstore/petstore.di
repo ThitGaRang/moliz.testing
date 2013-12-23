@@ -57,12 +57,27 @@
     <availablePage>
       <emfPageIdentifier href="petstore.notation#_7M9S8GWrEeOrqKXHe0ooSw"/>
     </availablePage>
+    <availablePage>
+      <emfPageIdentifier href="petstore.notation#_ZOZp0GcLEeO9ZPj83X660A"/>
+    </availablePage>
+    <availablePage>
+      <emfPageIdentifier href="petstore.notation#__zuUgGcxEeO4M75347jw5g"/>
+    </availablePage>
   </pageList>
   <sashModel currentSelection="//@sashModel/@windows.0/@children.0">
     <windows>
       <children xsi:type="di:TabFolder">
         <children>
           <emfPageIdentifier href="petstore.notation#_EwtPMC_4EeOTpM28lqU8qA"/>
+        </children>
+        <children>
+          <emfPageIdentifier href="petstore.notation#_ZOZp0GcLEeO9ZPj83X660A"/>
+        </children>
+        <children>
+          <emfPageIdentifier href="petstore.notation#_7M9S8GWrEeOrqKXHe0ooSw"/>
+        </children>
+        <children>
+          <emfPageIdentifier href="petstore.notation#__zuUgGcxEeO4M75347jw5g"/>
         </children>
       </children>
     </windows>

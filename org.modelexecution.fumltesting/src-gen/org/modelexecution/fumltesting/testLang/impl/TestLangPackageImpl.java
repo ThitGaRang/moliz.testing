@@ -11,8 +11,6 @@ import org.eclipse.emf.ecore.EcorePackage;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
-import org.eclipse.ocl.examples.xtext.essentialocl.essentialOCLCST.EssentialOCLCSTPackage;
-
 import org.eclipse.uml2.uml.UMLPackage;
 
 import org.eclipse.xtext.xbase.XbasePackage;
@@ -21,6 +19,7 @@ import org.modelexecution.fumltesting.testLang.ActivityInput;
 import org.modelexecution.fumltesting.testLang.ArithmeticOperator;
 import org.modelexecution.fumltesting.testLang.Assertion;
 import org.modelexecution.fumltesting.testLang.Attribute;
+import org.modelexecution.fumltesting.testLang.ConstraintChecking;
 import org.modelexecution.fumltesting.testLang.FinallyStateAssertion;
 import org.modelexecution.fumltesting.testLang.Import;
 import org.modelexecution.fumltesting.testLang.Link;
@@ -162,6 +161,13 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  private EClass constraintCheckingEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   private EClass stateExpressionEClass = null;
 
   /**
@@ -269,7 +275,6 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
     isInited = true;
 
     // Initialize simple dependencies
-    EssentialOCLCSTPackage.eINSTANCE.eClass();
     UMLPackage.eINSTANCE.eClass();
     XbasePackage.eINSTANCE.eClass();
 
@@ -773,7 +778,7 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getStateAssertion_Constraints()
+  public EReference getStateAssertion_ConstraintChecking()
   {
     return (EReference)stateAssertionEClass.getEStructuralFeatures().get(4);
   }
@@ -803,9 +808,39 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getFinallyStateAssertion_Expressions()
+  public EReference getFinallyStateAssertion_ConstraintChecking()
   {
     return (EReference)finallyStateAssertionEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getFinallyStateAssertion_Expressions()
+  {
+    return (EReference)finallyStateAssertionEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getConstraintChecking()
+  {
+    return constraintCheckingEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getConstraintChecking_Constraints()
+  {
+    return (EReference)constraintCheckingEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1089,11 +1124,15 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
     createEAttribute(stateAssertionEClass, STATE_ASSERTION__TEMPORAL_OPERATOR);
     createEReference(stateAssertionEClass, STATE_ASSERTION__REFERENCE_ACTION);
     createEReference(stateAssertionEClass, STATE_ASSERTION__UNTIL_ACTION);
-    createEReference(stateAssertionEClass, STATE_ASSERTION__CONSTRAINTS);
+    createEReference(stateAssertionEClass, STATE_ASSERTION__CONSTRAINT_CHECKING);
     createEReference(stateAssertionEClass, STATE_ASSERTION__EXPRESSIONS);
 
     finallyStateAssertionEClass = createEClass(FINALLY_STATE_ASSERTION);
+    createEReference(finallyStateAssertionEClass, FINALLY_STATE_ASSERTION__CONSTRAINT_CHECKING);
     createEReference(finallyStateAssertionEClass, FINALLY_STATE_ASSERTION__EXPRESSIONS);
+
+    constraintCheckingEClass = createEClass(CONSTRAINT_CHECKING);
+    createEReference(constraintCheckingEClass, CONSTRAINT_CHECKING__CONSTRAINTS);
 
     stateExpressionEClass = createEClass(STATE_EXPRESSION);
     createEReference(stateExpressionEClass, STATE_EXPRESSION__PIN);
@@ -1151,7 +1190,6 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
     EcorePackage theEcorePackage = (EcorePackage)EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI);
     UMLPackage theUMLPackage = (UMLPackage)EPackage.Registry.INSTANCE.getEPackage(UMLPackage.eNS_URI);
     XbasePackage theXbasePackage = (XbasePackage)EPackage.Registry.INSTANCE.getEPackage(XbasePackage.eNS_URI);
-    EssentialOCLCSTPackage theEssentialOCLCSTPackage = (EssentialOCLCSTPackage)EPackage.Registry.INSTANCE.getEPackage(EssentialOCLCSTPackage.eNS_URI);
 
     // Create type parameters
 
@@ -1228,11 +1266,15 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
     initEAttribute(getStateAssertion_TemporalOperator(), this.getTemporalOperator(), "temporalOperator", null, 0, 1, StateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getStateAssertion_ReferenceAction(), theUMLPackage.getAction(), null, "referenceAction", null, 0, 1, StateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getStateAssertion_UntilAction(), theUMLPackage.getAction(), null, "untilAction", null, 0, 1, StateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getStateAssertion_Constraints(), theEssentialOCLCSTPackage.getExpCS(), null, "constraints", null, 0, -1, StateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getStateAssertion_ConstraintChecking(), this.getConstraintChecking(), null, "constraintChecking", null, 0, 1, StateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getStateAssertion_Expressions(), this.getStateExpression(), null, "expressions", null, 0, -1, StateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(finallyStateAssertionEClass, FinallyStateAssertion.class, "FinallyStateAssertion", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getFinallyStateAssertion_ConstraintChecking(), this.getConstraintChecking(), null, "constraintChecking", null, 0, 1, FinallyStateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getFinallyStateAssertion_Expressions(), this.getStateExpression(), null, "expressions", null, 0, -1, FinallyStateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(constraintCheckingEClass, ConstraintChecking.class, "ConstraintChecking", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getConstraintChecking_Constraints(), theUMLPackage.getConstraint(), null, "constraints", null, 0, -1, ConstraintChecking.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(stateExpressionEClass, StateExpression.class, "StateExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getStateExpression_Pin(), this.getVarDeclaration(), null, "pin", null, 0, 1, StateExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -1,7 +1,6 @@
 package org.modelexecution.fumltesting.execution;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.uml2.uml.Action;
@@ -13,10 +12,13 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.CallActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
-import org.modelexecution.fumltesting.parallelism.ExecutionGraphNode;
 import org.modelexecution.fumltesting.parallelism.ExecutionPathFinder;
+import org.modelexecution.fumltesting.sequence.Sequence;
 import org.modelexecution.fumltesting.sequence.SequenceTrace;
+import org.modelexecution.fumltesting.sequence.State;
 import org.modelexecution.fumltesting.sequence.execution.SequenceGenerator;
+import org.modelexecution.fumltesting.testLang.TemporalOperator;
+import org.modelexecution.fumltesting.testLang.TemporalQuantifier;
 
 import fUML.Semantics.Classes.Kernel.Link;
 
@@ -154,5 +156,44 @@ public class TraceUtil {
 			return null;
 		}
 		return lastAction(lastNode.getChronologicalPredecessor());
+	}
+
+	public List<State> getStates(TemporalQuantifier quantifier, TemporalOperator operator, ActivityNodeExecution nodeExecution) {
+		List<State> states = new ArrayList<State>();
+		for (Sequence sequence : sTrace.getSequences()) {
+			if (sequence.getActivityExecution() == nodeExecution.getActivityExecution()) {
+				for (State state : sequence.getStates()) {
+					if (state.getNodeExecution() == nodeExecution) {
+						switch (operator) {
+						case AFTER:
+							switch (quantifier) {
+							case ALWAYS:
+								while (state.getSuccessor() != null) {
+									states.add(state.getSuccessor());
+									state = state.getSuccessor();
+								}
+								break;
+							case EXACTLY:
+								states.add(state.getSuccessor());
+								break;
+							}
+						case BEFORE:
+							switch (quantifier) {
+							case ALWAYS:
+								while (state.getPredecessor() != null) {
+									states.add(state.getPredecessor());
+									state = state.getPredecessor();
+								}
+								break;
+							case EXACTLY:
+								states.add(state.getPredecessor());
+								break;
+							}
+						}
+					}
+				}
+			}
+		}
+		return states;
 	}
 }

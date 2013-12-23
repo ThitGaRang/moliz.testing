@@ -43,7 +43,7 @@ public class ExecutionGraph {
 	 */
 	private boolean canAddSuccessor(ExecutionGraphNode node, ActivityNodeExecution successor) {
 		for (ActivityNodeExecution predecessor : successor.getLogicalPredecessor()) {
-			if (!node.containsPredecessor(predecessor) && node.getData() != predecessor 
+			if (successor.isExecuted() && !node.containsPredecessor(predecessor) && node.getData() != predecessor 
 					&& node.getData() != successor && !node.containsPredecessor(successor)) {
 				return false;
 			}

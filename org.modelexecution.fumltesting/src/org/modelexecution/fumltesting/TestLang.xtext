@@ -4,7 +4,6 @@ import "http://www.eclipse.org/uml2/4.0.0/UML" as uml
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 import "http://www.eclipse.org/ocl/3.1.0/EssentialOCLCST" as essentialOCL
 import "http://www.eclipse.org/ocl/3.1.0/CompleteOCLCST" as completeOCL
-import "http://www.tu-dresden.de/ocl20/pivot/language/ocl"
 generate testLang "http://www.modelexecution.org/fumltesting/TestLang"
 
 TestSuite:
@@ -65,11 +64,15 @@ Assertion:
 StateAssertion:
 	('assertState' temporalQuantifier=TemporalQuantifier temporalOperator=TemporalOperator)
 	referenceAction=[uml::Action|QualifiedName] ('until' untilAction=[uml::Action|QualifiedName])? '{'
-	('check' '[' constraints+=[essentialOCL::ExpCS|QualifiedName] (',' constraints+=[essentialOCL::ExpCS|QualifiedName])* ']')?
+	(constraintChecking=ConstraintChecking)?
 	(expressions+=StateExpression)* '}';
 
 FinallyStateAssertion:
-	'finally' '{' expressions+=StateExpression+ '}';
+	'finally' '{' {FinallyStateAssertion} (constraintChecking=ConstraintChecking)? (expressions+=StateExpression)* '}';
+
+ConstraintChecking:
+	'check' '[' constraints+=[uml::Constraint|QualifiedName] (',' constraints+=[uml::Constraint|QualifiedName])* ']'
+;
 
 StateExpression:
 	ObjectStateExpression | PropertyStateExpression;

@@ -6,6 +6,7 @@ import java.util.List;
 import org.eclipse.uml2.uml.Action;
 import org.eclipse.uml2.uml.Activity;
 import org.eclipse.uml2.uml.ActivityParameterNode;
+import org.eclipse.uml2.uml.Constraint;
 import org.eclipse.uml2.uml.InputPin;
 import org.eclipse.uml2.uml.OutputPin;
 import org.eclipse.uml2.uml.ParameterDirectionKind;
@@ -24,6 +25,9 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot;
 import org.modelexecution.fumltesting.execution.TestDataConverter;
 import org.modelexecution.fumltesting.execution.TraceUtil;
+import org.modelexecution.fumltesting.sequence.SequenceTrace;
+import org.modelexecution.fumltesting.sequence.State;
+import org.modelexecution.fumltesting.sequence.execution.SequenceGenerator;
 import org.modelexecution.fumltesting.testLang.ArithmeticOperator;
 import org.modelexecution.fumltesting.testLang.FinallyStateAssertion;
 import org.modelexecution.fumltesting.testLang.ObjectStateExpression;
@@ -37,7 +41,6 @@ import org.modelexecution.fumltesting.testLang.TemporalQuantifier;
 import org.modelexecution.fumltesting.testLang.TestLangFactory;
 
 import UMLPrimitiveTypes.UnlimitedNatural;
-
 import fUML.Semantics.Classes.Kernel.BooleanValue;
 import fUML.Semantics.Classes.Kernel.FeatureValue;
 import fUML.Semantics.Classes.Kernel.IntegerValue;
@@ -89,9 +92,18 @@ public class StateAssertionValidator {
 	public boolean check(StateAssertion assertion) {
 		AssertionPrinter.printStateAssertion(assertion);
 		boolean result = true;
+
+		if(assertion.getConstraintChecking() != null){
+			for (Constraint constraint : assertion.getConstraintChecking().getConstraints()) {
+				List<State> states = traceUtil.getStates(quantifier, operator, referredNodeExecution);
+				result = check(constraint, states);
+			}
+		}
+
 		for (StateExpression expression : assertion.getExpressions()) {
 			result = check(expression);
 		}
+
 		AssertionPrinter.printStartEnd();
 		return result;
 	}
@@ -105,7 +117,16 @@ public class StateAssertionValidator {
 		stateAssertion.setReferenceAction((Action) traceUtil.getLastExecutedAction());
 		stateAssertion.getExpressions().addAll(assertion.getExpressions());
 
+		stateAssertion.setConstraintChecking(assertion.getConstraintChecking());
+
 		return check(stateAssertion);
+	}
+
+	private boolean check(Constraint constraint, List<State> states) {
+		for(State state: states){
+			//TODO implement constraint checking
+		}
+		return true;
 	}
 
 	private boolean check(StateExpression expression) {

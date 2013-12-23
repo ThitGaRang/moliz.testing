@@ -1151,73 +1151,45 @@ ruleStateAssertion returns [EObject current=null]
     {
     	newLeafNode(otherlv_6, grammarAccess.getStateAssertionAccess().getLeftCurlyBracketKeyword_3());
     }
-(	otherlv_7='check' 
-    {
-    	newLeafNode(otherlv_7, grammarAccess.getStateAssertionAccess().getCheckKeyword_4_0());
-    }
-	otherlv_8='[' 
-    {
-    	newLeafNode(otherlv_8, grammarAccess.getStateAssertionAccess().getLeftSquareBracketKeyword_4_1());
-    }
 (
 (
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getStateAssertionRule());
-	        }
-        }
 		{ 
-	        newCompositeNode(grammarAccess.getStateAssertionAccess().getConstraintsExpCSCrossReference_4_2_0()); 
+	        newCompositeNode(grammarAccess.getStateAssertionAccess().getConstraintCheckingConstraintCheckingParserRuleCall_4_0()); 
 	    }
-		ruleQualifiedName		{ 
+		lv_constraintChecking_7_0=ruleConstraintChecking		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getStateAssertionRule());
+	        }
+       		set(
+       			$current, 
+       			"constraintChecking",
+        		lv_constraintChecking_7_0, 
+        		"ConstraintChecking");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)(	otherlv_10=',' 
-    {
-    	newLeafNode(otherlv_10, grammarAccess.getStateAssertionAccess().getCommaKeyword_4_3_0());
-    }
-(
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getStateAssertionRule());
-	        }
-        }
-		{ 
-	        newCompositeNode(grammarAccess.getStateAssertionAccess().getConstraintsExpCSCrossReference_4_3_1_0()); 
-	    }
-		ruleQualifiedName		{ 
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-))*	otherlv_12=']' 
-    {
-    	newLeafNode(otherlv_12, grammarAccess.getStateAssertionAccess().getRightSquareBracketKeyword_4_4());
-    }
 )?(
 (
 		{ 
 	        newCompositeNode(grammarAccess.getStateAssertionAccess().getExpressionsStateExpressionParserRuleCall_5_0()); 
 	    }
-		lv_expressions_13_0=ruleStateExpression		{
+		lv_expressions_8_0=ruleStateExpression		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getStateAssertionRule());
 	        }
        		add(
        			$current, 
        			"expressions",
-        		lv_expressions_13_0, 
+        		lv_expressions_8_0, 
         		"StateExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)*	otherlv_14='}' 
+)*	otherlv_9='}' 
     {
-    	newLeafNode(otherlv_14, grammarAccess.getStateAssertionAccess().getRightCurlyBracketKeyword_6());
+    	newLeafNode(otherlv_9, grammarAccess.getStateAssertionAccess().getRightCurlyBracketKeyword_6());
     }
 )
 ;
@@ -1249,26 +1221,117 @@ ruleFinallyStateAssertion returns [EObject current=null]
     	newLeafNode(otherlv_1, grammarAccess.getFinallyStateAssertionAccess().getLeftCurlyBracketKeyword_1());
     }
 (
+    {
+        $current = forceCreateModelElement(
+            grammarAccess.getFinallyStateAssertionAccess().getFinallyStateAssertionAction_2(),
+            $current);
+    }
+)(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getFinallyStateAssertionAccess().getExpressionsStateExpressionParserRuleCall_2_0()); 
+	        newCompositeNode(grammarAccess.getFinallyStateAssertionAccess().getConstraintCheckingConstraintCheckingParserRuleCall_3_0()); 
 	    }
-		lv_expressions_2_0=ruleStateExpression		{
+		lv_constraintChecking_3_0=ruleConstraintChecking		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getFinallyStateAssertionRule());
+	        }
+       		set(
+       			$current, 
+       			"constraintChecking",
+        		lv_constraintChecking_3_0, 
+        		"ConstraintChecking");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)?(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getFinallyStateAssertionAccess().getExpressionsStateExpressionParserRuleCall_4_0()); 
+	    }
+		lv_expressions_4_0=ruleStateExpression		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getFinallyStateAssertionRule());
 	        }
        		add(
        			$current, 
        			"expressions",
-        		lv_expressions_2_0, 
+        		lv_expressions_4_0, 
         		"StateExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)+	otherlv_3='}' 
+)*	otherlv_5='}' 
     {
-    	newLeafNode(otherlv_3, grammarAccess.getFinallyStateAssertionAccess().getRightCurlyBracketKeyword_3());
+    	newLeafNode(otherlv_5, grammarAccess.getFinallyStateAssertionAccess().getRightCurlyBracketKeyword_5());
+    }
+)
+;
+
+
+
+
+
+// Entry rule entryRuleConstraintChecking
+entryRuleConstraintChecking returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getConstraintCheckingRule()); }
+	 iv_ruleConstraintChecking=ruleConstraintChecking 
+	 { $current=$iv_ruleConstraintChecking.current; } 
+	 EOF 
+;
+
+// Rule ConstraintChecking
+ruleConstraintChecking returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(	otherlv_0='check' 
+    {
+    	newLeafNode(otherlv_0, grammarAccess.getConstraintCheckingAccess().getCheckKeyword_0());
+    }
+	otherlv_1='[' 
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getConstraintCheckingAccess().getLeftSquareBracketKeyword_1());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getConstraintCheckingRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getConstraintCheckingAccess().getConstraintsConstraintCrossReference_2_0()); 
+	    }
+		ruleQualifiedName		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)(	otherlv_3=',' 
+    {
+    	newLeafNode(otherlv_3, grammarAccess.getConstraintCheckingAccess().getCommaKeyword_3_0());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getConstraintCheckingRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getConstraintCheckingAccess().getConstraintsConstraintCrossReference_3_1_0()); 
+	    }
+		ruleQualifiedName		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))*	otherlv_5=']' 
+    {
+    	newLeafNode(otherlv_5, grammarAccess.getConstraintCheckingAccess().getRightSquareBracketKeyword_4());
     }
 )
 ;

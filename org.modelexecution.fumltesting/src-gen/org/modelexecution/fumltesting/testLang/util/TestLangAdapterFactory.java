@@ -150,6 +150,11 @@ public class TestLangAdapterFactory extends AdapterFactoryImpl
         return createFinallyStateAssertionAdapter();
       }
       @Override
+      public Adapter caseConstraintChecking(ConstraintChecking object)
+      {
+        return createConstraintCheckingAdapter();
+      }
+      @Override
       public Adapter caseStateExpression(StateExpression object)
       {
         return createStateExpressionAdapter();
@@ -422,6 +427,21 @@ public class TestLangAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createFinallyStateAssertionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.ConstraintChecking <em>Constraint Checking</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.modelexecution.fumltesting.testLang.ConstraintChecking
+   * @generated
+   */
+  public Adapter createConstraintCheckingAdapter()
   {
     return null;
   }

@@ -91,7 +91,7 @@ public class TestExecutor {
 		File folder = new File("example/petstore");
 		File[] files = folder.listFiles();
 		for (File file : files) {
-			if (file.isFile() && file.getName().endsWith("fumltest")) {
+			if (file.isFile() && file.getName().endsWith("randomWithFinal.fumltest")) {
 				String path = "example/petstore/" + file.getName();
 				setup(path);
 				testsEvaluation();

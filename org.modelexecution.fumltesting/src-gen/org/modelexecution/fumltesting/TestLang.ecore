@@ -74,14 +74,20 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="temporalOperator" eType="#//TemporalOperator"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="referenceAction" eType="ecore:EClass ../../../../../org.eclipse.uml2.uml/model/UML.ecore#//Action"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="untilAction" eType="ecore:EClass ../../../../../org.eclipse.uml2.uml/model/UML.ecore#//Action"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="constraints" unique="false"
-        upperBound="-1" eType="ecore:EClass ../../../../../org.eclipse.ocl.examples.xtext.essentialocl/model/EssentialOCLCST.ecore#//ExpCS"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constraintChecking" eType="#//ConstraintChecking"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="expressions" upperBound="-1"
         eType="#//StateExpression" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FinallyStateAssertion" eSuperTypes="#//Assertion">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constraintChecking" eType="#//ConstraintChecking"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="expressions" upperBound="-1"
         eType="#//StateExpression" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ConstraintChecking">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constraints" unique="false"
+        upperBound="-1" eType="ecore:EClass ../../../../../org.eclipse.uml2.uml/model/UML.ecore#//Constraint"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="StateExpression">
     <eStructuralFeatures xsi:type="ecore:EReference" name="pin" eType="#//VarDeclaration"/>

@@ -6,6 +6,8 @@ import java.util.LinkedList;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 
+import fUML.Syntax.Activities.IntermediateActivities.FinalNode;
+
 /**
  * Utility class for generating all possible paths in the execution graph.
  * 
@@ -28,13 +30,13 @@ public class ExecutionPathFinder {
 
 	/** Initializes the execution graph, start and end node. */
 	public void init(ActivityExecution execution) {
-		for(ActivityNodeExecution nodeExecution: execution.getNodeExecutions()){
-			if(nodeExecution.getLogicalPredecessor().size() == 0){
+		for (ActivityNodeExecution nodeExecution : execution.getNodeExecutions()) {
+			if (nodeExecution.getLogicalPredecessor().size() == 0) {
 				graph = new ExecutionGraph();
 				graph.initGraph(nodeExecution);
 
 				startNode = graph.getRoot();
-				for(ExecutionGraphNode theEndNode: graph.getEndNodes()){
+				for (ExecutionGraphNode theEndNode : graph.getEndNodes()) {
 					endNode = theEndNode;
 					generatePaths(execution);
 				}
@@ -70,8 +72,7 @@ public class ExecutionPathFinder {
 	private void generatePath(ExecutionGraph graph, LinkedList<ExecutionGraphNode> visited) {
 		LinkedList<ExecutionGraphNode> nodes = new LinkedList<ExecutionGraphNode>(visited.getLast().getSuccessors());
 
-		Outer:
-		for (ExecutionGraphNode node : nodes) {
+		Outer: for (ExecutionGraphNode node : nodes) {
 			if (visited.contains(node)) {
 				continue;
 			}
@@ -80,14 +81,13 @@ public class ExecutionPathFinder {
 				addNewPath(visited);
 				visited.removeLast();
 				break Outer;
-			}			
+			}
 		}
 
-		Outer:
-		for (ExecutionGraphNode node : nodes) {
+		Outer: for (ExecutionGraphNode node : nodes) {
 			if (visited.contains(node) || node.getData() == endNode.getData()) {
 				continue Outer;
-			}			
+			}
 			visited.addLast(node);
 			generatePath(graph, visited);
 			visited.removeLast();
@@ -98,6 +98,20 @@ public class ExecutionPathFinder {
 	private void addNewPath(LinkedList<ExecutionGraphNode> nodes) {
 		LinkedList<ExecutionGraphNode> path = new LinkedList<ExecutionGraphNode>();
 		path.addAll(nodes);
+
+		for (ExecutionGraphNode node : nodes) {
+			if (node.getData().getNode() instanceof FinalNode) {
+				int nextIndex = nodes.indexOf(node) + 1;
+				if (nextIndex < nodes.size()) {
+					if (nodes.get(nextIndex).getData().getActivityExecution() == node.getData().getActivityExecution()) {
+						for (int i = nextIndex; i < nodes.size(); i++) {
+							path.removeLast();
+						}
+					}
+				}
+			}
+		}
+		
 		paths.add(path);
 	}
 }

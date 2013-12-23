@@ -158,6 +158,15 @@ public interface TestLangFactory extends EFactory
   FinallyStateAssertion createFinallyStateAssertion();
 
   /**
+   * Returns a new object of class '<em>Constraint Checking</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Constraint Checking</em>'.
+   * @generated
+   */
+  ConstraintChecking createConstraintChecking();
+
+  /**
    * Returns a new object of class '<em>State Expression</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

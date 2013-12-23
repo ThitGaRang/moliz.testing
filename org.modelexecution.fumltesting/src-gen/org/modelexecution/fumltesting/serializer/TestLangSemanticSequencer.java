@@ -57,6 +57,7 @@ import org.eclipse.xtext.xtype.XtypePackage;
 import org.modelexecution.fumltesting.services.TestLangGrammarAccess;
 import org.modelexecution.fumltesting.testLang.ActivityInput;
 import org.modelexecution.fumltesting.testLang.Attribute;
+import org.modelexecution.fumltesting.testLang.ConstraintChecking;
 import org.modelexecution.fumltesting.testLang.FinallyStateAssertion;
 import org.modelexecution.fumltesting.testLang.Import;
 import org.modelexecution.fumltesting.testLang.Link;
@@ -92,6 +93,12 @@ public class TestLangSemanticSequencer extends XbaseSemanticSequencer {
 			case TestLangPackage.ATTRIBUTE:
 				if(context == grammarAccess.getAttributeRule()) {
 					sequence_Attribute(context, (Attribute) semanticObject); 
+					return; 
+				}
+				else break;
+			case TestLangPackage.CONSTRAINT_CHECKING:
+				if(context == grammarAccess.getConstraintCheckingRule()) {
+					sequence_ConstraintChecking(context, (ConstraintChecking) semanticObject); 
 					return; 
 				}
 				else break;
@@ -1180,7 +1187,16 @@ public class TestLangSemanticSequencer extends XbaseSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     expressions+=StateExpression+
+	 *     (constraints+=[Constraint|QualifiedName] constraints+=[Constraint|QualifiedName]*)
+	 */
+	protected void sequence_ConstraintChecking(EObject context, ConstraintChecking semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (constraintChecking=ConstraintChecking? expressions+=StateExpression*)
 	 */
 	protected void sequence_FinallyStateAssertion(EObject context, FinallyStateAssertion semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1375,7 +1391,7 @@ public class TestLangSemanticSequencer extends XbaseSemanticSequencer {
 	 *         temporalOperator=TemporalOperator 
 	 *         referenceAction=[Action|QualifiedName] 
 	 *         untilAction=[Action|QualifiedName]? 
-	 *         (constraints+=[ExpCS|QualifiedName] constraints+=[ExpCS|QualifiedName]*)? 
+	 *         constraintChecking=ConstraintChecking? 
 	 *         expressions+=StateExpression*
 	 *     )
 	 */

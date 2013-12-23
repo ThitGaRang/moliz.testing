@@ -5,6 +5,12 @@
   </packageImport>
   <packagedElement xmi:type="uml:Package" xmi:id="_IZCn0C_4EeOTpM28lqU8qA" name="structure">
     <packagedElement xmi:type="uml:Class" xmi:id="_P0H5UC_4EeOTpM28lqU8qA" name="Product">
+      <ownedRule xmi:type="uml:Constraint" xmi:id="_CmNqQGcyEeO4M75347jw5g" name="singleProduct">
+        <specification xmi:type="uml:OpaqueExpression" xmi:id="_Nvu8YGcyEeO4M75347jw5g">
+          <language>OCL</language>
+          <body>Product.allInstances()->size()=0</body>
+        </specification>
+      </ownedRule>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_RpeRYC_4EeOTpM28lqU8qA" name="mnemonic" visibility="public">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_UaUoYC_4EeOTpM28lqU8qA" value="1"/>
@@ -1218,6 +1224,24 @@
         </result>
       </node>
     </packagedElement>
+    <packagedElement xmi:type="uml:Activity" xmi:id="_XmDzAGcLEeO9ZPj83X660A" name="RandomWithFinalActivity" node="_e6KSwGcLEeO9ZPj83X660A _gi7AUGcLEeO9ZPj83X660A _vX-8wGffEeO216UogbLivg">
+      <edge xmi:type="uml:ControlFlow" xmi:id="_nWdCQGvwEeOqc8ksuZWlqQ" name="ControlFlow2" source="_gi7AUGcLEeO9ZPj83X660A" target="_vX-8wGffEeO216UogbLivg"/>
+      <node xmi:type="uml:CreateObjectAction" xmi:id="_e6KSwGcLEeO9ZPj83X660A" name="createA" classifier="_P0H5UC_4EeOTpM28lqU8qA">
+        <result xmi:type="uml:OutputPin" xmi:id="_e6jUUGcLEeO9ZPj83X660A" name="result" type="_P0H5UC_4EeOTpM28lqU8qA">
+          <upperBound xmi:type="uml:LiteralInteger" xmi:id="_e6jUUWcLEeO9ZPj83X660A" value="1"/>
+        </result>
+      </node>
+      <node xmi:type="uml:CreateObjectAction" xmi:id="_gi7AUGcLEeO9ZPj83X660A" name="createB" outgoing="_nWdCQGvwEeOqc8ksuZWlqQ" classifier="_P0H5UC_4EeOTpM28lqU8qA">
+        <result xmi:type="uml:OutputPin" xmi:id="_gi81gGcLEeO9ZPj83X660A" name="result" type="_P0H5UC_4EeOTpM28lqU8qA">
+          <upperBound xmi:type="uml:LiteralInteger" xmi:id="_gi81gWcLEeO9ZPj83X660A" value="1"/>
+        </result>
+      </node>
+      <node xmi:type="uml:CreateObjectAction" xmi:id="_vX-8wGffEeO216UogbLivg" name="createC" incoming="_nWdCQGvwEeOqc8ksuZWlqQ" classifier="_P0H5UC_4EeOTpM28lqU8qA">
+        <result xmi:type="uml:OutputPin" xmi:id="_vY_pYGffEeO216UogbLivg" name="result" type="_P0H5UC_4EeOTpM28lqU8qA">
+          <upperBound xmi:type="uml:LiteralInteger" xmi:id="_vY_pYWffEeO216UogbLivg" value="1"/>
+        </result>
+      </node>
+    </packagedElement>
   </packagedElement>
   <packagedElement xmi:type="uml:Package" xmi:id="_Oc6XIEhUEeO_YbtwEefNUw" name="mathlib">
     <packagedElement xmi:type="uml:OpaqueBehavior" xmi:id="_828YkDDyEeO5a9X2Dk_YNQ" name="multiply">
@@ -1245,5 +1269,8 @@
       <ownedParameter xmi:type="uml:Parameter" xmi:id="_JEnK0EhWEeO_YbtwEefNUw" name="y"/>
       <ownedParameter xmi:type="uml:Parameter" xmi:id="_KR1L4EhWEeO_YbtwEefNUw" name="result" direction="out"/>
     </packagedElement>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_2RODgGcxEeO4M75347jw5g" clientDependency="_6YOVIGcxEeO4M75347jw5g" name="constraints">
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_6YOVIGcxEeO4M75347jw5g" name="uses" client="_2RODgGcxEeO4M75347jw5g" supplier="_IZCn0C_4EeOTpM28lqU8qA"/>
   </packagedElement>
 </uml:Model>

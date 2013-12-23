@@ -4,53 +4,50 @@ package org.modelexecution.fumltesting.testLang.impl;
 
 import java.util.Collection;
 
-import org.eclipse.emf.common.notify.NotificationChain;
-
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 
-import org.modelexecution.fumltesting.testLang.NodeOrder;
-import org.modelexecution.fumltesting.testLang.NodeSpecification;
+import org.eclipse.uml2.uml.Constraint;
+
+import org.modelexecution.fumltesting.testLang.ConstraintChecking;
 import org.modelexecution.fumltesting.testLang.TestLangPackage;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Node Order</b></em>'.
+ * An implementation of the model object '<em><b>Constraint Checking</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.modelexecution.fumltesting.testLang.impl.NodeOrderImpl#getNodes <em>Nodes</em>}</li>
+ *   <li>{@link org.modelexecution.fumltesting.testLang.impl.ConstraintCheckingImpl#getConstraints <em>Constraints</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class NodeOrderImpl extends MinimalEObjectImpl.Container implements NodeOrder
+public class ConstraintCheckingImpl extends MinimalEObjectImpl.Container implements ConstraintChecking
 {
   /**
-   * The cached value of the '{@link #getNodes() <em>Nodes</em>}' containment reference list.
+   * The cached value of the '{@link #getConstraints() <em>Constraints</em>}' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getNodes()
+   * @see #getConstraints()
    * @generated
    * @ordered
    */
-  protected EList<NodeSpecification> nodes;
+  protected EList<Constraint> constraints;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected NodeOrderImpl()
+  protected ConstraintCheckingImpl()
   {
     super();
   }
@@ -63,7 +60,7 @@ public class NodeOrderImpl extends MinimalEObjectImpl.Container implements NodeO
   @Override
   protected EClass eStaticClass()
   {
-    return TestLangPackage.Literals.NODE_ORDER;
+    return TestLangPackage.Literals.CONSTRAINT_CHECKING;
   }
 
   /**
@@ -71,29 +68,13 @@ public class NodeOrderImpl extends MinimalEObjectImpl.Container implements NodeO
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<NodeSpecification> getNodes()
+  public EList<Constraint> getConstraints()
   {
-    if (nodes == null)
+    if (constraints == null)
     {
-      nodes = new EObjectContainmentEList<NodeSpecification>(NodeSpecification.class, this, TestLangPackage.NODE_ORDER__NODES);
+      constraints = new EObjectResolvingEList<Constraint>(Constraint.class, this, TestLangPackage.CONSTRAINT_CHECKING__CONSTRAINTS);
     }
-    return nodes;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-  {
-    switch (featureID)
-    {
-      case TestLangPackage.NODE_ORDER__NODES:
-        return ((InternalEList<?>)getNodes()).basicRemove(otherEnd, msgs);
-    }
-    return super.eInverseRemove(otherEnd, featureID, msgs);
+    return constraints;
   }
 
   /**
@@ -106,8 +87,8 @@ public class NodeOrderImpl extends MinimalEObjectImpl.Container implements NodeO
   {
     switch (featureID)
     {
-      case TestLangPackage.NODE_ORDER__NODES:
-        return getNodes();
+      case TestLangPackage.CONSTRAINT_CHECKING__CONSTRAINTS:
+        return getConstraints();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -123,9 +104,9 @@ public class NodeOrderImpl extends MinimalEObjectImpl.Container implements NodeO
   {
     switch (featureID)
     {
-      case TestLangPackage.NODE_ORDER__NODES:
-        getNodes().clear();
-        getNodes().addAll((Collection<? extends NodeSpecification>)newValue);
+      case TestLangPackage.CONSTRAINT_CHECKING__CONSTRAINTS:
+        getConstraints().clear();
+        getConstraints().addAll((Collection<? extends Constraint>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -141,8 +122,8 @@ public class NodeOrderImpl extends MinimalEObjectImpl.Container implements NodeO
   {
     switch (featureID)
     {
-      case TestLangPackage.NODE_ORDER__NODES:
-        getNodes().clear();
+      case TestLangPackage.CONSTRAINT_CHECKING__CONSTRAINTS:
+        getConstraints().clear();
         return;
     }
     super.eUnset(featureID);
@@ -158,10 +139,10 @@ public class NodeOrderImpl extends MinimalEObjectImpl.Container implements NodeO
   {
     switch (featureID)
     {
-      case TestLangPackage.NODE_ORDER__NODES:
-        return nodes != null && !nodes.isEmpty();
+      case TestLangPackage.CONSTRAINT_CHECKING__CONSTRAINTS:
+        return constraints != null && !constraints.isEmpty();
     }
     return super.eIsSet(featureID);
   }
 
-} //NodeOrderImpl
+} //ConstraintCheckingImpl
