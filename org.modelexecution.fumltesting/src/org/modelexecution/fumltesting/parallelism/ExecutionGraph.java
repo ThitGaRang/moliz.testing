@@ -6,6 +6,8 @@ import java.util.List;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 
+import fUML.Syntax.Activities.IntermediateActivities.FinalNode;
+
 /**
  * Utility class for generating all possible orders of execution.
  * 
@@ -44,7 +46,7 @@ public class ExecutionGraph {
 	private boolean canAddSuccessor(ExecutionGraphNode node, ActivityNodeExecution successor) {
 		for (ActivityNodeExecution predecessor : successor.getLogicalPredecessor()) {
 			if (successor.isExecuted() && !node.containsPredecessor(predecessor) && node.getData() != predecessor 
-					&& node.getData() != successor && !node.containsPredecessor(successor)) {
+					&& node.getData() != successor && !node.containsPredecessor(successor) && !(node.getData().getNode() instanceof FinalNode)) {
 				return false;
 			}
 			if(node.containsSuccessor(successor))return false;
@@ -143,7 +145,7 @@ public class ExecutionGraph {
 	private ArrayList<ActivityNodeExecution> getAllFreeNodes(ActivityExecution activityExecution) {
 		ArrayList<ActivityNodeExecution> freeNodes = new ArrayList<ActivityNodeExecution>();
 		for (ActivityNodeExecution nodeExecution : activityExecution.getNodeExecutions()) {
-			if (nodeExecution.getLogicalPredecessor().size() == 0)
+			if (nodeExecution.isExecuted() && nodeExecution.getLogicalPredecessor().size() == 0)
 				freeNodes.add(nodeExecution);
 		}
 		return freeNodes;

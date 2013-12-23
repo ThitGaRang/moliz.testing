@@ -1224,21 +1224,23 @@
         </result>
       </node>
     </packagedElement>
-    <packagedElement xmi:type="uml:Activity" xmi:id="_XmDzAGcLEeO9ZPj83X660A" name="RandomWithFinalActivity" node="_e6KSwGcLEeO9ZPj83X660A _gi7AUGcLEeO9ZPj83X660A _vX-8wGffEeO216UogbLivg">
-      <edge xmi:type="uml:ControlFlow" xmi:id="_nWdCQGvwEeOqc8ksuZWlqQ" name="ControlFlow2" source="_gi7AUGcLEeO9ZPj83X660A" target="_vX-8wGffEeO216UogbLivg"/>
-      <node xmi:type="uml:CreateObjectAction" xmi:id="_e6KSwGcLEeO9ZPj83X660A" name="createA" classifier="_P0H5UC_4EeOTpM28lqU8qA">
-        <result xmi:type="uml:OutputPin" xmi:id="_e6jUUGcLEeO9ZPj83X660A" name="result" type="_P0H5UC_4EeOTpM28lqU8qA">
-          <upperBound xmi:type="uml:LiteralInteger" xmi:id="_e6jUUWcLEeO9ZPj83X660A" value="1"/>
-        </result>
-      </node>
-      <node xmi:type="uml:CreateObjectAction" xmi:id="_gi7AUGcLEeO9ZPj83X660A" name="createB" outgoing="_nWdCQGvwEeOqc8ksuZWlqQ" classifier="_P0H5UC_4EeOTpM28lqU8qA">
+    <packagedElement xmi:type="uml:Activity" xmi:id="_XmDzAGcLEeO9ZPj83X660A" name="RandomWithFinalActivity" node="_gi7AUGcLEeO9ZPj83X660A _vX-8wGffEeO216UogbLivg _2-2ToGwVEeOpUdKLl2GYjw _BpWVMGwbEeOpUdKLl2GYjw">
+      <edge xmi:type="uml:ControlFlow" xmi:id="_4VMpQGwaEeOpUdKLl2GYjw" name="ControlFlow1" source="_vX-8wGffEeO216UogbLivg" target="_2-2ToGwVEeOpUdKLl2GYjw"/>
+      <edge xmi:type="uml:ControlFlow" xmi:id="_LrcsQGwbEeOpUdKLl2GYjw" name="ControlFlow2" source="_BpWVMGwbEeOpUdKLl2GYjw" target="_gi7AUGcLEeO9ZPj83X660A"/>
+      <node xmi:type="uml:CreateObjectAction" xmi:id="_gi7AUGcLEeO9ZPj83X660A" name="createB" incoming="_LrcsQGwbEeOpUdKLl2GYjw" classifier="_P0H5UC_4EeOTpM28lqU8qA">
         <result xmi:type="uml:OutputPin" xmi:id="_gi81gGcLEeO9ZPj83X660A" name="result" type="_P0H5UC_4EeOTpM28lqU8qA">
           <upperBound xmi:type="uml:LiteralInteger" xmi:id="_gi81gWcLEeO9ZPj83X660A" value="1"/>
         </result>
       </node>
-      <node xmi:type="uml:CreateObjectAction" xmi:id="_vX-8wGffEeO216UogbLivg" name="createC" incoming="_nWdCQGvwEeOqc8ksuZWlqQ" classifier="_P0H5UC_4EeOTpM28lqU8qA">
+      <node xmi:type="uml:CreateObjectAction" xmi:id="_vX-8wGffEeO216UogbLivg" name="createC" outgoing="_4VMpQGwaEeOpUdKLl2GYjw" classifier="_P0H5UC_4EeOTpM28lqU8qA">
         <result xmi:type="uml:OutputPin" xmi:id="_vY_pYGffEeO216UogbLivg" name="result" type="_P0H5UC_4EeOTpM28lqU8qA">
           <upperBound xmi:type="uml:LiteralInteger" xmi:id="_vY_pYWffEeO216UogbLivg" value="1"/>
+        </result>
+      </node>
+      <node xmi:type="uml:ActivityFinalNode" xmi:id="_2-2ToGwVEeOpUdKLl2GYjw" name="final" incoming="_4VMpQGwaEeOpUdKLl2GYjw"/>
+      <node xmi:type="uml:CreateObjectAction" xmi:id="_BpWVMGwbEeOpUdKLl2GYjw" name="createA" outgoing="_LrcsQGwbEeOpUdKLl2GYjw" classifier="_P0H5UC_4EeOTpM28lqU8qA">
+        <result xmi:type="uml:OutputPin" xmi:id="_BpZ_kGwbEeOpUdKLl2GYjw" name="result" type="_P0H5UC_4EeOTpM28lqU8qA">
+          <upperBound xmi:type="uml:LiteralInteger" xmi:id="_BpZ_kWwbEeOpUdKLl2GYjw" value="1"/>
         </result>
       </node>
     </packagedElement>

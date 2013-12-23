@@ -29,6 +29,7 @@ import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
 import fUML.Syntax.Activities.IntermediateActivities.DecisionNode;
+import fUML.Syntax.Activities.IntermediateActivities.FinalNode;
 import fUML.Syntax.Classes.Kernel.Element;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
@@ -130,7 +131,19 @@ public class ActivityExecutor implements ExecutionEventListener {
 			getExecutionContext().executeStepwise(fumlActivity, null, parameters);
 		}
 		while (running) {
-			ExecutionContext.getInstance().nextStep(mainActivityID);
+			List<ActivityNode> enabledNodes = ExecutionContext.getInstance().getEnabledNodes(mainActivityID);
+			ActivityNode nonFinalNode = null;
+			if (enabledNodes.size() == 0)
+				return mainActivityID;
+			if (enabledNodes.size() > 1) {
+				for (ActivityNode node : enabledNodes) {
+					if (!(node instanceof FinalNode))
+						nonFinalNode = node;
+				}
+			} else {
+				nonFinalNode = enabledNodes.get(0);
+			}
+			ExecutionContext.getInstance().nextStep(mainActivityID, nonFinalNode);
 		}
 
 		return mainActivityID;
