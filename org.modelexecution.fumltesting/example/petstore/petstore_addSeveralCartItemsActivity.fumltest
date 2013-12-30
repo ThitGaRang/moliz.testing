@@ -14,7 +14,7 @@ test addSeveralCartItemsTest activity AddSeveralCartItemsActivity on TestData.ca
 	var item = createItemA.result;
 	assertOrder AddSeveralCartItemsActivity.init, AddSeveralCartItemsActivity.selfA, AddSeveralCartItemsActivity.createItemA, AddSeveralCartItemsActivity.quantityA,
 		  AddSeveralCartItemsActivity.addItemA, AddSeveralCartItemsActivity.createItemB, AddSeveralCartItemsActivity.selfB, 
-		  AddSeveralCartItemsActivity.quantityB, AddSeveralCartItemsActivity.addItemB, AddSeveralCartItemsActivity.final;
+		  AddSeveralCartItemsActivity.quantityB, AddSeveralCartItemsActivity.addItemB;
 		  
 	assertState always after AddSeveralCartItemsActivity.createItemB{
 		item != TestData.item;

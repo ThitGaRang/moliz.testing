@@ -92,12 +92,20 @@ public class AssertionPrinter {
 	}
 
 	public static void print(List<NodeSpecification> nodeOrder, boolean result) {
-		System.out.print("Order assertion: ");
+		System.out.print("Order assertion:");
 		for (int i = 0; i < nodeOrder.size(); i++) {
-			if (nodeOrder.get(i).getNode() != null)
-				System.out.print(nodeOrder.get(i).getNode().getName() + ", ");
-			if (nodeOrder.get(i).getJoker() != null)
-				System.out.print(nodeOrder.get(i).getJoker() + ", ");
+			if (nodeOrder.get(i).getNode() != null) {
+				if (i == nodeOrder.size() - 1)
+					System.out.print(nodeOrder.get(i).getNode().getName());
+				else
+					System.out.print(nodeOrder.get(i).getNode().getName() + ", ");
+			}
+			if (nodeOrder.get(i).getJoker() != null) {
+				if (i == nodeOrder.size() - 1)
+					System.out.print(nodeOrder.get(i).getJoker());
+				else
+					System.out.print(nodeOrder.get(i).getJoker() + ", ");
+			}
 		}
 		System.out.println();
 		if (result)
@@ -107,11 +115,16 @@ public class AssertionPrinter {
 	}
 
 	public static void print(List<ActivityNodeExecution> executions) {
-		System.out.print("Executed nodes: ");
-		for (ActivityNodeExecution execution : executions) {
+		System.out.print("Executed nodes:");
+		for (int i = 0; i < executions.size(); i++) {
+			ActivityNodeExecution execution = executions.get(i);
 			if (execution.getNode() instanceof Action || execution.getNode() instanceof InitialNode
-					|| execution.getNode() instanceof ActivityFinalNode)
-				System.out.print(execution.getNode().name + ", ");
+					|| execution.getNode() instanceof ActivityFinalNode) {
+				if (i == executions.size() - 1)
+					System.out.print(execution.getNode().name);
+				else
+					System.out.print(execution.getNode().name + ", ");
+			}
 		}
 		System.out.println();
 	}

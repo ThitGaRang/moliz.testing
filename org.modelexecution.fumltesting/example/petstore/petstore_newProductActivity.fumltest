@@ -13,7 +13,7 @@ test newProductTest activity NewProductActivity(mnemonic="SHM", name="SyrianHams
 	var product = product;
 	
 	assertOrder NewProductActivity.init, NewProductActivity.createProduct, 
-		NewProductActivity.setMnemonic, NewProductActivity.setName, NewProductActivity.final;
+		NewProductActivity.setMnemonic, NewProductActivity.setName;
 	
 	assertState always before NewProductActivity.createProduct{product = null;}
 	assertState exactly before NewProductActivity.createProduct{product = null;}

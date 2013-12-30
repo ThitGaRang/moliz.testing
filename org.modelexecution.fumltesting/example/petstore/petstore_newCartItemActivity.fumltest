@@ -13,7 +13,7 @@ test newCartItemTest activity NewCartItemActivity(catalogItem=TestData.item, qua
 	var cartItem = cartItem;
 	
 	assertOrder NewCartItemActivity.init, NewCartItemActivity.createCartItem, 
-		NewCartItemActivity.setItem, NewCartItemActivity.setQuantity, NewCartItemActivity.final;
+		NewCartItemActivity.setItem, NewCartItemActivity.setQuantity;
 	
 	assertState always before NewCartItemActivity.createCartItem{cartItem = null;}
 	assertState exactly before NewCartItemActivity.createCartItem{cartItem = null;}

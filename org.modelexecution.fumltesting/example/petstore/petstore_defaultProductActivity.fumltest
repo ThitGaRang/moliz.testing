@@ -3,5 +3,5 @@ import petstore.scenarios.*
 
 test defaultProductTest activity DefaultProductActivity{
 	assertOrder DefaultProductActivity.init, DefaultProductActivity.productName, 
-		DefaultProductActivity.productMnemonic, DefaultProductActivity.defaultProduct, DefaultProductActivity.final;
+		DefaultProductActivity.productMnemonic, DefaultProductActivity.defaultProduct;
 }

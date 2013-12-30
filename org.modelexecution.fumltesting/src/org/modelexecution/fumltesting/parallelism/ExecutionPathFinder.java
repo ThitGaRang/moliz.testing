@@ -50,9 +50,12 @@ public class ExecutionPathFinder {
 		int numberOfPath = 0;
 		for (LinkedList<ExecutionGraphNode> path : getPaths()) {
 			numberOfPath++;
-			System.out.print(numberOfPath + ": ");
+			System.out.print(numberOfPath + ":");
 			for (int i = 0; i < path.size(); i++) {
-				System.out.print(path.get(i).getData().getNode().name + ", ");
+				if (i == path.size() - 1)
+					System.out.print(path.get(i).getData().getNode().name);
+				else
+					System.out.print(path.get(i).getData().getNode().name + ", ");
 			}
 			System.out.println();
 		}
@@ -105,13 +108,28 @@ public class ExecutionPathFinder {
 				if (nextIndex < nodes.size()) {
 					if (nodes.get(nextIndex).getData().getActivityExecution() == node.getData().getActivityExecution()) {
 						for (int i = nextIndex; i < nodes.size(); i++) {
-							path.removeLast();
+							if (!path.isEmpty())
+								path.removeLast();
 						}
 					}
 				}
 			}
 		}
-		
-		paths.add(path);
+
+		if (!path.isEmpty() && !pathAlreadyAdded(path))
+			paths.add(path);
+	}
+
+	private boolean pathAlreadyAdded(LinkedList<ExecutionGraphNode> path) {
+		outer: for (LinkedList<ExecutionGraphNode> aPath : paths) {
+			if (aPath.size() == path.size()) {
+				for (int i = 0; i < aPath.size(); i++) {
+					if (aPath.get(i).getData().getNode() != path.get(i).getData().getNode())
+						continue outer;
+				}
+				return true;
+			}
+		}
+		return false;
 	}
 }

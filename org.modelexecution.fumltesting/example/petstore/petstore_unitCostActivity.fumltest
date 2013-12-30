@@ -15,7 +15,7 @@ test unitCostTest activity UnitCostActivity on TestData.cartItem{
 	var cost = getCost.result;
 	
 	assertOrder UnitCostActivity.init, UnitCostActivity.unitCostSelf, UnitCostActivity.getItem, 
-		UnitCostActivity.getCost, UnitCostActivity.final;
+		UnitCostActivity.getCost;
 	
 	assertState always before UnitCostActivity.unitCostSelf{cartItem = null;}
 	assertState exactly before UnitCostActivity.unitCostSelf{cartItem = null;}

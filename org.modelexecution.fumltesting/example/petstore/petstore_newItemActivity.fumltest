@@ -12,7 +12,7 @@ scenario TestData[
 test newItemTest activity NewItemActivity(product=TestData.product){
 	var item = item;
 	
-	assertOrder NewItemActivity.init, NewItemActivity.createItem, NewItemActivity.setProduct, NewItemActivity.final;
+	assertOrder NewItemActivity.init, NewItemActivity.createItem, NewItemActivity.setProduct;
 	
 	assertState always before NewItemActivity.createItem{item = null;}
 	assertState exactly before NewItemActivity.createItem{item = null;}	

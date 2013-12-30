@@ -11,6 +11,7 @@ import org.modelexecution.fumldebug.core.ExecutionContext;
 import org.modelexecution.fumldebug.core.ExecutionEventListener;
 import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityExitEvent;
+import org.modelexecution.fumldebug.core.event.ActivityNodeExitEvent;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumltesting.testLang.ActivityInput;
 import org.modelexecution.fumltesting.testLang.ObjectSpecification;
@@ -42,8 +43,10 @@ import fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
  */
 public class ActivityExecutor implements ExecutionEventListener {
 
-	/** ID of main Activity. */
+	/** ID of main activity. */
 	private int mainActivityID;
+	/** ID of current activity. */
+	private int currentActivityID;
 	private boolean running;
 	/** Original UML model under test. */
 	private NamedElement umlModel;
@@ -131,19 +134,21 @@ public class ActivityExecutor implements ExecutionEventListener {
 			getExecutionContext().executeStepwise(fumlActivity, null, parameters);
 		}
 		while (running) {
-			List<ActivityNode> enabledNodes = ExecutionContext.getInstance().getEnabledNodes(mainActivityID);
+			List<ActivityNode> enabledNodes = ExecutionContext.getInstance().getEnabledNodes(currentActivityID);
 			ActivityNode nonFinalNode = null;
-			if (enabledNodes.size() == 0)
-				return mainActivityID;
 			if (enabledNodes.size() > 1) {
 				for (ActivityNode node : enabledNodes) {
-					if (!(node instanceof FinalNode))
+					if (!(node instanceof FinalNode)) {
 						nonFinalNode = node;
+						break;
+					}
 				}
-			} else {
-				nonFinalNode = enabledNodes.get(0);
+				ExecutionContext.getInstance().nextStep(currentActivityID, nonFinalNode);
 			}
-			ExecutionContext.getInstance().nextStep(mainActivityID, nonFinalNode);
+			if (enabledNodes.size() == 1) {
+				nonFinalNode = enabledNodes.get(0);
+				ExecutionContext.getInstance().nextStep(currentActivityID, nonFinalNode);
+			}
 		}
 
 		return mainActivityID;
@@ -204,13 +209,19 @@ public class ActivityExecutor implements ExecutionEventListener {
 	@Override
 	public void notify(Event event) {
 		if (event instanceof ActivityEntryEvent && (((ActivityEntryEvent) event).getParent() == null)) {
-			mainActivityID = ((ActivityEntryEvent) event).getActivityExecutionID();
+			mainActivityID = ((ActivityEntryEvent) event).getActivityExecutionID();			
 
 		}
-		eventlist.add(event);
+		if (event instanceof ActivityEntryEvent) {
+			currentActivityID = ((ActivityEntryEvent) event).getActivityExecutionID();			
+		}
+		if (event instanceof ActivityNodeExitEvent) {
+			currentActivityID = ((ActivityNodeExitEvent) event).getActivityExecutionID();
+		}
 		if (event instanceof ActivityExitEvent && (((ActivityExitEvent) event).getActivityExecutionID() == mainActivityID)) {
 			running = false;
 		}
+		eventlist.add(event);
 	}
 
 	private ExecutionContext getExecutionContext() {
