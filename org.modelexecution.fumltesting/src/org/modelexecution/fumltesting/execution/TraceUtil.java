@@ -1,6 +1,7 @@
 package org.modelexecution.fumltesting.execution;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.uml2.uml.Action;
@@ -12,6 +13,7 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.CallActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
+import org.modelexecution.fumltesting.parallelism.ExecutionGraphNode;
 import org.modelexecution.fumltesting.parallelism.ExecutionPathFinder;
 import org.modelexecution.fumltesting.sequence.Sequence;
 import org.modelexecution.fumltesting.sequence.SequenceTrace;
@@ -39,6 +41,9 @@ public class TraceUtil {
 
 	/** Execution paths utility class. */
 	private ExecutionPathFinder pathFinder;
+
+	/** All paths that could be executed. */
+	private ArrayList<ArrayList<ActivityNodeExecution>> paths;
 
 	/**
 	 * Used to generate flat list with all node executions, from main activity
@@ -195,5 +200,19 @@ public class TraceUtil {
 			}
 		}
 		return states;
+	}
+
+	public ArrayList<ArrayList<ActivityNodeExecution>> getAllPaths() {
+		if (paths == null) {
+			paths = new ArrayList<ArrayList<ActivityNodeExecution>>();
+			for (LinkedList<ExecutionGraphNode> path : pathFinder.getPaths()) {
+				ArrayList<ActivityNodeExecution> simplePath = new ArrayList<ActivityNodeExecution>();
+				for (ExecutionGraphNode node : path) {
+					simplePath.add(node.getData());
+				}
+				paths.add(simplePath);
+			}
+		}
+		return paths;
 	}
 }

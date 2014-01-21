@@ -2,6 +2,5 @@ import petstore.structure.*
 import petstore.scenarios.*
 
 test defaultProductTest activity DefaultProductActivity{
-	assertOrder DefaultProductActivity.init, DefaultProductActivity.productName, 
-		DefaultProductActivity.productMnemonic, DefaultProductActivity.defaultProduct;
+	assertOrder DefaultProductActivity.init, *, DefaultProductActivity.defaultProduct;
 }

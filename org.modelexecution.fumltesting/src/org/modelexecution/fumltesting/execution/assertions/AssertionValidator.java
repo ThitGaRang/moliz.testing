@@ -1,7 +1,9 @@
 package org.modelexecution.fumltesting.execution.assertions;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumltesting.execution.ActivityExecutor;
 import org.modelexecution.fumltesting.execution.TraceUtil;
 import org.modelexecution.fumltesting.testLang.Assertion;
@@ -34,6 +36,13 @@ public class AssertionValidator {
 			String parentNodeName = ((TestCase) assertion.eContainer()).getActivityUnderTest().getName();
 			List<NodeSpecification> nodeOrder = ((OrderAssertion) assertion).getOrder().getNodes();
 			AssertionPrinter.print(traceUtil.getExecutedNodesList());
+			for (ArrayList<ActivityNodeExecution> path : traceUtil.getAllPaths()) {
+				boolean result = orderValidator.checkOrder(parentNodeName, nodeOrder, path);
+				if (result == false) {
+					return result;
+				}
+			}
+			System.out.println("\nExecuted path check:");
 			return orderValidator.checkOrder(parentNodeName, nodeOrder, traceUtil.getExecutedNodesList());
 		}
 		if (assertion instanceof StateAssertion) {

@@ -33,6 +33,7 @@ import fUML.Syntax.Activities.IntermediateActivities.InitialNode;
 public class AssertionPrinter {
 
 	public static void print(StateExpression stateExpression, boolean result) {
+		System.out.println();
 		if (stateExpression instanceof ObjectStateExpression) {
 			ObjectStateExpression expression = (ObjectStateExpression) stateExpression;
 			String valueStr = null;
@@ -91,7 +92,8 @@ public class AssertionPrinter {
 		}
 	}
 
-	public static void print(List<NodeSpecification> nodeOrder, boolean result) {
+	public static void print(List<NodeSpecification> nodeOrder, List<ActivityNodeExecution> executedNodes, boolean result) {
+		System.out.println();
 		System.out.print("Order assertion:");
 		for (int i = 0; i < nodeOrder.size(); i++) {
 			if (nodeOrder.get(i).getNode() != null) {
@@ -108,6 +110,18 @@ public class AssertionPrinter {
 			}
 		}
 		System.out.println();
+
+		System.out.print("Checked path:");
+		for (int i = 0; i < executedNodes.size(); i++) {
+			if (executedNodes.get(i).getNode() != null) {
+				if (i == executedNodes.size() - 1)
+					System.out.print(executedNodes.get(i).getNode().name);
+				else
+					System.out.print(executedNodes.get(i).getNode().name + ", ");
+			}
+		}
+		System.out.println();
+
 		if (result)
 			System.out.println("Assertion success!");
 		else
@@ -115,6 +129,7 @@ public class AssertionPrinter {
 	}
 
 	public static void print(List<ActivityNodeExecution> executions) {
+		System.out.println();
 		System.out.print("Executed nodes:");
 		for (int i = 0; i < executions.size(); i++) {
 			ActivityNodeExecution execution = executions.get(i);
@@ -130,6 +145,7 @@ public class AssertionPrinter {
 	}
 
 	public static void printStateAssertion(StateAssertion assertion) {
+		System.out.println();
 		System.out.print("State assertion: " + assertion.getTemporalQuantifier() + " " + assertion.getTemporalOperator() + " "
 				+ assertion.getReferenceAction().getName());
 		if (assertion.getUntilAction() != null)
@@ -138,6 +154,7 @@ public class AssertionPrinter {
 	}
 
 	public static void print(TestCase testCase) {
+		System.out.println();
 		System.out.println("Running test: " + testCase.getName());
 		System.out.println("Activity under test: " + testCase.getActivityUnderTest().getName());
 	}
