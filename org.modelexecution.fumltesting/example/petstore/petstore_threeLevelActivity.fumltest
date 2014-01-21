@@ -1,0 +1,6 @@
+import Model.structure.*
+import Model.scenarios.*
+
+test threeLevelActivityTest activity petstore.scenarios.ThreeLevelActivity{
+	
+}

@@ -1203,6 +1203,20 @@
         </result>
       </node>
     </packagedElement>
+    <packagedElement xmi:type="uml:Activity" xmi:id="_K8SM0IKbEeOweOpVCrk9Ug" name="ThreeLevelActivity" node="_kJBiEIKbEeOweOpVCrk9Ug _nTQCYIKbEeOweOpVCrk9Ug _xDo-YIKbEeOweOpVCrk9Ug">
+      <edge xmi:type="uml:ControlFlow" xmi:id="_u9B3MIKbEeOweOpVCrk9Ug" name="ControlFlow1" source="_kJBiEIKbEeOweOpVCrk9Ug" target="_nTQCYIKbEeOweOpVCrk9Ug"/>
+      <edge xmi:type="uml:ControlFlow" xmi:id="_zckkoIKbEeOweOpVCrk9Ug" name="ControlFlow2" source="_nTQCYIKbEeOweOpVCrk9Ug" target="_xDo-YIKbEeOweOpVCrk9Ug"/>
+      <node xmi:type="uml:InitialNode" xmi:id="_kJBiEIKbEeOweOpVCrk9Ug" name="init" outgoing="_u9B3MIKbEeOweOpVCrk9Ug"/>
+      <node xmi:type="uml:CallBehaviorAction" xmi:id="_nTQCYIKbEeOweOpVCrk9Ug" name="DefaultProductActivity" outgoing="_zckkoIKbEeOweOpVCrk9Ug" incoming="_u9B3MIKbEeOweOpVCrk9Ug" behavior="_yWQLQDTHEeOb5rin66Mqvw">
+        <result xmi:type="uml:OutputPin" xmi:id="_pUqggIKbEeOweOpVCrk9Ug" name="product" type="_P0H5UC_4EeOTpM28lqU8qA">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_pUrHkIKbEeOweOpVCrk9Ug" source="PinToParameterLink">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_pUruoIKbEeOweOpVCrk9Ug" key="PinToParameterLink" value="_q3tgoDTIEeOb5rin66Mqvw"/>
+          </eAnnotations>
+          <upperBound xmi:type="uml:LiteralInteger" xmi:id="_pUqggYKbEeOweOpVCrk9Ug" value="1"/>
+        </result>
+      </node>
+      <node xmi:type="uml:ActivityFinalNode" xmi:id="_xDo-YIKbEeOweOpVCrk9Ug" name="final" incoming="_zckkoIKbEeOweOpVCrk9Ug"/>
+    </packagedElement>
   </packagedElement>
   <packagedElement xmi:type="uml:Package" xmi:id="_Oc6XIEhUEeO_YbtwEefNUw" name="mathlib">
     <packagedElement xmi:type="uml:OpaqueBehavior" xmi:id="_828YkDDyEeO5a9X2Dk_YNQ" name="multiply">

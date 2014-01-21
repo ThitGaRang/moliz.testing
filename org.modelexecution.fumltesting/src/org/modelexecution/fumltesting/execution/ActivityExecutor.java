@@ -209,11 +209,11 @@ public class ActivityExecutor implements ExecutionEventListener {
 	@Override
 	public void notify(Event event) {
 		if (event instanceof ActivityEntryEvent && (((ActivityEntryEvent) event).getParent() == null)) {
-			mainActivityID = ((ActivityEntryEvent) event).getActivityExecutionID();			
+			mainActivityID = ((ActivityEntryEvent) event).getActivityExecutionID();
 
 		}
 		if (event instanceof ActivityEntryEvent) {
-			currentActivityID = ((ActivityEntryEvent) event).getActivityExecutionID();			
+			currentActivityID = ((ActivityEntryEvent) event).getActivityExecutionID();
 		}
 		if (event instanceof ActivityNodeExitEvent) {
 			currentActivityID = ((ActivityNodeExitEvent) event).getActivityExecutionID();

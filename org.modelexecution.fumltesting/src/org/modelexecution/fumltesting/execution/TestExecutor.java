@@ -64,7 +64,9 @@ public class TestExecutor {
 				resourceSet.getPackageRegistry().put(UMLPackage.eNS_URI, UMLPackage.eINSTANCE);
 				resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(UMLResource.FILE_EXTENSION, UMLResource.Factory.INSTANCE);
 				// model with UML elements under test
-				Resource r = resourceSet.getResource(URI.createFileURI(new File("../org.modelexecution.fumltesting.examples/model/petstore/petstore.uml").getAbsolutePath()), true);
+				Resource r = resourceSet
+						.getResource(URI.createFileURI(new File("../org.modelexecution.fumltesting.examples/model/petstore/petstore.uml")
+								.getAbsolutePath()), true);
 				r.load(null);
 
 				// adds elements from UML model to test suite

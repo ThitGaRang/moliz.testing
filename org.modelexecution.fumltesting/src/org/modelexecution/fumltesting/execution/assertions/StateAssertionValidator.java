@@ -91,7 +91,7 @@ public class StateAssertionValidator {
 		AssertionPrinter.printStateAssertion(assertion);
 		boolean result = true;
 
-		if(assertion.getConstraintChecking() != null){
+		if (assertion.getConstraintChecking() != null) {
 			for (Constraint constraint : assertion.getConstraintChecking().getConstraints()) {
 				List<State> states = traceUtil.getStates(quantifier, operator, referredNodeExecution);
 				result = check(constraint, states);
@@ -121,8 +121,8 @@ public class StateAssertionValidator {
 	}
 
 	private boolean check(Constraint constraint, List<State> states) {
-		for(State state: states){
-			//TODO implement constraint checking
+		for (State state : states) {
+			// TODO implement constraint checking
 		}
 		return true;
 	}
