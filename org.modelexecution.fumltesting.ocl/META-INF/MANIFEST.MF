@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: FUML Meta-Model Plug-in
+Bundle-SymbolicName: org.modelexecution.fumltesting.ocl;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Activator: org.modelexecution.fumltesting.ocl.internal.FUMLMetamodelPlugin
+Bundle-Vendor: TU Dresden, Software Technology Group
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.emf.ecore,
+ tudresden.ocl20.pivot.modelbus,
+ tudresden.ocl20.pivot.pivotmodel,
+ tudresden.ocl20.logging,
+ org.apache.commons.lang,
+ org.modelexecution.fuml;bundle-version="1.0.0"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Export-Package: org.modelexecution.fumltesting.ocl.internal,
+ org.modelexecution.fumltesting.ocl.internal.util,
+ org.modelexecution.fumltesting.ocl.internal.provider,
+ org.modelexecution.fumltesting.ocl.internal.model,
+ org.modelexecution.fumltesting.ocl.internal.modelinstance
