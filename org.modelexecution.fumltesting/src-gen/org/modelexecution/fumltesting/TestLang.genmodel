@@ -84,15 +84,15 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TestLang.ecore#//StateAssertion/temporalOperator"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference TestLang.ecore#//StateAssertion/referenceAction"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference TestLang.ecore#//StateAssertion/untilAction"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TestLang.ecore#//StateAssertion/constraintChecking"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TestLang.ecore#//StateAssertion/constraints"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TestLang.ecore#//StateAssertion/expressions"/>
     </genClasses>
     <genClasses ecoreClass="TestLang.ecore#//FinallyStateAssertion">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TestLang.ecore#//FinallyStateAssertion/constraintChecking"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TestLang.ecore#//FinallyStateAssertion/constraints"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TestLang.ecore#//FinallyStateAssertion/expressions"/>
     </genClasses>
-    <genClasses ecoreClass="TestLang.ecore#//ConstraintChecking">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference TestLang.ecore#//ConstraintChecking/constraints"/>
+    <genClasses ecoreClass="TestLang.ecore#//Constraint">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TestLang.ecore#//Constraint/specification"/>
     </genClasses>
     <genClasses ecoreClass="TestLang.ecore#//StateExpression">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference TestLang.ecore#//StateExpression/pin"/>

@@ -27,24 +27,20 @@ import fUML.Semantics.Classes.Kernel.Link;
 /**
  * Utility class for managing the trace of execution.
  * 
- * @author Stefan Mijatov
+ * @author Stefan
  * 
  */
 public class TraceUtil {
 	/** Trace of an activity execution. */
 	private Trace trace;
-
 	/** Trace as a sequence of snapshots. */
 	private SequenceTrace sTrace;
 	/** Sequence trace generator utility class. */
 	private SequenceGenerator sequenceGenerator;
-
 	/** Execution paths utility class. */
 	private ExecutionPathFinder pathFinder;
-
 	/** All paths that could be executed. */
 	private ArrayList<ArrayList<ActivityNodeExecution>> paths;
-
 	/**
 	 * Used to generate flat list with all node executions, from main activity
 	 * and all its children activities.
@@ -55,12 +51,9 @@ public class TraceUtil {
 	 * generated.
 	 */
 	private boolean executedNodesListGenerated;
-	/** Utility class for executing fUML activities. */
-	private ActivityExecutor executor;
 
-	public TraceUtil(int activityExecutionID, ActivityExecutor executor) {
+	public TraceUtil(int activityExecutionID) {
 		trace = ExecutionContext.getInstance().getTrace(activityExecutionID);
-		this.executor = executor;
 		executedNodes = new ArrayList<ActivityNodeExecution>();
 		executedNodesListGenerated = false;
 		initializeExecutedNodesList(activityExecutionID);
@@ -108,7 +101,7 @@ public class TraceUtil {
 	public Object getExecution(Object node) {
 		if (node instanceof Action) {
 			for (ActivityNodeExecution execution : this.executedNodes) {
-				if (executor.getOriginal(execution.getNode()) == node)
+				if (UmlConverter.getInstance().getOriginal(execution.getNode()) == node)
 					return execution;
 			}
 		}
@@ -149,7 +142,7 @@ public class TraceUtil {
 	public ActivityNode getLastExecutedAction() {
 		ActivityNodeExecution lastNodeExecution = trace.getLastActivityNodeExecution();
 		ActivityNodeExecution lastActionExecution = lastAction(lastNodeExecution);
-		ActivityNode lastAction = (ActivityNode) executor.getOriginal(lastActionExecution.getNode());
+		ActivityNode lastAction = (ActivityNode) UmlConverter.getInstance().getOriginal(lastActionExecution.getNode());
 		return lastAction;
 	}
 
@@ -173,13 +166,14 @@ public class TraceUtil {
 						case AFTER:
 							switch (quantifier) {
 							case ALWAYS:
+								states.add(state);
 								while (state.getSuccessor() != null) {
 									states.add(state.getSuccessor());
 									state = state.getSuccessor();
 								}
 								break;
 							case EXACTLY:
-								states.add(state.getSuccessor());
+								states.add(state);
 								break;
 							}
 						case BEFORE:
@@ -191,7 +185,8 @@ public class TraceUtil {
 								}
 								break;
 							case EXACTLY:
-								states.add(state.getPredecessor());
+								if (state.getPredecessor() != null)
+									states.add(state.getPredecessor());
 								break;
 							}
 						}

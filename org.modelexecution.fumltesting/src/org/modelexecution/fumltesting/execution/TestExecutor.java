@@ -7,6 +7,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.uml2.uml.Activity;
 import org.eclipse.uml2.uml.ActivityNode;
+import org.eclipse.uml2.uml.Model;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.ReadSelfAction;
 import org.eclipse.uml2.uml.UMLPackage;
@@ -15,6 +16,7 @@ import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.uml.UmlSupport;
 import org.junit.Test;
+import org.modelexecution.fuml.Syntax.Classes.Kernel.KernelFactory;
 import org.modelexecution.fumltesting.TestLangStandaloneSetup;
 import org.modelexecution.fumltesting.execution.assertions.AssertionPrinter;
 import org.modelexecution.fumltesting.execution.assertions.AssertionValidator;
@@ -24,10 +26,12 @@ import org.modelexecution.fumltesting.testLang.TestSuite;
 
 import com.google.inject.Injector;
 
+import fUML.Syntax.Classes.Kernel.Package;
+
 /**
  * Main class that runs all the tests.
  * 
- * @author Stefan Mijatov
+ * @author Stefan
  * 
  */
 public class TestExecutor {
@@ -36,44 +40,54 @@ public class TestExecutor {
 	private ActivityExecutor executor;
 	/** The resource set to be used for loading the model resource. */
 	private XtextResourceSet resourceSet;
-	/** The resource for reading models. */
+	/** The resource for reading test models. */
 	private Resource resource;
+	/** The resource for reading UML model. */
+	private Resource umlResource;
+	/** The UML Model. */
+	private NamedElement umlModel;	
 	/** Complete test suite. */
 	private TestSuite suite;
 	/** Utility class for validating assertions. */
 	private AssertionValidator validator;
 	/** ID of the main activity. */
 	private int mainActivityExecutionID;
-
+	/** The fUML reference implementation to fUML meta model converter. */
+	private FumlConverter fumlConverter;
+	/** Utility class for interpreting OCL constraints on fUML model. */
+	private FumlOclInterpreter oclInterpreter;
+	
 	/**
 	 * Sets up all the resources, UML model and testing model, and initializes
 	 * the testSuite.
 	 */
-	private void setup(String fumlTestLocation) {
+	private void setup(String testLocation) {
 		try {
+			fumlConverter = new FumlConverter();
 			new UmlSupport().registerServices(true);
 			Injector injector = new TestLangStandaloneSetup().createInjectorAndDoEMFRegistration();
 			resourceSet = injector.getInstance(XtextResourceSet.class);
 			resourceSet.addLoadOption(XtextResource.OPTION_RESOLVE_ALL, Boolean.TRUE);
 
 			// model of the test suite to be executed
-			resource = resourceSet.getResource(URI.createFileURI(new File(fumlTestLocation).getAbsolutePath()), true);
+			resource = resourceSet.getResource(URI.createFileURI(new File(testLocation).getAbsolutePath()), true);
 
 			resource.load(null);
 			if (resource != null) {
 				resourceSet.getPackageRegistry().put(UMLPackage.eNS_URI, UMLPackage.eINSTANCE);
 				resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(UMLResource.FILE_EXTENSION, UMLResource.Factory.INSTANCE);
 				// model with UML elements under test
-				Resource r = resourceSet
+				umlResource = resourceSet
 						.getResource(URI.createFileURI(new File("../org.modelexecution.fumltesting.examples/model/petstore/petstore.uml")
 								.getAbsolutePath()), true);
-				r.load(null);
+				umlResource.load(null);
 
 				// adds elements from UML model to test suite
-				resource.getContents().addAll(r.getContents());
+				resource.getContents().addAll(umlResource.getContents());
 
 				for (EObject model : resource.getContents()) {
 					if (model instanceof NamedElement) {
+						umlModel = (NamedElement) model;
 						executor = new ActivityExecutor((NamedElement) model);
 					}
 				}
@@ -82,20 +96,47 @@ public class TestExecutor {
 					throw new Exception("Couldn't load UML model properly!");
 				suite = (TestSuite) resource.getContents().get(0);
 			}
+
+			oclInterpreter = FumlOclInterpreter.getInstance();
+			
+			if (oclInterpreter.getMetamodel() != null) {
+				System.out.println("Metamodel adaptation: " + oclInterpreter.getMetamodel().getName());
+				System.out.println("Model adaptation: " + umlModel.getName());
+				
+				org.modelexecution.fuml.Syntax.Classes.Kernel.Package modelPackage = KernelFactory.eINSTANCE.createPackage();
+				modelPackage.setName(umlModel.getName());
+				modelPackage.setQualifiedName(umlModel.getQualifiedName());
+				
+				if(umlModel.getNamespace() != null){
+					modelPackage.getNamespace().setName(umlModel.getNamespace().getName());
+					modelPackage.getNamespace().setQualifiedName(umlModel.getNamespace().getQualifiedName());
+				}				
+				
+				for (org.eclipse.uml2.uml.Package umlPackage : ((Model) umlModel).getNestedPackages()) {
+					Package fumlPackage = UmlConverter.getInstance().getPackage(umlPackage);
+					if(fumlPackage != null){
+						org.modelexecution.fuml.Syntax.Classes.Kernel.Package mappedPackage = fumlConverter.mapAndWire(fumlPackage);
+						modelPackage.getNestedPackage().add(mappedPackage);
+						mappedPackage.setOwner(modelPackage);
+					}
+				}
+				oclInterpreter.setModel(modelPackage);
+			}
+			oclInterpreter.loadConstraints(new File("../org.modelexecution.fumltesting.examples/model/petstore/petstore.ocl"));						
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
+	
 	/** Main method of the testing framework. */
 	@Test
 	public void test() {
 		File folder = new File("example/petstore");
 		File[] files = folder.listFiles();
 		for (File file : files) {
-			if (file.isFile() && file.getName().endsWith("fumltest")) {
-				String path = "example/petstore/" + file.getName();
-				setup(path);
+			if (file.isFile() && file.getName().endsWith("defaultProductActivity.fumltest")) {
+				String testLocation = "example/petstore/" + file.getName();
+				setup(testLocation);
 				testsEvaluation();
 			}
 		}
@@ -107,7 +148,7 @@ public class TestExecutor {
 			AssertionPrinter.print(testCase);
 			Activity activity = testCase.getActivityUnderTest();
 
-			executor.cleanUp();
+			TestDataConverter.getInstance().cleanUp();
 			executor.initScenarios(testCase.getInitScenarios());
 
 			boolean requiresContext = false;
@@ -130,7 +171,7 @@ public class TestExecutor {
 				mainActivityExecutionID = executor.executeActivity(activity, testCase.getInputs(), null);
 			}
 
-			validator = new AssertionValidator(mainActivityExecutionID, executor);
+			validator = new AssertionValidator(mainActivityExecutionID);
 
 			for (int j = 0; j < testCase.getAssertions().size(); j++) {
 				Assertion assertion = testCase.getAssertions().get(j);

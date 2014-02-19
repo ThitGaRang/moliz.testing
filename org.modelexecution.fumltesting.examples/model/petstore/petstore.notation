@@ -6649,6 +6649,13 @@
         </children>
         <layoutConstraint xmi:type="notation:Bounds" xmi:id="_PlS_YYKbEeOweOpVCrk9Ug"/>
       </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_jOlDEINLEeOE0s3IHKOh2A" visible="false" type="compartment_shape_display">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_jOs-4INLEeOE0s3IHKOh2A" source="PapyrusCSSForceValue">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_jOtl8INLEeOE0s3IHKOh2A" key="mutable" value="true"/>
+        </eAnnotations>
+        <styles xmi:type="notation:TitleStyle" xmi:id="_jOlDEYNLEeOE0s3IHKOh2A"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_jOlDEoNLEeOE0s3IHKOh2A"/>
+      </children>
       <element xmi:type="uml:Activity" href="petstore.uml#_K8SM0IKbEeOweOpVCrk9Ug"/>
       <layoutConstraint xmi:type="notation:Bounds" xmi:id="_PlS_YoKbEeOweOpVCrk9Ug" width="217" height="49"/>
     </children>

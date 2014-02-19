@@ -19,9 +19,7 @@ import fUML.Syntax.Activities.IntermediateActivities.InitialNode;
  * @author Stefan Mijatov
  * 
  */
-public class OrderAssertionValidator {
-	private List<ActivityNodeExecution> executedNodes;
-
+public class OrderAssertionValidator {	
 	/**
 	 * Check the order of executed nodes.
 	 * 
@@ -31,7 +29,6 @@ public class OrderAssertionValidator {
 	 * @return
 	 */
 	public boolean checkOrder(String parentNodeName, List<NodeSpecification> specifiedOrder, List<ActivityNodeExecution> executedNodes) {
-		this.executedNodes = executedNodes;
 		boolean result = compare(getTopNodes(parentNodeName, executedNodes), specifiedOrder);
 		AssertionPrinter.print(specifiedOrder, executedNodes, result);
 		return result;
@@ -63,7 +60,7 @@ public class OrderAssertionValidator {
 					if (nodeOrderList.get(i).getNode() instanceof CallOperationAction) {
 						activityName = ((CallOperationAction) nodeOrderList.get(i).getNode()).getOperation().getMethods().get(0).getName();
 					}
-					List<ActivityNodeExecution> executedSubNodes = validator.getTopNodes(activityName, this.executedNodes);
+					List<ActivityNodeExecution> executedSubNodes = validator.getTopNodes(activityName, executedNodes);
 					List<NodeSpecification> subNodesSpecification = nodeOrderList.get(i).getSubOrder().getNodes();
 					boolean subOrderValid = validator.checkOrder(activityName, subNodesSpecification, executedSubNodes);
 					if (subOrderValid == false) {
@@ -130,7 +127,7 @@ public class OrderAssertionValidator {
 	 */
 	private List<ActivityNodeExecution> getTopNodes(String activityName, List<ActivityNodeExecution> executedNodes) {
 		List<ActivityNodeExecution> topNodes = new ArrayList<ActivityNodeExecution>();
-		for (ActivityNodeExecution node : executedNodes) {
+		for (ActivityNodeExecution node : executedNodes) {			
 			if (((Activity) node.getNode().owner).name.equals(activityName)
 					&& (node.getNode() instanceof Action || node.getNode() instanceof InitialNode || node.getNode() instanceof ActivityFinalNode)) {
 				topNodes.add(node);

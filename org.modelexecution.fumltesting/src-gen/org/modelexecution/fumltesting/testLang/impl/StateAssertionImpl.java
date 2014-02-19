@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.uml2.uml.Action;
 
-import org.modelexecution.fumltesting.testLang.ConstraintChecking;
+import org.modelexecution.fumltesting.testLang.Constraint;
 import org.modelexecution.fumltesting.testLang.StateAssertion;
 import org.modelexecution.fumltesting.testLang.StateExpression;
 import org.modelexecution.fumltesting.testLang.TemporalOperator;
@@ -37,7 +37,7 @@ import org.modelexecution.fumltesting.testLang.TestLangPackage;
  *   <li>{@link org.modelexecution.fumltesting.testLang.impl.StateAssertionImpl#getTemporalOperator <em>Temporal Operator</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.testLang.impl.StateAssertionImpl#getReferenceAction <em>Reference Action</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.testLang.impl.StateAssertionImpl#getUntilAction <em>Until Action</em>}</li>
- *   <li>{@link org.modelexecution.fumltesting.testLang.impl.StateAssertionImpl#getConstraintChecking <em>Constraint Checking</em>}</li>
+ *   <li>{@link org.modelexecution.fumltesting.testLang.impl.StateAssertionImpl#getConstraints <em>Constraints</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.testLang.impl.StateAssertionImpl#getExpressions <em>Expressions</em>}</li>
  * </ul>
  * </p>
@@ -107,14 +107,14 @@ public class StateAssertionImpl extends AssertionImpl implements StateAssertion
   protected Action untilAction;
 
   /**
-   * The cached value of the '{@link #getConstraintChecking() <em>Constraint Checking</em>}' containment reference.
+   * The cached value of the '{@link #getConstraints() <em>Constraints</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getConstraintChecking()
+   * @see #getConstraints()
    * @generated
    * @ordered
    */
-  protected ConstraintChecking constraintChecking;
+  protected EList<Constraint> constraints;
 
   /**
    * The cached value of the '{@link #getExpressions() <em>Expressions</em>}' containment reference list.
@@ -284,47 +284,13 @@ public class StateAssertionImpl extends AssertionImpl implements StateAssertion
    * <!-- end-user-doc -->
    * @generated
    */
-  public ConstraintChecking getConstraintChecking()
+  public EList<Constraint> getConstraints()
   {
-    return constraintChecking;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetConstraintChecking(ConstraintChecking newConstraintChecking, NotificationChain msgs)
-  {
-    ConstraintChecking oldConstraintChecking = constraintChecking;
-    constraintChecking = newConstraintChecking;
-    if (eNotificationRequired())
+    if (constraints == null)
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TestLangPackage.STATE_ASSERTION__CONSTRAINT_CHECKING, oldConstraintChecking, newConstraintChecking);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
+      constraints = new EObjectContainmentEList<Constraint>(Constraint.class, this, TestLangPackage.STATE_ASSERTION__CONSTRAINTS);
     }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setConstraintChecking(ConstraintChecking newConstraintChecking)
-  {
-    if (newConstraintChecking != constraintChecking)
-    {
-      NotificationChain msgs = null;
-      if (constraintChecking != null)
-        msgs = ((InternalEObject)constraintChecking).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - TestLangPackage.STATE_ASSERTION__CONSTRAINT_CHECKING, null, msgs);
-      if (newConstraintChecking != null)
-        msgs = ((InternalEObject)newConstraintChecking).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - TestLangPackage.STATE_ASSERTION__CONSTRAINT_CHECKING, null, msgs);
-      msgs = basicSetConstraintChecking(newConstraintChecking, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, TestLangPackage.STATE_ASSERTION__CONSTRAINT_CHECKING, newConstraintChecking, newConstraintChecking));
+    return constraints;
   }
 
   /**
@@ -351,8 +317,8 @@ public class StateAssertionImpl extends AssertionImpl implements StateAssertion
   {
     switch (featureID)
     {
-      case TestLangPackage.STATE_ASSERTION__CONSTRAINT_CHECKING:
-        return basicSetConstraintChecking(null, msgs);
+      case TestLangPackage.STATE_ASSERTION__CONSTRAINTS:
+        return ((InternalEList<?>)getConstraints()).basicRemove(otherEnd, msgs);
       case TestLangPackage.STATE_ASSERTION__EXPRESSIONS:
         return ((InternalEList<?>)getExpressions()).basicRemove(otherEnd, msgs);
     }
@@ -379,8 +345,8 @@ public class StateAssertionImpl extends AssertionImpl implements StateAssertion
       case TestLangPackage.STATE_ASSERTION__UNTIL_ACTION:
         if (resolve) return getUntilAction();
         return basicGetUntilAction();
-      case TestLangPackage.STATE_ASSERTION__CONSTRAINT_CHECKING:
-        return getConstraintChecking();
+      case TestLangPackage.STATE_ASSERTION__CONSTRAINTS:
+        return getConstraints();
       case TestLangPackage.STATE_ASSERTION__EXPRESSIONS:
         return getExpressions();
     }
@@ -410,8 +376,9 @@ public class StateAssertionImpl extends AssertionImpl implements StateAssertion
       case TestLangPackage.STATE_ASSERTION__UNTIL_ACTION:
         setUntilAction((Action)newValue);
         return;
-      case TestLangPackage.STATE_ASSERTION__CONSTRAINT_CHECKING:
-        setConstraintChecking((ConstraintChecking)newValue);
+      case TestLangPackage.STATE_ASSERTION__CONSTRAINTS:
+        getConstraints().clear();
+        getConstraints().addAll((Collection<? extends Constraint>)newValue);
         return;
       case TestLangPackage.STATE_ASSERTION__EXPRESSIONS:
         getExpressions().clear();
@@ -443,8 +410,8 @@ public class StateAssertionImpl extends AssertionImpl implements StateAssertion
       case TestLangPackage.STATE_ASSERTION__UNTIL_ACTION:
         setUntilAction((Action)null);
         return;
-      case TestLangPackage.STATE_ASSERTION__CONSTRAINT_CHECKING:
-        setConstraintChecking((ConstraintChecking)null);
+      case TestLangPackage.STATE_ASSERTION__CONSTRAINTS:
+        getConstraints().clear();
         return;
       case TestLangPackage.STATE_ASSERTION__EXPRESSIONS:
         getExpressions().clear();
@@ -471,8 +438,8 @@ public class StateAssertionImpl extends AssertionImpl implements StateAssertion
         return referenceAction != null;
       case TestLangPackage.STATE_ASSERTION__UNTIL_ACTION:
         return untilAction != null;
-      case TestLangPackage.STATE_ASSERTION__CONSTRAINT_CHECKING:
-        return constraintChecking != null;
+      case TestLangPackage.STATE_ASSERTION__CONSTRAINTS:
+        return constraints != null && !constraints.isEmpty();
       case TestLangPackage.STATE_ASSERTION__EXPRESSIONS:
         return expressions != null && !expressions.isEmpty();
     }

@@ -2,5 +2,11 @@ import petstore.structure.*
 import petstore.scenarios.*
 
 test defaultProductTest activity DefaultProductActivity{
+	var product = defaultProduct.product;
+	
 	assertOrder DefaultProductActivity.init, *, DefaultProductActivity.defaultProduct;
+	
+	assertState always after DefaultProductActivity.defaultProduct{
+		check 'SingleProduct';
+	}
 }

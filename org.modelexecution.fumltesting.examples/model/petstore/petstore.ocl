@@ -1,0 +1,5 @@
+package structure
+
+context Product
+inv SingleProduct: Product.allInstances()->size() = 1
+endpackage

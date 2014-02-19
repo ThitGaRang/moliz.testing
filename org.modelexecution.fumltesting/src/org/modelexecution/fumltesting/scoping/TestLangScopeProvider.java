@@ -12,6 +12,7 @@ import org.eclipse.uml2.uml.ActivityNode;
 import org.eclipse.uml2.uml.ActivityParameterNode;
 import org.eclipse.uml2.uml.Association;
 import org.eclipse.uml2.uml.CallBehaviorAction;
+import org.eclipse.uml2.uml.CallOperationAction;
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.InitialNode;
@@ -43,7 +44,7 @@ import org.modelexecution.fumltesting.testLang.VarDeclaration;
  * @author Stefan Mijatov
  * 
  */
-@SuppressWarnings("restriction")
+@SuppressWarnings({ "restriction", "deprecation" })
 public class TestLangScopeProvider extends XbaseScopeProvider {
 	@Override
 	public IScope getScope(EObject context, EReference reference) {
@@ -137,12 +138,37 @@ public class TestLangScopeProvider extends XbaseScopeProvider {
 			if (context.eContainer().eContainer() instanceof NodeOrder) {
 				NodeSpecification nodeSpec = (NodeSpecification) context.eContainer();
 				if (nodeSpec.getNode() instanceof CallBehaviorAction) {
-					CallBehaviorAction action = (CallBehaviorAction) ((NodeSpecification) context.eContainer()).getNode();
+					CallBehaviorAction action = (CallBehaviorAction) nodeSpec.getNode();
 					for (ActivityNode node : ((Activity) action.getBehavior()).getNodes()) {
 						if (node instanceof Action || node instanceof ActivityFinalNode || node instanceof InitialNode)
 							nodes.add(node);
 					}
 				}
+				if (nodeSpec.getNode() instanceof CallOperationAction) {
+					CallOperationAction action = (CallOperationAction) nodeSpec.getNode();
+					for (ActivityNode node : ((Activity) action.getOperation().getMethods().get(0)).getNodes()) {
+						if (node instanceof Action || node instanceof ActivityFinalNode || node instanceof InitialNode)
+							nodes.add(node);
+					}
+				}
+			}
+			return Scopes.scopeFor(nodes, new UmlQualifiedNameProvider(), IScope.NULLSCOPE);
+		}
+
+		/** SUB-ORDER SCOPE */
+		if (context instanceof NodeSpecification && reference.getName().equals("node")) {
+			ActivityNode node = ((NodeSpecification) context).getNode();
+			Activity subActivity = null;
+			if (node instanceof CallBehaviorAction) {
+				subActivity = (Activity) ((CallBehaviorAction) node).getBehavior();
+			}
+			if (node instanceof CallOperationAction) {
+				subActivity = (Activity) ((CallOperationAction) node).getOperation().getMethods().get(0);
+			}
+			ArrayList<ActivityNode> nodes = new ArrayList<ActivityNode>();
+			for (ActivityNode aNode : subActivity.getNodes()) {
+				if (aNode instanceof Action || aNode instanceof ActivityFinalNode || aNode instanceof InitialNode)
+					nodes.add(aNode);
 			}
 			return Scopes.scopeFor(nodes, new UmlQualifiedNameProvider(), IScope.NULLSCOPE);
 		}

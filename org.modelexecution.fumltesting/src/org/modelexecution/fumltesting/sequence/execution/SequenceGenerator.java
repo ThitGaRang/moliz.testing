@@ -11,6 +11,7 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.Output;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot;
+import org.modelexecution.fumltesting.execution.FumlConverter;
 import org.modelexecution.fumltesting.sequence.Sequence;
 import org.modelexecution.fumltesting.sequence.SequenceFactory;
 import org.modelexecution.fumltesting.sequence.SequenceTrace;
@@ -35,7 +36,7 @@ public class SequenceGenerator {
 	private SequenceTrace trace;
 	/** Object and Link instances added to the sequence. */
 	private HashMap<Object, ValueInstance> instanceSnapshotMappings;
-	private SequenceMapper mapper = new SequenceMapper();
+	private FumlConverter mapper = new FumlConverter();
 
 	public SequenceTrace generateTrace(Trace trace) {
 		this.trace = SequenceFactory.eINSTANCE.createSequenceTrace();

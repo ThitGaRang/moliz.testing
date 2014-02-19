@@ -6,7 +6,6 @@ import java.util.List;
 import org.eclipse.uml2.uml.Action;
 import org.eclipse.uml2.uml.Activity;
 import org.eclipse.uml2.uml.ActivityParameterNode;
-import org.eclipse.uml2.uml.Constraint;
 import org.eclipse.uml2.uml.InputPin;
 import org.eclipse.uml2.uml.OutputPin;
 import org.eclipse.uml2.uml.ParameterDirectionKind;
@@ -23,10 +22,12 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.Output;
 import org.modelexecution.fumldebug.core.trace.tracemodel.OutputParameterSetting;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot;
+import org.modelexecution.fumltesting.execution.FumlOclInterpreter;
 import org.modelexecution.fumltesting.execution.TestDataConverter;
 import org.modelexecution.fumltesting.execution.TraceUtil;
 import org.modelexecution.fumltesting.sequence.State;
 import org.modelexecution.fumltesting.testLang.ArithmeticOperator;
+import org.modelexecution.fumltesting.testLang.Constraint;
 import org.modelexecution.fumltesting.testLang.FinallyStateAssertion;
 import org.modelexecution.fumltesting.testLang.ObjectStateExpression;
 import org.modelexecution.fumltesting.testLang.ObjectValue;
@@ -38,7 +39,9 @@ import org.modelexecution.fumltesting.testLang.TemporalOperator;
 import org.modelexecution.fumltesting.testLang.TemporalQuantifier;
 import org.modelexecution.fumltesting.testLang.TestLangFactory;
 
-import tudresden.ocl20.pivot.modelbus.ModelBusPlugin;
+import tudresden.ocl20.pivot.modelinstance.IModelInstance;
+import tudresden.ocl20.pivot.modelinstancetype.exception.TypeNotFoundInModelException;
+import tudresden.ocl20.pivot.modelinstancetype.types.IModelInstanceElement;
 import UMLPrimitiveTypes.UnlimitedNatural;
 import fUML.Semantics.Classes.Kernel.BooleanValue;
 import fUML.Semantics.Classes.Kernel.FeatureValue;
@@ -92,15 +95,22 @@ public class StateAssertionValidator {
 		AssertionPrinter.printStateAssertion(assertion);
 		boolean result = true;
 
-		if (assertion.getConstraintChecking() != null) {
-			for (Constraint constraint : assertion.getConstraintChecking().getConstraints()) {
+		// action of the state assertion and its execution
+		Action referredAction = assertion.getReferenceAction();
+		referredNodeExecution = (ActionExecution) traceUtil.getExecution(referredAction);
+
+		operator = assertion.getTemporalOperator();
+		quantifier = assertion.getTemporalQuantifier();
+
+		if (assertion.getConstraints().size() > 0) {
+			for (Constraint constraint : assertion.getConstraints()) {
 				List<State> states = traceUtil.getStates(quantifier, operator, referredNodeExecution);
-				result = check(constraint, states);
+				result = check(((XStringLiteral)constraint.getSpecification()).getValue(), states);
 			}
 		}
 
 		for (StateExpression expression : assertion.getExpressions()) {
-			result = check(expression);
+			result = check(expression, referredAction);
 		}
 
 		AssertionPrinter.printStartEnd();
@@ -116,19 +126,39 @@ public class StateAssertionValidator {
 		stateAssertion.setReferenceAction((Action) traceUtil.getLastExecutedAction());
 		stateAssertion.getExpressions().addAll(assertion.getExpressions());
 
-		stateAssertion.setConstraintChecking(assertion.getConstraintChecking());
+		stateAssertion.getConstraints().addAll(assertion.getConstraints());
 
 		return check(stateAssertion);
 	}
 
-	private boolean check(Constraint constraint, List<State> states) {
+	private boolean check(String constraintName, List<State> states) {		
 		for (State state : states) {
-			// TODO implement constraint checking			
+			IModelInstance modelInstance = FumlOclInterpreter.getInstance().getEmptyModelInstance();
+
+			try {
+				for (org.modelexecution.fuml.Semantics.Classes.Kernel.Object object : state.getObjects()) {
+					IModelInstanceElement element = modelInstance.getModelInstanceFactory().createModelInstanceElement(object);
+					modelInstance.addModelInstanceElement(element);
+				}
+				for (org.modelexecution.fuml.Semantics.Classes.Kernel.Link link : state.getLinks()) {
+					IModelInstanceElement element = modelInstance.getModelInstanceFactory().createModelInstanceElement(link);
+					modelInstance.addModelInstanceElement(element);
+				}
+			} catch (TypeNotFoundInModelException e) {
+				e.printStackTrace();
+			}
+			boolean result = FumlOclInterpreter.getInstance().evaluateConstraint(constraintName, modelInstance);
+			if (result == false) {
+				System.out.println("Constraint " + " failed for state created by action " + state.getNodeExecution().getNode().name);
+				return false;
+			}else{
+				System.out.println("Constraint validation success.");
+			}
 		}
 		return true;
 	}
 
-	private boolean check(StateExpression expression) {
+	private boolean check(StateExpression expression, Action referredAction) {
 
 		// Clean up from other test executions
 		predecessors.removeAll(predecessors);
@@ -136,17 +166,9 @@ public class StateAssertionValidator {
 
 		// setup the parts of expression
 		assertion = (StateAssertion) expression.eContainer();
-		operator = assertion.getTemporalOperator();
-		quantifier = assertion.getTemporalQuantifier();
 
-		// action of the state assertion
-		Action referredAction = assertion.getReferenceAction();
 		// action of the state expression
 		Object expressionAction = expression.getPin().getRef().eContainer();
-
-		// execution of the node from the assertion specifying the time
-		// constraint
-		referredNodeExecution = (ActionExecution) traceUtil.getExecution(referredAction);
 
 		// execution of the node from the expression specifying the object under
 		// consideration
@@ -191,8 +213,8 @@ public class StateAssertionValidator {
 			boolean result = false;
 
 			if (expression.getValue() instanceof SimpleValue) {
-				if (expression instanceof PropertyStateExpression && ((SimpleValue) expression.getValue()).getValue() instanceof XNullLiteral)// special
-																																				// case
+				// special case
+				if (expression instanceof PropertyStateExpression && ((SimpleValue) expression.getValue()).getValue() instanceof XNullLiteral)
 					result = processObject(expression, list);
 				else
 					result = processSimple(expression, list);

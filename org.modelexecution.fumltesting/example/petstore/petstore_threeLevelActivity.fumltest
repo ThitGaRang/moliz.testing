@@ -2,5 +2,5 @@ import Model.structure.*
 import Model.scenarios.*
 
 test threeLevelActivityTest activity petstore.scenarios.ThreeLevelActivity{
-	
+	assertOrder ThreeLevelActivity.init, ThreeLevelActivity.DefaultProductActivity, ThreeLevelActivity.final;
 }

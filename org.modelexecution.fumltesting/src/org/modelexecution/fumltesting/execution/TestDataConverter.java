@@ -7,7 +7,6 @@ import org.eclipse.xtext.xbase.XBooleanLiteral;
 import org.eclipse.xtext.xbase.XExpression;
 import org.eclipse.xtext.xbase.XNumberLiteral;
 import org.eclipse.xtext.xbase.XStringLiteral;
-import org.modelexecution.fuml.convert.IConversionResult;
 import org.modelexecution.fumldebug.core.ExecutionContext;
 import org.modelexecution.fumltesting.testLang.Attribute;
 import org.modelexecution.fumltesting.testLang.ObjectSpecification;
@@ -39,18 +38,17 @@ import fUML.Syntax.Classes.Kernel.Class_;
 public class TestDataConverter {
 
 	private static TestDataConverter INSTANCE;
-	private IConversionResult model;
-	private Locus locus;
-	private HashMap<Value, Object> fumlObjects;
+	private static Locus LOCUS;
+	private static HashMap<Value, Object> FUML_OBJECTS;
 
 	private TestDataConverter() {
-		locus = ExecutionContext.getInstance().getLocus();
-		fumlObjects = new HashMap<Value, Object>();
+		LOCUS = ExecutionContext.getInstance().getLocus();
+		FUML_OBJECTS= new HashMap<Value, Object>();
 	}
 
 	public void cleanUp() {
-		fumlObjects = new HashMap<Value, Object>();
-		locus.extensionalValues.removeAll(locus.extensionalValues);
+		FUML_OBJECTS = new HashMap<Value, Object>();
+		LOCUS.extensionalValues.removeAll(LOCUS.extensionalValues);
 	}
 
 	public static TestDataConverter getInstance() {
@@ -60,14 +58,9 @@ public class TestDataConverter {
 		return INSTANCE;
 	}
 
-	public static void setModel(IConversionResult model) {
-		TestDataConverter.getInstance().model = model;
-	}
-
 	public Object getFUMLElement(Value value) {
-		// TODO needs more testing..
-		if (fumlObjects.containsKey(value))
-			return fumlObjects.get(value);
+		if (FUML_OBJECTS.containsKey(value))
+			return FUML_OBJECTS.get(value);
 
 		if (value instanceof SimpleValue) {
 			XExpression expression = ((SimpleValue) value).getValue();
@@ -78,8 +71,8 @@ public class TestDataConverter {
 			Scenario testData = (Scenario) object.eContainer();
 
 			Object_ object_ = null;
-			Class_ class_ = (Class_) model.getFUMLElement(((ObjectValue) value).getValue().getType());
-			object_ = locus.instantiate(class_);
+			Class_ class_ = UmlConverter.getInstance().getClass((((ObjectValue) value).getValue().getType()));
+			object_ = LOCUS.instantiate(class_);
 
 			for (Attribute attribute : object.getAttributes()) {
 				Property property = (Property) ((Attribute) attribute).getAtt();
@@ -96,7 +89,7 @@ public class TestDataConverter {
 			for (org.modelexecution.fumltesting.testLang.Link link : testData.getLinks()) {
 				if (link.getSourceValue().equals(object)) {
 					Link fumlLink = new Link();
-					Association fumlAssoc = (Association) model.getFUMLElement(link.getAssoc());
+					Association fumlAssoc = UmlConverter.getInstance().getAssociation((link.getAssoc()));
 					fumlLink.type = fumlAssoc;
 
 					FeatureValue sourceValue = new FeatureValue();
@@ -135,7 +128,7 @@ public class TestDataConverter {
 					fumlLink.featureValues.add(sourceValue);
 					fumlLink.featureValues.add(targetValue);
 
-					fumlLink.addTo(locus);
+					fumlLink.addTo(LOCUS);
 				}
 			}
 
@@ -148,7 +141,7 @@ public class TestDataConverter {
 		if (expression instanceof XStringLiteral) {
 			StringValue fumlValue = new StringValue();
 			String stringValue = ((XStringLiteral) expression).getValue();
-			fumlValue.type = locus.factory.getBuiltInType("String");
+			fumlValue.type = LOCUS.factory.getBuiltInType("String");
 			fumlValue.value = stringValue;
 			fumlValue.specify();
 			return fumlValue;
@@ -156,7 +149,7 @@ public class TestDataConverter {
 		if (expression instanceof XBooleanLiteral) {
 			BooleanValue fumlValue = new BooleanValue();
 			boolean booleanValue = ((XBooleanLiteral) expression).isIsTrue();
-			fumlValue.type = locus.factory.getBuiltInType("Boolean");
+			fumlValue.type = LOCUS.factory.getBuiltInType("Boolean");
 			fumlValue.value = booleanValue;
 			fumlValue.specify();
 			return fumlValue;
@@ -164,7 +157,7 @@ public class TestDataConverter {
 		if (expression instanceof XNumberLiteral) {
 			IntegerValue fumlValue = new IntegerValue();
 			double numberValue = Double.valueOf(((XNumberLiteral) expression).getValue());
-			fumlValue.type = locus.factory.getBuiltInType("Integer");
+			fumlValue.type = LOCUS.factory.getBuiltInType("Integer");
 			fumlValue.value = new Integer((int) numberValue);
 			fumlValue.specify();
 			return fumlValue;

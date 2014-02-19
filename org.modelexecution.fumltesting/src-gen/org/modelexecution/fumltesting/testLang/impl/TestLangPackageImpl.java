@@ -19,7 +19,7 @@ import org.modelexecution.fumltesting.testLang.ActivityInput;
 import org.modelexecution.fumltesting.testLang.ArithmeticOperator;
 import org.modelexecution.fumltesting.testLang.Assertion;
 import org.modelexecution.fumltesting.testLang.Attribute;
-import org.modelexecution.fumltesting.testLang.ConstraintChecking;
+import org.modelexecution.fumltesting.testLang.Constraint;
 import org.modelexecution.fumltesting.testLang.FinallyStateAssertion;
 import org.modelexecution.fumltesting.testLang.Import;
 import org.modelexecution.fumltesting.testLang.Link;
@@ -161,7 +161,7 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass constraintCheckingEClass = null;
+  private EClass constraintEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -778,7 +778,7 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getStateAssertion_ConstraintChecking()
+  public EReference getStateAssertion_Constraints()
   {
     return (EReference)stateAssertionEClass.getEStructuralFeatures().get(4);
   }
@@ -808,7 +808,7 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getFinallyStateAssertion_ConstraintChecking()
+  public EReference getFinallyStateAssertion_Constraints()
   {
     return (EReference)finallyStateAssertionEClass.getEStructuralFeatures().get(0);
   }
@@ -828,9 +828,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getConstraintChecking()
+  public EClass getConstraint()
   {
-    return constraintCheckingEClass;
+    return constraintEClass;
   }
 
   /**
@@ -838,9 +838,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getConstraintChecking_Constraints()
+  public EReference getConstraint_Specification()
   {
-    return (EReference)constraintCheckingEClass.getEStructuralFeatures().get(0);
+    return (EReference)constraintEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -1124,15 +1124,15 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
     createEAttribute(stateAssertionEClass, STATE_ASSERTION__TEMPORAL_OPERATOR);
     createEReference(stateAssertionEClass, STATE_ASSERTION__REFERENCE_ACTION);
     createEReference(stateAssertionEClass, STATE_ASSERTION__UNTIL_ACTION);
-    createEReference(stateAssertionEClass, STATE_ASSERTION__CONSTRAINT_CHECKING);
+    createEReference(stateAssertionEClass, STATE_ASSERTION__CONSTRAINTS);
     createEReference(stateAssertionEClass, STATE_ASSERTION__EXPRESSIONS);
 
     finallyStateAssertionEClass = createEClass(FINALLY_STATE_ASSERTION);
-    createEReference(finallyStateAssertionEClass, FINALLY_STATE_ASSERTION__CONSTRAINT_CHECKING);
+    createEReference(finallyStateAssertionEClass, FINALLY_STATE_ASSERTION__CONSTRAINTS);
     createEReference(finallyStateAssertionEClass, FINALLY_STATE_ASSERTION__EXPRESSIONS);
 
-    constraintCheckingEClass = createEClass(CONSTRAINT_CHECKING);
-    createEReference(constraintCheckingEClass, CONSTRAINT_CHECKING__CONSTRAINTS);
+    constraintEClass = createEClass(CONSTRAINT);
+    createEReference(constraintEClass, CONSTRAINT__SPECIFICATION);
 
     stateExpressionEClass = createEClass(STATE_EXPRESSION);
     createEReference(stateExpressionEClass, STATE_EXPRESSION__PIN);
@@ -1266,15 +1266,15 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
     initEAttribute(getStateAssertion_TemporalOperator(), this.getTemporalOperator(), "temporalOperator", null, 0, 1, StateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getStateAssertion_ReferenceAction(), theUMLPackage.getAction(), null, "referenceAction", null, 0, 1, StateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getStateAssertion_UntilAction(), theUMLPackage.getAction(), null, "untilAction", null, 0, 1, StateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getStateAssertion_ConstraintChecking(), this.getConstraintChecking(), null, "constraintChecking", null, 0, 1, StateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getStateAssertion_Constraints(), this.getConstraint(), null, "constraints", null, 0, -1, StateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getStateAssertion_Expressions(), this.getStateExpression(), null, "expressions", null, 0, -1, StateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(finallyStateAssertionEClass, FinallyStateAssertion.class, "FinallyStateAssertion", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getFinallyStateAssertion_ConstraintChecking(), this.getConstraintChecking(), null, "constraintChecking", null, 0, 1, FinallyStateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getFinallyStateAssertion_Constraints(), this.getConstraint(), null, "constraints", null, 0, -1, FinallyStateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getFinallyStateAssertion_Expressions(), this.getStateExpression(), null, "expressions", null, 0, -1, FinallyStateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(constraintCheckingEClass, ConstraintChecking.class, "ConstraintChecking", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getConstraintChecking_Constraints(), theUMLPackage.getConstraint(), null, "constraints", null, 0, -1, ConstraintChecking.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(constraintEClass, Constraint.class, "Constraint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getConstraint_Specification(), theXbasePackage.getXExpression(), null, "specification", null, 0, 1, Constraint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(stateExpressionEClass, StateExpression.class, "StateExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getStateExpression_Pin(), this.getVarDeclaration(), null, "pin", null, 0, 1, StateExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

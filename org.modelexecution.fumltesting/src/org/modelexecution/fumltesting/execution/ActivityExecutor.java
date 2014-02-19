@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.uml2.uml.NamedElement;
-import org.modelexecution.fuml.convert.ConverterRegistry;
-import org.modelexecution.fuml.convert.IConversionResult;
-import org.modelexecution.fuml.convert.IConverter;
 import org.modelexecution.fumldebug.core.ExecutionContext;
 import org.modelexecution.fumldebug.core.ExecutionEventListener;
 import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
@@ -24,21 +21,15 @@ import fUML.Semantics.Classes.Kernel.Reference;
 import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
-import fUML.Syntax.Actions.BasicActions.CallBehaviorAction;
-import fUML.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
-import fUML.Syntax.Activities.IntermediateActivities.DecisionNode;
 import fUML.Syntax.Activities.IntermediateActivities.FinalNode;
-import fUML.Syntax.Classes.Kernel.Element;
-import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
-import fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
 
 /**
  * Utility class for executing UML activities.
  * 
- * @author Stefan Mijatov
+ * @author Stefan
  * 
  */
 public class ActivityExecutor implements ExecutionEventListener {
@@ -48,14 +39,8 @@ public class ActivityExecutor implements ExecutionEventListener {
 	/** ID of current activity. */
 	private int currentActivityID;
 	private boolean running;
-	/** Original UML model under test. */
-	private NamedElement umlModel;
-	/** Result obtained from converting UML to fUML model. */
-	private IConversionResult convertedModel;
 	/** List of events risen during execution. */
 	private List<Event> eventlist;
-	/** Utility class for converting input data for activity under test. */
-	private TestDataConverter testDataConverter;
 	/** List of parameters for an activity. */
 	private ParameterValueList parameters;
 
@@ -67,22 +52,13 @@ public class ActivityExecutor implements ExecutionEventListener {
 				// initializes fUML object, puts it into locus and returns it
 				// for each object existing links are created and
 				// put into locus also
-				testDataConverter.getFUMLElement(value);
+				TestDataConverter.getInstance().getFUMLElement(value);
 			}
 		}
 	}
 
-	public void cleanUp() {
-		testDataConverter.cleanUp();
-	}
-
 	public ActivityExecutor(NamedElement umlModel) {
-		this.umlModel = umlModel;
-		IConverter converter = ConverterRegistry.getInstance().getConverter(umlModel);
-		convertedModel = converter.convert(this.umlModel);
-		replaceOpaqueBehaviors();
-		TestDataConverter.setModel(convertedModel);
-		testDataConverter = TestDataConverter.getInstance();
+		UmlConverter.getInstance().setModelAndConvert(umlModel);
 		parameters = new ParameterValueList();
 	}
 
@@ -91,10 +67,10 @@ public class ActivityExecutor implements ExecutionEventListener {
 	 * it.
 	 */
 	public int executeActivity(org.eclipse.uml2.uml.Activity activity, List<ActivityInput> activityInputs, ObjectSpecification context) {
-		Activity fumlActivity = convertedModel.getActivity(activity.getName());
+		Activity fumlActivity = UmlConverter.getInstance().getActivity(activity);
 
 		for (ActivityInput input : activityInputs) {
-			Object object = testDataConverter.getFUMLElement(input.getValue());
+			Object object = TestDataConverter.getInstance().getFUMLElement(input.getValue());
 
 			ParameterValue parameterValue = new ParameterValue();
 			for (ActivityNode node : fumlActivity.node) {
@@ -118,7 +94,7 @@ public class ActivityExecutor implements ExecutionEventListener {
 		if (context != null) {
 			ObjectValue contextValue = TestLangFactory.eINSTANCE.createObjectValue();
 			contextValue.setValue(context);
-			contextObject = (Object_) testDataConverter.getFUMLElement(contextValue);
+			contextObject = (Object_) TestDataConverter.getInstance().getFUMLElement(contextValue);
 		}
 
 		// add a listener
@@ -152,58 +128,6 @@ public class ActivityExecutor implements ExecutionEventListener {
 		}
 
 		return mainActivityID;
-	}
-
-	private void replaceOpaqueBehaviors() {
-		List<ActivityNode> nodesWithBehavior = new ArrayList<ActivityNode>();
-		for (fUML.Syntax.Activities.IntermediateActivities.Activity activity : convertedModel.getAllActivities()) {
-			nodesWithBehavior.addAll(getBehaviorNodes(activity.node));
-		}
-
-		for (ActivityNode node : nodesWithBehavior) {
-			if (node instanceof CallBehaviorAction) {
-				CallBehaviorAction callBehaviorAction = (CallBehaviorAction) node;
-				Behavior behavior = callBehaviorAction.behavior;
-				OpaqueBehavior behaviorReplacement = getExecutionContext().getOpaqueBehavior(behavior.name);
-				if (behaviorReplacement != null) {
-					callBehaviorAction.behavior = behaviorReplacement;
-				}
-			} else if (node instanceof DecisionNode) {
-				DecisionNode decision = (DecisionNode) node;
-				Behavior behavior = decision.decisionInput;
-				OpaqueBehavior behaviorReplacement = getExecutionContext().getOpaqueBehavior(behavior.name);
-				if (behaviorReplacement != null) {
-					decision.decisionInput = behaviorReplacement;
-				}
-			}
-		}
-	}
-
-	private List<ActivityNode> getBehaviorNodes(List<ActivityNode> nodes) {
-		List<ActivityNode> nodesWithBehavior = new ArrayList<ActivityNode>();
-		for (ActivityNode node : nodes) {
-			if (node instanceof CallBehaviorAction) {
-				CallBehaviorAction action = (CallBehaviorAction) node;
-				nodesWithBehavior.add(action);
-			} else if (node instanceof DecisionNode) {
-				DecisionNode decision = (DecisionNode) node;
-				if (decision.decisionInput != null) {
-					nodesWithBehavior.add(decision);
-				}
-			}
-			if (node instanceof StructuredActivityNode) {
-				StructuredActivityNode structurednode = (StructuredActivityNode) node;
-				nodesWithBehavior.addAll(getBehaviorNodes(structurednode.node));
-			}
-		}
-		return nodesWithBehavior;
-	}
-
-	/**
-	 * Returns original UML element that was converted to {@code element}.
-	 */
-	public Object getOriginal(Element element) {
-		return convertedModel.getInputObject(element);
 	}
 
 	@Override
