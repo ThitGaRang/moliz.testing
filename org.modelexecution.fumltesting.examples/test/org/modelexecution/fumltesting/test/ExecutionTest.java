@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.Model;
@@ -85,6 +86,7 @@ public class ExecutionTest implements ExecutionEventListener {
 	@Test
 	public void testModelConversion(){
 		setup();
+		EcoreUtil.resolveAll(resourceSet);
 		IConverter converter = ConverterRegistry.getInstance().getConverter(model);
 		convertedModel = converter.convert(model);
 		for(PackageableElement package_: ((Model)model).getPackagedElements()){
@@ -104,7 +106,8 @@ public class ExecutionTest implements ExecutionEventListener {
 						System.out.println("Class: " + convertedClass.qualifiedName);						
 						for (fUML.Syntax.Classes.Kernel.Property property : convertedClass.attribute) {
 							System.out.print(property.name);
-							System.out.print(" " + property.typedElement.name);
+							if(property.typedElement.type != null)
+								System.out.print(" " + property.typedElement.type.name);
 							System.out.print(" (" + property.multiplicityElement.lower);
 							System.out.println(", " + property.multiplicityElement.upper.naturalValue + ");");
 						}
