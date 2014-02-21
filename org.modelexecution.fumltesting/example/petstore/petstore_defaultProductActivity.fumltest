@@ -8,5 +8,6 @@ test defaultProductTest activity DefaultProductActivity{
 	
 	assertState always after DefaultProductActivity.defaultProduct{
 		check 'SingleProduct';
+		check 'ProductName';
 	}
 }

@@ -16,7 +16,13 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.uml2.uml.Class;
+import org.eclipse.uml2.uml.Element;
+import org.eclipse.uml2.uml.Model;
 import org.eclipse.uml2.uml.NamedElement;
+import org.eclipse.uml2.uml.Package;
+import org.eclipse.uml2.uml.PackageableElement;
+import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.resource.UMLResource;
 import org.junit.Assert;
@@ -42,6 +48,7 @@ import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Semantics.Classes.Kernel.ValueList;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
+import fUML.Syntax.Classes.Kernel.Class_;
 import fUML.Syntax.Classes.Kernel.Classifier;
 
 public class ExecutionTest implements ExecutionEventListener {
@@ -61,7 +68,7 @@ public class ExecutionTest implements ExecutionEventListener {
 			resourceSet.getPackageRegistry().put(UMLPackage.eNS_URI, UMLPackage.eINSTANCE);
 			resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(UMLResource.FILE_EXTENSION, UMLResource.Factory.INSTANCE);
 			//model with UML elements under test, referenced by testing model
-			resource = resourceSet.getResource(URI.createFileURI(new File("model/interpreter_observation/interpreter_observation.uml").getAbsolutePath()), true);
+			resource = resourceSet.getResource(URI.createFileURI(new File("model/petstore/petstore.uml").getAbsolutePath()), true);
 			resource.load(null);
 			
 			for (EObject model : resource.getContents()) {
@@ -72,6 +79,39 @@ public class ExecutionTest implements ExecutionEventListener {
 			ExecutionContext.getInstance().addEventListener(this);
 		}catch(Exception e){
 			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void testModelConversion(){
+		setup();
+		IConverter converter = ConverterRegistry.getInstance().getConverter(model);
+		convertedModel = converter.convert(model);
+		for(PackageableElement package_: ((Model)model).getPackagedElements()){
+			if(package_ instanceof Package){
+				for (Element element : package_.getOwnedElements()) {
+					if (element instanceof Class) {
+						Class class_ = (Class) element;
+						System.out.println("Class: " + class_.getQualifiedName());						
+						for (Property property : class_.getAllAttributes()) {
+							System.out.print(property.getName());
+							System.out.print(" " + property.getType().getName());
+							System.out.print(" (" + property.getLower());
+							System.out.println(", " + property.getUpper() + ");");
+						}
+						System.out.println("\nConverted analog in FUML reference: ");
+						Class_ convertedClass = (Class_) convertedModel.getFUMLElement(class_);
+						System.out.println("Class: " + convertedClass.qualifiedName);						
+						for (fUML.Syntax.Classes.Kernel.Property property : convertedClass.attribute) {
+							System.out.print(property.name);
+							System.out.print(" " + property.typedElement.name);
+							System.out.print(" (" + property.multiplicityElement.lower);
+							System.out.println(", " + property.multiplicityElement.upper.naturalValue + ");");
+						}
+					}
+					System.out.println("**************************************************");
+				}
+			}
 		}
 	}
 	
@@ -167,7 +207,7 @@ public class ExecutionTest implements ExecutionEventListener {
 		Assert.assertEquals(800, ((IntegerValue)accountBalanceValues.get(0)).value);
 	}
 	
-	@Test
+	//@Test
 	public void testTwoCardsActivityStepwise() {
 		setup();
 		IConverter converter = ConverterRegistry.getInstance().getConverter(model);

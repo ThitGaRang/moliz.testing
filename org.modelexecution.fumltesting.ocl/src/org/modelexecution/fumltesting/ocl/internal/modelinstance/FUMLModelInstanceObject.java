@@ -16,6 +16,8 @@ import java.util.Set;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.osgi.util.NLS;
+import org.modelexecution.fuml.Semantics.Classes.Kernel.FeatureValue;
+import org.modelexecution.fuml.Syntax.Classes.Kernel.Feature;
 import org.modelexecution.fumltesting.ocl.internal.util.FUMLModelInstanceTypeUtil;
 
 import tudresden.ocl20.pivot.modelinstance.base.AbstractModelInstance;
@@ -57,8 +59,7 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 		myFactory = factory;
 	}
 
-	protected FUMLModelInstanceObject(Object object, Class<?> typeClass, Type type, Type originalType,
-			FUMLModelInstanceFactory factory) {
+	protected FUMLModelInstanceObject(Object object, Class<?> typeClass, Type type, Type originalType, FUMLModelInstanceFactory factory) {
 		super(type, originalType);
 		myObject = object;
 		myAdaptedClass = typeClass;
@@ -77,14 +78,12 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 			} else {
 				Class<?> typeClass = FUMLModelInstanceTypeUtil.findClassOfType(myObject.getClass(), type);
 				if (typeClass == null) {
-					throw new AsTypeCastException(NLS.bind(
-							FUMLModelInstanceTypeMessages.FUMLModelInstance_CannotCastTypeClassNotFound, type));
+					throw new AsTypeCastException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstance_CannotCastTypeClassNotFound, type));
 				}
 				result = new FUMLModelInstanceObject(myObject, typeClass, type, getOriginalType(), myFactory);
 			}
 		} else {
-			throw new AsTypeCastException(NLS.bind(
-					FUMLModelInstanceTypeMessages.FUMLModelInstance_CannotCastTypeClassNotFound, type));
+			throw new AsTypeCastException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstance_CannotCastTypeClassNotFound, type));
 		}
 		return result;
 	}
@@ -108,33 +107,32 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 		return myObject;
 	}
 
-	public IModelInstanceElement getProperty(Property property) throws PropertyAccessException,
-			PropertyNotFoundException {
+	public IModelInstanceElement getProperty(Property property) throws PropertyAccessException, PropertyNotFoundException {
 		if (property == null) {
 			throw new IllegalArgumentException("Property 'property' must not be null!");
-		}
-		IModelInstanceElement result = null;
+		}		
 		if (myObject == null) {
-			result = myFactory.createModelInstanceElement(null, property.getType());
+			return myFactory.createModelInstanceElement(null, property.getType());
 		} else {
-			Field theField = null;
-			for (Field field : myObject.getClass().getFields()) {
-				if (field.getName().equals(property.getName())) {
-					theField = field;
+			if (myObject instanceof FUMLModelInstanceObject) {
+				Object dslObject = ((FUMLModelInstanceObject) myObject).myObject;
+				if (dslObject instanceof org.modelexecution.fuml.Semantics.Classes.Kernel.Object) {
+					org.modelexecution.fuml.Semantics.Classes.Kernel.Object theObject = (org.modelexecution.fuml.Semantics.Classes.Kernel.Object) dslObject;
+					for (FeatureValue featureValue : theObject.getFeatureValues()) {
+						Feature feature = featureValue.getFeature();
+						if (feature.getName().equals(property.getName())) {
+							return AbstractModelInstance.adaptInvocationResult(feature, property.getType(), myFactory);
+						}
+					}
 				}
 			}
-			if (theField == null) {
-				throw new PropertyNotFoundException(NLS.bind(
-						FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_PropertyNotFoundInModelInstanceElement,
-						property));
-			}
-			result = AbstractModelInstance.adaptInvocationResult(theField, property.getType(), myFactory);
 		}
-		return result;
+		throw new PropertyNotFoundException(
+				NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_PropertyNotFoundInModelInstanceElement, property));
 	}
 
-	public IModelInstanceElement invokeOperation(Operation operation, List<IModelInstanceElement> args)
-			throws OperationNotFoundException, OperationAccessException {
+	public IModelInstanceElement invokeOperation(Operation operation, List<IModelInstanceElement> args) throws OperationNotFoundException,
+			OperationAccessException {
 		if (operation == null) {
 			throw new IllegalArgumentException("Parameter 'operation' must not be null!");
 		} else if (args == null) {
@@ -166,25 +164,23 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 				if (adapteeResult instanceof Object) {
 					try {
 						Type adapteeType = myFactory.getTypeUtil().findTypeOfObjectInModel((Object) adapteeResult);
-						result = AbstractModelInstance
-								.adaptInvocationResult(adapteeResult, adapteeType, this.myFactory);
+						result = AbstractModelInstance.adaptInvocationResult(adapteeResult, adapteeType, this.myFactory);
 					} catch (TypeNotFoundInModelException e) {
 						throw new OperationAccessException("Result of invocation of Operation '" + operation.getName()
 								+ "' could not be adapted to any model type.", e);
 					}
 				} else {
-					result = AbstractModelInstance.adaptInvocationResult(adapteeResult, operation.getType(),
-							this.myFactory);
+					result = AbstractModelInstance.adaptInvocationResult(adapteeResult, operation.getType(), this.myFactory);
 				}
 			} catch (IllegalArgumentException e) {
-				throw new OperationAccessException(NLS.bind(
-						FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_OperationAccessFailed, operation), e);
+				throw new OperationAccessException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_OperationAccessFailed, operation),
+						e);
 			} catch (IllegalAccessException e) {
-				throw new OperationAccessException(NLS.bind(
-						FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_OperationAccessFailed, operation), e);
+				throw new OperationAccessException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_OperationAccessFailed, operation),
+						e);
 			} catch (InvocationTargetException e) {
-				throw new OperationAccessException(NLS.bind(
-						FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_OperationAccessFailed, operation), e);
+				throw new OperationAccessException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_OperationAccessFailed, operation),
+						e);
 			}
 		}
 		return result;
@@ -219,24 +215,19 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 			adaptedResult = (Object) cloneMethod.invoke(myObject);
 			result = new FUMLModelInstanceObject(adaptedResult, myAdaptedClass, myType, getOriginalType(), myFactory);
 		} catch (SecurityException e) {
-			throw new CopyForAtPreException(
-					NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_CannotCopyForAtPre, getName(),
-							e.getMessage()), e);
+			throw new CopyForAtPreException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_CannotCopyForAtPre, getName(),
+					e.getMessage()), e);
 		} catch (NoSuchMethodException e) {
-			throw new CopyForAtPreException(
-					NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_CannotCopyForAtPre, getName(),
-							e.getMessage()), e);
+			throw new CopyForAtPreException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_CannotCopyForAtPre, getName(),
+					e.getMessage()), e);
 		} catch (IllegalArgumentException e) {
-			throw new CopyForAtPreException(NLS.bind(
-					FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_CannotCopyForAtPre, this.getName(),
+			throw new CopyForAtPreException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_CannotCopyForAtPre, this.getName(),
 					e.getMessage()), e);
 		} catch (IllegalAccessException e) {
-			throw new CopyForAtPreException(NLS.bind(
-					FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_CannotCopyForAtPre, this.getName(),
+			throw new CopyForAtPreException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_CannotCopyForAtPre, this.getName(),
 					e.getMessage()), e);
 		} catch (InvocationTargetException e) {
-			throw new CopyForAtPreException(NLS.bind(
-					FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_CannotCopyForAtPre, this.getName(),
+			throw new CopyForAtPreException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_CannotCopyForAtPre, this.getName(),
 					e.getMessage()), e);
 		}
 		return result;
@@ -259,31 +250,24 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 				}
 				adapteeClass = adapteeClass.getSuperclass();
 			}
-			result = new FUMLModelInstanceObject(copiedAdaptedObject, myAdaptedClass, myType, getOriginalType(),
-					myFactory);
+			result = new FUMLModelInstanceObject(copiedAdaptedObject, myAdaptedClass, myType, getOriginalType(), myFactory);
 		} catch (SecurityException e) {
-			throw new CopyForAtPreException(NLS.bind(
-					FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_CannotCopyForAtPre, this.getName(),
+			throw new CopyForAtPreException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_CannotCopyForAtPre, this.getName(),
 					e.getMessage()), e);
 		} catch (NoSuchMethodException e) {
-			throw new CopyForAtPreException(NLS.bind(
-					FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_CannotCopyForAtPre, this.getName(),
+			throw new CopyForAtPreException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_CannotCopyForAtPre, this.getName(),
 					e.getMessage()), e);
 		} catch (IllegalArgumentException e) {
-			throw new CopyForAtPreException(NLS.bind(
-					FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_CannotCopyForAtPre, this.getName(),
+			throw new CopyForAtPreException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_CannotCopyForAtPre, this.getName(),
 					e.getMessage()), e);
 		} catch (InstantiationException e) {
-			throw new CopyForAtPreException(NLS.bind(
-					FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_CannotCopyForAtPre, this.getName(),
+			throw new CopyForAtPreException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_CannotCopyForAtPre, this.getName(),
 					e.getMessage()), e);
 		} catch (IllegalAccessException e) {
-			throw new CopyForAtPreException(NLS.bind(
-					FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_CannotCopyForAtPre, this.getName(),
+			throw new CopyForAtPreException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_CannotCopyForAtPre, this.getName(),
 					e.getMessage()), e);
 		} catch (InvocationTargetException e) {
-			throw new CopyForAtPreException(NLS.bind(
-					FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_CannotCopyForAtPre, this.getName(),
+			throw new CopyForAtPreException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_CannotCopyForAtPre, this.getName(),
 					e.getMessage()), e);
 		}
 		return result;
@@ -312,11 +296,9 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 			if (typeClass.isArray()) {
 				result = createAdaptedArray(modelInstanceElement, typeClass);
 			} else if (Collection.class.isAssignableFrom(typeClass)) {
-				result = createAdaptedCollection(
-						(IModelInstanceCollection<IModelInstanceElement>) modelInstanceElement, typeClass);
+				result = createAdaptedCollection((IModelInstanceCollection<IModelInstanceElement>) modelInstanceElement, typeClass);
 			} else {
-				throw new IllegalArgumentException(
-						FUMLModelInstanceTypeMessages.FUMLModelInstance_CannotRecreateCollection);
+				throw new IllegalArgumentException(FUMLModelInstanceTypeMessages.FUMLModelInstance_CannotRecreateCollection);
 			}
 		} else if (modelInstanceElement instanceof IModelInstanceObject) {
 			result = ((IModelInstanceObject) modelInstanceElement).getObject();
@@ -395,8 +377,7 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 					}
 					result = array;
 				} else {
-					throw new IllegalArgumentException(
-							FUMLModelInstanceTypeMessages.FUMLModelInstance_CannotRecreateArray);
+					throw new IllegalArgumentException(FUMLModelInstanceTypeMessages.FUMLModelInstance_CannotRecreateArray);
 				}
 			} else {
 				Object[] array;
@@ -413,8 +394,7 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 	}
 
 	@SuppressWarnings("unchecked")
-	private Collection<?> createAdaptedCollection(
-			IModelInstanceCollection<IModelInstanceElement> modelInstanceCollection, Class<?> clazzType) {
+	private Collection<?> createAdaptedCollection(IModelInstanceCollection<IModelInstanceElement> modelInstanceCollection, Class<?> clazzType) {
 		Collection<Object> result;
 		if (Collection.class.isAssignableFrom(clazzType)) {
 			try {
@@ -445,8 +425,7 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 			}
 			if (result != null) {
 				Class<?> elementClassType;
-				if (clazzType.getTypeParameters().length == 1
-						&& clazzType.getTypeParameters()[0].getBounds().length == 1
+				if (clazzType.getTypeParameters().length == 1 && clazzType.getTypeParameters()[0].getBounds().length == 1
 						&& clazzType.getTypeParameters()[0].getBounds()[0] instanceof Class) {
 					elementClassType = (Class<?>) clazzType.getTypeParameters()[0].getBounds()[0];
 				} else {
@@ -456,8 +435,7 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 					result.add(createAdaptedElement(anElement, elementClassType));
 				}
 			} else {
-				throw new IllegalArgumentException(
-						FUMLModelInstanceTypeMessages.FUMLModelInstance_CannotRecreateCollection);
+				throw new IllegalArgumentException(FUMLModelInstanceTypeMessages.FUMLModelInstance_CannotRecreateCollection);
 			}
 		} else {
 			throw new IllegalArgumentException(FUMLModelInstanceTypeMessages.FUMLModelInstance_CannotRecreateCollection);
@@ -465,8 +443,7 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 		return result;
 	}
 
-	private Object createAdaptedEnumerationLiteral(IModelInstanceEnumerationLiteral modelInstanceEnumerationLiteral,
-			Class<?> typeClass) {
+	private Object createAdaptedEnumerationLiteral(IModelInstanceEnumerationLiteral modelInstanceEnumerationLiteral, Class<?> typeClass) {
 		Object result;
 		if (typeClass.isEnum()) {
 			result = null;
@@ -477,8 +454,7 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 				}
 			}
 			if (result == null) {
-				throw new IllegalArgumentException(NLS.bind(modelInstanceEnumerationLiteral.getLiteral()
-						.getQualifiedName(),
+				throw new IllegalArgumentException(NLS.bind(modelInstanceEnumerationLiteral.getLiteral().getQualifiedName(),
 						"The enumeration literal could not be adapted to any constant of the given Enum class."));
 			}
 		} else {
@@ -500,17 +476,15 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 						}
 					}
 					if (result == null) {
-						throw new IllegalArgumentException(
-								NLS.bind(modelInstanceEnumerationLiteral.getLiteral().getQualifiedName(),
-										"The enumeration literal could not be adapted to any constant of the given Enum class."));
+						throw new IllegalArgumentException(NLS.bind(modelInstanceEnumerationLiteral.getLiteral().getQualifiedName(),
+								"The enumeration literal could not be adapted to any constant of the given Enum class."));
 					}
 				} else {
-					throw new IllegalArgumentException(NLS.bind(modelInstanceEnumerationLiteral.getLiteral()
-							.getQualifiedName(), "The found class " + enumClass + " is not an Enum."));
+					throw new IllegalArgumentException(NLS.bind(modelInstanceEnumerationLiteral.getLiteral().getQualifiedName(), "The found class "
+							+ enumClass + " is not an Enum."));
 				}
 			} catch (ClassNotFoundException e) {
-				throw new IllegalArgumentException(NLS.bind(modelInstanceEnumerationLiteral.getLiteral()
-						.getQualifiedName(), e.getMessage()), e);
+				throw new IllegalArgumentException(NLS.bind(modelInstanceEnumerationLiteral.getLiteral().getQualifiedName(), e.getMessage()), e);
 			}
 		}
 		return result;
@@ -580,8 +554,7 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 				boolean resultTypeIsConform;
 				boolean argumentSizeIsEqual;
 				nameIsEqual = aMethod.getName().equals(operation.getName());
-				resultTypeIsConform = FUMLModelInstanceTypeUtil.conformsTypeToType(aMethod.getGenericReturnType(),
-						operation.getType());
+				resultTypeIsConform = FUMLModelInstanceTypeUtil.conformsTypeToType(aMethod.getGenericReturnType(), operation.getType());
 				argumentSizeIsEqual = aMethod.getParameterTypes().length == operation.getSignatureParameter().size();
 				if (nameIsEqual && resultTypeIsConform && argumentSizeIsEqual) {
 
@@ -589,8 +562,7 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 					List<Parameter> pivotModelParamters = operation.getSignatureParameter();
 					boolean matches = true;
 					for (int index = 0; index < operation.getSignatureParameter().size(); index++) {
-						if (!FUMLModelInstanceTypeUtil.conformsTypeToType(javaTypes[index],
-								pivotModelParamters.get(index).getType())) {
+						if (!FUMLModelInstanceTypeUtil.conformsTypeToType(javaTypes[index], pivotModelParamters.get(index).getType())) {
 							matches = false;
 							break;
 						}
@@ -604,8 +576,7 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 			methodSourceClass = methodSourceClass.getSuperclass();
 		}
 		if (result == null) {
-			throw new OperationNotFoundException(NLS.bind(
-					FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_OperationNotFound, operation,
+			throw new OperationNotFoundException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_OperationNotFound, operation,
 					myObject.getClass()));
 		}
 		return result;

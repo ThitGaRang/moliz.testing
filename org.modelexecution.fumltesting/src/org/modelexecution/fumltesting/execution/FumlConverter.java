@@ -20,6 +20,7 @@ import fUML.Semantics.Classes.Kernel.Reference;
 import fUML.Semantics.Classes.Kernel.StringValue;
 import fUML.Syntax.Classes.Kernel.Class_;
 import fUML.Syntax.Classes.Kernel.NamedElement;
+import fUML.Syntax.Classes.Kernel.Property;
 
 /**
  * Utility class that provides mapping from fUML implementation classes to fUML
@@ -39,12 +40,12 @@ public class FumlConverter {
 		mappedPackages = new HashMap<fUML.Syntax.Classes.Kernel.Package, Package>();
 	}
 
-	public Package mapAndWire(fUML.Syntax.Classes.Kernel.Package package_){
+	public Package mapAndWire(fUML.Syntax.Classes.Kernel.Package package_) {
 		Package mappedPackage = map(package_);
 		wireElements();
 		return mappedPackage;
 	}
-	
+
 	private Package map(fUML.Syntax.Classes.Kernel.Package package_) {
 		if (mappedPackages.containsKey(package_)) {
 			return mappedPackages.get(package_);
@@ -58,11 +59,6 @@ public class FumlConverter {
 
 			mappedPackage.setQualifiedName(package_.qualifiedName);
 			mappedPackage.setVisibility(mapVisibility(package_));
-
-//			if (package_.namespace != null) {
-//				mappedPackage.getNamespace().setName(package_.namespace.name);
-//				mappedPackage.getNamespace().setQualifiedName(package_.namespace.qualifiedName);
-//			}
 
 			if (package_.owner != null)
 				mappedPackage.setOwner(map((fUML.Syntax.Classes.Kernel.Package) package_.owner));
@@ -86,29 +82,46 @@ public class FumlConverter {
 			mappedPackages.put(package_, mappedPackage);
 			return mappedPackage;
 		}
-	} 
-	
-	private void wireElements(){
-		for(Class_ class_: mappedClasses.keySet()){
+	}
+
+	private void wireElements() {
+		for (Class_ class_ : mappedClasses.keySet()) {
 			Class mappedClass = mappedClasses.get(class_);
-			
+
 			if (class_.owner != null && class_.owner instanceof fUML.Syntax.Classes.Kernel.Package)
 				mappedClass.setOwner(map((fUML.Syntax.Classes.Kernel.Package) class_.owner));
 
 			if (class_.package_ != null && class_.package_ instanceof fUML.Syntax.Classes.Kernel.Package)
 				mappedClass.setPackage(map((fUML.Syntax.Classes.Kernel.Package) class_.package_));
 		}
-		for(fUML.Syntax.Classes.Kernel.Association association: mappedAssociations.keySet()){
+		for (fUML.Syntax.Classes.Kernel.Association association : mappedAssociations.keySet()) {
 			Association mappedAssociation = mappedAssociations.get(association);
-			
+
 			if (association.owner != null && association.owner instanceof fUML.Syntax.Classes.Kernel.Package)
 				mappedAssociation.setOwner(map((fUML.Syntax.Classes.Kernel.Package) association.owner));
 
 			if (association.package_ != null && association.package_ instanceof fUML.Syntax.Classes.Kernel.Package)
 				mappedAssociation.setPackage(map((fUML.Syntax.Classes.Kernel.Package) association.package_));
 		}
+
+		// mapping properties
+		for (Class_ class_ : mappedClasses.keySet()) {
+			Class mappedClass = mappedClasses.get(class_);
+			for (Property property : class_.attribute) {
+				org.modelexecution.fuml.Syntax.Classes.Kernel.Property mappedProperty = (org.modelexecution.fuml.Syntax.Classes.Kernel.Property) map(property);
+				boolean propertyAdded = false;
+				for(org.modelexecution.fuml.Syntax.Classes.Kernel.Property aProperty: mappedClass.getAttribute()){
+					if(aProperty.getName().equals(mappedProperty.getName()))propertyAdded = true;
+				}
+				if (!propertyAdded){
+					mappedClass.getOwnedAttribute().add(mappedProperty);
+					mappedClass.getAttribute().add(mappedProperty);
+					mappedProperty.setOwner(mappedClass);
+				}
+			}
+		}
 	}
-	
+
 	private Class map(Class_ class_) {
 		if (mappedClasses.containsKey(class_)) {
 			return mappedClasses.get(class_);
@@ -121,11 +134,6 @@ public class FumlConverter {
 			mappedClass.setName(class_.name);
 			mappedClass.setQualifiedName(class_.qualifiedName);
 			mappedClass.setVisibility(mapVisibility(class_));
-			
-//			if (class_.namespace != null) {				
-//				mappedClass.getNamespace().setName(class_.namespace.name);
-//				mappedClass.getNamespace().setQualifiedName(class_.namespace.qualifiedName);
-//			}
 
 			mappedClasses.put(class_, mappedClass);
 			/**
@@ -147,11 +155,6 @@ public class FumlConverter {
 			mappedAssociation.setName(association.name);
 			mappedAssociation.setQualifiedName(association.qualifiedName);
 			mappedAssociation.setVisibility(mapVisibility(association));
-			
-//			if (association.namespace != null) {
-//				mappedAssociation.getNamespace().setName(association.namespace.name);
-//				mappedAssociation.getNamespace().setQualifiedName(association.namespace.qualifiedName);
-//			}
 
 			mappedAssociations.put(association, mappedAssociation);
 			return mappedAssociation;
@@ -179,7 +182,7 @@ public class FumlConverter {
 		if (structuralFeature.owner != null && structuralFeature.owner instanceof fUML.Syntax.Classes.Kernel.Association) {
 			mappedFeature.setOwner(map((fUML.Syntax.Classes.Kernel.Association) structuralFeature.owner));
 		}
-
+		
 		/**
 		 * Following fields are NOT set: LowerValue, UpperValue, Type
 		 */
@@ -217,7 +220,7 @@ public class FumlConverter {
 
 		return mappedLink;
 	}
-	
+
 	private Value map(fUML.Semantics.Classes.Kernel.Value value) {
 		Value mappedValue = null;
 
