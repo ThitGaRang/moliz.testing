@@ -16,7 +16,9 @@ import java.util.Set;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.osgi.util.NLS;
+import org.modelexecution.fuml.Semantics.Classes.Kernel.BooleanValue;
 import org.modelexecution.fuml.Semantics.Classes.Kernel.FeatureValue;
+import org.modelexecution.fuml.Semantics.Classes.Kernel.StringValue;
 import org.modelexecution.fumltesting.ocl.internal.util.FUMLModelInstanceTypeUtil;
 
 import tudresden.ocl20.pivot.modelinstance.base.AbstractModelInstance;
@@ -114,20 +116,18 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 			return myFactory.createModelInstanceElement(null, property.getType());
 		} else {
 			if (dslObject instanceof org.modelexecution.fuml.Semantics.Classes.Kernel.Object) {
-				org.modelexecution.fuml.Semantics.Classes.Kernel.Object object = (org.modelexecution.fuml.Semantics.Classes.Kernel.Object)dslObject;
-				for(FeatureValue featureValue: object.getFeatureValues()){
-					if(featureValue.getFeature().getName().equals(property.getName())){
-						IModelInstanceElement result = AbstractModelInstance.adaptInvocationResult(featureValue.getFeature(), property.getType(), myFactory);
-						if(result == null){
-							result = myFactory.createModelInstanceElement(featureValue.getFeature(), property.getType());
-						}
+				org.modelexecution.fuml.Semantics.Classes.Kernel.Object object = (org.modelexecution.fuml.Semantics.Classes.Kernel.Object) dslObject;
+				for (FeatureValue featureValue : object.getFeatureValues()) {
+					if (featureValue.getFeature().getName().equals(property.getName())) {
+						IModelInstanceElement result = AbstractModelInstance.adaptInvocationResult(featureValue.getValues().get(0), property.getType(),
+								myFactory);
 						return result;
 					}
 				}
 			}
 		}
-		throw new PropertyNotFoundException(NLS.bind(
-				FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_PropertyNotFoundInModelInstanceElement, property));
+		throw new PropertyNotFoundException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_PropertyNotFoundInModelInstanceElement,
+				property));
 	}
 
 	public IModelInstanceElement invokeOperation(Operation operation, List<IModelInstanceElement> args) throws OperationNotFoundException,
@@ -142,7 +142,7 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 			result = myFactory.createModelInstanceElement(null, operation.getType());
 		} else {
 			Method operationMethod = findMethodOfAdaptedObject(operation);
-			int argSize = 0;
+			int argSize = operation.getInputParameter().size();
 			Class<?>[] argumentTypes;
 			Object[] argumentValues;
 
@@ -154,10 +154,14 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 				argumentValues[index] = createAdaptedElement(args.get(index), argumentTypes[index]);
 			}
 			try {
-				Object adapteeResult;
+				Object adapteeResult = null;
 				operationMethod.setAccessible(true);
 
-				adapteeResult = operationMethod.invoke(dslObject, argumentValues);
+				if(dslObject instanceof StringValue){
+					adapteeResult = operationMethod.invoke(((StringValue)dslObject).getValue(), argumentValues);
+				}else{
+					//TODO continue implementing other cases
+				}
 
 				/* Adapt the result to the expected result type. */
 				if (adapteeResult instanceof Object) {
@@ -545,39 +549,87 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 
 	private Method findMethodOfAdaptedObject(Operation operation) throws OperationNotFoundException {
 		Method result = null;
-		Class<?> methodSourceClass = myAdaptedClass.getClass();
+		if (dslObject instanceof StringValue) {
+			if (operation.getName().equals("=")) {
+				for (Method aMethod : String.class.getMethods()) {
+					if (aMethod.getName().equals("equals")) {
+						return aMethod;
+					}
+				}
+			}else if(operation.getName().equals("<>")){
+				for(Method amMethod: String.class.getMethods()){
+					if(amMethod.getName().equals("")){
+						return amMethod;
+					}
+				}
+			}else if(operation.getName().equals("concat")){
+				for(Method amMethod: String.class.getMethods()){
+					if(amMethod.getName().equals("concat")){
+						return amMethod;
+					}
+				}
+			}else if(operation.getName().equals("size")){
+				for(Method amMethod: String.class.getMethods()){
+					if(amMethod.getName().equals("length")){
+						return amMethod;
+					}
+				}
+			}else if(operation.getName().equals("toLower")){
+				for(Method amMethod: String.class.getMethods()){
+					if(amMethod.getName().equals("toLowerCase")){
+						return amMethod;
+					}
+				}
+			}else if(operation.getName().equals("toUpper")){
+				for(Method amMethod: String.class.getMethods()){
+					if(amMethod.getName().equals("toUpperCase")){
+						return amMethod;
+					}
+				}
+			}else if(operation.getName().equals("substring")){
+				for(Method amMethod: String.class.getMethods()){
+					if(amMethod.getName().equals("substring")){
+						return amMethod;
+					}
+				}				
+			}
+		}else if(dslObject instanceof BooleanValue){
+			//TODO continue implementing other cases
+		}else{
+			Class<?> methodSourceClass = myAdaptedClass.getClass();
 
-		while (methodSourceClass != null && result == null) {
-			for (Method aMethod : methodSourceClass.getDeclaredMethods()) {
-				boolean nameIsEqual;
-				boolean resultTypeIsConform;
-				boolean argumentSizeIsEqual;
-				nameIsEqual = aMethod.getName().equals(operation.getName());
-				resultTypeIsConform = FUMLModelInstanceTypeUtil.conformsTypeToType(aMethod.getGenericReturnType(), operation.getType());
-				argumentSizeIsEqual = aMethod.getParameterTypes().length == operation.getSignatureParameter().size();
-				if (nameIsEqual && resultTypeIsConform && argumentSizeIsEqual) {
+			while (methodSourceClass != null && result == null) {
+				for (Method aMethod : methodSourceClass.getDeclaredMethods()) {
+					boolean nameIsEqual;
+					boolean resultTypeIsConform;
+					boolean argumentSizeIsEqual;
+					nameIsEqual = aMethod.getName().equals(operation.getName());
+					resultTypeIsConform = FUMLModelInstanceTypeUtil.conformsTypeToType(aMethod.getGenericReturnType(), operation.getType());
+					argumentSizeIsEqual = aMethod.getParameterTypes().length == operation.getSignatureParameter().size();
+					if (nameIsEqual && resultTypeIsConform && argumentSizeIsEqual) {
 
-					java.lang.reflect.Type[] javaTypes = aMethod.getGenericParameterTypes();
-					List<Parameter> pivotModelParamters = operation.getSignatureParameter();
-					boolean matches = true;
-					for (int index = 0; index < operation.getSignatureParameter().size(); index++) {
-						if (!FUMLModelInstanceTypeUtil.conformsTypeToType(javaTypes[index], pivotModelParamters.get(index).getType())) {
-							matches = false;
+						java.lang.reflect.Type[] javaTypes = aMethod.getGenericParameterTypes();
+						List<Parameter> pivotModelParamters = operation.getSignatureParameter();
+						boolean matches = true;
+						for (int index = 0; index < operation.getSignatureParameter().size(); index++) {
+							if (!FUMLModelInstanceTypeUtil.conformsTypeToType(javaTypes[index], pivotModelParamters.get(index).getType())) {
+								matches = false;
+								break;
+							}
+						}
+						if (matches) {
+							result = aMethod;
 							break;
 						}
 					}
-					if (matches) {
-						result = aMethod;
-						break;
-					}
 				}
+				methodSourceClass = methodSourceClass.getSuperclass();
 			}
-			methodSourceClass = methodSourceClass.getSuperclass();
-		}
-		if (result == null) {
-			throw new OperationNotFoundException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_OperationNotFound, operation,
-					dslObject.getClass()));
-		}
+			if (result == null) {
+				throw new OperationNotFoundException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_OperationNotFound, operation,
+						dslObject.getClass()));
+			}
+		}		
 		return result;
 	}
 

@@ -10,6 +10,7 @@ import org.modelexecution.fumltesting.ocl.internal.provider.FUMLModelProvider;
 
 import tudresden.ocl20.pivot.essentialocl.standardlibrary.OclAny;
 import tudresden.ocl20.pivot.essentialocl.standardlibrary.OclBoolean;
+import tudresden.ocl20.pivot.essentialocl.standardlibrary.OclModelInstanceObject;
 import tudresden.ocl20.pivot.facade.Ocl2ForEclipseFacade;
 import tudresden.ocl20.pivot.interpreter.IInterpretationResult;
 import tudresden.ocl20.pivot.interpreter.IOclInterpreter;
@@ -73,7 +74,7 @@ public class FumlOclInterpreter {
 				constraint = aConstraint;
 		}
 		if (constraint != null) {
-			// TODO continue
+			// TODO continue implementing constraint checking
 			System.out.println("Checking constraint.. " + constraint.getSpecification().getBody());
 
 			oclInterpreter = OclInterpreterPlugin.createInterpreter(modelInstance);
@@ -86,6 +87,11 @@ public class FumlOclInterpreter {
 					if (resultValue instanceof OclBoolean) {
 						OclBoolean resultBoolean = (OclBoolean) resultValue;
 						return resultBoolean.isTrue();
+					}
+					if(resultValue instanceof OclModelInstanceObject){
+						if(((OclModelInstanceObject)resultValue).getModelInstanceObject().getObject() instanceof Boolean){
+							return (Boolean)((OclModelInstanceObject)resultValue).getModelInstanceObject().getObject();
+						}						
 					}
 				}
 			}

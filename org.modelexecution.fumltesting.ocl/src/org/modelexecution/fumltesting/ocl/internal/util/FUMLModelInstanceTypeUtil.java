@@ -15,7 +15,9 @@ import java.util.Set;
 import java.util.WeakHashMap;
 
 import org.eclipse.osgi.util.NLS;
-import org.modelexecution.fumltesting.ocl.internal.modelinstance.FUMLModelInstanceObject;
+import org.modelexecution.fuml.Semantics.Classes.Kernel.BooleanValue;
+import org.modelexecution.fuml.Semantics.Classes.Kernel.IntegerValue;
+import org.modelexecution.fuml.Semantics.Classes.Kernel.StringValue;
 import org.modelexecution.fumltesting.ocl.internal.modelinstance.FUMLModelInstanceTypeMessages;
 
 import tudresden.ocl20.pivot.model.IModel;
@@ -34,10 +36,9 @@ import tudresden.ocl20.pivot.pivotmodel.Type;
  */
 public class FUMLModelInstanceTypeUtil {
 	private static final Class<?> BOOLEAN_CLASSES[] = new Class<?>[] { boolean.class, Boolean.class };
-	private static final Class<?> INTEGER_CLASSES[] = new Class<?>[] { BigDecimal.class, BigInteger.class, byte.class,
-			Byte.class, int.class, Integer.class, long.class, Long.class, short.class, Short.class };
-	private static final Class<?> REAL_CLASSES[] = new Class<?>[] { double.class, Double.class, float.class,
-			Float.class };
+	private static final Class<?> INTEGER_CLASSES[] = new Class<?>[] { BigDecimal.class, BigInteger.class, byte.class, Byte.class, int.class,
+			Integer.class, long.class, Long.class, short.class, Short.class };
+	private static final Class<?> REAL_CLASSES[] = new Class<?>[] { double.class, Double.class, float.class, Float.class };
 	private static final Class<?> STRING_CLASSES[] = new Class<?>[] { char.class, Character.class, String.class };
 	private static Map<Type, Class<?>> cachedClasses = new WeakHashMap<Type, Class<?>>();
 	private Map<List<String>, Type> cachedTypes = new WeakHashMap<List<String>, Type>();
@@ -58,11 +59,9 @@ public class FUMLModelInstanceTypeUtil {
 				List<String> reflectionTypeQualifiedNameList = toQualifiedNameList(clazz.getCanonicalName());
 				List<String> typeQualifiedNameList = type.getQualifiedNameList();
 				if (type instanceof PrimitiveType) {
-					result = Arrays.asList(new String[] { ((PrimitiveType) type).getKind().getName() }).equals(
-							reflectionTypeQualifiedNameList);
+					result = Arrays.asList(new String[] { ((PrimitiveType) type).getKind().getName() }).equals(reflectionTypeQualifiedNameList);
 				} else {
-					if (typeQualifiedNameList.size() > 0
-							&& typeQualifiedNameList.get(0).equals(ModelConstants.ROOT_PACKAGE_NAME)) {
+					if (typeQualifiedNameList.size() > 0 && typeQualifiedNameList.get(0).equals(ModelConstants.ROOT_PACKAGE_NAME)) {
 						typeQualifiedNameList.remove(0);
 					}
 					if (typeQualifiedNameList.size() > reflectionTypeQualifiedNameList.size()) {
@@ -71,8 +70,7 @@ public class FUMLModelInstanceTypeUtil {
 						int offset = reflectionTypeQualifiedNameList.size() - typeQualifiedNameList.size();
 						result = true;
 						for (int index = 0; index < typeQualifiedNameList.size(); index++) {
-							result &= typeQualifiedNameList.get(index).equals(
-									reflectionTypeQualifiedNameList.get(index + offset));
+							result &= typeQualifiedNameList.get(index).equals(reflectionTypeQualifiedNameList.get(index + offset));
 							if (!result) {
 								break;
 							}
@@ -127,8 +125,7 @@ public class FUMLModelInstanceTypeUtil {
 	public static Class<?> findClassOfType(Class<?> baseClass, Type type) {
 		Class<?> result = cachedClasses.get(type);
 		if (result == null) {
-			result = findSuperClassConformingToName(baseClass, baseClass, toCanonicalName(type.getQualifiedNameList()),
-					new HashSet<Class<?>>());
+			result = findSuperClassConformingToName(baseClass, baseClass, toCanonicalName(type.getQualifiedNameList()), new HashSet<Class<?>>());
 			cachedClasses.put(type, result);
 		}
 		return result;
@@ -138,7 +135,7 @@ public class FUMLModelInstanceTypeUtil {
 		Type result = this.cachedTypes.get(qualifiedTypeName);
 		if (result == null) {
 			try {
-				while (result == null && qualifiedTypeName.size() >= 2) {
+				while (result == null && qualifiedTypeName.size() >= 1) {
 					result = model.findType(qualifiedTypeName);
 					qualifiedTypeName.remove(0);
 				}
@@ -146,8 +143,8 @@ public class FUMLModelInstanceTypeUtil {
 				result = null;
 			}
 			if (result == null) {
-				throw new TypeNotFoundInModelException(NLS.bind(
-						FUMLModelInstanceTypeMessages.FUMLModelInstanceFactory_TypeNotFoundInModel, qualifiedTypeName));
+				throw new TypeNotFoundInModelException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceFactory_TypeNotFoundInModel,
+						qualifiedTypeName));
 			}
 			this.cachedTypes.put(qualifiedTypeName, result);
 		}
@@ -158,17 +155,27 @@ public class FUMLModelInstanceTypeUtil {
 		Type result;
 		Set<Type> resultSet;
 		ArrayList<String> qualifiedTypeNameSeparated = null;
-		
-		if(object instanceof FUMLModelInstanceObject){
-			Type type = ((FUMLModelInstanceObject)object).getType();
-			qualifiedTypeNameSeparated = new ArrayList<String>(type.getQualifiedNameList());
+
+		if (object instanceof org.modelexecution.fuml.Semantics.Classes.Kernel.Object) {
+			String qualifiedTypeName = ((org.modelexecution.fuml.Semantics.Classes.Kernel.Object) object).getTypes().get(0).getQualifiedName();
+			qualifiedTypeNameSeparated = new ArrayList<String>(Arrays.asList(qualifiedTypeName.split("::")));
 		}
 		
-		if(object instanceof org.modelexecution.fuml.Semantics.Classes.Kernel.Object){
-			String qualifiedTypeName = ((org.modelexecution.fuml.Semantics.Classes.Kernel.Object)object).getTypes().get(0).getQualifiedName();
-			qualifiedTypeNameSeparated = new ArrayList<String>(Arrays.asList(qualifiedTypeName.split("::")));			
-		}		
+		if(object instanceof StringValue || object instanceof String){			
+			qualifiedTypeNameSeparated = new ArrayList<String>();
+			qualifiedTypeNameSeparated.add("String");
+		}
 		
+		if(object instanceof BooleanValue || object instanceof Boolean){
+			qualifiedTypeNameSeparated = new ArrayList<String>();
+			qualifiedTypeNameSeparated.add("Boolean");
+		}
+		
+		if(object instanceof IntegerValue || object instanceof Integer){
+			qualifiedTypeNameSeparated = new ArrayList<String>();
+			qualifiedTypeNameSeparated.add("Integer");
+		}
+
 		result = this.cachedTypes.get(qualifiedTypeNameSeparated);
 		if (result == null) {
 			resultSet = findTypesOfClassInModel(qualifiedTypeNameSeparated);
@@ -256,23 +263,20 @@ public class FUMLModelInstanceTypeUtil {
 		return result;
 	}
 
-	private static Class<?> findSuperClassConformingToName(Class<?> baseClass, Class<?> currentClass,
-			String canonicalName, Set<Class<?>> alreadyCheckedClasses) {
+	private static Class<?> findSuperClassConformingToName(Class<?> baseClass, Class<?> currentClass, String canonicalName,
+			Set<Class<?>> alreadyCheckedClasses) {
 		Class<?> result = null;
-		if (currentClass.getCanonicalName().matches(".*" + canonicalName.replaceAll("\\.", ".*") + ".*")
-				&& currentClass.isAssignableFrom(baseClass)) {
+		if (currentClass.getCanonicalName().matches(".*" + canonicalName.replaceAll("\\.", ".*") + ".*") && currentClass.isAssignableFrom(baseClass)) {
 			result = currentClass;
 		} else {
 			alreadyCheckedClasses.add(currentClass);
 			if (currentClass.getSuperclass() != null && !alreadyCheckedClasses.contains(currentClass.getSuperclass())) {
-				result = findSuperClassConformingToName(baseClass, currentClass.getSuperclass(), canonicalName,
-						alreadyCheckedClasses);
+				result = findSuperClassConformingToName(baseClass, currentClass.getSuperclass(), canonicalName, alreadyCheckedClasses);
 			}
 			if (result == null) {
 				for (Class<?> interfaze : currentClass.getInterfaces()) {
 					if (!alreadyCheckedClasses.contains(interfaze)) {
-						result = findSuperClassConformingToName(baseClass, interfaze, canonicalName,
-								alreadyCheckedClasses);
+						result = findSuperClassConformingToName(baseClass, interfaze, canonicalName, alreadyCheckedClasses);
 						if (result != null) {
 							break;
 						}
@@ -288,13 +292,13 @@ public class FUMLModelInstanceTypeUtil {
 		if (qualifiedTypeName != null) {
 			try {
 				result.add(findTypeOfClassInModel(qualifiedTypeName));
-			} catch (TypeNotFoundInModelException e) {				
+			} catch (TypeNotFoundInModelException e) {
 				result = removeRedundantModelTypes(result);
 			}
 		}
 		if (result.size() == 0) {
-			throw new TypeNotFoundInModelException(NLS.bind(
-					FUMLModelInstanceTypeMessages.FUMLModelInstanceFactory_TypeNotFoundInModel, qualifiedTypeName));
+			throw new TypeNotFoundInModelException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceFactory_TypeNotFoundInModel,
+					qualifiedTypeName));
 		}
 		return result;
 	}

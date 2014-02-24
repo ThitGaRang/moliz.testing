@@ -2,5 +2,5 @@ package structure
 
 context Product
 inv SingleProduct: Product.allInstances()->size() = 1
-inv ProductName: name = 'defaultProduct'
+inv ProductName: name = 'dpr'
 endpackage
