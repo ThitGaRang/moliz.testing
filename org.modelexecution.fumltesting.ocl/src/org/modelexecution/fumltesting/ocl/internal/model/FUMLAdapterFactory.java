@@ -9,11 +9,6 @@ import java.util.WeakHashMap;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Association;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Class;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.DataType;
-import org.modelexecution.fuml.Syntax.Classes.Kernel.LiteralBoolean;
-import org.modelexecution.fuml.Syntax.Classes.Kernel.LiteralInteger;
-import org.modelexecution.fuml.Syntax.Classes.Kernel.LiteralNull;
-import org.modelexecution.fuml.Syntax.Classes.Kernel.LiteralString;
-import org.modelexecution.fuml.Syntax.Classes.Kernel.LiteralUnlimitedNatural;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Package;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.PrimitiveType;
 
@@ -195,15 +190,15 @@ public class FUMLAdapterFactory {
 		Type result = (Type) adapters.get(dslPrimitiveType);
 		if (result != null) {
 			return result;
-		} else if (dslPrimitiveType instanceof LiteralNull) {
+		} else if(dslPrimitiveType == null){
 			result = EssentialOclPlugin.getOclLibraryProvider().getOclLibrary().getOclVoid();
-		} else if (dslPrimitiveType instanceof LiteralString) {
+		} else if (dslPrimitiveType.getName().equals("String")) {
 			result = EssentialOclPlugin.getOclLibraryProvider().getOclLibrary().getOclString();
-		} else if (dslPrimitiveType instanceof LiteralUnlimitedNatural) {
+		} else if (dslPrimitiveType.getName().equals("UnlimitedNatural")) {
 			result = EssentialOclPlugin.getOclLibraryProvider().getOclLibrary().getOclReal();
-		} else if (dslPrimitiveType instanceof LiteralInteger) {
+		} else if (dslPrimitiveType.getName().equals("Integer")) {
 			result = EssentialOclPlugin.getOclLibraryProvider().getOclLibrary().getOclInteger();
-		} else if (dslPrimitiveType instanceof LiteralBoolean) {
+		} else if (dslPrimitiveType.getName().equals("Boolean")) {
 			result = EssentialOclPlugin.getOclLibraryProvider().getOclLibrary().getOclBoolean();
 		} else {
 			throw new IllegalArgumentException("Unknown type: " + dslPrimitiveType);

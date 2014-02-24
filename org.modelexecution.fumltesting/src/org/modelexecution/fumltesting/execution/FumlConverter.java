@@ -10,6 +10,7 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.Association;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Class;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Package;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.StructuralFeature;
+import org.modelexecution.fuml.Syntax.Classes.Kernel.Type;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.VisibilityKind;
 
 import fUML.Semantics.Classes.Kernel.BooleanValue;
@@ -20,6 +21,7 @@ import fUML.Semantics.Classes.Kernel.Reference;
 import fUML.Semantics.Classes.Kernel.StringValue;
 import fUML.Syntax.Classes.Kernel.Class_;
 import fUML.Syntax.Classes.Kernel.NamedElement;
+import fUML.Syntax.Classes.Kernel.PrimitiveType;
 import fUML.Syntax.Classes.Kernel.Property;
 
 /**
@@ -33,24 +35,70 @@ public class FumlConverter {
 	private HashMap<Class_, Class> mappedClasses;
 	private HashMap<fUML.Syntax.Classes.Kernel.Association, Association> mappedAssociations;
 	private HashMap<fUML.Syntax.Classes.Kernel.Package, Package> mappedPackages;
+	private HashMap<PrimitiveType, org.modelexecution.fuml.Syntax.Classes.Kernel.PrimitiveType> mappedPrimitiveTypes;
 
 	public FumlConverter() {
 		mappedClasses = new HashMap<Class_, Class>();
 		mappedAssociations = new HashMap<fUML.Syntax.Classes.Kernel.Association, Association>();
 		mappedPackages = new HashMap<fUML.Syntax.Classes.Kernel.Package, Package>();
+		mappedPrimitiveTypes = new HashMap<PrimitiveType, org.modelexecution.fuml.Syntax.Classes.Kernel.PrimitiveType>();
 	}
 
 	public Package mapAndWire(fUML.Syntax.Classes.Kernel.Package package_) {
 		Package mappedPackage = map(package_);
-		wireElements();
+		wirePackageElements();
 		return mappedPackage;
+	}
+
+	private void wirePackageElements() {
+		for (Class_ class_ : mappedClasses.keySet()) {
+			Class mappedClass = mappedClasses.get(class_);
+
+			if (class_.owner != null && class_.owner instanceof fUML.Syntax.Classes.Kernel.Package)
+				mappedClass.setOwner(map((fUML.Syntax.Classes.Kernel.Package) class_.owner));
+
+			if (class_.package_ != null && class_.package_ instanceof fUML.Syntax.Classes.Kernel.Package)
+				mappedClass.setPackage(map((fUML.Syntax.Classes.Kernel.Package) class_.package_));
+		}
+		for (fUML.Syntax.Classes.Kernel.Association association : mappedAssociations.keySet()) {
+			Association mappedAssociation = mappedAssociations.get(association);
+
+			if (association.owner != null && association.owner instanceof fUML.Syntax.Classes.Kernel.Package)
+				mappedAssociation.setOwner(map((fUML.Syntax.Classes.Kernel.Package) association.owner));
+
+			if (association.package_ != null && association.package_ instanceof fUML.Syntax.Classes.Kernel.Package)
+				mappedAssociation.setPackage(map((fUML.Syntax.Classes.Kernel.Package) association.package_));
+		}
+
+		// mapping properties
+		for (Class_ class_ : mappedClasses.keySet()) {
+			Class mappedClass = mappedClasses.get(class_);
+			for (Property property : class_.attribute) {
+				org.modelexecution.fuml.Syntax.Classes.Kernel.Property mappedProperty = (org.modelexecution.fuml.Syntax.Classes.Kernel.Property) map(property);
+				boolean propertyAdded = false;
+				for (org.modelexecution.fuml.Syntax.Classes.Kernel.Property aProperty : mappedClass.getAttribute()) {
+					if (aProperty.getName().equals(mappedProperty.getName()))
+						propertyAdded = true;
+				}
+				if (!propertyAdded) {
+					mappedClass.getOwnedAttribute().add(mappedProperty);
+					mappedClass.getAttribute().add(mappedProperty);
+					mappedProperty.setOwner(mappedClass);
+					if (property.typedElement != null && property.typedElement.type instanceof PrimitiveType)
+						mappedProperty.setType(mapPrimitiveType((PrimitiveType) property.typedElement.type));
+					if (property.typedElement != null && property.typedElement.type instanceof Class_) {
+						mappedProperty.setType(map((Class_) property.typedElement.type));
+					}
+				}
+			}
+		}
 	}
 
 	private Package map(fUML.Syntax.Classes.Kernel.Package package_) {
 		if (mappedPackages.containsKey(package_)) {
 			return mappedPackages.get(package_);
 		} else {
-			Package mappedPackage = org.modelexecution.fuml.Syntax.Classes.Kernel.KernelFactory.eINSTANCE.createPackage();
+			Package mappedPackage = getSyntaxFactory().createPackage();
 
 			mappedPackage.setName(package_.name);
 			if (package_.nestingPackage != null) {
@@ -84,49 +132,11 @@ public class FumlConverter {
 		}
 	}
 
-	private void wireElements() {
-		for (Class_ class_ : mappedClasses.keySet()) {
-			Class mappedClass = mappedClasses.get(class_);
-
-			if (class_.owner != null && class_.owner instanceof fUML.Syntax.Classes.Kernel.Package)
-				mappedClass.setOwner(map((fUML.Syntax.Classes.Kernel.Package) class_.owner));
-
-			if (class_.package_ != null && class_.package_ instanceof fUML.Syntax.Classes.Kernel.Package)
-				mappedClass.setPackage(map((fUML.Syntax.Classes.Kernel.Package) class_.package_));
-		}
-		for (fUML.Syntax.Classes.Kernel.Association association : mappedAssociations.keySet()) {
-			Association mappedAssociation = mappedAssociations.get(association);
-
-			if (association.owner != null && association.owner instanceof fUML.Syntax.Classes.Kernel.Package)
-				mappedAssociation.setOwner(map((fUML.Syntax.Classes.Kernel.Package) association.owner));
-
-			if (association.package_ != null && association.package_ instanceof fUML.Syntax.Classes.Kernel.Package)
-				mappedAssociation.setPackage(map((fUML.Syntax.Classes.Kernel.Package) association.package_));
-		}
-
-		// mapping properties
-		for (Class_ class_ : mappedClasses.keySet()) {
-			Class mappedClass = mappedClasses.get(class_);
-			for (Property property : class_.attribute) {
-				org.modelexecution.fuml.Syntax.Classes.Kernel.Property mappedProperty = (org.modelexecution.fuml.Syntax.Classes.Kernel.Property) map(property);
-				boolean propertyAdded = false;
-				for(org.modelexecution.fuml.Syntax.Classes.Kernel.Property aProperty: mappedClass.getAttribute()){
-					if(aProperty.getName().equals(mappedProperty.getName()))propertyAdded = true;
-				}
-				if (!propertyAdded){
-					mappedClass.getOwnedAttribute().add(mappedProperty);
-					mappedClass.getAttribute().add(mappedProperty);
-					mappedProperty.setOwner(mappedClass);
-				}
-			}
-		}
-	}
-
 	private Class map(Class_ class_) {
 		if (mappedClasses.containsKey(class_)) {
 			return mappedClasses.get(class_);
 		} else {
-			Class mappedClass = org.modelexecution.fuml.Syntax.Classes.Kernel.KernelFactory.eINSTANCE.createClass();
+			Class mappedClass = getSyntaxFactory().createClass();
 
 			mappedClass.setAbstract(class_.isAbstract);
 			mappedClass.setActive(class_.isActive);
@@ -147,7 +157,7 @@ public class FumlConverter {
 		if (mappedAssociations.containsKey(association)) {
 			return mappedAssociations.get(association);
 		} else {
-			Association mappedAssociation = org.modelexecution.fuml.Syntax.Classes.Kernel.KernelFactory.eINSTANCE.createAssociation();
+			Association mappedAssociation = getSyntaxFactory().createAssociation();
 
 			mappedAssociation.setAbstract(association.isAbstract);
 			mappedAssociation.setAbstract(association.isDerived);
@@ -162,7 +172,7 @@ public class FumlConverter {
 	}
 
 	private StructuralFeature map(fUML.Syntax.Classes.Kernel.StructuralFeature structuralFeature) {
-		StructuralFeature mappedFeature = org.modelexecution.fuml.Syntax.Classes.Kernel.KernelFactory.eINSTANCE.createProperty();
+		StructuralFeature mappedFeature = getSyntaxFactory().createProperty();
 
 		mappedFeature.setLeaf(structuralFeature.isLeaf);
 		mappedFeature.setLower(structuralFeature.multiplicityElement.lower);
@@ -182,65 +192,49 @@ public class FumlConverter {
 		if (structuralFeature.owner != null && structuralFeature.owner instanceof fUML.Syntax.Classes.Kernel.Association) {
 			mappedFeature.setOwner(map((fUML.Syntax.Classes.Kernel.Association) structuralFeature.owner));
 		}
-		
+
+		if (structuralFeature.typedElement != null && structuralFeature.typedElement.type instanceof PrimitiveType)
+			mappedFeature.setType(mapPrimitiveType((PrimitiveType) structuralFeature.typedElement.type));
+
 		/**
-		 * Following fields are NOT set: LowerValue, UpperValue, Type
+		 * Following fields are NOT set: LowerValue, UpperValue
 		 */
 		return mappedFeature;
 	}
 
-	public Object map(Object_ object_) {
-		Object object = KernelFactory.eINSTANCE.createObject();
-		object.getTypes().add(map(object_.types.get(0)));
+	private Type mapPrimitiveType(PrimitiveType type) {
+		if (mappedPrimitiveTypes.containsKey(type)) {
+			return mappedPrimitiveTypes.get(type);
+		} else {
+			PrimitiveType primitiveType = (PrimitiveType) type;
+			org.modelexecution.fuml.Syntax.Classes.Kernel.PrimitiveType mappedPrimitiveType = getSyntaxFactory().createPrimitiveType();
+			mappedPrimitiveType.setAbstract(primitiveType.isAbstract);
+			mappedPrimitiveType.setFinalSpecialization(primitiveType.isFinalSpecialization);
+			mappedPrimitiveType.setName(primitiveType.name);
+			mappedPrimitiveType.setQualifiedName(primitiveType.qualifiedName);
+			mappedPrimitiveType.setVisibility(mapVisibility(primitiveType));
 
-		for (FeatureValue featureValue : object_.featureValues) {
-			org.modelexecution.fuml.Semantics.Classes.Kernel.FeatureValue mappedFeatureValue = KernelFactory.eINSTANCE.createFeatureValue();
-			mappedFeatureValue.setFeature(map(featureValue.feature));
-			for (fUML.Semantics.Classes.Kernel.Value value : featureValue.values) {
-				mappedFeatureValue.getValues().add(map(value));
+			if (primitiveType.owner instanceof fUML.Syntax.Classes.Kernel.Package) {
+				mappedPrimitiveType.setOwner(map((fUML.Syntax.Classes.Kernel.Package) primitiveType.owner));
+			} else if (primitiveType.owner instanceof Class_) {
+				mappedPrimitiveType.setOwner(map((Class_) primitiveType.owner));
+			} else if (primitiveType.owner instanceof fUML.Syntax.Classes.Kernel.Association) {
+				mappedPrimitiveType.setOwner(map((fUML.Syntax.Classes.Kernel.Association) primitiveType.owner));
 			}
-			object.getFeatureValues().add(mappedFeatureValue);
-		}
 
-		return object;
-	}
-
-	public Link map(fUML.Semantics.Classes.Kernel.Link link) {
-		Link mappedLink = KernelFactory.eINSTANCE.createLink();
-		mappedLink.setType(map(link.type));
-
-		for (FeatureValue featureValue : link.featureValues) {
-			org.modelexecution.fuml.Semantics.Classes.Kernel.FeatureValue mappedFeatureValue = KernelFactory.eINSTANCE.createFeatureValue();
-			mappedFeatureValue.setFeature(map(featureValue.feature));
-			for (fUML.Semantics.Classes.Kernel.Value value : featureValue.values) {
-				mappedFeatureValue.getValues().add(map(value));
+			if (primitiveType.namespace instanceof fUML.Syntax.Classes.Kernel.Package) {
+				mappedPrimitiveType.setNamespace(map((fUML.Syntax.Classes.Kernel.Package) primitiveType.namespace));
+			} else if (primitiveType.namespace instanceof Class_) {
+				mappedPrimitiveType.setNamespace(map((Class_) primitiveType.namespace));
+			} else if (primitiveType.namespace instanceof fUML.Syntax.Classes.Kernel.Association) {
+				mappedPrimitiveType.setNamespace(map((fUML.Syntax.Classes.Kernel.Association) primitiveType.namespace));
 			}
-			mappedLink.getFeatureValues().add(mappedFeatureValue);
-		}
 
-		return mappedLink;
-	}
-
-	private Value map(fUML.Semantics.Classes.Kernel.Value value) {
-		Value mappedValue = null;
-
-		if (value instanceof BooleanValue) {
-			mappedValue = KernelFactory.eINSTANCE.createBooleanValue();
-			((org.modelexecution.fuml.Semantics.Classes.Kernel.BooleanValue) mappedValue).setValue(((BooleanValue) value).value);
+			return mappedPrimitiveType;
 		}
-		if (value instanceof StringValue) {
-			mappedValue = KernelFactory.eINSTANCE.createStringValue();
-			((org.modelexecution.fuml.Semantics.Classes.Kernel.StringValue) mappedValue).setValue(((StringValue) value).value);
-		}
-		if (value instanceof IntegerValue) {
-			mappedValue = KernelFactory.eINSTANCE.createIntegerValue();
-			((org.modelexecution.fuml.Semantics.Classes.Kernel.IntegerValue) mappedValue).setValue(((IntegerValue) value).value);
-		}
-		if (value instanceof Reference) {
-			mappedValue = map(((Reference) value).referent);
-		}
-
-		return mappedValue;
+		/**
+		 * Following fields are NOT set: Package
+		 */
 	}
 
 	private VisibilityKind mapVisibility(NamedElement element) {
@@ -256,5 +250,67 @@ public class FumlConverter {
 		default:
 			return null;
 		}
+	}
+
+	public Object map(Object_ object_) {
+		Object object = getSemanticsFactory().createObject();
+		object.getTypes().add(map(object_.types.get(0)));
+
+		for (FeatureValue featureValue : object_.featureValues) {
+			org.modelexecution.fuml.Semantics.Classes.Kernel.FeatureValue mappedFeatureValue = getSemanticsFactory().createFeatureValue();
+			mappedFeatureValue.setFeature(map(featureValue.feature));
+			for (fUML.Semantics.Classes.Kernel.Value value : featureValue.values) {
+				mappedFeatureValue.getValues().add(map(value));
+			}
+			object.getFeatureValues().add(mappedFeatureValue);
+		}
+
+		return object;
+	}
+
+	public Link map(fUML.Semantics.Classes.Kernel.Link link) {
+		Link mappedLink = getSemanticsFactory().createLink();
+		mappedLink.setType(map(link.type));
+
+		for (FeatureValue featureValue : link.featureValues) {
+			org.modelexecution.fuml.Semantics.Classes.Kernel.FeatureValue mappedFeatureValue = getSemanticsFactory().createFeatureValue();
+			mappedFeatureValue.setFeature(map(featureValue.feature));
+			for (fUML.Semantics.Classes.Kernel.Value value : featureValue.values) {
+				mappedFeatureValue.getValues().add(map(value));
+			}
+			mappedLink.getFeatureValues().add(mappedFeatureValue);
+		}
+
+		return mappedLink;
+	}
+
+	private Value map(fUML.Semantics.Classes.Kernel.Value value) {
+		Value mappedValue = null;
+
+		if (value instanceof BooleanValue) {
+			mappedValue = getSemanticsFactory().createBooleanValue();
+			((org.modelexecution.fuml.Semantics.Classes.Kernel.BooleanValue) mappedValue).setValue(((BooleanValue) value).value);
+		}
+		if (value instanceof StringValue) {
+			mappedValue = getSemanticsFactory().createStringValue();
+			((org.modelexecution.fuml.Semantics.Classes.Kernel.StringValue) mappedValue).setValue(((StringValue) value).value);
+		}
+		if (value instanceof IntegerValue) {
+			mappedValue = getSemanticsFactory().createIntegerValue();
+			((org.modelexecution.fuml.Semantics.Classes.Kernel.IntegerValue) mappedValue).setValue(((IntegerValue) value).value);
+		}
+		if (value instanceof Reference) {
+			mappedValue = map(((Reference) value).referent);
+		}
+
+		return mappedValue;
+	}
+
+	private org.modelexecution.fuml.Syntax.Classes.Kernel.KernelFactory getSyntaxFactory() {
+		return org.modelexecution.fuml.Syntax.Classes.Kernel.KernelFactory.eINSTANCE;
+	}
+
+	private KernelFactory getSemanticsFactory() {
+		return KernelFactory.eINSTANCE;
 	}
 }

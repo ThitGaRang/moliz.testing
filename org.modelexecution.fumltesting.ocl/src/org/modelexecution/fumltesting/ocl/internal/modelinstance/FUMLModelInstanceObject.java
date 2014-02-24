@@ -17,7 +17,6 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.osgi.util.NLS;
 import org.modelexecution.fuml.Semantics.Classes.Kernel.FeatureValue;
-import org.modelexecution.fuml.Syntax.Classes.Kernel.Feature;
 import org.modelexecution.fumltesting.ocl.internal.util.FUMLModelInstanceTypeUtil;
 
 import tudresden.ocl20.pivot.modelinstance.base.AbstractModelInstance;
@@ -49,19 +48,19 @@ import tudresden.ocl20.pivot.pivotmodel.Type;
  * 
  */
 public class FUMLModelInstanceObject extends AbstractModelInstanceObject implements IModelInstanceObject {
-	private Object myObject;
+	private Object dslObject;
 	private Class<?> myAdaptedClass;
 	private FUMLModelInstanceFactory myFactory;
 
 	protected FUMLModelInstanceObject(Object object, Type type, Type originalType, FUMLModelInstanceFactory factory) {
 		super(type, originalType);
-		myObject = object;
+		dslObject = object;
 		myFactory = factory;
 	}
 
 	protected FUMLModelInstanceObject(Object object, Class<?> typeClass, Type type, Type originalType, FUMLModelInstanceFactory factory) {
 		super(type, originalType);
-		myObject = object;
+		dslObject = object;
 		myAdaptedClass = typeClass;
 		myType = type;
 		myFactory = factory;
@@ -73,14 +72,14 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 		}
 		IModelInstanceElement result = null;
 		if (getOriginalType().conformsTo(type)) {
-			if (myObject == null) {
+			if (dslObject == null) {
 				result = new FUMLModelInstanceObject(null, type, getOriginalType(), myFactory);
 			} else {
-				Class<?> typeClass = FUMLModelInstanceTypeUtil.findClassOfType(myObject.getClass(), type);
+				Class<?> typeClass = FUMLModelInstanceTypeUtil.findClassOfType(dslObject.getClass(), type);
 				if (typeClass == null) {
 					throw new AsTypeCastException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstance_CannotCastTypeClassNotFound, type));
 				}
-				result = new FUMLModelInstanceObject(myObject, typeClass, type, getOriginalType(), myFactory);
+				result = new FUMLModelInstanceObject(dslObject, typeClass, type, getOriginalType(), myFactory);
 			}
 		} else {
 			throw new AsTypeCastException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstance_CannotCastTypeClassNotFound, type));
@@ -90,7 +89,7 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 
 	public IModelInstanceElement copyForAtPre() throws CopyForAtPreException {
 		IModelInstanceElement result = null;
-		if (myObject instanceof Cloneable) {
+		if (dslObject instanceof Cloneable) {
 			try {
 				result = copyForAtPreWithClone();
 			} catch (CopyForAtPreException e) {
@@ -104,31 +103,31 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 	}
 
 	public Object getObject() {
-		return myObject;
+		return dslObject;
 	}
 
 	public IModelInstanceElement getProperty(Property property) throws PropertyAccessException, PropertyNotFoundException {
 		if (property == null) {
 			throw new IllegalArgumentException("Property 'property' must not be null!");
-		}		
-		if (myObject == null) {
+		}
+		if (dslObject == null) {
 			return myFactory.createModelInstanceElement(null, property.getType());
 		} else {
-			if (myObject instanceof FUMLModelInstanceObject) {
-				Object dslObject = ((FUMLModelInstanceObject) myObject).myObject;
-				if (dslObject instanceof org.modelexecution.fuml.Semantics.Classes.Kernel.Object) {
-					org.modelexecution.fuml.Semantics.Classes.Kernel.Object theObject = (org.modelexecution.fuml.Semantics.Classes.Kernel.Object) dslObject;
-					for (FeatureValue featureValue : theObject.getFeatureValues()) {
-						Feature feature = featureValue.getFeature();
-						if (feature.getName().equals(property.getName())) {
-							return AbstractModelInstance.adaptInvocationResult(feature, property.getType(), myFactory);
+			if (dslObject instanceof org.modelexecution.fuml.Semantics.Classes.Kernel.Object) {
+				org.modelexecution.fuml.Semantics.Classes.Kernel.Object object = (org.modelexecution.fuml.Semantics.Classes.Kernel.Object)dslObject;
+				for(FeatureValue featureValue: object.getFeatureValues()){
+					if(featureValue.getFeature().getName().equals(property.getName())){
+						IModelInstanceElement result = AbstractModelInstance.adaptInvocationResult(featureValue.getFeature(), property.getType(), myFactory);
+						if(result == null){
+							result = myFactory.createModelInstanceElement(featureValue.getFeature(), property.getType());
 						}
+						return result;
 					}
 				}
 			}
 		}
-		throw new PropertyNotFoundException(
-				NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_PropertyNotFoundInModelInstanceElement, property));
+		throw new PropertyNotFoundException(NLS.bind(
+				FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_PropertyNotFoundInModelInstanceElement, property));
 	}
 
 	public IModelInstanceElement invokeOperation(Operation operation, List<IModelInstanceElement> args) throws OperationNotFoundException,
@@ -139,7 +138,7 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 			throw new IllegalArgumentException("Parameter 'args' must not be null!");
 		}
 		IModelInstanceElement result = null;
-		if (myObject == null) {
+		if (dslObject == null) {
 			result = myFactory.createModelInstanceElement(null, operation.getType());
 		} else {
 			Method operationMethod = findMethodOfAdaptedObject(operation);
@@ -158,7 +157,7 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 				Object adapteeResult;
 				operationMethod.setAccessible(true);
 
-				adapteeResult = operationMethod.invoke(myObject, argumentValues);
+				adapteeResult = operationMethod.invoke(dslObject, argumentValues);
 
 				/* Adapt the result to the expected result type. */
 				if (adapteeResult instanceof Object) {
@@ -200,7 +199,7 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 		result.append(",originalType=");
 		result.append(this.getOriginalType().getName());
 		result.append(",");
-		result.append(this.myObject.toString());
+		result.append(this.dslObject.toString());
 		result.append("]");
 		return result.toString();
 	}
@@ -210,9 +209,9 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 		Method cloneMethod;
 		try {
 			Object adaptedResult;
-			cloneMethod = myObject.getClass().getMethod("clone");
+			cloneMethod = dslObject.getClass().getMethod("clone");
 			cloneMethod.setAccessible(true);
-			adaptedResult = (Object) cloneMethod.invoke(myObject);
+			adaptedResult = (Object) cloneMethod.invoke(dslObject);
 			result = new FUMLModelInstanceObject(adaptedResult, myAdaptedClass, myType, getOriginalType(), myFactory);
 		} catch (SecurityException e) {
 			throw new CopyForAtPreException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_CannotCopyForAtPre, getName(),
@@ -235,7 +234,7 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 
 	private IModelInstanceObject copyForAtPreWithReflections() throws CopyForAtPreException {
 		IModelInstanceObject result;
-		Class<?> adapteeClass = myObject.getClass();
+		Class<?> adapteeClass = dslObject.getClass();
 		try {
 			Object copiedAdaptedObject;
 			Constructor<?> emptyConstructor;
@@ -245,7 +244,7 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 				for (Field field : adapteeClass.getDeclaredFields()) {
 					field.setAccessible(true);
 					if (!(Modifier.isFinal(field.getModifiers()) || Modifier.isStatic(field.getModifiers()))) {
-						field.set(copiedAdaptedObject, field.get(myObject));
+						field.set(copiedAdaptedObject, field.get(dslObject));
 					}
 				}
 				adapteeClass = adapteeClass.getSuperclass();
@@ -577,7 +576,7 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 		}
 		if (result == null) {
 			throw new OperationNotFoundException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_OperationNotFound, operation,
-					myObject.getClass()));
+					dslObject.getClass()));
 		}
 		return result;
 	}

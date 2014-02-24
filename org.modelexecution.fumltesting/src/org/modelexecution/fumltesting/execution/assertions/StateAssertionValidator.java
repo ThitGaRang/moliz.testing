@@ -41,7 +41,6 @@ import org.modelexecution.fumltesting.testLang.TestLangFactory;
 
 import tudresden.ocl20.pivot.modelinstance.IModelInstance;
 import tudresden.ocl20.pivot.modelinstancetype.exception.TypeNotFoundInModelException;
-import tudresden.ocl20.pivot.modelinstancetype.types.IModelInstanceElement;
 import UMLPrimitiveTypes.UnlimitedNatural;
 import fUML.Semantics.Classes.Kernel.BooleanValue;
 import fUML.Semantics.Classes.Kernel.FeatureValue;
@@ -136,13 +135,11 @@ public class StateAssertionValidator {
 			IModelInstance modelInstance = FumlOclInterpreter.getInstance().getEmptyModelInstance();
 
 			try {
-				for (org.modelexecution.fuml.Semantics.Classes.Kernel.Object object : state.getObjects()) {
-					IModelInstanceElement element = modelInstance.getModelInstanceFactory().createModelInstanceElement(object);
-					modelInstance.addModelInstanceElement(element);
+				for (org.modelexecution.fuml.Semantics.Classes.Kernel.Object object : state.getObjects()) {					
+					modelInstance.addModelInstanceElement(object);
 				}
-				for (org.modelexecution.fuml.Semantics.Classes.Kernel.Link link : state.getLinks()) {
-					IModelInstanceElement element = modelInstance.getModelInstanceFactory().createModelInstanceElement(link);
-					modelInstance.addModelInstanceElement(element);
+				for (org.modelexecution.fuml.Semantics.Classes.Kernel.Link link : state.getLinks()) {					
+					modelInstance.addModelInstanceElement(link);
 				}
 			} catch (TypeNotFoundInModelException e) {
 				e.printStackTrace();

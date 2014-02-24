@@ -5,6 +5,7 @@ import java.io.File;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.uml2.uml.Activity;
 import org.eclipse.uml2.uml.ActivityNode;
 import org.eclipse.uml2.uml.Model;
@@ -84,6 +85,7 @@ public class TestExecutor {
 
 				// adds elements from UML model to test suite
 				resource.getContents().addAll(umlResource.getContents());
+				EcoreUtil.resolveAll(resourceSet);
 
 				for (EObject model : resource.getContents()) {
 					if (model instanceof NamedElement) {
