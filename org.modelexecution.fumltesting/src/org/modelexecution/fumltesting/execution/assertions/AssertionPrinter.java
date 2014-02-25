@@ -92,9 +92,8 @@ public class AssertionPrinter {
 		}
 	}
 
-	public static void print(List<NodeSpecification> nodeOrder, List<ActivityNodeExecution> executedNodes, boolean result) {
-		System.out.println();
-		System.out.print("Order assertion:");
+	public static void printOrderSpecification(List<NodeSpecification> nodeOrder){
+		System.out.print("Order assertion: ");
 		for (int i = 0; i < nodeOrder.size(); i++) {
 			if (nodeOrder.get(i).getNode() != null) {
 				if (i == nodeOrder.size() - 1)
@@ -110,8 +109,10 @@ public class AssertionPrinter {
 			}
 		}
 		System.out.println();
-
-		System.out.print("Checked path:");
+	}
+	
+	public static void print(List<NodeSpecification> nodeOrder, List<ActivityNodeExecution> executedNodes, boolean result) {
+		System.out.print("Checked path: ");
 		for (int i = 0; i < executedNodes.size(); i++) {
 			if (executedNodes.get(i).getNode() != null) {
 				if (i == executedNodes.size() - 1)

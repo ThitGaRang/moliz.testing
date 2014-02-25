@@ -1,6 +1,36 @@
 package structure
 
 context Product
-inv SingleProduct: Product.allInstances()->size() = 1
-inv ProductName: name = 'dpr'
+
+inv ProductSize: Product.allInstances()->size() = 1
+inv ProductSize2: Product.allInstances()->size() > 0
+inv ProductSize3: Product.allInstances()->size() < 2
+inv ProductSize4: Product.allInstances()->size() >= 0
+inv ProductSize5: Product.allInstances()->size() >= 1
+inv ProductSize6: Product.allInstances()->size() <= 2
+inv ProductSize7: Product.allInstances()->size() <= 1
+
+inv ProductCode: code = 1234
+inv ProductCode2: code > 123
+inv ProductCode3: code >= 1234
+inv ProductCode4: code < 12345
+inv ProductCode5: code <= 1234
+inv ProductCode6: code <> 12345
+
+inv ProductNameStringEquality: name = 'defaultProduct'
+inv ProductNameConcat: name.concat('Product') = 'defaultProductProduct'
+inv ProductNameStringLenght: name.size() = 14
+
+inv ProductNameStringToLower: name.toLowerCase() = 'defaultproduct'
+inv ProductNameStringToLower2: name = 'defaultProduct'.toLowerCase()
+inv ProductNameStringToLower3: name.toLowerCase() = 'defaultProduct'.toLowerCase()
+
+inv ProductNameStringToUpper: name.toUpperCase() = 'DEFAULTPRODUCT'
+inv ProductNameStringToUpper2: name = 'defaultProduct'.toUpperCase()
+inv ProductNameStringToUpper3: name.toUpperCase() = 'DEFAULTPRODUCT'.toUpperCase()
+
+inv ProductNameSubstring: name.substring(0,1) = 'd'
+inv ProductNameSubstring2: name = 'defaultProduct'.substring(0,2)
+inv ProductNameSubstring3: name.substring(0,1) = 'defaultProduct'.substring(0,1)
+
 endpackage

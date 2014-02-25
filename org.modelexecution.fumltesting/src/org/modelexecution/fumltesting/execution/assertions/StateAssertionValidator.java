@@ -104,7 +104,7 @@ public class StateAssertionValidator {
 		if (assertion.getConstraints().size() > 0) {
 			for (Constraint constraint : assertion.getConstraints()) {
 				List<State> states = traceUtil.getStates(quantifier, operator, referredNodeExecution);
-				result = check(((XStringLiteral)constraint.getSpecification()).getValue(), states);
+				result = check(((XStringLiteral) constraint.getSpecification()).getValue(), states);
 			}
 		}
 
@@ -130,15 +130,15 @@ public class StateAssertionValidator {
 		return check(stateAssertion);
 	}
 
-	private boolean check(String constraintName, List<State> states) {		
+	private boolean check(String constraintName, List<State> states) {
 		for (State state : states) {
 			IModelInstance modelInstance = FumlOclInterpreter.getInstance().getEmptyModelInstance();
 
 			try {
-				for (org.modelexecution.fuml.Semantics.Classes.Kernel.Object object : state.getObjects()) {					
+				for (org.modelexecution.fuml.Semantics.Classes.Kernel.Object object : state.getObjects()) {
 					modelInstance.addModelInstanceElement(object);
 				}
-				for (org.modelexecution.fuml.Semantics.Classes.Kernel.Link link : state.getLinks()) {					
+				for (org.modelexecution.fuml.Semantics.Classes.Kernel.Link link : state.getLinks()) {
 					modelInstance.addModelInstanceElement(link);
 				}
 			} catch (TypeNotFoundInModelException e) {
@@ -146,9 +146,9 @@ public class StateAssertionValidator {
 			}
 			boolean result = FumlOclInterpreter.getInstance().evaluateConstraint(constraintName, modelInstance);
 			if (result == false) {
-				System.out.println("Constraint " + " failed for state created by action " + state.getNodeExecution().getNode().name);
+				System.out.println("Constraint " + constraintName + " validation failed!");
 				return false;
-			}else{
+			} else {
 				System.out.println("Constraint validation success.");
 			}
 		}

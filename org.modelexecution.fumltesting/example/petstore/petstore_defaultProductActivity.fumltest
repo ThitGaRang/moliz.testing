@@ -1,13 +1,44 @@
 import petstore.structure.*
 import petstore.scenarios.*
 
-test defaultProductTest activity DefaultProductActivity{
-	var product = defaultProduct.product;
+test defaultProductTest activity DefaultProductActivity{	
 	
-	assertOrder DefaultProductActivity.init, *, DefaultProductActivity.defaultProduct;
+	assertOrder *, DefaultProductActivity.setAvailable;
 	
-	assertState always after DefaultProductActivity.defaultProduct{
-		check 'SingleProduct';
-		check 'ProductName';
+	assertState always after DefaultProductActivity.setAvailable{
+		check 'NonExistingConstraint';
+		check 'ProductSize';
+		check 'ProductSize2';
+		check 'ProductSize3';
+		check 'ProductSize4';
+		check 'ProductSize5';
+		check 'ProductSize6';
+		check 'ProductSize7';		
+		
+		check 'ProductNameStringEquality';
+		check 'ProductNameStringLenght';
+		check 'ProductNameConcat';
+		
+		//problem with thread safety!
+		//check 'ProductNameStringToLower';
+		//check 'ProductNameStringToLower3';		
+		//check 'ProductNameStringToLower2';		
+		
+		//problem with thread safety
+		//check 'ProductNameStringToUpper';		
+		//check 'ProductNameStringToUpper3';		
+		//check 'ProductNameStringToUpper2'; //should fail
+		
+		//problem with thread safety!
+		//check 'ProductNameSubstring';
+		//check 'ProductNameSubstring2';
+		//check 'ProductNameSubstring3';
+		
+		check 'ProductCode';
+		check 'ProductCode2';
+		check 'ProductCode3';
+		check 'ProductCode4';
+		check 'ProductCode5';
+		check 'ProductCode6';
 	}
 }

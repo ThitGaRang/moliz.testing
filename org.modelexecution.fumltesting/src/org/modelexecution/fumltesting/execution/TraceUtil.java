@@ -62,8 +62,7 @@ public class TraceUtil {
 		sTrace = sequenceGenerator.generateTrace(trace);
 
 		pathFinder = new ExecutionPathFinder();
-		pathFinder.init(trace.getActivityExecutionByID(activityExecutionID));
-		pathFinder.printPaths();
+		pathFinder.init(trace.getActivityExecutionByID(activityExecutionID));		
 	}
 
 	/**
@@ -176,6 +175,7 @@ public class TraceUtil {
 								states.add(state);
 								break;
 							}
+							break;
 						case BEFORE:
 							switch (quantifier) {
 							case ALWAYS:

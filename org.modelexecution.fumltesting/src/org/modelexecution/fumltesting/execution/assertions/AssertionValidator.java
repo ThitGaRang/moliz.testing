@@ -34,13 +34,15 @@ public class AssertionValidator {
 		if (assertion instanceof OrderAssertion) {
 			String parentNodeName = ((TestCase) assertion.eContainer()).getActivityUnderTest().getName();
 			List<NodeSpecification> nodeOrder = ((OrderAssertion) assertion).getOrder().getNodes();
-			AssertionPrinter.print(traceUtil.getExecutedNodesList());
+			AssertionPrinter.printOrderSpecification(nodeOrder);
+			System.out.println("Checking order assertion against " + traceUtil.getAllPaths().size() + " generated paths..");
 			for (ArrayList<ActivityNodeExecution> path : traceUtil.getAllPaths()) {
 				boolean result = orderValidator.checkOrder(parentNodeName, nodeOrder, path);
 				if (result == false) {
 					return result;
 				}
 			}
+			System.out.println("Assertion success!");
 			return true;
 		}
 		if (assertion instanceof StateAssertion) {

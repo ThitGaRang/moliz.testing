@@ -75,7 +75,7 @@ public class FumlOclInterpreter {
 		}
 		if (constraint != null) {
 			// TODO continue implementing constraint checking
-			System.out.println("Checking constraint.. " + constraint.getSpecification().getBody());
+			System.out.println("Checking constraint..\n" + constraint.getSpecification().getBody().trim());
 
 			oclInterpreter = OclInterpreterPlugin.createInterpreter(modelInstance);
 			ConstrainableElement constrainedElement = constraint.getConstrainedElement().get(0);
@@ -95,7 +95,9 @@ public class FumlOclInterpreter {
 					}
 				}
 			}
+		}else{
+			System.out.println("Constraint " + constraintName + " not found!");			
 		}
-		return true;
+		return false;
 	}
 }

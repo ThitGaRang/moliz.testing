@@ -16,8 +16,8 @@ import java.util.Set;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.osgi.util.NLS;
-import org.modelexecution.fuml.Semantics.Classes.Kernel.BooleanValue;
 import org.modelexecution.fuml.Semantics.Classes.Kernel.FeatureValue;
+import org.modelexecution.fuml.Semantics.Classes.Kernel.IntegerValue;
 import org.modelexecution.fuml.Semantics.Classes.Kernel.StringValue;
 import org.modelexecution.fumltesting.ocl.internal.util.FUMLModelInstanceTypeUtil;
 
@@ -119,8 +119,12 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 				org.modelexecution.fuml.Semantics.Classes.Kernel.Object object = (org.modelexecution.fuml.Semantics.Classes.Kernel.Object) dslObject;
 				for (FeatureValue featureValue : object.getFeatureValues()) {
 					if (featureValue.getFeature().getName().equals(property.getName())) {
-						IModelInstanceElement result = AbstractModelInstance.adaptInvocationResult(featureValue.getValues().get(0), property.getType(),
-								myFactory);
+						IModelInstanceElement result = null;
+						if (featureValue.getValues().size() > 0) {
+							result = AbstractModelInstance.adaptInvocationResult(featureValue.getValues().get(0), property.getType(), myFactory);
+						} else {
+							result = AbstractModelInstance.adaptInvocationResult(null, property.getType(), myFactory);
+						}
 						return result;
 					}
 				}
@@ -157,23 +161,56 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 				Object adapteeResult = null;
 				operationMethod.setAccessible(true);
 
-				if(dslObject instanceof StringValue){
-					adapteeResult = operationMethod.invoke(((StringValue)dslObject).getValue(), argumentValues);
-				}else{
-					//TODO continue implementing other cases
-				}
+				if (dslObject instanceof StringValue) {
+					adapteeResult = operationMethod.invoke(((StringValue) dslObject).getValue(), argumentValues);
+				} else if (dslObject instanceof String) {
+					adapteeResult = operationMethod.invoke(dslObject, argumentValues);
+				} else if (dslObject instanceof IntegerValue) {
+					Long longAnalog = Long.parseLong(String.valueOf(((IntegerValue) dslObject).getValue()));
+					adapteeResult = operationMethod.invoke(longAnalog, argumentValues);
+					if (operation.getName().equals(">")) {
+						if ((Integer) adapteeResult > 0)
+							adapteeResult = true;
+						else
+							adapteeResult = false;
+					}
+					if (operation.getName().equals(">=")) {
+						if ((Integer) adapteeResult >= 0)
+							adapteeResult = true;
+						else
+							adapteeResult = false;
+					}
+					if (operation.getName().equals("<")) {
+						if ((Integer) adapteeResult >= 0)
+							adapteeResult = false;
+						else
+							adapteeResult = true;
+					}
+					if (operation.getName().equals("<=")) {
+						if ((Integer) adapteeResult > 0)
+							adapteeResult = false;
+						else
+							adapteeResult = true;
+					}
+					if (operation.getName().equals("<>")) {
+						if ((Integer) adapteeResult == 0)
+							adapteeResult = false;
+						else
+							adapteeResult = true;
+					}
+				} else if (dslObject instanceof Integer) {
+					Long longAnalog = Long.parseLong(String.valueOf((Integer) dslObject));
+					adapteeResult = operationMethod.invoke(longAnalog, argumentValues);
+				}// TODO continue
 
 				/* Adapt the result to the expected result type. */
-				if (adapteeResult instanceof Object) {
-					try {
-						Type adapteeType = myFactory.getTypeUtil().findTypeOfObjectInModel((Object) adapteeResult);
-						result = AbstractModelInstance.adaptInvocationResult(adapteeResult, adapteeType, this.myFactory);
-					} catch (TypeNotFoundInModelException e) {
-						throw new OperationAccessException("Result of invocation of Operation '" + operation.getName()
-								+ "' could not be adapted to any model type.", e);
-					}
-				} else {
-					result = AbstractModelInstance.adaptInvocationResult(adapteeResult, operation.getType(), this.myFactory);
+
+				try {
+					Type adapteeType = myFactory.getTypeUtil().findTypeOfObjectInModel((Object) adapteeResult);
+					result = AbstractModelInstance.adaptInvocationResult(adapteeResult, adapteeType, this.myFactory);
+				} catch (TypeNotFoundInModelException e) {
+					throw new OperationAccessException("Result of invocation of Operation '" + operation.getName()
+							+ "' could not be adapted to any model type.", e);
 				}
 			} catch (IllegalArgumentException e) {
 				throw new OperationAccessException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_OperationAccessFailed, operation),
@@ -549,53 +586,70 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 
 	private Method findMethodOfAdaptedObject(Operation operation) throws OperationNotFoundException {
 		Method result = null;
-		if (dslObject instanceof StringValue) {
+		if (dslObject instanceof StringValue || dslObject instanceof String) {
 			if (operation.getName().equals("=")) {
 				for (Method aMethod : String.class.getMethods()) {
 					if (aMethod.getName().equals("equals")) {
 						return aMethod;
 					}
 				}
-			}else if(operation.getName().equals("<>")){
-				for(Method amMethod: String.class.getMethods()){
-					if(amMethod.getName().equals("")){
-						return amMethod;
+			} else if (operation.getName().equals("<>")) {
+				// TODO no idea how to implement
+				for (Method aMethod : String.class.getMethods()) {
+					if (aMethod.getName().equals("")) {
+						return aMethod;
 					}
 				}
-			}else if(operation.getName().equals("concat")){
-				for(Method amMethod: String.class.getMethods()){
-					if(amMethod.getName().equals("concat")){
-						return amMethod;
+			} else if (operation.getName().equals("concat")) {
+				for (Method aMethod : String.class.getMethods()) {
+					if (aMethod.getName().equals("concat")) {
+						return aMethod;
 					}
 				}
-			}else if(operation.getName().equals("size")){
-				for(Method amMethod: String.class.getMethods()){
-					if(amMethod.getName().equals("length")){
-						return amMethod;
+			} else if (operation.getName().equals("size")) {
+				for (Method aMethod : String.class.getMethods()) {
+					if (aMethod.getName().equals("length")) {
+						return aMethod;
 					}
 				}
-			}else if(operation.getName().equals("toLower")){
-				for(Method amMethod: String.class.getMethods()){
-					if(amMethod.getName().equals("toLowerCase")){
-						return amMethod;
+			} else if (operation.getName().equals("toLowerCase")) {
+				for (Method aMethod : String.class.getMethods()) {
+					if (aMethod.getName().equals("toLowerCase")) {
+						return aMethod;
 					}
 				}
-			}else if(operation.getName().equals("toUpper")){
-				for(Method amMethod: String.class.getMethods()){
-					if(amMethod.getName().equals("toUpperCase")){
-						return amMethod;
+			} else if (operation.getName().equals("toUpperCase")) {
+				for (Method aMethod : String.class.getMethods()) {
+					if (aMethod.getName().equals("toUpperCase")) {
+						return aMethod;
 					}
 				}
-			}else if(operation.getName().equals("substring")){
-				for(Method amMethod: String.class.getMethods()){
-					if(amMethod.getName().equals("substring")){
-						return amMethod;
+			} else if (operation.getName().equals("substring")) {
+				for (Method aMethod : String.class.getMethods()) {
+					if (aMethod.getName().equals("substring")) {
+						return aMethod;
 					}
-				}				
+				}
 			}
-		}else if(dslObject instanceof BooleanValue){
-			//TODO continue implementing other cases
-		}else{
+		} else if (dslObject instanceof IntegerValue || dslObject instanceof Integer) {
+			if (operation.getName().equals("=")) {
+				// must convert to Long as, in OCL,
+				// argument is by default of Long type
+				for (Method aMethod : Long.class.getMethods()) {
+					if (aMethod.getName().equals("equals")) {
+						return aMethod;
+					}
+				}
+			} else if (operation.getName().equals(">") || operation.getName().equals(">=") || operation.getName().equals("<")
+					|| operation.getName().equals("<=") || operation.getName().equals("<>")) {
+				for (Method aMethod : Long.class.getMethods()) {
+					if (aMethod.getName().equals("compareTo")) {
+						return aMethod;
+					}
+				}
+			}
+			// TODO continue
+		} else {
 			Class<?> methodSourceClass = myAdaptedClass.getClass();
 
 			while (methodSourceClass != null && result == null) {
@@ -629,7 +683,7 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 				throw new OperationNotFoundException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_OperationNotFound, operation,
 						dslObject.getClass()));
 			}
-		}		
+		}
 		return result;
 	}
 

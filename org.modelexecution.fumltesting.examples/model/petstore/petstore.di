@@ -61,9 +61,6 @@
       <emfPageIdentifier href="petstore.notation#_ZOZp0GcLEeO9ZPj83X660A"/>
     </availablePage>
     <availablePage>
-      <emfPageIdentifier href="petstore.notation#__zuUgGcxEeO4M75347jw5g"/>
-    </availablePage>
-    <availablePage>
       <emfPageIdentifier href="petstore.notation#_PlS_UIKbEeOweOpVCrk9Ug"/>
     </availablePage>
   </pageList>
@@ -72,15 +69,6 @@
       <children xsi:type="di:TabFolder">
         <children>
           <emfPageIdentifier href="petstore.notation#_EwtPMC_4EeOTpM28lqU8qA"/>
-        </children>
-        <children>
-          <emfPageIdentifier href="petstore.notation#_ZOZp0GcLEeO9ZPj83X660A"/>
-        </children>
-        <children>
-          <emfPageIdentifier href="petstore.notation#_PlS_UIKbEeOweOpVCrk9Ug"/>
-        </children>
-        <children>
-          <emfPageIdentifier href="petstore.notation#__zuUgGcxEeO4M75347jw5g"/>
         </children>
       </children>
     </windows>
