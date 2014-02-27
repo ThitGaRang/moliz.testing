@@ -21,6 +21,10 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.KernelFactory;
 import org.modelexecution.fumltesting.TestLangStandaloneSetup;
 import org.modelexecution.fumltesting.execution.assertions.AssertionPrinter;
 import org.modelexecution.fumltesting.execution.assertions.AssertionValidator;
+import org.modelexecution.fumltesting.results.AssertionResult;
+import org.modelexecution.fumltesting.results.TestCaseResult;
+import org.modelexecution.fumltesting.results.TestSuiteResult;
+import org.modelexecution.fumltesting.testLang.ActivityInput;
 import org.modelexecution.fumltesting.testLang.Assertion;
 import org.modelexecution.fumltesting.testLang.TestCase;
 import org.modelexecution.fumltesting.testLang.TestSuite;
@@ -46,7 +50,7 @@ public class TestExecutor {
 	/** The resource for reading UML model. */
 	private Resource umlResource;
 	/** The UML Model. */
-	private NamedElement umlModel;	
+	private NamedElement umlModel;
 	/** Complete test suite. */
 	private TestSuite suite;
 	/** Utility class for validating assertions. */
@@ -57,7 +61,7 @@ public class TestExecutor {
 	private FumlConverter fumlConverter;
 	/** Utility class for interpreting OCL constraints on fUML model. */
 	private FumlOclInterpreter oclInterpreter;
-	
+
 	/**
 	 * Sets up all the resources, UML model and testing model, and initializes
 	 * the testSuite.
@@ -100,23 +104,23 @@ public class TestExecutor {
 			}
 
 			oclInterpreter = FumlOclInterpreter.getInstance();
-			
+
 			if (oclInterpreter.getMetamodel() != null) {
 				System.out.println("Metamodel adaptation: " + oclInterpreter.getMetamodel().getName());
 				System.out.println("Model adaptation: " + umlModel.getName());
-				
+
 				org.modelexecution.fuml.Syntax.Classes.Kernel.Package modelPackage = KernelFactory.eINSTANCE.createPackage();
 				modelPackage.setName(umlModel.getName());
 				modelPackage.setQualifiedName(umlModel.getQualifiedName());
-				
-				if(umlModel.getNamespace() != null){
+
+				if (umlModel.getNamespace() != null) {
 					modelPackage.getNamespace().setName(umlModel.getNamespace().getName());
 					modelPackage.getNamespace().setQualifiedName(umlModel.getNamespace().getQualifiedName());
-				}				
-				
+				}
+
 				for (org.eclipse.uml2.uml.Package umlPackage : ((Model) umlModel).getNestedPackages()) {
 					Package fumlPackage = UmlConverter.getInstance().getPackage(umlPackage);
-					if(fumlPackage != null){
+					if (fumlPackage != null) {
 						org.modelexecution.fuml.Syntax.Classes.Kernel.Package mappedPackage = fumlConverter.mapAndWire(fumlPackage);
 						modelPackage.getNestedPackage().add(mappedPackage);
 						mappedPackage.setOwner(modelPackage);
@@ -124,12 +128,12 @@ public class TestExecutor {
 				}
 				oclInterpreter.setModel(modelPackage);
 			}
-			oclInterpreter.loadConstraints(new File("../org.modelexecution.fumltesting.examples/model/petstore/petstore.ocl"));						
+			oclInterpreter.loadConstraints(new File("../org.modelexecution.fumltesting.examples/model/petstore/petstore.ocl"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/** Main method of the testing framework. */
 	@Test
 	public void test() {
@@ -145,6 +149,7 @@ public class TestExecutor {
 	}
 
 	private void testsEvaluation() {
+		TestSuiteResult suiteResult = new TestSuiteResult();
 		for (int i = 0; i < suite.getTests().size(); i++) {
 			TestCase testCase = suite.getTests().get(i);
 			AssertionPrinter.print(testCase);
@@ -175,13 +180,28 @@ public class TestExecutor {
 
 			validator = new AssertionValidator(mainActivityExecutionID);
 
+			// add test case result
+			TestCaseResult testCaseResult = new TestCaseResult(testCase.getName(), activity);
+			testCaseResult.setActivityContextObject(testCase.getContextObject());
+
+			for (ActivityInput activityInput : testCase.getInputs()) {
+				org.modelexecution.fumltesting.results.ActivityInput activityInputForResult = new org.modelexecution.fumltesting.results.ActivityInput(
+						activityInput.getParameter(), activityInput.getValue());
+				testCaseResult.addActivityInputValue(activityInputForResult);
+			}
+
 			for (int j = 0; j < testCase.getAssertions().size(); j++) {
 				Assertion assertion = testCase.getAssertions().get(j);
-				validator.check(assertion);
+				AssertionResult result = validator.check(assertion);
+				testCaseResult.addAssertionResult(result);
 			}
+
+			suiteResult.addTestCaseResult(testCaseResult);
 
 			System.out.println("End of test.");
 			AssertionPrinter.printStartEnd();
 		}
+
+		System.out.println("End of test suite.");
 	}
 }

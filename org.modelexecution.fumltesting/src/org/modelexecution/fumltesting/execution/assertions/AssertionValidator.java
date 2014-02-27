@@ -5,6 +5,9 @@ import java.util.List;
 
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumltesting.execution.TraceUtil;
+import org.modelexecution.fumltesting.results.AssertionResult;
+import org.modelexecution.fumltesting.results.OrderAssertionResult;
+import org.modelexecution.fumltesting.results.PathCheckResult;
 import org.modelexecution.fumltesting.testLang.Assertion;
 import org.modelexecution.fumltesting.testLang.FinallyStateAssertion;
 import org.modelexecution.fumltesting.testLang.NodeSpecification;
@@ -30,27 +33,33 @@ public class AssertionValidator {
 		orderValidator = new OrderAssertionValidator();
 	}
 
-	public boolean check(Assertion assertion) {
+	public AssertionResult check(Assertion assertion) {		
 		if (assertion instanceof OrderAssertion) {
+			OrderAssertionResult result = new OrderAssertionResult(((OrderAssertion)assertion).getOrder());
+			result.setOrderAssertion((OrderAssertion)assertion);			
+			
 			String parentNodeName = ((TestCase) assertion.eContainer()).getActivityUnderTest().getName();
 			List<NodeSpecification> nodeOrder = ((OrderAssertion) assertion).getOrder().getNodes();
 			AssertionPrinter.printOrderSpecification(nodeOrder);
 			System.out.println("Checking order assertion against " + traceUtil.getAllPaths().size() + " generated paths..");
 			for (ArrayList<ActivityNodeExecution> path : traceUtil.getAllPaths()) {
-				boolean result = orderValidator.checkOrder(parentNodeName, nodeOrder, path);
-				if (result == false) {
+				PathCheckResult pathCheckResult = new PathCheckResult(path);
+				boolean validationResult = orderValidator.checkOrder(parentNodeName, nodeOrder, path);
+				pathCheckResult.setValidationResult(validationResult);
+				result.addPathCheckResult(pathCheckResult);
+				if (validationResult == false) {
 					return result;
 				}
 			}
 			System.out.println("Assertion success!");
-			return true;
+			return result;
 		}
 		if (assertion instanceof StateAssertion) {
-			return stateValidator.check((StateAssertion) assertion);
+			stateValidator.check((StateAssertion) assertion);
 		}
 		if (assertion instanceof FinallyStateAssertion) {
-			return stateValidator.check((FinallyStateAssertion) assertion);
+			stateValidator.check((FinallyStateAssertion) assertion);
 		}
-		return false;
+		return null;
 	}
 }
