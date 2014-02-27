@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2012 Vienna University of Technology.
+ * All rights reserved. This program and the accompanying materials are made 
+ * available under the terms of the Eclipse Public License v1.0 which accompanies 
+ * this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html 
+ */
 package org.modelexecution.fumltesting.results;
 
 import java.io.FileNotFoundException;
@@ -14,6 +20,11 @@ import fUML.Syntax.Actions.BasicActions.Action;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityFinalNode;
 import fUML.Syntax.Activities.IntermediateActivities.InitialNode;
 
+/**
+ * 
+ * @author Stefan Mijatov
+ * 
+ */
 public class ResultsWriter {
 	private String fileName;
 	private TestSuiteResult suiteResult;
@@ -84,9 +95,9 @@ public class ResultsWriter {
 					writer.print(nodeOrder.get(i).getJoker() + ", ");
 			}
 		}
-		writer.println();		
+		writer.println();
 	}
-	
+
 	private void printPath(List<ActivityNodeExecution> executions) {
 		for (int i = 0; i < executions.size(); i++) {
 			ActivityNodeExecution execution = executions.get(i);

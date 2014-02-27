@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2012 Vienna University of Technology.
+ * All rights reserved. This program and the accompanying materials are made 
+ * available under the terms of the Eclipse Public License v1.0 which accompanies 
+ * this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html 
+ */
 package org.modelexecution.fumltesting.ocl.internal.modelinstance;
 
 import java.util.List;
@@ -17,7 +23,7 @@ import tudresden.ocl20.pivot.pivotmodel.Property;
 
 /**
  * 
- * @author Stefan
+ * @author Stefan Mijatov
  * 
  */
 public class FUMLModelInstance extends AbstractModelInstance implements IModelInstance {
@@ -40,16 +46,15 @@ public class FUMLModelInstance extends AbstractModelInstance implements IModelIn
 		return result;
 	}
 
-	public IModelInstanceElement getStaticProperty(Property property) throws PropertyAccessException,
-			PropertyNotFoundException {
+	public IModelInstanceElement getStaticProperty(Property property) throws PropertyAccessException, PropertyNotFoundException {
 		if (property == null) {
 			throw new IllegalArgumentException("Parameter 'property' must not be null!");
 		}
 		throw new PropertyAccessException(FUMLModelInstanceTypeMessages.FUMLModelInstance_NoSupportOfStaticProperties);
 	}
 
-	public IModelInstanceElement invokeStaticOperation(Operation operation, List<IModelInstanceElement> args)
-			throws OperationAccessException, OperationNotFoundException {
+	public IModelInstanceElement invokeStaticOperation(Operation operation, List<IModelInstanceElement> args) throws OperationAccessException,
+			OperationNotFoundException {
 		if (operation == null) {
 			throw new IllegalArgumentException("Parameter 'operation' must not be null!");
 		} else if (args == null) {
@@ -61,8 +66,7 @@ public class FUMLModelInstance extends AbstractModelInstance implements IModelIn
 	private IModelInstanceElement addObject(Object object) throws TypeNotFoundInModelException {
 		IModelInstanceElement result = myModelInstanceFactory.createModelInstanceElement(object);
 		if (result == null) {
-			throw new TypeNotFoundInModelException(
-					FUMLModelInstanceTypeMessages.FUMLModelInstance_ObjectDoesNoMatchToModel);
+			throw new TypeNotFoundInModelException(FUMLModelInstanceTypeMessages.FUMLModelInstance_ObjectDoesNoMatchToModel);
 		}
 		if (result instanceof IModelInstanceObject) {
 			myModelInstanceObjects.add((IModelInstanceObject) result);

@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2012 Vienna University of Technology.
+ * All rights reserved. This program and the accompanying materials are made 
+ * available under the terms of the Eclipse Public License v1.0 which accompanies 
+ * this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html 
+ */
 package org.modelexecution.fumltesting.execution;
 
 import java.io.File;
@@ -24,7 +30,7 @@ import tudresden.ocl20.pivot.pivotmodel.Constraint;
 
 /**
  * 
- * @author Stefan
+ * @author Stefan Mijatov
  * 
  */
 public class FumlOclInterpreter {
@@ -67,7 +73,7 @@ public class FumlOclInterpreter {
 		return modelInstanceProvider.createEmptyModelInstance(modelProvider.getModel());
 	}
 
-	public boolean evaluateConstraint(String constraintName, IModelInstance modelInstance) {		
+	public boolean evaluateConstraint(String constraintName, IModelInstance modelInstance) {
 		Constraint constraint = null;
 		for (Constraint aConstraint : constraints) {
 			if (aConstraint.getName().equals(constraintName))
@@ -88,15 +94,15 @@ public class FumlOclInterpreter {
 						OclBoolean resultBoolean = (OclBoolean) resultValue;
 						return resultBoolean.isTrue();
 					}
-					if(resultValue instanceof OclModelInstanceObject){
-						if(((OclModelInstanceObject)resultValue).getModelInstanceObject().getObject() instanceof Boolean){
-							return (Boolean)((OclModelInstanceObject)resultValue).getModelInstanceObject().getObject();
-						}						
+					if (resultValue instanceof OclModelInstanceObject) {
+						if (((OclModelInstanceObject) resultValue).getModelInstanceObject().getObject() instanceof Boolean) {
+							return (Boolean) ((OclModelInstanceObject) resultValue).getModelInstanceObject().getObject();
+						}
 					}
 				}
 			}
-		}else{
-			System.out.println("Constraint " + constraintName + " not found!");			
+		} else {
+			System.out.println("Constraint " + constraintName + " not found!");
 		}
 		return false;
 	}

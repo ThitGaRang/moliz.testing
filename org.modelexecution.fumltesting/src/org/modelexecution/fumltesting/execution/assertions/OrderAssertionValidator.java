@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2012 Vienna University of Technology.
+ * All rights reserved. This program and the accompanying materials are made 
+ * available under the terms of the Eclipse Public License v1.0 which accompanies 
+ * this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html 
+ */
 package org.modelexecution.fumltesting.execution.assertions;
 
 import java.util.ArrayList;
@@ -19,7 +25,7 @@ import fUML.Syntax.Activities.IntermediateActivities.InitialNode;
  * @author Stefan Mijatov
  * 
  */
-public class OrderAssertionValidator {	
+public class OrderAssertionValidator {
 	/**
 	 * Check the order of executed nodes.
 	 * 
@@ -28,9 +34,9 @@ public class OrderAssertionValidator {
 	 * @param executedNodes
 	 * @return
 	 */
-	public boolean checkOrder(String parentNodeName, List<NodeSpecification> specifiedOrder, List<ActivityNodeExecution> executedNodes) {		
+	public boolean checkOrder(String parentNodeName, List<NodeSpecification> specifiedOrder, List<ActivityNodeExecution> executedNodes) {
 		boolean result = compare(getTopNodes(parentNodeName, executedNodes), specifiedOrder);
-		if(!result)
+		if (!result)
 			AssertionPrinter.print(specifiedOrder, executedNodes, result);
 		return result;
 	}
@@ -128,7 +134,7 @@ public class OrderAssertionValidator {
 	 */
 	private List<ActivityNodeExecution> getTopNodes(String activityName, List<ActivityNodeExecution> executedNodes) {
 		List<ActivityNodeExecution> topNodes = new ArrayList<ActivityNodeExecution>();
-		for (ActivityNodeExecution node : executedNodes) {			
+		for (ActivityNodeExecution node : executedNodes) {
 			if (((Activity) node.getNode().owner).name.equals(activityName)
 					&& (node.getNode() instanceof Action || node.getNode() instanceof InitialNode || node.getNode() instanceof ActivityFinalNode)) {
 				topNodes.add(node);

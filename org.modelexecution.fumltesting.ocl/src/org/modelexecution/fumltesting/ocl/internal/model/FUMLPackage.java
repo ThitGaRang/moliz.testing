@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2012 Vienna University of Technology.
+ * All rights reserved. This program and the accompanying materials are made 
+ * available under the terms of the Eclipse Public License v1.0 which accompanies 
+ * this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html 
+ */
 package org.modelexecution.fumltesting.ocl.internal.model;
 
 import java.util.ArrayList;
@@ -14,7 +20,7 @@ import tudresden.ocl20.pivot.pivotmodel.base.AbstractNamespace;
 
 /**
  * 
- * @author Stefan
+ * @author Stefan Mijatov
  * 
  */
 public class FUMLPackage extends AbstractNamespace implements Namespace {
@@ -68,8 +74,8 @@ public class FUMLPackage extends AbstractNamespace implements Namespace {
 			if (mergedPackages.iterator().next().getQualifiedName().equals(fumlPackage.getQualifiedName())) {
 				mergedPackages.add(fumlPackage);
 			} else {
-				throw new IllegalArgumentException("Cannot merge package " + fumlPackage.getQualifiedName()
-						+ " to package " + mergedPackages.iterator().next().getQualifiedName() + ".");
+				throw new IllegalArgumentException("Cannot merge package " + fumlPackage.getQualifiedName() + " to package "
+						+ mergedPackages.iterator().next().getQualifiedName() + ".");
 			}
 		}
 	}

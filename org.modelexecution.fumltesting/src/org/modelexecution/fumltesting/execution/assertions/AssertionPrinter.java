@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2012 Vienna University of Technology.
+ * All rights reserved. This program and the accompanying materials are made 
+ * available under the terms of the Eclipse Public License v1.0 which accompanies 
+ * this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html 
+ */
 package org.modelexecution.fumltesting.execution.assertions;
 
 import java.util.List;
@@ -92,7 +98,7 @@ public class AssertionPrinter {
 		}
 	}
 
-	public static void printOrderSpecification(List<NodeSpecification> nodeOrder){
+	public static void printOrderSpecification(List<NodeSpecification> nodeOrder) {
 		System.out.print("Order assertion: ");
 		for (int i = 0; i < nodeOrder.size(); i++) {
 			if (nodeOrder.get(i).getNode() != null) {
@@ -110,7 +116,7 @@ public class AssertionPrinter {
 		}
 		System.out.println();
 	}
-	
+
 	public static void print(List<NodeSpecification> nodeOrder, List<ActivityNodeExecution> executedNodes, boolean result) {
 		System.out.print("Checked path: ");
 		for (int i = 0; i < executedNodes.size(); i++) {

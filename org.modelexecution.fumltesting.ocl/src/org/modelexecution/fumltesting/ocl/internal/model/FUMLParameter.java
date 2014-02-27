@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2012 Vienna University of Technology.
+ * All rights reserved. This program and the accompanying materials are made 
+ * available under the terms of the Eclipse Public License v1.0 which accompanies 
+ * this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html 
+ */
 package org.modelexecution.fumltesting.ocl.internal.model;
 
 import tudresden.ocl20.pivot.essentialocl.EssentialOclPlugin;
@@ -9,15 +15,14 @@ import tudresden.ocl20.pivot.pivotmodel.base.AbstractParameter;
 
 /**
  * 
- * @author Stefan
+ * @author Stefan Mijatov
  * 
  */
 public class FUMLParameter extends AbstractParameter implements Parameter {
 	private org.modelexecution.fuml.Syntax.Classes.Kernel.Parameter dslParameter;
 	private FUMLAdapterFactory factory;
 
-	public FUMLParameter(org.modelexecution.fuml.Syntax.Classes.Kernel.Parameter dslParameter,
-			FUMLAdapterFactory factory) {
+	public FUMLParameter(org.modelexecution.fuml.Syntax.Classes.Kernel.Parameter dslParameter, FUMLAdapterFactory factory) {
 		this.dslParameter = dslParameter;
 		this.factory = factory;
 	}
@@ -29,8 +34,7 @@ public class FUMLParameter extends AbstractParameter implements Parameter {
 
 	@Override
 	public Operation getOperation() {
-		return factory.createOperation((org.modelexecution.fuml.Syntax.Classes.Kernel.Operation) dslParameter
-				.getOwner());
+		return factory.createOperation((org.modelexecution.fuml.Syntax.Classes.Kernel.Operation) dslParameter.getOwner());
 	}
 
 	@Override

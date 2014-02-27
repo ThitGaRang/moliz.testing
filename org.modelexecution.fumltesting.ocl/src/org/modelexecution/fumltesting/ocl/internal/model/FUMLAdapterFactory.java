@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2012 Vienna University of Technology.
+ * All rights reserved. This program and the accompanying materials are made 
+ * available under the terms of the Eclipse Public License v1.0 which accompanies 
+ * this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html 
+ */
 package org.modelexecution.fumltesting.ocl.internal.model;
 
 import java.util.HashMap;
@@ -26,7 +32,7 @@ import tudresden.ocl20.pivot.pivotmodel.Type;
 
 /**
  * 
- * @author Stefan
+ * @author Stefan Mijatov
  * 
  */
 public class FUMLAdapterFactory {
@@ -100,8 +106,7 @@ public class FUMLAdapterFactory {
 		return enumeration;
 	}
 
-	public EnumerationLiteral createEnumerationLiteral(
-			org.modelexecution.fuml.Syntax.Classes.Kernel.EnumerationLiteral dslEnumerationLiteral) {
+	public EnumerationLiteral createEnumerationLiteral(org.modelexecution.fuml.Syntax.Classes.Kernel.EnumerationLiteral dslEnumerationLiteral) {
 		if (dslEnumerationLiteral == null) {
 			return null;
 		}
@@ -137,8 +142,7 @@ public class FUMLAdapterFactory {
 		return property;
 	}
 
-	public AssociationProperty createAssociationProperty(
-			org.modelexecution.fuml.Syntax.Classes.Kernel.Property dslProperty) {
+	public AssociationProperty createAssociationProperty(org.modelexecution.fuml.Syntax.Classes.Kernel.Property dslProperty) {
 		if (dslProperty == null) {
 			return null;
 		}
@@ -190,7 +194,7 @@ public class FUMLAdapterFactory {
 		Type result = (Type) adapters.get(dslPrimitiveType);
 		if (result != null) {
 			return result;
-		} else if(dslPrimitiveType == null){
+		} else if (dslPrimitiveType == null) {
 			result = EssentialOclPlugin.getOclLibraryProvider().getOclLibrary().getOclVoid();
 		} else if (dslPrimitiveType.getName().equals("String")) {
 			result = EssentialOclPlugin.getOclLibraryProvider().getOclLibrary().getOclString();
@@ -300,8 +304,7 @@ public class FUMLAdapterFactory {
 		}
 	}
 
-	private List<AssociationProperty> addAllOtherAssociationEnds(
-			org.modelexecution.fuml.Syntax.Classes.Kernel.Property owner,
+	private List<AssociationProperty> addAllOtherAssociationEnds(org.modelexecution.fuml.Syntax.Classes.Kernel.Property owner,
 			List<org.modelexecution.fuml.Syntax.Classes.Kernel.Property> allProperties, boolean association) {
 		List<AssociationProperty> result = new LinkedList<AssociationProperty>();
 		Property adaptedProperty;

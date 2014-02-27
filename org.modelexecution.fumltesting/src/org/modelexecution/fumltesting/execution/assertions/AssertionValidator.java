@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2012 Vienna University of Technology.
+ * All rights reserved. This program and the accompanying materials are made 
+ * available under the terms of the Eclipse Public License v1.0 which accompanies 
+ * this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html 
+ */
 package org.modelexecution.fumltesting.execution.assertions;
 
 import java.util.ArrayList;
@@ -18,7 +24,7 @@ import org.modelexecution.fumltesting.testLang.TestCase;
 /**
  * Composition class for delegating assertion validation to specific classes.
  * 
- * @author Stefan
+ * @author Stefan Mijatov
  * 
  */
 public class AssertionValidator {
@@ -33,11 +39,11 @@ public class AssertionValidator {
 		orderValidator = new OrderAssertionValidator();
 	}
 
-	public AssertionResult check(Assertion assertion) {		
+	public AssertionResult check(Assertion assertion) {
 		if (assertion instanceof OrderAssertion) {
-			OrderAssertionResult result = new OrderAssertionResult(((OrderAssertion)assertion).getOrder());
-			result.setOrderAssertion((OrderAssertion)assertion);			
-			
+			OrderAssertionResult result = new OrderAssertionResult(((OrderAssertion) assertion).getOrder());
+			result.setOrderAssertion((OrderAssertion) assertion);
+
 			String parentNodeName = ((TestCase) assertion.eContainer()).getActivityUnderTest().getName();
 			List<NodeSpecification> nodeOrder = ((OrderAssertion) assertion).getOrder().getNodes();
 			AssertionPrinter.printOrderSpecification(nodeOrder);

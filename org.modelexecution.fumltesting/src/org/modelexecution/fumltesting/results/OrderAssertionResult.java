@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2012 Vienna University of Technology.
+ * All rights reserved. This program and the accompanying materials are made 
+ * available under the terms of the Eclipse Public License v1.0 which accompanies 
+ * this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html 
+ */
 package org.modelexecution.fumltesting.results;
 
 import java.util.ArrayList;
@@ -5,6 +11,11 @@ import java.util.ArrayList;
 import org.modelexecution.fumltesting.testLang.NodeOrder;
 import org.modelexecution.fumltesting.testLang.OrderAssertion;
 
+/**
+ * 
+ * @author Stefan Mijatov
+ * 
+ */
 public class OrderAssertionResult extends AssertionResult {
 
 	private NodeOrder nodeOrderSpecification;
@@ -36,10 +47,10 @@ public class OrderAssertionResult extends AssertionResult {
 		return pathCheckResults.size();
 	}
 
-	public void setOrderAssertion(OrderAssertion assertion){
+	public void setOrderAssertion(OrderAssertion assertion) {
 		super.setAssertion(assertion);
 	}
-	
+
 	@Override
 	public boolean getAssertionValidationResult() {
 		for (PathCheckResult result : pathCheckResults) {

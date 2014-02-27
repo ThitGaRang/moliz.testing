@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2012 Vienna University of Technology.
+ * All rights reserved. This program and the accompanying materials are made 
+ * available under the terms of the Eclipse Public License v1.0 which accompanies 
+ * this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html 
+ */
 package org.modelexecution.fumltesting.execution;
 
 import java.util.ArrayList;
@@ -25,7 +31,7 @@ import fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
 /**
  * Utility class providing features for converting UML to fUML models.
  * 
- * @author Stefan
+ * @author Stefan Mijatov
  * 
  */
 public class UmlConverter {
