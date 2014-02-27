@@ -164,62 +164,29 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 
 				if (dslObject instanceof StringValue) {
 					adapteeResult = operationMethod.invoke(((StringValue) dslObject).getValue(), argumentValues);
-					if (operation.getName().equals("<>")) {
-						adapteeResult = !(Boolean) adapteeResult;
-					}
+					if (adapteeResult instanceof Boolean)
+						adapteeResult = adaptInequalityResult(operation, (Boolean) adapteeResult);
 				} else if (dslObject instanceof String) {
 					adapteeResult = operationMethod.invoke(dslObject, argumentValues);
-					if (operation.getName().equals("<>")) {
-						adapteeResult = !(Boolean) adapteeResult;
-					}
+					if (adapteeResult instanceof Boolean)
+						adapteeResult = adaptInequalityResult(operation, (Boolean) adapteeResult);
 				} else if (dslObject instanceof IntegerValue) {
 					Long longAnalog = Long.parseLong(String.valueOf(((IntegerValue) dslObject).getValue()));
 					adapteeResult = operationMethod.invoke(longAnalog, argumentValues);
-					if (operation.getName().equals(">")) {
-						if ((Integer) adapteeResult > 0)
-							adapteeResult = true;
-						else
-							adapteeResult = false;
-					}
-					if (operation.getName().equals(">=")) {
-						if ((Integer) adapteeResult >= 0)
-							adapteeResult = true;
-						else
-							adapteeResult = false;
-					}
-					if (operation.getName().equals("<")) {
-						if ((Integer) adapteeResult >= 0)
-							adapteeResult = false;
-						else
-							adapteeResult = true;
-					}
-					if (operation.getName().equals("<=")) {
-						if ((Integer) adapteeResult > 0)
-							adapteeResult = false;
-						else
-							adapteeResult = true;
-					}
-					if (operation.getName().equals("<>")) {
-						if ((Integer) adapteeResult == 0)
-							adapteeResult = false;
-						else
-							adapteeResult = true;
-					}
+					adapteeResult = adaptIntegerOperationResult(operation, adapteeResult);
 				} else if (dslObject instanceof Integer) {
 					Long longAnalog = Long.parseLong(String.valueOf((Integer) dslObject));
 					adapteeResult = operationMethod.invoke(longAnalog, argumentValues);
+					adapteeResult = adaptIntegerOperationResult(operation, adapteeResult);
 				} else if (dslObject instanceof BooleanValue) {
 					adapteeResult = operationMethod.invoke(((BooleanValue) dslObject).isValue(), argumentValues);
-					if (operation.getName().equals("<>")) {
-						adapteeResult = !(Boolean) adapteeResult;
-					}
+					if (adapteeResult instanceof Boolean)
+						adapteeResult = adaptInequalityResult(operation, (Boolean) adapteeResult);
 				} else if (dslObject instanceof Boolean) {
 					adapteeResult = operationMethod.invoke(dslObject, argumentValues);
-					if (operation.getName().equals("<>")) {
-						adapteeResult = !(Boolean) adapteeResult;
-					}
+					if (adapteeResult instanceof Boolean)
+						adapteeResult = adaptInequalityResult(operation, (Boolean) adapteeResult);
 				}
-				// TODO continue
 
 				/* Adapt the result to the expected result type. */
 
@@ -230,18 +197,57 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 					throw new OperationAccessException("Result of invocation of Operation '" + operation.getName()
 							+ "' could not be adapted to any model type.", e);
 				}
-			} catch (IllegalArgumentException e) {
-				throw new OperationAccessException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_OperationAccessFailed, operation),
-						e);
-			} catch (IllegalAccessException e) {
-				throw new OperationAccessException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_OperationAccessFailed, operation),
-						e);
-			} catch (InvocationTargetException e) {
+			} catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
 				throw new OperationAccessException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_OperationAccessFailed, operation),
 						e);
 			}
 		}
 		return result;
+	}
+
+	private boolean adaptInequalityResult(Operation operation, Boolean adapteeResult) {
+		if (operation.getName().equals("<>")) {
+			return !adapteeResult;
+		} else {
+			return adapteeResult;
+		}
+	}
+
+	private Object adaptIntegerOperationResult(Operation operation, Object adapteeResult) {
+		if (operation.getName().equals(">")) {
+			if ((Integer) adapteeResult > 0)
+				return true;
+			else
+				return false;
+		}
+		if (operation.getName().equals(">=")) {
+			if ((Integer) adapteeResult >= 0)
+				return true;
+			else
+				return false;
+		}
+		if (operation.getName().equals("<")) {
+			if ((Integer) adapteeResult >= 0)
+				return false;
+			else
+				return true;
+		}
+		if (operation.getName().equals("<=")) {
+			if ((Integer) adapteeResult > 0)
+				return false;
+			else
+				return true;
+		}
+		if (operation.getName().equals("<>")) {
+			if ((Integer) adapteeResult == 0)
+				return false;
+			else
+				return true;
+		}
+		if (operation.getName().equals("=")) {
+			return adapteeResult;
+		}
+		return false;
 	}
 
 	@Override
@@ -272,20 +278,8 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 			cloneMethod.setAccessible(true);
 			adaptedResult = (Object) cloneMethod.invoke(dslObject);
 			result = new FUMLModelInstanceObject(adaptedResult, myAdaptedClass, myType, getOriginalType(), myFactory);
-		} catch (SecurityException e) {
+		} catch (SecurityException | NoSuchMethodException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
 			throw new CopyForAtPreException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_CannotCopyForAtPre, getName(),
-					e.getMessage()), e);
-		} catch (NoSuchMethodException e) {
-			throw new CopyForAtPreException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_CannotCopyForAtPre, getName(),
-					e.getMessage()), e);
-		} catch (IllegalArgumentException e) {
-			throw new CopyForAtPreException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_CannotCopyForAtPre, this.getName(),
-					e.getMessage()), e);
-		} catch (IllegalAccessException e) {
-			throw new CopyForAtPreException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_CannotCopyForAtPre, this.getName(),
-					e.getMessage()), e);
-		} catch (InvocationTargetException e) {
-			throw new CopyForAtPreException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_CannotCopyForAtPre, this.getName(),
 					e.getMessage()), e);
 		}
 		return result;
@@ -309,22 +303,8 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 				adapteeClass = adapteeClass.getSuperclass();
 			}
 			result = new FUMLModelInstanceObject(copiedAdaptedObject, myAdaptedClass, myType, getOriginalType(), myFactory);
-		} catch (SecurityException e) {
-			throw new CopyForAtPreException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_CannotCopyForAtPre, this.getName(),
-					e.getMessage()), e);
-		} catch (NoSuchMethodException e) {
-			throw new CopyForAtPreException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_CannotCopyForAtPre, this.getName(),
-					e.getMessage()), e);
-		} catch (IllegalArgumentException e) {
-			throw new CopyForAtPreException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_CannotCopyForAtPre, this.getName(),
-					e.getMessage()), e);
-		} catch (InstantiationException e) {
-			throw new CopyForAtPreException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_CannotCopyForAtPre, this.getName(),
-					e.getMessage()), e);
-		} catch (IllegalAccessException e) {
-			throw new CopyForAtPreException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_CannotCopyForAtPre, this.getName(),
-					e.getMessage()), e);
-		} catch (InvocationTargetException e) {
+		} catch (SecurityException | NoSuchMethodException | IllegalAccessException | IllegalArgumentException | InstantiationException
+				| InvocationTargetException e) {
 			throw new CopyForAtPreException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_CannotCopyForAtPre, this.getName(),
 					e.getMessage()), e);
 		}
@@ -611,33 +591,17 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 						return aMethod;
 					}
 				}
-			} else if (operation.getName().equals("concat")) {
-				for (Method aMethod : String.class.getMethods()) {
-					if (aMethod.getName().equals("concat")) {
-						return aMethod;
-					}
-				}
 			} else if (operation.getName().equals("size")) {
 				for (Method aMethod : String.class.getMethods()) {
 					if (aMethod.getName().equals("length")) {
 						return aMethod;
 					}
 				}
-			} else if (operation.getName().equals("toLowerCase")) {
+			} else {
+				// other methods for String have same names in OCL and Java,
+				// so no switch is needed
 				for (Method aMethod : String.class.getMethods()) {
-					if (aMethod.getName().equals("toLowerCase")) {
-						return aMethod;
-					}
-				}
-			} else if (operation.getName().equals("toUpperCase")) {
-				for (Method aMethod : String.class.getMethods()) {
-					if (aMethod.getName().equals("toUpperCase")) {
-						return aMethod;
-					}
-				}
-			} else if (operation.getName().equals("substring")) {
-				for (Method aMethod : String.class.getMethods()) {
-					if (aMethod.getName().equals("substring")) {
+					if (aMethod.getName().equals(operation.getName())) {
 						return aMethod;
 					}
 				}

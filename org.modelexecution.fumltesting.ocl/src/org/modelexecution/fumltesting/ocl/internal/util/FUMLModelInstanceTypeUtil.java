@@ -160,18 +160,18 @@ public class FUMLModelInstanceTypeUtil {
 			String qualifiedTypeName = ((org.modelexecution.fuml.Semantics.Classes.Kernel.Object) object).getTypes().get(0).getQualifiedName();
 			qualifiedTypeNameSeparated = new ArrayList<String>(Arrays.asList(qualifiedTypeName.split("::")));
 		}
-		
-		if(object instanceof StringValue || object instanceof String){			
+
+		if (object instanceof StringValue || object instanceof String) {
 			qualifiedTypeNameSeparated = new ArrayList<String>();
 			qualifiedTypeNameSeparated.add("String");
 		}
-		
-		if(object instanceof BooleanValue || object instanceof Boolean){
+
+		if (object instanceof BooleanValue || object instanceof Boolean) {
 			qualifiedTypeNameSeparated = new ArrayList<String>();
 			qualifiedTypeNameSeparated.add("Boolean");
 		}
-		
-		if(object instanceof IntegerValue || object instanceof Integer){
+
+		if (object instanceof IntegerValue || object instanceof Integer) {
 			qualifiedTypeNameSeparated = new ArrayList<String>();
 			qualifiedTypeNameSeparated.add("Integer");
 		}
