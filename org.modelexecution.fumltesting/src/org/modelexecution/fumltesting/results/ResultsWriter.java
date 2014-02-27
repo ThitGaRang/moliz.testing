@@ -69,9 +69,15 @@ public class ResultsWriter {
 					writer.println("\tNumber of invalid paths: " + orderAssertionResult.getFailedPathCheckResults().size());
 					writer.println();
 
+					int counter = 0;
 					for (PathCheckResult pathCheckResult : orderAssertionResult.getFailedPathCheckResults()) {
-						writer.print("Failed path: ");
+						counter++;
+						writer.print("\tFailed path: ");
 						printPath(pathCheckResult.getPath());
+						if (counter == 5) {
+							writer.println("\n\tThere are " + (orderAssertionResult.getFailedPathCheckResults().size() - 5) + " more failed paths.");
+							break;
+						}
 					}
 				}
 			}

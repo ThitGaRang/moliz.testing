@@ -35,10 +35,7 @@ public class OrderAssertionValidator {
 	 * @return
 	 */
 	public boolean checkOrder(String parentNodeName, List<NodeSpecification> specifiedOrder, List<ActivityNodeExecution> executedNodes) {
-		boolean result = compare(getTopNodes(parentNodeName, executedNodes), specifiedOrder);
-		if (!result)
-			AssertionPrinter.print(specifiedOrder, executedNodes, result);
-		return result;
+		return compare(getTopNodes(parentNodeName, executedNodes), specifiedOrder);
 	}
 
 	/**

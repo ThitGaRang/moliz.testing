@@ -53,11 +53,11 @@ public class AssertionValidator {
 				boolean validationResult = orderValidator.checkOrder(parentNodeName, nodeOrder, path);
 				pathCheckResult.setValidationResult(validationResult);
 				result.addPathCheckResult(pathCheckResult);
-				if (validationResult == false) {
-					return result;
-				}
 			}
-			System.out.println("Assertion success!");
+			if (result.getAssertionValidationResult())
+				System.out.println("Assertion success!");
+			else
+				System.out.println("Assertion failed!");
 			return result;
 		}
 		if (assertion instanceof StateAssertion) {
