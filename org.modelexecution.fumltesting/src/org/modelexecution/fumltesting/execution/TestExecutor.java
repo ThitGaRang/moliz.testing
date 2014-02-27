@@ -1,6 +1,9 @@
 package org.modelexecution.fumltesting.execution;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -22,6 +25,7 @@ import org.modelexecution.fumltesting.TestLangStandaloneSetup;
 import org.modelexecution.fumltesting.execution.assertions.AssertionPrinter;
 import org.modelexecution.fumltesting.execution.assertions.AssertionValidator;
 import org.modelexecution.fumltesting.results.AssertionResult;
+import org.modelexecution.fumltesting.results.ResultsWriter;
 import org.modelexecution.fumltesting.results.TestCaseResult;
 import org.modelexecution.fumltesting.results.TestSuiteResult;
 import org.modelexecution.fumltesting.testLang.ActivityInput;
@@ -150,6 +154,8 @@ public class TestExecutor {
 
 	private void testsEvaluation() {
 		TestSuiteResult suiteResult = new TestSuiteResult();
+		SimpleDateFormat currentTime = new SimpleDateFormat("dd.MM.yy_HH.mm.ss");
+		String testResultsFile = "results/testresults_" + currentTime.format(new Date()) + ".txt";
 		for (int i = 0; i < suite.getTests().size(); i++) {
 			TestCase testCase = suite.getTests().get(i);
 			AssertionPrinter.print(testCase);
@@ -202,6 +208,15 @@ public class TestExecutor {
 			AssertionPrinter.printStartEnd();
 		}
 
+		ResultsWriter writer = new ResultsWriter(testResultsFile, suiteResult);
+
+		try {
+			writer.writeResults();
+		} catch (FileNotFoundException e) {
+			System.out.println("Could not write to file " + testResultsFile);
+		}
+
+		System.out.println("Results successfully written to file: " + testResultsFile);
 		System.out.println("End of test suite.");
 	}
 }
