@@ -13,9 +13,11 @@ test defaultProductTest activity DefaultProductActivity{
 		check 'ProductSize4';
 		check 'ProductSize5';
 		check 'ProductSize6';
-		check 'ProductSize7';		
+		check 'ProductSize7';
+		check 'ProductSize8';		
 		
 		check 'ProductNameStringEquality';
+		check 'ProductNameStringInequality';
 		check 'ProductNameStringLenght';
 		check 'ProductNameConcat';
 		
@@ -40,5 +42,8 @@ test defaultProductTest activity DefaultProductActivity{
 		check 'ProductCode4';
 		check 'ProductCode5';
 		check 'ProductCode6';
+		
+		check 'ProductAvailable';
+		check 'ProductAvailable2';
 	}
 }

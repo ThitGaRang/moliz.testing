@@ -16,6 +16,7 @@ import java.util.Set;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.osgi.util.NLS;
+import org.modelexecution.fuml.Semantics.Classes.Kernel.BooleanValue;
 import org.modelexecution.fuml.Semantics.Classes.Kernel.FeatureValue;
 import org.modelexecution.fuml.Semantics.Classes.Kernel.IntegerValue;
 import org.modelexecution.fuml.Semantics.Classes.Kernel.StringValue;
@@ -163,8 +164,14 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 
 				if (dslObject instanceof StringValue) {
 					adapteeResult = operationMethod.invoke(((StringValue) dslObject).getValue(), argumentValues);
+					if (operation.getName().equals("<>")) {
+						adapteeResult = !(Boolean) adapteeResult;
+					}
 				} else if (dslObject instanceof String) {
 					adapteeResult = operationMethod.invoke(dslObject, argumentValues);
+					if (operation.getName().equals("<>")) {
+						adapteeResult = !(Boolean) adapteeResult;
+					}
 				} else if (dslObject instanceof IntegerValue) {
 					Long longAnalog = Long.parseLong(String.valueOf(((IntegerValue) dslObject).getValue()));
 					adapteeResult = operationMethod.invoke(longAnalog, argumentValues);
@@ -201,7 +208,18 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 				} else if (dslObject instanceof Integer) {
 					Long longAnalog = Long.parseLong(String.valueOf((Integer) dslObject));
 					adapteeResult = operationMethod.invoke(longAnalog, argumentValues);
-				}// TODO continue
+				} else if (dslObject instanceof BooleanValue) {
+					adapteeResult = operationMethod.invoke(((BooleanValue) dslObject).isValue(), argumentValues);
+					if (operation.getName().equals("<>")) {
+						adapteeResult = !(Boolean) adapteeResult;
+					}
+				} else if (dslObject instanceof Boolean) {
+					adapteeResult = operationMethod.invoke(dslObject, argumentValues);
+					if (operation.getName().equals("<>")) {
+						adapteeResult = !(Boolean) adapteeResult;
+					}
+				}
+				// TODO continue
 
 				/* Adapt the result to the expected result type. */
 
@@ -587,16 +605,9 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 	private Method findMethodOfAdaptedObject(Operation operation) throws OperationNotFoundException {
 		Method result = null;
 		if (dslObject instanceof StringValue || dslObject instanceof String) {
-			if (operation.getName().equals("=")) {
+			if (operation.getName().equals("=") || operation.getName().equals("<>")) {
 				for (Method aMethod : String.class.getMethods()) {
 					if (aMethod.getName().equals("equals")) {
-						return aMethod;
-					}
-				}
-			} else if (operation.getName().equals("<>")) {
-				// TODO no idea how to implement
-				for (Method aMethod : String.class.getMethods()) {
-					if (aMethod.getName().equals("")) {
 						return aMethod;
 					}
 				}
@@ -648,7 +659,14 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 					}
 				}
 			}
-			// TODO continue
+		} else if (dslObject instanceof BooleanValue || dslObject instanceof Boolean) {
+			if (operation.getName().equals("=") || operation.getName().equals("<>")) {
+				for (Method aMethod : Boolean.class.getMethods()) {
+					if (aMethod.getName().equals("equals")) {
+						return aMethod;
+					}
+				}
+			}
 		} else {
 			Class<?> methodSourceClass = myAdaptedClass.getClass();
 
