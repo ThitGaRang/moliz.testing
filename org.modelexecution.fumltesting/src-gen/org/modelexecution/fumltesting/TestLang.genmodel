@@ -91,8 +91,8 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TestLang.ecore#//FinallyStateAssertion/constraints"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TestLang.ecore#//FinallyStateAssertion/expressions"/>
     </genClasses>
-    <genClasses ecoreClass="TestLang.ecore#//Constraint">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TestLang.ecore#//Constraint/specification"/>
+    <genClasses ecoreClass="TestLang.ecore#//Constraints">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TestLang.ecore#//Constraints/names"/>
     </genClasses>
     <genClasses ecoreClass="TestLang.ecore#//StateExpression">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference TestLang.ecore#//StateExpression/pin"/>

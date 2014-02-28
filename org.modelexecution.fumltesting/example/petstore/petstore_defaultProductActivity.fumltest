@@ -1,49 +1,20 @@
 import petstore.structure.*
 import petstore.scenarios.*
 
-test defaultProductTest activity DefaultProductActivity{	
+test defaultProductTest activity DefaultProductActivity{
 	
 	assertOrder *, DefaultProductActivity.setAvailable;
 	
 	assertState always after DefaultProductActivity.setAvailable{
-		check 'NonExistingConstraint';
-		check 'ProductSize';
-		check 'ProductSize2';
-		check 'ProductSize3';
-		check 'ProductSize4';
-		check 'ProductSize5';
-		check 'ProductSize6';
-		check 'ProductSize7';
-		check 'ProductSize8';		
+		check 'NonExistingConstraint', 'ProductSize', 'ProductSize2', 'ProductSize3', 'ProductSize4', 'ProductSize5', 'ProductSize6', 
+		'ProductSize7', 'ProductSize8', 'ProductNameStringEquality', 'ProductNameStringInequality', 'ProductNameStringLenght', 'ProductNameConcat', 
+		'ProductCode', 'ProductCode2', 'ProductCode3', 'ProductCode4', 'ProductCode5', 'ProductCode6', 'ProductAvailable', 'ProductAvailable2';
 		
-		check 'ProductNameStringEquality';
-		check 'ProductNameStringInequality';
-		check 'ProductNameStringLenght';
-		check 'ProductNameConcat';
-		
-		//problem with thread safety!
-		//check 'ProductNameStringToLower';
-		//check 'ProductNameStringToLower3';		
-		//check 'ProductNameStringToLower2';		
-		
-		//problem with thread safety
-		//check 'ProductNameStringToUpper';		
-		//check 'ProductNameStringToUpper3';		
-		//check 'ProductNameStringToUpper2'; //should fail
-		
-		//problem with thread safety!
-		//check 'ProductNameSubstring';
-		//check 'ProductNameSubstring2';
-		//check 'ProductNameSubstring3';
-		
-		check 'ProductCode';
-		check 'ProductCode2';
-		check 'ProductCode3';
-		check 'ProductCode4';
-		check 'ProductCode5';
-		check 'ProductCode6';
-		
-		check 'ProductAvailable';
-		check 'ProductAvailable2';
+		/**
+		 * PROBLEM WITH THREADS
+		 * 'ProductNameStringToLower', 'ProductNameStringToLower3', 'ProductNameStringToLower2', 
+		 * 'ProductNameStringToUpper', 'ProductNameStringToUpper3', 'ProductNameStringToUpper2',
+		 * 'ProductNameSubstring', 'ProductNameSubstring2', 'ProductNameSubstring3'
+		 */		
 	}
 }

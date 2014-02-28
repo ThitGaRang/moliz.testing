@@ -57,7 +57,7 @@ import org.eclipse.xtext.xtype.XtypePackage;
 import org.modelexecution.fumltesting.services.TestLangGrammarAccess;
 import org.modelexecution.fumltesting.testLang.ActivityInput;
 import org.modelexecution.fumltesting.testLang.Attribute;
-import org.modelexecution.fumltesting.testLang.Constraint;
+import org.modelexecution.fumltesting.testLang.Constraints;
 import org.modelexecution.fumltesting.testLang.FinallyStateAssertion;
 import org.modelexecution.fumltesting.testLang.Import;
 import org.modelexecution.fumltesting.testLang.Link;
@@ -96,9 +96,9 @@ public class TestLangSemanticSequencer extends XbaseSemanticSequencer {
 					return; 
 				}
 				else break;
-			case TestLangPackage.CONSTRAINT:
-				if(context == grammarAccess.getConstraintRule()) {
-					sequence_Constraint(context, (Constraint) semanticObject); 
+			case TestLangPackage.CONSTRAINTS:
+				if(context == grammarAccess.getConstraintsRule()) {
+					sequence_Constraints(context, (Constraints) semanticObject); 
 					return; 
 				}
 				else break;
@@ -1187,23 +1187,16 @@ public class TestLangSemanticSequencer extends XbaseSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     specification=XStringLiteral
+	 *     (names+=XStringLiteral names+=XStringLiteral*)
 	 */
-	protected void sequence_Constraint(EObject context, Constraint semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.CONSTRAINT__SPECIFICATION) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.CONSTRAINT__SPECIFICATION));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getConstraintAccess().getSpecificationXStringLiteralParserRuleCall_1_0(), semanticObject.getSpecification());
-		feeder.finish();
+	protected void sequence_Constraints(EObject context, Constraints semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     (constraints+=Constraint* expressions+=StateExpression*)
+	 *     (constraints=Constraints? expressions+=StateExpression*)
 	 */
 	protected void sequence_FinallyStateAssertion(EObject context, FinallyStateAssertion semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1398,7 +1391,7 @@ public class TestLangSemanticSequencer extends XbaseSemanticSequencer {
 	 *         temporalOperator=TemporalOperator 
 	 *         referenceAction=[Action|QualifiedName] 
 	 *         untilAction=[Action|QualifiedName]? 
-	 *         constraints+=Constraint* 
+	 *         constraints=Constraints? 
 	 *         expressions+=StateExpression*
 	 *     )
 	 */

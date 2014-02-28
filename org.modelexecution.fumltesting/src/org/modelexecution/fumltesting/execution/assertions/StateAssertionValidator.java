@@ -16,6 +16,7 @@ import org.eclipse.uml2.uml.InputPin;
 import org.eclipse.uml2.uml.OutputPin;
 import org.eclipse.uml2.uml.ParameterDirectionKind;
 import org.eclipse.xtext.xbase.XBooleanLiteral;
+import org.eclipse.xtext.xbase.XExpression;
 import org.eclipse.xtext.xbase.XNullLiteral;
 import org.eclipse.xtext.xbase.XNumberLiteral;
 import org.eclipse.xtext.xbase.XStringLiteral;
@@ -36,7 +37,6 @@ import org.modelexecution.fumltesting.results.StateAssertionResult;
 import org.modelexecution.fumltesting.results.StateExpressionResult;
 import org.modelexecution.fumltesting.sequence.State;
 import org.modelexecution.fumltesting.testLang.ArithmeticOperator;
-import org.modelexecution.fumltesting.testLang.Constraint;
 import org.modelexecution.fumltesting.testLang.FinallyStateAssertion;
 import org.modelexecution.fumltesting.testLang.ObjectStateExpression;
 import org.modelexecution.fumltesting.testLang.ObjectValue;
@@ -110,10 +110,11 @@ public class StateAssertionValidator {
 		operator = assertion.getTemporalOperator();
 		quantifier = assertion.getTemporalQuantifier();
 
-		if (assertion.getConstraints().size() > 0) {
-			for (Constraint constraint : assertion.getConstraints()) {
+		if (assertion.getConstraints().getNames().size() > 0) {
+			for (XExpression constraintName : assertion.getConstraints().getNames()) {
 				List<State> states = traceUtil.getStates(quantifier, operator, referredNodeExecution);
-				for (ConstraintResult constraintResult : check(((XStringLiteral) constraint.getSpecification()).getValue(), states)) {
+				String name = ((XStringLiteral) constraintName).getValue();
+				for (ConstraintResult constraintResult : check(name, states)) {
 					result.addConstraintResult(constraintResult);
 				}
 			}
@@ -136,7 +137,7 @@ public class StateAssertionValidator {
 		stateAssertion.setReferenceAction((Action) traceUtil.getLastExecutedAction());
 		stateAssertion.getExpressions().addAll(assertion.getExpressions());
 
-		stateAssertion.getConstraints().addAll(assertion.getConstraints());
+		stateAssertion.getConstraints().getNames().addAll(assertion.getConstraints().getNames());
 
 		return check(stateAssertion);
 	}

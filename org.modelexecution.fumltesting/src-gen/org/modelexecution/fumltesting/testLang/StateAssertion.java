@@ -140,20 +140,30 @@ public interface StateAssertion extends Assertion
   void setUntilAction(Action value);
 
   /**
-   * Returns the value of the '<em><b>Constraints</b></em>' containment reference list.
-   * The list contents are of type {@link org.modelexecution.fumltesting.testLang.Constraint}.
+   * Returns the value of the '<em><b>Constraints</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Constraints</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Constraints</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Constraints</em>' containment reference list.
+   * @return the value of the '<em>Constraints</em>' containment reference.
+   * @see #setConstraints(Constraints)
    * @see org.modelexecution.fumltesting.testLang.TestLangPackage#getStateAssertion_Constraints()
    * @model containment="true"
    * @generated
    */
-  EList<Constraint> getConstraints();
+  Constraints getConstraints();
+
+  /**
+   * Sets the value of the '{@link org.modelexecution.fumltesting.testLang.StateAssertion#getConstraints <em>Constraints</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Constraints</em>' containment reference.
+   * @see #getConstraints()
+   * @generated
+   */
+  void setConstraints(Constraints value);
 
   /**
    * Returns the value of the '<em><b>Expressions</b></em>' containment reference list.

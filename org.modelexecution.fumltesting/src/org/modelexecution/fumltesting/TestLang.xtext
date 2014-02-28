@@ -62,15 +62,14 @@ Assertion:
 StateAssertion:
 	('assertState' temporalQuantifier=TemporalQuantifier temporalOperator=TemporalOperator)
 	referenceAction=[uml::Action|QualifiedName] ('until' untilAction=[uml::Action|QualifiedName])? '{'
-	(constraints+=Constraint)*
+	('check' constraints = Constraints ';')?
 	(expressions+=StateExpression)* '}';
 
 FinallyStateAssertion:
-	'finally' '{' {FinallyStateAssertion} (constraints+=Constraint)* (expressions+=StateExpression)* '}';
+	'finally' '{' {FinallyStateAssertion} ('check' constraints=Constraints ';')? (expressions+=StateExpression)* '}';
 
-Constraint:
-	'check' specification=XStringLiteral ';'
-;
+Constraints:
+	names+=XStringLiteral (',' names+=XStringLiteral)*;
 
 StateExpression:
 	ObjectStateExpression | PropertyStateExpression;
