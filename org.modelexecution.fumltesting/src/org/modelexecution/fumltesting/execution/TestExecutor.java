@@ -147,11 +147,11 @@ public class TestExecutor {
 	/** Main method of the testing framework. */
 	@Test
 	public void test() {
-		File folder = new File("example/petstore");
+		File folder = new File("../org.modelexecution.fumltesting.examples/model/petstore/tests");
 		File[] files = folder.listFiles();
 		for (File file : files) {
 			if (file.isFile() && file.getName().endsWith("defaultProductActivity.fumltest")) {
-				String testLocation = "example/petstore/" + file.getName();
+				String testLocation = "../org.modelexecution.fumltesting.examples/model/petstore/tests/" + file.getName();
 				setup(testLocation);
 				testsEvaluation();
 			}
