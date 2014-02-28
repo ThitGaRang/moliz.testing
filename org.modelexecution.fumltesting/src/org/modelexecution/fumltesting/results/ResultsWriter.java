@@ -15,6 +15,7 @@ import java.util.List;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumltesting.testLang.NodeSpecification;
 import org.modelexecution.fumltesting.testLang.ObjectSpecification;
+import org.modelexecution.fumltesting.testLang.StateAssertion;
 
 import fUML.Syntax.Actions.BasicActions.Action;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityFinalNode;
@@ -78,6 +79,21 @@ public class ResultsWriter {
 							writer.println("\n\tThere are " + (orderAssertionResult.getFailedPathCheckResults().size() - 5) + " more failed paths.");
 							break;
 						}
+					}
+				}
+				if (assertionResult instanceof StateAssertionResult) {
+					StateAssertionResult stateAssertionResult = (StateAssertionResult) assertionResult;
+					StateAssertion assertion = (StateAssertion) stateAssertionResult.getAssertion();
+					writer.print("\n\tState assertion: " + assertion.getTemporalQuantifier() + " " + assertion.getTemporalOperator() + " "
+							+ assertion.getReferenceAction().getName());
+					if (assertion.getUntilAction() != null)
+						writer.print(" until " + assertion.getUntilAction().getName());
+					writer.println();
+					writer.println("\tConstraints checked: " + stateAssertionResult.numberOfConstraintsChecked());
+					writer.println("\tConstraints failed: " + stateAssertionResult.getFailedConstraints().size());
+					for (ConstraintResult constraintResult : stateAssertionResult.getFailedConstraints()) {
+						writer.println("\t\tConstraint: " + constraintResult.getConstraint() + " failed in state created by action "
+								+ constraintResult.getValidationState().getNodeExecution().getNode().name);
 					}
 				}
 			}

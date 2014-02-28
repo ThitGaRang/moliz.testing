@@ -42,7 +42,7 @@ public class AssertionValidator {
 	public AssertionResult check(Assertion assertion) {
 		if (assertion instanceof OrderAssertion) {
 			OrderAssertionResult result = new OrderAssertionResult(((OrderAssertion) assertion).getOrder());
-			result.setOrderAssertion((OrderAssertion) assertion);
+			result.setAssertion(assertion);
 
 			String parentNodeName = ((TestCase) assertion.eContainer()).getActivityUnderTest().getName();
 			List<NodeSpecification> nodeOrder = ((OrderAssertion) assertion).getOrder().getNodes();
@@ -61,7 +61,7 @@ public class AssertionValidator {
 			return result;
 		}
 		if (assertion instanceof StateAssertion) {
-			stateValidator.check((StateAssertion) assertion);
+			return stateValidator.check((StateAssertion) assertion);
 		}
 		if (assertion instanceof FinallyStateAssertion) {
 			stateValidator.check((FinallyStateAssertion) assertion);

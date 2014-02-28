@@ -9,7 +9,6 @@ package org.modelexecution.fumltesting.results;
 import java.util.ArrayList;
 
 import org.modelexecution.fumltesting.testLang.NodeOrder;
-import org.modelexecution.fumltesting.testLang.OrderAssertion;
 
 /**
  * 
@@ -45,10 +44,6 @@ public class OrderAssertionResult extends AssertionResult {
 
 	public int numberOfPathsChecked() {
 		return pathCheckResults.size();
-	}
-
-	public void setOrderAssertion(OrderAssertion assertion) {
-		super.setAssertion(assertion);
 	}
 
 	@Override

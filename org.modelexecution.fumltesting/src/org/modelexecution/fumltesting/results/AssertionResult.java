@@ -16,11 +16,11 @@ import org.modelexecution.fumltesting.testLang.Assertion;
 public abstract class AssertionResult {
 	private Assertion assertion;
 
-	protected void setAssertion(Assertion assertion) {
+	public void setAssertion(Assertion assertion) {
 		this.assertion = assertion;
 	}
 
-	protected Assertion getAssertion() {
+	public Assertion getAssertion() {
 		return assertion;
 	}
 

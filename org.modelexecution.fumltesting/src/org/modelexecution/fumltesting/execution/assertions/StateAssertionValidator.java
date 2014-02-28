@@ -31,6 +31,9 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot;
 import org.modelexecution.fumltesting.execution.FumlOclInterpreter;
 import org.modelexecution.fumltesting.execution.TestDataConverter;
 import org.modelexecution.fumltesting.execution.TraceUtil;
+import org.modelexecution.fumltesting.results.ConstraintResult;
+import org.modelexecution.fumltesting.results.StateAssertionResult;
+import org.modelexecution.fumltesting.results.StateExpressionResult;
 import org.modelexecution.fumltesting.sequence.State;
 import org.modelexecution.fumltesting.testLang.ArithmeticOperator;
 import org.modelexecution.fumltesting.testLang.Constraint;
@@ -96,9 +99,9 @@ public class StateAssertionValidator {
 		successors = new ArrayList<ValueSnapshot>();
 	}
 
-	public boolean check(StateAssertion assertion) {
+	public StateAssertionResult check(StateAssertion assertion) {
 		AssertionPrinter.printStateAssertion(assertion);
-		boolean result = true;
+		StateAssertionResult result = new StateAssertionResult(assertion);
 
 		// action of the state assertion and its execution
 		Action referredAction = assertion.getReferenceAction();
@@ -110,19 +113,21 @@ public class StateAssertionValidator {
 		if (assertion.getConstraints().size() > 0) {
 			for (Constraint constraint : assertion.getConstraints()) {
 				List<State> states = traceUtil.getStates(quantifier, operator, referredNodeExecution);
-				result = check(((XStringLiteral) constraint.getSpecification()).getValue(), states);
+				for (ConstraintResult constraintResult : check(((XStringLiteral) constraint.getSpecification()).getValue(), states)) {
+					result.addConstraintResult(constraintResult);
+				}
 			}
 		}
 
 		for (StateExpression expression : assertion.getExpressions()) {
-			result = check(expression, referredAction);
+			result.addExpressionResult(check(expression, referredAction));
 		}
 
 		AssertionPrinter.printStartEnd();
 		return result;
 	}
 
-	public boolean check(FinallyStateAssertion assertion) {
+	public StateAssertionResult check(FinallyStateAssertion assertion) {
 		StateAssertion stateAssertion = TestLangFactory.eINSTANCE.createStateAssertion();
 
 		stateAssertion.setTemporalQuantifier(TemporalQuantifier.ALWAYS);
@@ -136,9 +141,11 @@ public class StateAssertionValidator {
 		return check(stateAssertion);
 	}
 
-	private boolean check(String constraintName, List<State> states) {
+	private ArrayList<ConstraintResult> check(String constraintName, List<State> states) {
+		ArrayList<ConstraintResult> results = new ArrayList<ConstraintResult>();
 		for (State state : states) {
 			IModelInstance modelInstance = FumlOclInterpreter.getInstance().getEmptyModelInstance();
+			ConstraintResult result = new ConstraintResult(constraintName, state);
 
 			try {
 				for (org.modelexecution.fuml.Semantics.Classes.Kernel.Object object : state.getObjects()) {
@@ -150,18 +157,22 @@ public class StateAssertionValidator {
 			} catch (TypeNotFoundInModelException e) {
 				e.printStackTrace();
 			}
-			boolean result = FumlOclInterpreter.getInstance().evaluateConstraint(constraintName, modelInstance);
-			if (result == false) {
+			boolean validationResult = FumlOclInterpreter.getInstance().evaluateConstraint(constraintName, modelInstance);
+			result.setValidationResult(validationResult);
+
+			if (validationResult == false) {
 				System.out.println("Constraint " + constraintName + " validation failed!");
-				return false;
 			} else {
 				System.out.println("Constraint validation success.");
 			}
+			results.add(result);
 		}
-		return true;
+		return results;
 	}
 
-	private boolean check(StateExpression expression, Action referredAction) {
+	private StateExpressionResult check(StateExpression expression, Action referredAction) {
+
+		StateExpressionResult result = new StateExpressionResult(expression);
 
 		// Clean up from other test executions
 		predecessors.removeAll(predecessors);
@@ -213,32 +224,39 @@ public class StateAssertionValidator {
 					}
 			}
 
-			boolean result = false;
-
 			if (expression.getValue() instanceof SimpleValue) {
 				// special case
-				if (expression instanceof PropertyStateExpression && ((SimpleValue) expression.getValue()).getValue() instanceof XNullLiteral)
-					result = processObject(expression, list);
-				else
-					result = processSimple(expression, list);
-				AssertionPrinter.print(expression, result);
+				if (expression instanceof PropertyStateExpression && ((SimpleValue) expression.getValue()).getValue() instanceof XNullLiteral) {
+					result.setValidationResult(processObject(expression, list));
+				} else {
+					result.setValidationResult(processSimple(expression, list));
+				}
+				AssertionPrinter.print(expression, result.getValidationResult());
 				return result;
-			}
-			if (expression.getValue() instanceof ObjectValue) {
-				result = processObject(expression, list);
-				AssertionPrinter.print(expression, result);
+			} else if (expression.getValue() instanceof ObjectValue) {
+				result.setValidationResult(processObject(expression, list));
+				AssertionPrinter.print(expression, result.getValidationResult());
+				return result;
+			} else {
+				result.setValidationResult(false);
+				result.setError("Type of specified value is not allowed!");
+				AssertionPrinter.print(expression, result.getValidationResult());
 				return result;
 			}
 		} else {
 			AssertionPrinter.print(expression, false);
 			if (expressionNodeExecution == null) {
 				System.out.println(((Action) expressionAction).getName() + " was never executed!");
+				result.setValidationResult(false);
+				result.setError(((Action) expressionAction).getName() + " was never executed!");
 			}
 			if (referredNodeExecution == null) {
 				System.out.println(referredAction.getName() + " was never executed!");
+				result.setValidationResult(false);
+				result.setError(referredAction.getName() + " was never executed!");
 			}
+			return result;
 		}
-		return false;
 	}
 
 	/**
