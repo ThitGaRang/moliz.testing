@@ -9,7 +9,8 @@ test defaultProductTest activity DefaultProductActivity{
 		
 		check 'NonExistingConstraint', 'ProductSize', 'ProductSize2', 'ProductSize3', 'ProductSize4', 'ProductSize5', 'ProductSize6', 
 		'ProductSize7', 'ProductSize8', 'ProductNameStringEquality', 'ProductNameStringInequality', 'ProductNameStringLenght', 'ProductNameConcat', 
-		'ProductCode', 'ProductCode2', 'ProductCode3', 'ProductCode4', 'ProductCode5', 'ProductCode6', 'ProductAvailable', 'ProductAvailable2', 'ProductFinalState';
+		'ProductCode', 'ProductCode2', 'ProductCode3', 'ProductCode4', 'ProductCode5', 'ProductCode6', 'ProductAvailable', 'ProductAvailable2', 'ProductFinalState',
+		'ProductFinalState2', 'ProductFinalState3', 'MalformedInvariant', 'MalformedInvariant2', 'MalformedInvariant3', 'MalformedInvariant4';
 
 		/**
 		 * PROBLEM WITH THREADS

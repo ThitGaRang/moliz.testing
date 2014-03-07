@@ -39,5 +39,12 @@ inv ProductAvailable: available = true
 inv ProductAvailable2: available <> false
 
 inv ProductFinalState: name='defaultProduct' and available=true and code=1234
+inv ProductFinalState2: name='defaultProduct' or name='product'
+inv ProductFinalState3: name='product' or name='defaultProduct'
+
+inv MalformedInvariant: name=1234
+inv MalformedInvariant2: code='something'
+inv MalformedInvariant3: available=1234
+inv MalformedInvariant4: name=true
 
 endpackage

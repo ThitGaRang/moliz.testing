@@ -224,18 +224,22 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 						longAnalog = Long.parseLong(String.valueOf((Integer) dslObject));
 					}
 
-					if (operation.getName().equals("=")) {
-						adapteeResult = (longAnalog.longValue() == ((Long) argumentValues[0]).longValue());
-					} else if (operation.getName().equals("<>")) {
-						adapteeResult = (longAnalog.longValue() != ((Long) argumentValues[0]).longValue());
-					} else if (operation.getName().equals(">")) {
-						adapteeResult = (longAnalog.longValue() > ((Long) argumentValues[0]).longValue());
-					} else if (operation.getName().equals("<")) {
-						adapteeResult = (longAnalog.longValue() < ((Long) argumentValues[0]).longValue());
-					} else if (operation.getName().equals(">=")) {
-						adapteeResult = (longAnalog.longValue() >= ((Long) argumentValues[0]).longValue());
-					} else if (operation.getName().equals("<=")) {
-						adapteeResult = (longAnalog.longValue() <= ((Long) argumentValues[0]).longValue());
+					if (!(argumentValues[0] instanceof Long || argumentValues[0] instanceof Integer)) {
+						adapteeResult = false;
+					} else {
+						if (operation.getName().equals("=")) {
+							adapteeResult = (longAnalog.longValue() == ((Long) argumentValues[0]).longValue());
+						} else if (operation.getName().equals("<>")) {
+							adapteeResult = (longAnalog.longValue() != ((Long) argumentValues[0]).longValue());
+						} else if (operation.getName().equals(">")) {
+							adapteeResult = (longAnalog.longValue() > ((Long) argumentValues[0]).longValue());
+						} else if (operation.getName().equals("<")) {
+							adapteeResult = (longAnalog.longValue() < ((Long) argumentValues[0]).longValue());
+						} else if (operation.getName().equals(">=")) {
+							adapteeResult = (longAnalog.longValue() >= ((Long) argumentValues[0]).longValue());
+						} else if (operation.getName().equals("<=")) {
+							adapteeResult = (longAnalog.longValue() <= ((Long) argumentValues[0]).longValue());
+						}
 					}
 				} else if (dslObject instanceof BooleanValue || dslObject instanceof Boolean) {
 					Boolean booleanValue = null;
@@ -246,14 +250,18 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 						booleanValue = (Boolean) dslObject;
 					}
 
-					if (operation.getName().equals("and")) {
-						adapteeResult = (booleanValue && (Boolean) argumentValues[0]);
-					} else if (operation.getName().equals("or")) {
-						adapteeResult = (booleanValue || (Boolean) argumentValues[0]);
-					} else if (operation.getName().equals("=")) {
-						adapteeResult = (booleanValue == (Boolean) argumentValues[0]);
-					} else if (operation.getName().equals("<>")) {
-						adapteeResult = (booleanValue != (Boolean) argumentValues[0]);
+					if (!(argumentValues[0] instanceof Boolean)) {
+						adapteeResult = false;
+					} else {
+						if (operation.getName().equals("and")) {
+							adapteeResult = (booleanValue && (Boolean) argumentValues[0]);
+						} else if (operation.getName().equals("or")) {
+							adapteeResult = (booleanValue || (Boolean) argumentValues[0]);
+						} else if (operation.getName().equals("=")) {
+							adapteeResult = (booleanValue == (Boolean) argumentValues[0]);
+						} else if (operation.getName().equals("<>")) {
+							adapteeResult = (booleanValue != (Boolean) argumentValues[0]);
+						}
 					}
 				}
 
