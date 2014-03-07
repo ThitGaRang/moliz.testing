@@ -157,41 +157,104 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 			Class<?>[] argumentTypes;
 			Object[] argumentValues;
 
-			argumentTypes = operationMethod.getParameterTypes();
-			argumentValues = new Object[argSize];
-
 			argSize = Math.min(args.size(), operation.getSignatureParameter().size());
-			for (int index = 0; index < argSize; index++) {
-				argumentValues[index] = createAdaptedElement(args.get(index), argumentTypes[index]);
+			argumentValues = new Object[args.size()];
+
+			if (operationMethod != null) {
+				argumentTypes = operationMethod.getParameterTypes();
+
+				for (int index = 0; index < argSize; index++) {
+					argumentValues[index] = createAdaptedElement(args.get(index), argumentTypes[index]);
+				}
+			} else {
+				argumentTypes = new Class[args.size()];
+
+				for (int i = 0; i < args.size(); i++) {
+					argumentTypes[i] = args.get(i).getType().getClass();
+					argumentValues[i] = createAdaptedElement(args.get(i), argumentTypes[i]);
+				}
+
+				for (int index = 0; index < argSize; index++) {
+					argumentValues[index] = createAdaptedElement(args.get(index), argumentTypes[index]);
+				}
 			}
+
 			try {
 				Object adapteeResult = null;
-				operationMethod.setAccessible(true);
+				if (operationMethod != null) {
+					operationMethod.setAccessible(true);
+				}
 
-				if (dslObject instanceof StringValue) {
-					adapteeResult = operationMethod.invoke(((StringValue) dslObject).getValue(), argumentValues);
-					if (adapteeResult instanceof Boolean)
-						adapteeResult = adaptInequalityResult(operation, (Boolean) adapteeResult);
-				} else if (dslObject instanceof String) {
-					adapteeResult = operationMethod.invoke(dslObject, argumentValues);
-					if (adapteeResult instanceof Boolean)
-						adapteeResult = adaptInequalityResult(operation, (Boolean) adapteeResult);
-				} else if (dslObject instanceof IntegerValue) {
-					Long longAnalog = Long.parseLong(String.valueOf(((IntegerValue) dslObject).getValue()));
-					adapteeResult = operationMethod.invoke(longAnalog, argumentValues);
-					adapteeResult = adaptIntegerOperationResult(operation, adapteeResult);
-				} else if (dslObject instanceof Integer) {
-					Long longAnalog = Long.parseLong(String.valueOf((Integer) dslObject));
-					adapteeResult = operationMethod.invoke(longAnalog, argumentValues);
-					adapteeResult = adaptIntegerOperationResult(operation, adapteeResult);
-				} else if (dslObject instanceof BooleanValue) {
-					adapteeResult = operationMethod.invoke(((BooleanValue) dslObject).isValue(), argumentValues);
-					if (adapteeResult instanceof Boolean)
-						adapteeResult = adaptInequalityResult(operation, (Boolean) adapteeResult);
-				} else if (dslObject instanceof Boolean) {
-					adapteeResult = operationMethod.invoke(dslObject, argumentValues);
-					if (adapteeResult instanceof Boolean)
-						adapteeResult = adaptInequalityResult(operation, (Boolean) adapteeResult);
+				if (dslObject instanceof StringValue || dslObject instanceof String) {
+					String stringValue = null;
+
+					if (dslObject instanceof StringValue) {
+						stringValue = ((StringValue) dslObject).getValue();
+					} else {
+						stringValue = (String) dslObject;
+					}
+
+					if (operation.getName().equals("=")) {
+						adapteeResult = stringValue.equals(argumentValues[0]);
+					} else if (operation.getName().equals("<>")) {
+						adapteeResult = !stringValue.equals(argumentValues[0]);
+					} else if (operation.getName().equals("size")) {
+						for (Method aMethod : String.class.getMethods()) {
+							if (aMethod.getName().equals("length")) {
+								operationMethod = aMethod;
+								operationMethod.setAccessible(true);
+								adapteeResult = operationMethod.invoke(stringValue, argumentValues);
+							}
+						}
+					} else if (operation.getName().equals("concat")) {
+						for (Method aMethod : String.class.getMethods()) {
+							if (aMethod.getName().equals("concat")) {
+								operationMethod = aMethod;
+								operationMethod.setAccessible(true);
+								adapteeResult = operationMethod.invoke(stringValue, argumentValues);
+							}
+						}
+					}
+				} else if (dslObject instanceof IntegerValue || dslObject instanceof Integer) {
+					Long longAnalog = null;
+
+					if (dslObject instanceof IntegerValue) {
+						longAnalog = Long.parseLong(String.valueOf(((IntegerValue) dslObject).getValue()));
+					} else {
+						longAnalog = Long.parseLong(String.valueOf((Integer) dslObject));
+					}
+
+					if (operation.getName().equals("=")) {
+						adapteeResult = (longAnalog.longValue() == ((Long) argumentValues[0]).longValue());
+					} else if (operation.getName().equals("<>")) {
+						adapteeResult = (longAnalog.longValue() != ((Long) argumentValues[0]).longValue());
+					} else if (operation.getName().equals(">")) {
+						adapteeResult = (longAnalog.longValue() > ((Long) argumentValues[0]).longValue());
+					} else if (operation.getName().equals("<")) {
+						adapteeResult = (longAnalog.longValue() < ((Long) argumentValues[0]).longValue());
+					} else if (operation.getName().equals(">=")) {
+						adapteeResult = (longAnalog.longValue() >= ((Long) argumentValues[0]).longValue());
+					} else if (operation.getName().equals("<=")) {
+						adapteeResult = (longAnalog.longValue() <= ((Long) argumentValues[0]).longValue());
+					}
+				} else if (dslObject instanceof BooleanValue || dslObject instanceof Boolean) {
+					Boolean booleanValue = null;
+
+					if (dslObject instanceof BooleanValue) {
+						booleanValue = ((BooleanValue) dslObject).isValue();
+					} else {
+						booleanValue = (Boolean) dslObject;
+					}
+
+					if (operation.getName().equals("and")) {
+						adapteeResult = (booleanValue && (Boolean) argumentValues[0]);
+					} else if (operation.getName().equals("or")) {
+						adapteeResult = (booleanValue || (Boolean) argumentValues[0]);
+					} else if (operation.getName().equals("=")) {
+						adapteeResult = (booleanValue == (Boolean) argumentValues[0]);
+					} else if (operation.getName().equals("<>")) {
+						adapteeResult = (booleanValue != (Boolean) argumentValues[0]);
+					}
 				}
 
 				/* Adapt the result to the expected result type. */
@@ -209,51 +272,6 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 			}
 		}
 		return result;
-	}
-
-	private boolean adaptInequalityResult(Operation operation, Boolean adapteeResult) {
-		if (operation.getName().equals("<>")) {
-			return !adapteeResult;
-		} else {
-			return adapteeResult;
-		}
-	}
-
-	private Object adaptIntegerOperationResult(Operation operation, Object adapteeResult) {
-		if (operation.getName().equals(">")) {
-			if ((Integer) adapteeResult > 0)
-				return true;
-			else
-				return false;
-		}
-		if (operation.getName().equals(">=")) {
-			if ((Integer) adapteeResult >= 0)
-				return true;
-			else
-				return false;
-		}
-		if (operation.getName().equals("<")) {
-			if ((Integer) adapteeResult >= 0)
-				return false;
-			else
-				return true;
-		}
-		if (operation.getName().equals("<=")) {
-			if ((Integer) adapteeResult > 0)
-				return false;
-			else
-				return true;
-		}
-		if (operation.getName().equals("<>")) {
-			if ((Integer) adapteeResult == 0)
-				return false;
-			else
-				return true;
-		}
-		if (operation.getName().equals("=")) {
-			return adapteeResult;
-		}
-		return false;
 	}
 
 	@Override
@@ -590,87 +608,39 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 
 	private Method findMethodOfAdaptedObject(Operation operation) throws OperationNotFoundException {
 		Method result = null;
-		if (dslObject instanceof StringValue || dslObject instanceof String) {
-			if (operation.getName().equals("=") || operation.getName().equals("<>")) {
-				for (Method aMethod : String.class.getMethods()) {
-					if (aMethod.getName().equals("equals")) {
-						return aMethod;
-					}
-				}
-			} else if (operation.getName().equals("size")) {
-				for (Method aMethod : String.class.getMethods()) {
-					if (aMethod.getName().equals("length")) {
-						return aMethod;
-					}
-				}
-			} else {
-				// other methods for String have same names in OCL and Java,
-				// so no switch is needed
-				for (Method aMethod : String.class.getMethods()) {
-					if (aMethod.getName().equals(operation.getName())) {
-						return aMethod;
-					}
-				}
-			}
-		} else if (dslObject instanceof IntegerValue || dslObject instanceof Integer) {
-			if (operation.getName().equals("=")) {
-				// must convert to Long as, in OCL,
-				// argument is by default of Long type
-				for (Method aMethod : Long.class.getMethods()) {
-					if (aMethod.getName().equals("equals")) {
-						return aMethod;
-					}
-				}
-			} else if (operation.getName().equals(">") || operation.getName().equals(">=") || operation.getName().equals("<")
-					|| operation.getName().equals("<=") || operation.getName().equals("<>")) {
-				for (Method aMethod : Long.class.getMethods()) {
-					if (aMethod.getName().equals("compareTo")) {
-						return aMethod;
-					}
-				}
-			}
-		} else if (dslObject instanceof BooleanValue || dslObject instanceof Boolean) {
-			if (operation.getName().equals("=") || operation.getName().equals("<>")) {
-				for (Method aMethod : Boolean.class.getMethods()) {
-					if (aMethod.getName().equals("equals")) {
-						return aMethod;
-					}
-				}
-			}
-		} else {
-			Class<?> methodSourceClass = myAdaptedClass.getClass();
+		if (myAdaptedClass == null)
+			return null;
+		Class<?> methodSourceClass = myAdaptedClass.getClass();
+		while (methodSourceClass != null && result == null) {
+			for (Method aMethod : methodSourceClass.getDeclaredMethods()) {
+				boolean nameIsEqual;
+				boolean resultTypeIsConform;
+				boolean argumentSizeIsEqual;
+				nameIsEqual = aMethod.getName().equals(operation.getName());
+				resultTypeIsConform = FUMLModelInstanceTypeUtil.conformsTypeToType(aMethod.getGenericReturnType(), operation.getType());
+				argumentSizeIsEqual = aMethod.getParameterTypes().length == operation.getSignatureParameter().size();
+				if (nameIsEqual && resultTypeIsConform && argumentSizeIsEqual) {
 
-			while (methodSourceClass != null && result == null) {
-				for (Method aMethod : methodSourceClass.getDeclaredMethods()) {
-					boolean nameIsEqual;
-					boolean resultTypeIsConform;
-					boolean argumentSizeIsEqual;
-					nameIsEqual = aMethod.getName().equals(operation.getName());
-					resultTypeIsConform = FUMLModelInstanceTypeUtil.conformsTypeToType(aMethod.getGenericReturnType(), operation.getType());
-					argumentSizeIsEqual = aMethod.getParameterTypes().length == operation.getSignatureParameter().size();
-					if (nameIsEqual && resultTypeIsConform && argumentSizeIsEqual) {
-
-						java.lang.reflect.Type[] javaTypes = aMethod.getGenericParameterTypes();
-						List<Parameter> pivotModelParamters = operation.getSignatureParameter();
-						boolean matches = true;
-						for (int index = 0; index < operation.getSignatureParameter().size(); index++) {
-							if (!FUMLModelInstanceTypeUtil.conformsTypeToType(javaTypes[index], pivotModelParamters.get(index).getType())) {
-								matches = false;
-								break;
-							}
-						}
-						if (matches) {
-							result = aMethod;
+					java.lang.reflect.Type[] javaTypes = aMethod.getGenericParameterTypes();
+					List<Parameter> pivotModelParamters = operation.getSignatureParameter();
+					boolean matches = true;
+					for (int index = 0; index < operation.getSignatureParameter().size(); index++) {
+						if (!FUMLModelInstanceTypeUtil.conformsTypeToType(javaTypes[index], pivotModelParamters.get(index).getType())) {
+							matches = false;
 							break;
 						}
 					}
+					if (matches) {
+						result = aMethod;
+						break;
+					}
 				}
-				methodSourceClass = methodSourceClass.getSuperclass();
 			}
-			if (result == null) {
-				throw new OperationNotFoundException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_OperationNotFound, operation,
-						dslObject.getClass()));
-			}
+			methodSourceClass = methodSourceClass.getSuperclass();
+		}
+		if (result == null) {
+			throw new OperationNotFoundException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_OperationNotFound, operation,
+					dslObject.getClass()));
 		}
 		return result;
 	}

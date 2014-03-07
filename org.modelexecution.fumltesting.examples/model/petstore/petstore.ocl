@@ -38,4 +38,6 @@ inv ProductNameSubstring3: name.substring(0,1) = 'defaultProduct'.substring(0,1)
 inv ProductAvailable: available = true
 inv ProductAvailable2: available <> false
 
+inv ProductFinalState: name='defaultProduct' and available=true and code=1234
+
 endpackage
