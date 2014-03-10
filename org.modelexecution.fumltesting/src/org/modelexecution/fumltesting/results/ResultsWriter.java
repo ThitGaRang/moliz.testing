@@ -12,10 +12,17 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import org.eclipse.xtext.xbase.XBooleanLiteral;
+import org.eclipse.xtext.xbase.XExpression;
+import org.eclipse.xtext.xbase.XNullLiteral;
+import org.eclipse.xtext.xbase.XNumberLiteral;
+import org.eclipse.xtext.xbase.XStringLiteral;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumltesting.testLang.NodeSpecification;
 import org.modelexecution.fumltesting.testLang.ObjectSpecification;
+import org.modelexecution.fumltesting.testLang.SimpleValue;
 import org.modelexecution.fumltesting.testLang.StateAssertion;
+import org.modelexecution.fumltesting.testLang.Value;
 
 import fUML.Syntax.Actions.BasicActions.Action;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityFinalNode;
@@ -26,6 +33,7 @@ import fUML.Syntax.Activities.IntermediateActivities.InitialNode;
  * @author Stefan Mijatov
  * 
  */
+@SuppressWarnings("restriction")
 public class ResultsWriter {
 	private String fileName;
 	private TestSuiteResult suiteResult;
@@ -56,7 +64,16 @@ public class ResultsWriter {
 					if (activityInput.getValue() instanceof ObjectSpecification) {
 						value = ((ObjectSpecification) activityInput.getValue()).getName();
 					} else {
-						value = activityInput.getValue().toString();
+						XExpression expression = ((SimpleValue) activityInput.getValue()).getValue();
+						if (expression instanceof XStringLiteral) {
+							value = ((XStringLiteral) expression).getValue();
+						} else if (expression instanceof XNumberLiteral) {
+							value = ((XNumberLiteral) expression).getValue();
+						} else if (expression instanceof XBooleanLiteral) {
+							value = String.valueOf(((XBooleanLiteral) expression).isIsTrue());
+						} else {
+							value = "UNKNOWN";
+						}
 					}
 					writer.print(activityInput.getParameter().getName() + " = " + value + "; ");
 				}
@@ -89,11 +106,39 @@ public class ResultsWriter {
 					if (assertion.getUntilAction() != null)
 						writer.print(" until " + assertion.getUntilAction().getName());
 					writer.println();
-					writer.println("\tConstraints checked: " + stateAssertionResult.numberOfConstraintsChecked());
-					writer.println("\tConstraints failed: " + stateAssertionResult.getFailedConstraints().size());
-					for (ConstraintResult constraintResult : stateAssertionResult.getFailedConstraints()) {
-						writer.println("\t\tConstraint: " + constraintResult.getConstraint() + " failed in state created by action "
-								+ constraintResult.getValidationState().getNodeExecution().getNode().name);
+					if (stateAssertionResult.numberOfConstraintsChecked() > 0) {
+						writer.println("\tConstraints checked: " + stateAssertionResult.numberOfConstraintsChecked());
+						writer.println("\tConstraints failed: " + stateAssertionResult.getFailedConstraints().size());
+						for (ConstraintResult constraintResult : stateAssertionResult.getFailedConstraints()) {
+							writer.println("\t\tConstraint: " + constraintResult.getConstraint() + " failed in state created by action "
+									+ constraintResult.getValidationState().getNodeExecution().getNode().name);
+						}
+					}
+					if (((StateAssertionResult) assertionResult).getFailedStateExpressions().size() > 0) {
+						writer.println("\tFailed state expressions: ");
+					}
+
+					writer.println("\tState expressions checked: " + ((StateAssertionResult) assertionResult).getNumberOfStateExpressions());
+					writer.println("\tState expressions failed: " + ((StateAssertionResult) assertionResult).getFailedStateExpressions().size());
+
+					for (StateExpressionResult result : ((StateAssertionResult) assertionResult).getFailedStateExpressions()) {
+						writer.print("\t\tExpression: " + result.getStateExpression().getPin().getName() + " "
+								+ result.getStateExpression().getOperator() + " ");
+						Value value = result.getStateExpression().getValue();
+						if (value instanceof ObjectSpecification) {
+							writer.print(((ObjectSpecification) value).getName());
+						} else if (value instanceof SimpleValue) {
+							XExpression valueExpression = ((SimpleValue) value).getValue();
+							if (valueExpression instanceof XStringLiteral) {
+								writer.print(((XStringLiteral) valueExpression).getValue());
+							} else if (valueExpression instanceof XBooleanLiteral) {
+								writer.print(((XBooleanLiteral) valueExpression).isIsTrue());
+							} else if (valueExpression instanceof XNumberLiteral) {
+								writer.print(((XNumberLiteral) valueExpression).getValue());
+							} else if (valueExpression instanceof XNullLiteral) {
+								writer.print("null");
+							}
+						}
 					}
 				}
 			}

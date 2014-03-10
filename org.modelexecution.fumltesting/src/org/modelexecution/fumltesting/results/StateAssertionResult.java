@@ -39,10 +39,14 @@ public class StateAssertionResult extends AssertionResult {
 		return failedStateExpressionResults;
 	}
 
-	public int numberOfConstraintsChecked(){
+	public int getNumberOfStateExpressions() {
+		return expressionResults.size();
+	}
+
+	public int numberOfConstraintsChecked() {
 		return constraintResults.size();
 	}
-	
+
 	public ArrayList<ConstraintResult> getFailedConstraints() {
 		ArrayList<ConstraintResult> failedConstraintResults = new ArrayList<ConstraintResult>();
 		for (ConstraintResult result : constraintResults) {
@@ -58,8 +62,8 @@ public class StateAssertionResult extends AssertionResult {
 			if (result.getValidationResult() == false)
 				return false;
 		}
-		for(ConstraintResult result: constraintResults){
-			if(result.getValidationResult() == false){
+		for (ConstraintResult result : constraintResults) {
+			if (result.getValidationResult() == false) {
 				return false;
 			}
 		}

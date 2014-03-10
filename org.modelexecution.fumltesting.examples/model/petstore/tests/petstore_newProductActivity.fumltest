@@ -9,25 +9,19 @@ scenario TestData[
 	link cartItem_item{source cartItem=cartItem; target item=item;}
 ]
 
-test newProductTest activity NewProductActivity(mnemonic="SHM", name="SyrianHamster")	on TestData.product{	
+test newProductTest activity NewProductActivity(name="SyrianHamster", code=1234) on TestData.product{	
 	var product = product;
 	
-	assertOrder NewProductActivity.init, NewProductActivity.createProduct, 
-		NewProductActivity.setMnemonic, NewProductActivity.setName;
+	assertOrder *, NewProductActivity.createProduct, *, NewProductActivity.setName, *, NewProductActivity.setDescription, *,
+		NewProductActivity.setAvailable, *, NewProductActivity.setCode;
 	
 	assertState always before NewProductActivity.createProduct{product = null;}
 	assertState exactly before NewProductActivity.createProduct{product = null;}
 	assertState always after NewProductActivity.createProduct{product != null;}
 	assertState exactly after NewProductActivity.createProduct{product != null;}
-		
-	assertState always after NewProductActivity.setMnemonic{product::mnemonic = "SHM";}	
-	assertState exactly after NewProductActivity.setMnemonic{product::mnemonic = "SHM";}
-	assertState always before NewProductActivity.setMnemonic{product::mnemonic = null;}
-	assertState exactly before NewProductActivity.setMnemonic{product::mnemonic = null;}	
 	
 	assertState always after NewProductActivity.setName{product::name = "SyrianHamster";}
-	assertState exactly after NewProductActivity.setName{product::name = "SyrianHamster";
-	}		
+	assertState exactly after NewProductActivity.setName{product::name = "SyrianHamster";}		
 	assertState always before NewProductActivity.setName{product::name = null;}	
 	assertState exactly before NewProductActivity.setName{product::name = null;}
 	

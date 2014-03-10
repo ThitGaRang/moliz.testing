@@ -64,7 +64,7 @@ public class AssertionValidator {
 			return stateValidator.check((StateAssertion) assertion);
 		}
 		if (assertion instanceof FinallyStateAssertion) {
-			stateValidator.check((FinallyStateAssertion) assertion);
+			return stateValidator.check((FinallyStateAssertion) assertion);
 		}
 		return null;
 	}

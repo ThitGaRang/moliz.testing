@@ -110,7 +110,7 @@ public class StateAssertionValidator {
 		operator = assertion.getTemporalOperator();
 		quantifier = assertion.getTemporalQuantifier();
 
-		if (assertion.getConstraints().getNames().size() > 0) {
+		if (assertion.getConstraints() != null && assertion.getConstraints().getNames().size() > 0) {
 			for (XExpression constraintName : assertion.getConstraints().getNames()) {
 				List<State> states = traceUtil.getStates(quantifier, operator, referredNodeExecution);
 				String name = ((XStringLiteral) constraintName).getValue();
@@ -137,7 +137,9 @@ public class StateAssertionValidator {
 		stateAssertion.setReferenceAction((Action) traceUtil.getLastExecutedAction());
 		stateAssertion.getExpressions().addAll(assertion.getExpressions());
 
-		stateAssertion.getConstraints().getNames().addAll(assertion.getConstraints().getNames());
+		if(assertion.getConstraints() != null){
+			stateAssertion.getConstraints().getNames().addAll(assertion.getConstraints().getNames());
+		}
 
 		return check(stateAssertion);
 	}
@@ -309,7 +311,7 @@ public class StateAssertionValidator {
 		SimpleValue simpleValue = (SimpleValue) expression.getValue();
 
 		if (list.size() == 0) {
-			if (simpleValue.getValue() instanceof XNullLiteral)
+			if (simpleValue.getValue() instanceof XNullLiteral && expression.getOperator() == ArithmeticOperator.EQUAL)
 				;
 			else
 				return false;
