@@ -138,7 +138,7 @@ public class StateAssertionValidator {
 		stateAssertion.getExpressions().addAll(assertion.getExpressions());
 
 		if(assertion.getConstraints() != null){
-			stateAssertion.getConstraints().getNames().addAll(assertion.getConstraints().getNames());
+			stateAssertion.setConstraints(assertion.getConstraints());
 		}
 
 		return check(stateAssertion);

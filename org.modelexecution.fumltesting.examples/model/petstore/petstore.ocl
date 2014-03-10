@@ -47,4 +47,7 @@ inv MalformedInvariant2: code='something'
 inv MalformedInvariant3: available=1234
 inv MalformedInvariant4: name=true
 
+inv ProductName: name='SyrianHamster'
+inv ProductCode: code=1234
+
 endpackage
