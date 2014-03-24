@@ -691,24 +691,21 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		private final CrossReference cUntilActionActionCrossReference_2_1_0 = (CrossReference)cUntilActionAssignment_2_1.eContents().get(0);
 		private final RuleCall cUntilActionActionQualifiedNameParserRuleCall_2_1_0_1 = (RuleCall)cUntilActionActionCrossReference_2_1_0.eContents().get(1);
 		private final Keyword cLeftCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
-		private final Keyword cCheckKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
-		private final Assignment cConstraintsAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
-		private final RuleCall cConstraintsConstraintsParserRuleCall_4_1_0 = (RuleCall)cConstraintsAssignment_4_1.eContents().get(0);
-		private final Keyword cSemicolonKeyword_4_2 = (Keyword)cGroup_4.eContents().get(2);
+		private final Assignment cConstraintCheckAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cConstraintCheckConstraintCheckParserRuleCall_4_0 = (RuleCall)cConstraintCheckAssignment_4.eContents().get(0);
 		private final Assignment cExpressionsAssignment_5 = (Assignment)cGroup.eContents().get(5);
 		private final RuleCall cExpressionsStateExpressionParserRuleCall_5_0 = (RuleCall)cExpressionsAssignment_5.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//StateAssertion:
 		//	("assertState" temporalQuantifier=TemporalQuantifier temporalOperator=TemporalOperator)
-		//	referenceAction=[uml::Action|QualifiedName] ("until" untilAction=[uml::Action|QualifiedName])? "{" ("check"
-		//	constraints=Constraints ";")? expressions+=StateExpression* "}";
+		//	referenceAction=[uml::Action|QualifiedName] ("until" untilAction=[uml::Action|QualifiedName])? "{"
+		//	constraintCheck+=ConstraintCheck* expressions+=StateExpression* "}";
 		public ParserRule getRule() { return rule; }
 
 		//("assertState" temporalQuantifier=TemporalQuantifier temporalOperator=TemporalOperator)
-		//referenceAction=[uml::Action|QualifiedName] ("until" untilAction=[uml::Action|QualifiedName])? "{" ("check"
-		//constraints=Constraints ";")? expressions+=StateExpression* "}"
+		//referenceAction=[uml::Action|QualifiedName] ("until" untilAction=[uml::Action|QualifiedName])? "{"
+		//constraintCheck+=ConstraintCheck* expressions+=StateExpression* "}"
 		public Group getGroup() { return cGroup; }
 
 		//"assertState" temporalQuantifier=TemporalQuantifier temporalOperator=TemporalOperator
@@ -756,20 +753,11 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		//"{"
 		public Keyword getLeftCurlyBracketKeyword_3() { return cLeftCurlyBracketKeyword_3; }
 
-		//("check" constraints=Constraints ";")?
-		public Group getGroup_4() { return cGroup_4; }
+		//constraintCheck+=ConstraintCheck*
+		public Assignment getConstraintCheckAssignment_4() { return cConstraintCheckAssignment_4; }
 
-		//"check"
-		public Keyword getCheckKeyword_4_0() { return cCheckKeyword_4_0; }
-
-		//constraints=Constraints
-		public Assignment getConstraintsAssignment_4_1() { return cConstraintsAssignment_4_1; }
-
-		//Constraints
-		public RuleCall getConstraintsConstraintsParserRuleCall_4_1_0() { return cConstraintsConstraintsParserRuleCall_4_1_0; }
-
-		//";"
-		public Keyword getSemicolonKeyword_4_2() { return cSemicolonKeyword_4_2; }
+		//ConstraintCheck
+		public RuleCall getConstraintCheckConstraintCheckParserRuleCall_4_0() { return cConstraintCheckConstraintCheckParserRuleCall_4_0; }
 
 		//expressions+=StateExpression*
 		public Assignment getExpressionsAssignment_5() { return cExpressionsAssignment_5; }
@@ -787,20 +775,17 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cFinallyKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Keyword cLeftCurlyBracketKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Action cFinallyStateAssertionAction_2 = (Action)cGroup.eContents().get(2);
-		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
-		private final Keyword cCheckKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
-		private final Assignment cConstraintsAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
-		private final RuleCall cConstraintsConstraintsParserRuleCall_3_1_0 = (RuleCall)cConstraintsAssignment_3_1.eContents().get(0);
-		private final Keyword cSemicolonKeyword_3_2 = (Keyword)cGroup_3.eContents().get(2);
+		private final Assignment cConstraintCheckAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cConstraintCheckConstraintCheckParserRuleCall_3_0 = (RuleCall)cConstraintCheckAssignment_3.eContents().get(0);
 		private final Assignment cExpressionsAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final RuleCall cExpressionsStateExpressionParserRuleCall_4_0 = (RuleCall)cExpressionsAssignment_4.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//FinallyStateAssertion:
-		//	"finally" "{" {FinallyStateAssertion} ("check" constraints=Constraints ";")? expressions+=StateExpression* "}";
+		//	"finally" "{" {FinallyStateAssertion} constraintCheck+=ConstraintCheck* expressions+=StateExpression* "}";
 		public ParserRule getRule() { return rule; }
 
-		//"finally" "{" {FinallyStateAssertion} ("check" constraints=Constraints ";")? expressions+=StateExpression* "}"
+		//"finally" "{" {FinallyStateAssertion} constraintCheck+=ConstraintCheck* expressions+=StateExpression* "}"
 		public Group getGroup() { return cGroup; }
 
 		//"finally"
@@ -812,20 +797,11 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		//{FinallyStateAssertion}
 		public Action getFinallyStateAssertionAction_2() { return cFinallyStateAssertionAction_2; }
 
-		//("check" constraints=Constraints ";")?
-		public Group getGroup_3() { return cGroup_3; }
+		//constraintCheck+=ConstraintCheck*
+		public Assignment getConstraintCheckAssignment_3() { return cConstraintCheckAssignment_3; }
 
-		//"check"
-		public Keyword getCheckKeyword_3_0() { return cCheckKeyword_3_0; }
-
-		//constraints=Constraints
-		public Assignment getConstraintsAssignment_3_1() { return cConstraintsAssignment_3_1; }
-
-		//Constraints
-		public RuleCall getConstraintsConstraintsParserRuleCall_3_1_0() { return cConstraintsConstraintsParserRuleCall_3_1_0; }
-
-		//";"
-		public Keyword getSemicolonKeyword_3_2() { return cSemicolonKeyword_3_2; }
+		//ConstraintCheck
+		public RuleCall getConstraintCheckConstraintCheckParserRuleCall_3_0() { return cConstraintCheckConstraintCheckParserRuleCall_3_0; }
 
 		//expressions+=StateExpression*
 		public Assignment getExpressionsAssignment_4() { return cExpressionsAssignment_4; }
@@ -837,40 +813,70 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getRightCurlyBracketKeyword_5() { return cRightCurlyBracketKeyword_5; }
 	}
 
-	public class ConstraintsElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Constraints");
+	public class ConstraintCheckElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ConstraintCheck");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cNamesAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cNamesXStringLiteralParserRuleCall_0_0 = (RuleCall)cNamesAssignment_0.eContents().get(0);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Keyword cCommaKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
-		private final Assignment cNamesAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final RuleCall cNamesXStringLiteralParserRuleCall_1_1_0 = (RuleCall)cNamesAssignment_1_1.eContents().get(0);
+		private final Keyword cCheckKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cConstraintNamesAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cConstraintNamesXStringLiteralParserRuleCall_1_0 = (RuleCall)cConstraintNamesAssignment_1.eContents().get(0);
+		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
+		private final Keyword cCommaKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
+		private final Assignment cConstraintNamesAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
+		private final RuleCall cConstraintNamesXStringLiteralParserRuleCall_2_1_0 = (RuleCall)cConstraintNamesAssignment_2_1.eContents().get(0);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Keyword cOnKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final Assignment cObjectAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
+		private final CrossReference cObjectVarDeclarationCrossReference_3_1_0 = (CrossReference)cObjectAssignment_3_1.eContents().get(0);
+		private final RuleCall cObjectVarDeclarationQualifiedNameParserRuleCall_3_1_0_1 = (RuleCall)cObjectVarDeclarationCrossReference_3_1_0.eContents().get(1);
+		private final Keyword cSemicolonKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
-		//Constraints:
-		//	names+=XStringLiteral ("," names+=XStringLiteral)*;
+		//ConstraintCheck:
+		//	"check" constraintNames+=XStringLiteral ("," constraintNames+=XStringLiteral)* ("on"
+		//	object=[VarDeclaration|QualifiedName])? ";";
 		public ParserRule getRule() { return rule; }
 
-		//names+=XStringLiteral ("," names+=XStringLiteral)*
+		//"check" constraintNames+=XStringLiteral ("," constraintNames+=XStringLiteral)* ("on"
+		//object=[VarDeclaration|QualifiedName])? ";"
 		public Group getGroup() { return cGroup; }
 
-		//names+=XStringLiteral
-		public Assignment getNamesAssignment_0() { return cNamesAssignment_0; }
+		//"check"
+		public Keyword getCheckKeyword_0() { return cCheckKeyword_0; }
+
+		//constraintNames+=XStringLiteral
+		public Assignment getConstraintNamesAssignment_1() { return cConstraintNamesAssignment_1; }
 
 		//XStringLiteral
-		public RuleCall getNamesXStringLiteralParserRuleCall_0_0() { return cNamesXStringLiteralParserRuleCall_0_0; }
+		public RuleCall getConstraintNamesXStringLiteralParserRuleCall_1_0() { return cConstraintNamesXStringLiteralParserRuleCall_1_0; }
 
-		//("," names+=XStringLiteral)*
-		public Group getGroup_1() { return cGroup_1; }
+		//("," constraintNames+=XStringLiteral)*
+		public Group getGroup_2() { return cGroup_2; }
 
 		//","
-		public Keyword getCommaKeyword_1_0() { return cCommaKeyword_1_0; }
+		public Keyword getCommaKeyword_2_0() { return cCommaKeyword_2_0; }
 
-		//names+=XStringLiteral
-		public Assignment getNamesAssignment_1_1() { return cNamesAssignment_1_1; }
+		//constraintNames+=XStringLiteral
+		public Assignment getConstraintNamesAssignment_2_1() { return cConstraintNamesAssignment_2_1; }
 
 		//XStringLiteral
-		public RuleCall getNamesXStringLiteralParserRuleCall_1_1_0() { return cNamesXStringLiteralParserRuleCall_1_1_0; }
+		public RuleCall getConstraintNamesXStringLiteralParserRuleCall_2_1_0() { return cConstraintNamesXStringLiteralParserRuleCall_2_1_0; }
+
+		//("on" object=[VarDeclaration|QualifiedName])?
+		public Group getGroup_3() { return cGroup_3; }
+
+		//"on"
+		public Keyword getOnKeyword_3_0() { return cOnKeyword_3_0; }
+
+		//object=[VarDeclaration|QualifiedName]
+		public Assignment getObjectAssignment_3_1() { return cObjectAssignment_3_1; }
+
+		//[VarDeclaration|QualifiedName]
+		public CrossReference getObjectVarDeclarationCrossReference_3_1_0() { return cObjectVarDeclarationCrossReference_3_1_0; }
+
+		//QualifiedName
+		public RuleCall getObjectVarDeclarationQualifiedNameParserRuleCall_3_1_0_1() { return cObjectVarDeclarationQualifiedNameParserRuleCall_3_1_0_1; }
+
+		//";"
+		public Keyword getSemicolonKeyword_4() { return cSemicolonKeyword_4; }
 	}
 
 	public class StateExpressionElements extends AbstractParserRuleElementFinder {
@@ -1291,7 +1297,7 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 	private AssertionElements pAssertion;
 	private StateAssertionElements pStateAssertion;
 	private FinallyStateAssertionElements pFinallyStateAssertion;
-	private ConstraintsElements pConstraints;
+	private ConstraintCheckElements pConstraintCheck;
 	private StateExpressionElements pStateExpression;
 	private ObjectStateExpressionElements pObjectStateExpression;
 	private PropertyStateExpressionElements pPropertyStateExpression;
@@ -1477,8 +1483,8 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 
 	//StateAssertion:
 	//	("assertState" temporalQuantifier=TemporalQuantifier temporalOperator=TemporalOperator)
-	//	referenceAction=[uml::Action|QualifiedName] ("until" untilAction=[uml::Action|QualifiedName])? "{" ("check"
-	//	constraints=Constraints ";")? expressions+=StateExpression* "}";
+	//	referenceAction=[uml::Action|QualifiedName] ("until" untilAction=[uml::Action|QualifiedName])? "{"
+	//	constraintCheck+=ConstraintCheck* expressions+=StateExpression* "}";
 	public StateAssertionElements getStateAssertionAccess() {
 		return (pStateAssertion != null) ? pStateAssertion : (pStateAssertion = new StateAssertionElements());
 	}
@@ -1488,7 +1494,7 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//FinallyStateAssertion:
-	//	"finally" "{" {FinallyStateAssertion} ("check" constraints=Constraints ";")? expressions+=StateExpression* "}";
+	//	"finally" "{" {FinallyStateAssertion} constraintCheck+=ConstraintCheck* expressions+=StateExpression* "}";
 	public FinallyStateAssertionElements getFinallyStateAssertionAccess() {
 		return (pFinallyStateAssertion != null) ? pFinallyStateAssertion : (pFinallyStateAssertion = new FinallyStateAssertionElements());
 	}
@@ -1497,14 +1503,15 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		return getFinallyStateAssertionAccess().getRule();
 	}
 
-	//Constraints:
-	//	names+=XStringLiteral ("," names+=XStringLiteral)*;
-	public ConstraintsElements getConstraintsAccess() {
-		return (pConstraints != null) ? pConstraints : (pConstraints = new ConstraintsElements());
+	//ConstraintCheck:
+	//	"check" constraintNames+=XStringLiteral ("," constraintNames+=XStringLiteral)* ("on"
+	//	object=[VarDeclaration|QualifiedName])? ";";
+	public ConstraintCheckElements getConstraintCheckAccess() {
+		return (pConstraintCheck != null) ? pConstraintCheck : (pConstraintCheck = new ConstraintCheckElements());
 	}
 	
-	public ParserRule getConstraintsRule() {
-		return getConstraintsAccess().getRule();
+	public ParserRule getConstraintCheckRule() {
+		return getConstraintCheckAccess().getRule();
 	}
 
 	//StateExpression:

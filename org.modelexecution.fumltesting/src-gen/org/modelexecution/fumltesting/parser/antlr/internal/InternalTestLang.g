@@ -1151,53 +1151,45 @@ ruleStateAssertion returns [EObject current=null]
     {
     	newLeafNode(otherlv_6, grammarAccess.getStateAssertionAccess().getLeftCurlyBracketKeyword_3());
     }
-(	otherlv_7='check' 
-    {
-    	newLeafNode(otherlv_7, grammarAccess.getStateAssertionAccess().getCheckKeyword_4_0());
-    }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getStateAssertionAccess().getConstraintsConstraintsParserRuleCall_4_1_0()); 
+	        newCompositeNode(grammarAccess.getStateAssertionAccess().getConstraintCheckConstraintCheckParserRuleCall_4_0()); 
 	    }
-		lv_constraints_8_0=ruleConstraints		{
+		lv_constraintCheck_7_0=ruleConstraintCheck		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getStateAssertionRule());
 	        }
-       		set(
+       		add(
        			$current, 
-       			"constraints",
-        		lv_constraints_8_0, 
-        		"Constraints");
+       			"constraintCheck",
+        		lv_constraintCheck_7_0, 
+        		"ConstraintCheck");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)	otherlv_9=';' 
-    {
-    	newLeafNode(otherlv_9, grammarAccess.getStateAssertionAccess().getSemicolonKeyword_4_2());
-    }
-)?(
+)*(
 (
 		{ 
 	        newCompositeNode(grammarAccess.getStateAssertionAccess().getExpressionsStateExpressionParserRuleCall_5_0()); 
 	    }
-		lv_expressions_10_0=ruleStateExpression		{
+		lv_expressions_8_0=ruleStateExpression		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getStateAssertionRule());
 	        }
        		add(
        			$current, 
        			"expressions",
-        		lv_expressions_10_0, 
+        		lv_expressions_8_0, 
         		"StateExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)*	otherlv_11='}' 
+)*	otherlv_9='}' 
     {
-    	newLeafNode(otherlv_11, grammarAccess.getStateAssertionAccess().getRightCurlyBracketKeyword_6());
+    	newLeafNode(otherlv_9, grammarAccess.getStateAssertionAccess().getRightCurlyBracketKeyword_6());
     }
 )
 ;
@@ -1234,53 +1226,45 @@ ruleFinallyStateAssertion returns [EObject current=null]
             grammarAccess.getFinallyStateAssertionAccess().getFinallyStateAssertionAction_2(),
             $current);
     }
-)(	otherlv_3='check' 
-    {
-    	newLeafNode(otherlv_3, grammarAccess.getFinallyStateAssertionAccess().getCheckKeyword_3_0());
-    }
-(
+)(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getFinallyStateAssertionAccess().getConstraintsConstraintsParserRuleCall_3_1_0()); 
+	        newCompositeNode(grammarAccess.getFinallyStateAssertionAccess().getConstraintCheckConstraintCheckParserRuleCall_3_0()); 
 	    }
-		lv_constraints_4_0=ruleConstraints		{
+		lv_constraintCheck_3_0=ruleConstraintCheck		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getFinallyStateAssertionRule());
 	        }
-       		set(
+       		add(
        			$current, 
-       			"constraints",
-        		lv_constraints_4_0, 
-        		"Constraints");
+       			"constraintCheck",
+        		lv_constraintCheck_3_0, 
+        		"ConstraintCheck");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)	otherlv_5=';' 
-    {
-    	newLeafNode(otherlv_5, grammarAccess.getFinallyStateAssertionAccess().getSemicolonKeyword_3_2());
-    }
-)?(
+)*(
 (
 		{ 
 	        newCompositeNode(grammarAccess.getFinallyStateAssertionAccess().getExpressionsStateExpressionParserRuleCall_4_0()); 
 	    }
-		lv_expressions_6_0=ruleStateExpression		{
+		lv_expressions_4_0=ruleStateExpression		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getFinallyStateAssertionRule());
 	        }
        		add(
        			$current, 
        			"expressions",
-        		lv_expressions_6_0, 
+        		lv_expressions_4_0, 
         		"StateExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)*	otherlv_7='}' 
+)*	otherlv_5='}' 
     {
-    	newLeafNode(otherlv_7, grammarAccess.getFinallyStateAssertionAccess().getRightCurlyBracketKeyword_5());
+    	newLeafNode(otherlv_5, grammarAccess.getFinallyStateAssertionAccess().getRightCurlyBracketKeyword_5());
     }
 )
 ;
@@ -1289,61 +1273,88 @@ ruleFinallyStateAssertion returns [EObject current=null]
 
 
 
-// Entry rule entryRuleConstraints
-entryRuleConstraints returns [EObject current=null] 
+// Entry rule entryRuleConstraintCheck
+entryRuleConstraintCheck returns [EObject current=null] 
 	:
-	{ newCompositeNode(grammarAccess.getConstraintsRule()); }
-	 iv_ruleConstraints=ruleConstraints 
-	 { $current=$iv_ruleConstraints.current; } 
+	{ newCompositeNode(grammarAccess.getConstraintCheckRule()); }
+	 iv_ruleConstraintCheck=ruleConstraintCheck 
+	 { $current=$iv_ruleConstraintCheck.current; } 
 	 EOF 
 ;
 
-// Rule Constraints
-ruleConstraints returns [EObject current=null] 
+// Rule ConstraintCheck
+ruleConstraintCheck returns [EObject current=null] 
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-((
-(
-		{ 
-	        newCompositeNode(grammarAccess.getConstraintsAccess().getNamesXStringLiteralParserRuleCall_0_0()); 
-	    }
-		lv_names_0_0=ruleXStringLiteral		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getConstraintsRule());
-	        }
-       		add(
-       			$current, 
-       			"names",
-        		lv_names_0_0, 
-        		"XStringLiteral");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)(	otherlv_1=',' 
+(	otherlv_0='check' 
     {
-    	newLeafNode(otherlv_1, grammarAccess.getConstraintsAccess().getCommaKeyword_1_0());
+    	newLeafNode(otherlv_0, grammarAccess.getConstraintCheckAccess().getCheckKeyword_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getConstraintsAccess().getNamesXStringLiteralParserRuleCall_1_1_0()); 
+	        newCompositeNode(grammarAccess.getConstraintCheckAccess().getConstraintNamesXStringLiteralParserRuleCall_1_0()); 
 	    }
-		lv_names_2_0=ruleXStringLiteral		{
+		lv_constraintNames_1_0=ruleXStringLiteral		{
 	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getConstraintsRule());
+	            $current = createModelElementForParent(grammarAccess.getConstraintCheckRule());
 	        }
        		add(
        			$current, 
-       			"names",
-        		lv_names_2_0, 
+       			"constraintNames",
+        		lv_constraintNames_1_0, 
         		"XStringLiteral");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-))*)
+)(	otherlv_2=',' 
+    {
+    	newLeafNode(otherlv_2, grammarAccess.getConstraintCheckAccess().getCommaKeyword_2_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getConstraintCheckAccess().getConstraintNamesXStringLiteralParserRuleCall_2_1_0()); 
+	    }
+		lv_constraintNames_3_0=ruleXStringLiteral		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getConstraintCheckRule());
+	        }
+       		add(
+       			$current, 
+       			"constraintNames",
+        		lv_constraintNames_3_0, 
+        		"XStringLiteral");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))*(	otherlv_4='on' 
+    {
+    	newLeafNode(otherlv_4, grammarAccess.getConstraintCheckAccess().getOnKeyword_3_0());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getConstraintCheckRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getConstraintCheckAccess().getObjectVarDeclarationCrossReference_3_1_0()); 
+	    }
+		ruleQualifiedName		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))?	otherlv_6=';' 
+    {
+    	newLeafNode(otherlv_6, grammarAccess.getConstraintCheckAccess().getSemicolonKeyword_4());
+    }
+)
 ;
 
 

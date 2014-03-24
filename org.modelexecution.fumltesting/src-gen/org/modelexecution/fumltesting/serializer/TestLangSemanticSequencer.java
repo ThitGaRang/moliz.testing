@@ -57,7 +57,7 @@ import org.eclipse.xtext.xtype.XtypePackage;
 import org.modelexecution.fumltesting.services.TestLangGrammarAccess;
 import org.modelexecution.fumltesting.testLang.ActivityInput;
 import org.modelexecution.fumltesting.testLang.Attribute;
-import org.modelexecution.fumltesting.testLang.Constraints;
+import org.modelexecution.fumltesting.testLang.ConstraintCheck;
 import org.modelexecution.fumltesting.testLang.FinallyStateAssertion;
 import org.modelexecution.fumltesting.testLang.Import;
 import org.modelexecution.fumltesting.testLang.Link;
@@ -96,9 +96,9 @@ public class TestLangSemanticSequencer extends XbaseSemanticSequencer {
 					return; 
 				}
 				else break;
-			case TestLangPackage.CONSTRAINTS:
-				if(context == grammarAccess.getConstraintsRule()) {
-					sequence_Constraints(context, (Constraints) semanticObject); 
+			case TestLangPackage.CONSTRAINT_CHECK:
+				if(context == grammarAccess.getConstraintCheckRule()) {
+					sequence_ConstraintCheck(context, (ConstraintCheck) semanticObject); 
 					return; 
 				}
 				else break;
@@ -1187,16 +1187,16 @@ public class TestLangSemanticSequencer extends XbaseSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (names+=XStringLiteral names+=XStringLiteral*)
+	 *     (constraintNames+=XStringLiteral constraintNames+=XStringLiteral* object=[VarDeclaration|QualifiedName]?)
 	 */
-	protected void sequence_Constraints(EObject context, Constraints semanticObject) {
+	protected void sequence_ConstraintCheck(EObject context, ConstraintCheck semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     (constraints=Constraints? expressions+=StateExpression*)
+	 *     (constraintCheck+=ConstraintCheck* expressions+=StateExpression*)
 	 */
 	protected void sequence_FinallyStateAssertion(EObject context, FinallyStateAssertion semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1391,7 +1391,7 @@ public class TestLangSemanticSequencer extends XbaseSemanticSequencer {
 	 *         temporalOperator=TemporalOperator 
 	 *         referenceAction=[Action|QualifiedName] 
 	 *         untilAction=[Action|QualifiedName]? 
-	 *         constraints=Constraints? 
+	 *         constraintCheck+=ConstraintCheck* 
 	 *         expressions+=StateExpression*
 	 *     )
 	 */

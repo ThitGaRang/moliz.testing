@@ -270,7 +270,6 @@ public class FumlConverter {
 			}
 			object.getFeatureValues().add(mappedFeatureValue);
 		}
-
 		return object;
 	}
 

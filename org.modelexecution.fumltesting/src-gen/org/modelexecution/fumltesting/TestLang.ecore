@@ -74,21 +74,22 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="temporalOperator" eType="#//TemporalOperator"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="referenceAction" eType="ecore:EClass ../../../../../org.eclipse.uml2.uml/model/UML.ecore#//Action"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="untilAction" eType="ecore:EClass ../../../../../org.eclipse.uml2.uml/model/UML.ecore#//Action"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="constraints" eType="#//Constraints"
-        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constraintCheck" upperBound="-1"
+        eType="#//ConstraintCheck" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="expressions" upperBound="-1"
         eType="#//StateExpression" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FinallyStateAssertion" eSuperTypes="#//Assertion">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="constraints" eType="#//Constraints"
-        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constraintCheck" upperBound="-1"
+        eType="#//ConstraintCheck" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="expressions" upperBound="-1"
         eType="#//StateExpression" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Constraints">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="names" upperBound="-1"
+  <eClassifiers xsi:type="ecore:EClass" name="ConstraintCheck">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constraintNames" upperBound="-1"
         eType="ecore:EClass ../../../../../org.eclipse.xtext.xbase/model/Xbase.ecore#//XExpression"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="object" eType="#//VarDeclaration"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="StateExpression">
     <eStructuralFeatures xsi:type="ecore:EReference" name="pin" eType="#//VarDeclaration"/>

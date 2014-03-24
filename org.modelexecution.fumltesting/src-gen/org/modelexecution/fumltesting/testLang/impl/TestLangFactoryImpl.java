@@ -80,7 +80,7 @@ public class TestLangFactoryImpl extends EFactoryImpl implements TestLangFactory
       case TestLangPackage.ASSERTION: return createAssertion();
       case TestLangPackage.STATE_ASSERTION: return createStateAssertion();
       case TestLangPackage.FINALLY_STATE_ASSERTION: return createFinallyStateAssertion();
-      case TestLangPackage.CONSTRAINTS: return createConstraints();
+      case TestLangPackage.CONSTRAINT_CHECK: return createConstraintCheck();
       case TestLangPackage.STATE_EXPRESSION: return createStateExpression();
       case TestLangPackage.OBJECT_STATE_EXPRESSION: return createObjectStateExpression();
       case TestLangPackage.PROPERTY_STATE_EXPRESSION: return createPropertyStateExpression();
@@ -304,10 +304,10 @@ public class TestLangFactoryImpl extends EFactoryImpl implements TestLangFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public Constraints createConstraints()
+  public ConstraintCheck createConstraintCheck()
   {
-    ConstraintsImpl constraints = new ConstraintsImpl();
-    return constraints;
+    ConstraintCheckImpl constraintCheck = new ConstraintCheckImpl();
+    return constraintCheck;
   }
 
   /**

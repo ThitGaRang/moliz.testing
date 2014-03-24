@@ -27,6 +27,7 @@ import tudresden.ocl20.pivot.modelinstancetype.types.IModelInstanceObject;
 import tudresden.ocl20.pivot.parser.ParseException;
 import tudresden.ocl20.pivot.pivotmodel.ConstrainableElement;
 import tudresden.ocl20.pivot.pivotmodel.Constraint;
+import fUML.Semantics.Classes.Kernel.Object_;
 
 /**
  * 
@@ -42,14 +43,12 @@ public class FumlOclInterpreter {
 
 	private static FumlOclInterpreter INSTANCE;
 
+	private IOclInterpreter oclInterpreter;
 	private List<Constraint> constraints;
 
 	private FUMLModelProvider modelProvider;
 	private FUMLModelInstanceProvider modelInstanceProvider;
-
 	private IMetamodel metamodel;
-
-	private IOclInterpreter oclInterpreter;
 
 	public static FumlOclInterpreter getInstance() {
 		if (INSTANCE == null)
@@ -73,12 +72,15 @@ public class FumlOclInterpreter {
 		return modelInstanceProvider.createEmptyModelInstance(modelProvider.getModel());
 	}
 
-	public boolean evaluateConstraint(String constraintName, IModelInstance modelInstance) {
+	public boolean evaluateConstraint(String constraintName, Object_ contextObject, IModelInstance modelInstance) {
 		Constraint constraint = null;
+		boolean result = false;
+
 		for (Constraint aConstraint : constraints) {
 			if (aConstraint.getName().equals(constraintName))
 				constraint = aConstraint;
 		}
+
 		if (constraint != null) {
 			// TODO continue implementing constraint checking
 			System.out.println("Checking constraint..\n" + constraint.getSpecification().getBody().trim());
@@ -87,22 +89,44 @@ public class FumlOclInterpreter {
 			ConstrainableElement constrainedElement = constraint.getConstrainedElement().get(0);
 			if (constrainedElement instanceof FUMLClass) {
 				FUMLClass constrainedClass = (FUMLClass) constrainedElement;
-				for (IModelInstanceObject object : modelInstance.getAllInstances(constrainedClass)) {
-					IInterpretationResult result = oclInterpreter.interpretConstraint(constraint, object);
-					OclAny resultValue = result.getResult();
-					if (resultValue instanceof OclBoolean) {
-						OclBoolean resultBoolean = (OclBoolean) resultValue;
-						return resultBoolean.isTrue();
+				if (contextObject == null) {
+					for (IModelInstanceObject object : modelInstance.getAllInstances(constrainedClass)) {
+						result = evaluate(constraint, object);
+						if (result == false)
+							return result;
 					}
-					if (resultValue instanceof OclModelInstanceObject) {
-						if (((OclModelInstanceObject) resultValue).getModelInstanceObject().getObject() instanceof Boolean) {
-							return (Boolean) ((OclModelInstanceObject) resultValue).getModelInstanceObject().getObject();
+				} else {
+					// TODO continue to implement for a specific object here
+					// first check the line 122 of StateAssertionValidator
+
+					System.out.println("Object checking not implemented yet!");
+					for (IModelInstanceObject object : modelInstance.getAllInstances(constrainedClass)) {
+						if (object == contextObject) {
+							result = evaluate(constraint, object);
+							if (result == false)
+								return result;
 						}
 					}
 				}
 			}
 		} else {
 			System.out.println("Constraint " + constraintName + " not found!");
+		}
+
+		return result;
+	}
+
+	private boolean evaluate(Constraint constraint, IModelInstanceObject object) {
+		IInterpretationResult result = oclInterpreter.interpretConstraint(constraint, object);
+		OclAny resultValue = result.getResult();
+		if (resultValue instanceof OclBoolean) {
+			OclBoolean resultBoolean = (OclBoolean) resultValue;
+			return resultBoolean.isTrue();
+		}
+		if (resultValue instanceof OclModelInstanceObject) {
+			if (((OclModelInstanceObject) resultValue).getModelInstanceObject().getObject() instanceof Boolean) {
+				return (Boolean) ((OclModelInstanceObject) resultValue).getModelInstanceObject().getObject();
+			}
 		}
 		return false;
 	}

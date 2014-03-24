@@ -37,6 +37,7 @@ import org.modelexecution.fumltesting.results.StateAssertionResult;
 import org.modelexecution.fumltesting.results.StateExpressionResult;
 import org.modelexecution.fumltesting.sequence.State;
 import org.modelexecution.fumltesting.testLang.ArithmeticOperator;
+import org.modelexecution.fumltesting.testLang.ConstraintCheck;
 import org.modelexecution.fumltesting.testLang.FinallyStateAssertion;
 import org.modelexecution.fumltesting.testLang.ObjectStateExpression;
 import org.modelexecution.fumltesting.testLang.ObjectValue;
@@ -110,12 +111,20 @@ public class StateAssertionValidator {
 		operator = assertion.getTemporalOperator();
 		quantifier = assertion.getTemporalQuantifier();
 
-		if (assertion.getConstraints() != null && assertion.getConstraints().getNames().size() > 0) {
-			for (XExpression constraintName : assertion.getConstraints().getNames()) {
-				List<State> states = traceUtil.getStates(quantifier, operator, referredNodeExecution);
-				String name = ((XStringLiteral) constraintName).getValue();
-				for (ConstraintResult constraintResult : check(name, states)) {
-					result.addConstraintResult(constraintResult);
+		if (assertion.getConstraintCheck() != null && assertion.getConstraintCheck().size() > 0) {
+			for (ConstraintCheck constraintCheck : assertion.getConstraintCheck()) {
+				for (XExpression constraintName : constraintCheck.getConstraintNames()) {
+					List<State> states = traceUtil.getStates(quantifier, operator, referredNodeExecution);
+					String name = ((XStringLiteral) constraintName).getValue();
+					Object_ context = null;
+					if (constraintCheck.getObject() != null) {
+						Object nodeExecution = traceUtil.getExecution(constraintCheck.getObject().getRef().eContainer());
+						traceUtil.getValueInstance(constraintCheck.getObject().getRef(), nodeExecution);
+						// TODO implement here to get the appropriate Object_
+					}
+					for (ConstraintResult constraintResult : check(name, context, states)) {
+						result.addConstraintResult(constraintResult);
+					}
 				}
 			}
 		}
@@ -137,14 +146,14 @@ public class StateAssertionValidator {
 		stateAssertion.setReferenceAction((Action) traceUtil.getLastExecutedAction());
 		stateAssertion.getExpressions().addAll(assertion.getExpressions());
 
-		if(assertion.getConstraints() != null){
-			stateAssertion.setConstraints(assertion.getConstraints());
+		if (assertion.getConstraintCheck() != null) {
+			stateAssertion.getConstraintCheck().addAll(assertion.getConstraintCheck());
 		}
 
 		return check(stateAssertion);
 	}
 
-	private ArrayList<ConstraintResult> check(String constraintName, List<State> states) {
+	private ArrayList<ConstraintResult> check(String constraintName, Object_ contextObject, List<State> states) {
 		ArrayList<ConstraintResult> results = new ArrayList<ConstraintResult>();
 		for (State state : states) {
 			IModelInstance modelInstance = FumlOclInterpreter.getInstance().getEmptyModelInstance();
@@ -160,7 +169,7 @@ public class StateAssertionValidator {
 			} catch (TypeNotFoundInModelException e) {
 				e.printStackTrace();
 			}
-			boolean validationResult = FumlOclInterpreter.getInstance().evaluateConstraint(constraintName, modelInstance);
+			boolean validationResult = FumlOclInterpreter.getInstance().evaluateConstraint(constraintName, contextObject, modelInstance);
 			result.setValidationResult(validationResult);
 
 			if (validationResult == false) {
@@ -198,7 +207,7 @@ public class StateAssertionValidator {
 		if (expressionNodeExecution != null && referredNodeExecution != null) {
 
 			// Get the value instance from the trace based on expression
-			setupValueInstance(expression);
+			valueInstance = traceUtil.getValueInstance(expression.getPin().getRef(), expressionNodeExecution);
 			// initialize the successors and predecessors of the value instance
 			setupSucessorsPredecessors();
 
@@ -259,51 +268,6 @@ public class StateAssertionValidator {
 				result.setError(referredAction.getName() + " was never executed!");
 			}
 			return result;
-		}
-	}
-
-	/**
-	 * Getting the value instance from the trace based on the expression.
-	 * 
-	 * @param expression
-	 */
-	private void setupValueInstance(StateExpression expression) {
-		if (expression.getPin().getRef() instanceof OutputPin || expression.getPin().getRef() instanceof ActivityParameterNode) {
-			if (expressionNodeExecution instanceof ActionExecution) {
-				for (Output output : ((ActionExecution) expressionNodeExecution).getOutputs()) {
-					if (output.getOutputPin().name.equals(expression.getPin().getRef().getName())) {
-						if (output.getOutputValues().size() > 0)
-							valueInstance = (ValueInstance) output.getOutputValues().get(0).getOutputValueSnapshot().eContainer();
-					}
-				}
-			}
-			if (expressionNodeExecution instanceof ActivityExecution) {
-				for (OutputParameterSetting output : ((ActivityExecution) expressionNodeExecution).getActivityOutputs()) {
-					if (output.getParameter().name.equals(expression.getPin().getRef().getName())) {
-						if (output.getParameterValues().size() > 0)
-							valueInstance = (ValueInstance) output.getParameterValues().get(0).getValueSnapshot().eContainer();
-					}
-				}
-			}
-		}
-
-		if (expression.getPin().getRef() instanceof InputPin || expression.getPin().getRef() instanceof ActivityParameterNode) {
-			if (expressionNodeExecution instanceof ActionExecution) {
-				for (Input input : ((ActionExecution) expressionNodeExecution).getInputs()) {
-					if (input.getInputPin().name.equals(expression.getPin().getRef().getName())) {
-						if (input.getInputValues().size() > 0)
-							valueInstance = (ValueInstance) input.getInputValues().get(0).getInputValueSnapshot().eContainer();
-					}
-				}
-			}
-			if (expressionNodeExecution instanceof ActivityExecution) {
-				for (InputParameterSetting input : ((ActivityExecution) expressionNodeExecution).getActivityInputs()) {
-					if (input.getParameter().name.equals(expression.getPin().getRef().getName())) {
-						if (input.getParameterValues().size() > 0)
-							valueInstance = (ValueInstance) input.getParameterValues().get(0).getValueSnapshot().eContainer();
-					}
-				}
-			}
 		}
 	}
 

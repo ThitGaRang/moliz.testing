@@ -18,7 +18,7 @@ import org.eclipse.uml2.uml.Action;
  *   <li>{@link org.modelexecution.fumltesting.testLang.StateAssertion#getTemporalOperator <em>Temporal Operator</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.testLang.StateAssertion#getReferenceAction <em>Reference Action</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.testLang.StateAssertion#getUntilAction <em>Until Action</em>}</li>
- *   <li>{@link org.modelexecution.fumltesting.testLang.StateAssertion#getConstraints <em>Constraints</em>}</li>
+ *   <li>{@link org.modelexecution.fumltesting.testLang.StateAssertion#getConstraintCheck <em>Constraint Check</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.testLang.StateAssertion#getExpressions <em>Expressions</em>}</li>
  * </ul>
  * </p>
@@ -140,30 +140,20 @@ public interface StateAssertion extends Assertion
   void setUntilAction(Action value);
 
   /**
-   * Returns the value of the '<em><b>Constraints</b></em>' containment reference.
+   * Returns the value of the '<em><b>Constraint Check</b></em>' containment reference list.
+   * The list contents are of type {@link org.modelexecution.fumltesting.testLang.ConstraintCheck}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Constraints</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Constraint Check</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Constraints</em>' containment reference.
-   * @see #setConstraints(Constraints)
-   * @see org.modelexecution.fumltesting.testLang.TestLangPackage#getStateAssertion_Constraints()
+   * @return the value of the '<em>Constraint Check</em>' containment reference list.
+   * @see org.modelexecution.fumltesting.testLang.TestLangPackage#getStateAssertion_ConstraintCheck()
    * @model containment="true"
    * @generated
    */
-  Constraints getConstraints();
-
-  /**
-   * Sets the value of the '{@link org.modelexecution.fumltesting.testLang.StateAssertion#getConstraints <em>Constraints</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Constraints</em>' containment reference.
-   * @see #getConstraints()
-   * @generated
-   */
-  void setConstraints(Constraints value);
+  EList<ConstraintCheck> getConstraintCheck();
 
   /**
    * Returns the value of the '<em><b>Expressions</b></em>' containment reference list.

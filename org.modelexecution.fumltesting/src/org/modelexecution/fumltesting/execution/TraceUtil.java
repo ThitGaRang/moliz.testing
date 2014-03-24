@@ -13,10 +13,19 @@ import java.util.List;
 import org.eclipse.uml2.uml.Action;
 import org.eclipse.uml2.uml.Activity;
 import org.eclipse.uml2.uml.ActivityNode;
+import org.eclipse.uml2.uml.ActivityParameterNode;
+import org.eclipse.uml2.uml.InputPin;
+import org.eclipse.uml2.uml.ObjectNode;
+import org.eclipse.uml2.uml.OutputPin;
 import org.modelexecution.fumldebug.core.ExecutionContext;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.CallActionExecution;
+import org.modelexecution.fumldebug.core.trace.tracemodel.Input;
+import org.modelexecution.fumldebug.core.trace.tracemodel.InputParameterSetting;
+import org.modelexecution.fumldebug.core.trace.tracemodel.Output;
+import org.modelexecution.fumldebug.core.trace.tracemodel.OutputParameterSetting;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 import org.modelexecution.fumltesting.parallelism.ExecutionGraphNode;
@@ -118,6 +127,53 @@ public class TraceUtil {
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * Getting the value instance from the trace based on the input pin.
+	 * 
+	 * @param expression
+	 */
+	public ValueInstance getValueInstance(ObjectNode node, Object nodeExecution) {
+		ValueInstance instance = null;
+		if (node instanceof OutputPin || node instanceof ActivityParameterNode) {
+			if (nodeExecution instanceof ActionExecution) {
+				for (Output output : ((ActionExecution) nodeExecution).getOutputs()) {
+					if (output.getOutputPin().name.equals(node.getName())) {
+						if (output.getOutputValues().size() > 0)
+							instance = (ValueInstance) output.getOutputValues().get(0).getOutputValueSnapshot().eContainer();
+					}
+				}
+			}
+			if (nodeExecution instanceof ActivityExecution) {
+				for (OutputParameterSetting output : ((ActivityExecution) nodeExecution).getActivityOutputs()) {
+					if (output.getParameter().name.equals(node.getName())) {
+						if (output.getParameterValues().size() > 0)
+							instance = (ValueInstance) output.getParameterValues().get(0).getValueSnapshot().eContainer();
+					}
+				}
+			}
+		}
+
+		if (node instanceof InputPin || node instanceof ActivityParameterNode) {
+			if (nodeExecution instanceof ActionExecution) {
+				for (Input input : ((ActionExecution) nodeExecution).getInputs()) {
+					if (input.getInputPin().name.equals(node.getName())) {
+						if (input.getInputValues().size() > 0)
+							instance = (ValueInstance) input.getInputValues().get(0).getInputValueSnapshot().eContainer();
+					}
+				}
+			}
+			if (nodeExecution instanceof ActivityExecution) {
+				for (InputParameterSetting input : ((ActivityExecution) nodeExecution).getActivityInputs()) {
+					if (input.getParameter().name.equals(node.getName())) {
+						if (input.getParameterValues().size() > 0)
+							instance = (ValueInstance) input.getParameterValues().get(0).getValueSnapshot().eContainer();
+					}
+				}
+			}
+		}
+		return instance;
 	}
 
 	/** Gets all links in the trace. */

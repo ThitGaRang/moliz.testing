@@ -49,7 +49,7 @@ public class TestDataConverter {
 
 	private TestDataConverter() {
 		LOCUS = ExecutionContext.getInstance().getLocus();
-		FUML_OBJECTS= new HashMap<Value, Object>();
+		FUML_OBJECTS = new HashMap<Value, Object>();
 	}
 
 	public void cleanUp() {
@@ -65,9 +65,6 @@ public class TestDataConverter {
 	}
 
 	public Object getFUMLElement(Value value) {
-		if (FUML_OBJECTS.containsKey(value))
-			return FUML_OBJECTS.get(value);
-
 		if (value instanceof SimpleValue) {
 			XExpression expression = ((SimpleValue) value).getValue();
 			return getFumlValue(expression);
@@ -137,10 +134,14 @@ public class TestDataConverter {
 					fumlLink.addTo(LOCUS);
 				}
 			}
-
+			FUML_OBJECTS.put(value, object_);
 			return object_;
 		}
 		return null;
+	}
+
+	public Object getFUMLObject(ObjectValue object) {
+		return FUML_OBJECTS.get(object);
 	}
 
 	private Object getFumlValue(XExpression expression) {

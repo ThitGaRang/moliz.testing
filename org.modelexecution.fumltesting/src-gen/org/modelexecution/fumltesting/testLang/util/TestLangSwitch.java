@@ -181,10 +181,10 @@ public class TestLangSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case TestLangPackage.CONSTRAINTS:
+      case TestLangPackage.CONSTRAINT_CHECK:
       {
-        Constraints constraints = (Constraints)theEObject;
-        T result = caseConstraints(constraints);
+        ConstraintCheck constraintCheck = (ConstraintCheck)theEObject;
+        T result = caseConstraintCheck(constraintCheck);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -478,17 +478,17 @@ public class TestLangSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Constraints</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Constraint Check</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Constraints</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Constraint Check</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseConstraints(Constraints object)
+  public T caseConstraintCheck(ConstraintCheck object)
   {
     return null;
   }
