@@ -20,6 +20,7 @@ import org.eclipse.xtext.xbase.XStringLiteral;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumltesting.testLang.NodeSpecification;
 import org.modelexecution.fumltesting.testLang.ObjectSpecification;
+import org.modelexecution.fumltesting.testLang.ObjectValue;
 import org.modelexecution.fumltesting.testLang.SimpleValue;
 import org.modelexecution.fumltesting.testLang.StateAssertion;
 import org.modelexecution.fumltesting.testLang.Value;
@@ -61,8 +62,8 @@ public class ResultsWriter {
 				writer.print("Activity input: ");
 				for (ActivityInput activityInput : testCaseResult.getActivityInputValues()) {
 					String value = null;
-					if (activityInput.getValue() instanceof ObjectSpecification) {
-						value = ((ObjectSpecification) activityInput.getValue()).getName();
+					if (activityInput.getValue() instanceof ObjectValue) {
+						value = ((ObjectValue) activityInput.getValue()).getValue().getName();
 					} else {
 						XExpression expression = ((SimpleValue) activityInput.getValue()).getValue();
 						if (expression instanceof XStringLiteral) {

@@ -1399,6 +1399,13 @@
         <element xmi:type="uml:ActivityParameterNode" href="petstore.uml#_NavNIKZGEeOCOOUZyoS_Gw"/>
         <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Na3I8qZGEeOCOOUZyoS_Gw" x="-20" y="375"/>
       </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_BP-aILQgEeOXcMbnycBgEA" visible="false" type="compartment_shape_display">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_BQGV8LQgEeOXcMbnycBgEA" source="PapyrusCSSForceValue">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_BQGV8bQgEeOXcMbnycBgEA" key="mutable" value="true"/>
+        </eAnnotations>
+        <styles xmi:type="notation:TitleStyle" xmi:id="_BP-aIbQgEeOXcMbnycBgEA"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BP-aIrQgEeOXcMbnycBgEA"/>
+      </children>
       <element xmi:type="uml:Activity" href="petstore.uml#_HX5OsDAKEeOTpM28lqU8qA"/>
       <layoutConstraint xmi:type="notation:Bounds" xmi:id="_I0ER2DAKEeOTpM28lqU8qA" width="685" height="433"/>
     </children>

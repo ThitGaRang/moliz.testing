@@ -150,7 +150,7 @@ public class TestExecutor {
 		File folder = new File("../org.modelexecution.fumltesting.examples/model/petstore/tests");
 		File[] files = folder.listFiles();
 		for (File file : files) {
-			if (file.isFile() && file.getName().endsWith("newProductActivity.fumltest")) {
+			if (file.isFile() && file.getName().endsWith("newItemActivity.fumltest")) {
 				String testLocation = "../org.modelexecution.fumltesting.examples/model/petstore/tests/" + file.getName();
 				setup(testLocation);
 				testsEvaluation();
