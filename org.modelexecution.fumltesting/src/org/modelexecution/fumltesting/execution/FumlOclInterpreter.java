@@ -27,7 +27,6 @@ import tudresden.ocl20.pivot.modelinstancetype.types.IModelInstanceObject;
 import tudresden.ocl20.pivot.parser.ParseException;
 import tudresden.ocl20.pivot.pivotmodel.ConstrainableElement;
 import tudresden.ocl20.pivot.pivotmodel.Constraint;
-import fUML.Semantics.Classes.Kernel.Object_;
 
 /**
  * 
@@ -72,7 +71,8 @@ public class FumlOclInterpreter {
 		return modelInstanceProvider.createEmptyModelInstance(modelProvider.getModel());
 	}
 
-	public boolean evaluateConstraint(String constraintName, Object_ contextObject, IModelInstance modelInstance) {
+	public boolean evaluateConstraint(String constraintName, org.modelexecution.fuml.Semantics.Classes.Kernel.Object contextObject,
+			IModelInstance modelInstance) {
 		Constraint constraint = null;
 		boolean result = false;
 
@@ -96,12 +96,8 @@ public class FumlOclInterpreter {
 							return result;
 					}
 				} else {
-					// TODO continue to implement for a specific object here
-					// first check the line 122 of StateAssertionValidator
-
-					System.out.println("Object checking not implemented yet!");
 					for (IModelInstanceObject object : modelInstance.getAllInstances(constrainedClass)) {
-						if (object == contextObject) {
+						if (object.getObject() == contextObject) {
 							result = evaluate(constraint, object);
 							if (result == false)
 								return result;

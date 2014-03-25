@@ -3,6 +3,8 @@
 package org.modelexecution.fumltesting.sequence.impl;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Set;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -14,6 +16,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.modelexecution.fuml.Semantics.Classes.Kernel.Link;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 import org.modelexecution.fumltesting.sequence.SequencePackage;
 import org.modelexecution.fumltesting.sequence.State;
 
@@ -35,6 +38,14 @@ import org.modelexecution.fumltesting.sequence.State;
  * @generated
  */
 public class StateImpl extends EObjectImpl implements State {
+	
+	/**
+	 * @generated NOT
+	 * Mapping of a instance value to a corresponding snapshot.
+	 */
+	protected HashMap<ValueInstance, org.modelexecution.fuml.Semantics.Classes.Kernel.Object> snapshotMappings 
+		= new HashMap<ValueInstance, org.modelexecution.fuml.Semantics.Classes.Kernel.Object>();
+	
 	/**
 	 * The cached value of the '{@link #getObjects() <em>Objects</em>}' reference list.
 	 * <!-- begin-user-doc -->
@@ -426,4 +437,42 @@ public class StateImpl extends EObjectImpl implements State {
 		return super.eIsSet(featureID);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.modelexecution.fumltesting.sequence.State#getStateSnapshot(org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance)
+	 */
+	@Override
+	public org.modelexecution.fuml.Semantics.Classes.Kernel.Object getStateSnapshot (ValueInstance instance) {
+		for(ValueInstance key: snapshotMappings.keySet()){
+			if (key == instance)
+				return snapshotMappings.get(key);
+		}
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.modelexecution.fumltesting.sequence.State#addSnapshotMapping(org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance, fUML.Semantics.Classes.Kernel.Object_)
+	 */
+	@Override
+	public void addSnapshotMapping(ValueInstance instance, org.modelexecution.fuml.Semantics.Classes.Kernel.Object snapshot) {
+		snapshotMappings.put(instance, snapshot);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.modelexecution.fumltesting.sequence.State#copySnapshotMappings(org.modelexecution.fumltesting.sequence.State)
+	 */
+	@Override
+	public void copySnapshotMappings(State anotherState) {
+		for(ValueInstance instance: anotherState.getValueInstances()){
+			this.snapshotMappings.put(instance, anotherState.getStateSnapshot(instance));
+		}
+	}
+
+	/* (non-Javadoc)
+	 * @see org.modelexecution.fumltesting.sequence.State#getValueInstances()
+	 */
+	@Override
+	public Set<ValueInstance> getValueInstances() {
+		return this.snapshotMappings.keySet();
+	}
+	
 } //StateImpl

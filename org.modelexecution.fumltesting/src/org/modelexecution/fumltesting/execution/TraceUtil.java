@@ -259,6 +259,8 @@ public class TraceUtil {
 		return states;
 	}
 
+	
+
 	public ArrayList<ArrayList<ActivityNodeExecution>> getAllPaths() {
 		if (paths == null) {
 			paths = new ArrayList<ArrayList<ActivityNodeExecution>>();

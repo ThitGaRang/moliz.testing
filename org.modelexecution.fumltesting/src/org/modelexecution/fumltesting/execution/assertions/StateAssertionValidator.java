@@ -116,11 +116,11 @@ public class StateAssertionValidator {
 				for (XExpression constraintName : constraintCheck.getConstraintNames()) {
 					List<State> states = traceUtil.getStates(quantifier, operator, referredNodeExecution);
 					String name = ((XStringLiteral) constraintName).getValue();
-					Object_ context = null;
+					ValueInstance context = null;
 					if (constraintCheck.getObject() != null) {
 						Object nodeExecution = traceUtil.getExecution(constraintCheck.getObject().getRef().eContainer());
-						traceUtil.getValueInstance(constraintCheck.getObject().getRef(), nodeExecution);
-						// TODO implement here to get the appropriate Object_
+						context = traceUtil.getValueInstance(constraintCheck.getObject().getRef(), nodeExecution);
+						//org.modelexecution.fuml.Semantics.Classes.Kernel.Object fumlObject = traceUtil.get
 					}
 					for (ConstraintResult constraintResult : check(name, context, states)) {
 						result.addConstraintResult(constraintResult);
@@ -153,7 +153,7 @@ public class StateAssertionValidator {
 		return check(stateAssertion);
 	}
 
-	private ArrayList<ConstraintResult> check(String constraintName, Object_ contextObject, List<State> states) {
+	private ArrayList<ConstraintResult> check(String constraintName, ValueInstance contextObject, List<State> states) {
 		ArrayList<ConstraintResult> results = new ArrayList<ConstraintResult>();
 		for (State state : states) {
 			IModelInstance modelInstance = FumlOclInterpreter.getInstance().getEmptyModelInstance();
@@ -169,7 +169,8 @@ public class StateAssertionValidator {
 			} catch (TypeNotFoundInModelException e) {
 				e.printStackTrace();
 			}
-			boolean validationResult = FumlOclInterpreter.getInstance().evaluateConstraint(constraintName, contextObject, modelInstance);
+			org.modelexecution.fuml.Semantics.Classes.Kernel.Object contextObjectSnapshot = state.getStateSnapshot(contextObject);
+			boolean validationResult = FumlOclInterpreter.getInstance().evaluateConstraint(constraintName, contextObjectSnapshot, modelInstance);
 			result.setValidationResult(validationResult);
 
 			if (validationResult == false) {

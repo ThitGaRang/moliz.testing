@@ -6,8 +6,6 @@
  */
 package org.modelexecution.fumltesting.sequence.execution;
 
-import java.util.HashMap;
-
 import org.modelexecution.fuml.Semantics.Classes.Kernel.Object;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
@@ -40,13 +38,10 @@ import fUML.Syntax.Classes.Kernel.Property;
  */
 public class SequenceGenerator {
 	private SequenceTrace trace;
-	/** Object and Link instances added to the sequence. */
-	private HashMap<Object, ValueInstance> instanceSnapshotMappings;
 	private FumlConverter mapper = new FumlConverter();
 
 	public SequenceTrace generateTrace(Trace trace) {
 		this.trace = SequenceFactory.eINSTANCE.createSequenceTrace();
-		this.instanceSnapshotMappings = new HashMap<Object, ValueInstance>();
 		for (ActivityExecution activityExecution : trace.getActivityExecutions()) {
 			Sequence sequence = createSequence(activityExecution);
 			boolean alreadyAdded = false;
@@ -80,7 +75,7 @@ public class SequenceGenerator {
 						}
 						Object newObject = mapper.map((Object_) snapshot.getValue());
 						state.getObjects().add(newObject);
-						instanceSnapshotMappings.put(newObject, instance);
+						state.addSnapshotMapping(instance, newObject);
 					}
 				}
 				if (nodeExecution.getNode() instanceof DestroyObjectAction) {
@@ -88,7 +83,6 @@ public class SequenceGenerator {
 					for (Input input : ((ActionExecution) nodeExecution).getInputs()) {
 						ValueSnapshot snapshot = input.getInputValues().get(0).getInputValueSnapshot();
 						Object object = mapper.map((Object_) snapshot.getValue());
-						instanceSnapshotMappings.remove(object);
 						state.getObjects().remove(object);
 					}
 					// TODO handle links from this object, or to this object..
@@ -108,7 +102,7 @@ public class SequenceGenerator {
 							}
 							Object newObject = mapper.map((Object_) snapshot.getValue());
 							state.getObjects().add(newObject);
-							instanceSnapshotMappings.put(newObject, instance);
+							state.addSnapshotMapping(instance, newObject);
 						}
 					} else {// link
 						for (ValueInstance link : ((Trace) activityExecution.eContainer()).getValueInstances()) {
@@ -175,19 +169,13 @@ public class SequenceGenerator {
 		if (lastState != null) {
 			state.getObjects().addAll(lastState.getObjects());
 			state.getLinks().addAll(lastState.getLinks());
+			state.copySnapshotMappings(lastState);
 		}
 		sequence.addState(state);
 		return state;
 	}
 
 	private Object getLastVersion(Sequence sequence, ValueInstance instance) {
-		State lastState = sequence.lastState();
-		for (Object object : lastState.getObjects()) {
-			for (ValueInstance theInstance : instanceSnapshotMappings.values()) {
-				if (theInstance == instance)
-					return object;
-			}
-		}
-		return null;
+		return sequence.lastState().getStateSnapshot(instance);
 	}
 }

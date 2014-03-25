@@ -2,13 +2,13 @@
  */
 package org.modelexecution.fumltesting.sequence;
 
+import java.util.Set;
+
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EObject;
-
 import org.modelexecution.fuml.Semantics.Classes.Kernel.Link;
-
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 
 /**
  * <!-- begin-user-doc -->
@@ -31,6 +31,32 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
  * @generated
  */
 public interface State extends EObject {
+	
+	/**
+	 * @generated NOT
+	 * Returns a snapshot of a given instance for this state.
+	 */
+	org.modelexecution.fuml.Semantics.Classes.Kernel.Object getStateSnapshot(ValueInstance instance);
+	
+	/**
+	 * @generated NOT
+	 * Add snapshot mapping to the state.
+	 */
+	void addSnapshotMapping(ValueInstance instance, org.modelexecution.fuml.Semantics.Classes.Kernel.Object snapshot);
+	
+	/**
+	 * @generated NOT
+	 * Get value instances existing in the state.
+	 */
+	Set<ValueInstance> getValueInstances();
+	
+	/**
+	 * @generated NOT
+	 * Copy snapshot mappings to another state.
+	 */
+	
+	void copySnapshotMappings(State anotherState);
+	
 	/**
 	 * Returns the value of the '<em><b>Objects</b></em>' reference list.
 	 * The list contents are of type {@link org.modelexecution.fuml.Semantics.Classes.Kernel.Object}.

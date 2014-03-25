@@ -118,25 +118,27 @@ public class ResultsWriter {
 						writer.println("\tFailed state expressions: ");
 					}
 
-					writer.println("\tState expressions checked: " + ((StateAssertionResult) assertionResult).getNumberOfStateExpressions());
-					writer.println("\tState expressions failed: " + ((StateAssertionResult) assertionResult).getFailedStateExpressions().size());
+					if (((StateAssertionResult) assertionResult).getNumberOfStateExpressions() > 0) {
+						writer.println("\tState expressions checked: " + ((StateAssertionResult) assertionResult).getNumberOfStateExpressions());
+						writer.println("\tState expressions failed: " + ((StateAssertionResult) assertionResult).getFailedStateExpressions().size());
 
-					for (StateExpressionResult result : ((StateAssertionResult) assertionResult).getFailedStateExpressions()) {
-						writer.print("\t\tExpression: " + result.getStateExpression().getPin().getName() + " "
-								+ result.getStateExpression().getOperator() + " ");
-						Value value = result.getStateExpression().getValue();
-						if (value instanceof ObjectSpecification) {
-							writer.print(((ObjectSpecification) value).getName());
-						} else if (value instanceof SimpleValue) {
-							XExpression valueExpression = ((SimpleValue) value).getValue();
-							if (valueExpression instanceof XStringLiteral) {
-								writer.print(((XStringLiteral) valueExpression).getValue());
-							} else if (valueExpression instanceof XBooleanLiteral) {
-								writer.print(((XBooleanLiteral) valueExpression).isIsTrue());
-							} else if (valueExpression instanceof XNumberLiteral) {
-								writer.print(((XNumberLiteral) valueExpression).getValue());
-							} else if (valueExpression instanceof XNullLiteral) {
-								writer.print("null");
+						for (StateExpressionResult result : ((StateAssertionResult) assertionResult).getFailedStateExpressions()) {
+							writer.print("\t\tExpression: " + result.getStateExpression().getPin().getName() + " "
+									+ result.getStateExpression().getOperator() + " ");
+							Value value = result.getStateExpression().getValue();
+							if (value instanceof ObjectSpecification) {
+								writer.print(((ObjectSpecification) value).getName());
+							} else if (value instanceof SimpleValue) {
+								XExpression valueExpression = ((SimpleValue) value).getValue();
+								if (valueExpression instanceof XStringLiteral) {
+									writer.print(((XStringLiteral) valueExpression).getValue());
+								} else if (valueExpression instanceof XBooleanLiteral) {
+									writer.print(((XBooleanLiteral) valueExpression).isIsTrue());
+								} else if (valueExpression instanceof XNumberLiteral) {
+									writer.print(((XNumberLiteral) valueExpression).getValue());
+								} else if (valueExpression instanceof XNullLiteral) {
+									writer.print("null");
+								}
 							}
 						}
 					}

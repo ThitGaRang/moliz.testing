@@ -26,7 +26,7 @@ test newProductTest activity NewProductActivity(name="SyrianHamster", code=1234)
 	assertState exactly before NewProductActivity.setName{product::name = null;}
 	
 	finally {
-		check 'ProductName', 'ProductCode';// on product;
+		check 'ProductName', 'ProductCode' on product;
 		product::name = 'SyrianHamster';
 		product::code = 1234;
 	}
