@@ -1,0 +1,14 @@
+import petstore.structure.*
+import petstore.behavior.*
+
+scenario TestData[
+	object cart : Cart{}
+	object product : Product{}
+	object item : Item{unitCost = 100;}
+	object cartItem : CartItem{quantity=5;}
+	link cartItem_item{source cartItem=cartItem; target item=item;}
+]
+
+test simpleProductTest activity petstore.scenarios.SimpleProductActivity{
+	assertOrder *, SimpleProductActivity.newProduct(*, NewProductActivity.setCode);
+}

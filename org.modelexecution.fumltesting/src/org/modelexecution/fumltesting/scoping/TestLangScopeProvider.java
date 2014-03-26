@@ -172,9 +172,11 @@ public class TestLangScopeProvider extends XbaseScopeProvider {
 				subActivity = (Activity) ((CallOperationAction) node).getOperation().getMethods().get(0);
 			}
 			ArrayList<ActivityNode> nodes = new ArrayList<ActivityNode>();
-			for (ActivityNode aNode : subActivity.getNodes()) {
-				if (aNode instanceof Action || aNode instanceof ActivityFinalNode || aNode instanceof InitialNode)
-					nodes.add(aNode);
+			if(subActivity != null && subActivity.getNodes() != null){
+				for (ActivityNode aNode : subActivity.getNodes()) {
+					if (aNode instanceof Action || aNode instanceof ActivityFinalNode || aNode instanceof InitialNode)
+						nodes.add(aNode);
+				}
 			}
 			return Scopes.scopeFor(nodes, new UmlQualifiedNameProvider(), IScope.NULLSCOPE);
 		}

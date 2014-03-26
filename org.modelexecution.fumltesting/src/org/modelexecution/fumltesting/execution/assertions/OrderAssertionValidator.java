@@ -9,8 +9,6 @@ package org.modelexecution.fumltesting.execution.assertions;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.uml2.uml.CallBehaviorAction;
-import org.eclipse.uml2.uml.CallOperationAction;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumltesting.testLang.NodeSpecification;
 
@@ -52,30 +50,6 @@ public class OrderAssertionValidator {
 		for (int i = 0; i < nodeOrderList.size(); i++) {
 			if (executedNodeIndex == -1) {
 				return false;
-			}
-
-			if (nodeOrderList.get(i).getNode() != null) {
-				if (nodeOrderList.get(i).getSubOrder() != null) {
-					OrderAssertionValidator validator = new OrderAssertionValidator();
-					String activityName = null;
-					if (nodeOrderList.get(i).getNode() instanceof CallBehaviorAction) {
-						activityName = ((CallBehaviorAction) nodeOrderList.get(i).getNode()).getBehavior().getName();
-					}
-					if (nodeOrderList.get(i).getNode() instanceof CallOperationAction) {
-						activityName = ((CallOperationAction) nodeOrderList.get(i).getNode()).getOperation().getMethods().get(0).getName();
-					}
-					List<ActivityNodeExecution> executedSubNodes = validator.getTopNodes(activityName, executedNodes);
-					List<NodeSpecification> subNodesSpecification = nodeOrderList.get(i).getSubOrder().getNodes();
-					boolean subOrderValid = validator.checkOrder(activityName, subNodesSpecification, executedSubNodes);
-					if (subOrderValid == false) {
-						return false;
-					}
-				}
-				if (executedNodeIndex >= executedNodes.size()
-						|| !nodeOrderList.get(i).getNode().getName().equals(executedNodes.get(executedNodeIndex).getNode().name)) {
-					return false;
-				}
-				executedNodeIndex++;
 			}
 			if (nodeOrderList.get(i).getJoker() != null) {
 				if (nodeOrderList.get(i).getJoker().equals("_")) {

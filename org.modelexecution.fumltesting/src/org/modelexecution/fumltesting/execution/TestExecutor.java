@@ -39,6 +39,8 @@ import org.modelexecution.fumltesting.testLang.Assertion;
 import org.modelexecution.fumltesting.testLang.TestCase;
 import org.modelexecution.fumltesting.testLang.TestSuite;
 
+import tudresden.ocl20.pivot.parser.ParseException;
+
 import com.google.inject.Injector;
 
 import fUML.Syntax.Classes.Kernel.Package;
@@ -76,72 +78,67 @@ public class TestExecutor {
 	 * Sets up all the resources, UML model and testing model, and initializes
 	 * the testSuite.
 	 */
-	private void setup(String testLocation) {
-		try {
-			fumlConverter = new FumlConverter();
-			new UmlSupport().registerServices(true);
-			Injector injector = new TestLangStandaloneSetup().createInjectorAndDoEMFRegistration();
-			resourceSet = injector.getInstance(XtextResourceSet.class);
-			resourceSet.addLoadOption(XtextResource.OPTION_RESOLVE_ALL, Boolean.TRUE);
+	private void setup(String testLocation) throws Exception {
+		fumlConverter = new FumlConverter();
+		new UmlSupport().registerServices(true);
+		Injector injector = new TestLangStandaloneSetup().createInjectorAndDoEMFRegistration();
+		resourceSet = injector.getInstance(XtextResourceSet.class);
+		resourceSet.addLoadOption(XtextResource.OPTION_RESOLVE_ALL, Boolean.TRUE);
 
-			// model of the test suite to be executed
-			resource = resourceSet.getResource(URI.createFileURI(new File(testLocation).getAbsolutePath()), true);
+		// model of the test suite to be executed
+		resource = resourceSet.getResource(URI.createFileURI(new File(testLocation).getAbsolutePath()), true);
 
-			resource.load(null);
-			if (resource != null) {
-				resourceSet.getPackageRegistry().put(UMLPackage.eNS_URI, UMLPackage.eINSTANCE);
-				resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(UMLResource.FILE_EXTENSION, UMLResource.Factory.INSTANCE);
-				// model with UML elements under test
-				umlResource = resourceSet
-						.getResource(URI.createFileURI(new File("../org.modelexecution.fumltesting.examples/model/petstore/petstore.uml")
-								.getAbsolutePath()), true);
-				umlResource.load(null);
+		resource.load(null);
+		if (resource != null) {
+			resourceSet.getPackageRegistry().put(UMLPackage.eNS_URI, UMLPackage.eINSTANCE);
+			resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(UMLResource.FILE_EXTENSION, UMLResource.Factory.INSTANCE);
+			// model with UML elements under test
+			umlResource = resourceSet.getResource(
+					URI.createFileURI(new File("../org.modelexecution.fumltesting.examples/model/petstore/petstore.uml").getAbsolutePath()), true);
+			umlResource.load(null);
 
-				// adds elements from UML model to test suite
-				resource.getContents().addAll(umlResource.getContents());
-				EcoreUtil.resolveAll(resourceSet);
+			// adds elements from UML model to test suite
+			resource.getContents().addAll(umlResource.getContents());
+			EcoreUtil.resolveAll(resourceSet);
 
-				for (EObject model : resource.getContents()) {
-					if (model instanceof NamedElement) {
-						umlModel = (NamedElement) model;
-						executor = new ActivityExecutor((NamedElement) model);
-					}
+			for (EObject model : resource.getContents()) {
+				if (model instanceof NamedElement) {
+					umlModel = (NamedElement) model;
+					executor = new ActivityExecutor((NamedElement) model);
 				}
-
-				if (executor == null)
-					throw new Exception("Couldn't load UML model properly!");
-				suite = (TestSuite) resource.getContents().get(0);
 			}
 
-			oclInterpreter = FumlOclInterpreter.getInstance();
-
-			if (oclInterpreter.getMetamodel() != null) {
-				System.out.println("Metamodel adaptation: " + oclInterpreter.getMetamodel().getName());
-				System.out.println("Model adaptation: " + umlModel.getName());
-
-				org.modelexecution.fuml.Syntax.Classes.Kernel.Package modelPackage = KernelFactory.eINSTANCE.createPackage();
-				modelPackage.setName(umlModel.getName());
-				modelPackage.setQualifiedName(umlModel.getQualifiedName());
-
-				if (umlModel.getNamespace() != null) {
-					modelPackage.getNamespace().setName(umlModel.getNamespace().getName());
-					modelPackage.getNamespace().setQualifiedName(umlModel.getNamespace().getQualifiedName());
-				}
-
-				for (org.eclipse.uml2.uml.Package umlPackage : ((Model) umlModel).getNestedPackages()) {
-					Package fumlPackage = UmlConverter.getInstance().getPackage(umlPackage);
-					if (fumlPackage != null) {
-						org.modelexecution.fuml.Syntax.Classes.Kernel.Package mappedPackage = fumlConverter.mapAndWire(fumlPackage);
-						modelPackage.getNestedPackage().add(mappedPackage);
-						mappedPackage.setOwner(modelPackage);
-					}
-				}
-				oclInterpreter.setModel(modelPackage);
-			}
-			oclInterpreter.loadConstraints(new File("../org.modelexecution.fumltesting.examples/model/petstore/petstore.ocl"));
-		} catch (Exception e) {
-			e.printStackTrace();
+			if (executor == null)
+				throw new Exception("Couldn't load UML model properly!");
+			suite = (TestSuite) resource.getContents().get(0);
 		}
+
+		oclInterpreter = FumlOclInterpreter.getInstance();
+
+		if (oclInterpreter.getMetamodel() != null) {
+			System.out.println("Metamodel adaptation: " + oclInterpreter.getMetamodel().getName());
+			System.out.println("Model adaptation: " + umlModel.getName());
+
+			org.modelexecution.fuml.Syntax.Classes.Kernel.Package modelPackage = KernelFactory.eINSTANCE.createPackage();
+			modelPackage.setName(umlModel.getName());
+			modelPackage.setQualifiedName(umlModel.getQualifiedName());
+
+			if (umlModel.getNamespace() != null) {
+				modelPackage.getNamespace().setName(umlModel.getNamespace().getName());
+				modelPackage.getNamespace().setQualifiedName(umlModel.getNamespace().getQualifiedName());
+			}
+
+			for (org.eclipse.uml2.uml.Package umlPackage : ((Model) umlModel).getNestedPackages()) {
+				Package fumlPackage = UmlConverter.getInstance().getPackage(umlPackage);
+				if (fumlPackage != null) {
+					org.modelexecution.fuml.Syntax.Classes.Kernel.Package mappedPackage = fumlConverter.mapAndWire(fumlPackage);
+					modelPackage.getNestedPackage().add(mappedPackage);
+					mappedPackage.setOwner(modelPackage);
+				}
+			}
+			oclInterpreter.setModel(modelPackage);
+		}
+		oclInterpreter.loadConstraints(new File("../org.modelexecution.fumltesting.examples/model/petstore/petstore.ocl"));
 	}
 
 	/** Main method of the testing framework. */
@@ -150,9 +147,18 @@ public class TestExecutor {
 		File folder = new File("../org.modelexecution.fumltesting.examples/model/petstore/tests");
 		File[] files = folder.listFiles();
 		for (File file : files) {
-			if (file.isFile() && file.getName().endsWith("newItemActivity.fumltest")) {
+			if (file.isFile() && file.getName().endsWith("simpleProductActivity.fumltest")) {
 				String testLocation = "../org.modelexecution.fumltesting.examples/model/petstore/tests/" + file.getName();
-				setup(testLocation);
+				try {
+					setup(testLocation);
+				} catch (ParseException e) {
+					System.out.println("Problem with loading OCL file!");
+					e.printStackTrace();
+					return;
+				} catch (Exception e) {
+					e.printStackTrace();
+					return;
+				}
 				testsEvaluation();
 			}
 		}

@@ -89,6 +89,7 @@ public class ResultsWriter {
 					writer.println();
 
 					int counter = 0;
+					
 					for (PathCheckResult pathCheckResult : orderAssertionResult.getFailedPathCheckResults()) {
 						counter++;
 						writer.print("\tFailed path: ");
@@ -96,6 +97,26 @@ public class ResultsWriter {
 						if (counter == 5) {
 							writer.println("\n\tThere are " + (orderAssertionResult.getFailedPathCheckResults().size() - 5) + " more failed paths.");
 							break;
+						}
+					}
+					
+					for(OrderAssertionResult subResult: orderAssertionResult.getSubOrderResults()){
+						writer.println("\t\tSub-order checked..");
+						writer.print("\t");
+						printSpecification(subResult.getNodeOrderSpecification().getNodes());
+						writer.println("\t\tNumber of paths checked: " + subResult.numberOfPathsChecked());
+						writer.println("\t\tNumber of invalid paths: " + subResult.getFailedPathCheckResults().size());
+						writer.println();
+
+						counter = 0;
+						for (PathCheckResult pathCheckResult : subResult.getFailedPathCheckResults()) {
+							counter++;
+							writer.print("\t\tFailed path: ");
+							printPath(pathCheckResult.getPath());
+							if (counter == 5) {
+								writer.println("\n\t\tThere are " + (subResult.getFailedPathCheckResults().size() - 5) + " more failed paths.");
+								break;
+							}
 						}
 					}
 				}

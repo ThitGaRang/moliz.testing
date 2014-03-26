@@ -61,7 +61,10 @@
       <emfPageIdentifier href="petstore.notation#_ZOZp0GcLEeO9ZPj83X660A"/>
     </availablePage>
     <availablePage>
-      <emfPageIdentifier href="petstore.notation#_PlS_UIKbEeOweOpVCrk9Ug"/>
+      <emfPageIdentifier href="petstore.notation#_1SP7gLQtEeOXcMbnycBgEA"/>
+    </availablePage>
+    <availablePage>
+      <emfPageIdentifier href="petstore.notation#_3u-8QLT0EeOv2dSvSeds6g"/>
     </availablePage>
   </pageList>
   <sashModel currentSelection="//@sashModel/@windows.0/@children.0">
@@ -71,10 +74,10 @@
           <emfPageIdentifier href="petstore.notation#_EwtPMC_4EeOTpM28lqU8qA"/>
         </children>
         <children>
-          <emfPageIdentifier href="petstore.notation#_PHcZgC_4EeOTpM28lqU8qA"/>
+          <emfPageIdentifier href="petstore.notation#_I0ERwDAKEeOTpM28lqU8qA"/>
         </children>
         <children>
-          <emfPageIdentifier href="petstore.notation#_I0ERwDAKEeOTpM28lqU8qA"/>
+          <emfPageIdentifier href="petstore.notation#_3u-8QLT0EeOv2dSvSeds6g"/>
         </children>
       </children>
     </windows>

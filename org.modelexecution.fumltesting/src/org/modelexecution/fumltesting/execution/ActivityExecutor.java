@@ -44,6 +44,7 @@ public class ActivityExecutor implements ExecutionEventListener {
 	private int mainActivityID;
 	/** ID of current activity. */
 	private int currentActivityID;
+	/** Flag for controlling the execution of the main activity. */
 	private boolean running;
 	/** List of events risen during execution. */
 	private List<Event> eventlist;
@@ -56,13 +57,16 @@ public class ActivityExecutor implements ExecutionEventListener {
 				org.modelexecution.fumltesting.testLang.ObjectValue value = TestLangFactory.eINSTANCE.createObjectValue();
 				value.setValue(objectSpecification);
 				// initializes fUML object, puts it into locus and returns it
-				// for each object existing links are created and
-				// put into locus also
 				TestDataConverter.getInstance().getFUMLElement(value);
 			}
 		}
 	}
 
+	/**
+	 * Activity executor constructor for a given UML model.
+	 * 
+	 * @param umlModel
+	 */
 	public ActivityExecutor(NamedElement umlModel) {
 		UmlConverter.getInstance().setModelAndConvert(umlModel);
 		parameters = new ParameterValueList();
@@ -105,16 +109,17 @@ public class ActivityExecutor implements ExecutionEventListener {
 
 		// add a listener
 		eventlist = new ArrayList<Event>();
-		getExecutionContext().addEventListener(this);
+		ExecutionContext.getInstance().addEventListener(this);
 
 		// insert the converted context object, if it exists
 		if (context != null) {
 			running = true;
-			getExecutionContext().executeStepwise(fumlActivity, contextObject, parameters);
+			ExecutionContext.getInstance().executeStepwise(fumlActivity, contextObject, parameters);
 		} else {
 			running = true;
-			getExecutionContext().executeStepwise(fumlActivity, null, parameters);
+			ExecutionContext.getInstance().executeStepwise(fumlActivity, null, parameters);
 		}
+		// activity execution
 		while (running) {
 			List<ActivityNode> enabledNodes = ExecutionContext.getInstance().getEnabledNodes(currentActivityID);
 			ActivityNode nonFinalNode = null;
@@ -136,6 +141,9 @@ public class ActivityExecutor implements ExecutionEventListener {
 		return mainActivityID;
 	}
 
+	/**
+	 * Control of execution based on events.
+	 */
 	@Override
 	public void notify(Event event) {
 		if (event instanceof ActivityEntryEvent && (((ActivityEntryEvent) event).getParent() == null)) {
@@ -152,9 +160,5 @@ public class ActivityExecutor implements ExecutionEventListener {
 			running = false;
 		}
 		eventlist.add(event);
-	}
-
-	private ExecutionContext getExecutionContext() {
-		return ExecutionContext.getInstance();
 	}
 }

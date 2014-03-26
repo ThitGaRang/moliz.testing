@@ -80,6 +80,16 @@ public class TraceUtil {
 		pathFinder.init(trace.getActivityExecutionByID(activityExecutionID));
 	}
 
+	/** Returns ID of the activity execution by the name of the activity itself. */
+	public int getActivityExecutioID(String name) {
+		int id = -1;
+		for (ActivityExecution execution : trace.getActivityExecutions()) {
+			if (execution.getActivity().name.equals(name))
+				return execution.getActivityExecutionID();
+		}
+		return id;
+	}
+
 	/**
 	 * Generates flat list of all executed nodes, from main activity and all
 	 * nested activities.
@@ -258,8 +268,6 @@ public class TraceUtil {
 		}
 		return states;
 	}
-
-	
 
 	public ArrayList<ArrayList<ActivityNodeExecution>> getAllPaths() {
 		if (paths == null) {

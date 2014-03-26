@@ -19,10 +19,12 @@ public class OrderAssertionResult extends AssertionResult {
 
 	private NodeOrder nodeOrderSpecification;
 	private ArrayList<PathCheckResult> pathCheckResults;
+	private ArrayList<OrderAssertionResult> subOrderAssertionResults;
 
 	public OrderAssertionResult(NodeOrder nodeOrderSpecification) {
 		this.nodeOrderSpecification = nodeOrderSpecification;
 		pathCheckResults = new ArrayList<PathCheckResult>();
+		subOrderAssertionResults = new ArrayList<OrderAssertionResult>();
 	}
 
 	public NodeOrder getNodeOrderSpecification() {
@@ -31,6 +33,10 @@ public class OrderAssertionResult extends AssertionResult {
 
 	public void addPathCheckResult(PathCheckResult result) {
 		pathCheckResults.add(result);
+	}
+
+	public void addSubOrderAssertionResult(OrderAssertionResult result) {
+		subOrderAssertionResults.add(result);
 	}
 
 	public ArrayList<PathCheckResult> getFailedPathCheckResults() {
@@ -42,6 +48,19 @@ public class OrderAssertionResult extends AssertionResult {
 		return failedPathCheckResults;
 	}
 
+	public ArrayList<OrderAssertionResult> getSubOrderResults() {
+		return subOrderAssertionResults;
+	}
+
+	public ArrayList<OrderAssertionResult> getFailedSubOrderResults() {
+		ArrayList<OrderAssertionResult> failedSubOrderResults = new ArrayList<OrderAssertionResult>();
+		for (OrderAssertionResult result : subOrderAssertionResults) {
+			if (result.getAssertionValidationResult() == false)
+				failedSubOrderResults.add(result);
+		}
+		return failedSubOrderResults;
+	}
+
 	public int numberOfPathsChecked() {
 		return pathCheckResults.size();
 	}
@@ -50,6 +69,10 @@ public class OrderAssertionResult extends AssertionResult {
 	public boolean getAssertionValidationResult() {
 		for (PathCheckResult result : pathCheckResults) {
 			if (result.getValidationResult() == false)
+				return false;
+		}
+		for (OrderAssertionResult subResult : subOrderAssertionResults) {
+			if (subResult.getAssertionValidationResult() == false)
 				return false;
 		}
 		return true;
