@@ -72,6 +72,9 @@ public class FUMLAdapterFactory {
 
 	public Type createType(org.modelexecution.fuml.Syntax.Classes.Kernel.Type dslType) {
 		Type result = null;
+		if(adapters.get(dslType) != null){
+			return (Type)adapters.get(dslType);
+		}
 		if (dslType == null) {
 			result = EssentialOclPlugin.getOclLibraryProvider().getOclLibrary().getOclVoid();
 		} else if (dslType instanceof Class) {
@@ -138,19 +141,19 @@ public class FUMLAdapterFactory {
 		if (property == null) {
 			property = new FUMLAssociation(dslProperty, this);
 			adapters.put(dslProperty, property);
-		}
+		}		
 		return property;
 	}
 
 	public AssociationProperty createAssociationProperty(org.modelexecution.fuml.Syntax.Classes.Kernel.Property dslProperty) {
 		if (dslProperty == null) {
 			return null;
-		}
-		AssociationProperty property = (AssociationProperty) adapters.get(dslProperty);
+		}		
+		AssociationProperty property = (AssociationProperty) adapters.get(dslProperty);		
 		if (property == null) {
 			property = new FUMLAssociationProperty(dslProperty, this);
 			adapters.put(dslProperty, property);
-		}
+		}		
 		return property;
 	}
 
@@ -299,9 +302,6 @@ public class FUMLAdapterFactory {
 				}
 			}
 		}
-		for (AssociationProperty prop : adaptedAssociations) {
-			prop.addAssociations(adaptedAssociations);
-		}
 	}
 
 	private List<AssociationProperty> addAllOtherAssociationEnds(org.modelexecution.fuml.Syntax.Classes.Kernel.Property owner,
@@ -319,6 +319,7 @@ public class FUMLAdapterFactory {
 				Type ownerType;
 				ownerType = createType(property.getType());
 				if (!ownerType.getOwnedProperty().contains(adaptedProperty)) {
+					adaptedProperty.setOwningType(ownerType);
 					ownerType.addProperty(adaptedProperty);
 				}
 			}

@@ -46,7 +46,6 @@ public class OrderAssertionValidator {
 	 */
 	private boolean compare(List<ActivityNodeExecution> executedNodes, List<NodeSpecification> nodeOrderList) {
 		int executedNodeIndex = 0;
-		;
 		for (int i = 0; i < nodeOrderList.size(); i++) {
 			if (executedNodeIndex == -1) {
 				return false;
@@ -67,6 +66,10 @@ public class OrderAssertionValidator {
 							executedNodeIndex = getExecutedNodeIndex(nextNode, executedNodes);
 					}
 				}
+			} else {
+				if (!nodeOrderList.get(i).getNode().getName().equals(executedNodes.get(executedNodeIndex).getNode().name))
+					return false;
+				executedNodeIndex++;
 			}
 		}
 		// in case that the number of specified nodes is smaller than number of

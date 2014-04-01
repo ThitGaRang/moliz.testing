@@ -74,6 +74,12 @@ public class FumlConverter {
 
 			if (association.package_ != null && association.package_ instanceof fUML.Syntax.Classes.Kernel.Package)
 				mappedAssociation.setPackage(map((fUML.Syntax.Classes.Kernel.Package) association.package_));
+
+			for (Property property : association.ownedEnd) {
+				org.modelexecution.fuml.Syntax.Classes.Kernel.Property mappedProperty = (org.modelexecution.fuml.Syntax.Classes.Kernel.Property) map(property);
+				mappedProperty.setAssociation(mappedAssociation);
+				mappedAssociation.getOwnedEnd().add(mappedProperty);
+			}
 		}
 
 		// mapping properties
@@ -190,7 +196,7 @@ public class FumlConverter {
 		mappedFeature.setUnique(structuralFeature.multiplicityElement.isUnique);
 		mappedFeature.setUpper(structuralFeature.multiplicityElement.upper.naturalValue);
 		mappedFeature.setVisibility(mapVisibility(structuralFeature));
-
+		
 		if (structuralFeature.owner != null && structuralFeature.owner instanceof Class_) {
 			mappedFeature.setOwner(map((Class_) structuralFeature.owner));
 		}
