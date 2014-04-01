@@ -243,8 +243,16 @@ public class TraceUtil {
 									state = state.getSuccessor();
 								}
 								break;
-							case EXACTLY:
+							case NEXT:
 								states.add(state);
+								break;
+							case EXISTS_NEXT:
+								states.add(state);
+								break;
+							case SOMETIME:
+								//TODO implement this case
+								break;
+							default:
 								break;
 							}
 							break;
@@ -256,9 +264,18 @@ public class TraceUtil {
 									state = state.getPredecessor();
 								}
 								break;
-							case EXACTLY:
+							case NEXT:
 								if (state.getPredecessor() != null)
 									states.add(state.getPredecessor());
+								break;
+							case EXISTS_NEXT:
+								if (state.getPredecessor() != null)
+									states.add(state.getPredecessor());
+								break;
+							case SOMETIME:
+								//TODO implement this case
+								break;
+							default:
 								break;
 							}
 						}

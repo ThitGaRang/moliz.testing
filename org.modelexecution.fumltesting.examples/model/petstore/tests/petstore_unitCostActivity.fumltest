@@ -18,17 +18,17 @@ test unitCostTest activity UnitCostActivity on TestData.cartItem{
 		UnitCostActivity.getCost;
 	
 	assertState always before UnitCostActivity.unitCostSelf{cartItem = null;}
-	assertState exactly before UnitCostActivity.unitCostSelf{cartItem = null;}
+	assertState next before UnitCostActivity.unitCostSelf{cartItem = null;}
 	assertState always after UnitCostActivity.unitCostSelf{cartItem != null;}
-	assertState exactly after UnitCostActivity.unitCostSelf{cartItem != null;}
+	assertState next after UnitCostActivity.unitCostSelf{cartItem != null;}
 	
 	assertState always before UnitCostActivity.getItem{item = null;}
-	assertState exactly before UnitCostActivity.getItem{item = null;}
+	assertState next before UnitCostActivity.getItem{item = null;}
 	assertState always after UnitCostActivity.getItem{item::unitCost = 100;}
-	assertState exactly after UnitCostActivity.getItem{item::unitCost = 100;}
+	assertState next after UnitCostActivity.getItem{item::unitCost = 100;}
 	
 	assertState always before UnitCostActivity.getCost{cost = null;}
-	assertState exactly before UnitCostActivity.getCost{cost = null;}
+	assertState next before UnitCostActivity.getCost{cost = null;}
 	assertState always after UnitCostActivity.getCost{cost = 100;}
-	assertState exactly after UnitCostActivity.getCost{cost = 100;}
+	assertState next after UnitCostActivity.getCost{cost = 100;}
 }

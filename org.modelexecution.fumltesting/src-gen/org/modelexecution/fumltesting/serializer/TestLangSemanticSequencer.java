@@ -63,6 +63,8 @@ import org.modelexecution.fumltesting.testLang.Import;
 import org.modelexecution.fumltesting.testLang.Link;
 import org.modelexecution.fumltesting.testLang.NodeOrder;
 import org.modelexecution.fumltesting.testLang.NodeSpecification;
+import org.modelexecution.fumltesting.testLang.OOGlobalStateAssertion;
+import org.modelexecution.fumltesting.testLang.OOStateAssertion;
 import org.modelexecution.fumltesting.testLang.ObjectSpecification;
 import org.modelexecution.fumltesting.testLang.ObjectStateExpression;
 import org.modelexecution.fumltesting.testLang.ObjectValue;
@@ -130,6 +132,20 @@ public class TestLangSemanticSequencer extends XbaseSemanticSequencer {
 			case TestLangPackage.NODE_SPECIFICATION:
 				if(context == grammarAccess.getNodeSpecificationRule()) {
 					sequence_NodeSpecification(context, (NodeSpecification) semanticObject); 
+					return; 
+				}
+				else break;
+			case TestLangPackage.OO_GLOBAL_STATE_ASSERTION:
+				if(context == grammarAccess.getAssertionRule() ||
+				   context == grammarAccess.getOOGlobalStateAssertionRule()) {
+					sequence_OOGlobalStateAssertion(context, (OOGlobalStateAssertion) semanticObject); 
+					return; 
+				}
+				else break;
+			case TestLangPackage.OO_STATE_ASSERTION:
+				if(context == grammarAccess.getAssertionRule() ||
+				   context == grammarAccess.getOOStateAssertionRule()) {
+					sequence_OOStateAssertion(context, (OOStateAssertion) semanticObject); 
 					return; 
 				}
 				else break;
@@ -1267,6 +1283,31 @@ public class TestLangSemanticSequencer extends XbaseSemanticSequencer {
 	 *     ((node=[ActivityNode|QualifiedName] size=XNumberLiteral? subOrder=NodeOrder?) | joker='*' | joker='_')
 	 */
 	protected void sequence_NodeSpecification(EObject context, NodeSpecification semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (conditionConstraint=XStringLiteral? quantifier=TemporalQuantifier evaluatedConstraint=XStringLiteral object=[VarDeclaration|QualifiedName]?)
+	 */
+	protected void sequence_OOGlobalStateAssertion(EObject context, OOGlobalStateAssertion semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         TemporalQuantifier=TemporalQuantifier 
+	 *         temporalOperator=TemporalOperator 
+	 *         referenceConstraint=XStringLiteral 
+	 *         untilConstraint=XStringLiteral? 
+	 *         constraintCheck+=ConstraintCheck* 
+	 *         expressions+=StateExpression*
+	 *     )
+	 */
+	protected void sequence_OOStateAssertion(EObject context, OOStateAssertion semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

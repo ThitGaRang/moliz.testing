@@ -216,7 +216,7 @@ public class StateAssertionValidator {
 			if (operator == TemporalOperator.BEFORE) {
 				if (quantifier == TemporalQuantifier.ALWAYS)
 					list = predecessors;
-				if (quantifier == TemporalQuantifier.EXACTLY) {
+				if (quantifier == TemporalQuantifier.NEXT) {
 					if (predecessors.size() > 0) {
 						list.add(predecessors.get(0));
 					}
@@ -231,7 +231,7 @@ public class StateAssertionValidator {
 				}
 				if (quantifier == TemporalQuantifier.ALWAYS)
 					list = successors;
-				if (quantifier == TemporalQuantifier.EXACTLY)
+				if (quantifier == TemporalQuantifier.NEXT)
 					if (successors.size() > 0) {
 						list.add(successors.get(0));
 					}

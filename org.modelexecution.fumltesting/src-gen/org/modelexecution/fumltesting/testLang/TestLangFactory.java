@@ -149,6 +149,24 @@ public interface TestLangFactory extends EFactory
   StateAssertion createStateAssertion();
 
   /**
+   * Returns a new object of class '<em>OO State Assertion</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>OO State Assertion</em>'.
+   * @generated
+   */
+  OOStateAssertion createOOStateAssertion();
+
+  /**
+   * Returns a new object of class '<em>OO Global State Assertion</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>OO Global State Assertion</em>'.
+   * @generated
+   */
+  OOGlobalStateAssertion createOOGlobalStateAssertion();
+
+  /**
    * Returns a new object of class '<em>Finally State Assertion</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

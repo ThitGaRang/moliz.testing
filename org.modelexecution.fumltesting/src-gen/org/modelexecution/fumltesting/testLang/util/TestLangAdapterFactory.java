@@ -145,6 +145,16 @@ public class TestLangAdapterFactory extends AdapterFactoryImpl
         return createStateAssertionAdapter();
       }
       @Override
+      public Adapter caseOOStateAssertion(OOStateAssertion object)
+      {
+        return createOOStateAssertionAdapter();
+      }
+      @Override
+      public Adapter caseOOGlobalStateAssertion(OOGlobalStateAssertion object)
+      {
+        return createOOGlobalStateAssertionAdapter();
+      }
+      @Override
       public Adapter caseFinallyStateAssertion(FinallyStateAssertion object)
       {
         return createFinallyStateAssertionAdapter();
@@ -412,6 +422,36 @@ public class TestLangAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createStateAssertionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.OOStateAssertion <em>OO State Assertion</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.modelexecution.fumltesting.testLang.OOStateAssertion
+   * @generated
+   */
+  public Adapter createOOStateAssertionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.OOGlobalStateAssertion <em>OO Global State Assertion</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.modelexecution.fumltesting.testLang.OOGlobalStateAssertion
+   * @generated
+   */
+  public Adapter createOOGlobalStateAssertionAdapter()
   {
     return null;
   }

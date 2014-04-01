@@ -79,6 +79,8 @@ public class TestLangFactoryImpl extends EFactoryImpl implements TestLangFactory
       case TestLangPackage.LINK: return createLink();
       case TestLangPackage.ASSERTION: return createAssertion();
       case TestLangPackage.STATE_ASSERTION: return createStateAssertion();
+      case TestLangPackage.OO_STATE_ASSERTION: return createOOStateAssertion();
+      case TestLangPackage.OO_GLOBAL_STATE_ASSERTION: return createOOGlobalStateAssertion();
       case TestLangPackage.FINALLY_STATE_ASSERTION: return createFinallyStateAssertion();
       case TestLangPackage.CONSTRAINT_CHECK: return createConstraintCheck();
       case TestLangPackage.STATE_EXPRESSION: return createStateExpression();
@@ -286,6 +288,28 @@ public class TestLangFactoryImpl extends EFactoryImpl implements TestLangFactory
   {
     StateAssertionImpl stateAssertion = new StateAssertionImpl();
     return stateAssertion;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public OOStateAssertion createOOStateAssertion()
+  {
+    OOStateAssertionImpl ooStateAssertion = new OOStateAssertionImpl();
+    return ooStateAssertion;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public OOGlobalStateAssertion createOOGlobalStateAssertion()
+  {
+    OOGlobalStateAssertionImpl ooGlobalStateAssertion = new OOGlobalStateAssertionImpl();
+    return ooGlobalStateAssertion;
   }
 
   /**

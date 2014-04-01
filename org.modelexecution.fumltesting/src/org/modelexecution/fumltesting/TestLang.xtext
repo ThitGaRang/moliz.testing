@@ -57,7 +57,7 @@ Link:
 	'}';
 
 Assertion:
-	OrderAssertion | StateAssertion | FinallyStateAssertion;
+	OrderAssertion | StateAssertion | FinallyStateAssertion | OOStateAssertion | OOGlobalStateAssertion;
 
 StateAssertion:
 	('assertState' temporalQuantifier=TemporalQuantifier temporalOperator=TemporalOperator)
@@ -65,14 +65,24 @@ StateAssertion:
 		(constraintCheck+=ConstraintCheck)*
 		(expressions+=StateExpression)* 
 	'}';
+	
+OOStateAssertion:
+	('assertState' TemporalQuantifier=TemporalQuantifier temporalOperator=TemporalOperator)
+	referenceConstraint=XStringLiteral ('until' untilConstraint=XStringLiteral)? '{'
+		(constraintCheck+=ConstraintCheck)*
+		(expressions+=StateExpression)*
+	'}';
+
+OOGlobalStateAssertion:
+	('if' conditionConstraint=XStringLiteral 'then')? quantifier=TemporalQuantifier evaluatedConstraint=XStringLiteral 
+		('on' object=[VarDeclaration|QualifiedName])? ';';
 
 FinallyStateAssertion:
 	'finally' '{' {FinallyStateAssertion} (constraintCheck+=ConstraintCheck)* (expressions+=StateExpression)* '}';	
 
 ConstraintCheck:
 	'check' constraintNames+=XStringLiteral (',' constraintNames+=XStringLiteral)* 
-		('on' object=[VarDeclaration|QualifiedName])? ';'
-;
+		('on' object=[VarDeclaration|QualifiedName])? ';';
 
 StateExpression:
 	ObjectStateExpression | PropertyStateExpression;
@@ -101,4 +111,4 @@ enum TemporalOperator:
 	after | before;
 
 enum TemporalQuantifier:
-	exactly | always;
+	next| existsNext | always | sometime;

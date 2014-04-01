@@ -648,6 +648,134 @@ public interface TestLangPackage extends EPackage
   int STATE_ASSERTION_FEATURE_COUNT = ASSERTION_FEATURE_COUNT + 6;
 
   /**
+   * The meta object id for the '{@link org.modelexecution.fumltesting.testLang.impl.OOStateAssertionImpl <em>OO State Assertion</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.modelexecution.fumltesting.testLang.impl.OOStateAssertionImpl
+   * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getOOStateAssertion()
+   * @generated
+   */
+  int OO_STATE_ASSERTION = 14;
+
+  /**
+   * The feature id for the '<em><b>Temporal Quantifier</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OO_STATE_ASSERTION__TEMPORAL_QUANTIFIER = ASSERTION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Temporal Operator</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OO_STATE_ASSERTION__TEMPORAL_OPERATOR = ASSERTION_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Reference Constraint</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OO_STATE_ASSERTION__REFERENCE_CONSTRAINT = ASSERTION_FEATURE_COUNT + 2;
+
+  /**
+   * The feature id for the '<em><b>Until Constraint</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OO_STATE_ASSERTION__UNTIL_CONSTRAINT = ASSERTION_FEATURE_COUNT + 3;
+
+  /**
+   * The feature id for the '<em><b>Constraint Check</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OO_STATE_ASSERTION__CONSTRAINT_CHECK = ASSERTION_FEATURE_COUNT + 4;
+
+  /**
+   * The feature id for the '<em><b>Expressions</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OO_STATE_ASSERTION__EXPRESSIONS = ASSERTION_FEATURE_COUNT + 5;
+
+  /**
+   * The number of structural features of the '<em>OO State Assertion</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OO_STATE_ASSERTION_FEATURE_COUNT = ASSERTION_FEATURE_COUNT + 6;
+
+  /**
+   * The meta object id for the '{@link org.modelexecution.fumltesting.testLang.impl.OOGlobalStateAssertionImpl <em>OO Global State Assertion</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.modelexecution.fumltesting.testLang.impl.OOGlobalStateAssertionImpl
+   * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getOOGlobalStateAssertion()
+   * @generated
+   */
+  int OO_GLOBAL_STATE_ASSERTION = 15;
+
+  /**
+   * The feature id for the '<em><b>Condition Constraint</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OO_GLOBAL_STATE_ASSERTION__CONDITION_CONSTRAINT = ASSERTION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Quantifier</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OO_GLOBAL_STATE_ASSERTION__QUANTIFIER = ASSERTION_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Evaluated Constraint</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OO_GLOBAL_STATE_ASSERTION__EVALUATED_CONSTRAINT = ASSERTION_FEATURE_COUNT + 2;
+
+  /**
+   * The feature id for the '<em><b>Object</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OO_GLOBAL_STATE_ASSERTION__OBJECT = ASSERTION_FEATURE_COUNT + 3;
+
+  /**
+   * The number of structural features of the '<em>OO Global State Assertion</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OO_GLOBAL_STATE_ASSERTION_FEATURE_COUNT = ASSERTION_FEATURE_COUNT + 4;
+
+  /**
    * The meta object id for the '{@link org.modelexecution.fumltesting.testLang.impl.FinallyStateAssertionImpl <em>Finally State Assertion</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -655,7 +783,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getFinallyStateAssertion()
    * @generated
    */
-  int FINALLY_STATE_ASSERTION = 14;
+  int FINALLY_STATE_ASSERTION = 16;
 
   /**
    * The feature id for the '<em><b>Constraint Check</b></em>' containment reference list.
@@ -692,7 +820,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getConstraintCheck()
    * @generated
    */
-  int CONSTRAINT_CHECK = 15;
+  int CONSTRAINT_CHECK = 17;
 
   /**
    * The feature id for the '<em><b>Constraint Names</b></em>' containment reference list.
@@ -729,7 +857,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getStateExpression()
    * @generated
    */
-  int STATE_EXPRESSION = 16;
+  int STATE_EXPRESSION = 18;
 
   /**
    * The feature id for the '<em><b>Pin</b></em>' reference.
@@ -775,7 +903,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getObjectStateExpression()
    * @generated
    */
-  int OBJECT_STATE_EXPRESSION = 17;
+  int OBJECT_STATE_EXPRESSION = 19;
 
   /**
    * The feature id for the '<em><b>Pin</b></em>' reference.
@@ -821,7 +949,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getPropertyStateExpression()
    * @generated
    */
-  int PROPERTY_STATE_EXPRESSION = 18;
+  int PROPERTY_STATE_EXPRESSION = 20;
 
   /**
    * The feature id for the '<em><b>Pin</b></em>' reference.
@@ -876,7 +1004,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getOrderAssertion()
    * @generated
    */
-  int ORDER_ASSERTION = 19;
+  int ORDER_ASSERTION = 21;
 
   /**
    * The feature id for the '<em><b>Order</b></em>' containment reference.
@@ -904,7 +1032,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getNodeOrder()
    * @generated
    */
-  int NODE_ORDER = 20;
+  int NODE_ORDER = 22;
 
   /**
    * The feature id for the '<em><b>Nodes</b></em>' containment reference list.
@@ -932,7 +1060,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getNodeSpecification()
    * @generated
    */
-  int NODE_SPECIFICATION = 21;
+  int NODE_SPECIFICATION = 23;
 
   /**
    * The feature id for the '<em><b>Node</b></em>' reference.
@@ -987,7 +1115,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getArithmeticOperator()
    * @generated
    */
-  int ARITHMETIC_OPERATOR = 22;
+  int ARITHMETIC_OPERATOR = 24;
 
   /**
    * The meta object id for the '{@link org.modelexecution.fumltesting.testLang.TemporalOperator <em>Temporal Operator</em>}' enum.
@@ -997,7 +1125,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getTemporalOperator()
    * @generated
    */
-  int TEMPORAL_OPERATOR = 23;
+  int TEMPORAL_OPERATOR = 25;
 
   /**
    * The meta object id for the '{@link org.modelexecution.fumltesting.testLang.TemporalQuantifier <em>Temporal Quantifier</em>}' enum.
@@ -1007,7 +1135,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getTemporalQuantifier()
    * @generated
    */
-  int TEMPORAL_QUANTIFIER = 24;
+  int TEMPORAL_QUANTIFIER = 26;
 
 
   /**
@@ -1545,6 +1673,136 @@ public interface TestLangPackage extends EPackage
    * @generated
    */
   EReference getStateAssertion_Expressions();
+
+  /**
+   * Returns the meta object for class '{@link org.modelexecution.fumltesting.testLang.OOStateAssertion <em>OO State Assertion</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>OO State Assertion</em>'.
+   * @see org.modelexecution.fumltesting.testLang.OOStateAssertion
+   * @generated
+   */
+  EClass getOOStateAssertion();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.modelexecution.fumltesting.testLang.OOStateAssertion#getTemporalQuantifier <em>Temporal Quantifier</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Temporal Quantifier</em>'.
+   * @see org.modelexecution.fumltesting.testLang.OOStateAssertion#getTemporalQuantifier()
+   * @see #getOOStateAssertion()
+   * @generated
+   */
+  EAttribute getOOStateAssertion_TemporalQuantifier();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.modelexecution.fumltesting.testLang.OOStateAssertion#getTemporalOperator <em>Temporal Operator</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Temporal Operator</em>'.
+   * @see org.modelexecution.fumltesting.testLang.OOStateAssertion#getTemporalOperator()
+   * @see #getOOStateAssertion()
+   * @generated
+   */
+  EAttribute getOOStateAssertion_TemporalOperator();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.modelexecution.fumltesting.testLang.OOStateAssertion#getReferenceConstraint <em>Reference Constraint</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Reference Constraint</em>'.
+   * @see org.modelexecution.fumltesting.testLang.OOStateAssertion#getReferenceConstraint()
+   * @see #getOOStateAssertion()
+   * @generated
+   */
+  EReference getOOStateAssertion_ReferenceConstraint();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.modelexecution.fumltesting.testLang.OOStateAssertion#getUntilConstraint <em>Until Constraint</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Until Constraint</em>'.
+   * @see org.modelexecution.fumltesting.testLang.OOStateAssertion#getUntilConstraint()
+   * @see #getOOStateAssertion()
+   * @generated
+   */
+  EReference getOOStateAssertion_UntilConstraint();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.modelexecution.fumltesting.testLang.OOStateAssertion#getConstraintCheck <em>Constraint Check</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Constraint Check</em>'.
+   * @see org.modelexecution.fumltesting.testLang.OOStateAssertion#getConstraintCheck()
+   * @see #getOOStateAssertion()
+   * @generated
+   */
+  EReference getOOStateAssertion_ConstraintCheck();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.modelexecution.fumltesting.testLang.OOStateAssertion#getExpressions <em>Expressions</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Expressions</em>'.
+   * @see org.modelexecution.fumltesting.testLang.OOStateAssertion#getExpressions()
+   * @see #getOOStateAssertion()
+   * @generated
+   */
+  EReference getOOStateAssertion_Expressions();
+
+  /**
+   * Returns the meta object for class '{@link org.modelexecution.fumltesting.testLang.OOGlobalStateAssertion <em>OO Global State Assertion</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>OO Global State Assertion</em>'.
+   * @see org.modelexecution.fumltesting.testLang.OOGlobalStateAssertion
+   * @generated
+   */
+  EClass getOOGlobalStateAssertion();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.modelexecution.fumltesting.testLang.OOGlobalStateAssertion#getConditionConstraint <em>Condition Constraint</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Condition Constraint</em>'.
+   * @see org.modelexecution.fumltesting.testLang.OOGlobalStateAssertion#getConditionConstraint()
+   * @see #getOOGlobalStateAssertion()
+   * @generated
+   */
+  EReference getOOGlobalStateAssertion_ConditionConstraint();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.modelexecution.fumltesting.testLang.OOGlobalStateAssertion#getQuantifier <em>Quantifier</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Quantifier</em>'.
+   * @see org.modelexecution.fumltesting.testLang.OOGlobalStateAssertion#getQuantifier()
+   * @see #getOOGlobalStateAssertion()
+   * @generated
+   */
+  EAttribute getOOGlobalStateAssertion_Quantifier();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.modelexecution.fumltesting.testLang.OOGlobalStateAssertion#getEvaluatedConstraint <em>Evaluated Constraint</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Evaluated Constraint</em>'.
+   * @see org.modelexecution.fumltesting.testLang.OOGlobalStateAssertion#getEvaluatedConstraint()
+   * @see #getOOGlobalStateAssertion()
+   * @generated
+   */
+  EReference getOOGlobalStateAssertion_EvaluatedConstraint();
+
+  /**
+   * Returns the meta object for the reference '{@link org.modelexecution.fumltesting.testLang.OOGlobalStateAssertion#getObject <em>Object</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Object</em>'.
+   * @see org.modelexecution.fumltesting.testLang.OOGlobalStateAssertion#getObject()
+   * @see #getOOGlobalStateAssertion()
+   * @generated
+   */
+  EReference getOOGlobalStateAssertion_Object();
 
   /**
    * Returns the meta object for class '{@link org.modelexecution.fumltesting.testLang.FinallyStateAssertion <em>Finally State Assertion</em>}'.
@@ -2260,6 +2518,106 @@ public interface TestLangPackage extends EPackage
      * @generated
      */
     EReference STATE_ASSERTION__EXPRESSIONS = eINSTANCE.getStateAssertion_Expressions();
+
+    /**
+     * The meta object literal for the '{@link org.modelexecution.fumltesting.testLang.impl.OOStateAssertionImpl <em>OO State Assertion</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.modelexecution.fumltesting.testLang.impl.OOStateAssertionImpl
+     * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getOOStateAssertion()
+     * @generated
+     */
+    EClass OO_STATE_ASSERTION = eINSTANCE.getOOStateAssertion();
+
+    /**
+     * The meta object literal for the '<em><b>Temporal Quantifier</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute OO_STATE_ASSERTION__TEMPORAL_QUANTIFIER = eINSTANCE.getOOStateAssertion_TemporalQuantifier();
+
+    /**
+     * The meta object literal for the '<em><b>Temporal Operator</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute OO_STATE_ASSERTION__TEMPORAL_OPERATOR = eINSTANCE.getOOStateAssertion_TemporalOperator();
+
+    /**
+     * The meta object literal for the '<em><b>Reference Constraint</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference OO_STATE_ASSERTION__REFERENCE_CONSTRAINT = eINSTANCE.getOOStateAssertion_ReferenceConstraint();
+
+    /**
+     * The meta object literal for the '<em><b>Until Constraint</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference OO_STATE_ASSERTION__UNTIL_CONSTRAINT = eINSTANCE.getOOStateAssertion_UntilConstraint();
+
+    /**
+     * The meta object literal for the '<em><b>Constraint Check</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference OO_STATE_ASSERTION__CONSTRAINT_CHECK = eINSTANCE.getOOStateAssertion_ConstraintCheck();
+
+    /**
+     * The meta object literal for the '<em><b>Expressions</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference OO_STATE_ASSERTION__EXPRESSIONS = eINSTANCE.getOOStateAssertion_Expressions();
+
+    /**
+     * The meta object literal for the '{@link org.modelexecution.fumltesting.testLang.impl.OOGlobalStateAssertionImpl <em>OO Global State Assertion</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.modelexecution.fumltesting.testLang.impl.OOGlobalStateAssertionImpl
+     * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getOOGlobalStateAssertion()
+     * @generated
+     */
+    EClass OO_GLOBAL_STATE_ASSERTION = eINSTANCE.getOOGlobalStateAssertion();
+
+    /**
+     * The meta object literal for the '<em><b>Condition Constraint</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference OO_GLOBAL_STATE_ASSERTION__CONDITION_CONSTRAINT = eINSTANCE.getOOGlobalStateAssertion_ConditionConstraint();
+
+    /**
+     * The meta object literal for the '<em><b>Quantifier</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute OO_GLOBAL_STATE_ASSERTION__QUANTIFIER = eINSTANCE.getOOGlobalStateAssertion_Quantifier();
+
+    /**
+     * The meta object literal for the '<em><b>Evaluated Constraint</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference OO_GLOBAL_STATE_ASSERTION__EVALUATED_CONSTRAINT = eINSTANCE.getOOGlobalStateAssertion_EvaluatedConstraint();
+
+    /**
+     * The meta object literal for the '<em><b>Object</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference OO_GLOBAL_STATE_ASSERTION__OBJECT = eINSTANCE.getOOGlobalStateAssertion_Object();
 
     /**
      * The meta object literal for the '{@link org.modelexecution.fumltesting.testLang.impl.FinallyStateAssertionImpl <em>Finally State Assertion</em>}' class.

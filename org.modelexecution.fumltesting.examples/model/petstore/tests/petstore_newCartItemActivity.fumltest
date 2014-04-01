@@ -16,12 +16,12 @@ test newCartItemTest activity NewCartItemActivity(catalogItem=TestData.item, qua
 		NewCartItemActivity.setItem, NewCartItemActivity.setQuantity;
 	
 	assertState always before NewCartItemActivity.createCartItem{cartItem = null;}
-	assertState exactly before NewCartItemActivity.createCartItem{cartItem = null;}
+	assertState next before NewCartItemActivity.createCartItem{cartItem = null;}
 	assertState always after NewCartItemActivity.createCartItem{cartItem != null;}
-	assertState exactly after NewCartItemActivity.createCartItem{cartItem != null;}
+	assertState next after NewCartItemActivity.createCartItem{cartItem != null;}
 	
 	assertState always before NewCartItemActivity.setItem{cartItem::item = null;}
-	assertState exactly before NewCartItemActivity.setItem{cartItem::item = null;}
+	assertState next before NewCartItemActivity.setItem{cartItem::item = null;}
 	assertState always after NewCartItemActivity.setItem{cartItem::item != null;}
-	assertState exactly after NewCartItemActivity.setItem{cartItem::item != null;}
+	assertState next after NewCartItemActivity.setItem{cartItem::item != null;}
 }

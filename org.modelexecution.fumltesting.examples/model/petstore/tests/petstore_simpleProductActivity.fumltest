@@ -10,5 +10,25 @@ scenario TestData[
 ]
 
 test simpleProductTest activity petstore.scenarios.SimpleProductActivity{
+	var product = product;
+	
 	assertOrder *, SimpleProductActivity.newProduct(*, NewProductActivity.setCode);
+	
+	assertState always after SimpleProductActivity.codeValue{
+		product::code = 1234;
+	}
+	
+	assertState always after 'ProductSize'{
+		check 'ProductName' on product;
+	}
+	
+	if 'ProductSize' then sometime 'ProductName' on product;
+	
+	always 'ProductSize' on product;
+	sometime 'ProductName' on product;	
+	
+	finally{
+		check 'ProductSize';		
+		check 'ProductName' on product;
+	}
 }

@@ -96,6 +96,16 @@ public class TestLangScopeProvider extends XbaseScopeProvider {
 			return Scopes.scopeFor(nodes, new UmlQualifiedNameProvider(), IScope.NULLSCOPE);
 		}
 
+		if(context instanceof TestCase && reference.getName().equals("referenceAction")){
+			ArrayList<ActivityNode> nodes = new ArrayList<ActivityNode>();
+			Activity activity = ((TestCase)context).getActivityUnderTest();
+			for (ActivityNode node : activity.getNodes()) {
+				if (node.getOwner().equals(activity) && !(node instanceof ActivityParameterNode))
+					nodes.add(node);
+			}
+			return Scopes.scopeFor(nodes, new UmlQualifiedNameProvider(), IScope.NULLSCOPE);
+		}
+		
 		/** ATTRIBUTE DECLARATION SCOPE */
 		if (context instanceof ObjectSpecification && reference.getName().equals("att")) {
 			ObjectSpecification specification = (ObjectSpecification) context;

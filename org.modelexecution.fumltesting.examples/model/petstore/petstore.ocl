@@ -50,8 +50,8 @@ inv MalformedInvariant4: name = true
 inv ProductName: name = 'SyrianHamster'
 inv ProductCode: code = 1234
 
---context Item
+context Item
 
---inv ProductNotSet: self.product = null
+inv ProductNotSet: self.product = null
 
 endpackage

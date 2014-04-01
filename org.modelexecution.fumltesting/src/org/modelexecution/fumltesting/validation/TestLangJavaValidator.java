@@ -10,10 +10,12 @@ import java.util.HashSet;
 
 import org.eclipse.xtext.validation.Check;
 import org.modelexecution.fumltesting.testLang.NodeSpecification;
+import org.modelexecution.fumltesting.testLang.OOGlobalStateAssertion;
 import org.modelexecution.fumltesting.testLang.OrderAssertion;
 import org.modelexecution.fumltesting.testLang.Scenario;
 import org.modelexecution.fumltesting.testLang.StateAssertion;
 import org.modelexecution.fumltesting.testLang.TemporalOperator;
+import org.modelexecution.fumltesting.testLang.TemporalQuantifier;
 import org.modelexecution.fumltesting.testLang.TestCase;
 import org.modelexecution.fumltesting.testLang.TestLangPackage;
 
@@ -51,5 +53,14 @@ public class TestLangJavaValidator extends AbstractTestLangJavaValidator {
 		HashSet<Scenario> set = new HashSet<Scenario>(testCase.getInitScenarios());
 		if (testCase.getInitScenarios().size() > set.size())
 			error("Duplicate scenario declarations!", TestLangPackage.Literals.TEST_CASE__INIT_SCENARIOS);
+	}
+
+	@Check
+	public void checkOOStateAssertions(OOGlobalStateAssertion ooAssertion) {
+		if (ooAssertion.getConditionConstraint() == null
+				&& (ooAssertion.getQuantifier() == TemporalQuantifier.NEXT || ooAssertion.getQuantifier() == TemporalQuantifier.EXISTS_NEXT)) {
+			error("Quantifiers 'next' and 'existsNext' are not allowed without 'if' condition!",
+					TestLangPackage.Literals.OO_GLOBAL_STATE_ASSERTION__QUANTIFIER);
+		}
 	}
 }

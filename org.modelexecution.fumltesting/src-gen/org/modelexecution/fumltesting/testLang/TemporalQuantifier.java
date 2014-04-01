@@ -20,14 +20,24 @@ import org.eclipse.emf.common.util.Enumerator;
 public enum TemporalQuantifier implements Enumerator
 {
   /**
-   * The '<em><b>Exactly</b></em>' literal object.
+   * The '<em><b>Next</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #EXACTLY_VALUE
+   * @see #NEXT_VALUE
    * @generated
    * @ordered
    */
-  EXACTLY(0, "exactly", "exactly"),
+  NEXT(0, "next", "next"),
+
+  /**
+   * The '<em><b>Exists Next</b></em>' literal object.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #EXISTS_NEXT_VALUE
+   * @generated
+   * @ordered
+   */
+  EXISTS_NEXT(1, "existsNext", "existsNext"),
 
   /**
    * The '<em><b>Always</b></em>' literal object.
@@ -37,22 +47,47 @@ public enum TemporalQuantifier implements Enumerator
    * @generated
    * @ordered
    */
-  ALWAYS(1, "always", "always");
+  ALWAYS(2, "always", "always"),
 
   /**
-   * The '<em><b>Exactly</b></em>' literal value.
+   * The '<em><b>Sometime</b></em>' literal object.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>Exactly</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
-   * @see #EXACTLY
-   * @model name="exactly"
+   * @see #SOMETIME_VALUE
    * @generated
    * @ordered
    */
-  public static final int EXACTLY_VALUE = 0;
+  SOMETIME(3, "sometime", "sometime");
+
+  /**
+   * The '<em><b>Next</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>Next</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #NEXT
+   * @model name="next"
+   * @generated
+   * @ordered
+   */
+  public static final int NEXT_VALUE = 0;
+
+  /**
+   * The '<em><b>Exists Next</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>Exists Next</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #EXISTS_NEXT
+   * @model name="existsNext"
+   * @generated
+   * @ordered
+   */
+  public static final int EXISTS_NEXT_VALUE = 1;
 
   /**
    * The '<em><b>Always</b></em>' literal value.
@@ -67,7 +102,22 @@ public enum TemporalQuantifier implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int ALWAYS_VALUE = 1;
+  public static final int ALWAYS_VALUE = 2;
+
+  /**
+   * The '<em><b>Sometime</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>Sometime</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #SOMETIME
+   * @model name="sometime"
+   * @generated
+   * @ordered
+   */
+  public static final int SOMETIME_VALUE = 3;
 
   /**
    * An array of all the '<em><b>Temporal Quantifier</b></em>' enumerators.
@@ -78,8 +128,10 @@ public enum TemporalQuantifier implements Enumerator
   private static final TemporalQuantifier[] VALUES_ARRAY =
     new TemporalQuantifier[]
     {
-      EXACTLY,
+      NEXT,
+      EXISTS_NEXT,
       ALWAYS,
+      SOMETIME,
     };
 
   /**
@@ -138,8 +190,10 @@ public enum TemporalQuantifier implements Enumerator
   {
     switch (value)
     {
-      case EXACTLY_VALUE: return EXACTLY;
+      case NEXT_VALUE: return NEXT;
+      case EXISTS_NEXT_VALUE: return EXISTS_NEXT;
       case ALWAYS_VALUE: return ALWAYS;
+      case SOMETIME_VALUE: return SOMETIME;
     }
     return null;
   }
