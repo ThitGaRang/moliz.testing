@@ -79,9 +79,11 @@ public class TestLangFactoryImpl extends EFactoryImpl implements TestLangFactory
       case TestLangPackage.LINK: return createLink();
       case TestLangPackage.ASSERTION: return createAssertion();
       case TestLangPackage.STATE_ASSERTION: return createStateAssertion();
-      case TestLangPackage.OO_STATE_ASSERTION: return createOOStateAssertion();
-      case TestLangPackage.OO_GLOBAL_STATE_ASSERTION: return createOOGlobalStateAssertion();
+      case TestLangPackage.REFERENCE_POINT: return createReferencePoint();
+      case TestLangPackage.ACTION_REFERENCE_POINT: return createActionReferencePoint();
+      case TestLangPackage.CONSTRAINT_REFERENCE_POINT: return createConstraintReferencePoint();
       case TestLangPackage.FINALLY_STATE_ASSERTION: return createFinallyStateAssertion();
+      case TestLangPackage.CHECK: return createCheck();
       case TestLangPackage.CONSTRAINT_CHECK: return createConstraintCheck();
       case TestLangPackage.STATE_EXPRESSION: return createStateExpression();
       case TestLangPackage.OBJECT_STATE_EXPRESSION: return createObjectStateExpression();
@@ -295,10 +297,10 @@ public class TestLangFactoryImpl extends EFactoryImpl implements TestLangFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public OOStateAssertion createOOStateAssertion()
+  public ReferencePoint createReferencePoint()
   {
-    OOStateAssertionImpl ooStateAssertion = new OOStateAssertionImpl();
-    return ooStateAssertion;
+    ReferencePointImpl referencePoint = new ReferencePointImpl();
+    return referencePoint;
   }
 
   /**
@@ -306,10 +308,21 @@ public class TestLangFactoryImpl extends EFactoryImpl implements TestLangFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public OOGlobalStateAssertion createOOGlobalStateAssertion()
+  public ActionReferencePoint createActionReferencePoint()
   {
-    OOGlobalStateAssertionImpl ooGlobalStateAssertion = new OOGlobalStateAssertionImpl();
-    return ooGlobalStateAssertion;
+    ActionReferencePointImpl actionReferencePoint = new ActionReferencePointImpl();
+    return actionReferencePoint;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ConstraintReferencePoint createConstraintReferencePoint()
+  {
+    ConstraintReferencePointImpl constraintReferencePoint = new ConstraintReferencePointImpl();
+    return constraintReferencePoint;
   }
 
   /**
@@ -321,6 +334,17 @@ public class TestLangFactoryImpl extends EFactoryImpl implements TestLangFactory
   {
     FinallyStateAssertionImpl finallyStateAssertion = new FinallyStateAssertionImpl();
     return finallyStateAssertion;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Check createCheck()
+  {
+    CheckImpl check = new CheckImpl();
+    return check;
   }
 
   /**

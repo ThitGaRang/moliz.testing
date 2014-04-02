@@ -46,6 +46,7 @@ import tudresden.ocl20.pivot.modelinstancetype.types.IModelInstancePrimitiveType
 import tudresden.ocl20.pivot.modelinstancetype.types.IModelInstanceReal;
 import tudresden.ocl20.pivot.modelinstancetype.types.IModelInstanceString;
 import tudresden.ocl20.pivot.modelinstancetype.types.base.AbstractModelInstanceObject;
+import tudresden.ocl20.pivot.pivotmodel.AssociationProperty;
 import tudresden.ocl20.pivot.pivotmodel.Operation;
 import tudresden.ocl20.pivot.pivotmodel.Parameter;
 import tudresden.ocl20.pivot.pivotmodel.Property;
@@ -135,6 +136,9 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 						return result;
 					}
 				}
+			}
+			if(property instanceof AssociationProperty){
+				return AbstractModelInstance.adaptInvocationResult(null, property.getType(), myFactory);
 			}
 		}
 		throw new PropertyNotFoundException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_PropertyNotFoundInModelInstanceElement,

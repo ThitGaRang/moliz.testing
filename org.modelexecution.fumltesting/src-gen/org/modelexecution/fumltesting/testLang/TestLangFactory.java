@@ -149,22 +149,31 @@ public interface TestLangFactory extends EFactory
   StateAssertion createStateAssertion();
 
   /**
-   * Returns a new object of class '<em>OO State Assertion</em>'.
+   * Returns a new object of class '<em>Reference Point</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>OO State Assertion</em>'.
+   * @return a new object of class '<em>Reference Point</em>'.
    * @generated
    */
-  OOStateAssertion createOOStateAssertion();
+  ReferencePoint createReferencePoint();
 
   /**
-   * Returns a new object of class '<em>OO Global State Assertion</em>'.
+   * Returns a new object of class '<em>Action Reference Point</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>OO Global State Assertion</em>'.
+   * @return a new object of class '<em>Action Reference Point</em>'.
    * @generated
    */
-  OOGlobalStateAssertion createOOGlobalStateAssertion();
+  ActionReferencePoint createActionReferencePoint();
+
+  /**
+   * Returns a new object of class '<em>Constraint Reference Point</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Constraint Reference Point</em>'.
+   * @generated
+   */
+  ConstraintReferencePoint createConstraintReferencePoint();
 
   /**
    * Returns a new object of class '<em>Finally State Assertion</em>'.
@@ -174,6 +183,15 @@ public interface TestLangFactory extends EFactory
    * @generated
    */
   FinallyStateAssertion createFinallyStateAssertion();
+
+  /**
+   * Returns a new object of class '<em>Check</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Check</em>'.
+   * @generated
+   */
+  Check createCheck();
 
   /**
    * Returns a new object of class '<em>Constraint Check</em>'.

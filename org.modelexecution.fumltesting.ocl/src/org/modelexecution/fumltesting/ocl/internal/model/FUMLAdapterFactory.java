@@ -72,8 +72,8 @@ public class FUMLAdapterFactory {
 
 	public Type createType(org.modelexecution.fuml.Syntax.Classes.Kernel.Type dslType) {
 		Type result = null;
-		if(adapters.get(dslType) != null){
-			return (Type)adapters.get(dslType);
+		if (adapters.get(dslType) != null) {
+			return (Type) adapters.get(dslType);
 		}
 		if (dslType == null) {
 			result = EssentialOclPlugin.getOclLibraryProvider().getOclLibrary().getOclVoid();
@@ -94,6 +94,7 @@ public class FUMLAdapterFactory {
 		} else {
 			throw new IllegalArgumentException("Unknown type: " + dslType);
 		}
+		adapters.put(dslType, result);
 		return result;
 	}
 
@@ -141,19 +142,19 @@ public class FUMLAdapterFactory {
 		if (property == null) {
 			property = new FUMLAssociation(dslProperty, this);
 			adapters.put(dslProperty, property);
-		}		
+		}
 		return property;
 	}
 
 	public AssociationProperty createAssociationProperty(org.modelexecution.fuml.Syntax.Classes.Kernel.Property dslProperty) {
 		if (dslProperty == null) {
 			return null;
-		}		
-		AssociationProperty property = (AssociationProperty) adapters.get(dslProperty);		
+		}
+		AssociationProperty property = (AssociationProperty) adapters.get(dslProperty);
 		if (property == null) {
 			property = new FUMLAssociationProperty(dslProperty, this);
 			adapters.put(dslProperty, property);
-		}		
+		}
 		return property;
 	}
 
@@ -281,7 +282,7 @@ public class FUMLAdapterFactory {
 	}
 
 	private void addNavigableAssociationEnds(List<org.modelexecution.fuml.Syntax.Classes.Kernel.Property> properties) {
-		List<AssociationProperty> adaptedAssociations = new LinkedList<AssociationProperty>();
+		List<AssociationProperty> adaptedAssociationProperties = new LinkedList<AssociationProperty>();
 		boolean allArentNavigable = true;
 		int size = 0;
 		for (org.modelexecution.fuml.Syntax.Classes.Kernel.Property property : properties) {
@@ -292,35 +293,33 @@ public class FUMLAdapterFactory {
 		}
 		if (allArentNavigable) {
 			for (org.modelexecution.fuml.Syntax.Classes.Kernel.Property property : properties) {
-				adaptedAssociations.addAll(addAllOtherAssociationEnds(property, properties, true));
+				adaptedAssociationProperties.addAll(addAllOtherAssociationEnds(property, properties, true));
 			}
 		} else {
 			for (org.modelexecution.fuml.Syntax.Classes.Kernel.Property property : properties) {
 				boolean isNavigable = property.getAssociation().getNavigableOwnedEnd().contains(property);
 				if (isNavigable) {
-					adaptedAssociations.addAll(this.addAllOtherAssociationEnds(property, properties, (size > 1)));
+					adaptedAssociationProperties.addAll(addAllOtherAssociationEnds(property, properties, (size > 1)));
 				}
 			}
 		}
 	}
 
-	private List<AssociationProperty> addAllOtherAssociationEnds(org.modelexecution.fuml.Syntax.Classes.Kernel.Property owner,
+	private List<AssociationProperty> addAllOtherAssociationEnds(org.modelexecution.fuml.Syntax.Classes.Kernel.Property property,
 			List<org.modelexecution.fuml.Syntax.Classes.Kernel.Property> allProperties, boolean association) {
 		List<AssociationProperty> result = new LinkedList<AssociationProperty>();
 		Property adaptedProperty;
 		if (association) {
-			adaptedProperty = createAssociationProperty(owner);
+			adaptedProperty = createAssociationProperty(property);
 			result.add((AssociationProperty) adaptedProperty);
 		} else {
-			adaptedProperty = createProperty(owner);
+			adaptedProperty = createProperty(property);
 		}
-		for (org.modelexecution.fuml.Syntax.Classes.Kernel.Property property : allProperties) {
-			if (owner != property) {
-				Type ownerType;
-				ownerType = createType(property.getType());
-				if (!ownerType.getOwnedProperty().contains(adaptedProperty)) {
-					adaptedProperty.setOwningType(ownerType);
-					ownerType.addProperty(adaptedProperty);
+		for(org.modelexecution.fuml.Syntax.Classes.Kernel.Property theProperty: property.getAssociation().getOwnedEnd()){
+			for(org.modelexecution.fuml.Syntax.Classes.Kernel.Property oposite: property.getAssociation().getOwnedEnd()){
+				if(oposite != theProperty){
+					FUMLClass newOwner = (FUMLClass)adapters.get(theProperty.getType());
+					newOwner.addProperty(adaptedProperty);
 				}
 			}
 		}

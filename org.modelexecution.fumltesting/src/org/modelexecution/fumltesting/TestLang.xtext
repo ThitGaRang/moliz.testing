@@ -57,28 +57,32 @@ Link:
 	'}';
 
 Assertion:
-	OrderAssertion | StateAssertion | FinallyStateAssertion | OOStateAssertion | OOGlobalStateAssertion;
-
-StateAssertion:
-	('assertState' temporalQuantifier=TemporalQuantifier temporalOperator=TemporalOperator)
-	referenceAction=[uml::Action|QualifiedName] ('until' untilAction=[uml::Action|QualifiedName])? '{'
-		(constraintCheck+=ConstraintCheck)*
-		(expressions+=StateExpression)* 
-	'}';
+	OrderAssertion | StateAssertion | FinallyStateAssertion;
 	
-OOStateAssertion:
-	('assertState' TemporalQuantifier=TemporalQuantifier temporalOperator=TemporalOperator)
-	referenceConstraint=XStringLiteral ('until' untilConstraint=XStringLiteral)? '{'
-		(constraintCheck+=ConstraintCheck)*
-		(expressions+=StateExpression)*
+StateAssertion:
+	'assertState' quantifier=TemporalQuantifier operator=TemporalOperator
+	referencePoint=ReferencePoint ('until' untilPoint=ReferencePoint)?'{'
+		(checks+=Check)*		
 	'}';
 
-OOGlobalStateAssertion:
-	('if' conditionConstraint=XStringLiteral 'then')? quantifier=TemporalQuantifier evaluatedConstraint=XStringLiteral 
-		('on' object=[VarDeclaration|QualifiedName])? ';';
+ReferencePoint:
+	ActionReferencePoint | ConstraintReferencePoint
+;
+
+ActionReferencePoint:
+	'action' action=[uml::Action|QualifiedName]
+;
+
+ConstraintReferencePoint:
+	'constraint' constraintName=XStringLiteral
+;
 
 FinallyStateAssertion:
-	'finally' '{' {FinallyStateAssertion} (constraintCheck+=ConstraintCheck)* (expressions+=StateExpression)* '}';	
+	'finally' '{' {FinallyStateAssertion} (checks+=Check)* '}';	
+
+Check:
+	ConstraintCheck | StateExpression
+;
 
 ConstraintCheck:
 	'check' constraintNames+=XStringLiteral (',' constraintNames+=XStringLiteral)* 

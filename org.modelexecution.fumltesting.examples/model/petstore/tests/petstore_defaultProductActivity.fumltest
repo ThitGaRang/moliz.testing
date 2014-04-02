@@ -5,7 +5,7 @@ test defaultProductTest activity DefaultProductActivity{
 	
 	assertOrder *, DefaultProductActivity.setAvailable;
 	
-	assertState always after DefaultProductActivity.setAvailable{
+	assertState always after action DefaultProductActivity.setAvailable{
 		
 		check 'NonExistingConstraint', 'ProductSize', 'ProductSize2', 'ProductSize3', 'ProductSize4', 'ProductSize5', 'ProductSize6', 
 		'ProductSize7', 'ProductSize8', 'ProductNameStringEquality', 'ProductNameStringInequality', 'ProductNameStringLenght', 'ProductNameConcat', 

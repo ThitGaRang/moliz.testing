@@ -57,6 +57,7 @@ public class FUMLProperty extends AbstractProperty implements Property {
 			for (org.modelexecution.fuml.Syntax.Classes.Kernel.Property end : associationEnds) {
 				if (!end.equals(dslProperty)) {
 					result = factory.createType(end.getType());
+					setOwningType(result);
 					break;
 				}
 			}

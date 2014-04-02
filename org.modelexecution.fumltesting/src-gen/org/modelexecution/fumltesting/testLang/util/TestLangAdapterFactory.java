@@ -145,19 +145,29 @@ public class TestLangAdapterFactory extends AdapterFactoryImpl
         return createStateAssertionAdapter();
       }
       @Override
-      public Adapter caseOOStateAssertion(OOStateAssertion object)
+      public Adapter caseReferencePoint(ReferencePoint object)
       {
-        return createOOStateAssertionAdapter();
+        return createReferencePointAdapter();
       }
       @Override
-      public Adapter caseOOGlobalStateAssertion(OOGlobalStateAssertion object)
+      public Adapter caseActionReferencePoint(ActionReferencePoint object)
       {
-        return createOOGlobalStateAssertionAdapter();
+        return createActionReferencePointAdapter();
+      }
+      @Override
+      public Adapter caseConstraintReferencePoint(ConstraintReferencePoint object)
+      {
+        return createConstraintReferencePointAdapter();
       }
       @Override
       public Adapter caseFinallyStateAssertion(FinallyStateAssertion object)
       {
         return createFinallyStateAssertionAdapter();
+      }
+      @Override
+      public Adapter caseCheck(Check object)
+      {
+        return createCheckAdapter();
       }
       @Override
       public Adapter caseConstraintCheck(ConstraintCheck object)
@@ -427,31 +437,46 @@ public class TestLangAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.OOStateAssertion <em>OO State Assertion</em>}'.
+   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.ReferencePoint <em>Reference Point</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.modelexecution.fumltesting.testLang.OOStateAssertion
+   * @see org.modelexecution.fumltesting.testLang.ReferencePoint
    * @generated
    */
-  public Adapter createOOStateAssertionAdapter()
+  public Adapter createReferencePointAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.OOGlobalStateAssertion <em>OO Global State Assertion</em>}'.
+   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.ActionReferencePoint <em>Action Reference Point</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.modelexecution.fumltesting.testLang.OOGlobalStateAssertion
+   * @see org.modelexecution.fumltesting.testLang.ActionReferencePoint
    * @generated
    */
-  public Adapter createOOGlobalStateAssertionAdapter()
+  public Adapter createActionReferencePointAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.ConstraintReferencePoint <em>Constraint Reference Point</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.modelexecution.fumltesting.testLang.ConstraintReferencePoint
+   * @generated
+   */
+  public Adapter createConstraintReferencePointAdapter()
   {
     return null;
   }
@@ -467,6 +492,21 @@ public class TestLangAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createFinallyStateAssertionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.Check <em>Check</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.modelexecution.fumltesting.testLang.Check
+   * @generated
+   */
+  public Adapter createCheckAdapter()
   {
     return null;
   }

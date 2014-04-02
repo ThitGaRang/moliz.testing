@@ -173,19 +173,26 @@ public class TestLangSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case TestLangPackage.OO_STATE_ASSERTION:
+      case TestLangPackage.REFERENCE_POINT:
       {
-        OOStateAssertion ooStateAssertion = (OOStateAssertion)theEObject;
-        T result = caseOOStateAssertion(ooStateAssertion);
-        if (result == null) result = caseAssertion(ooStateAssertion);
+        ReferencePoint referencePoint = (ReferencePoint)theEObject;
+        T result = caseReferencePoint(referencePoint);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case TestLangPackage.OO_GLOBAL_STATE_ASSERTION:
+      case TestLangPackage.ACTION_REFERENCE_POINT:
       {
-        OOGlobalStateAssertion ooGlobalStateAssertion = (OOGlobalStateAssertion)theEObject;
-        T result = caseOOGlobalStateAssertion(ooGlobalStateAssertion);
-        if (result == null) result = caseAssertion(ooGlobalStateAssertion);
+        ActionReferencePoint actionReferencePoint = (ActionReferencePoint)theEObject;
+        T result = caseActionReferencePoint(actionReferencePoint);
+        if (result == null) result = caseReferencePoint(actionReferencePoint);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case TestLangPackage.CONSTRAINT_REFERENCE_POINT:
+      {
+        ConstraintReferencePoint constraintReferencePoint = (ConstraintReferencePoint)theEObject;
+        T result = caseConstraintReferencePoint(constraintReferencePoint);
+        if (result == null) result = caseReferencePoint(constraintReferencePoint);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -197,10 +204,18 @@ public class TestLangSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case TestLangPackage.CHECK:
+      {
+        Check check = (Check)theEObject;
+        T result = caseCheck(check);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case TestLangPackage.CONSTRAINT_CHECK:
       {
         ConstraintCheck constraintCheck = (ConstraintCheck)theEObject;
         T result = caseConstraintCheck(constraintCheck);
+        if (result == null) result = caseCheck(constraintCheck);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -208,6 +223,7 @@ public class TestLangSwitch<T> extends Switch<T>
       {
         StateExpression stateExpression = (StateExpression)theEObject;
         T result = caseStateExpression(stateExpression);
+        if (result == null) result = caseCheck(stateExpression);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -216,6 +232,7 @@ public class TestLangSwitch<T> extends Switch<T>
         ObjectStateExpression objectStateExpression = (ObjectStateExpression)theEObject;
         T result = caseObjectStateExpression(objectStateExpression);
         if (result == null) result = caseStateExpression(objectStateExpression);
+        if (result == null) result = caseCheck(objectStateExpression);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -224,6 +241,7 @@ public class TestLangSwitch<T> extends Switch<T>
         PropertyStateExpression propertyStateExpression = (PropertyStateExpression)theEObject;
         T result = casePropertyStateExpression(propertyStateExpression);
         if (result == null) result = caseStateExpression(propertyStateExpression);
+        if (result == null) result = caseCheck(propertyStateExpression);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -478,33 +496,49 @@ public class TestLangSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>OO State Assertion</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Reference Point</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>OO State Assertion</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Reference Point</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseOOStateAssertion(OOStateAssertion object)
+  public T caseReferencePoint(ReferencePoint object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>OO Global State Assertion</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Action Reference Point</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>OO Global State Assertion</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Action Reference Point</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseOOGlobalStateAssertion(OOGlobalStateAssertion object)
+  public T caseActionReferencePoint(ActionReferencePoint object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Constraint Reference Point</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Constraint Reference Point</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseConstraintReferencePoint(ConstraintReferencePoint object)
   {
     return null;
   }
@@ -521,6 +555,22 @@ public class TestLangSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseFinallyStateAssertion(FinallyStateAssertion object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Check</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Check</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseCheck(Check object)
   {
     return null;
   }

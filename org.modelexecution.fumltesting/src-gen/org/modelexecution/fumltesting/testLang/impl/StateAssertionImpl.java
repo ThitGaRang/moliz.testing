@@ -17,11 +17,9 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.eclipse.uml2.uml.Action;
-
-import org.modelexecution.fumltesting.testLang.ConstraintCheck;
+import org.modelexecution.fumltesting.testLang.Check;
+import org.modelexecution.fumltesting.testLang.ReferencePoint;
 import org.modelexecution.fumltesting.testLang.StateAssertion;
-import org.modelexecution.fumltesting.testLang.StateExpression;
 import org.modelexecution.fumltesting.testLang.TemporalOperator;
 import org.modelexecution.fumltesting.testLang.TemporalQuantifier;
 import org.modelexecution.fumltesting.testLang.TestLangPackage;
@@ -33,12 +31,11 @@ import org.modelexecution.fumltesting.testLang.TestLangPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.modelexecution.fumltesting.testLang.impl.StateAssertionImpl#getTemporalQuantifier <em>Temporal Quantifier</em>}</li>
- *   <li>{@link org.modelexecution.fumltesting.testLang.impl.StateAssertionImpl#getTemporalOperator <em>Temporal Operator</em>}</li>
- *   <li>{@link org.modelexecution.fumltesting.testLang.impl.StateAssertionImpl#getReferenceAction <em>Reference Action</em>}</li>
- *   <li>{@link org.modelexecution.fumltesting.testLang.impl.StateAssertionImpl#getUntilAction <em>Until Action</em>}</li>
- *   <li>{@link org.modelexecution.fumltesting.testLang.impl.StateAssertionImpl#getConstraintCheck <em>Constraint Check</em>}</li>
- *   <li>{@link org.modelexecution.fumltesting.testLang.impl.StateAssertionImpl#getExpressions <em>Expressions</em>}</li>
+ *   <li>{@link org.modelexecution.fumltesting.testLang.impl.StateAssertionImpl#getQuantifier <em>Quantifier</em>}</li>
+ *   <li>{@link org.modelexecution.fumltesting.testLang.impl.StateAssertionImpl#getOperator <em>Operator</em>}</li>
+ *   <li>{@link org.modelexecution.fumltesting.testLang.impl.StateAssertionImpl#getReferencePoint <em>Reference Point</em>}</li>
+ *   <li>{@link org.modelexecution.fumltesting.testLang.impl.StateAssertionImpl#getUntilPoint <em>Until Point</em>}</li>
+ *   <li>{@link org.modelexecution.fumltesting.testLang.impl.StateAssertionImpl#getChecks <em>Checks</em>}</li>
  * </ul>
  * </p>
  *
@@ -47,84 +44,74 @@ import org.modelexecution.fumltesting.testLang.TestLangPackage;
 public class StateAssertionImpl extends AssertionImpl implements StateAssertion
 {
   /**
-   * The default value of the '{@link #getTemporalQuantifier() <em>Temporal Quantifier</em>}' attribute.
+   * The default value of the '{@link #getQuantifier() <em>Quantifier</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getTemporalQuantifier()
+   * @see #getQuantifier()
    * @generated
    * @ordered
    */
-  protected static final TemporalQuantifier TEMPORAL_QUANTIFIER_EDEFAULT = TemporalQuantifier.NEXT;
+  protected static final TemporalQuantifier QUANTIFIER_EDEFAULT = TemporalQuantifier.NEXT;
 
   /**
-   * The cached value of the '{@link #getTemporalQuantifier() <em>Temporal Quantifier</em>}' attribute.
+   * The cached value of the '{@link #getQuantifier() <em>Quantifier</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getTemporalQuantifier()
+   * @see #getQuantifier()
    * @generated
    * @ordered
    */
-  protected TemporalQuantifier temporalQuantifier = TEMPORAL_QUANTIFIER_EDEFAULT;
+  protected TemporalQuantifier quantifier = QUANTIFIER_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getTemporalOperator() <em>Temporal Operator</em>}' attribute.
+   * The default value of the '{@link #getOperator() <em>Operator</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getTemporalOperator()
+   * @see #getOperator()
    * @generated
    * @ordered
    */
-  protected static final TemporalOperator TEMPORAL_OPERATOR_EDEFAULT = TemporalOperator.AFTER;
+  protected static final TemporalOperator OPERATOR_EDEFAULT = TemporalOperator.AFTER;
 
   /**
-   * The cached value of the '{@link #getTemporalOperator() <em>Temporal Operator</em>}' attribute.
+   * The cached value of the '{@link #getOperator() <em>Operator</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getTemporalOperator()
+   * @see #getOperator()
    * @generated
    * @ordered
    */
-  protected TemporalOperator temporalOperator = TEMPORAL_OPERATOR_EDEFAULT;
+  protected TemporalOperator operator = OPERATOR_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getReferenceAction() <em>Reference Action</em>}' reference.
+   * The cached value of the '{@link #getReferencePoint() <em>Reference Point</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getReferenceAction()
+   * @see #getReferencePoint()
    * @generated
    * @ordered
    */
-  protected Action referenceAction;
+  protected ReferencePoint referencePoint;
 
   /**
-   * The cached value of the '{@link #getUntilAction() <em>Until Action</em>}' reference.
+   * The cached value of the '{@link #getUntilPoint() <em>Until Point</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getUntilAction()
+   * @see #getUntilPoint()
    * @generated
    * @ordered
    */
-  protected Action untilAction;
+  protected ReferencePoint untilPoint;
 
   /**
-   * The cached value of the '{@link #getConstraintCheck() <em>Constraint Check</em>}' containment reference list.
+   * The cached value of the '{@link #getChecks() <em>Checks</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getConstraintCheck()
+   * @see #getChecks()
    * @generated
    * @ordered
    */
-  protected EList<ConstraintCheck> constraintCheck;
-
-  /**
-   * The cached value of the '{@link #getExpressions() <em>Expressions</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getExpressions()
-   * @generated
-   * @ordered
-   */
-  protected EList<StateExpression> expressions;
+  protected EList<Check> checks;
 
   /**
    * <!-- begin-user-doc -->
@@ -152,9 +139,9 @@ public class StateAssertionImpl extends AssertionImpl implements StateAssertion
    * <!-- end-user-doc -->
    * @generated
    */
-  public TemporalQuantifier getTemporalQuantifier()
+  public TemporalQuantifier getQuantifier()
   {
-    return temporalQuantifier;
+    return quantifier;
   }
 
   /**
@@ -162,12 +149,12 @@ public class StateAssertionImpl extends AssertionImpl implements StateAssertion
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setTemporalQuantifier(TemporalQuantifier newTemporalQuantifier)
+  public void setQuantifier(TemporalQuantifier newQuantifier)
   {
-    TemporalQuantifier oldTemporalQuantifier = temporalQuantifier;
-    temporalQuantifier = newTemporalQuantifier == null ? TEMPORAL_QUANTIFIER_EDEFAULT : newTemporalQuantifier;
+    TemporalQuantifier oldQuantifier = quantifier;
+    quantifier = newQuantifier == null ? QUANTIFIER_EDEFAULT : newQuantifier;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, TestLangPackage.STATE_ASSERTION__TEMPORAL_QUANTIFIER, oldTemporalQuantifier, temporalQuantifier));
+      eNotify(new ENotificationImpl(this, Notification.SET, TestLangPackage.STATE_ASSERTION__QUANTIFIER, oldQuantifier, quantifier));
   }
 
   /**
@@ -175,9 +162,9 @@ public class StateAssertionImpl extends AssertionImpl implements StateAssertion
    * <!-- end-user-doc -->
    * @generated
    */
-  public TemporalOperator getTemporalOperator()
+  public TemporalOperator getOperator()
   {
-    return temporalOperator;
+    return operator;
   }
 
   /**
@@ -185,12 +172,12 @@ public class StateAssertionImpl extends AssertionImpl implements StateAssertion
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setTemporalOperator(TemporalOperator newTemporalOperator)
+  public void setOperator(TemporalOperator newOperator)
   {
-    TemporalOperator oldTemporalOperator = temporalOperator;
-    temporalOperator = newTemporalOperator == null ? TEMPORAL_OPERATOR_EDEFAULT : newTemporalOperator;
+    TemporalOperator oldOperator = operator;
+    operator = newOperator == null ? OPERATOR_EDEFAULT : newOperator;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, TestLangPackage.STATE_ASSERTION__TEMPORAL_OPERATOR, oldTemporalOperator, temporalOperator));
+      eNotify(new ENotificationImpl(this, Notification.SET, TestLangPackage.STATE_ASSERTION__OPERATOR, oldOperator, operator));
   }
 
   /**
@@ -198,19 +185,9 @@ public class StateAssertionImpl extends AssertionImpl implements StateAssertion
    * <!-- end-user-doc -->
    * @generated
    */
-  public Action getReferenceAction()
+  public ReferencePoint getReferencePoint()
   {
-    if (referenceAction != null && referenceAction.eIsProxy())
-    {
-      InternalEObject oldReferenceAction = (InternalEObject)referenceAction;
-      referenceAction = (Action)eResolveProxy(oldReferenceAction);
-      if (referenceAction != oldReferenceAction)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, TestLangPackage.STATE_ASSERTION__REFERENCE_ACTION, oldReferenceAction, referenceAction));
-      }
-    }
-    return referenceAction;
+    return referencePoint;
   }
 
   /**
@@ -218,42 +195,16 @@ public class StateAssertionImpl extends AssertionImpl implements StateAssertion
    * <!-- end-user-doc -->
    * @generated
    */
-  public Action basicGetReferenceAction()
+  public NotificationChain basicSetReferencePoint(ReferencePoint newReferencePoint, NotificationChain msgs)
   {
-    return referenceAction;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setReferenceAction(Action newReferenceAction)
-  {
-    Action oldReferenceAction = referenceAction;
-    referenceAction = newReferenceAction;
+    ReferencePoint oldReferencePoint = referencePoint;
+    referencePoint = newReferencePoint;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, TestLangPackage.STATE_ASSERTION__REFERENCE_ACTION, oldReferenceAction, referenceAction));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Action getUntilAction()
-  {
-    if (untilAction != null && untilAction.eIsProxy())
     {
-      InternalEObject oldUntilAction = (InternalEObject)untilAction;
-      untilAction = (Action)eResolveProxy(oldUntilAction);
-      if (untilAction != oldUntilAction)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, TestLangPackage.STATE_ASSERTION__UNTIL_ACTION, oldUntilAction, untilAction));
-      }
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TestLangPackage.STATE_ASSERTION__REFERENCE_POINT, oldReferencePoint, newReferencePoint);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
     }
-    return untilAction;
+    return msgs;
   }
 
   /**
@@ -261,9 +212,20 @@ public class StateAssertionImpl extends AssertionImpl implements StateAssertion
    * <!-- end-user-doc -->
    * @generated
    */
-  public Action basicGetUntilAction()
+  public void setReferencePoint(ReferencePoint newReferencePoint)
   {
-    return untilAction;
+    if (newReferencePoint != referencePoint)
+    {
+      NotificationChain msgs = null;
+      if (referencePoint != null)
+        msgs = ((InternalEObject)referencePoint).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - TestLangPackage.STATE_ASSERTION__REFERENCE_POINT, null, msgs);
+      if (newReferencePoint != null)
+        msgs = ((InternalEObject)newReferencePoint).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - TestLangPackage.STATE_ASSERTION__REFERENCE_POINT, null, msgs);
+      msgs = basicSetReferencePoint(newReferencePoint, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, TestLangPackage.STATE_ASSERTION__REFERENCE_POINT, newReferencePoint, newReferencePoint));
   }
 
   /**
@@ -271,12 +233,26 @@ public class StateAssertionImpl extends AssertionImpl implements StateAssertion
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setUntilAction(Action newUntilAction)
+  public ReferencePoint getUntilPoint()
   {
-    Action oldUntilAction = untilAction;
-    untilAction = newUntilAction;
+    return untilPoint;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetUntilPoint(ReferencePoint newUntilPoint, NotificationChain msgs)
+  {
+    ReferencePoint oldUntilPoint = untilPoint;
+    untilPoint = newUntilPoint;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, TestLangPackage.STATE_ASSERTION__UNTIL_ACTION, oldUntilAction, untilAction));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, TestLangPackage.STATE_ASSERTION__UNTIL_POINT, oldUntilPoint, newUntilPoint);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
   }
 
   /**
@@ -284,13 +260,20 @@ public class StateAssertionImpl extends AssertionImpl implements StateAssertion
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<ConstraintCheck> getConstraintCheck()
+  public void setUntilPoint(ReferencePoint newUntilPoint)
   {
-    if (constraintCheck == null)
+    if (newUntilPoint != untilPoint)
     {
-      constraintCheck = new EObjectContainmentEList<ConstraintCheck>(ConstraintCheck.class, this, TestLangPackage.STATE_ASSERTION__CONSTRAINT_CHECK);
+      NotificationChain msgs = null;
+      if (untilPoint != null)
+        msgs = ((InternalEObject)untilPoint).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - TestLangPackage.STATE_ASSERTION__UNTIL_POINT, null, msgs);
+      if (newUntilPoint != null)
+        msgs = ((InternalEObject)newUntilPoint).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - TestLangPackage.STATE_ASSERTION__UNTIL_POINT, null, msgs);
+      msgs = basicSetUntilPoint(newUntilPoint, msgs);
+      if (msgs != null) msgs.dispatch();
     }
-    return constraintCheck;
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, TestLangPackage.STATE_ASSERTION__UNTIL_POINT, newUntilPoint, newUntilPoint));
   }
 
   /**
@@ -298,13 +281,13 @@ public class StateAssertionImpl extends AssertionImpl implements StateAssertion
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<StateExpression> getExpressions()
+  public EList<Check> getChecks()
   {
-    if (expressions == null)
+    if (checks == null)
     {
-      expressions = new EObjectContainmentEList<StateExpression>(StateExpression.class, this, TestLangPackage.STATE_ASSERTION__EXPRESSIONS);
+      checks = new EObjectContainmentEList<Check>(Check.class, this, TestLangPackage.STATE_ASSERTION__CHECKS);
     }
-    return expressions;
+    return checks;
   }
 
   /**
@@ -317,10 +300,12 @@ public class StateAssertionImpl extends AssertionImpl implements StateAssertion
   {
     switch (featureID)
     {
-      case TestLangPackage.STATE_ASSERTION__CONSTRAINT_CHECK:
-        return ((InternalEList<?>)getConstraintCheck()).basicRemove(otherEnd, msgs);
-      case TestLangPackage.STATE_ASSERTION__EXPRESSIONS:
-        return ((InternalEList<?>)getExpressions()).basicRemove(otherEnd, msgs);
+      case TestLangPackage.STATE_ASSERTION__REFERENCE_POINT:
+        return basicSetReferencePoint(null, msgs);
+      case TestLangPackage.STATE_ASSERTION__UNTIL_POINT:
+        return basicSetUntilPoint(null, msgs);
+      case TestLangPackage.STATE_ASSERTION__CHECKS:
+        return ((InternalEList<?>)getChecks()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -335,20 +320,16 @@ public class StateAssertionImpl extends AssertionImpl implements StateAssertion
   {
     switch (featureID)
     {
-      case TestLangPackage.STATE_ASSERTION__TEMPORAL_QUANTIFIER:
-        return getTemporalQuantifier();
-      case TestLangPackage.STATE_ASSERTION__TEMPORAL_OPERATOR:
-        return getTemporalOperator();
-      case TestLangPackage.STATE_ASSERTION__REFERENCE_ACTION:
-        if (resolve) return getReferenceAction();
-        return basicGetReferenceAction();
-      case TestLangPackage.STATE_ASSERTION__UNTIL_ACTION:
-        if (resolve) return getUntilAction();
-        return basicGetUntilAction();
-      case TestLangPackage.STATE_ASSERTION__CONSTRAINT_CHECK:
-        return getConstraintCheck();
-      case TestLangPackage.STATE_ASSERTION__EXPRESSIONS:
-        return getExpressions();
+      case TestLangPackage.STATE_ASSERTION__QUANTIFIER:
+        return getQuantifier();
+      case TestLangPackage.STATE_ASSERTION__OPERATOR:
+        return getOperator();
+      case TestLangPackage.STATE_ASSERTION__REFERENCE_POINT:
+        return getReferencePoint();
+      case TestLangPackage.STATE_ASSERTION__UNTIL_POINT:
+        return getUntilPoint();
+      case TestLangPackage.STATE_ASSERTION__CHECKS:
+        return getChecks();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -364,25 +345,21 @@ public class StateAssertionImpl extends AssertionImpl implements StateAssertion
   {
     switch (featureID)
     {
-      case TestLangPackage.STATE_ASSERTION__TEMPORAL_QUANTIFIER:
-        setTemporalQuantifier((TemporalQuantifier)newValue);
+      case TestLangPackage.STATE_ASSERTION__QUANTIFIER:
+        setQuantifier((TemporalQuantifier)newValue);
         return;
-      case TestLangPackage.STATE_ASSERTION__TEMPORAL_OPERATOR:
-        setTemporalOperator((TemporalOperator)newValue);
+      case TestLangPackage.STATE_ASSERTION__OPERATOR:
+        setOperator((TemporalOperator)newValue);
         return;
-      case TestLangPackage.STATE_ASSERTION__REFERENCE_ACTION:
-        setReferenceAction((Action)newValue);
+      case TestLangPackage.STATE_ASSERTION__REFERENCE_POINT:
+        setReferencePoint((ReferencePoint)newValue);
         return;
-      case TestLangPackage.STATE_ASSERTION__UNTIL_ACTION:
-        setUntilAction((Action)newValue);
+      case TestLangPackage.STATE_ASSERTION__UNTIL_POINT:
+        setUntilPoint((ReferencePoint)newValue);
         return;
-      case TestLangPackage.STATE_ASSERTION__CONSTRAINT_CHECK:
-        getConstraintCheck().clear();
-        getConstraintCheck().addAll((Collection<? extends ConstraintCheck>)newValue);
-        return;
-      case TestLangPackage.STATE_ASSERTION__EXPRESSIONS:
-        getExpressions().clear();
-        getExpressions().addAll((Collection<? extends StateExpression>)newValue);
+      case TestLangPackage.STATE_ASSERTION__CHECKS:
+        getChecks().clear();
+        getChecks().addAll((Collection<? extends Check>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -398,23 +375,20 @@ public class StateAssertionImpl extends AssertionImpl implements StateAssertion
   {
     switch (featureID)
     {
-      case TestLangPackage.STATE_ASSERTION__TEMPORAL_QUANTIFIER:
-        setTemporalQuantifier(TEMPORAL_QUANTIFIER_EDEFAULT);
+      case TestLangPackage.STATE_ASSERTION__QUANTIFIER:
+        setQuantifier(QUANTIFIER_EDEFAULT);
         return;
-      case TestLangPackage.STATE_ASSERTION__TEMPORAL_OPERATOR:
-        setTemporalOperator(TEMPORAL_OPERATOR_EDEFAULT);
+      case TestLangPackage.STATE_ASSERTION__OPERATOR:
+        setOperator(OPERATOR_EDEFAULT);
         return;
-      case TestLangPackage.STATE_ASSERTION__REFERENCE_ACTION:
-        setReferenceAction((Action)null);
+      case TestLangPackage.STATE_ASSERTION__REFERENCE_POINT:
+        setReferencePoint((ReferencePoint)null);
         return;
-      case TestLangPackage.STATE_ASSERTION__UNTIL_ACTION:
-        setUntilAction((Action)null);
+      case TestLangPackage.STATE_ASSERTION__UNTIL_POINT:
+        setUntilPoint((ReferencePoint)null);
         return;
-      case TestLangPackage.STATE_ASSERTION__CONSTRAINT_CHECK:
-        getConstraintCheck().clear();
-        return;
-      case TestLangPackage.STATE_ASSERTION__EXPRESSIONS:
-        getExpressions().clear();
+      case TestLangPackage.STATE_ASSERTION__CHECKS:
+        getChecks().clear();
         return;
     }
     super.eUnset(featureID);
@@ -430,18 +404,16 @@ public class StateAssertionImpl extends AssertionImpl implements StateAssertion
   {
     switch (featureID)
     {
-      case TestLangPackage.STATE_ASSERTION__TEMPORAL_QUANTIFIER:
-        return temporalQuantifier != TEMPORAL_QUANTIFIER_EDEFAULT;
-      case TestLangPackage.STATE_ASSERTION__TEMPORAL_OPERATOR:
-        return temporalOperator != TEMPORAL_OPERATOR_EDEFAULT;
-      case TestLangPackage.STATE_ASSERTION__REFERENCE_ACTION:
-        return referenceAction != null;
-      case TestLangPackage.STATE_ASSERTION__UNTIL_ACTION:
-        return untilAction != null;
-      case TestLangPackage.STATE_ASSERTION__CONSTRAINT_CHECK:
-        return constraintCheck != null && !constraintCheck.isEmpty();
-      case TestLangPackage.STATE_ASSERTION__EXPRESSIONS:
-        return expressions != null && !expressions.isEmpty();
+      case TestLangPackage.STATE_ASSERTION__QUANTIFIER:
+        return quantifier != QUANTIFIER_EDEFAULT;
+      case TestLangPackage.STATE_ASSERTION__OPERATOR:
+        return operator != OPERATOR_EDEFAULT;
+      case TestLangPackage.STATE_ASSERTION__REFERENCE_POINT:
+        return referencePoint != null;
+      case TestLangPackage.STATE_ASSERTION__UNTIL_POINT:
+        return untilPoint != null;
+      case TestLangPackage.STATE_ASSERTION__CHECKS:
+        return checks != null && !checks.isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -457,10 +429,10 @@ public class StateAssertionImpl extends AssertionImpl implements StateAssertion
     if (eIsProxy()) return super.toString();
 
     StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (temporalQuantifier: ");
-    result.append(temporalQuantifier);
-    result.append(", temporalOperator: ");
-    result.append(temporalOperator);
+    result.append(" (quantifier: ");
+    result.append(quantifier);
+    result.append(", operator: ");
+    result.append(operator);
     result.append(')');
     return result.toString();
   }

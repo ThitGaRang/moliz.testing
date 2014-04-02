@@ -4,8 +4,6 @@ package org.modelexecution.fumltesting.testLang;
 
 import org.eclipse.emf.common.util.EList;
 
-import org.eclipse.emf.ecore.EObject;
-
 import org.eclipse.xtext.xbase.XExpression;
 
 /**
@@ -25,7 +23,7 @@ import org.eclipse.xtext.xbase.XExpression;
  * @model
  * @generated
  */
-public interface ConstraintCheck extends EObject
+public interface ConstraintCheck extends Check
 {
   /**
    * Returns the value of the '<em><b>Constraint Names</b></em>' containment reference list.

@@ -70,48 +70,35 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Assertion"/>
   <eClassifiers xsi:type="ecore:EClass" name="StateAssertion" eSuperTypes="#//Assertion">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="temporalQuantifier" eType="#//TemporalQuantifier"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="temporalOperator" eType="#//TemporalOperator"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="referenceAction" eType="ecore:EClass ../../../../../org.eclipse.uml2.uml/model/UML.ecore#//Action"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="untilAction" eType="ecore:EClass ../../../../../org.eclipse.uml2.uml/model/UML.ecore#//Action"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="constraintCheck" upperBound="-1"
-        eType="#//ConstraintCheck" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="expressions" upperBound="-1"
-        eType="#//StateExpression" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="OOStateAssertion" eSuperTypes="#//Assertion">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="TemporalQuantifier" eType="#//TemporalQuantifier"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="temporalOperator" eType="#//TemporalOperator"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="referenceConstraint" eType="ecore:EClass ../../../../../org.eclipse.xtext.xbase/model/Xbase.ecore#//XExpression"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="untilConstraint" eType="ecore:EClass ../../../../../org.eclipse.xtext.xbase/model/Xbase.ecore#//XExpression"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="constraintCheck" upperBound="-1"
-        eType="#//ConstraintCheck" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="expressions" upperBound="-1"
-        eType="#//StateExpression" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="OOGlobalStateAssertion" eSuperTypes="#//Assertion">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="conditionConstraint" eType="ecore:EClass ../../../../../org.eclipse.xtext.xbase/model/Xbase.ecore#//XExpression"
-        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="quantifier" eType="#//TemporalQuantifier"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="evaluatedConstraint" eType="ecore:EClass ../../../../../org.eclipse.xtext.xbase/model/Xbase.ecore#//XExpression"
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="operator" eType="#//TemporalOperator"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="referencePoint" eType="#//ReferencePoint"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="object" eType="#//VarDeclaration"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="untilPoint" eType="#//ReferencePoint"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="checks" upperBound="-1"
+        eType="#//Check" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ReferencePoint"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ActionReferencePoint" eSuperTypes="#//ReferencePoint">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="action" eType="ecore:EClass ../../../../../org.eclipse.uml2.uml/model/UML.ecore#//Action"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ConstraintReferencePoint" eSuperTypes="#//ReferencePoint">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constraintName" eType="ecore:EClass ../../../../../org.eclipse.xtext.xbase/model/Xbase.ecore#//XExpression"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FinallyStateAssertion" eSuperTypes="#//Assertion">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="constraintCheck" upperBound="-1"
-        eType="#//ConstraintCheck" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="expressions" upperBound="-1"
-        eType="#//StateExpression" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="checks" upperBound="-1"
+        eType="#//Check" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ConstraintCheck">
+  <eClassifiers xsi:type="ecore:EClass" name="Check"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ConstraintCheck" eSuperTypes="#//Check">
     <eStructuralFeatures xsi:type="ecore:EReference" name="constraintNames" upperBound="-1"
         eType="ecore:EClass ../../../../../org.eclipse.xtext.xbase/model/Xbase.ecore#//XExpression"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="object" eType="#//VarDeclaration"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="StateExpression">
+  <eClassifiers xsi:type="ecore:EClass" name="StateExpression" eSuperTypes="#//Check">
     <eStructuralFeatures xsi:type="ecore:EReference" name="pin" eType="#//VarDeclaration"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="operator" eType="#//ArithmeticOperator"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//Value"

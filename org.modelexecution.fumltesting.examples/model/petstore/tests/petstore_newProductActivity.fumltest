@@ -15,19 +15,19 @@ test newProductTest activity NewProductActivity(name="SyrianHamster", code=1234)
 	assertOrder *, NewProductActivity.createProduct, *, NewProductActivity.setName, *, NewProductActivity.setDescription, *,
 		NewProductActivity.setAvailable, *, NewProductActivity.setCode;
 	
-	assertState always before NewProductActivity.createProduct{product = null;}
-	assertState next before NewProductActivity.createProduct{product = null;}
-	assertState always after NewProductActivity.createProduct{product != null;}
-	assertState next after NewProductActivity.createProduct{product != null;}
+	assertState always before action NewProductActivity.createProduct{product = null;}
+	assertState next before action NewProductActivity.createProduct{product = null;}
+	assertState always after action NewProductActivity.createProduct{product != null;}
+	assertState next after action NewProductActivity.createProduct{product != null;}
 	
-	assertState always after NewProductActivity.setName{product::name = "SyrianHamster";}
-	assertState next after NewProductActivity.setName{product::name = "SyrianHamster";}		
-	assertState always before NewProductActivity.setName{product::name = null;}	
-	assertState next before NewProductActivity.setName{product::name = null;}
+	assertState always after action NewProductActivity.setName{product::name = "SyrianHamster";}
+	assertState next after action NewProductActivity.setName{product::name = "SyrianHamster";}		
+	assertState always before action NewProductActivity.setName{product::name = null;}	
+	assertState next before action NewProductActivity.setName{product::name = null;}
 	
 	finally {
 		check 'ProductName', 'ProductCode' on product;
-		product::name = 'SyrianHamster';
+		product::name = 'SyrianHamster';		
 		product::code = 1234;
 	}
 }

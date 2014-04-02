@@ -8,10 +8,13 @@ package org.modelexecution.fumltesting.ocl.internal.modelinstance;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.WeakHashMap;
 
 import org.eclipse.osgi.util.NLS;
+import org.modelexecution.fuml.Semantics.Classes.Kernel.FeatureValue;
+import org.modelexecution.fuml.Syntax.Classes.Kernel.Association;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Enumeration;
 import org.modelexecution.fumltesting.ocl.internal.util.FUMLModelInstanceTypeUtil;
 
@@ -33,10 +36,12 @@ public class FUMLModelInstanceFactory extends BasisJavaModelInstanceFactory impl
 	private Map<Object, IModelInstanceElement> myCachedAdaptedObjects = new WeakHashMap<Object, IModelInstanceElement>();
 	private IModel dslModel;
 	private FUMLModelInstanceTypeUtil dslTypeUtil;
+	private HashMap<Association, FeatureValue> featureValuesFromAssociation;
 
 	public FUMLModelInstanceFactory(IModel model) {
 		dslModel = model;
 		dslTypeUtil = new FUMLModelInstanceTypeUtil(model);
+		featureValuesFromAssociation = new HashMap<Association, FeatureValue>();
 	}
 
 	public IModelInstanceElement createModelInstanceElement(Object adapted) throws TypeNotFoundInModelException {

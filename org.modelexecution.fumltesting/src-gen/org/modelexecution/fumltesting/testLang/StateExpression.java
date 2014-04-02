@@ -2,7 +2,6 @@
  */
 package org.modelexecution.fumltesting.testLang;
 
-import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -22,7 +21,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface StateExpression extends EObject
+public interface StateExpression extends Check
 {
   /**
    * Returns the value of the '<em><b>Pin</b></em>' reference.

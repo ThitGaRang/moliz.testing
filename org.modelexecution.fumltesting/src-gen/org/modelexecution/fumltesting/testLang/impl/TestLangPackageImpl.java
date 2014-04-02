@@ -15,23 +15,25 @@ import org.eclipse.uml2.uml.UMLPackage;
 
 import org.eclipse.xtext.xbase.XbasePackage;
 
+import org.modelexecution.fumltesting.testLang.ActionReferencePoint;
 import org.modelexecution.fumltesting.testLang.ActivityInput;
 import org.modelexecution.fumltesting.testLang.ArithmeticOperator;
 import org.modelexecution.fumltesting.testLang.Assertion;
 import org.modelexecution.fumltesting.testLang.Attribute;
+import org.modelexecution.fumltesting.testLang.Check;
 import org.modelexecution.fumltesting.testLang.ConstraintCheck;
+import org.modelexecution.fumltesting.testLang.ConstraintReferencePoint;
 import org.modelexecution.fumltesting.testLang.FinallyStateAssertion;
 import org.modelexecution.fumltesting.testLang.Import;
 import org.modelexecution.fumltesting.testLang.Link;
 import org.modelexecution.fumltesting.testLang.NodeOrder;
 import org.modelexecution.fumltesting.testLang.NodeSpecification;
-import org.modelexecution.fumltesting.testLang.OOGlobalStateAssertion;
-import org.modelexecution.fumltesting.testLang.OOStateAssertion;
 import org.modelexecution.fumltesting.testLang.ObjectSpecification;
 import org.modelexecution.fumltesting.testLang.ObjectStateExpression;
 import org.modelexecution.fumltesting.testLang.ObjectValue;
 import org.modelexecution.fumltesting.testLang.OrderAssertion;
 import org.modelexecution.fumltesting.testLang.PropertyStateExpression;
+import org.modelexecution.fumltesting.testLang.ReferencePoint;
 import org.modelexecution.fumltesting.testLang.Scenario;
 import org.modelexecution.fumltesting.testLang.SimpleValue;
 import org.modelexecution.fumltesting.testLang.StateAssertion;
@@ -156,14 +158,21 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass ooStateAssertionEClass = null;
+  private EClass referencePointEClass = null;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass ooGlobalStateAssertionEClass = null;
+  private EClass actionReferencePointEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass constraintReferencePointEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -171,6 +180,13 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * @generated
    */
   private EClass finallyStateAssertionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass checkEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -754,7 +770,7 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getStateAssertion_TemporalQuantifier()
+  public EAttribute getStateAssertion_Quantifier()
   {
     return (EAttribute)stateAssertionEClass.getEStructuralFeatures().get(0);
   }
@@ -764,7 +780,7 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getStateAssertion_TemporalOperator()
+  public EAttribute getStateAssertion_Operator()
   {
     return (EAttribute)stateAssertionEClass.getEStructuralFeatures().get(1);
   }
@@ -774,7 +790,7 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getStateAssertion_ReferenceAction()
+  public EReference getStateAssertion_ReferencePoint()
   {
     return (EReference)stateAssertionEClass.getEStructuralFeatures().get(2);
   }
@@ -784,7 +800,7 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getStateAssertion_UntilAction()
+  public EReference getStateAssertion_UntilPoint()
   {
     return (EReference)stateAssertionEClass.getEStructuralFeatures().get(3);
   }
@@ -794,7 +810,7 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getStateAssertion_ConstraintCheck()
+  public EReference getStateAssertion_Checks()
   {
     return (EReference)stateAssertionEClass.getEStructuralFeatures().get(4);
   }
@@ -804,9 +820,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getStateAssertion_Expressions()
+  public EClass getReferencePoint()
   {
-    return (EReference)stateAssertionEClass.getEStructuralFeatures().get(5);
+    return referencePointEClass;
   }
 
   /**
@@ -814,9 +830,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getOOStateAssertion()
+  public EClass getActionReferencePoint()
   {
-    return ooStateAssertionEClass;
+    return actionReferencePointEClass;
   }
 
   /**
@@ -824,9 +840,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getOOStateAssertion_TemporalQuantifier()
+  public EReference getActionReferencePoint_Action()
   {
-    return (EAttribute)ooStateAssertionEClass.getEStructuralFeatures().get(0);
+    return (EReference)actionReferencePointEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -834,9 +850,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getOOStateAssertion_TemporalOperator()
+  public EClass getConstraintReferencePoint()
   {
-    return (EAttribute)ooStateAssertionEClass.getEStructuralFeatures().get(1);
+    return constraintReferencePointEClass;
   }
 
   /**
@@ -844,89 +860,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getOOStateAssertion_ReferenceConstraint()
+  public EReference getConstraintReferencePoint_ConstraintName()
   {
-    return (EReference)ooStateAssertionEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getOOStateAssertion_UntilConstraint()
-  {
-    return (EReference)ooStateAssertionEClass.getEStructuralFeatures().get(3);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getOOStateAssertion_ConstraintCheck()
-  {
-    return (EReference)ooStateAssertionEClass.getEStructuralFeatures().get(4);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getOOStateAssertion_Expressions()
-  {
-    return (EReference)ooStateAssertionEClass.getEStructuralFeatures().get(5);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getOOGlobalStateAssertion()
-  {
-    return ooGlobalStateAssertionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getOOGlobalStateAssertion_ConditionConstraint()
-  {
-    return (EReference)ooGlobalStateAssertionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getOOGlobalStateAssertion_Quantifier()
-  {
-    return (EAttribute)ooGlobalStateAssertionEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getOOGlobalStateAssertion_EvaluatedConstraint()
-  {
-    return (EReference)ooGlobalStateAssertionEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getOOGlobalStateAssertion_Object()
-  {
-    return (EReference)ooGlobalStateAssertionEClass.getEStructuralFeatures().get(3);
+    return (EReference)constraintReferencePointEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -944,7 +880,7 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getFinallyStateAssertion_ConstraintCheck()
+  public EReference getFinallyStateAssertion_Checks()
   {
     return (EReference)finallyStateAssertionEClass.getEStructuralFeatures().get(0);
   }
@@ -954,9 +890,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getFinallyStateAssertion_Expressions()
+  public EClass getCheck()
   {
-    return (EReference)finallyStateAssertionEClass.getEStructuralFeatures().get(1);
+    return checkEClass;
   }
 
   /**
@@ -1266,30 +1202,24 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
     assertionEClass = createEClass(ASSERTION);
 
     stateAssertionEClass = createEClass(STATE_ASSERTION);
-    createEAttribute(stateAssertionEClass, STATE_ASSERTION__TEMPORAL_QUANTIFIER);
-    createEAttribute(stateAssertionEClass, STATE_ASSERTION__TEMPORAL_OPERATOR);
-    createEReference(stateAssertionEClass, STATE_ASSERTION__REFERENCE_ACTION);
-    createEReference(stateAssertionEClass, STATE_ASSERTION__UNTIL_ACTION);
-    createEReference(stateAssertionEClass, STATE_ASSERTION__CONSTRAINT_CHECK);
-    createEReference(stateAssertionEClass, STATE_ASSERTION__EXPRESSIONS);
+    createEAttribute(stateAssertionEClass, STATE_ASSERTION__QUANTIFIER);
+    createEAttribute(stateAssertionEClass, STATE_ASSERTION__OPERATOR);
+    createEReference(stateAssertionEClass, STATE_ASSERTION__REFERENCE_POINT);
+    createEReference(stateAssertionEClass, STATE_ASSERTION__UNTIL_POINT);
+    createEReference(stateAssertionEClass, STATE_ASSERTION__CHECKS);
 
-    ooStateAssertionEClass = createEClass(OO_STATE_ASSERTION);
-    createEAttribute(ooStateAssertionEClass, OO_STATE_ASSERTION__TEMPORAL_QUANTIFIER);
-    createEAttribute(ooStateAssertionEClass, OO_STATE_ASSERTION__TEMPORAL_OPERATOR);
-    createEReference(ooStateAssertionEClass, OO_STATE_ASSERTION__REFERENCE_CONSTRAINT);
-    createEReference(ooStateAssertionEClass, OO_STATE_ASSERTION__UNTIL_CONSTRAINT);
-    createEReference(ooStateAssertionEClass, OO_STATE_ASSERTION__CONSTRAINT_CHECK);
-    createEReference(ooStateAssertionEClass, OO_STATE_ASSERTION__EXPRESSIONS);
+    referencePointEClass = createEClass(REFERENCE_POINT);
 
-    ooGlobalStateAssertionEClass = createEClass(OO_GLOBAL_STATE_ASSERTION);
-    createEReference(ooGlobalStateAssertionEClass, OO_GLOBAL_STATE_ASSERTION__CONDITION_CONSTRAINT);
-    createEAttribute(ooGlobalStateAssertionEClass, OO_GLOBAL_STATE_ASSERTION__QUANTIFIER);
-    createEReference(ooGlobalStateAssertionEClass, OO_GLOBAL_STATE_ASSERTION__EVALUATED_CONSTRAINT);
-    createEReference(ooGlobalStateAssertionEClass, OO_GLOBAL_STATE_ASSERTION__OBJECT);
+    actionReferencePointEClass = createEClass(ACTION_REFERENCE_POINT);
+    createEReference(actionReferencePointEClass, ACTION_REFERENCE_POINT__ACTION);
+
+    constraintReferencePointEClass = createEClass(CONSTRAINT_REFERENCE_POINT);
+    createEReference(constraintReferencePointEClass, CONSTRAINT_REFERENCE_POINT__CONSTRAINT_NAME);
 
     finallyStateAssertionEClass = createEClass(FINALLY_STATE_ASSERTION);
-    createEReference(finallyStateAssertionEClass, FINALLY_STATE_ASSERTION__CONSTRAINT_CHECK);
-    createEReference(finallyStateAssertionEClass, FINALLY_STATE_ASSERTION__EXPRESSIONS);
+    createEReference(finallyStateAssertionEClass, FINALLY_STATE_ASSERTION__CHECKS);
+
+    checkEClass = createEClass(CHECK);
 
     constraintCheckEClass = createEClass(CONSTRAINT_CHECK);
     createEReference(constraintCheckEClass, CONSTRAINT_CHECK__CONSTRAINT_NAMES);
@@ -1360,9 +1290,11 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
     simpleValueEClass.getESuperTypes().add(this.getValue());
     objectValueEClass.getESuperTypes().add(this.getValue());
     stateAssertionEClass.getESuperTypes().add(this.getAssertion());
-    ooStateAssertionEClass.getESuperTypes().add(this.getAssertion());
-    ooGlobalStateAssertionEClass.getESuperTypes().add(this.getAssertion());
+    actionReferencePointEClass.getESuperTypes().add(this.getReferencePoint());
+    constraintReferencePointEClass.getESuperTypes().add(this.getReferencePoint());
     finallyStateAssertionEClass.getESuperTypes().add(this.getAssertion());
+    constraintCheckEClass.getESuperTypes().add(this.getCheck());
+    stateExpressionEClass.getESuperTypes().add(this.getCheck());
     objectStateExpressionEClass.getESuperTypes().add(this.getStateExpression());
     propertyStateExpressionEClass.getESuperTypes().add(this.getStateExpression());
     orderAssertionEClass.getESuperTypes().add(this.getAssertion());
@@ -1425,30 +1357,24 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
     initEClass(assertionEClass, Assertion.class, "Assertion", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(stateAssertionEClass, StateAssertion.class, "StateAssertion", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getStateAssertion_TemporalQuantifier(), this.getTemporalQuantifier(), "temporalQuantifier", null, 0, 1, StateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getStateAssertion_TemporalOperator(), this.getTemporalOperator(), "temporalOperator", null, 0, 1, StateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getStateAssertion_ReferenceAction(), theUMLPackage.getAction(), null, "referenceAction", null, 0, 1, StateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getStateAssertion_UntilAction(), theUMLPackage.getAction(), null, "untilAction", null, 0, 1, StateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getStateAssertion_ConstraintCheck(), this.getConstraintCheck(), null, "constraintCheck", null, 0, -1, StateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getStateAssertion_Expressions(), this.getStateExpression(), null, "expressions", null, 0, -1, StateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getStateAssertion_Quantifier(), this.getTemporalQuantifier(), "quantifier", null, 0, 1, StateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getStateAssertion_Operator(), this.getTemporalOperator(), "operator", null, 0, 1, StateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getStateAssertion_ReferencePoint(), this.getReferencePoint(), null, "referencePoint", null, 0, 1, StateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getStateAssertion_UntilPoint(), this.getReferencePoint(), null, "untilPoint", null, 0, 1, StateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getStateAssertion_Checks(), this.getCheck(), null, "checks", null, 0, -1, StateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(ooStateAssertionEClass, OOStateAssertion.class, "OOStateAssertion", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getOOStateAssertion_TemporalQuantifier(), this.getTemporalQuantifier(), "TemporalQuantifier", null, 0, 1, OOStateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getOOStateAssertion_TemporalOperator(), this.getTemporalOperator(), "temporalOperator", null, 0, 1, OOStateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getOOStateAssertion_ReferenceConstraint(), theXbasePackage.getXExpression(), null, "referenceConstraint", null, 0, 1, OOStateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getOOStateAssertion_UntilConstraint(), theXbasePackage.getXExpression(), null, "untilConstraint", null, 0, 1, OOStateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getOOStateAssertion_ConstraintCheck(), this.getConstraintCheck(), null, "constraintCheck", null, 0, -1, OOStateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getOOStateAssertion_Expressions(), this.getStateExpression(), null, "expressions", null, 0, -1, OOStateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(referencePointEClass, ReferencePoint.class, "ReferencePoint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-    initEClass(ooGlobalStateAssertionEClass, OOGlobalStateAssertion.class, "OOGlobalStateAssertion", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getOOGlobalStateAssertion_ConditionConstraint(), theXbasePackage.getXExpression(), null, "conditionConstraint", null, 0, 1, OOGlobalStateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getOOGlobalStateAssertion_Quantifier(), this.getTemporalQuantifier(), "quantifier", null, 0, 1, OOGlobalStateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getOOGlobalStateAssertion_EvaluatedConstraint(), theXbasePackage.getXExpression(), null, "evaluatedConstraint", null, 0, 1, OOGlobalStateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getOOGlobalStateAssertion_Object(), this.getVarDeclaration(), null, "object", null, 0, 1, OOGlobalStateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(actionReferencePointEClass, ActionReferencePoint.class, "ActionReferencePoint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getActionReferencePoint_Action(), theUMLPackage.getAction(), null, "action", null, 0, 1, ActionReferencePoint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(constraintReferencePointEClass, ConstraintReferencePoint.class, "ConstraintReferencePoint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getConstraintReferencePoint_ConstraintName(), theXbasePackage.getXExpression(), null, "constraintName", null, 0, 1, ConstraintReferencePoint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(finallyStateAssertionEClass, FinallyStateAssertion.class, "FinallyStateAssertion", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getFinallyStateAssertion_ConstraintCheck(), this.getConstraintCheck(), null, "constraintCheck", null, 0, -1, FinallyStateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getFinallyStateAssertion_Expressions(), this.getStateExpression(), null, "expressions", null, 0, -1, FinallyStateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getFinallyStateAssertion_Checks(), this.getCheck(), null, "checks", null, 0, -1, FinallyStateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(checkEClass, Check.class, "Check", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(constraintCheckEClass, ConstraintCheck.class, "ConstraintCheck", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getConstraintCheck_ConstraintNames(), theXbasePackage.getXExpression(), null, "constraintNames", null, 0, -1, ConstraintCheck.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

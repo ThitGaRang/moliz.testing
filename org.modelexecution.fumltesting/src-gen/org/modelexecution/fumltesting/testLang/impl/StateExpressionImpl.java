@@ -9,7 +9,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.modelexecution.fumltesting.testLang.ArithmeticOperator;
 import org.modelexecution.fumltesting.testLang.StateExpression;
@@ -32,7 +31,7 @@ import org.modelexecution.fumltesting.testLang.VarDeclaration;
  *
  * @generated
  */
-public class StateExpressionImpl extends MinimalEObjectImpl.Container implements StateExpression
+public class StateExpressionImpl extends CheckImpl implements StateExpression
 {
   /**
    * The cached value of the '{@link #getPin() <em>Pin</em>}' reference.

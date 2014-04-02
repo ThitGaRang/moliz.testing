@@ -43,11 +43,17 @@ public class FumlConverter {
 	private HashMap<fUML.Syntax.Classes.Kernel.Package, Package> mappedPackages;
 	private HashMap<PrimitiveType, org.modelexecution.fuml.Syntax.Classes.Kernel.PrimitiveType> mappedPrimitiveTypes;
 
+	private HashMap<Object_, Object> mappedObjects;
+	private HashMap<fUML.Semantics.Classes.Kernel.Link, Link> mappedLinks;
+
 	public FumlConverter() {
 		mappedClasses = new HashMap<Class_, Class>();
 		mappedAssociations = new HashMap<fUML.Syntax.Classes.Kernel.Association, Association>();
 		mappedPackages = new HashMap<fUML.Syntax.Classes.Kernel.Package, Package>();
 		mappedPrimitiveTypes = new HashMap<PrimitiveType, org.modelexecution.fuml.Syntax.Classes.Kernel.PrimitiveType>();
+		
+		mappedObjects = new HashMap<Object_, Object>();
+		mappedLinks = new HashMap<fUML.Semantics.Classes.Kernel.Link, Link>();
 	}
 
 	public Package mapAndWire(fUML.Syntax.Classes.Kernel.Package package_) {
@@ -78,6 +84,9 @@ public class FumlConverter {
 			for (Property property : association.ownedEnd) {
 				org.modelexecution.fuml.Syntax.Classes.Kernel.Property mappedProperty = (org.modelexecution.fuml.Syntax.Classes.Kernel.Property) map(property);
 				mappedProperty.setAssociation(mappedAssociation);
+				if (property.typedElement != null && property.typedElement.type instanceof Class_) {
+					mappedProperty.setType(map((Class_) property.typedElement.type));
+				}
 				mappedAssociation.getOwnedEnd().add(mappedProperty);
 			}
 		}
@@ -196,13 +205,19 @@ public class FumlConverter {
 		mappedFeature.setUnique(structuralFeature.multiplicityElement.isUnique);
 		mappedFeature.setUpper(structuralFeature.multiplicityElement.upper.naturalValue);
 		mappedFeature.setVisibility(mapVisibility(structuralFeature));
-		
+
 		if (structuralFeature.owner != null && structuralFeature.owner instanceof Class_) {
 			mappedFeature.setOwner(map((Class_) structuralFeature.owner));
 		}
 
 		if (structuralFeature.owner != null && structuralFeature.owner instanceof fUML.Syntax.Classes.Kernel.Association) {
-			mappedFeature.setOwner(map((fUML.Syntax.Classes.Kernel.Association) structuralFeature.owner));
+			Association owner = map((fUML.Syntax.Classes.Kernel.Association) structuralFeature.owner);
+			boolean isNavigable = ((fUML.Syntax.Classes.Kernel.Association) structuralFeature.owner).navigableOwnedEnd.contains(structuralFeature);
+			if (isNavigable)
+				owner.getNavigableOwnedEnd().add((org.modelexecution.fuml.Syntax.Classes.Kernel.Property) mappedFeature);
+			else
+				owner.getOwnedEnd().add((org.modelexecution.fuml.Syntax.Classes.Kernel.Property) mappedFeature);
+			mappedFeature.setOwner(owner);
 		}
 
 		if (structuralFeature.typedElement != null && structuralFeature.typedElement.type instanceof PrimitiveType)
@@ -265,6 +280,11 @@ public class FumlConverter {
 	}
 
 	public Object map(Object_ object_) {
+		for (Object_ key : mappedObjects.keySet()) {
+			if (key == object_)
+				return mappedObjects.get(object_);
+		}
+
 		Object object = getSemanticsFactory().createObject();
 		object.getTypes().add(map(object_.types.get(0)));
 
@@ -276,6 +296,8 @@ public class FumlConverter {
 			}
 			object.getFeatureValues().add(mappedFeatureValue);
 		}
+		mappedObjects.put(object_, object);
+
 		return object;
 	}
 
@@ -292,9 +314,10 @@ public class FumlConverter {
 			mappedLink.getFeatureValues().add(mappedFeatureValue);
 		}
 
+		mappedLinks.put(link, mappedLink);
 		return mappedLink;
 	}
-
+	
 	private Value map(fUML.Semantics.Classes.Kernel.Value value) {
 		Value mappedValue = null;
 

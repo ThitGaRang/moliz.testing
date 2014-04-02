@@ -14,11 +14,14 @@ import org.eclipse.xtext.xbase.XNullLiteral;
 import org.eclipse.xtext.xbase.XNumberLiteral;
 import org.eclipse.xtext.xbase.XStringLiteral;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
+import org.modelexecution.fumltesting.testLang.ActionReferencePoint;
+import org.modelexecution.fumltesting.testLang.ConstraintReferencePoint;
 import org.modelexecution.fumltesting.testLang.NodeSpecification;
 import org.modelexecution.fumltesting.testLang.ObjectSpecification;
 import org.modelexecution.fumltesting.testLang.ObjectStateExpression;
 import org.modelexecution.fumltesting.testLang.ObjectValue;
 import org.modelexecution.fumltesting.testLang.PropertyStateExpression;
+import org.modelexecution.fumltesting.testLang.ReferencePoint;
 import org.modelexecution.fumltesting.testLang.SimpleValue;
 import org.modelexecution.fumltesting.testLang.StateAssertion;
 import org.modelexecution.fumltesting.testLang.StateExpression;
@@ -153,10 +156,21 @@ public class AssertionPrinter {
 
 	public static void printStateAssertion(StateAssertion assertion) {
 		System.out.println();
-		System.out.print("State assertion: " + assertion.getTemporalQuantifier() + " " + assertion.getTemporalOperator() + " "
-				+ assertion.getReferenceAction().getName());
-		if (assertion.getUntilAction() != null)
-			System.out.print(" until " + assertion.getUntilAction().getName());
+		ReferencePoint point = assertion.getReferencePoint();
+
+		System.out.print("State assertion: " + assertion.getQuantifier() + " " + assertion.getOperator() + " ");
+		if (point instanceof ActionReferencePoint)
+			System.out.print(((ActionReferencePoint) point).getAction().getName());
+		if (point instanceof ConstraintReferencePoint) {
+			System.out.print(((ConstraintReferencePoint) point).getConstraintName());
+		}
+		if (assertion.getUntilPoint() != null) {
+			if (assertion.getUntilPoint() instanceof ActionReferencePoint)
+				System.out.print(" until " + ((ActionReferencePoint) assertion.getUntilPoint()).getAction().getName());
+			if (assertion.getUntilPoint() instanceof ConstraintReferencePoint) {
+				System.out.print(" until " + ((ConstraintReferencePoint) assertion.getUntilPoint()).getConstraintName());
+			}
+		}
 		System.out.println();
 	}
 

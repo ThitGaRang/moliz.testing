@@ -36,8 +36,11 @@ import org.modelexecution.fumltesting.results.ConstraintResult;
 import org.modelexecution.fumltesting.results.StateAssertionResult;
 import org.modelexecution.fumltesting.results.StateExpressionResult;
 import org.modelexecution.fumltesting.sequence.State;
+import org.modelexecution.fumltesting.testLang.ActionReferencePoint;
 import org.modelexecution.fumltesting.testLang.ArithmeticOperator;
+import org.modelexecution.fumltesting.testLang.Check;
 import org.modelexecution.fumltesting.testLang.ConstraintCheck;
+import org.modelexecution.fumltesting.testLang.ConstraintReferencePoint;
 import org.modelexecution.fumltesting.testLang.FinallyStateAssertion;
 import org.modelexecution.fumltesting.testLang.ObjectStateExpression;
 import org.modelexecution.fumltesting.testLang.ObjectValue;
@@ -105,32 +108,42 @@ public class StateAssertionValidator {
 		StateAssertionResult result = new StateAssertionResult(assertion);
 
 		// action of the state assertion and its execution
-		Action referredAction = assertion.getReferenceAction();
+		Action referredAction = null;
+		if (assertion.getReferencePoint() instanceof ActionReferencePoint)
+			referredAction = ((ActionReferencePoint) assertion.getReferencePoint()).getAction();
+		if (assertion.getReferencePoint() instanceof ConstraintReferencePoint) {
+			System.out.println("CONSTRAINT REFERENCE POINT NOT YET SUPPORTED!");
+			return result;
+		}
+
 		referredNodeExecution = (ActionExecution) traceUtil.getExecution(referredAction);
 
-		operator = assertion.getTemporalOperator();
-		quantifier = assertion.getTemporalQuantifier();
+		operator = assertion.getOperator();
+		quantifier = assertion.getQuantifier();
 
-		if (assertion.getConstraintCheck() != null && assertion.getConstraintCheck().size() > 0) {
-			for (ConstraintCheck constraintCheck : assertion.getConstraintCheck()) {
-				for (XExpression constraintName : constraintCheck.getConstraintNames()) {
-					List<State> states = traceUtil.getStates(quantifier, operator, referredNodeExecution);
-					String name = ((XStringLiteral) constraintName).getValue();
-					ValueInstance context = null;
-					if (constraintCheck.getObject() != null) {
-						Object nodeExecution = traceUtil.getExecution(constraintCheck.getObject().getRef().eContainer());
-						context = traceUtil.getValueInstance(constraintCheck.getObject().getRef(), nodeExecution);
-						//org.modelexecution.fuml.Semantics.Classes.Kernel.Object fumlObject = traceUtil.get
-					}
-					for (ConstraintResult constraintResult : check(name, context, states)) {
-						result.addConstraintResult(constraintResult);
+		if (assertion.getChecks() != null && assertion.getChecks().size() > 0) {
+			for (Check check : assertion.getChecks()) {
+				if (check instanceof ConstraintCheck) {
+					for (XExpression constraintName : ((ConstraintCheck) check).getConstraintNames()) {
+						List<State> states = traceUtil.getStates(quantifier, operator, referredNodeExecution);
+						String name = ((XStringLiteral) constraintName).getValue();
+						ValueInstance context = null;
+						if (((ConstraintCheck) check).getObject() != null) {
+							Object nodeExecution = traceUtil.getExecution(((ConstraintCheck) check).getObject().getRef().eContainer());
+							context = traceUtil.getValueInstance(((ConstraintCheck) check).getObject().getRef(), nodeExecution);
+						}
+						for (ConstraintResult constraintResult : check(name, context, states)) {
+							result.addConstraintResult(constraintResult);
+						}
 					}
 				}
 			}
 		}
 
-		for (StateExpression expression : assertion.getExpressions()) {
-			result.addExpressionResult(check(expression, referredAction));
+		for (Check check : assertion.getChecks()) {
+			if (check instanceof StateExpression) {
+				result.addExpressionResult(check((StateExpression) check, referredAction));
+			}
 		}
 
 		AssertionPrinter.printStartEnd();
@@ -140,16 +153,15 @@ public class StateAssertionValidator {
 	public StateAssertionResult check(FinallyStateAssertion assertion) {
 		StateAssertion stateAssertion = TestLangFactory.eINSTANCE.createStateAssertion();
 
-		stateAssertion.setTemporalQuantifier(TemporalQuantifier.ALWAYS);
-		stateAssertion.setTemporalOperator(TemporalOperator.AFTER);
+		stateAssertion.setQuantifier(TemporalQuantifier.ALWAYS);
+		stateAssertion.setOperator(TemporalOperator.AFTER);
 
-		stateAssertion.setReferenceAction((Action) traceUtil.getLastExecutedAction());
-		stateAssertion.getExpressions().addAll(assertion.getExpressions());
+		ActionReferencePoint point = TestLangFactory.eINSTANCE.createActionReferencePoint();
+		point.setAction((Action) traceUtil.getLastExecutedAction());
+		
+		stateAssertion.setReferencePoint(point);
 
-		if (assertion.getConstraintCheck() != null) {
-			stateAssertion.getConstraintCheck().addAll(assertion.getConstraintCheck());
-		}
-
+		stateAssertion.getChecks().addAll(assertion.getChecks());
 		return check(stateAssertion);
 	}
 
@@ -606,7 +618,12 @@ public class StateAssertionValidator {
 		ActivityNodeExecution predecessor = referredNodeExecution.getChronologicalPredecessor();
 		if (predecessor == null)
 			return;
-		if (assertion.getUntilAction() != null && assertion.getUntilAction().getName().equals(predecessor.getNode().name))
+		if (assertion.getUntilPoint() instanceof ConstraintReferencePoint) {
+			System.out.println("CONSTRAINT POINT NOT YET SUPPORTED!");
+			return;
+		}
+		if (assertion.getUntilPoint() != null
+				&& ((ActionReferencePoint) assertion.getUntilPoint()).getAction().getName().equals(predecessor.getNode().name))
 			return;
 
 		if (predecessor instanceof ActionExecution) {
@@ -636,7 +653,12 @@ public class StateAssertionValidator {
 		ActivityNodeExecution successor = referredNodeExecution.getChronologicalSuccessor();
 		if (successor == null)
 			return;
-		if (assertion.getUntilAction() != null && assertion.getUntilAction().getName().equals(successor.getNode().name))
+		if (assertion.getUntilPoint() instanceof ConstraintReferencePoint) {
+			System.out.println("CONSTRAINT POINT NOT YET SUPPORTED!");
+			return;
+		}
+		if (assertion.getUntilPoint() != null
+				&& ((ActionReferencePoint) assertion.getUntilPoint()).getAction().getName().equals(successor.getNode().name))
 			return;
 		if (successor instanceof ActionExecution) {
 			for (Input successorsInput : ((ActionExecution) successor).getInputs()) {

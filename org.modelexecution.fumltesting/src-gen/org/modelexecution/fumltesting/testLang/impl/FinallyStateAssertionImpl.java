@@ -14,9 +14,8 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.modelexecution.fumltesting.testLang.ConstraintCheck;
+import org.modelexecution.fumltesting.testLang.Check;
 import org.modelexecution.fumltesting.testLang.FinallyStateAssertion;
-import org.modelexecution.fumltesting.testLang.StateExpression;
 import org.modelexecution.fumltesting.testLang.TestLangPackage;
 
 /**
@@ -26,8 +25,7 @@ import org.modelexecution.fumltesting.testLang.TestLangPackage;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.modelexecution.fumltesting.testLang.impl.FinallyStateAssertionImpl#getConstraintCheck <em>Constraint Check</em>}</li>
- *   <li>{@link org.modelexecution.fumltesting.testLang.impl.FinallyStateAssertionImpl#getExpressions <em>Expressions</em>}</li>
+ *   <li>{@link org.modelexecution.fumltesting.testLang.impl.FinallyStateAssertionImpl#getChecks <em>Checks</em>}</li>
  * </ul>
  * </p>
  *
@@ -36,24 +34,14 @@ import org.modelexecution.fumltesting.testLang.TestLangPackage;
 public class FinallyStateAssertionImpl extends AssertionImpl implements FinallyStateAssertion
 {
   /**
-   * The cached value of the '{@link #getConstraintCheck() <em>Constraint Check</em>}' containment reference list.
+   * The cached value of the '{@link #getChecks() <em>Checks</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getConstraintCheck()
+   * @see #getChecks()
    * @generated
    * @ordered
    */
-  protected EList<ConstraintCheck> constraintCheck;
-
-  /**
-   * The cached value of the '{@link #getExpressions() <em>Expressions</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getExpressions()
-   * @generated
-   * @ordered
-   */
-  protected EList<StateExpression> expressions;
+  protected EList<Check> checks;
 
   /**
    * <!-- begin-user-doc -->
@@ -81,27 +69,13 @@ public class FinallyStateAssertionImpl extends AssertionImpl implements FinallyS
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<ConstraintCheck> getConstraintCheck()
+  public EList<Check> getChecks()
   {
-    if (constraintCheck == null)
+    if (checks == null)
     {
-      constraintCheck = new EObjectContainmentEList<ConstraintCheck>(ConstraintCheck.class, this, TestLangPackage.FINALLY_STATE_ASSERTION__CONSTRAINT_CHECK);
+      checks = new EObjectContainmentEList<Check>(Check.class, this, TestLangPackage.FINALLY_STATE_ASSERTION__CHECKS);
     }
-    return constraintCheck;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<StateExpression> getExpressions()
-  {
-    if (expressions == null)
-    {
-      expressions = new EObjectContainmentEList<StateExpression>(StateExpression.class, this, TestLangPackage.FINALLY_STATE_ASSERTION__EXPRESSIONS);
-    }
-    return expressions;
+    return checks;
   }
 
   /**
@@ -114,10 +88,8 @@ public class FinallyStateAssertionImpl extends AssertionImpl implements FinallyS
   {
     switch (featureID)
     {
-      case TestLangPackage.FINALLY_STATE_ASSERTION__CONSTRAINT_CHECK:
-        return ((InternalEList<?>)getConstraintCheck()).basicRemove(otherEnd, msgs);
-      case TestLangPackage.FINALLY_STATE_ASSERTION__EXPRESSIONS:
-        return ((InternalEList<?>)getExpressions()).basicRemove(otherEnd, msgs);
+      case TestLangPackage.FINALLY_STATE_ASSERTION__CHECKS:
+        return ((InternalEList<?>)getChecks()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -132,10 +104,8 @@ public class FinallyStateAssertionImpl extends AssertionImpl implements FinallyS
   {
     switch (featureID)
     {
-      case TestLangPackage.FINALLY_STATE_ASSERTION__CONSTRAINT_CHECK:
-        return getConstraintCheck();
-      case TestLangPackage.FINALLY_STATE_ASSERTION__EXPRESSIONS:
-        return getExpressions();
+      case TestLangPackage.FINALLY_STATE_ASSERTION__CHECKS:
+        return getChecks();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -151,13 +121,9 @@ public class FinallyStateAssertionImpl extends AssertionImpl implements FinallyS
   {
     switch (featureID)
     {
-      case TestLangPackage.FINALLY_STATE_ASSERTION__CONSTRAINT_CHECK:
-        getConstraintCheck().clear();
-        getConstraintCheck().addAll((Collection<? extends ConstraintCheck>)newValue);
-        return;
-      case TestLangPackage.FINALLY_STATE_ASSERTION__EXPRESSIONS:
-        getExpressions().clear();
-        getExpressions().addAll((Collection<? extends StateExpression>)newValue);
+      case TestLangPackage.FINALLY_STATE_ASSERTION__CHECKS:
+        getChecks().clear();
+        getChecks().addAll((Collection<? extends Check>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -173,11 +139,8 @@ public class FinallyStateAssertionImpl extends AssertionImpl implements FinallyS
   {
     switch (featureID)
     {
-      case TestLangPackage.FINALLY_STATE_ASSERTION__CONSTRAINT_CHECK:
-        getConstraintCheck().clear();
-        return;
-      case TestLangPackage.FINALLY_STATE_ASSERTION__EXPRESSIONS:
-        getExpressions().clear();
+      case TestLangPackage.FINALLY_STATE_ASSERTION__CHECKS:
+        getChecks().clear();
         return;
     }
     super.eUnset(featureID);
@@ -193,10 +156,8 @@ public class FinallyStateAssertionImpl extends AssertionImpl implements FinallyS
   {
     switch (featureID)
     {
-      case TestLangPackage.FINALLY_STATE_ASSERTION__CONSTRAINT_CHECK:
-        return constraintCheck != null && !constraintCheck.isEmpty();
-      case TestLangPackage.FINALLY_STATE_ASSERTION__EXPRESSIONS:
-        return expressions != null && !expressions.isEmpty();
+      case TestLangPackage.FINALLY_STATE_ASSERTION__CHECKS:
+        return checks != null && !checks.isEmpty();
     }
     return super.eIsSet(featureID);
   }

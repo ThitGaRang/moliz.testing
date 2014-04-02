@@ -18,6 +18,8 @@ import org.eclipse.xtext.xbase.XNullLiteral;
 import org.eclipse.xtext.xbase.XNumberLiteral;
 import org.eclipse.xtext.xbase.XStringLiteral;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
+import org.modelexecution.fumltesting.testLang.ActionReferencePoint;
+import org.modelexecution.fumltesting.testLang.ConstraintReferencePoint;
 import org.modelexecution.fumltesting.testLang.NodeSpecification;
 import org.modelexecution.fumltesting.testLang.ObjectSpecification;
 import org.modelexecution.fumltesting.testLang.ObjectValue;
@@ -89,7 +91,7 @@ public class ResultsWriter {
 					writer.println();
 
 					int counter = 0;
-					
+
 					for (PathCheckResult pathCheckResult : orderAssertionResult.getFailedPathCheckResults()) {
 						counter++;
 						writer.print("\tFailed path: ");
@@ -99,8 +101,8 @@ public class ResultsWriter {
 							break;
 						}
 					}
-					
-					for(OrderAssertionResult subResult: orderAssertionResult.getSubOrderResults()){
+
+					for (OrderAssertionResult subResult : orderAssertionResult.getSubOrderResults()) {
 						writer.println("\t\tSub-order checked..");
 						writer.print("\t");
 						printSpecification(subResult.getNodeOrderSpecification().getNodes());
@@ -123,10 +125,19 @@ public class ResultsWriter {
 				if (assertionResult instanceof StateAssertionResult) {
 					StateAssertionResult stateAssertionResult = (StateAssertionResult) assertionResult;
 					StateAssertion assertion = (StateAssertion) stateAssertionResult.getAssertion();
-					writer.print("\n\tState assertion: " + assertion.getTemporalQuantifier() + " " + assertion.getTemporalOperator() + " "
-							+ assertion.getReferenceAction().getName());
-					if (assertion.getUntilAction() != null)
-						writer.print(" until " + assertion.getUntilAction().getName());
+					writer.print("\n\tState assertion: " + assertion.getQuantifier() + " " + assertion.getOperator() + " ");
+					if (assertion.getReferencePoint() instanceof ActionReferencePoint)
+						writer.print(((ActionReferencePoint) assertion.getReferencePoint()).getAction().getName());
+					if (assertion.getReferencePoint() instanceof ConstraintReferencePoint) {
+						writer.print(((ConstraintReferencePoint) assertion.getReferencePoint()).getConstraintName());
+					}
+					if (assertion.getUntilPoint() != null) {
+						if (assertion.getUntilPoint() instanceof ActionReferencePoint)
+							writer.print(((ActionReferencePoint) assertion.getUntilPoint()).getAction().getName());
+						if (assertion.getUntilPoint() instanceof ConstraintReferencePoint) {
+							writer.print(((ConstraintReferencePoint) assertion.getUntilPoint()).getConstraintName());
+						}
+					}
 					writer.println();
 					if (stateAssertionResult.numberOfConstraintsChecked() > 0) {
 						writer.println("\tConstraints checked: " + stateAssertionResult.numberOfConstraintsChecked());

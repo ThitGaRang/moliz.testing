@@ -4,8 +4,6 @@ package org.modelexecution.fumltesting.testLang;
 
 import org.eclipse.emf.common.util.EList;
 
-import org.eclipse.uml2.uml.Action;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>State Assertion</b></em>'.
@@ -14,12 +12,11 @@ import org.eclipse.uml2.uml.Action;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.modelexecution.fumltesting.testLang.StateAssertion#getTemporalQuantifier <em>Temporal Quantifier</em>}</li>
- *   <li>{@link org.modelexecution.fumltesting.testLang.StateAssertion#getTemporalOperator <em>Temporal Operator</em>}</li>
- *   <li>{@link org.modelexecution.fumltesting.testLang.StateAssertion#getReferenceAction <em>Reference Action</em>}</li>
- *   <li>{@link org.modelexecution.fumltesting.testLang.StateAssertion#getUntilAction <em>Until Action</em>}</li>
- *   <li>{@link org.modelexecution.fumltesting.testLang.StateAssertion#getConstraintCheck <em>Constraint Check</em>}</li>
- *   <li>{@link org.modelexecution.fumltesting.testLang.StateAssertion#getExpressions <em>Expressions</em>}</li>
+ *   <li>{@link org.modelexecution.fumltesting.testLang.StateAssertion#getQuantifier <em>Quantifier</em>}</li>
+ *   <li>{@link org.modelexecution.fumltesting.testLang.StateAssertion#getOperator <em>Operator</em>}</li>
+ *   <li>{@link org.modelexecution.fumltesting.testLang.StateAssertion#getReferencePoint <em>Reference Point</em>}</li>
+ *   <li>{@link org.modelexecution.fumltesting.testLang.StateAssertion#getUntilPoint <em>Until Point</em>}</li>
+ *   <li>{@link org.modelexecution.fumltesting.testLang.StateAssertion#getChecks <em>Checks</em>}</li>
  * </ul>
  * </p>
  *
@@ -30,145 +27,129 @@ import org.eclipse.uml2.uml.Action;
 public interface StateAssertion extends Assertion
 {
   /**
-   * Returns the value of the '<em><b>Temporal Quantifier</b></em>' attribute.
+   * Returns the value of the '<em><b>Quantifier</b></em>' attribute.
    * The literals are from the enumeration {@link org.modelexecution.fumltesting.testLang.TemporalQuantifier}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Temporal Quantifier</em>' attribute isn't clear,
+   * If the meaning of the '<em>Quantifier</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Temporal Quantifier</em>' attribute.
+   * @return the value of the '<em>Quantifier</em>' attribute.
    * @see org.modelexecution.fumltesting.testLang.TemporalQuantifier
-   * @see #setTemporalQuantifier(TemporalQuantifier)
-   * @see org.modelexecution.fumltesting.testLang.TestLangPackage#getStateAssertion_TemporalQuantifier()
+   * @see #setQuantifier(TemporalQuantifier)
+   * @see org.modelexecution.fumltesting.testLang.TestLangPackage#getStateAssertion_Quantifier()
    * @model
    * @generated
    */
-  TemporalQuantifier getTemporalQuantifier();
+  TemporalQuantifier getQuantifier();
 
   /**
-   * Sets the value of the '{@link org.modelexecution.fumltesting.testLang.StateAssertion#getTemporalQuantifier <em>Temporal Quantifier</em>}' attribute.
+   * Sets the value of the '{@link org.modelexecution.fumltesting.testLang.StateAssertion#getQuantifier <em>Quantifier</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Temporal Quantifier</em>' attribute.
+   * @param value the new value of the '<em>Quantifier</em>' attribute.
    * @see org.modelexecution.fumltesting.testLang.TemporalQuantifier
-   * @see #getTemporalQuantifier()
+   * @see #getQuantifier()
    * @generated
    */
-  void setTemporalQuantifier(TemporalQuantifier value);
+  void setQuantifier(TemporalQuantifier value);
 
   /**
-   * Returns the value of the '<em><b>Temporal Operator</b></em>' attribute.
+   * Returns the value of the '<em><b>Operator</b></em>' attribute.
    * The literals are from the enumeration {@link org.modelexecution.fumltesting.testLang.TemporalOperator}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Temporal Operator</em>' attribute isn't clear,
+   * If the meaning of the '<em>Operator</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Temporal Operator</em>' attribute.
+   * @return the value of the '<em>Operator</em>' attribute.
    * @see org.modelexecution.fumltesting.testLang.TemporalOperator
-   * @see #setTemporalOperator(TemporalOperator)
-   * @see org.modelexecution.fumltesting.testLang.TestLangPackage#getStateAssertion_TemporalOperator()
+   * @see #setOperator(TemporalOperator)
+   * @see org.modelexecution.fumltesting.testLang.TestLangPackage#getStateAssertion_Operator()
    * @model
    * @generated
    */
-  TemporalOperator getTemporalOperator();
+  TemporalOperator getOperator();
 
   /**
-   * Sets the value of the '{@link org.modelexecution.fumltesting.testLang.StateAssertion#getTemporalOperator <em>Temporal Operator</em>}' attribute.
+   * Sets the value of the '{@link org.modelexecution.fumltesting.testLang.StateAssertion#getOperator <em>Operator</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Temporal Operator</em>' attribute.
+   * @param value the new value of the '<em>Operator</em>' attribute.
    * @see org.modelexecution.fumltesting.testLang.TemporalOperator
-   * @see #getTemporalOperator()
+   * @see #getOperator()
    * @generated
    */
-  void setTemporalOperator(TemporalOperator value);
+  void setOperator(TemporalOperator value);
 
   /**
-   * Returns the value of the '<em><b>Reference Action</b></em>' reference.
+   * Returns the value of the '<em><b>Reference Point</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Reference Action</em>' reference isn't clear,
+   * If the meaning of the '<em>Reference Point</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Reference Action</em>' reference.
-   * @see #setReferenceAction(Action)
-   * @see org.modelexecution.fumltesting.testLang.TestLangPackage#getStateAssertion_ReferenceAction()
-   * @model
-   * @generated
-   */
-  Action getReferenceAction();
-
-  /**
-   * Sets the value of the '{@link org.modelexecution.fumltesting.testLang.StateAssertion#getReferenceAction <em>Reference Action</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Reference Action</em>' reference.
-   * @see #getReferenceAction()
-   * @generated
-   */
-  void setReferenceAction(Action value);
-
-  /**
-   * Returns the value of the '<em><b>Until Action</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Until Action</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Until Action</em>' reference.
-   * @see #setUntilAction(Action)
-   * @see org.modelexecution.fumltesting.testLang.TestLangPackage#getStateAssertion_UntilAction()
-   * @model
-   * @generated
-   */
-  Action getUntilAction();
-
-  /**
-   * Sets the value of the '{@link org.modelexecution.fumltesting.testLang.StateAssertion#getUntilAction <em>Until Action</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Until Action</em>' reference.
-   * @see #getUntilAction()
-   * @generated
-   */
-  void setUntilAction(Action value);
-
-  /**
-   * Returns the value of the '<em><b>Constraint Check</b></em>' containment reference list.
-   * The list contents are of type {@link org.modelexecution.fumltesting.testLang.ConstraintCheck}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Constraint Check</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Constraint Check</em>' containment reference list.
-   * @see org.modelexecution.fumltesting.testLang.TestLangPackage#getStateAssertion_ConstraintCheck()
+   * @return the value of the '<em>Reference Point</em>' containment reference.
+   * @see #setReferencePoint(ReferencePoint)
+   * @see org.modelexecution.fumltesting.testLang.TestLangPackage#getStateAssertion_ReferencePoint()
    * @model containment="true"
    * @generated
    */
-  EList<ConstraintCheck> getConstraintCheck();
+  ReferencePoint getReferencePoint();
 
   /**
-   * Returns the value of the '<em><b>Expressions</b></em>' containment reference list.
-   * The list contents are of type {@link org.modelexecution.fumltesting.testLang.StateExpression}.
+   * Sets the value of the '{@link org.modelexecution.fumltesting.testLang.StateAssertion#getReferencePoint <em>Reference Point</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Reference Point</em>' containment reference.
+   * @see #getReferencePoint()
+   * @generated
+   */
+  void setReferencePoint(ReferencePoint value);
+
+  /**
+   * Returns the value of the '<em><b>Until Point</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Expressions</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Until Point</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Expressions</em>' containment reference list.
-   * @see org.modelexecution.fumltesting.testLang.TestLangPackage#getStateAssertion_Expressions()
+   * @return the value of the '<em>Until Point</em>' containment reference.
+   * @see #setUntilPoint(ReferencePoint)
+   * @see org.modelexecution.fumltesting.testLang.TestLangPackage#getStateAssertion_UntilPoint()
    * @model containment="true"
    * @generated
    */
-  EList<StateExpression> getExpressions();
+  ReferencePoint getUntilPoint();
+
+  /**
+   * Sets the value of the '{@link org.modelexecution.fumltesting.testLang.StateAssertion#getUntilPoint <em>Until Point</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Until Point</em>' containment reference.
+   * @see #getUntilPoint()
+   * @generated
+   */
+  void setUntilPoint(ReferencePoint value);
+
+  /**
+   * Returns the value of the '<em><b>Checks</b></em>' containment reference list.
+   * The list contents are of type {@link org.modelexecution.fumltesting.testLang.Check}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Checks</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Checks</em>' containment reference list.
+   * @see org.modelexecution.fumltesting.testLang.TestLangPackage#getStateAssertion_Checks()
+   * @model containment="true"
+   * @generated
+   */
+  EList<Check> getChecks();
 
 } // StateAssertion

@@ -14,18 +14,13 @@ test simpleProductTest activity petstore.scenarios.SimpleProductActivity{
 	
 	assertOrder *, SimpleProductActivity.newProduct(*, NewProductActivity.setCode);
 	
-	assertState always after SimpleProductActivity.codeValue{
+	assertState always after action SimpleProductActivity.codeValue{
 		product::code = 1234;
 	}
 	
-	assertState always after 'ProductSize'{
+	assertState always after constraint 'ProductSize'{
 		check 'ProductName' on product;
-	}
-	
-	if 'ProductSize' then sometime 'ProductName' on product;
-	
-	always 'ProductSize' on product;
-	sometime 'ProductName' on product;	
+	}	
 	
 	finally{
 		check 'ProductSize';		

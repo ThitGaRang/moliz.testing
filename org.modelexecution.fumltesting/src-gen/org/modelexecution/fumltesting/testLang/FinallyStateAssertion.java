@@ -12,8 +12,7 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.modelexecution.fumltesting.testLang.FinallyStateAssertion#getConstraintCheck <em>Constraint Check</em>}</li>
- *   <li>{@link org.modelexecution.fumltesting.testLang.FinallyStateAssertion#getExpressions <em>Expressions</em>}</li>
+ *   <li>{@link org.modelexecution.fumltesting.testLang.FinallyStateAssertion#getChecks <em>Checks</em>}</li>
  * </ul>
  * </p>
  *
@@ -24,35 +23,19 @@ import org.eclipse.emf.common.util.EList;
 public interface FinallyStateAssertion extends Assertion
 {
   /**
-   * Returns the value of the '<em><b>Constraint Check</b></em>' containment reference list.
-   * The list contents are of type {@link org.modelexecution.fumltesting.testLang.ConstraintCheck}.
+   * Returns the value of the '<em><b>Checks</b></em>' containment reference list.
+   * The list contents are of type {@link org.modelexecution.fumltesting.testLang.Check}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Constraint Check</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Checks</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Constraint Check</em>' containment reference list.
-   * @see org.modelexecution.fumltesting.testLang.TestLangPackage#getFinallyStateAssertion_ConstraintCheck()
+   * @return the value of the '<em>Checks</em>' containment reference list.
+   * @see org.modelexecution.fumltesting.testLang.TestLangPackage#getFinallyStateAssertion_Checks()
    * @model containment="true"
    * @generated
    */
-  EList<ConstraintCheck> getConstraintCheck();
-
-  /**
-   * Returns the value of the '<em><b>Expressions</b></em>' containment reference list.
-   * The list contents are of type {@link org.modelexecution.fumltesting.testLang.StateExpression}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Expressions</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Expressions</em>' containment reference list.
-   * @see org.modelexecution.fumltesting.testLang.TestLangPackage#getFinallyStateAssertion_Expressions()
-   * @model containment="true"
-   * @generated
-   */
-  EList<StateExpression> getExpressions();
+  EList<Check> getChecks();
 
 } // FinallyStateAssertion

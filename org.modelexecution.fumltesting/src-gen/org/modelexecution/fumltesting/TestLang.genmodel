@@ -82,31 +82,23 @@
     </genClasses>
     <genClasses ecoreClass="TestLang.ecore#//Assertion"/>
     <genClasses ecoreClass="TestLang.ecore#//StateAssertion">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TestLang.ecore#//StateAssertion/temporalQuantifier"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TestLang.ecore#//StateAssertion/temporalOperator"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference TestLang.ecore#//StateAssertion/referenceAction"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference TestLang.ecore#//StateAssertion/untilAction"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TestLang.ecore#//StateAssertion/constraintCheck"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TestLang.ecore#//StateAssertion/expressions"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TestLang.ecore#//StateAssertion/quantifier"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TestLang.ecore#//StateAssertion/operator"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TestLang.ecore#//StateAssertion/referencePoint"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TestLang.ecore#//StateAssertion/untilPoint"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TestLang.ecore#//StateAssertion/checks"/>
     </genClasses>
-    <genClasses ecoreClass="TestLang.ecore#//OOStateAssertion">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TestLang.ecore#//OOStateAssertion/TemporalQuantifier"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TestLang.ecore#//OOStateAssertion/temporalOperator"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TestLang.ecore#//OOStateAssertion/referenceConstraint"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TestLang.ecore#//OOStateAssertion/untilConstraint"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TestLang.ecore#//OOStateAssertion/constraintCheck"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TestLang.ecore#//OOStateAssertion/expressions"/>
+    <genClasses ecoreClass="TestLang.ecore#//ReferencePoint"/>
+    <genClasses ecoreClass="TestLang.ecore#//ActionReferencePoint">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference TestLang.ecore#//ActionReferencePoint/action"/>
     </genClasses>
-    <genClasses ecoreClass="TestLang.ecore#//OOGlobalStateAssertion">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TestLang.ecore#//OOGlobalStateAssertion/conditionConstraint"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TestLang.ecore#//OOGlobalStateAssertion/quantifier"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TestLang.ecore#//OOGlobalStateAssertion/evaluatedConstraint"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference TestLang.ecore#//OOGlobalStateAssertion/object"/>
+    <genClasses ecoreClass="TestLang.ecore#//ConstraintReferencePoint">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TestLang.ecore#//ConstraintReferencePoint/constraintName"/>
     </genClasses>
     <genClasses ecoreClass="TestLang.ecore#//FinallyStateAssertion">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TestLang.ecore#//FinallyStateAssertion/constraintCheck"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TestLang.ecore#//FinallyStateAssertion/expressions"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TestLang.ecore#//FinallyStateAssertion/checks"/>
     </genClasses>
+    <genClasses ecoreClass="TestLang.ecore#//Check"/>
     <genClasses ecoreClass="TestLang.ecore#//ConstraintCheck">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TestLang.ecore#//ConstraintCheck/constraintNames"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference TestLang.ecore#//ConstraintCheck/object"/>
