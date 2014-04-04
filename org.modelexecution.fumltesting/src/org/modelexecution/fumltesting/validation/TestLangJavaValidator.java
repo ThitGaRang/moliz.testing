@@ -27,7 +27,7 @@ public class TestLangJavaValidator extends AbstractTestLangJavaValidator {
 	@Check
 	public void checkAfterSpecified(StateAssertion assertion) {
 		if (assertion.getOperator() == TemporalOperator.BEFORE && assertion.getUntilPoint() != null) {
-			warning("If BEFORE is specified, UNTIL has no effect!", null);
+			warning("UNTIL has no effect due to BEFORE operator!", TestLangPackage.Literals.STATE_ASSERTION__UNTIL_POINT);
 		}
 	}
 

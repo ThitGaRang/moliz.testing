@@ -21,7 +21,6 @@ import org.modelexecution.fumltesting.testLang.ObjectSpecification;
 import org.modelexecution.fumltesting.testLang.ObjectStateExpression;
 import org.modelexecution.fumltesting.testLang.ObjectValue;
 import org.modelexecution.fumltesting.testLang.PropertyStateExpression;
-import org.modelexecution.fumltesting.testLang.ReferencePoint;
 import org.modelexecution.fumltesting.testLang.SimpleValue;
 import org.modelexecution.fumltesting.testLang.StateAssertion;
 import org.modelexecution.fumltesting.testLang.StateExpression;
@@ -156,19 +155,20 @@ public class AssertionPrinter {
 
 	public static void printStateAssertion(StateAssertion assertion) {
 		System.out.println();
-		ReferencePoint point = assertion.getReferencePoint();
 
 		System.out.print("State assertion: " + assertion.getQuantifier() + " " + assertion.getOperator() + " ");
-		if (point instanceof ActionReferencePoint)
-			System.out.print(((ActionReferencePoint) point).getAction().getName());
-		if (point instanceof ConstraintReferencePoint) {
-			System.out.print(((ConstraintReferencePoint) point).getConstraintName());
+		if (assertion.getReferencePoint() instanceof ActionReferencePoint)
+			System.out.print(((ActionReferencePoint) assertion.getReferencePoint()).getAction().getName());
+		if (assertion.getReferencePoint() instanceof ConstraintReferencePoint) {
+			String constraint = ((XStringLiteral) ((ConstraintReferencePoint) assertion.getReferencePoint()).getConstraintName()).getValue();
+			System.out.print(constraint);
 		}
 		if (assertion.getUntilPoint() != null) {
 			if (assertion.getUntilPoint() instanceof ActionReferencePoint)
 				System.out.print(" until " + ((ActionReferencePoint) assertion.getUntilPoint()).getAction().getName());
 			if (assertion.getUntilPoint() instanceof ConstraintReferencePoint) {
-				System.out.print(" until " + ((ConstraintReferencePoint) assertion.getUntilPoint()).getConstraintName());
+				String constraint = ((XStringLiteral) ((ConstraintReferencePoint) assertion.getUntilPoint()).getConstraintName()).getValue();
+				System.out.print(" until " + constraint);
 			}
 		}
 		System.out.println();

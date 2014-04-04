@@ -31,6 +31,7 @@ import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.Scopes;
 import org.eclipse.xtext.uml.UmlQualifiedNameProvider;
 import org.eclipse.xtext.xbase.scoping.XbaseScopeProvider;
+import org.modelexecution.fumltesting.testLang.ActionReferencePoint;
 import org.modelexecution.fumltesting.testLang.Attribute;
 import org.modelexecution.fumltesting.testLang.Link;
 import org.modelexecution.fumltesting.testLang.NodeOrder;
@@ -96,16 +97,6 @@ public class TestLangScopeProvider extends XbaseScopeProvider {
 			return Scopes.scopeFor(nodes, new UmlQualifiedNameProvider(), IScope.NULLSCOPE);
 		}
 
-		if(context instanceof TestCase && reference.getName().equals("referenceAction")){
-			ArrayList<ActivityNode> nodes = new ArrayList<ActivityNode>();
-			Activity activity = ((TestCase)context).getActivityUnderTest();
-			for (ActivityNode node : activity.getNodes()) {
-				if (node.getOwner().equals(activity) && !(node instanceof ActivityParameterNode))
-					nodes.add(node);
-			}
-			return Scopes.scopeFor(nodes, new UmlQualifiedNameProvider(), IScope.NULLSCOPE);
-		}
-		
 		/** ATTRIBUTE DECLARATION SCOPE */
 		if (context instanceof ObjectSpecification && reference.getName().equals("att")) {
 			ObjectSpecification specification = (ObjectSpecification) context;
@@ -182,7 +173,7 @@ public class TestLangScopeProvider extends XbaseScopeProvider {
 				subActivity = (Activity) ((CallOperationAction) node).getOperation().getMethods().get(0);
 			}
 			ArrayList<ActivityNode> nodes = new ArrayList<ActivityNode>();
-			if(subActivity != null && subActivity.getNodes() != null){
+			if (subActivity != null && subActivity.getNodes() != null) {
 				for (ActivityNode aNode : subActivity.getNodes()) {
 					if (aNode instanceof Action || aNode instanceof ActivityFinalNode || aNode instanceof InitialNode)
 						nodes.add(aNode);
@@ -200,20 +191,9 @@ public class TestLangScopeProvider extends XbaseScopeProvider {
 			return Scopes.scopeFor(properties, new UmlQualifiedNameProvider(), IScope.NULLSCOPE);
 		}
 
-		/** REFERENCE ACTION DECLARATION SCOPE */
-		if (context instanceof StateAssertion && reference.getName().equals("referenceAction")) {
-			Activity activity = ((TestCase) ((StateAssertion) context).eContainer()).getActivityUnderTest();
-			ArrayList<ActivityNode> nodes = new ArrayList<ActivityNode>();
-			for (ActivityNode node : activity.getNodes()) {
-				if (node instanceof Action)
-					nodes.add(node);
-			}
-			return Scopes.scopeFor(nodes, new UmlQualifiedNameProvider(), IScope.NULLSCOPE);
-		}
-
-		/** UNTIL ACTION DECLARATION SCOPE */
-		if (context instanceof StateAssertion && reference.getName().equals("untilAction")) {
-			Activity activity = ((TestCase) ((StateAssertion) context).eContainer()).getActivityUnderTest();
+		/** REFERENCE ACTION AND UNTIL ACTION DECLARATION SCOPE */
+		if (context instanceof ActionReferencePoint && reference.getName().equals("action")) {
+			Activity activity = ((TestCase) ((StateAssertion) ((ActionReferencePoint) context).eContainer()).eContainer()).getActivityUnderTest();
 			ArrayList<ActivityNode> nodes = new ArrayList<ActivityNode>();
 			for (ActivityNode node : activity.getNodes()) {
 				if (node instanceof Action)
