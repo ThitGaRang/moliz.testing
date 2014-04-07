@@ -3,7 +3,8 @@ import petstore.behavior.*
 
 scenario TestData[
 	object cart : Cart{}
-	object product : Product{}
+	object product : Product{name='hello';}
+	object product2: Product{name='hello2';}
 	object item : Item{unitCost = 100;}
 	object cartItem : CartItem{quantity=5;}
 	link cartItem_item{source cartItem=cartItem; target item=item;}
@@ -12,15 +13,19 @@ scenario TestData[
 test newItemTest activity NewItemActivity(product=TestData.product){
 	var item = item;
 	
-	assertOrder NewItemActivity.init, NewItemActivity.createItem, NewItemActivity.setProduct;
+	assertState always after action NewItemActivity.setProduct{
+		item::product != TestData.product;
+	}
 	
-	assertState always before action NewItemActivity.createItem{item = null;}
-	assertState next before action NewItemActivity.createItem{item = null;}	
-	assertState always after action NewItemActivity.createItem{item != null;}
-	assertState next after action NewItemActivity.createItem{item != null;}
+//	assertOrder NewItemActivity.init, NewItemActivity.createItem, NewItemActivity.setProduct;
 	
-	assertState always before action NewItemActivity.setProduct{item::product = null;}
-	assertState next before action NewItemActivity.setProduct{item::product = null;}
-	assertState always after action NewItemActivity.setProduct{item::product = TestData.product;}
-	assertState next after action NewItemActivity.setProduct{item::product = TestData.product;}
+//	assertState always before action NewItemActivity.createItem{item = null;}
+//	assertState next before action NewItemActivity.createItem{item = null;}	
+//	assertState always after action NewItemActivity.createItem{item != null;}
+//	assertState next after action NewItemActivity.createItem{item != null;}
+//	
+//	assertState always before action NewItemActivity.setProduct{item::product = null;}
+//	assertState next before action NewItemActivity.setProduct{item::product = null;}
+//	assertState always after action NewItemActivity.setProduct{item::product = TestData.product;}
+//	assertState next after action NewItemActivity.setProduct{item::product = TestData.product;}
 }

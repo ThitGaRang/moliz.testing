@@ -22,7 +22,9 @@ import org.modelexecution.fumltesting.testLang.ActionReferencePoint;
 import org.modelexecution.fumltesting.testLang.ConstraintReferencePoint;
 import org.modelexecution.fumltesting.testLang.NodeSpecification;
 import org.modelexecution.fumltesting.testLang.ObjectSpecification;
+import org.modelexecution.fumltesting.testLang.ObjectStateExpression;
 import org.modelexecution.fumltesting.testLang.ObjectValue;
+import org.modelexecution.fumltesting.testLang.PropertyStateExpression;
 import org.modelexecution.fumltesting.testLang.SimpleValue;
 import org.modelexecution.fumltesting.testLang.StateAssertion;
 import org.modelexecution.fumltesting.testLang.Value;
@@ -156,11 +158,17 @@ public class ResultsWriter {
 						writer.println("\tState expressions failed: " + ((StateAssertionResult) assertionResult).getFailedStateExpressions().size());
 
 						for (StateExpressionResult result : ((StateAssertionResult) assertionResult).getFailedStateExpressions()) {
-							writer.print("\t\tExpression: " + result.getStateExpression().getPin().getName() + " "
-									+ result.getStateExpression().getOperator() + " ");
+							if (result.getStateExpression() instanceof PropertyStateExpression)
+								writer.print("\t\tExpression: " + ((PropertyStateExpression) result.getStateExpression()).getPin().getName() + "::"
+										+ ((PropertyStateExpression) result.getStateExpression()).getProperty().getName() + " "
+										+ result.getStateExpression().getOperator() + " ");
+							if (result.getStateExpression() instanceof ObjectStateExpression) {
+								writer.print("\t\tExpression: " + ((ObjectStateExpression) result.getStateExpression()).getPin().getName() + " "
+										+ result.getStateExpression().getOperator() + " ");
+							}
 							Value value = result.getStateExpression().getValue();
-							if (value instanceof ObjectSpecification) {
-								writer.print(((ObjectSpecification) value).getName());
+							if (value instanceof ObjectValue) {
+								writer.print(((ObjectValue) value).getValue().getName());
 							} else if (value instanceof SimpleValue) {
 								XExpression valueExpression = ((SimpleValue) value).getValue();
 								if (valueExpression instanceof XStringLiteral) {
