@@ -315,10 +315,10 @@ public class FUMLAdapterFactory {
 		} else {
 			adaptedProperty = createProperty(property);
 		}
-		for(org.modelexecution.fuml.Syntax.Classes.Kernel.Property theProperty: property.getAssociation().getOwnedEnd()){
-			for(org.modelexecution.fuml.Syntax.Classes.Kernel.Property oposite: property.getAssociation().getOwnedEnd()){
-				if(oposite != theProperty){
-					FUMLClass newOwner = (FUMLClass)adapters.get(theProperty.getType());
+		for (org.modelexecution.fuml.Syntax.Classes.Kernel.Property theProperty : property.getAssociation().getOwnedEnd()) {
+			for (org.modelexecution.fuml.Syntax.Classes.Kernel.Property oposite : property.getAssociation().getOwnedEnd()) {
+				if (oposite != theProperty) {
+					FUMLClass newOwner = (FUMLClass) adapters.get(theProperty.getType());
 					newOwner.addProperty(adaptedProperty);
 				}
 			}

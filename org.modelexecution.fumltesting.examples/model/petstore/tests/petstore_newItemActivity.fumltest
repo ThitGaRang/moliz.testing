@@ -14,7 +14,8 @@ test newItemTest activity NewItemActivity(product=TestData.product){
 	var item = item;
 	
 	assertState always after action NewItemActivity.setProduct{
-		item::product != TestData.product;
+		//item::product = TestData.product;
+		check 'ProductSet' on item;
 	}
 	
 //	assertOrder NewItemActivity.init, NewItemActivity.createItem, NewItemActivity.setProduct;

@@ -51,7 +51,7 @@ public class FumlConverter {
 		mappedAssociations = new HashMap<fUML.Syntax.Classes.Kernel.Association, Association>();
 		mappedPackages = new HashMap<fUML.Syntax.Classes.Kernel.Package, Package>();
 		mappedPrimitiveTypes = new HashMap<PrimitiveType, org.modelexecution.fuml.Syntax.Classes.Kernel.PrimitiveType>();
-		
+
 		mappedObjects = new HashMap<Object_, Object>();
 		mappedLinks = new HashMap<fUML.Semantics.Classes.Kernel.Link, Link>();
 	}
@@ -309,7 +309,7 @@ public class FumlConverter {
 			org.modelexecution.fuml.Semantics.Classes.Kernel.FeatureValue mappedFeatureValue = getSemanticsFactory().createFeatureValue();
 			mappedFeatureValue.setFeature(map(featureValue.feature));
 			for (fUML.Semantics.Classes.Kernel.Value value : featureValue.values) {
-				mappedFeatureValue.getValues().add(map(value));
+				mappedFeatureValue.getValues().add(map(((Reference)value).referent));
 			}
 			mappedLink.getFeatureValues().add(mappedFeatureValue);
 		}
@@ -317,7 +317,7 @@ public class FumlConverter {
 		mappedLinks.put(link, mappedLink);
 		return mappedLink;
 	}
-	
+
 	private Value map(fUML.Semantics.Classes.Kernel.Value value) {
 		Value mappedValue = null;
 
@@ -338,6 +338,15 @@ public class FumlConverter {
 		}
 
 		return mappedValue;
+	}
+
+	public Object_ mappedFrom(Object object) {
+		for (Object_ key : mappedObjects.keySet()) {
+			if (mappedObjects.get(key) == object) {
+				return key;
+			}
+		}
+		return null;
 	}
 
 	private org.modelexecution.fuml.Syntax.Classes.Kernel.KernelFactory getSyntaxFactory() {

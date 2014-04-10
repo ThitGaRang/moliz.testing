@@ -1,0 +1,13 @@
+import petstore.structure.*
+import petstore.behavior.*
+
+scenario TestData[
+	object item:Item{}
+]
+
+test cartTest activity NewCartActivity{
+	var cart = cart;
+	assertState always after action NewCartActivity.setCartItemToCart{
+		cart::items excludes TestData.item; 
+	}
+}

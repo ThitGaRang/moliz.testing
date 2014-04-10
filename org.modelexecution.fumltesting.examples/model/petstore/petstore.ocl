@@ -52,5 +52,6 @@ inv ProductCode: code = 1234
 
 context Item
 inv ProductNotSet: product = null
+inv ProductSet: product <> null
 
 endpackage

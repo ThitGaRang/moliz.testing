@@ -8,6 +8,8 @@ package org.modelexecution.fumltesting.ocl.internal.modelinstance;
 
 import java.util.List;
 
+import org.modelexecution.fuml.Semantics.Classes.Kernel.Link;
+
 import tudresden.ocl20.pivot.model.IModel;
 import tudresden.ocl20.pivot.modelinstance.IModelInstance;
 import tudresden.ocl20.pivot.modelinstance.base.AbstractModelInstance;
@@ -66,6 +68,7 @@ public class FUMLModelInstance extends AbstractModelInstance implements IModelIn
 	private IModelInstanceElement addObject(Object object) throws TypeNotFoundInModelException {
 		IModelInstanceElement result = myModelInstanceFactory.createModelInstanceElement(object);
 		if (result == null) {
+			if(object instanceof Link)return result;
 			throw new TypeNotFoundInModelException(FUMLModelInstanceTypeMessages.FUMLModelInstance_ObjectDoesNoMatchToModel);
 		}
 		if (result instanceof IModelInstanceObject) {

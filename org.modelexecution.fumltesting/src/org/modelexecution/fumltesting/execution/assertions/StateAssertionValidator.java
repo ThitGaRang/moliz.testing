@@ -427,15 +427,13 @@ public class StateAssertionValidator {
 					if (propertyExpression.getPin().getRef() instanceof InputPin) {
 						for (Input input : execution.getInputs()) {
 							if (input.getInputPin().name.equals(propertyExpression.getPin().getRef().getName()))
-								source = (Object_) ((ValueInstance) input.getInputValues().get(0).getInputValueSnapshot().eContainer())
-										.getRuntimeValue();
+								source = (Object_) ((ValueSnapshot) input.getInputValues().get(0).getInputValueSnapshot()).getValue();
 						}
 					}
 					if (propertyExpression.getPin().getRef() instanceof OutputPin) {
 						for (Output output : execution.getOutputs()) {
 							if (output.getOutputPin().name.equals(propertyExpression.getPin().getRef().getName()))
-								source = (Object_) ((ValueInstance) output.getOutputValues().get(0).getOutputValueSnapshot().eContainer())
-										.getRuntimeValue();
+								source = (Object_) ((ValueSnapshot) output.getOutputValues().get(0).getOutputValueSnapshot()).getValue();
 						}
 					}
 				}
@@ -445,15 +443,13 @@ public class StateAssertionValidator {
 					if (parameterNode.getParameter().getDirection().getValue() == ParameterDirectionKind.OUT) {
 						for (OutputParameterSetting output : execution.getActivityOutputs()) {
 							if (output.getParameter().name.equals(parameterNode.getName()))
-								source = (Object_) ((ValueInstance) output.getParameterValues().get(0).getValueSnapshot().eContainer())
-										.getRuntimeValue();
+								source = (Object_) ((ValueSnapshot) output.getParameterValues().get(0).getValueSnapshot()).getValue();
 						}
 					}
 					if (parameterNode.getParameter().getDirection().getValue() == ParameterDirectionKind.IN) {
 						for (InputParameterSetting input : execution.getActivityInputs()) {
 							if (input.getParameter().name.equals(parameterNode.getName()))
-								source = (Object_) ((ValueInstance) input.getParameterValues().get(0).getValueSnapshot().eContainer())
-										.getRuntimeValue();
+								source = (Object_) ((ValueSnapshot) input.getParameterValues().get(0).getValueSnapshot()).getValue();
 						}
 					}
 				}
