@@ -226,10 +226,10 @@ public class StateAssertionValidator {
 			setupSucessorsPredecessors();
 
 			ArrayList<ValueSnapshot> list = new ArrayList<ValueSnapshot>();
-			if (operator == TemporalOperator.BEFORE) {
+			if (operator == TemporalOperator.UNTIL) {
 				if (quantifier == TemporalQuantifier.ALWAYS)
 					list = predecessors;
-				if (quantifier == TemporalQuantifier.NEXT) {
+				if (quantifier == TemporalQuantifier.IMMEDIATELY) {
 					if (predecessors.size() > 0) {
 						list.add(predecessors.get(0));
 					}
@@ -244,7 +244,7 @@ public class StateAssertionValidator {
 				}
 				if (quantifier == TemporalQuantifier.ALWAYS)
 					list = successors;
-				if (quantifier == TemporalQuantifier.NEXT)
+				if (quantifier == TemporalQuantifier.IMMEDIATELY)
 					if (successors.size() > 0) {
 						list.add(successors.get(0));
 					}
@@ -696,7 +696,7 @@ public class StateAssertionValidator {
 			if (input.getInputValues().get(0).getInputValueSnapshot() == null)
 				continue;
 			ValueInstance referredValueInstance = (ValueInstance) input.getInputValues().get(0).getInputValueSnapshot().eContainer();
-			if (referredValueInstance == valueInstance && operator == TemporalOperator.BEFORE) {
+			if (referredValueInstance == valueInstance && operator == TemporalOperator.UNTIL) {
 				if (predecessors.contains(input.getInputValues().get(0).getInputValueSnapshot()))
 					predecessors.add(input.getInputValues().get(0).getInputValueSnapshot());
 			}

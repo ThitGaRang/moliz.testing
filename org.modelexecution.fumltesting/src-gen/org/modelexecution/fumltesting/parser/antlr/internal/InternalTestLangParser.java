@@ -23,7 +23,7 @@ import java.util.HashMap;
 @SuppressWarnings("all")
 public class InternalTestLangParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_STRING", "RULE_HEX", "RULE_INT", "RULE_DECIMAL", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'import'", "'var'", "'='", "';'", "'test'", "'activity'", "'('", "','", "')'", "'on'", "'{'", "'initialize'", "'['", "']'", "'}'", "'scenario'", "'object'", "':'", "'link'", "'source'", "'target'", "'assertState'", "'until'", "'action'", "'constraint'", "'finally'", "'check'", "'::'", "'assertOrder'", "'*'", "'_'", "'+='", "'-='", "'||'", "'&&'", "'=='", "'!='", "'==='", "'!=='", "'instanceof'", "'>='", "'<='", "'>'", "'<'", "'->'", "'..<'", "'..'", "'=>'", "'<>'", "'?:'", "'<=>'", "'+'", "'-'", "'**'", "'/'", "'%'", "'!'", "'as'", "'.'", "'?.'", "'#'", "'|'", "'if'", "'else'", "'switch'", "'default'", "'case'", "'for'", "'while'", "'do'", "'val'", "'extends'", "'static'", "'extension'", "'super'", "'new'", "'false'", "'true'", "'null'", "'typeof'", "'throw'", "'return'", "'try'", "'catch'", "'?'", "'&'", "'includes'", "'excludes'", "'after'", "'before'", "'next'", "'existsNext'", "'always'", "'sometime'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_STRING", "RULE_HEX", "RULE_INT", "RULE_DECIMAL", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'import'", "'var'", "'='", "';'", "'test'", "'activity'", "'('", "','", "')'", "'on'", "'{'", "'initialize'", "'['", "']'", "'}'", "'scenario'", "'object'", "':'", "'link'", "'source'", "'target'", "'assertState'", "'until'", "'action'", "'constraint'", "'finally'", "'check'", "'::'", "'assertOrder'", "'*'", "'_'", "'+='", "'-='", "'||'", "'&&'", "'=='", "'!='", "'==='", "'!=='", "'instanceof'", "'>='", "'<='", "'>'", "'<'", "'->'", "'..<'", "'..'", "'=>'", "'<>'", "'?:'", "'<=>'", "'+'", "'-'", "'**'", "'/'", "'%'", "'!'", "'as'", "'.'", "'?.'", "'#'", "'|'", "'if'", "'else'", "'switch'", "'default'", "'case'", "'for'", "'while'", "'do'", "'val'", "'extends'", "'static'", "'extension'", "'super'", "'new'", "'false'", "'true'", "'null'", "'typeof'", "'throw'", "'return'", "'try'", "'catch'", "'?'", "'&'", "'includes'", "'excludes'", "'after'", "'always'", "'sometimes'", "'eventually'", "'immediately'"
     };
     public static final int RULE_ID=4;
     public static final int T__29=29;
@@ -101,7 +101,6 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
     public static final int T__59=59;
     public static final int T__104=104;
     public static final int T__105=105;
-    public static final int T__106=106;
     public static final int RULE_INT=7;
     public static final int T__50=50;
     public static final int T__42=42;
@@ -20957,7 +20956,7 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleTemporalOperator"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7225:1: ruleTemporalOperator returns [Enumerator current=null] : ( (enumLiteral_0= 'after' ) | (enumLiteral_1= 'before' ) ) ;
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7225:1: ruleTemporalOperator returns [Enumerator current=null] : ( (enumLiteral_0= 'after' ) | (enumLiteral_1= 'until' ) ) ;
     public final Enumerator ruleTemporalOperator() throws RecognitionException {
         Enumerator current = null;
 
@@ -20966,17 +20965,17 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
          enterRule(); 
         try {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7227:28: ( ( (enumLiteral_0= 'after' ) | (enumLiteral_1= 'before' ) ) )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7228:1: ( (enumLiteral_0= 'after' ) | (enumLiteral_1= 'before' ) )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7227:28: ( ( (enumLiteral_0= 'after' ) | (enumLiteral_1= 'until' ) ) )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7228:1: ( (enumLiteral_0= 'after' ) | (enumLiteral_1= 'until' ) )
             {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7228:1: ( (enumLiteral_0= 'after' ) | (enumLiteral_1= 'before' ) )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7228:1: ( (enumLiteral_0= 'after' ) | (enumLiteral_1= 'until' ) )
             int alt123=2;
             int LA123_0 = input.LA(1);
 
             if ( (LA123_0==101) ) {
                 alt123=1;
             }
-            else if ( (LA123_0==102) ) {
+            else if ( (LA123_0==35) ) {
                 alt123=2;
             }
             else {
@@ -21007,16 +21006,16 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7234:6: (enumLiteral_1= 'before' )
+                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7234:6: (enumLiteral_1= 'until' )
                     {
-                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7234:6: (enumLiteral_1= 'before' )
-                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7234:8: enumLiteral_1= 'before'
+                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7234:6: (enumLiteral_1= 'until' )
+                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7234:8: enumLiteral_1= 'until'
                     {
-                    enumLiteral_1=(Token)match(input,102,FOLLOW_102_in_ruleTemporalOperator16949); if (state.failed) return current;
+                    enumLiteral_1=(Token)match(input,35,FOLLOW_35_in_ruleTemporalOperator16949); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                              current = grammarAccess.getTemporalOperatorAccess().getBeforeEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
-                              newLeafNode(enumLiteral_1, grammarAccess.getTemporalOperatorAccess().getBeforeEnumLiteralDeclaration_1()); 
+                              current = grammarAccess.getTemporalOperatorAccess().getUntilEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
+                              newLeafNode(enumLiteral_1, grammarAccess.getTemporalOperatorAccess().getUntilEnumLiteralDeclaration_1()); 
                           
                     }
 
@@ -21048,7 +21047,7 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleTemporalQuantifier"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7244:1: ruleTemporalQuantifier returns [Enumerator current=null] : ( (enumLiteral_0= 'next' ) | (enumLiteral_1= 'existsNext' ) | (enumLiteral_2= 'always' ) | (enumLiteral_3= 'sometime' ) ) ;
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7244:1: ruleTemporalQuantifier returns [Enumerator current=null] : ( (enumLiteral_0= 'always' ) | (enumLiteral_1= 'sometimes' ) | (enumLiteral_2= 'eventually' ) | (enumLiteral_3= 'immediately' ) ) ;
     public final Enumerator ruleTemporalQuantifier() throws RecognitionException {
         Enumerator current = null;
 
@@ -21059,28 +21058,28 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
          enterRule(); 
         try {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7246:28: ( ( (enumLiteral_0= 'next' ) | (enumLiteral_1= 'existsNext' ) | (enumLiteral_2= 'always' ) | (enumLiteral_3= 'sometime' ) ) )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7247:1: ( (enumLiteral_0= 'next' ) | (enumLiteral_1= 'existsNext' ) | (enumLiteral_2= 'always' ) | (enumLiteral_3= 'sometime' ) )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7246:28: ( ( (enumLiteral_0= 'always' ) | (enumLiteral_1= 'sometimes' ) | (enumLiteral_2= 'eventually' ) | (enumLiteral_3= 'immediately' ) ) )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7247:1: ( (enumLiteral_0= 'always' ) | (enumLiteral_1= 'sometimes' ) | (enumLiteral_2= 'eventually' ) | (enumLiteral_3= 'immediately' ) )
             {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7247:1: ( (enumLiteral_0= 'next' ) | (enumLiteral_1= 'existsNext' ) | (enumLiteral_2= 'always' ) | (enumLiteral_3= 'sometime' ) )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7247:1: ( (enumLiteral_0= 'always' ) | (enumLiteral_1= 'sometimes' ) | (enumLiteral_2= 'eventually' ) | (enumLiteral_3= 'immediately' ) )
             int alt124=4;
             switch ( input.LA(1) ) {
-            case 103:
+            case 102:
                 {
                 alt124=1;
                 }
                 break;
-            case 104:
+            case 103:
                 {
                 alt124=2;
                 }
                 break;
-            case 105:
+            case 104:
                 {
                 alt124=3;
                 }
                 break;
-            case 106:
+            case 105:
                 {
                 alt124=4;
                 }
@@ -21095,16 +21094,16 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
             switch (alt124) {
                 case 1 :
-                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7247:2: (enumLiteral_0= 'next' )
+                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7247:2: (enumLiteral_0= 'always' )
                     {
-                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7247:2: (enumLiteral_0= 'next' )
-                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7247:4: enumLiteral_0= 'next'
+                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7247:2: (enumLiteral_0= 'always' )
+                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7247:4: enumLiteral_0= 'always'
                     {
-                    enumLiteral_0=(Token)match(input,103,FOLLOW_103_in_ruleTemporalQuantifier16994); if (state.failed) return current;
+                    enumLiteral_0=(Token)match(input,102,FOLLOW_102_in_ruleTemporalQuantifier16994); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                              current = grammarAccess.getTemporalQuantifierAccess().getNextEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
-                              newLeafNode(enumLiteral_0, grammarAccess.getTemporalQuantifierAccess().getNextEnumLiteralDeclaration_0()); 
+                              current = grammarAccess.getTemporalQuantifierAccess().getAlwaysEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
+                              newLeafNode(enumLiteral_0, grammarAccess.getTemporalQuantifierAccess().getAlwaysEnumLiteralDeclaration_0()); 
                           
                     }
 
@@ -21114,16 +21113,16 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7253:6: (enumLiteral_1= 'existsNext' )
+                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7253:6: (enumLiteral_1= 'sometimes' )
                     {
-                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7253:6: (enumLiteral_1= 'existsNext' )
-                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7253:8: enumLiteral_1= 'existsNext'
+                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7253:6: (enumLiteral_1= 'sometimes' )
+                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7253:8: enumLiteral_1= 'sometimes'
                     {
-                    enumLiteral_1=(Token)match(input,104,FOLLOW_104_in_ruleTemporalQuantifier17011); if (state.failed) return current;
+                    enumLiteral_1=(Token)match(input,103,FOLLOW_103_in_ruleTemporalQuantifier17011); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                              current = grammarAccess.getTemporalQuantifierAccess().getExistsNextEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
-                              newLeafNode(enumLiteral_1, grammarAccess.getTemporalQuantifierAccess().getExistsNextEnumLiteralDeclaration_1()); 
+                              current = grammarAccess.getTemporalQuantifierAccess().getSometimesEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
+                              newLeafNode(enumLiteral_1, grammarAccess.getTemporalQuantifierAccess().getSometimesEnumLiteralDeclaration_1()); 
                           
                     }
 
@@ -21133,16 +21132,16 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7259:6: (enumLiteral_2= 'always' )
+                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7259:6: (enumLiteral_2= 'eventually' )
                     {
-                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7259:6: (enumLiteral_2= 'always' )
-                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7259:8: enumLiteral_2= 'always'
+                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7259:6: (enumLiteral_2= 'eventually' )
+                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7259:8: enumLiteral_2= 'eventually'
                     {
-                    enumLiteral_2=(Token)match(input,105,FOLLOW_105_in_ruleTemporalQuantifier17028); if (state.failed) return current;
+                    enumLiteral_2=(Token)match(input,104,FOLLOW_104_in_ruleTemporalQuantifier17028); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                              current = grammarAccess.getTemporalQuantifierAccess().getAlwaysEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
-                              newLeafNode(enumLiteral_2, grammarAccess.getTemporalQuantifierAccess().getAlwaysEnumLiteralDeclaration_2()); 
+                              current = grammarAccess.getTemporalQuantifierAccess().getEventuallyEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
+                              newLeafNode(enumLiteral_2, grammarAccess.getTemporalQuantifierAccess().getEventuallyEnumLiteralDeclaration_2()); 
                           
                     }
 
@@ -21152,16 +21151,16 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7265:6: (enumLiteral_3= 'sometime' )
+                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7265:6: (enumLiteral_3= 'immediately' )
                     {
-                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7265:6: (enumLiteral_3= 'sometime' )
-                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7265:8: enumLiteral_3= 'sometime'
+                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7265:6: (enumLiteral_3= 'immediately' )
+                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7265:8: enumLiteral_3= 'immediately'
                     {
-                    enumLiteral_3=(Token)match(input,106,FOLLOW_106_in_ruleTemporalQuantifier17045); if (state.failed) return current;
+                    enumLiteral_3=(Token)match(input,105,FOLLOW_105_in_ruleTemporalQuantifier17045); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                              current = grammarAccess.getTemporalQuantifierAccess().getSometimeEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
-                              newLeafNode(enumLiteral_3, grammarAccess.getTemporalQuantifierAccess().getSometimeEnumLiteralDeclaration_3()); 
+                              current = grammarAccess.getTemporalQuantifierAccess().getImmediatelyEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
+                              newLeafNode(enumLiteral_3, grammarAccess.getTemporalQuantifierAccess().getImmediatelyEnumLiteralDeclaration_3()); 
                           
                     }
 
@@ -25979,8 +25978,8 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_ruleFinallyStateAssertion_in_ruleAssertion2235 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleStateAssertion_in_entryRuleStateAssertion2270 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleStateAssertion2280 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_34_in_ruleStateAssertion2317 = new BitSet(new long[]{0x0000000000000000L,0x0000078000000000L});
-    public static final BitSet FOLLOW_ruleTemporalQuantifier_in_ruleStateAssertion2338 = new BitSet(new long[]{0x0000000000000000L,0x0000006000000000L});
+    public static final BitSet FOLLOW_34_in_ruleStateAssertion2317 = new BitSet(new long[]{0x0000000000000000L,0x000003C000000000L});
+    public static final BitSet FOLLOW_ruleTemporalQuantifier_in_ruleStateAssertion2338 = new BitSet(new long[]{0x0000000800000000L,0x0000002000000000L});
     public static final BitSet FOLLOW_ruleTemporalOperator_in_ruleStateAssertion2359 = new BitSet(new long[]{0x0000003000000000L});
     public static final BitSet FOLLOW_ruleReferencePoint_in_ruleStateAssertion2380 = new BitSet(new long[]{0x0000000800800000L});
     public static final BitSet FOLLOW_35_in_ruleStateAssertion2393 = new BitSet(new long[]{0x0000003000000000L});
@@ -26525,11 +26524,11 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_99_in_ruleArithmeticOperator16870 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_100_in_ruleArithmeticOperator16887 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_101_in_ruleTemporalOperator16932 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_102_in_ruleTemporalOperator16949 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_103_in_ruleTemporalQuantifier16994 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_104_in_ruleTemporalQuantifier17011 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_105_in_ruleTemporalQuantifier17028 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_106_in_ruleTemporalQuantifier17045 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_35_in_ruleTemporalOperator16949 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_102_in_ruleTemporalQuantifier16994 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_103_in_ruleTemporalQuantifier17011 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_104_in_ruleTemporalQuantifier17028 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_105_in_ruleTemporalQuantifier17045 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleOpMultiAssign_in_synpred1_InternalTestLang4461 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleOpOr_in_synpred2_InternalTestLang4830 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleOpAnd_in_synpred3_InternalTestLang5089 = new BitSet(new long[]{0x0000000000000002L});

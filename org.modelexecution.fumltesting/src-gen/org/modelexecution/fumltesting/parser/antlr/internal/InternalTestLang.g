@@ -7231,10 +7231,10 @@ ruleTemporalOperator returns [Enumerator current=null]
         newLeafNode(enumLiteral_0, grammarAccess.getTemporalOperatorAccess().getAfterEnumLiteralDeclaration_0()); 
     }
 )
-    |(	enumLiteral_1='before' 
+    |(	enumLiteral_1='until' 
 	{
-        $current = grammarAccess.getTemporalOperatorAccess().getBeforeEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
-        newLeafNode(enumLiteral_1, grammarAccess.getTemporalOperatorAccess().getBeforeEnumLiteralDeclaration_1()); 
+        $current = grammarAccess.getTemporalOperatorAccess().getUntilEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_1, grammarAccess.getTemporalOperatorAccess().getUntilEnumLiteralDeclaration_1()); 
     }
 ));
 
@@ -7244,28 +7244,28 @@ ruleTemporalOperator returns [Enumerator current=null]
 ruleTemporalQuantifier returns [Enumerator current=null] 
     @init { enterRule(); }
     @after { leaveRule(); }:
-((	enumLiteral_0='next' 
+((	enumLiteral_0='always' 
 	{
-        $current = grammarAccess.getTemporalQuantifierAccess().getNextEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
-        newLeafNode(enumLiteral_0, grammarAccess.getTemporalQuantifierAccess().getNextEnumLiteralDeclaration_0()); 
+        $current = grammarAccess.getTemporalQuantifierAccess().getAlwaysEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_0, grammarAccess.getTemporalQuantifierAccess().getAlwaysEnumLiteralDeclaration_0()); 
     }
 )
-    |(	enumLiteral_1='existsNext' 
+    |(	enumLiteral_1='sometimes' 
 	{
-        $current = grammarAccess.getTemporalQuantifierAccess().getExistsNextEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
-        newLeafNode(enumLiteral_1, grammarAccess.getTemporalQuantifierAccess().getExistsNextEnumLiteralDeclaration_1()); 
+        $current = grammarAccess.getTemporalQuantifierAccess().getSometimesEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_1, grammarAccess.getTemporalQuantifierAccess().getSometimesEnumLiteralDeclaration_1()); 
     }
 )
-    |(	enumLiteral_2='always' 
+    |(	enumLiteral_2='eventually' 
 	{
-        $current = grammarAccess.getTemporalQuantifierAccess().getAlwaysEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
-        newLeafNode(enumLiteral_2, grammarAccess.getTemporalQuantifierAccess().getAlwaysEnumLiteralDeclaration_2()); 
+        $current = grammarAccess.getTemporalQuantifierAccess().getEventuallyEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_2, grammarAccess.getTemporalQuantifierAccess().getEventuallyEnumLiteralDeclaration_2()); 
     }
 )
-    |(	enumLiteral_3='sometime' 
+    |(	enumLiteral_3='immediately' 
 	{
-        $current = grammarAccess.getTemporalQuantifierAccess().getSometimeEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
-        newLeafNode(enumLiteral_3, grammarAccess.getTemporalQuantifierAccess().getSometimeEnumLiteralDeclaration_3()); 
+        $current = grammarAccess.getTemporalQuantifierAccess().getImmediatelyEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
+        newLeafNode(enumLiteral_3, grammarAccess.getTemporalQuantifierAccess().getImmediatelyEnumLiteralDeclaration_3()); 
     }
 ));
 

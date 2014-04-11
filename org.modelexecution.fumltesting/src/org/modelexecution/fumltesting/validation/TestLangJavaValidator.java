@@ -26,8 +26,8 @@ import org.modelexecution.fumltesting.testLang.TestLangPackage;
 public class TestLangJavaValidator extends AbstractTestLangJavaValidator {
 	@Check
 	public void checkAfterSpecified(StateAssertion assertion) {
-		if (assertion.getOperator() == TemporalOperator.BEFORE && assertion.getUntilPoint() != null) {
-			warning("UNTIL has no effect due to BEFORE operator!", TestLangPackage.Literals.STATE_ASSERTION__UNTIL_POINT);
+		if (assertion.getOperator() == TemporalOperator.UNTIL && assertion.getUntilPoint() != null) {
+			warning("Subsequent usage of UNTIL is not allowed!", TestLangPackage.Literals.STATE_ASSERTION__UNTIL_POINT);
 		}
 	}
 

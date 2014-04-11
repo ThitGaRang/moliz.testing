@@ -136,12 +136,12 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="TemporalOperator">
     <eLiterals name="after" literal="after"/>
-    <eLiterals name="before" value="1" literal="before"/>
+    <eLiterals name="until" value="1" literal="until"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="TemporalQuantifier">
-    <eLiterals name="next" literal="next"/>
-    <eLiterals name="existsNext" value="1" literal="existsNext"/>
-    <eLiterals name="always" value="2" literal="always"/>
-    <eLiterals name="sometime" value="3" literal="sometime"/>
+    <eLiterals name="always" literal="always"/>
+    <eLiterals name="sometimes" value="1" literal="sometimes"/>
+    <eLiterals name="eventually" value="2" literal="eventually"/>
+    <eLiterals name="immediately" value="3" literal="immediately"/>
   </eClassifiers>
 </ecore:EPackage>

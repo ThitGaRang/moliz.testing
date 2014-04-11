@@ -71,7 +71,7 @@ public class SequenceGenerator {
 		sequence.setActivityExecution(activityExecution);
 		ActivityNodeExecution initial = null;
 		for (ActivityNodeExecution nodeExecution : activityExecution.getNodeExecutions()) {
-			if (nodeExecution.getChronologicalPredecessor() == null) {
+			if (nodeExecution.getLogicalPredecessor().size() == 0) {
 				initial = nodeExecution;
 				break;
 			}
@@ -87,14 +87,16 @@ public class SequenceGenerator {
 				State state = createNewState(sequence, nodeExecution);
 				for (InputParameterSetting inputParameterSetting : nodeExecution.getActivityExecution().getActivityInputs()) {
 					ValueSnapshot snapshot = inputParameterSetting.getParameterValues().get(0).getValueSnapshot();
-					ValueInstance instance = (ValueInstance) snapshot.eContainer();
-					Object original = getLastVersion(sequence, instance);
-					if (original != null) {
-						state.getObjects().remove(original);
+					if (snapshot.getValue() instanceof Object_) {
+						ValueInstance instance = (ValueInstance) snapshot.eContainer();
+						Object original = getLastVersion(sequence, instance);
+						if (original != null) {
+							state.getObjects().remove(original);
+						}
+						Object newObject = mapper.map((Object_) snapshot.getValue());
+						state.getObjects().add(newObject);
+						state.addSnapshotMapping(instance, newObject);
 					}
-					Object newObject = mapper.map((Object_) snapshot.getValue());
-					state.getObjects().add(newObject);
-					state.addSnapshotMapping(instance, newObject);
 				}
 			}
 			if (nodeExecution.getNode() instanceof ReadSelfAction || nodeExecution.getNode() instanceof CreateObjectAction) {
@@ -161,7 +163,7 @@ public class SequenceGenerator {
 											Object_ runtimeValue = (Object_) instance.getRuntimeValue();
 											for (Value referenceValue : featureValue.values) {
 												if (((Reference) referenceValue).referent == runtimeValue) {
-													((Reference)referenceValue).referent = original;													
+													((Reference) referenceValue).referent = original;
 													break outter;
 												}
 											}

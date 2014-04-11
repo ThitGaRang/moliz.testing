@@ -1415,13 +1415,13 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
 
     initEEnum(temporalOperatorEEnum, TemporalOperator.class, "TemporalOperator");
     addEEnumLiteral(temporalOperatorEEnum, TemporalOperator.AFTER);
-    addEEnumLiteral(temporalOperatorEEnum, TemporalOperator.BEFORE);
+    addEEnumLiteral(temporalOperatorEEnum, TemporalOperator.UNTIL);
 
     initEEnum(temporalQuantifierEEnum, TemporalQuantifier.class, "TemporalQuantifier");
-    addEEnumLiteral(temporalQuantifierEEnum, TemporalQuantifier.NEXT);
-    addEEnumLiteral(temporalQuantifierEEnum, TemporalQuantifier.EXISTS_NEXT);
     addEEnumLiteral(temporalQuantifierEEnum, TemporalQuantifier.ALWAYS);
-    addEEnumLiteral(temporalQuantifierEEnum, TemporalQuantifier.SOMETIME);
+    addEEnumLiteral(temporalQuantifierEEnum, TemporalQuantifier.SOMETIMES);
+    addEEnumLiteral(temporalQuantifierEEnum, TemporalQuantifier.EVENTUALLY);
+    addEEnumLiteral(temporalQuantifierEEnum, TemporalQuantifier.IMMEDIATELY);
 
     // Create resource
     createResource(eNS_URI);

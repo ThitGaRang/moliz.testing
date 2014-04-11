@@ -51,7 +51,7 @@ public class StateAssertionImpl extends AssertionImpl implements StateAssertion
    * @generated
    * @ordered
    */
-  protected static final TemporalQuantifier QUANTIFIER_EDEFAULT = TemporalQuantifier.NEXT;
+  protected static final TemporalQuantifier QUANTIFIER_EDEFAULT = TemporalQuantifier.ALWAYS;
 
   /**
    * The cached value of the '{@link #getQuantifier() <em>Quantifier</em>}' attribute.

@@ -17,21 +17,21 @@ test totalCostTest activity TotalCostActivity on TestData.cartItem{
 	
 	assertOrder TotalCostActivity.initial, TotalCostActivity.totalCostSelf, *, TotalCostActivity.calculateTotalCost;
 	
-	assertState always before action TotalCostActivity.totalCostSelf{cartItem = null;}
-	assertState next before action TotalCostActivity.totalCostSelf{cartItem = null;}
+	assertState always until action TotalCostActivity.totalCostSelf{cartItem = null;}
+	assertState immediately until action TotalCostActivity.totalCostSelf{cartItem = null;}
 	assertState always after action TotalCostActivity.totalCostSelf{cartItem != null;}
-	assertState next after action TotalCostActivity.totalCostSelf{cartItem != null;}
+	assertState immediately after action TotalCostActivity.totalCostSelf{cartItem != null;}
 	
-	assertState always before action TotalCostActivity.getUnitCost{cartItem != null; unitCost = 100;}
-	assertState next before action TotalCostActivity.getUnitCost{cartItem != null; unitCost = 100;}
+	assertState always until action TotalCostActivity.getUnitCost{cartItem != null; unitCost = 100;}
+	assertState immediately until action TotalCostActivity.getUnitCost{cartItem != null; unitCost = 100;}
 	assertState always after action TotalCostActivity.getUnitCost{cartItem != null; unitCost = 100;}
-	assertState next after action TotalCostActivity.getUnitCost{cartItem != null; unitCost = 100;}
+	assertState immediately after action TotalCostActivity.getUnitCost{cartItem != null; unitCost = 100;}
 	
-	assertState always before action TotalCostActivity.getQuantity{cartItem != null; quantity = null;}
-	assertState next before action TotalCostActivity.getQuantity{cartItem != null; quantity = null;}
+	assertState always until action TotalCostActivity.getQuantity{cartItem != null; quantity = null;}
+	assertState immediately until action TotalCostActivity.getQuantity{cartItem != null; quantity = null;}
 	assertState always after action TotalCostActivity.getQuantity{cartItem != null; quantity = 5;}
-	assertState next after action TotalCostActivity.getQuantity{cartItem != null; quantity = 5;}
+	assertState immediately after action TotalCostActivity.getQuantity{cartItem != null; quantity = 5;}
 	
 	assertState always after action TotalCostActivity.calculateTotalCost{unitCost = 100; quantity = 5; cost = 500;}
-	assertState next after action TotalCostActivity.calculateTotalCost{unitCost = 100; quantity = 5; cost = 500;}
+	assertState immediately after action TotalCostActivity.calculateTotalCost{unitCost = 100; quantity = 5; cost = 500;}
 }

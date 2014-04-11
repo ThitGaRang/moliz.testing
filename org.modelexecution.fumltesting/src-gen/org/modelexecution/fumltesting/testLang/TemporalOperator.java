@@ -30,14 +30,14 @@ public enum TemporalOperator implements Enumerator
   AFTER(0, "after", "after"),
 
   /**
-   * The '<em><b>Before</b></em>' literal object.
+   * The '<em><b>Until</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #BEFORE_VALUE
+   * @see #UNTIL_VALUE
    * @generated
    * @ordered
    */
-  BEFORE(1, "before", "before");
+  UNTIL(1, "until", "until");
 
   /**
    * The '<em><b>After</b></em>' literal value.
@@ -55,19 +55,19 @@ public enum TemporalOperator implements Enumerator
   public static final int AFTER_VALUE = 0;
 
   /**
-   * The '<em><b>Before</b></em>' literal value.
+   * The '<em><b>Until</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of '<em><b>Before</b></em>' literal object isn't clear,
+   * If the meaning of '<em><b>Until</b></em>' literal object isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @see #BEFORE
-   * @model name="before"
+   * @see #UNTIL
+   * @model name="until"
    * @generated
    * @ordered
    */
-  public static final int BEFORE_VALUE = 1;
+  public static final int UNTIL_VALUE = 1;
 
   /**
    * An array of all the '<em><b>Temporal Operator</b></em>' enumerators.
@@ -79,7 +79,7 @@ public enum TemporalOperator implements Enumerator
     new TemporalOperator[]
     {
       AFTER,
-      BEFORE,
+      UNTIL,
     };
 
   /**
@@ -139,7 +139,7 @@ public enum TemporalOperator implements Enumerator
     switch (value)
     {
       case AFTER_VALUE: return AFTER;
-      case BEFORE_VALUE: return BEFORE;
+      case UNTIL_VALUE: return UNTIL;
     }
     return null;
   }

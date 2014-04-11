@@ -5,9 +5,7 @@ import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 generate testLang "http://www.modelexecution.org/fumltesting/TestLang"
 
 TestSuite:
-	(imports+=Import)*
-	(scenarios+=Scenario)*
-	(tests+=TestCase)*;
+	(imports+=Import)* (scenarios+=Scenario)* (tests+=TestCase)*;
 
 Import:
 	'import' importedNamespace=QualifiedNameWithWildcard;
@@ -17,12 +15,9 @@ VarDeclaration:
 
 TestCase:
 	'test' name=ID 'activity' activityUnderTest=[uml::Activity|QualifiedName] ('(' inputs+=ActivityInput (','
-	inputs+=ActivityInput)* ')')?
-	('on' contextObject=[ObjectSpecification|QualifiedName])? '{'
-	('initialize' '[' (initScenarios+=[Scenario]) (',' initScenarios+=[Scenario])* ']' ';')?
-	(variables+=VarDeclaration)*
-	(assertions+=Assertion)*
-	'}';
+	inputs+=ActivityInput)* ')')? ('on' contextObject=[ObjectSpecification|QualifiedName])? '{' ('initialize' '['
+	(initScenarios+=[Scenario]) (',' initScenarios+=[Scenario])* ']' ';')? (variables+=VarDeclaration)*
+	(assertions+=Assertion)* '}';
 
 ActivityInput:
 	parameter=[uml::ActivityParameterNode|QualifiedName] '=' value=Value;
@@ -37,56 +32,44 @@ ObjectValue:
 	value=[ObjectSpecification|QualifiedName];
 
 Scenario:
-	'scenario' name=ID '['
-	(objects+=ObjectSpecification)*
-	(links+=Link)*
-	']';
+	'scenario' name=ID '[' (objects+=ObjectSpecification)* (links+=Link)* ']';
 
 ObjectSpecification:
-	'object' name=ID ':' type=[uml::Class|QualifiedName] '{'
-	(attributes+=Attribute)*
-	'}';
+	'object' name=ID ':' type=[uml::Class|QualifiedName] '{' (attributes+=Attribute)* '}';
 
 Attribute:
 	att=[uml::Property|QualifiedName] '=' value=Value ';';
 
 Link:
-	'link' assoc=[uml::Association|QualifiedName] '{'
-	'source' sourceProperty=[uml::Property|QualifiedName] '=' sourceValue=[ObjectSpecification|QualifiedName] ';'
-	'target' targetProperty=[uml::Property|QualifiedName] '=' targetValue=[ObjectSpecification|QualifiedName] ';'
-	'}';
+	'link' assoc=[uml::Association|QualifiedName] '{' 'source' sourceProperty=[uml::Property|QualifiedName] '='
+	sourceValue=[ObjectSpecification|QualifiedName] ';' 'target' targetProperty=[uml::Property|QualifiedName] '='
+	targetValue=[ObjectSpecification|QualifiedName] ';' '}';
 
 Assertion:
 	OrderAssertion | StateAssertion | FinallyStateAssertion;
-	
+
 StateAssertion:
-	'assertState' quantifier=TemporalQuantifier operator=TemporalOperator
-	referencePoint=ReferencePoint ('until' untilPoint=ReferencePoint)?'{'
-		(checks+=Check)*		
-	'}';
+	'assertState' quantifier=TemporalQuantifier operator=TemporalOperator referencePoint=ReferencePoint ('until'
+	untilPoint=ReferencePoint)? '{' (checks+=Check)* '}';
 
 ReferencePoint:
-	ActionReferencePoint | ConstraintReferencePoint
-;
+	ActionReferencePoint | ConstraintReferencePoint;
 
 ActionReferencePoint:
-	'action' action=[uml::Action|QualifiedName]
-;
+	'action' action=[uml::Action|QualifiedName];
 
 ConstraintReferencePoint:
-	'constraint' constraintName=XStringLiteral
-;
+	'constraint' constraintName=XStringLiteral;
 
 FinallyStateAssertion:
-	'finally' '{' {FinallyStateAssertion} (checks+=Check)* '}';	
+	'finally' '{' {FinallyStateAssertion} (checks+=Check)* '}';
 
 Check:
-	ConstraintCheck | StateExpression
-;
+	ConstraintCheck | StateExpression;
 
 ConstraintCheck:
-	'check' constraintNames+=XStringLiteral (',' constraintNames+=XStringLiteral)* 
-		('on' object=[VarDeclaration|QualifiedName])? ';';
+	'check' constraintNames+=XStringLiteral (',' constraintNames+=XStringLiteral)* ('on'
+	object=[VarDeclaration|QualifiedName])? ';';
 
 StateExpression:
 	ObjectStateExpression | PropertyStateExpression;
@@ -112,7 +95,7 @@ enum ArithmeticOperator:
 	includes='includes' | excludes='excludes';
 
 enum TemporalOperator:
-	after | before;
+	after | until;
 
 enum TemporalQuantifier:
-	next| existsNext | always | sometime;
+	always | sometimes | eventually | immediately;

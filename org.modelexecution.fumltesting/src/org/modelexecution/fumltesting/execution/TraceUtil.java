@@ -243,20 +243,18 @@ public class TraceUtil {
 									state = state.getSuccessor();
 								}
 								break;
-							case NEXT:
+							case IMMEDIATELY:
 								states.add(state);
-								break;
-							case EXISTS_NEXT:
-								states.add(state);
-								break;
-							case SOMETIME:
+								break;							
+							case SOMETIMES:
 								//TODO implement this case
 								break;
-							default:
+							case EVENTUALLY:
+								//TODO implement this case
 								break;
 							}
 							break;
-						case BEFORE:
+						case UNTIL:
 							switch (quantifier) {
 							case ALWAYS:
 								while (state.getPredecessor() != null) {
@@ -264,18 +262,15 @@ public class TraceUtil {
 									state = state.getPredecessor();
 								}
 								break;
-							case NEXT:
+							case IMMEDIATELY:
 								if (state.getPredecessor() != null)
 									states.add(state.getPredecessor());
-								break;
-							case EXISTS_NEXT:
-								if (state.getPredecessor() != null)
-									states.add(state.getPredecessor());
-								break;
-							case SOMETIME:
+								break;							
+							case SOMETIMES:
 								//TODO implement this case
 								break;
-							default:
+							case EVENTUALLY:
+								//TODO implement this case
 								break;
 							}
 						}

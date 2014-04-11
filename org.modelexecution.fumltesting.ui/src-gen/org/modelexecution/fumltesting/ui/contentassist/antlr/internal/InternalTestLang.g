@@ -4101,10 +4101,10 @@ rule__TemporalOperator__Alternatives
 )
 
     |(
-{ before(grammarAccess.getTemporalOperatorAccess().getBeforeEnumLiteralDeclaration_1()); }
-(	'before' 
+{ before(grammarAccess.getTemporalOperatorAccess().getUntilEnumLiteralDeclaration_1()); }
+(	'until' 
 )
-{ after(grammarAccess.getTemporalOperatorAccess().getBeforeEnumLiteralDeclaration_1()); }
+{ after(grammarAccess.getTemporalOperatorAccess().getUntilEnumLiteralDeclaration_1()); }
 )
 
 ;
@@ -4118,31 +4118,31 @@ rule__TemporalQuantifier__Alternatives
     }
 :
 (
-{ before(grammarAccess.getTemporalQuantifierAccess().getNextEnumLiteralDeclaration_0()); }
-(	'next' 
-)
-{ after(grammarAccess.getTemporalQuantifierAccess().getNextEnumLiteralDeclaration_0()); }
-)
-
-    |(
-{ before(grammarAccess.getTemporalQuantifierAccess().getExistsNextEnumLiteralDeclaration_1()); }
-(	'existsNext' 
-)
-{ after(grammarAccess.getTemporalQuantifierAccess().getExistsNextEnumLiteralDeclaration_1()); }
-)
-
-    |(
-{ before(grammarAccess.getTemporalQuantifierAccess().getAlwaysEnumLiteralDeclaration_2()); }
+{ before(grammarAccess.getTemporalQuantifierAccess().getAlwaysEnumLiteralDeclaration_0()); }
 (	'always' 
 )
-{ after(grammarAccess.getTemporalQuantifierAccess().getAlwaysEnumLiteralDeclaration_2()); }
+{ after(grammarAccess.getTemporalQuantifierAccess().getAlwaysEnumLiteralDeclaration_0()); }
 )
 
     |(
-{ before(grammarAccess.getTemporalQuantifierAccess().getSometimeEnumLiteralDeclaration_3()); }
-(	'sometime' 
+{ before(grammarAccess.getTemporalQuantifierAccess().getSometimesEnumLiteralDeclaration_1()); }
+(	'sometimes' 
 )
-{ after(grammarAccess.getTemporalQuantifierAccess().getSometimeEnumLiteralDeclaration_3()); }
+{ after(grammarAccess.getTemporalQuantifierAccess().getSometimesEnumLiteralDeclaration_1()); }
+)
+
+    |(
+{ before(grammarAccess.getTemporalQuantifierAccess().getEventuallyEnumLiteralDeclaration_2()); }
+(	'eventually' 
+)
+{ after(grammarAccess.getTemporalQuantifierAccess().getEventuallyEnumLiteralDeclaration_2()); }
+)
+
+    |(
+{ before(grammarAccess.getTemporalQuantifierAccess().getImmediatelyEnumLiteralDeclaration_3()); }
+(	'immediately' 
+)
+{ after(grammarAccess.getTemporalQuantifierAccess().getImmediatelyEnumLiteralDeclaration_3()); }
 )
 
 ;

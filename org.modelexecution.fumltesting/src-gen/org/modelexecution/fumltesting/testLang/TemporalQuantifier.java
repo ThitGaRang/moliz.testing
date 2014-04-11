@@ -20,26 +20,6 @@ import org.eclipse.emf.common.util.Enumerator;
 public enum TemporalQuantifier implements Enumerator
 {
   /**
-   * The '<em><b>Next</b></em>' literal object.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #NEXT_VALUE
-   * @generated
-   * @ordered
-   */
-  NEXT(0, "next", "next"),
-
-  /**
-   * The '<em><b>Exists Next</b></em>' literal object.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #EXISTS_NEXT_VALUE
-   * @generated
-   * @ordered
-   */
-  EXISTS_NEXT(1, "existsNext", "existsNext"),
-
-  /**
    * The '<em><b>Always</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -47,47 +27,37 @@ public enum TemporalQuantifier implements Enumerator
    * @generated
    * @ordered
    */
-  ALWAYS(2, "always", "always"),
+  ALWAYS(0, "always", "always"),
 
   /**
-   * The '<em><b>Sometime</b></em>' literal object.
+   * The '<em><b>Sometimes</b></em>' literal object.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #SOMETIME_VALUE
+   * @see #SOMETIMES_VALUE
    * @generated
    * @ordered
    */
-  SOMETIME(3, "sometime", "sometime");
+  SOMETIMES(1, "sometimes", "sometimes"),
 
   /**
-   * The '<em><b>Next</b></em>' literal value.
+   * The '<em><b>Eventually</b></em>' literal object.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>Next</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
-   * @see #NEXT
-   * @model name="next"
+   * @see #EVENTUALLY_VALUE
    * @generated
    * @ordered
    */
-  public static final int NEXT_VALUE = 0;
+  EVENTUALLY(2, "eventually", "eventually"),
 
   /**
-   * The '<em><b>Exists Next</b></em>' literal value.
+   * The '<em><b>Immediately</b></em>' literal object.
    * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of '<em><b>Exists Next</b></em>' literal object isn't clear,
-   * there really should be more of a description here...
-   * </p>
    * <!-- end-user-doc -->
-   * @see #EXISTS_NEXT
-   * @model name="existsNext"
+   * @see #IMMEDIATELY_VALUE
    * @generated
    * @ordered
    */
-  public static final int EXISTS_NEXT_VALUE = 1;
+  IMMEDIATELY(3, "immediately", "immediately");
 
   /**
    * The '<em><b>Always</b></em>' literal value.
@@ -102,22 +72,52 @@ public enum TemporalQuantifier implements Enumerator
    * @generated
    * @ordered
    */
-  public static final int ALWAYS_VALUE = 2;
+  public static final int ALWAYS_VALUE = 0;
 
   /**
-   * The '<em><b>Sometime</b></em>' literal value.
+   * The '<em><b>Sometimes</b></em>' literal value.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of '<em><b>Sometime</b></em>' literal object isn't clear,
+   * If the meaning of '<em><b>Sometimes</b></em>' literal object isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @see #SOMETIME
-   * @model name="sometime"
+   * @see #SOMETIMES
+   * @model name="sometimes"
    * @generated
    * @ordered
    */
-  public static final int SOMETIME_VALUE = 3;
+  public static final int SOMETIMES_VALUE = 1;
+
+  /**
+   * The '<em><b>Eventually</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>Eventually</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #EVENTUALLY
+   * @model name="eventually"
+   * @generated
+   * @ordered
+   */
+  public static final int EVENTUALLY_VALUE = 2;
+
+  /**
+   * The '<em><b>Immediately</b></em>' literal value.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of '<em><b>Immediately</b></em>' literal object isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @see #IMMEDIATELY
+   * @model name="immediately"
+   * @generated
+   * @ordered
+   */
+  public static final int IMMEDIATELY_VALUE = 3;
 
   /**
    * An array of all the '<em><b>Temporal Quantifier</b></em>' enumerators.
@@ -128,10 +128,10 @@ public enum TemporalQuantifier implements Enumerator
   private static final TemporalQuantifier[] VALUES_ARRAY =
     new TemporalQuantifier[]
     {
-      NEXT,
-      EXISTS_NEXT,
       ALWAYS,
-      SOMETIME,
+      SOMETIMES,
+      EVENTUALLY,
+      IMMEDIATELY,
     };
 
   /**
@@ -190,10 +190,10 @@ public enum TemporalQuantifier implements Enumerator
   {
     switch (value)
     {
-      case NEXT_VALUE: return NEXT;
-      case EXISTS_NEXT_VALUE: return EXISTS_NEXT;
       case ALWAYS_VALUE: return ALWAYS;
-      case SOMETIME_VALUE: return SOMETIME;
+      case SOMETIMES_VALUE: return SOMETIMES;
+      case EVENTUALLY_VALUE: return EVENTUALLY;
+      case IMMEDIATELY_VALUE: return IMMEDIATELY;
     }
     return null;
   }

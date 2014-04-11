@@ -19,13 +19,13 @@
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="TestLang.ecore#//TemporalOperator">
       <genEnumLiterals ecoreEnumLiteral="TestLang.ecore#//TemporalOperator/after"/>
-      <genEnumLiterals ecoreEnumLiteral="TestLang.ecore#//TemporalOperator/before"/>
+      <genEnumLiterals ecoreEnumLiteral="TestLang.ecore#//TemporalOperator/until"/>
     </genEnums>
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="TestLang.ecore#//TemporalQuantifier">
-      <genEnumLiterals ecoreEnumLiteral="TestLang.ecore#//TemporalQuantifier/next"/>
-      <genEnumLiterals ecoreEnumLiteral="TestLang.ecore#//TemporalQuantifier/existsNext"/>
       <genEnumLiterals ecoreEnumLiteral="TestLang.ecore#//TemporalQuantifier/always"/>
-      <genEnumLiterals ecoreEnumLiteral="TestLang.ecore#//TemporalQuantifier/sometime"/>
+      <genEnumLiterals ecoreEnumLiteral="TestLang.ecore#//TemporalQuantifier/sometimes"/>
+      <genEnumLiterals ecoreEnumLiteral="TestLang.ecore#//TemporalQuantifier/eventually"/>
+      <genEnumLiterals ecoreEnumLiteral="TestLang.ecore#//TemporalQuantifier/immediately"/>
     </genEnums>
     <genClasses ecoreClass="TestLang.ecore#//TestSuite">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TestLang.ecore#//TestSuite/imports"/>

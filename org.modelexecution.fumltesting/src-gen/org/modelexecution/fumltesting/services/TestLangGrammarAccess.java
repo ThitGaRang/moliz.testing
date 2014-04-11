@@ -1293,14 +1293,14 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final EnumLiteralDeclaration cAfterEnumLiteralDeclaration_0 = (EnumLiteralDeclaration)cAlternatives.eContents().get(0);
 		private final Keyword cAfterAfterKeyword_0_0 = (Keyword)cAfterEnumLiteralDeclaration_0.eContents().get(0);
-		private final EnumLiteralDeclaration cBeforeEnumLiteralDeclaration_1 = (EnumLiteralDeclaration)cAlternatives.eContents().get(1);
-		private final Keyword cBeforeBeforeKeyword_1_0 = (Keyword)cBeforeEnumLiteralDeclaration_1.eContents().get(0);
+		private final EnumLiteralDeclaration cUntilEnumLiteralDeclaration_1 = (EnumLiteralDeclaration)cAlternatives.eContents().get(1);
+		private final Keyword cUntilUntilKeyword_1_0 = (Keyword)cUntilEnumLiteralDeclaration_1.eContents().get(0);
 		
 		//enum TemporalOperator:
-		//	after | before;
+		//	after | until;
 		public EnumRule getRule() { return rule; }
 
-		//after | before
+		//after | until
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//after
@@ -1309,55 +1309,55 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		//"after"
 		public Keyword getAfterAfterKeyword_0_0() { return cAfterAfterKeyword_0_0; }
 
-		//before
-		public EnumLiteralDeclaration getBeforeEnumLiteralDeclaration_1() { return cBeforeEnumLiteralDeclaration_1; }
+		//until
+		public EnumLiteralDeclaration getUntilEnumLiteralDeclaration_1() { return cUntilEnumLiteralDeclaration_1; }
 
-		//"before"
-		public Keyword getBeforeBeforeKeyword_1_0() { return cBeforeBeforeKeyword_1_0; }
+		//"until"
+		public Keyword getUntilUntilKeyword_1_0() { return cUntilUntilKeyword_1_0; }
 	}
 
 	public class TemporalQuantifierElements extends AbstractEnumRuleElementFinder {
 		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "TemporalQuantifier");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final EnumLiteralDeclaration cNextEnumLiteralDeclaration_0 = (EnumLiteralDeclaration)cAlternatives.eContents().get(0);
-		private final Keyword cNextNextKeyword_0_0 = (Keyword)cNextEnumLiteralDeclaration_0.eContents().get(0);
-		private final EnumLiteralDeclaration cExistsNextEnumLiteralDeclaration_1 = (EnumLiteralDeclaration)cAlternatives.eContents().get(1);
-		private final Keyword cExistsNextExistsNextKeyword_1_0 = (Keyword)cExistsNextEnumLiteralDeclaration_1.eContents().get(0);
-		private final EnumLiteralDeclaration cAlwaysEnumLiteralDeclaration_2 = (EnumLiteralDeclaration)cAlternatives.eContents().get(2);
-		private final Keyword cAlwaysAlwaysKeyword_2_0 = (Keyword)cAlwaysEnumLiteralDeclaration_2.eContents().get(0);
-		private final EnumLiteralDeclaration cSometimeEnumLiteralDeclaration_3 = (EnumLiteralDeclaration)cAlternatives.eContents().get(3);
-		private final Keyword cSometimeSometimeKeyword_3_0 = (Keyword)cSometimeEnumLiteralDeclaration_3.eContents().get(0);
+		private final EnumLiteralDeclaration cAlwaysEnumLiteralDeclaration_0 = (EnumLiteralDeclaration)cAlternatives.eContents().get(0);
+		private final Keyword cAlwaysAlwaysKeyword_0_0 = (Keyword)cAlwaysEnumLiteralDeclaration_0.eContents().get(0);
+		private final EnumLiteralDeclaration cSometimesEnumLiteralDeclaration_1 = (EnumLiteralDeclaration)cAlternatives.eContents().get(1);
+		private final Keyword cSometimesSometimesKeyword_1_0 = (Keyword)cSometimesEnumLiteralDeclaration_1.eContents().get(0);
+		private final EnumLiteralDeclaration cEventuallyEnumLiteralDeclaration_2 = (EnumLiteralDeclaration)cAlternatives.eContents().get(2);
+		private final Keyword cEventuallyEventuallyKeyword_2_0 = (Keyword)cEventuallyEnumLiteralDeclaration_2.eContents().get(0);
+		private final EnumLiteralDeclaration cImmediatelyEnumLiteralDeclaration_3 = (EnumLiteralDeclaration)cAlternatives.eContents().get(3);
+		private final Keyword cImmediatelyImmediatelyKeyword_3_0 = (Keyword)cImmediatelyEnumLiteralDeclaration_3.eContents().get(0);
 		
 		//enum TemporalQuantifier:
-		//	next | existsNext | always | sometime;
+		//	always | sometimes | eventually | immediately;
 		public EnumRule getRule() { return rule; }
 
-		//next | existsNext | always | sometime
+		//always | sometimes | eventually | immediately
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//next
-		public EnumLiteralDeclaration getNextEnumLiteralDeclaration_0() { return cNextEnumLiteralDeclaration_0; }
-
-		//"next"
-		public Keyword getNextNextKeyword_0_0() { return cNextNextKeyword_0_0; }
-
-		//existsNext
-		public EnumLiteralDeclaration getExistsNextEnumLiteralDeclaration_1() { return cExistsNextEnumLiteralDeclaration_1; }
-
-		//"existsNext"
-		public Keyword getExistsNextExistsNextKeyword_1_0() { return cExistsNextExistsNextKeyword_1_0; }
-
 		//always
-		public EnumLiteralDeclaration getAlwaysEnumLiteralDeclaration_2() { return cAlwaysEnumLiteralDeclaration_2; }
+		public EnumLiteralDeclaration getAlwaysEnumLiteralDeclaration_0() { return cAlwaysEnumLiteralDeclaration_0; }
 
 		//"always"
-		public Keyword getAlwaysAlwaysKeyword_2_0() { return cAlwaysAlwaysKeyword_2_0; }
+		public Keyword getAlwaysAlwaysKeyword_0_0() { return cAlwaysAlwaysKeyword_0_0; }
 
-		//sometime
-		public EnumLiteralDeclaration getSometimeEnumLiteralDeclaration_3() { return cSometimeEnumLiteralDeclaration_3; }
+		//sometimes
+		public EnumLiteralDeclaration getSometimesEnumLiteralDeclaration_1() { return cSometimesEnumLiteralDeclaration_1; }
 
-		//"sometime"
-		public Keyword getSometimeSometimeKeyword_3_0() { return cSometimeSometimeKeyword_3_0; }
+		//"sometimes"
+		public Keyword getSometimesSometimesKeyword_1_0() { return cSometimesSometimesKeyword_1_0; }
+
+		//eventually
+		public EnumLiteralDeclaration getEventuallyEnumLiteralDeclaration_2() { return cEventuallyEnumLiteralDeclaration_2; }
+
+		//"eventually"
+		public Keyword getEventuallyEventuallyKeyword_2_0() { return cEventuallyEventuallyKeyword_2_0; }
+
+		//immediately
+		public EnumLiteralDeclaration getImmediatelyEnumLiteralDeclaration_3() { return cImmediatelyEnumLiteralDeclaration_3; }
+
+		//"immediately"
+		public Keyword getImmediatelyImmediatelyKeyword_3_0() { return cImmediatelyImmediatelyKeyword_3_0; }
 	}
 	
 	private TestSuiteElements pTestSuite;
@@ -1708,7 +1708,7 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//enum TemporalOperator:
-	//	after | before;
+	//	after | until;
 	public TemporalOperatorElements getTemporalOperatorAccess() {
 		return (unknownRuleTemporalOperator != null) ? unknownRuleTemporalOperator : (unknownRuleTemporalOperator = new TemporalOperatorElements());
 	}
@@ -1718,7 +1718,7 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//enum TemporalQuantifier:
-	//	next | existsNext | always | sometime;
+	//	always | sometimes | eventually | immediately;
 	public TemporalQuantifierElements getTemporalQuantifierAccess() {
 		return (unknownRuleTemporalQuantifier != null) ? unknownRuleTemporalQuantifier : (unknownRuleTemporalQuantifier = new TemporalQuantifierElements());
 	}
