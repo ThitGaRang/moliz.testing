@@ -28,6 +28,9 @@ import org.eclipse.xtext.uml.UmlSupport;
 import org.junit.Test;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.KernelFactory;
 import org.modelexecution.fumltesting.TestLangStandaloneSetup;
+import org.modelexecution.fumltesting.convert.FumlConverter;
+import org.modelexecution.fumltesting.convert.TestDataConverter;
+import org.modelexecution.fumltesting.convert.UmlConverter;
 import org.modelexecution.fumltesting.execution.assertions.AssertionPrinter;
 import org.modelexecution.fumltesting.execution.assertions.AssertionValidator;
 import org.modelexecution.fumltesting.results.AssertionResult;
@@ -72,7 +75,7 @@ public class TestExecutor {
 	/** The fUML reference implementation to fUML meta model converter. */
 	private FumlConverter fumlConverter;
 	/** Utility class for interpreting OCL constraints on fUML model. */
-	private FumlOclInterpreter oclInterpreter;
+	private OclExecutor oclInterpreter;
 
 	/**
 	 * Sets up all the resources, UML model and testing model, and initializes
@@ -113,7 +116,7 @@ public class TestExecutor {
 			suite = (TestSuite) resource.getContents().get(0);
 		}
 
-		oclInterpreter = FumlOclInterpreter.getInstance();
+		oclInterpreter = OclExecutor.getInstance();
 
 		if (oclInterpreter.getMetamodel() != null) {
 			System.out.println("Metamodel adaptation: " + oclInterpreter.getMetamodel().getName());

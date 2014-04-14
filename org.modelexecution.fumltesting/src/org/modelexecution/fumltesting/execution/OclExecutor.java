@@ -33,14 +33,14 @@ import tudresden.ocl20.pivot.pivotmodel.Constraint;
  * @author Stefan Mijatov
  * 
  */
-public class FumlOclInterpreter {
-	private FumlOclInterpreter() {
+public class OclExecutor {
+	private OclExecutor() {
 		metamodel = Ocl2ForEclipseFacade.getMetaModel("tudresden.ocl20.pivot.metamodels.fuml");
 		modelProvider = (FUMLModelProvider) metamodel.getModelProvider();
 		modelInstanceProvider = new FUMLModelInstanceProvider();
 	}
 
-	private static FumlOclInterpreter INSTANCE;
+	private static OclExecutor INSTANCE;
 
 	private IOclInterpreter oclInterpreter;
 	private List<Constraint> constraints;
@@ -49,9 +49,9 @@ public class FumlOclInterpreter {
 	private FUMLModelInstanceProvider modelInstanceProvider;
 	private IMetamodel metamodel;
 
-	public static FumlOclInterpreter getInstance() {
+	public static OclExecutor getInstance() {
 		if (INSTANCE == null)
-			INSTANCE = new FumlOclInterpreter();
+			INSTANCE = new OclExecutor();
 		return INSTANCE;
 	}
 

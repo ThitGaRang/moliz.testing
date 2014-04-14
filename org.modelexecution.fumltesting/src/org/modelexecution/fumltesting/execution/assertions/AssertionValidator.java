@@ -12,7 +12,6 @@ import java.util.List;
 import org.eclipse.uml2.uml.CallBehaviorAction;
 import org.eclipse.uml2.uml.CallOperationAction;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
-import org.modelexecution.fumltesting.execution.TraceUtil;
 import org.modelexecution.fumltesting.results.AssertionResult;
 import org.modelexecution.fumltesting.results.OrderAssertionResult;
 import org.modelexecution.fumltesting.results.PathCheckResult;
@@ -22,6 +21,7 @@ import org.modelexecution.fumltesting.testLang.NodeSpecification;
 import org.modelexecution.fumltesting.testLang.OrderAssertion;
 import org.modelexecution.fumltesting.testLang.StateAssertion;
 import org.modelexecution.fumltesting.testLang.TestCase;
+import org.modelexecution.fumltesting.trace.TraceUtil;
 
 /**
  * Composition class for delegating assertion validation to specific classes.

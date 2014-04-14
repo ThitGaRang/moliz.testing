@@ -4,7 +4,7 @@
  * available under the terms of the Eclipse Public License v1.0 which accompanies 
  * this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html 
  */
-package org.modelexecution.fumltesting.execution;
+package org.modelexecution.fumltesting.trace;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -28,6 +28,7 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.Output;
 import org.modelexecution.fumldebug.core.trace.tracemodel.OutputParameterSetting;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
+import org.modelexecution.fumltesting.convert.UmlConverter;
 import org.modelexecution.fumltesting.parallelism.ExecutionGraphNode;
 import org.modelexecution.fumltesting.parallelism.ExecutionPathFinder;
 import org.modelexecution.fumltesting.sequence.Sequence;
@@ -38,6 +39,7 @@ import org.modelexecution.fumltesting.testLang.TemporalOperator;
 import org.modelexecution.fumltesting.testLang.TemporalQuantifier;
 
 import fUML.Semantics.Classes.Kernel.Link;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityNodeList;
 
 /**
  * Utility class for managing the trace of execution.
@@ -55,7 +57,7 @@ public class TraceUtil {
 	/** Execution paths utility class. */
 	private ExecutionPathFinder pathFinder;
 	/** All paths that could be executed. */
-	private ArrayList<ArrayList<ActivityNodeExecution>> paths;
+	private ArrayList<ArrayList<ActivityNodeExecution>> paths;	
 	/**
 	 * Used to generate flat list with all node executions, from main activity
 	 * and all its children activities.
@@ -245,12 +247,12 @@ public class TraceUtil {
 								break;
 							case IMMEDIATELY:
 								states.add(state);
-								break;							
+								break;
 							case SOMETIMES:
-								//TODO implement this case
+								// TODO implement this case
 								break;
 							case EVENTUALLY:
-								//TODO implement this case
+								// TODO implement this case
 								break;
 							}
 							break;
@@ -265,12 +267,12 @@ public class TraceUtil {
 							case IMMEDIATELY:
 								if (state.getPredecessor() != null)
 									states.add(state.getPredecessor());
-								break;							
+								break;
 							case SOMETIMES:
-								//TODO implement this case
+								// TODO implement this case
 								break;
 							case EVENTUALLY:
-								//TODO implement this case
+								// TODO implement this case
 								break;
 							}
 						}
@@ -293,5 +295,24 @@ public class TraceUtil {
 			}
 		}
 		return paths;
+	}
+
+	public ActivityNodeExecution getLastExecutedNode(ActivityNodeExecution nodeExecution){
+		ActivityNodeList nodes = nodeExecution.getNode().activity.node;
+		return getLastNode(nodeExecution, nodes);
+	}
+	
+	private ActivityNodeExecution getLastNode(ActivityNodeExecution nodeExecution, ActivityNodeList nodeList) {
+		fUML.Syntax.Activities.IntermediateActivities.ActivityNode successor = nodeExecution.getChronologicalSuccessor().getNode();
+		fUML.Syntax.Activities.IntermediateActivities.ActivityNode successorOfSuccessor = null;		
+		
+		if (nodeExecution.getChronologicalSuccessor().getChronologicalSuccessor() != null) {
+			successorOfSuccessor = nodeExecution.getChronologicalSuccessor().getChronologicalSuccessor().getNode();
+		}
+
+		if (!nodeList.contains(successor) && (nodeList.contains(successorOfSuccessor) || successorOfSuccessor == null)) {
+			return nodeExecution.getChronologicalSuccessor();
+		}
+		return getLastNode(nodeExecution.getChronologicalSuccessor(), nodeList);
 	}
 }
