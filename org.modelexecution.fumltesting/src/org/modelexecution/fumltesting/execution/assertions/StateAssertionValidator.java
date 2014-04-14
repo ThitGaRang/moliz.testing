@@ -22,7 +22,6 @@ import org.eclipse.xtext.xbase.XNumberLiteral;
 import org.eclipse.xtext.xbase.XStringLiteral;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
-import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Input;
 import org.modelexecution.fumldebug.core.trace.tracemodel.InputParameterSetting;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Output;
@@ -51,6 +50,7 @@ import org.modelexecution.fumltesting.testLang.StateExpression;
 import org.modelexecution.fumltesting.testLang.TemporalOperator;
 import org.modelexecution.fumltesting.testLang.TemporalQuantifier;
 import org.modelexecution.fumltesting.testLang.TestLangFactory;
+import org.modelexecution.fumltesting.trace.SnapshotUtil;
 import org.modelexecution.fumltesting.trace.TraceUtil;
 
 import tudresden.ocl20.pivot.modelinstance.IModelInstance;
@@ -64,11 +64,8 @@ import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.Reference;
 import fUML.Semantics.Classes.Kernel.StringValue;
 import fUML.Semantics.Classes.Kernel.UnlimitedNaturalValue;
-import fUML.Syntax.Actions.BasicActions.CallBehaviorAction;
-import fUML.Syntax.Actions.BasicActions.CallOperationAction;
 import fUML.Syntax.Classes.Kernel.Class_;
 import fUML.Syntax.Classes.Kernel.Property;
-import fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
 
 /**
  * Utility class for state assertion validation.
@@ -80,26 +77,20 @@ import fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
 public class StateAssertionValidator {
 	/** Utility class for converting input data for activity under test. */
 	private TestDataConverter testDataConverter;
-	/** Object under consideration used for validation of state assertions. */
-	private ValueInstance valueInstance;
 	/** Utility class for managing the execution trace. */
 	private TraceUtil traceUtil;
+	/** Utility class for managing a concrete value instance from an expression. */
+	private SnapshotUtil snapshotUtil;
 
-	private ArrayList<ValueSnapshot> predecessors;
-	private ArrayList<ValueSnapshot> successors;
-
-	private StateAssertion assertion;
 	private TemporalOperator operator;
 	private TemporalQuantifier quantifier;
 
 	private ActionExecution referredNodeExecution;
-	private Object expressionNodeExecution;
 
 	public StateAssertionValidator(TraceUtil traceUtil) {
 		testDataConverter = TestDataConverter.getInstance();
 		this.traceUtil = traceUtil;
-		predecessors = new ArrayList<ValueSnapshot>();
-		successors = new ArrayList<ValueSnapshot>();
+		snapshotUtil = new SnapshotUtil(traceUtil);
 	}
 
 	public StateAssertionResult check(StateAssertion assertion) {
@@ -195,80 +186,29 @@ public class StateAssertionValidator {
 	}
 
 	private StateExpressionResult check(StateExpression expression, Action referredAction) {
-
 		StateExpressionResult result = new StateExpressionResult(expression);
+		ArrayList<ValueSnapshot> list = snapshotUtil.getRelevantSnapshots(expression);
 
-		// Clean up from other test executions
-		predecessors.removeAll(predecessors);
-		successors.removeAll(successors);
-
-		// setup the parts of expression
-		assertion = (StateAssertion) expression.eContainer();
-
-		// action of the state expression
-		Object expressionAction = expression.getPin().getRef().eContainer();
-
-		// execution of the node from the expression specifying the object under
-		// consideration
-		if (expressionAction instanceof Action)
-			expressionNodeExecution = (ActionExecution) traceUtil.getExecution((Action) expressionAction);
-		if (expressionAction instanceof Activity) {
-			expressionNodeExecution = (ActivityExecution) traceUtil.getExecution((Activity) expressionAction);
-		}
-
-		if (expressionNodeExecution != null && referredNodeExecution != null) {
-
-			// Get the value instance from the trace based on expression
-			valueInstance = traceUtil.getValueInstance(expression.getPin().getRef(), expressionNodeExecution);
-			// initialize the successors and predecessors of the value instance
-			setupSucessorsPredecessors();
-
-			ArrayList<ValueSnapshot> list = new ArrayList<ValueSnapshot>();
-			if (operator == TemporalOperator.UNTIL) {
-				list = predecessors;
-			}
-			if (operator == TemporalOperator.AFTER) {
-				if (referredAction != expressionAction && successors.size() == 0 && predecessors.size() > 0) {
-					// we need to add last predecessor to successors
-					// if the value was not changed after the referred action
-					successors.add(predecessors.get(predecessors.size() - 1));
-				}
-				list = successors;
-			}
-
-			if (expression.getValue() instanceof SimpleValue) {
-				// special case
-				if (expression instanceof PropertyStateExpression && ((SimpleValue) expression.getValue()).getValue() instanceof XNullLiteral) {
-					result.setValidationResult(processObject(expression, list));
-				} else {
-					result.setValidationResult(processValue(expression, list));
-				}
-				AssertionPrinter.print(expression, result.getValidationResult());
-				return result;
-			} else if (expression.getValue() instanceof ObjectValue) {
+		if (expression.getValue() instanceof SimpleValue) {
+			// special case
+			if (expression instanceof PropertyStateExpression && ((SimpleValue) expression.getValue()).getValue() instanceof XNullLiteral) {
 				result.setValidationResult(processObject(expression, list));
-				AssertionPrinter.print(expression, result.getValidationResult());
-				return result;
 			} else {
-				result.setValidationResult(false);
-				result.setError("Type of specified value is not allowed!");
-				AssertionPrinter.print(expression, result.getValidationResult());
-				return result;
+				result.setValidationResult(processValue(expression, list));
 			}
+			AssertionPrinter.print(expression, result.getValidationResult());
+			return result;
+		} else if (expression.getValue() instanceof ObjectValue) {
+			result.setValidationResult(processObject(expression, list));
+			AssertionPrinter.print(expression, result.getValidationResult());
+			return result;
 		} else {
-			AssertionPrinter.print(expression, false);
-			if (expressionNodeExecution == null) {
-				System.out.println(((Action) expressionAction).getName() + " was never executed!");
-				result.setValidationResult(false);
-				result.setError(((Action) expressionAction).getName() + " was never executed!");
-			}
-			if (referredNodeExecution == null) {
-				System.out.println(referredAction.getName() + " was never executed!");
-				result.setValidationResult(false);
-				result.setError(referredAction.getName() + " was never executed!");
-			}
+			result.setValidationResult(false);
+			result.setError("Type of specified value is not allowed!");
+			AssertionPrinter.print(expression, result.getValidationResult());
 			return result;
 		}
+
 	}
 
 	private boolean processValue(StateExpression expression, List<ValueSnapshot> list) {
@@ -656,115 +596,6 @@ public class StateAssertionValidator {
 			return true;
 		}
 		return false;
-	}
-
-	/**
-	 * Initialize predecessor snapshots of valueInstance referred by expression.
-	 * 
-	 * @param referredNodeExecution
-	 * @param previousSnapshots
-	 */
-	private void initializePredecessorSnapshots(ActivityNodeExecution referredNodeExecution, List<ValueSnapshot> predecessorSnapshots) {
-		ActivityNodeExecution predecessor = referredNodeExecution.getChronologicalPredecessor();
-		if (predecessor == null)
-			return;
-		if (assertion.getUntilPoint() instanceof ConstraintReferencePoint) {
-			System.out.println("CONSTRAINT POINT NOT YET SUPPORTED!");
-			return;
-		}
-		if (assertion.getUntilPoint() != null
-				&& ((ActionReferencePoint) assertion.getUntilPoint()).getAction().getName().equals(predecessor.getNode().name))
-			return;
-
-		if (predecessor instanceof ActionExecution) {
-			for (Input predecesorsInput : ((ActionExecution) predecessor).getInputs()) {
-				if (predecesorsInput.getInputValues().get(0).getInputValueSnapshot() != null
-						&& predecesorsInput.getInputValues().get(0).getInputValueSnapshot().eContainer() == valueInstance)
-					if (predecessorSnapshots.contains(predecesorsInput.getInputValues().get(0).getInputValueSnapshot()) == false)
-						predecessorSnapshots.add(predecesorsInput.getInputValues().get(0).getInputValueSnapshot());
-			}
-			for (Output predecesorsOutput : ((ActionExecution) predecessor).getOutputs()) {
-				if (predecesorsOutput.getOutputValues().get(0).getOutputValueSnapshot() != null
-						&& predecesorsOutput.getOutputValues().get(0).getOutputValueSnapshot().eContainer() == valueInstance)
-					if (predecessorSnapshots.contains(predecesorsOutput.getOutputValues().get(0).getOutputValueSnapshot()) == false)
-						predecessorSnapshots.add(predecesorsOutput.getOutputValues().get(0).getOutputValueSnapshot());
-			}
-		}
-		initializePredecessorSnapshots(predecessor, predecessorSnapshots);
-	}
-
-	/**
-	 * Initialize successor snapshots of valueInstance referred by expression.
-	 * 
-	 * @param referredNodeExecution
-	 * @param previousSnapshots
-	 */
-	private void initializeSuccessorSnapshots(ActivityNodeExecution referredNodeExecution, List<ValueSnapshot> successorSnapshots) {
-		ActivityNodeExecution successor = referredNodeExecution.getChronologicalSuccessor();
-		if (successor == null)
-			return;
-		if (assertion.getUntilPoint() instanceof ConstraintReferencePoint) {
-			System.out.println("CONSTRAINT POINT NOT YET SUPPORTED!");
-			return;
-		}
-		if (assertion.getUntilPoint() != null
-				&& ((ActionReferencePoint) assertion.getUntilPoint()).getAction().getName().equals(successor.getNode().name))
-			return;
-		if (successor instanceof ActionExecution) {
-			for (Input successorsInput : ((ActionExecution) successor).getInputs()) {
-				if (successorsInput.getInputValues().get(0).getInputValueSnapshot() != null
-						&& successorsInput.getInputValues().get(0).getInputValueSnapshot().eContainer() == valueInstance)
-					if (successorSnapshots.contains(successorsInput.getInputValues().get(0).getInputValueSnapshot()) == false)
-						successorSnapshots.add(successorsInput.getInputValues().get(0).getInputValueSnapshot());
-			}
-			for (Output successorsOutput : ((ActionExecution) successor).getOutputs()) {
-				if (successorsOutput.getOutputValues().get(0).getOutputValueSnapshot() != null
-						&& successorsOutput.getOutputValues().get(0).getOutputValueSnapshot().eContainer() == valueInstance)
-					if (successorSnapshots.contains(successorsOutput.getOutputValues().get(0).getOutputValueSnapshot()) == false)
-						successorSnapshots.add(successorsOutput.getOutputValues().get(0).getOutputValueSnapshot());
-			}
-		}
-		initializeSuccessorSnapshots(successor, successorSnapshots);
-	}
-
-	/**
-	 * Initialize successors and predecessors of the value instance.
-	 */
-	private void setupSucessorsPredecessors() {
-		for (Output output : referredNodeExecution.getOutputs()) {
-			if (output.getOutputValues().size() == 0)
-				continue;
-			if (output.getOutputValues().get(0).getOutputValueSnapshot() == null)
-				continue;
-			ValueInstance referredValueInstance = (ValueInstance) output.getOutputValues().get(0).getOutputValueSnapshot().eContainer();
-			if (referredValueInstance == valueInstance && operator == TemporalOperator.AFTER)
-				if (successors.contains(output.getOutputValues().get(0).getOutputValueSnapshot()) == false)
-					successors.add(output.getOutputValues().get(0).getOutputValueSnapshot());
-		}
-
-		for (Input input : referredNodeExecution.getInputs()) {
-			if (input.getInputValues().size() == 0)
-				continue;
-			if (input.getInputValues().get(0).getInputValueSnapshot() == null)
-				continue;
-			ValueInstance referredValueInstance = (ValueInstance) input.getInputValues().get(0).getInputValueSnapshot().eContainer();
-			if (referredValueInstance == valueInstance && operator == TemporalOperator.UNTIL) {
-				if (predecessors.contains(input.getInputValues().get(0).getInputValueSnapshot()))
-					predecessors.add(input.getInputValues().get(0).getInputValueSnapshot());
-			}
-		}
-
-		// adding snapshots of the valueInstance created before-after the
-		// referred one
-		if ((referredNodeExecution.getNode() instanceof CallBehaviorAction && !(((CallBehaviorAction) referredNodeExecution.getNode()).behavior instanceof OpaqueBehavior))
-				|| referredNodeExecution.getNode() instanceof CallOperationAction) {
-			ActivityNodeExecution lastNodeInBehavior = traceUtil.getLastExecutedNode(referredNodeExecution);
-			initializeSuccessorSnapshots(lastNodeInBehavior, successors);
-			initializePredecessorSnapshots(lastNodeInBehavior, predecessors);
-		} else {
-			initializeSuccessorSnapshots(referredNodeExecution, successors);
-			initializePredecessorSnapshots(referredNodeExecution, predecessors);
-		}
 	}
 
 	/** Comparison of simple values: String, Boolean, Double */

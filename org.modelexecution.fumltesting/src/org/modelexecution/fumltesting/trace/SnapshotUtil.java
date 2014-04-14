@@ -42,6 +42,38 @@ public class SnapshotUtil {
 
 	public SnapshotUtil(TraceUtil traceUtil) {
 		this.traceUtil = traceUtil;
+		predecessorSnapshots = new ArrayList<ValueSnapshot>();
+		successorSnapshots = new ArrayList<ValueSnapshot>();
+	}
+
+	/**
+	 * Returns list of successor and predecessor snapshots relevant for the
+	 * expression.
+	 * 
+	 * @param expression
+	 * @return
+	 */
+	public ArrayList<ValueSnapshot> getRelevantSnapshots(StateExpression expression) {
+		ArrayList<ValueSnapshot> list = new ArrayList<ValueSnapshot>();
+		getSuccessorSnapshots(expression);
+		getPredecessorSnapshots(expression);
+
+		StateAssertion assertion = (StateAssertion) expression.eContainer();
+		Object expressionAction = expression.getPin().getRef().eContainer();
+
+		if (assertion.getOperator() == TemporalOperator.UNTIL) {
+			list = predecessorSnapshots;
+		}
+		if (assertion.getOperator() == TemporalOperator.AFTER) {
+			if (((ActionReferencePoint) assertion.getReferencePoint()).getAction() != expressionAction && successorSnapshots.size() == 0
+					&& predecessorSnapshots.size() > 0) {
+				// we need to add last predecessor to successors
+				// if the value was not changed after the referred action
+				successorSnapshots.add(predecessorSnapshots.get(predecessorSnapshots.size() - 1));
+			}
+			list = successorSnapshots;
+		}
+		return list;
 	}
 
 	/**
@@ -50,7 +82,7 @@ public class SnapshotUtil {
 	 * @param expression
 	 * @return
 	 */
-	public ArrayList<ValueSnapshot> getSuccessorSnapshots(StateExpression expression) {
+	private ArrayList<ValueSnapshot> getSuccessorSnapshots(StateExpression expression) {
 		setupPreconditions(expression);
 		StateAssertion assertion = (StateAssertion) expression.eContainer();
 		setupSucessors(assertion.getOperator(), referredActionExecution);
@@ -63,7 +95,7 @@ public class SnapshotUtil {
 	 * @param expression
 	 * @return
 	 */
-	public ArrayList<ValueSnapshot> getPredecessorSnapshots(StateExpression expression) {
+	private ArrayList<ValueSnapshot> getPredecessorSnapshots(StateExpression expression) {
 		setupPreconditions(expression);
 		StateAssertion assertion = (StateAssertion) expression.eContainer();
 		setupPredecessors(assertion.getOperator(), referredActionExecution);
