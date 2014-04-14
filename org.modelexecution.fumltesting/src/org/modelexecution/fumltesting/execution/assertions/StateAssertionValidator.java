@@ -82,11 +82,6 @@ public class StateAssertionValidator {
 	/** Utility class for managing a concrete value instance from an expression. */
 	private SnapshotUtil snapshotUtil;
 
-	private TemporalOperator operator;
-	private TemporalQuantifier quantifier;
-
-	private ActionExecution referredNodeExecution;
-
 	public StateAssertionValidator(TraceUtil traceUtil) {
 		testDataConverter = TestDataConverter.getInstance();
 		this.traceUtil = traceUtil;
@@ -97,32 +92,23 @@ public class StateAssertionValidator {
 		AssertionPrinter.printStateAssertion(assertion);
 		StateAssertionResult result = new StateAssertionResult(assertion);
 
-		// action of the state assertion and its execution
-		Action referredAction = null;
-		if (assertion.getReferencePoint() instanceof ActionReferencePoint)
-			referredAction = ((ActionReferencePoint) assertion.getReferencePoint()).getAction();
 		if (assertion.getReferencePoint() instanceof ConstraintReferencePoint) {
 			System.out.println("CONSTRAINT REFERENCE POINT NOT YET SUPPORTED!");
 			return result;
 		}
 
-		referredNodeExecution = (ActionExecution) traceUtil.getExecution(referredAction);
-
-		operator = assertion.getOperator();
-		quantifier = assertion.getQuantifier();
-
 		if (assertion.getChecks() != null && assertion.getChecks().size() > 0) {
 			for (Check check : assertion.getChecks()) {
 				if (check instanceof ConstraintCheck) {
 					for (XExpression constraintName : ((ConstraintCheck) check).getConstraintNames()) {
-						List<State> states = traceUtil.getStates(quantifier, operator, referredNodeExecution);
+						List<State> states = traceUtil.getStates(assertion);
 						String name = ((XStringLiteral) constraintName).getValue();
 						ValueInstance context = null;
 						if (((ConstraintCheck) check).getObject() != null) {
 							Object nodeExecution = traceUtil.getExecution(((ConstraintCheck) check).getObject().getRef().eContainer());
 							context = traceUtil.getValueInstance(((ConstraintCheck) check).getObject().getRef(), nodeExecution);
 						}
-						for (ConstraintResult constraintResult : check(name, context, states)) {
+						for (ConstraintResult constraintResult : checkConstraint(name, context, states)) {
 							result.addConstraintResult(constraintResult);
 						}
 					}
@@ -132,7 +118,7 @@ public class StateAssertionValidator {
 
 		for (Check check : assertion.getChecks()) {
 			if (check instanceof StateExpression) {
-				result.addExpressionResult(check((StateExpression) check, referredAction));
+				result.addExpressionResult(checkExpression((StateExpression) check));
 			}
 		}
 
@@ -155,7 +141,7 @@ public class StateAssertionValidator {
 		return check(stateAssertion);
 	}
 
-	private ArrayList<ConstraintResult> check(String constraintName, ValueInstance contextObject, List<State> states) {
+	private ArrayList<ConstraintResult> checkConstraint(String constraintName, ValueInstance contextObject, List<State> states) {
 		ArrayList<ConstraintResult> results = new ArrayList<ConstraintResult>();
 		for (State state : states) {
 			IModelInstance modelInstance = OclExecutor.getInstance().getEmptyModelInstance();
@@ -185,7 +171,7 @@ public class StateAssertionValidator {
 		return results;
 	}
 
-	private StateExpressionResult check(StateExpression expression, Action referredAction) {
+	private StateExpressionResult checkExpression(StateExpression expression) {
 		StateExpressionResult result = new StateExpressionResult(expression);
 		ArrayList<ValueSnapshot> list = snapshotUtil.getRelevantSnapshots(expression);
 
@@ -313,7 +299,7 @@ public class StateAssertionValidator {
 				}
 			}
 		}
-		return compileResult(results);
+		return compileResult(results, (StateAssertion) expression.eContainer());
 	}
 
 	private boolean processObject(StateExpression expression, List<ValueSnapshot> list) {
@@ -362,7 +348,7 @@ public class StateAssertionValidator {
 					}
 				}
 			}
-			return compileResult(results);
+			return compileResult(results, (StateAssertion) expression.eContainer());
 		}
 
 		// link validation
@@ -435,7 +421,8 @@ public class StateAssertionValidator {
 				List<ValueInstance> linksToRemove = new ArrayList<ValueInstance>();
 
 				for (ValueInstance link : links) {
-					if (link.getDestroyer() != null && !traceUtil.isAfter(link.getDestroyer(), referredNodeExecution)) {
+					if (link.getDestroyer() != null
+							&& !traceUtil.isAfter(link.getDestroyer(), getReferencePointExecution((StateAssertion) expression.eContainer()))) {
 						linksToRemove.add(link);
 					}
 				}
@@ -488,44 +475,17 @@ public class StateAssertionValidator {
 					}
 				}
 			}
-			return compileResult(results);
+			return compileResult(results, (StateAssertion) expression.eContainer());
 		}
 		return false;
 	}
 
-	private boolean compileResult(ArrayList<Boolean> results) {
-		switch (quantifier) {
-		case ALWAYS:
-			for (boolean result : results) {
-				if (result == false)
-					return false;
-			}
-			return true;
-		case EVENTUALLY:
-			for (int i = results.size() - 1; i >= 0; i--) {
-				if (results.get(i) == false) {
-					for (int j = i; j < results.size(); j++) {
-						if (results.get(j) == false)
-							return false;
-					}
-				}
-			}
-			return true;
-		case IMMEDIATELY:
-			switch (operator) {
-			case AFTER:
-				return results.get(0);
-			case UNTIL:
-				return results.get(results.size() - 1);
-			}
-		case SOMETIMES:
-			for (boolean result : results) {
-				if (result)
-					return true;
-			}
-			return false;
-		}
-		return false;
+	private ActionExecution getReferencePointExecution(StateAssertion assertion) {
+		Action referredAction = null;
+		if (assertion.getReferencePoint() instanceof ActionReferencePoint)
+			referredAction = ((ActionReferencePoint) assertion.getReferencePoint()).getAction();
+		// TODO maybe here I can add constraint reference point?!
+		return (ActionExecution) traceUtil.getExecution(referredAction);
 	}
 
 	/**
@@ -591,8 +551,7 @@ public class StateAssertionValidator {
 				}
 			}
 		} else {
-			// for links, there are features without any values that
-			// we want to skip
+			// link empty features are skipped
 			return true;
 		}
 		return false;
@@ -630,5 +589,40 @@ public class StateAssertionValidator {
 					return false;
 		}
 		return true;
+	}
+
+	private boolean compileResult(ArrayList<Boolean> results, StateAssertion assertion) {
+		switch (assertion.getQuantifier()) {
+		case ALWAYS:
+			for (boolean result : results) {
+				if (result == false)
+					return false;
+			}
+			return true;
+		case EVENTUALLY:
+			for (int i = results.size() - 1; i >= 0; i--) {
+				if (results.get(i) == false) {
+					for (int j = i; j < results.size(); j++) {
+						if (results.get(j) == false)
+							return false;
+					}
+				}
+			}
+			return true;
+		case IMMEDIATELY:
+			switch (assertion.getOperator()) {
+			case AFTER:
+				return results.get(0);
+			case UNTIL:
+				return results.get(results.size() - 1);
+			}
+		case SOMETIMES:
+			for (boolean result : results) {
+				if (result)
+					return true;
+			}
+			return false;
+		}
+		return false;
 	}
 }

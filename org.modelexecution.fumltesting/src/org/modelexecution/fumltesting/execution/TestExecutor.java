@@ -75,7 +75,7 @@ public class TestExecutor {
 	/** The fUML reference implementation to fUML meta model converter. */
 	private FumlConverter fumlConverter;
 	/** Utility class for interpreting OCL constraints on fUML model. */
-	private OclExecutor oclInterpreter;
+	private OclExecutor oclExecutor;
 
 	/**
 	 * Sets up all the resources, UML model and testing model, and initializes
@@ -116,10 +116,10 @@ public class TestExecutor {
 			suite = (TestSuite) resource.getContents().get(0);
 		}
 
-		oclInterpreter = OclExecutor.getInstance();
+		oclExecutor = OclExecutor.getInstance();
 
-		if (oclInterpreter.getMetamodel() != null) {
-			System.out.println("Metamodel adaptation: " + oclInterpreter.getMetamodel().getName());
+		if (oclExecutor.getMetamodel() != null) {
+			System.out.println("Metamodel adaptation: " + oclExecutor.getMetamodel().getName());
 			System.out.println("Model adaptation: " + umlModel.getName());
 
 			org.modelexecution.fuml.Syntax.Classes.Kernel.Package modelPackage = KernelFactory.eINSTANCE.createPackage();
@@ -139,9 +139,9 @@ public class TestExecutor {
 					mappedPackage.setOwner(modelPackage);
 				}
 			}
-			oclInterpreter.setModel(modelPackage);
+			oclExecutor.setModel(modelPackage);
 		}
-		oclInterpreter.loadConstraints(new File("../org.modelexecution.fumltesting.examples/model/petstore/petstore.ocl"));
+		oclExecutor.loadConstraints(new File("../org.modelexecution.fumltesting.examples/model/petstore/petstore.ocl"));
 	}
 
 	/** Main method of the testing framework. */

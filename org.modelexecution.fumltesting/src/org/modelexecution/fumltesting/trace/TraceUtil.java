@@ -7,7 +7,6 @@
 package org.modelexecution.fumltesting.trace;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.uml2.uml.Action;
@@ -29,14 +28,13 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.OutputParameterSetting
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 import org.modelexecution.fumltesting.convert.UmlConverter;
-import org.modelexecution.fumltesting.parallelism.ExecutionGraphNode;
 import org.modelexecution.fumltesting.parallelism.ExecutionPathFinder;
 import org.modelexecution.fumltesting.sequence.Sequence;
 import org.modelexecution.fumltesting.sequence.SequenceTrace;
 import org.modelexecution.fumltesting.sequence.State;
 import org.modelexecution.fumltesting.sequence.execution.SequenceGenerator;
-import org.modelexecution.fumltesting.testLang.TemporalOperator;
-import org.modelexecution.fumltesting.testLang.TemporalQuantifier;
+import org.modelexecution.fumltesting.testLang.ActionReferencePoint;
+import org.modelexecution.fumltesting.testLang.StateAssertion;
 
 import fUML.Semantics.Classes.Kernel.Link;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNodeList;
@@ -56,8 +54,6 @@ public class TraceUtil {
 	private SequenceGenerator sequenceGenerator;
 	/** Execution paths utility class. */
 	private ExecutionPathFinder pathFinder;
-	/** All paths that could be executed. */
-	private ArrayList<ArrayList<ActivityNodeExecution>> paths;	
 	/**
 	 * Used to generate flat list with all node executions, from main activity
 	 * and all its children activities.
@@ -83,7 +79,7 @@ public class TraceUtil {
 	}
 
 	/** Returns ID of the activity execution by the name of the activity itself. */
-	public int getActivityExecutioID(String name) {
+	public int getActivityExecutionID(String name) {
 		int id = -1;
 		for (ActivityExecution execution : trace.getActivityExecutions()) {
 			if (execution.getActivity().name.equals(name))
@@ -229,52 +225,32 @@ public class TraceUtil {
 		return lastAction(lastNode.getChronologicalPredecessor());
 	}
 
-	public List<State> getStates(TemporalQuantifier quantifier, TemporalOperator operator, ActivityNodeExecution nodeExecution) {
+	public List<State> getStates(StateAssertion assertion) {
+		Action referredAction = null;
+		if (assertion.getReferencePoint() instanceof ActionReferencePoint)
+			referredAction = ((ActionReferencePoint) assertion.getReferencePoint()).getAction();
+
+		ActionExecution nodeExecution = (ActionExecution) getExecution(referredAction);
+
 		List<State> states = new ArrayList<State>();
 		for (Sequence sequence : sTrace.getSequences()) {
 			if (sequence.getActivityExecution() == nodeExecution.getActivityExecution()) {
 				for (State state : sequence.getStates()) {
 					if (state.getNodeExecution() == nodeExecution) {
-						switch (operator) {
+						switch (assertion.getOperator()) {
 						case AFTER:
-							switch (quantifier) {
-							case ALWAYS:
-								states.add(state);
-								while (state.getSuccessor() != null) {
-									states.add(state.getSuccessor());
-									state = state.getSuccessor();
-								}
-								break;
-							case IMMEDIATELY:
-								states.add(state);
-								break;
-							case SOMETIMES:
-								// TODO implement this case
-								break;
-							case EVENTUALLY:
-								// TODO implement this case
-								break;
+							states.add(state);
+							while (state.getSuccessor() != null) {
+								states.add(state.getSuccessor());
+								state = state.getSuccessor();
 							}
 							break;
 						case UNTIL:
-							switch (quantifier) {
-							case ALWAYS:
-								while (state.getPredecessor() != null) {
-									states.add(state.getPredecessor());
-									state = state.getPredecessor();
-								}
-								break;
-							case IMMEDIATELY:
-								if (state.getPredecessor() != null)
-									states.add(state.getPredecessor());
-								break;
-							case SOMETIMES:
-								// TODO implement this case
-								break;
-							case EVENTUALLY:
-								// TODO implement this case
-								break;
+							while (state.getPredecessor() != null) {
+								states.add(state.getPredecessor());
+								state = state.getPredecessor();
 							}
+							break;
 						}
 					}
 				}
@@ -284,28 +260,18 @@ public class TraceUtil {
 	}
 
 	public ArrayList<ArrayList<ActivityNodeExecution>> getAllPaths() {
-		if (paths == null) {
-			paths = new ArrayList<ArrayList<ActivityNodeExecution>>();
-			for (LinkedList<ExecutionGraphNode> path : pathFinder.getPaths()) {
-				ArrayList<ActivityNodeExecution> simplePath = new ArrayList<ActivityNodeExecution>();
-				for (ExecutionGraphNode node : path) {
-					simplePath.add(node.getData());
-				}
-				paths.add(simplePath);
-			}
-		}
-		return paths;
+		return pathFinder.getAllPaths();
 	}
 
-	public ActivityNodeExecution getLastExecutedNode(ActivityNodeExecution nodeExecution){
+	public ActivityNodeExecution getLastExecutedNode(ActivityNodeExecution nodeExecution) {
 		ActivityNodeList nodes = nodeExecution.getNode().activity.node;
 		return getLastNode(nodeExecution, nodes);
 	}
-	
+
 	private ActivityNodeExecution getLastNode(ActivityNodeExecution nodeExecution, ActivityNodeList nodeList) {
 		fUML.Syntax.Activities.IntermediateActivities.ActivityNode successor = nodeExecution.getChronologicalSuccessor().getNode();
-		fUML.Syntax.Activities.IntermediateActivities.ActivityNode successorOfSuccessor = null;		
-		
+		fUML.Syntax.Activities.IntermediateActivities.ActivityNode successorOfSuccessor = null;
+
 		if (nodeExecution.getChronologicalSuccessor().getChronologicalSuccessor() != null) {
 			successorOfSuccessor = nodeExecution.getChronologicalSuccessor().getChronologicalSuccessor().getNode();
 		}

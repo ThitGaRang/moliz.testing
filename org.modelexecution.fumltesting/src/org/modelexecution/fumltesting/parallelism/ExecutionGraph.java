@@ -28,6 +28,11 @@ public class ExecutionGraph {
 		return root;
 	}
 
+	/** Generates execution graph for the given root node. */
+	public void initGraph(ActivityNodeExecution execution) {
+		root = generateExecutionGraphNode(new ExecutionGraphNode(execution));
+	}
+
 	/** Takes a node and generates executions from it till the last node. */
 	private ExecutionGraphNode generateExecutionGraphNode(ExecutionGraphNode node) {
 		List<ActivityNodeExecution> allPossibleSuccessors = getAllPossibleSuccessors(node, new ArrayList<ActivityNodeExecution>());
@@ -45,10 +50,7 @@ public class ExecutionGraph {
 		return node;
 	}
 
-	/**
-	 * Checks if successor can be added to the node based on logical dependency
-	 * from the trace.
-	 */
+	/** Checks if successor can be added to the node. */
 	private boolean canAddSuccessor(ExecutionGraphNode node, ActivityNodeExecution successor) {
 		for (ActivityNodeExecution predecessor : successor.getLogicalPredecessor()) {
 			if (successor.isExecuted() && !node.containsPredecessor(predecessor) && node.getData() != predecessor && node.getData() != successor
@@ -96,8 +98,8 @@ public class ExecutionGraph {
 	}
 
 	/**
-	 * Returns all logical successors of the node, and logical successors of the
-	 * successors.
+	 * Returns all logical successors, and logical successors of the successors
+	 * of the node.
 	 */
 	private List<ActivityNodeExecution> getAllLogicalSuccessors(ActivityNodeExecution nodeExecution, List<ActivityNodeExecution> allLogicalSuccessors) {
 		for (ActivityNodeExecution successor : nodeExecution.getLogicalSuccessor()) {
@@ -110,8 +112,8 @@ public class ExecutionGraph {
 	}
 
 	/**
-	 * Returns all logical predecessors of the node, and logical predecessors of
-	 * the predecessors.
+	 * Returns all logical predecessors, and logical predecessors of the
+	 * predecessors of the node.
 	 */
 	private List<ActivityNodeExecution> getAllLogicalPredecessors(ActivityNodeExecution nodeExecution,
 			List<ActivityNodeExecution> allLogicalPredecessors) {
@@ -122,11 +124,6 @@ public class ExecutionGraph {
 				getAllLogicalPredecessors(predecessor, allLogicalPredecessors);
 		}
 		return allLogicalPredecessors;
-	}
-
-	/** Method to generate execution graph for the root node. */
-	public void initGraph(ActivityNodeExecution execution) {
-		root = generateExecutionGraphNode(new ExecutionGraphNode(execution));
 	}
 
 	/** Returns all nodes without the successors. */
