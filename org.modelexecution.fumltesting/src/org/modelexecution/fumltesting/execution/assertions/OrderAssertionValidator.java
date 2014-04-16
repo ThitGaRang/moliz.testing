@@ -9,9 +9,11 @@ package org.modelexecution.fumltesting.execution.assertions;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.uml2.uml.ActivityNode;
 import org.eclipse.uml2.uml.CallBehaviorAction;
 import org.eclipse.uml2.uml.CallOperationAction;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
+import org.modelexecution.fumltesting.convert.UmlConverter;
 import org.modelexecution.fumltesting.results.OrderAssertionResult;
 import org.modelexecution.fumltesting.results.PathCheckResult;
 import org.modelexecution.fumltesting.testLang.NodeSpecification;
@@ -20,7 +22,6 @@ import org.modelexecution.fumltesting.testLang.TestCase;
 import org.modelexecution.fumltesting.trace.TraceUtil;
 
 import fUML.Syntax.Actions.BasicActions.Action;
-import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityFinalNode;
 import fUML.Syntax.Activities.IntermediateActivities.InitialNode;
 
@@ -37,7 +38,7 @@ public class OrderAssertionValidator {
 		OrderAssertionResult result = new OrderAssertionResult(((OrderAssertion) assertion).getOrder());
 		result.setAssertion(assertion);
 
-		String parentNodeName = ((TestCase) assertion.eContainer()).getActivityUnderTest().getName();
+		org.eclipse.uml2.uml.Activity main = ((TestCase) assertion.eContainer()).getActivityUnderTest();
 		List<NodeSpecification> nodeOrder = ((OrderAssertion) assertion).getOrder().getNodes();
 
 		AssertionPrinter.printOrderSpecification(nodeOrder);
@@ -45,22 +46,22 @@ public class OrderAssertionValidator {
 
 		for (ArrayList<ActivityNodeExecution> path : traceUtil.getAllPaths()) {
 			PathCheckResult pathCheckResult = new PathCheckResult(path);
-			boolean validationResult = checkOrderOneLevel(parentNodeName, nodeOrder, path);
+			boolean validationResult = checkOrderOneLevel(main, nodeOrder, path);
 			pathCheckResult.setValidationResult(validationResult);
 			result.addPathCheckResult(pathCheckResult);
 		}
 
 		for (NodeSpecification nodeSpecification : nodeOrder) {
 			if (nodeSpecification.getSubOrder() != null) {
-				String parentName = "";
+				org.eclipse.uml2.uml.Activity parent = null;
 				if (nodeSpecification.getNode() instanceof CallBehaviorAction) {
-					parentName = ((CallBehaviorAction) nodeSpecification.getNode()).getBehavior().getName();
+					parent = (org.eclipse.uml2.uml.Activity) ((CallBehaviorAction) nodeSpecification.getNode()).getBehavior();
 				}
 				if (nodeSpecification.getNode() instanceof CallOperationAction) {
-					parentName = ((CallOperationAction) nodeSpecification.getNode()).getOperation().getName();
+					parent = (org.eclipse.uml2.uml.Activity) ((CallOperationAction) nodeSpecification.getNode()).getOperation().getMethods().get(0);
 				}
 
-				int activityExecutionID = traceUtil.getActivityExecutionID(parentName);
+				int activityExecutionID = traceUtil.getActivityExecutionID(parent.getName());
 				System.out.println("Checking sub-order: ");
 				AssertionPrinter.printOrderSpecification(nodeSpecification.getSubOrder().getNodes());
 
@@ -72,7 +73,7 @@ public class OrderAssertionValidator {
 
 				for (ArrayList<ActivityNodeExecution> path : subTraceUtil.getAllPaths()) {
 					PathCheckResult pathCheckResult = new PathCheckResult(path);
-					boolean validationResult = checkOrderOneLevel(parentName, nodeSpecification.getSubOrder().getNodes(), path);
+					boolean validationResult = checkOrderOneLevel(parent, nodeSpecification.getSubOrder().getNodes(), path);
 					pathCheckResult.setValidationResult(validationResult);
 					subOrderResult.addPathCheckResult(pathCheckResult);
 				}
@@ -90,8 +91,9 @@ public class OrderAssertionValidator {
 	 * @param executedNodes
 	 * @return
 	 */
-	private boolean checkOrderOneLevel(String parentNodeName, List<NodeSpecification> specifiedOrder, List<ActivityNodeExecution> executedNodes) {
-		return compare(getTopNodes(parentNodeName, executedNodes), specifiedOrder);
+	private boolean checkOrderOneLevel(org.eclipse.uml2.uml.Activity parentActivity, List<NodeSpecification> specifiedOrder,
+			List<ActivityNodeExecution> executedNodes) {
+		return compare(getTopNodes(parentActivity, executedNodes), specifiedOrder);
 	}
 
 	/**
@@ -119,13 +121,13 @@ public class OrderAssertionValidator {
 							System.out.println("Assertion skipped!");
 							return false;
 						}
-						String nextNode = nodeOrderList.get(i + 1).getNode().getName();
+						ActivityNode nextNode = nodeOrderList.get(i + 1).getNode();
 						if (nodeOrderList.get(i + 1).getNode() != null)
 							executedNodeIndex = getExecutedNodeIndex(nextNode, executedNodes);
 					}
 				}
 			} else {
-				if (!nodeOrderList.get(i).getNode().getName().equals(executedNodes.get(executedNodeIndex).getNode().name))
+				if (nodeOrderList.get(i).getNode() != UmlConverter.getInstance().getOriginal(executedNodes.get(executedNodeIndex).getNode()))
 					return false;
 				executedNodeIndex++;
 			}
@@ -148,9 +150,9 @@ public class OrderAssertionValidator {
 	 * @param executedNodes
 	 * @return
 	 */
-	private int getExecutedNodeIndex(String name, List<ActivityNodeExecution> executedNodes) {
+	private int getExecutedNodeIndex(ActivityNode node, List<ActivityNodeExecution> executedNodes) {
 		for (int i = 0; i < executedNodes.size(); i++) {
-			if (executedNodes.get(i).getNode().name.equals(name))
+			if (UmlConverter.getInstance().getOriginal(executedNodes.get(i).getNode()) == node)
 				return i;
 		}
 		return -1;
@@ -164,10 +166,10 @@ public class OrderAssertionValidator {
 	 * @param executedNodes
 	 * @return
 	 */
-	private List<ActivityNodeExecution> getTopNodes(String activityName, List<ActivityNodeExecution> executedNodes) {
+	private List<ActivityNodeExecution> getTopNodes(org.eclipse.uml2.uml.Activity activity, List<ActivityNodeExecution> executedNodes) {
 		List<ActivityNodeExecution> topNodes = new ArrayList<ActivityNodeExecution>();
 		for (ActivityNodeExecution node : executedNodes) {
-			if (((Activity) node.getNode().owner).name.equals(activityName)
+			if (UmlConverter.getInstance().getOriginal(node.getNode().owner) == activity
 					&& (node.getNode() instanceof Action || node.getNode() instanceof InitialNode || node.getNode() instanceof ActivityFinalNode)) {
 				topNodes.add(node);
 			}
