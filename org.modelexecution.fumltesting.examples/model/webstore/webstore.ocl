@@ -1,0 +1,17 @@
+package structure
+
+context Product
+
+inv ProductNotCreated: Product.allInstances()->size() = 0
+inv ProductCreated: Product.allInstances()->size() > 0
+inv NumberOfProducts: Product.allInstances()->size() = 1
+
+inv ProductName: name = 'testProduct'
+inv ProductCode: code = 12345
+inv ProductAvailable: available = true
+
+inv ProductNameNotSet: name = null
+inv ProductCodeNotSet: code = null
+inv ProductAvailableNotSet: available = null
+
+endpackage

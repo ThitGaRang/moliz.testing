@@ -135,9 +135,9 @@ public class ResultsWriter {
 					}
 					if (assertion.getUntilPoint() != null) {
 						if (assertion.getUntilPoint() instanceof ActionReferencePoint)
-							writer.print(((ActionReferencePoint) assertion.getUntilPoint()).getAction().getName());
+							writer.print(" until " + ((ActionReferencePoint) assertion.getUntilPoint()).getAction().getName());
 						if (assertion.getUntilPoint() instanceof ConstraintReferencePoint) {
-							writer.print(((ConstraintReferencePoint) assertion.getUntilPoint()).getConstraintName());
+							writer.print(" until " + ((ConstraintReferencePoint) assertion.getUntilPoint()).getConstraintName());
 						}
 					}
 					writer.println();
@@ -145,8 +145,14 @@ public class ResultsWriter {
 						writer.println("\tConstraints checked: " + stateAssertionResult.numberOfConstraintsChecked());
 						writer.println("\tConstraints failed: " + stateAssertionResult.getFailedConstraints().size());
 						for (ConstraintResult constraintResult : stateAssertionResult.getFailedConstraints()) {
-							writer.println("\t\tConstraint: " + constraintResult.getConstraint() + " failed in state created by action "
-									+ constraintResult.getValidationState().getNodeExecution().getNode().name);
+							writer.print("\t\tConstraint: " + constraintResult.getConstraint() + " failed in assertion "
+									+ constraintResult.getAssertion().getQuantifier() + " " + constraintResult.getAssertion().getOperator() + " ");
+							if (constraintResult.getAssertion().getReferencePoint() instanceof ActionReferencePoint) {
+								writer.println(((ActionReferencePoint) constraintResult.getAssertion().getReferencePoint()).getAction().getName());
+							}
+							if (constraintResult.getAssertion().getReferencePoint() instanceof ConstraintReferencePoint) {
+								writer.println(((ConstraintReferencePoint) constraintResult.getAssertion().getReferencePoint()).getConstraintName());
+							}
 						}
 					}
 					if (((StateAssertionResult) assertionResult).getFailedStateExpressions().size() > 0) {

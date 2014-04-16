@@ -77,8 +77,10 @@ public class OclExecutor {
 		boolean result = false;
 
 		for (Constraint aConstraint : constraints) {
-			if (aConstraint.getName().equals(constraintName))
+			if (aConstraint.getName().equals(constraintName)) {
 				constraint = aConstraint;
+				break;
+			}
 		}
 
 		if (constraint != null) {
@@ -89,7 +91,7 @@ public class OclExecutor {
 			ConstrainableElement constrainedElement = constraint.getConstrainedElement().get(0);
 			if (constrainedElement instanceof FUMLClass) {
 				FUMLClass constrainedClass = (FUMLClass) constrainedElement;
-				if (contextObject == null) {
+				if (contextObject == null) {					
 					for (IModelInstanceObject object : modelInstance.getAllInstances(constrainedClass)) {
 						result = evaluate(constraint, object);
 						if (result == false)

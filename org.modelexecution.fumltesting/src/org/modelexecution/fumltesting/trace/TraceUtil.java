@@ -239,9 +239,13 @@ public class TraceUtil {
 					if (state.getNodeExecution() == nodeExecution) {
 						switch (assertion.getOperator()) {
 						case AFTER:
-							states.add(state);
-							while (state.getSuccessor() != null) {
-								states.add(state.getSuccessor());
+							while (state != null) {
+								if (assertion.getUntilPoint() != null && assertion.getUntilPoint() instanceof ActionReferencePoint) {
+									Action untilAction = ((ActionReferencePoint) assertion.getUntilPoint()).getAction();
+									if (untilAction == UmlConverter.getInstance().getOriginal(state.getNodeExecution().getNode()))
+										break;
+								}
+								states.add(state);
 								state = state.getSuccessor();
 							}
 							break;

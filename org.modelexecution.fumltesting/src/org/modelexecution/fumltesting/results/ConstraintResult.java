@@ -6,7 +6,7 @@
  */
 package org.modelexecution.fumltesting.results;
 
-import org.modelexecution.fumltesting.sequence.State;
+import org.modelexecution.fumltesting.testLang.StateAssertion;
 
 /**
  * @author Stefan Mijatov
@@ -14,20 +14,20 @@ import org.modelexecution.fumltesting.sequence.State;
  */
 public class ConstraintResult {
 	private String constraint;
-	private State validationState;
-	private boolean validationResult;	
+	private StateAssertion assertion;
+	private boolean validationResult;
 
-	public ConstraintResult(String constraint, State validationState) {
+	public ConstraintResult(String constraint, StateAssertion assertion) {
 		this.constraint = constraint;
-		this.validationState = validationState;
+		this.assertion = assertion;
 	}
 
 	public String getConstraint() {
 		return constraint;
 	}
 
-	public State getValidationState() {
-		return validationState;
+	public StateAssertion getAssertion() {
+		return assertion;
 	}
 
 	public void setValidationResult(boolean validationResult) {

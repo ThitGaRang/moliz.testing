@@ -97,7 +97,7 @@ public class TestExecutor {
 			resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(UMLResource.FILE_EXTENSION, UMLResource.Factory.INSTANCE);
 			// model with UML elements under test
 			umlResource = resourceSet.getResource(
-					URI.createFileURI(new File("../org.modelexecution.fumltesting.examples/model/petstore/petstore.uml").getAbsolutePath()), true);
+					URI.createFileURI(new File("../org.modelexecution.fumltesting.examples/model/webstore/webstore.uml").getAbsolutePath()), true);
 			umlResource.load(null);
 
 			// adds elements from UML model to test suite
@@ -141,17 +141,17 @@ public class TestExecutor {
 			}
 			oclExecutor.setModel(modelPackage);
 		}
-		oclExecutor.loadConstraints(new File("../org.modelexecution.fumltesting.examples/model/petstore/petstore.ocl"));
+		oclExecutor.loadConstraints(new File("../org.modelexecution.fumltesting.examples/model/webstore/webstore.ocl"));
 	}
 
 	/** Main method of the testing framework. */
 	@Test
 	public void test() {
-		File folder = new File("../org.modelexecution.fumltesting.examples/model/petstore/tests");
+		File folder = new File("../org.modelexecution.fumltesting.examples/model/webstore/tests");
 		File[] files = folder.listFiles();
 		for (File file : files) {
-			if (file.isFile() && file.getName().endsWith("newItemActivity.fumltest")) {
-				String testLocation = "../org.modelexecution.fumltesting.examples/model/petstore/tests/" + file.getName();
+			if (file.isFile() && file.getName().endsWith("newProduct.fumltest")) {
+				String testLocation = "../org.modelexecution.fumltesting.examples/model/webstore/tests/" + file.getName();
 				try {
 					setup(testLocation);
 				} catch (ParseException e) {

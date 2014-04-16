@@ -55,6 +55,7 @@ public class SnapshotUtil {
 	 */
 	public ArrayList<ValueSnapshot> getRelevantSnapshots(StateExpression expression) {
 		ArrayList<ValueSnapshot> list = new ArrayList<ValueSnapshot>();
+		setupPreconditions(expression);
 		getSuccessorSnapshots(expression);
 		getPredecessorSnapshots(expression);
 
@@ -69,7 +70,7 @@ public class SnapshotUtil {
 					&& predecessorSnapshots.size() > 0) {
 				// we need to add last predecessor to successors
 				// if the value was not changed after the referred action
-				successorSnapshots.add(predecessorSnapshots.get(predecessorSnapshots.size() - 1));
+				successorSnapshots.add(predecessorSnapshots.get(0));
 			}
 			list = successorSnapshots;
 		}
@@ -83,7 +84,6 @@ public class SnapshotUtil {
 	 * @return
 	 */
 	private ArrayList<ValueSnapshot> getSuccessorSnapshots(StateExpression expression) {
-		setupPreconditions(expression);
 		StateAssertion assertion = (StateAssertion) expression.eContainer();
 		setupSucessors(assertion.getOperator(), referredActionExecution);
 		return successorSnapshots;
@@ -96,7 +96,6 @@ public class SnapshotUtil {
 	 * @return
 	 */
 	private ArrayList<ValueSnapshot> getPredecessorSnapshots(StateExpression expression) {
-		setupPreconditions(expression);
 		StateAssertion assertion = (StateAssertion) expression.eContainer();
 		setupPredecessors(assertion.getOperator(), referredActionExecution);
 		return predecessorSnapshots;
@@ -200,19 +199,18 @@ public class SnapshotUtil {
 			return;
 		if (untilAction != null && untilAction.getName().equals(predecessor.getNode().name))
 			return;
-
 		if (predecessor instanceof ActionExecution) {
-			for (Input predecesorsInput : ((ActionExecution) predecessor).getInputs()) {
-				if (predecesorsInput.getInputValues().get(0).getInputValueSnapshot() != null
-						&& predecesorsInput.getInputValues().get(0).getInputValueSnapshot().eContainer() == valueInstance)
-					if (predecessorSnapshots.contains(predecesorsInput.getInputValues().get(0).getInputValueSnapshot()) == false)
-						predecessorSnapshots.add(predecesorsInput.getInputValues().get(0).getInputValueSnapshot());
-			}
 			for (Output predecesorsOutput : ((ActionExecution) predecessor).getOutputs()) {
 				if (predecesorsOutput.getOutputValues().get(0).getOutputValueSnapshot() != null
 						&& predecesorsOutput.getOutputValues().get(0).getOutputValueSnapshot().eContainer() == valueInstance)
 					if (predecessorSnapshots.contains(predecesorsOutput.getOutputValues().get(0).getOutputValueSnapshot()) == false)
 						predecessorSnapshots.add(predecesorsOutput.getOutputValues().get(0).getOutputValueSnapshot());
+			}
+			for (Input predecesorsInput : ((ActionExecution) predecessor).getInputs()) {
+				if (predecesorsInput.getInputValues().get(0).getInputValueSnapshot() != null
+						&& predecesorsInput.getInputValues().get(0).getInputValueSnapshot().eContainer() == valueInstance)
+					if (predecessorSnapshots.contains(predecesorsInput.getInputValues().get(0).getInputValueSnapshot()) == false)
+						predecessorSnapshots.add(predecesorsInput.getInputValues().get(0).getInputValueSnapshot());
 			}
 		}
 		initializePredecessorSnapshots(predecessor);

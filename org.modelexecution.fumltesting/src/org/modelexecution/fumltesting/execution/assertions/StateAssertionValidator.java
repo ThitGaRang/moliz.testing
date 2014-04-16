@@ -98,18 +98,30 @@ public class StateAssertionValidator {
 		}
 
 		if (assertion.getChecks() != null && assertion.getChecks().size() > 0) {
+			List<State> states = traceUtil.getStates(assertion);
 			for (Check check : assertion.getChecks()) {
 				if (check instanceof ConstraintCheck) {
+					ArrayList<Boolean> results = new ArrayList<Boolean>();
 					for (XExpression constraintName : ((ConstraintCheck) check).getConstraintNames()) {
-						List<State> states = traceUtil.getStates(assertion);
 						String name = ((XStringLiteral) constraintName).getValue();
 						ValueInstance context = null;
 						if (((ConstraintCheck) check).getObject() != null) {
 							Object nodeExecution = traceUtil.getExecution(((ConstraintCheck) check).getObject().getRef().eContainer());
 							context = traceUtil.getValueInstance(((ConstraintCheck) check).getObject().getRef(), nodeExecution);
 						}
-						for (ConstraintResult constraintResult : checkConstraint(name, context, states)) {
-							result.addConstraintResult(constraintResult);
+						for (State state : states) {
+							boolean constraintResultInSingleState = checkConstraint(name, context, state);
+							results.add(constraintResultInSingleState);
+						}
+						boolean overallResult = compileResult(results, assertion);
+						ConstraintResult constraintResult = new ConstraintResult(name, assertion);
+						constraintResult.setValidationResult(overallResult);
+						result.addConstraintResult(constraintResult);
+
+						if (overallResult == false) {
+							System.out.println("Constraint " + ((XStringLiteral)constraintName).getValue() + " validation failed!");
+						} else {
+							System.out.println("Constraint validation success.");
 						}
 					}
 				}
@@ -141,34 +153,23 @@ public class StateAssertionValidator {
 		return check(stateAssertion);
 	}
 
-	private ArrayList<ConstraintResult> checkConstraint(String constraintName, ValueInstance contextObject, List<State> states) {
-		ArrayList<ConstraintResult> results = new ArrayList<ConstraintResult>();
-		for (State state : states) {
-			IModelInstance modelInstance = OclExecutor.getInstance().getEmptyModelInstance();
-			ConstraintResult result = new ConstraintResult(constraintName, state);
+	private boolean checkConstraint(String constraintName, ValueInstance contextObject, State state) {
+		IModelInstance modelInstance = OclExecutor.getInstance().getEmptyModelInstance();
 
-			try {
-				for (org.modelexecution.fuml.Semantics.Classes.Kernel.Object object : state.getObjects()) {
-					modelInstance.addModelInstanceElement(object);
-				}
-				for (org.modelexecution.fuml.Semantics.Classes.Kernel.Link link : state.getLinks()) {
-					modelInstance.addModelInstanceElement(link);
-				}
-			} catch (TypeNotFoundInModelException e) {
-				e.printStackTrace();
+		try {
+			for (org.modelexecution.fuml.Semantics.Classes.Kernel.Object object : state.getObjects()) {
+				modelInstance.addModelInstanceElement(object);
 			}
-			org.modelexecution.fuml.Semantics.Classes.Kernel.Object contextObjectSnapshot = state.getStateSnapshot(contextObject);
-			boolean validationResult = OclExecutor.getInstance().evaluateConstraint(constraintName, contextObjectSnapshot, modelInstance);
-			result.setValidationResult(validationResult);
-
-			if (validationResult == false) {
-				System.out.println("Constraint " + constraintName + " validation failed!");
-			} else {
-				System.out.println("Constraint validation success.");
+			for (org.modelexecution.fuml.Semantics.Classes.Kernel.Link link : state.getLinks()) {
+				modelInstance.addModelInstanceElement(link);
 			}
-			results.add(result);
+		} catch (TypeNotFoundInModelException e) {
+			e.printStackTrace();
 		}
-		return results;
+		org.modelexecution.fuml.Semantics.Classes.Kernel.Object contextObjectSnapshot = state.getStateSnapshot(contextObject);
+		boolean validationResult = OclExecutor.getInstance().evaluateConstraint(constraintName, contextObjectSnapshot, modelInstance);
+
+		return validationResult;
 	}
 
 	private StateExpressionResult checkExpression(StateExpression expression) {
@@ -177,7 +178,8 @@ public class StateAssertionValidator {
 
 		if (expression.getValue() instanceof SimpleValue) {
 			// special case
-			if (expression instanceof PropertyStateExpression && ((SimpleValue) expression.getValue()).getValue() instanceof XNullLiteral) {
+			if (expression instanceof PropertyStateExpression
+					&& ((PropertyStateExpression) expression).getProperty().getOwner() != expression.getPin().getRef().getType()) {
 				result.setValidationResult(processObject(expression, list));
 			} else {
 				result.setValidationResult(processValue(expression, list));
@@ -198,16 +200,15 @@ public class StateAssertionValidator {
 	}
 
 	private boolean processValue(StateExpression expression, List<ValueSnapshot> list) {
+		ArrayList<Boolean> results = new ArrayList<Boolean>();
 		SimpleValue simpleValue = (SimpleValue) expression.getValue();
 
 		if (list.size() == 0) {
 			if (simpleValue.getValue() instanceof XNullLiteral && expression.getOperator() == ArithmeticOperator.EQUAL)
-				;
+				results.add(true);
 			else
 				return false;
 		}
-
-		ArrayList<Boolean> results = new ArrayList<Boolean>();
 
 		for (ValueSnapshot snapshot : list) {
 			if (expression instanceof PropertyStateExpression) {
@@ -242,6 +243,7 @@ public class StateAssertionValidator {
 								results.add(result);
 								break;
 							}
+						} else {
 							if (simpleValue.getValue() instanceof XNullLiteral) {
 								if (expression.getOperator() == ArithmeticOperator.EQUAL)
 									if (featureValue.values.size() != 0) {
@@ -255,6 +257,8 @@ public class StateAssertionValidator {
 									} else {
 										results.add(true);
 									}
+							} else {
+								results.add(false);
 							}
 						}
 					}
@@ -285,8 +289,13 @@ public class StateAssertionValidator {
 				}
 				if (simpleValue.getValue() instanceof XNullLiteral) {
 					if (expression.getOperator() == ArithmeticOperator.EQUAL)
-						if (list.size() != 0) {
-							results.add(false);
+						if (list.size() != 0) {// at the beginning everything
+												// was equal to null
+							if (((StateAssertion) expression.eContainer()).getQuantifier() == TemporalQuantifier.SOMETIMES
+									&& ((StateAssertion) expression.eContainer()).getOperator() == TemporalOperator.UNTIL)
+								results.add(true);
+							else
+								results.add(false);
 						} else {
 							results.add(true);
 						}
@@ -602,20 +611,15 @@ public class StateAssertionValidator {
 		case EVENTUALLY:
 			for (int i = results.size() - 1; i >= 0; i--) {
 				if (results.get(i) == false) {
-					for (int j = i; j < results.size(); j++) {
+					for (int j = i + 1; j < results.size(); j++) {
 						if (results.get(j) == false)
 							return false;
 					}
+					return true;
 				}
 			}
-			return true;
 		case IMMEDIATELY:
-			switch (assertion.getOperator()) {
-			case AFTER:
-				return results.get(0);
-			case UNTIL:
-				return results.get(results.size() - 1);
-			}
+			return results.get(0);
 		case SOMETIMES:
 			for (boolean result : results) {
 				if (result)
