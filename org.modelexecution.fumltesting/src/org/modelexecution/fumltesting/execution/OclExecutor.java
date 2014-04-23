@@ -91,7 +91,7 @@ public class OclExecutor {
 			ConstrainableElement constrainedElement = constraint.getConstrainedElement().get(0);
 			if (constrainedElement instanceof FUMLClass) {
 				FUMLClass constrainedClass = (FUMLClass) constrainedElement;
-				if (contextObject == null) {					
+				if (contextObject == null) {
 					for (IModelInstanceObject object : modelInstance.getAllInstances(constrainedClass)) {
 						result = evaluate(constraint, object);
 						if (result == false)
@@ -119,6 +119,14 @@ public class OclExecutor {
 		OclAny resultValue = result.getResult();
 		if (resultValue instanceof OclBoolean) {
 			OclBoolean resultBoolean = (OclBoolean) resultValue;
+			if (resultBoolean.getInvalidReason() != null && resultBoolean.getInvalidReason().getMessage().contains("Tried to invoke operation")
+					&& resultBoolean.getInvalidReason().getMessage().contains("on null")) {
+				if (constraint.getSpecification().getBody().trim().endsWith("= null")) {
+					return true;
+				} else {
+					return false;
+				}
+			}
 			return resultBoolean.isTrue();
 		}
 		if (resultValue instanceof OclModelInstanceObject) {

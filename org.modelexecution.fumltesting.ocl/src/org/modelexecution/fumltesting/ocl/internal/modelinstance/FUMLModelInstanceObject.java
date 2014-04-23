@@ -25,7 +25,9 @@ import org.eclipse.osgi.util.NLS;
 import org.modelexecution.fuml.Semantics.Classes.Kernel.BooleanValue;
 import org.modelexecution.fuml.Semantics.Classes.Kernel.FeatureValue;
 import org.modelexecution.fuml.Semantics.Classes.Kernel.IntegerValue;
+import org.modelexecution.fuml.Semantics.Classes.Kernel.KernelFactory;
 import org.modelexecution.fuml.Semantics.Classes.Kernel.StringValue;
+import org.modelexecution.fumltesting.ocl.internal.model.FUMLAssociationProperty;
 import org.modelexecution.fumltesting.ocl.internal.util.FUMLModelInstanceTypeUtil;
 
 import tudresden.ocl20.pivot.modelinstance.base.AbstractModelInstance;
@@ -66,6 +68,8 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 		super(type, originalType);
 		dslObject = object;
 		myFactory = factory;
+		if (object != null)
+			adaptEmptyProperties(object, type);
 	}
 
 	protected FUMLModelInstanceObject(Object object, Class<?> typeClass, Type type, Type originalType, FUMLModelInstanceFactory factory) {
@@ -131,14 +135,16 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 						if (featureValue.getValues().size() > 0) {
 							result = AbstractModelInstance.adaptInvocationResult(featureValue.getValues().get(0), property.getType(), myFactory);
 						} else {
-							result = AbstractModelInstance.adaptInvocationResult(null, property.getType(), myFactory);
+							if(property instanceof AssociationProperty){
+								result = new FUMLModelInstanceObject(null, property.getType(), property.getType(), myFactory);
+							}else{
+								result = AbstractModelInstance.adaptInvocationResult(null, property.getType(), myFactory);
+							}							
 						}
+						
 						return result;
 					}
 				}
-			}
-			if(property instanceof AssociationProperty){
-				return AbstractModelInstance.adaptInvocationResult(null, property.getType(), myFactory);
 			}
 		}
 		throw new PropertyNotFoundException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_PropertyNotFoundInModelInstanceElement,
@@ -661,5 +667,27 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 		Class<?> result = null;
 		result = myAdaptedClass.getClass().getClassLoader().loadClass(canonicalName);
 		return result;
+	}
+
+	private void adaptEmptyProperties(Object object, Type type) {
+		if (object instanceof org.modelexecution.fuml.Semantics.Classes.Kernel.Object) {
+			org.modelexecution.fuml.Semantics.Classes.Kernel.Object dslObject = (org.modelexecution.fuml.Semantics.Classes.Kernel.Object) object;
+			for (Property property : type.getOwnedProperty()) {
+				if (property instanceof FUMLAssociationProperty) {
+					boolean propertyExists = false;
+					for (FeatureValue featureValue : dslObject.getFeatureValues()) {
+						if (featureValue.getFeature().getName().equals(property.getName())) {
+							propertyExists = true;
+							break;
+						}
+					}
+					if (!propertyExists) {
+						FeatureValue featureValue = KernelFactory.eINSTANCE.createFeatureValue();
+						featureValue.setFeature(((FUMLAssociationProperty) property).getDslProperty());
+						((org.modelexecution.fuml.Semantics.Classes.Kernel.Object) object).getFeatureValues().add(featureValue);
+					}
+				}
+			}
+		}
 	}
 }

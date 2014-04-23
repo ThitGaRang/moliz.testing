@@ -104,4 +104,8 @@ public class FUMLProperty extends AbstractProperty implements Property {
 	public boolean isStatic() {
 		return dslProperty.isStatic();
 	}
+
+	public org.modelexecution.fuml.Syntax.Classes.Kernel.Property getDslProperty() {
+		return dslProperty;
+	}
 }

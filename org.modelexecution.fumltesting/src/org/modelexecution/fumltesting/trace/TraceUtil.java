@@ -199,11 +199,11 @@ public class TraceUtil {
 	}
 
 	public boolean isAfter(ActivityNodeExecution execution1, ActivityNodeExecution execution2) {
-		if (execution1.getChronologicalSuccessor() != null) {
-			if (execution1.getChronologicalSuccessor() == execution2)
+		if (execution2.getChronologicalSuccessor() != null) {
+			if (execution2.getChronologicalSuccessor() == execution1)
 				return true;
 			else
-				return isAfter(execution1.getChronologicalSuccessor(), execution2);
+				return isAfter(execution1, execution2.getChronologicalSuccessor());
 		}
 		return false;
 	}

@@ -14,4 +14,20 @@ inv ProductNameNotSet: name = null
 inv ProductCodeNotSet: code = null
 inv ProductAvailableNotSet: available = null
 
+context Item
+
+inv ItemNotCreated: Item.allInstances()->size() = 0
+inv ItemCreated: Item.allInstances()->size() > 0
+inv NumberOfItems: Item.allInstances()->size() = 1
+
+inv ItemNumber: number = 12345
+inv ItemUnitCost: unitCost = 250
+inv ItemQuantity: quantity = 5
+inv ItemProduct: product <> null
+
+inv ItemNumberNotSet: number = null
+inv ItemUnitCostNotSet: unitCost = null
+inv ItemQuantityNotSet: quantity = null
+inv ItemProductNotSet: product = null
+
 endpackage

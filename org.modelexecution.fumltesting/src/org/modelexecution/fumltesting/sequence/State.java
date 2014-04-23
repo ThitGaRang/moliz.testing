@@ -40,6 +40,12 @@ public interface State extends EObject {
 	
 	/**
 	 * @generated NOT
+	 * Returns the value instance of a given snapshot.
+	 */
+	ValueInstance getInstance(org.modelexecution.fuml.Semantics.Classes.Kernel.Object snapshot);
+	
+	/**
+	 * @generated NOT
 	 * Add snapshot mapping to the state.
 	 */
 	void addSnapshotMapping(ValueInstance instance, org.modelexecution.fuml.Semantics.Classes.Kernel.Object snapshot);

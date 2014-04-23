@@ -12,11 +12,7 @@ import java.util.Map;
 import java.util.WeakHashMap;
 
 import org.eclipse.osgi.util.NLS;
-import org.modelexecution.fuml.Semantics.Classes.Kernel.FeatureValue;
-import org.modelexecution.fuml.Semantics.Classes.Kernel.KernelFactory;
-import org.modelexecution.fuml.Semantics.Classes.Kernel.Link;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Enumeration;
-import org.modelexecution.fuml.Syntax.Classes.Kernel.Property;
 import org.modelexecution.fumltesting.ocl.internal.util.FUMLModelInstanceTypeUtil;
 
 import tudresden.ocl20.pivot.model.IModel;
@@ -25,7 +21,6 @@ import tudresden.ocl20.pivot.modelinstancetype.exception.TypeNotFoundInModelExce
 import tudresden.ocl20.pivot.modelinstancetype.types.IModelInstanceElement;
 import tudresden.ocl20.pivot.modelinstancetype.types.IModelInstanceEnumerationLiteral;
 import tudresden.ocl20.pivot.modelinstancetype.types.IModelInstanceFactory;
-import tudresden.ocl20.pivot.modelinstancetype.types.IModelInstanceObject;
 import tudresden.ocl20.pivot.modelinstancetype.types.base.BasisJavaModelInstanceFactory;
 import tudresden.ocl20.pivot.pivotmodel.PrimitiveType;
 
@@ -56,31 +51,6 @@ public class FUMLModelInstanceFactory extends BasisJavaModelInstanceFactory impl
 				} else {
 					result = createFUMLModelInstanceObject(object);
 					myCachedAdaptedObjects.put(object, result);
-				}
-			} else if (adapted instanceof Link) {
-				Link link = (Link) adapted;
-				for (Property target : link.getType().getNavigableOwnedEnd()) {
-					for (Property source : link.getType().getOwnedEnd()) {
-						if (target != source) {
-							IModelInstanceObject sourceObject = null;
-							IModelInstanceObject targetObject = null;
-							for (FeatureValue featureValue : link.getFeatureValues()) {
-								if (featureValue.getFeature() == source) {
-									sourceObject = (IModelInstanceObject) myCachedAdaptedObjects.get(featureValue.getValues().get(0));
-								}
-								if (featureValue.getFeature() == target) {
-									targetObject = (IModelInstanceObject) myCachedAdaptedObjects.get(featureValue.getValues().get(0));
-								}
-							}
-							FeatureValue newFeatureValue = KernelFactory.eINSTANCE.createFeatureValue();
-
-							newFeatureValue.setFeature(target);
-							newFeatureValue.getValues().add((org.modelexecution.fuml.Semantics.Classes.Kernel.Object) targetObject.getObject());
-							((org.modelexecution.fuml.Semantics.Classes.Kernel.Object) sourceObject.getObject()).getFeatureValues().add(
-									newFeatureValue);
-							result = sourceObject;
-						}
-					}
 				}
 			} else {
 				throw new TypeNotFoundInModelException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceFactory_AdapteeIsNoEObjectInstance,

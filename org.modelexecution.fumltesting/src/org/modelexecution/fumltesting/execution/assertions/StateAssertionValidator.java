@@ -7,6 +7,7 @@
 package org.modelexecution.fumltesting.execution.assertions;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.eclipse.uml2.uml.Action;
@@ -22,6 +23,7 @@ import org.eclipse.xtext.xbase.XNumberLiteral;
 import org.eclipse.xtext.xbase.XStringLiteral;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Input;
 import org.modelexecution.fumldebug.core.trace.tracemodel.InputParameterSetting;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Output;
@@ -44,6 +46,7 @@ import org.modelexecution.fumltesting.testLang.FinallyStateAssertion;
 import org.modelexecution.fumltesting.testLang.ObjectStateExpression;
 import org.modelexecution.fumltesting.testLang.ObjectValue;
 import org.modelexecution.fumltesting.testLang.PropertyStateExpression;
+import org.modelexecution.fumltesting.testLang.ReferencePoint;
 import org.modelexecution.fumltesting.testLang.SimpleValue;
 import org.modelexecution.fumltesting.testLang.StateAssertion;
 import org.modelexecution.fumltesting.testLang.StateExpression;
@@ -81,11 +84,14 @@ public class StateAssertionValidator {
 	private TraceUtil traceUtil;
 	/** Utility class for managing a concrete value instance from an expression. */
 	private SnapshotUtil snapshotUtil;
+	/** Hash map of adapted states for the OCL interpreter. */
+	private HashMap<State, IModelInstance> adaptedStates;
 
 	public StateAssertionValidator(TraceUtil traceUtil) {
 		testDataConverter = TestDataConverter.getInstance();
 		this.traceUtil = traceUtil;
 		snapshotUtil = new SnapshotUtil(traceUtil);
+		adaptedStates = new HashMap<State, IModelInstance>();
 	}
 
 	public StateAssertionResult check(StateAssertion assertion) {
@@ -114,12 +120,13 @@ public class StateAssertionValidator {
 							results.add(constraintResultInSingleState);
 						}
 						boolean overallResult = compileResult(results, assertion);
+						results.removeAll(results);
 						ConstraintResult constraintResult = new ConstraintResult(name, assertion);
 						constraintResult.setValidationResult(overallResult);
 						result.addConstraintResult(constraintResult);
 
 						if (overallResult == false) {
-							System.out.println("Constraint " + ((XStringLiteral)constraintName).getValue() + " validation failed!");
+							System.out.println("Constraint " + ((XStringLiteral) constraintName).getValue() + " validation failed!");
 						} else {
 							System.out.println("Constraint validation success.");
 						}
@@ -154,21 +161,32 @@ public class StateAssertionValidator {
 	}
 
 	private boolean checkConstraint(String constraintName, ValueInstance contextObject, State state) {
-		IModelInstance modelInstance = OclExecutor.getInstance().getEmptyModelInstance();
-
-		try {
-			for (org.modelexecution.fuml.Semantics.Classes.Kernel.Object object : state.getObjects()) {
-				modelInstance.addModelInstanceElement(object);
-			}
-			for (org.modelexecution.fuml.Semantics.Classes.Kernel.Link link : state.getLinks()) {
-				modelInstance.addModelInstanceElement(link);
-			}
-		} catch (TypeNotFoundInModelException e) {
-			e.printStackTrace();
-		}
+		IModelInstance modelInstance = null;
 		org.modelexecution.fuml.Semantics.Classes.Kernel.Object contextObjectSnapshot = state.getStateSnapshot(contextObject);
-		boolean validationResult = OclExecutor.getInstance().evaluateConstraint(constraintName, contextObjectSnapshot, modelInstance);
 
+		if (adaptedStates.containsKey(state)) {
+			modelInstance = adaptedStates.get(state);
+		} else {
+			modelInstance = OclExecutor.getInstance().getEmptyModelInstance();
+			try {
+				ArrayList<org.modelexecution.fuml.Semantics.Classes.Kernel.Object> objects = new ArrayList<org.modelexecution.fuml.Semantics.Classes.Kernel.Object>();
+				objects.addAll(state.getObjects());
+
+				ArrayList<org.modelexecution.fuml.Semantics.Classes.Kernel.Link> links = new ArrayList<org.modelexecution.fuml.Semantics.Classes.Kernel.Link>();
+				links.addAll(state.getLinks());
+
+				for (org.modelexecution.fuml.Semantics.Classes.Kernel.Object object : objects) {
+					modelInstance.addModelInstanceElement(object);
+				}
+				for (org.modelexecution.fuml.Semantics.Classes.Kernel.Link link : links) {
+					modelInstance.addModelInstanceElement(link);
+				}
+				adaptedStates.put(state, modelInstance);
+			} catch (TypeNotFoundInModelException e) {
+				e.printStackTrace();
+			}
+		}
+		boolean validationResult = OclExecutor.getInstance().evaluateConstraint(constraintName, contextObjectSnapshot, modelInstance);
 		return validationResult;
 	}
 
@@ -362,24 +380,29 @@ public class StateAssertionValidator {
 
 		// link validation
 		if (expression instanceof PropertyStateExpression) {
+			ArrayList<Boolean> results = new ArrayList<Boolean>();
 			List<ValueInstance> links = new ArrayList<ValueInstance>();
+
+			StateAssertion assertion = (StateAssertion) expression.eContainer();
+			TemporalOperator operator = assertion.getOperator();
+			ReferencePoint untilPoint = assertion.getUntilPoint();
 
 			PropertyStateExpression propertyExpression = (PropertyStateExpression) expression;
 			if (propertyExpression.getProperty().getType() instanceof org.eclipse.uml2.uml.Class) {
 				Object variableAction = propertyExpression.getPin().getRef().eContainer();
-				Object_ source = null;
+				ValueInstance source = null;
 				if (propertyExpression.getPin().getRef().eContainer() instanceof Action) {
 					ActionExecution execution = (ActionExecution) traceUtil.getExecution(variableAction);
 					if (propertyExpression.getPin().getRef() instanceof InputPin) {
 						for (Input input : execution.getInputs()) {
 							if (input.getInputPin().name.equals(propertyExpression.getPin().getRef().getName()))
-								source = (Object_) ((ValueSnapshot) input.getInputValues().get(0).getInputValueSnapshot()).getValue();
+								source = (ValueInstance) ((ValueSnapshot) input.getInputValues().get(0).getInputValueSnapshot()).eContainer();
 						}
 					}
 					if (propertyExpression.getPin().getRef() instanceof OutputPin) {
 						for (Output output : execution.getOutputs()) {
 							if (output.getOutputPin().name.equals(propertyExpression.getPin().getRef().getName()))
-								source = (Object_) ((ValueSnapshot) output.getOutputValues().get(0).getOutputValueSnapshot()).getValue();
+								source = (ValueInstance) ((ValueSnapshot) output.getOutputValues().get(0).getOutputValueSnapshot()).eContainer();
 						}
 					}
 				}
@@ -389,13 +412,13 @@ public class StateAssertionValidator {
 					if (parameterNode.getParameter().getDirection().getValue() == ParameterDirectionKind.OUT) {
 						for (OutputParameterSetting output : execution.getActivityOutputs()) {
 							if (output.getParameter().name.equals(parameterNode.getName()))
-								source = (Object_) ((ValueSnapshot) output.getParameterValues().get(0).getValueSnapshot()).getValue();
+								source = (ValueInstance) ((ValueSnapshot) output.getParameterValues().get(0).getValueSnapshot()).eContainer();
 						}
 					}
 					if (parameterNode.getParameter().getDirection().getValue() == ParameterDirectionKind.IN) {
 						for (InputParameterSetting input : execution.getActivityInputs()) {
 							if (input.getParameter().name.equals(parameterNode.getName()))
-								source = (Object_) ((ValueSnapshot) input.getParameterValues().get(0).getValueSnapshot()).getValue();
+								source = (ValueInstance) ((ValueSnapshot) input.getParameterValues().get(0).getValueSnapshot()).eContainer();
 						}
 					}
 				}
@@ -415,54 +438,41 @@ public class StateAssertionValidator {
 					if (link.type == UmlConverter.getInstance().getAssociation(propertyExpression.getProperty().getAssociation())) {
 						for (FeatureValue value : link.getFeatureValues()) {
 							Reference reference = (Reference) value.values.get(0);
-							if (reference.referent == source)
-								sourceContained = true;
+							for (ValueSnapshot snapshot : source.getSnapshots()) {
+								if (snapshot.getValue() == reference.referent)
+									sourceContained = true;
+							}
 						}
 					}
-					if (sourceContained) {
+					boolean isRelevantLink = true;
+					switch (operator) {
+					case AFTER:
+						if (linkValueInstance.getDestroyer() != null
+								&& !traceUtil.isAfter(linkValueInstance.getDestroyer(), getReferencePointExecution(assertion)))
+							isRelevantLink = false;
+						if (untilPoint instanceof ActionReferencePoint) {
+							if (traceUtil.isAfter(linkValueInstance.getCreator(),
+									(ActivityNodeExecution) traceUtil.getExecution(((ActionReferencePoint) untilPoint).getAction())))
+								isRelevantLink = false;
+						}
+						break;
+					case UNTIL:
+						if (traceUtil.isAfter(linkValueInstance.getCreator(), getReferencePointExecution(assertion)))
+							isRelevantLink = false;
+						break;
+					}
+					if (sourceContained && isRelevantLink) {
 						links.add(linkValueInstance);
 					}
 				}
-
-				// for each temporal constraint it is enough to remove all those
-				// links that the destroyer is not null and is before the
-				// referenced action
-				List<ValueInstance> linksToRemove = new ArrayList<ValueInstance>();
-
-				for (ValueInstance link : links) {
-					if (link.getDestroyer() != null
-							&& !traceUtil.isAfter(link.getDestroyer(), getReferencePointExecution((StateAssertion) expression.eContainer()))) {
-						linksToRemove.add(link);
-					}
-				}
-				links.removeAll(linksToRemove);
-
-				if (fumlTarget == null) {
-					if (propertyExpression.getOperator() == ArithmeticOperator.EQUAL) {
-						if (links.size() > 0)
-							return false;
-						if (links.size() == 0)
-							return true;
-					} else if (propertyExpression.getOperator() == ArithmeticOperator.NOT_EQUAL) {
-						if (links.size() > 0)
-							return true;
-						if (links.size() == 0)
-							return false;
-					}
-				} else {
-					if (links.size() == 0)
-						return false;
-				}
 			}
 
-			ArrayList<Boolean> results = new ArrayList<Boolean>();
-
-			for (ValueInstance link : links) {
-				Link theLink = (Link) link.getRuntimeValue();
-				for (FeatureValue featureValue : theLink.featureValues) {
-					if (featureValue.feature.name.equals(propertyExpression.getProperty().getName())) {
-						Object_ realValue = ((Reference) featureValue.values.get(0)).referent;
-						if (fumlTarget != null) {
+			if (fumlTarget != null) {
+				for (ValueInstance link : links) {
+					Link theLink = (Link) link.getRuntimeValue();
+					for (FeatureValue featureValue : theLink.featureValues) {
+						if (featureValue.feature.name.equals(propertyExpression.getProperty().getName())) {
+							Object_ realValue = ((Reference) featureValue.values.get(0)).referent;
 							for (FeatureValue targetValue : fumlTarget.featureValues) {
 								for (FeatureValue checkedFeature : realValue.featureValues) {
 									if (targetValue.feature.name.equals(checkedFeature.feature.name)) {
@@ -478,12 +488,72 @@ public class StateAssertionValidator {
 								}
 							}
 						}
-						if (fumlTarget == null) {
-							return false;
-						}
 					}
 				}
+			} else {
+				TemporalQuantifier quantifier = ((StateAssertion) expression.eContainer()).getQuantifier();
+				if (propertyExpression.getOperator() == ArithmeticOperator.EQUAL) {
+					switch (quantifier) {
+					case ALWAYS:
+						if (links.size() > 0) {
+							results.add(false);
+						} else {
+							results.add(true);
+						}
+						break;
+					case EVENTUALLY:
+						if (links.size() > 0) {
+							for (ValueInstance linkInstance : links) {
+								if (linkInstance.getDestroyer() != null
+										&& (!traceUtil.isAfter(linkInstance.getDestroyer(), getReferencePointExecution(assertion)) || !traceUtil
+												.isAfter(linkInstance.getDestroyer(), getUntilPointExecution(assertion))))
+									results.add(true);
+								else {
+									results.add(false);
+								}
+							}
+						} else {
+							results.add(true);
+						}
+						break;
+					case IMMEDIATELY:
+						if (links.size() > 0) {
+							for (ValueInstance linkInstance : links) {
+								if (traceUtil.isAfter(linkInstance.getCreator(), getReferencePointExecution(assertion))
+										|| traceUtil.isAfter(linkInstance.getCreator(), getUntilPointExecution(assertion)))
+									results.add(true);
+								else {
+									results.add(false);
+								}
+							}
+						} else {
+							results.add(true);
+						}
+						break;
+					case SOMETIMES:
+						if (links.size() > 0) {
+							for (ValueInstance linkInstance : links) {
+								if (traceUtil.isAfter(linkInstance.getCreator(), getReferencePointExecution(assertion))
+										|| (linkInstance.getDestroyer() != null && !traceUtil.isAfter(linkInstance.getDestroyer(),
+												getUntilPointExecution(assertion))))
+									results.add(true);
+								else {
+									results.add(false);
+								}
+							}
+						} else {
+							results.add(true);
+						}
+						break;
+					}
+				} else if (propertyExpression.getOperator() == ArithmeticOperator.NOT_EQUAL) {
+					if (links.size() == 0)
+						results.add(false);
+					else
+						results.add(true);
+				}
 			}
+
 			return compileResult(results, (StateAssertion) expression.eContainer());
 		}
 		return false;
@@ -495,6 +565,15 @@ public class StateAssertionValidator {
 			referredAction = ((ActionReferencePoint) assertion.getReferencePoint()).getAction();
 		// TODO maybe here I can add constraint reference point?!
 		return (ActionExecution) traceUtil.getExecution(referredAction);
+	}
+
+	private ActionExecution getUntilPointExecution(StateAssertion assertion) {
+		Action untilAction = null;
+		if (assertion.getUntilPoint() instanceof ActionReferencePoint) {
+			untilAction = ((ActionReferencePoint) assertion.getUntilPoint()).getAction();
+		}
+		// TODO maybe here I can add constraint until point?!
+		return (ActionExecution) traceUtil.getExecution(untilAction);
 	}
 
 	/**

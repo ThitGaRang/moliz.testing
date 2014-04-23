@@ -8,7 +8,12 @@ package org.modelexecution.fumltesting.sequence.execution;
 
 import java.util.ArrayList;
 
+import org.modelexecution.fuml.Semantics.Classes.Kernel.BooleanValue;
+import org.modelexecution.fuml.Semantics.Classes.Kernel.FeatureValue;
+import org.modelexecution.fuml.Semantics.Classes.Kernel.IntegerValue;
+import org.modelexecution.fuml.Semantics.Classes.Kernel.KernelFactory;
 import org.modelexecution.fuml.Semantics.Classes.Kernel.Object;
+import org.modelexecution.fuml.Semantics.Classes.Kernel.StringValue;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
@@ -124,7 +129,6 @@ public class SequenceGenerator {
 			}
 			if (nodeExecution.getNode() instanceof AddStructuralFeatureValueAction) {
 				State state = createNewState(sequence, nodeExecution);
-				AddStructuralFeatureValueAction theAction = (AddStructuralFeatureValueAction) nodeExecution.getNode();
 				Property property = (Property) ((AddStructuralFeatureValueAction) nodeExecution.getNode()).structuralFeature;
 
 				if (property.association == null) {// attribute
@@ -171,33 +175,60 @@ public class SequenceGenerator {
 									}
 								}
 							}
-							state.getLinks().add(mapper.map((Link) link.getRuntimeValue()));
-						}
-					}
-					// add new version of output
-					for (Output output : ((ActionExecution) nodeExecution).getOutputs()) {
-						ValueSnapshot outputSnapshot = output.getOutputValues().get(0).getOutputValueSnapshot();
-						ValueInstance outputInstance = (ValueInstance) outputSnapshot.eContainer();
-						if (output.getOutputPin() == theAction.result) {
-							Object original = getLastVersion(sequence, outputInstance);
-							if (original != null) {
-								state.getObjects().remove(original);
+							org.modelexecution.fuml.Semantics.Classes.Kernel.Link mappedLink = mapper.map((Link) link.getRuntimeValue());
+
+							for (org.modelexecution.fuml.Syntax.Classes.Kernel.Property target : mappedLink.getType().getNavigableOwnedEnd()) {
+								for (org.modelexecution.fuml.Syntax.Classes.Kernel.Property source : mappedLink.getType().getOwnedEnd()) {
+									if (target != source) {
+										Object sourceObject = null;
+										FeatureValue targetFeatureValue = null;
+										for (FeatureValue featureValue : mappedLink.getFeatureValues()) {
+											if (featureValue.getFeature() == source) {
+												sourceObject = (Object) featureValue.getValues().get(0);
+											}
+											if (featureValue.getFeature() == target) {
+												targetFeatureValue = featureValue;
+											}
+										}
+
+										Object original = getLastVersion(sequence, state.getInstance(sourceObject));
+										if (original != null) {
+											state.getObjects().remove(original);
+										}
+										Object newObject = KernelFactory.eINSTANCE.createObject();
+										newObject.getTypes().addAll(original.getTypes());
+										for (FeatureValue featureValue : original.getFeatureValues()) {
+											FeatureValue newFeatureValue = KernelFactory.eINSTANCE.createFeatureValue();
+											newFeatureValue.setFeature(featureValue.getFeature());
+											newFeatureValue.setPosition(featureValue.getPosition());
+											for (org.modelexecution.fuml.Semantics.Classes.Kernel.Value oldValue : featureValue.getValues()) {
+												org.modelexecution.fuml.Semantics.Classes.Kernel.Value newValue = null;
+												if (oldValue instanceof StringValue) {
+													newValue = KernelFactory.eINSTANCE.createStringValue();
+													((StringValue) newValue).setValue(((StringValue) oldValue).getValue());
+													((StringValue) newValue).setType(((StringValue) oldValue).getType());
+												}
+												if (oldValue instanceof BooleanValue) {
+													newValue = KernelFactory.eINSTANCE.createBooleanValue();
+													((BooleanValue) newValue).setValue(((BooleanValue) oldValue).isValue());
+													((BooleanValue) newValue).setType(((BooleanValue) oldValue).getType());
+												}
+												if (oldValue instanceof IntegerValue) {
+													newValue = KernelFactory.eINSTANCE.createIntegerValue();
+													((IntegerValue) newValue).setValue(((IntegerValue) oldValue).getValue());
+													((IntegerValue) newValue).setType(((IntegerValue) oldValue).getType());
+												}
+												newFeatureValue.getValues().add(newValue);
+											}
+											newObject.getFeatureValues().add(newFeatureValue);
+										}
+
+										newObject.getFeatureValues().add(targetFeatureValue);
+										state.getObjects().add(newObject);
+										state.addSnapshotMapping(state.getInstance(sourceObject), newObject);
+									}
+								}
 							}
-							Object newObject = mapper.map((Object_) outputSnapshot.getValue());
-							state.getObjects().add(newObject);
-						}
-					}
-					// add new version input
-					for (Input input : ((ActionExecution) nodeExecution).getInputs()) {
-						ValueSnapshot snapshot = input.getInputValues().get(0).getInputValueSnapshot();
-						ValueInstance instance = (ValueInstance) snapshot.eContainer();
-						if (input.getInputPin() == theAction.value) {
-							Object originalValue = getLastVersion(sequence, instance);
-							if (originalValue != null) {
-								state.getObjects().remove(originalValue);
-							}
-							Object newValue = mapper.map((Object_) snapshot.getValue());
-							state.getObjects().add(newValue);
 						}
 					}
 				}

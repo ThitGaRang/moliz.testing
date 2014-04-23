@@ -474,5 +474,15 @@ public class StateImpl extends EObjectImpl implements State {
 	public Set<ValueInstance> getValueInstances() {
 		return this.snapshotMappings.keySet();
 	}
-	
+	/* (non-Javadoc)
+	 * @see org.modelexecution.fumltesting.sequence.State#getInstance(org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot)
+	 */
+	@Override
+	public ValueInstance getInstance(org.modelexecution.fuml.Semantics.Classes.Kernel.Object snapshot) {
+		for(ValueInstance key: snapshotMappings.keySet()){
+			if(snapshotMappings.get(key) == snapshot)
+				return key;
+		}
+		return null;
+	}
 } //StateImpl

@@ -41,7 +41,7 @@ public class FUMLModelInstance extends AbstractModelInstance implements IModelIn
 		if (object == null) {
 			throw new IllegalArgumentException("Parameter 'object' must not be null!");
 		}
-		IModelInstanceElement result = addObject(object);
+		IModelInstanceElement result = adaptObject(object);
 		if (result instanceof IModelInstanceObject) {
 			addModelInstanceObjectToCache((IModelInstanceObject) result);
 		}
@@ -65,10 +65,11 @@ public class FUMLModelInstance extends AbstractModelInstance implements IModelIn
 		throw new OperationAccessException(FUMLModelInstanceTypeMessages.FUMLModelInstance_NoSupportOfStaticOperations);
 	}
 
-	private IModelInstanceElement addObject(Object object) throws TypeNotFoundInModelException {
+	private IModelInstanceElement adaptObject(Object object) throws TypeNotFoundInModelException {
 		IModelInstanceElement result = myModelInstanceFactory.createModelInstanceElement(object);
 		if (result == null) {
-			if(object instanceof Link)return result;
+			if (object instanceof Link)
+				return result;
 			throw new TypeNotFoundInModelException(FUMLModelInstanceTypeMessages.FUMLModelInstance_ObjectDoesNoMatchToModel);
 		}
 		if (result instanceof IModelInstanceObject) {
