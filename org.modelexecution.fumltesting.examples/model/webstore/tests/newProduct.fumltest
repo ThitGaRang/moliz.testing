@@ -7,7 +7,7 @@ test newProductTest activity NewProductActivity(name="testProduct"){
 	assertOrder *, NewProductActivity.createProduct, *, NewProductActivity.setAvailable, *, 
 		NewProductActivity.setName, * , NewProductActivity.setCode, NewProductActivity.final;
 	
-	//Action: createProduct Operator: after
+	//action: createProduct operator: after
 	assertState always after action NewProductActivity.createProduct{ 
 		productResult != null;
 		check 'ProductCreated', 'NumberOfProducts';
@@ -44,7 +44,7 @@ test newProductTest activity NewProductActivity(name="testProduct"){
 		check 'ProductAvailable', 'ProductName', 'ProductCode';
 	}
 	
-	//Action: createProduct Operator: until
+	//action: createProduct operator: until
 	assertState always until action NewProductActivity.createProduct{ 
 		productResult = null;	
 		
@@ -59,7 +59,7 @@ test newProductTest activity NewProductActivity(name="testProduct"){
 		productResult = null;
 	}
 	
-	//Action: setAvailable Operator: after
+	//action: setAvailable operator: after
 	assertState always after action NewProductActivity.setAvailable{
 		productResult != null;
 		productResult::available = true;
@@ -96,7 +96,7 @@ test newProductTest activity NewProductActivity(name="testProduct"){
 		check 'ProductAvailable', 'ProductName', 'ProductCode';		
 	}
 	
-	//Action: setAvailable Operator: until
+	//action: setAvailable operator: until
 	assertState always until action NewProductActivity.setAvailable{
 		productResult::available = null;
 		productResult::name = null;
@@ -138,7 +138,7 @@ test newProductTest activity NewProductActivity(name="testProduct"){
 		check 'ProductCreated', 'NumberOfProducts', 'ProductAvailableNotSet', 'ProductNameNotSet', 'ProductCodeNotSet';		
 	}
 	
-	//Action: setName Operator: after
+	//action: setName operator: after
 	assertState always after action NewProductActivity.setName{
 		productResult != null;
 		productResult::available = true;
@@ -174,7 +174,7 @@ test newProductTest activity NewProductActivity(name="testProduct"){
 		check 'ProductCode';
 	}
 	
-	//Action: setName Operator: until
+	//action: setName operator: until
 	assertState always until action NewProductActivity.setName{
 		productResult::name = null;
 		productResult::code = null;
@@ -216,7 +216,7 @@ test newProductTest activity NewProductActivity(name="testProduct"){
 		check 'ProductAvailableNotSet';
 	}
 	
-	//Action: setCode Operator: after
+	//action: setCode operator: after
 	assertState always after action NewProductActivity.setCode{
 		productResult != null;
 		productResult::available = true;
@@ -250,7 +250,7 @@ test newProductTest activity NewProductActivity(name="testProduct"){
 		check 'ProductCreated', 'NumberOfProducts', 'ProductAvailable', 'ProductName', 'ProductCode';
 	}
 	
-	//Action: setCode Operator: until
+	//action: setCode operator: until
 	assertState always until action NewProductActivity.setCode{
 		productResult::code = null;
 		check 'ProductCodeNotSet';

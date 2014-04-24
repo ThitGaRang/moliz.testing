@@ -15,7 +15,7 @@ test newItemTest activity NewItemActivity(product=TestData.productTD, quantity=5
 	assertOrder *, NewItemActivity.createItem, *, NewItemActivity.setNumber, *, 
 		NewItemActivity.setUnitCost, NewItemActivity.setQuantity, NewItemActivity.setProduct, NewItemActivity.final;
 	
-	//Action: createItem Operator: after
+	//action: createItem operator: after
 	assertState always after action NewItemActivity.createItem{
 		item!=null;
 		check 'ItemCreated', 'NumberOfItems';
@@ -51,7 +51,7 @@ test newItemTest activity NewItemActivity(product=TestData.productTD, quantity=5
 		check 'ItemNumber', 'ItemUnitCost', 'ItemQuantity';
 	}
 	
-	//Action: createItem Operator: until
+	//action: createItem operator: until
 	assertState always until action NewItemActivity.createItem{
 		item=null;
 	}
@@ -65,7 +65,7 @@ test newItemTest activity NewItemActivity(product=TestData.productTD, quantity=5
 		item=null;
 	}
 	
-	//Action: setNumber Operator: after
+	//action: setNumber operator: after
 	assertState always after action NewItemActivity.setNumber{
 		item!=null;		
 		item::number = 12345;
@@ -100,7 +100,7 @@ test newItemTest activity NewItemActivity(product=TestData.productTD, quantity=5
 		check 'ItemUnitCost', 'ItemQuantity'; 
 	}
 	
-	//Action: setNumber Operator: until
+	//action: setNumber operator: until
 	assertState always until action NewItemActivity.setNumber{
 		item::number=null;
 		item::quantity=null;
@@ -142,7 +142,7 @@ test newItemTest activity NewItemActivity(product=TestData.productTD, quantity=5
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumberNotSet', 'ItemUnitCostNotSet', 'ItemQuantityNotSet';
 	}
 	
-	//Action: setUnitCost Operator: after
+	//action: setUnitCost operator: after
 	assertState always after action NewItemActivity.setUnitCost{
 		item!=null;
 		item::number=12345;
@@ -177,5 +177,205 @@ test newItemTest activity NewItemActivity(product=TestData.productTD, quantity=5
 		
 		item::product=TestData.productTD;
 		check 'ItemProduct';
+	}
+	
+	//action: setUnitCost operator: until
+	assertState always until action NewItemActivity.setUnitCost{
+		item::unitCost=null;
+		item::quantity=null;
+		item::product=null;		
+		check 'ItemProductNotSet', 'ItemUnitCostNotSet', 'ItemQuantityNotSet';
+	}
+	assertState always after action NewItemActivity.createItem until action NewItemActivity.setUnitCost{
+		item!=null;
+		item::unitCost=null;
+		item::quantity=null;
+		item::product=null;
+		check 'ItemCreated', 'NumberOfItems', 'ItemProductNotSet', 'ItemUnitCostNotSet', 'ItemQuantityNotSet';
+	}
+	assertState eventually until action NewItemActivity.setUnitCost{
+		item!=null;
+		item::number=12345;
+		item::unitCost=null;
+		item::quantity=null;
+		item::product=null;
+		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemProductNotSet', 'ItemUnitCostNotSet', 'ItemQuantityNotSet';
+	}
+	assertState immediately until action NewItemActivity.setUnitCost{
+		item!=null;
+		item::number=12345;
+		item::unitCost=null;
+		item::quantity=null;
+		item::product=null;
+		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemProductNotSet', 'ItemUnitCostNotSet', 'ItemQuantityNotSet';
+	}
+	assertState sometimes until action NewItemActivity.setUnitCost{
+		item!=null;
+		item::number=12345;
+		item::unitCost=null;
+		item::quantity=null;
+		item::product=null;
+		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemProductNotSet', 'ItemUnitCostNotSet', 'ItemQuantityNotSet';
+		
+		item=null;
+		item::number=null;
+		check 'ItemNumberNotSet';
+	}
+	//action: setQuantity operator: after
+	assertState always after action NewItemActivity.setQuantity{
+		item!=null;
+		item::number=12345;
+		item::unitCost=250;
+		item::quantity=5;
+		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCost', 'ItemQuantity';
+	}
+	assertState eventually after action NewItemActivity.setQuantity{
+		item!=null;
+		item::number=12345;
+		item::unitCost=250;
+		item::quantity=5;
+		item::product=TestData.productTD;
+		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCost', 'ItemQuantity', 'ItemProduct';
+	}
+	assertState immediately after action NewItemActivity.setQuantity{
+		item!=null;
+		item::number=12345;
+		item::unitCost=250;
+		item::quantity=5;
+		item::product=null;
+		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCost', 'ItemQuantity', 'ItemProductNotSet';
+	}
+	assertState sometimes after action NewItemActivity.setQuantity{
+		item!=null;
+		item::number=12345;
+		item::unitCost=250;
+		item::quantity=5;
+		item::product=null;
+		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCost', 'ItemQuantity', 'ItemProductNotSet';
+		
+		item::product=TestData.productTD;
+		check 'ItemProduct';
+	}
+	//action: setQuantity operator: until
+	assertState always until action NewItemActivity.setQuantity{
+		item::quantity=null;
+		item::product=null;
+		check 'ItemQuantityNotSet', 'ItemProductNotSet';
+	}
+	assertState always after action NewItemActivity.createItem until action NewItemActivity.setQuantity{
+		item!=null;
+		item::quantity=null;
+		item::product=null;
+		check 'ItemCreated', 'ItemQuantityNotSet', 'ItemProductNotSet';
+	}
+	assertState eventually until action NewItemActivity.setQuantity{
+		item!=null;
+		item::number=12345;
+		item::unitCost=250;
+		item::quantity=null;
+		item::product=null;
+		check 'ItemCreated', 'ItemNumber', 'ItemUnitCost', 'ItemQuantityNotSet', 'ItemProductNotSet';
+	}
+	assertState immediately until action NewItemActivity.setQuantity{
+		item!=null;
+		item::number=12345;
+		item::unitCost=250;
+		item::quantity=null;
+		item::product=null;
+		check 'ItemCreated', 'ItemNumber', 'ItemUnitCost', 'ItemQuantityNotSet', 'ItemProductNotSet';
+	}
+	assertState sometimes until action NewItemActivity.setQuantity{
+		item!=null;
+		item::number=12345;
+		item::unitCost=250;
+		item::quantity=null;
+		item::product=null;
+		check 'ItemCreated', 'ItemNumber', 'ItemUnitCost', 'ItemQuantityNotSet', 'ItemProductNotSet';
+		
+		item=null;
+		item::number=null;
+		item::unitCost=null;
+		check 'ItemNumberNotSet', 'ItemUnitCostNotSet';
+	}
+	//action: setProduct operator: after
+	assertState always after action NewItemActivity.setProduct{
+		item!=null;
+		item::number=12345;
+		item::unitCost=250;
+		item::quantity=5;
+		item::product=TestData.productTD;
+		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCost', 'ItemQuantity', 'ItemProduct';
+	}
+	assertState eventually after action NewItemActivity.setProduct{
+		item!=null;
+		item::number=12345;
+		item::unitCost=250;
+		item::quantity=5;
+		item::product=TestData.productTD;
+		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCost', 'ItemQuantity', 'ItemProduct';
+	}
+	assertState immediately after action NewItemActivity.setProduct{
+		item!=null;
+		item::number=12345;
+		item::unitCost=250;
+		item::quantity=5;
+		item::product=TestData.productTD;
+		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCost', 'ItemQuantity', 'ItemProduct';
+	}
+	assertState sometimes after action NewItemActivity.setProduct{
+		item!=null;
+		item::number=12345;
+		item::unitCost=250;
+		item::quantity=5;
+		item::product=TestData.productTD;
+		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCost', 'ItemQuantity', 'ItemProduct';
+	}
+	//action: setProduct operator: until
+	assertState always until action NewItemActivity.setProduct{
+		item::product=null;
+		check 'ItemProductNotSet';
+	}
+	assertState always after action NewItemActivity.createItem until action NewItemActivity.setProduct{
+		item::product=null;
+		check 'ItemProductNotSet';
+	}
+	assertState eventually until action NewItemActivity.setProduct{
+		item!=null;
+		item::number=12345;
+		item::unitCost=250;
+		item::quantity=5;
+		item::product=null;
+		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCost', 'ItemQuantity', 'ItemProductNotSet';
+	}
+	assertState immediately until action NewItemActivity.setProduct{
+		item!=null;
+		item::number=12345;
+		item::unitCost=250;
+		item::quantity=5;
+		item::product=null;
+		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCost', 'ItemQuantity', 'ItemProductNotSet';
+	}
+	assertState sometimes until action NewItemActivity.setProduct{
+		item!=null;
+		item::number=12345;
+		item::unitCost=250;
+		item::quantity=5;
+		item::product=null;
+		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCost', 'ItemQuantity', 'ItemProductNotSet';
+		
+		item=null;
+		item::number=null;
+		item::unitCost=null;
+		item::quantity=null;
+		check 'ItemNumberNotSet', 'ItemUnitCostNotSet', 'ItemQuantityNotSet';
+	}
+	
+	finally {
+		item!=null;
+		item::number=12345;
+		item::unitCost=250;
+		item::quantity=5;
+		item::product=TestData.productTD;
+		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCost', 'ItemQuantity', 'ItemProduct';
 	}
 }

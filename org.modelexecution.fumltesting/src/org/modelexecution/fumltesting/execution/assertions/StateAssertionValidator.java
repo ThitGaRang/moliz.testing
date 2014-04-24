@@ -451,13 +451,18 @@ public class StateAssertionValidator {
 								&& !traceUtil.isAfter(linkValueInstance.getDestroyer(), getReferencePointExecution(assertion)))
 							isRelevantLink = false;
 						if (untilPoint instanceof ActionReferencePoint) {
-							if (traceUtil.isAfter(linkValueInstance.getCreator(),
-									(ActivityNodeExecution) traceUtil.getExecution(((ActionReferencePoint) untilPoint).getAction())))
+							ActivityNodeExecution untilActionExecution = (ActivityNodeExecution) traceUtil
+									.getExecution(((ActionReferencePoint) untilPoint).getAction());
+							if (linkValueInstance.getCreator() == untilActionExecution) {
+								isRelevantLink = false;
+							} else if (traceUtil.isAfter(linkValueInstance.getCreator(), untilActionExecution))
 								isRelevantLink = false;
 						}
 						break;
 					case UNTIL:
-						if (traceUtil.isAfter(linkValueInstance.getCreator(), getReferencePointExecution(assertion)))
+						if (linkValueInstance.getCreator() == getReferencePointExecution(assertion)) {
+							isRelevantLink = false;
+						} else if (traceUtil.isAfter(linkValueInstance.getCreator(), getReferencePointExecution(assertion)))
 							isRelevantLink = false;
 						break;
 					}
@@ -505,8 +510,8 @@ public class StateAssertionValidator {
 						if (links.size() > 0) {
 							for (ValueInstance linkInstance : links) {
 								if (linkInstance.getDestroyer() != null
-										&& (!traceUtil.isAfter(linkInstance.getDestroyer(), getReferencePointExecution(assertion)) || !traceUtil
-												.isAfter(linkInstance.getDestroyer(), getUntilPointExecution(assertion))))
+										&& (!traceUtil.isAfter(linkInstance.getDestroyer(), getReferencePointExecution(assertion)) || (getUntilPointExecution(assertion) != null && !traceUtil
+												.isAfter(linkInstance.getDestroyer(), getUntilPointExecution(assertion)))))
 									results.add(true);
 								else {
 									results.add(false);
@@ -520,7 +525,8 @@ public class StateAssertionValidator {
 						if (links.size() > 0) {
 							for (ValueInstance linkInstance : links) {
 								if (traceUtil.isAfter(linkInstance.getCreator(), getReferencePointExecution(assertion))
-										|| traceUtil.isAfter(linkInstance.getCreator(), getUntilPointExecution(assertion)))
+										|| (getUntilPointExecution(assertion) != null && traceUtil.isAfter(linkInstance.getCreator(),
+												getUntilPointExecution(assertion))))
 									results.add(true);
 								else {
 									results.add(false);
@@ -534,8 +540,8 @@ public class StateAssertionValidator {
 						if (links.size() > 0) {
 							for (ValueInstance linkInstance : links) {
 								if (traceUtil.isAfter(linkInstance.getCreator(), getReferencePointExecution(assertion))
-										|| (linkInstance.getDestroyer() != null && !traceUtil.isAfter(linkInstance.getDestroyer(),
-												getUntilPointExecution(assertion))))
+										|| (linkInstance.getDestroyer() != null && getUntilPointExecution(assertion) != null && !traceUtil.isAfter(
+												linkInstance.getDestroyer(), getUntilPointExecution(assertion))))
 									results.add(true);
 								else {
 									results.add(false);
