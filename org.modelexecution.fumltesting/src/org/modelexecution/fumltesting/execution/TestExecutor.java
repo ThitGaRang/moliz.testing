@@ -162,15 +162,15 @@ public class TestExecutor {
 					e.printStackTrace();
 					return;
 				}
-				testsEvaluation();
+				testsEvaluation(file.getName().replace(".fumltest", ""));
 			}
 		}
 	}
 
-	private void testsEvaluation() {
+	private void testsEvaluation(String testName) {
 		TestSuiteResult suiteResult = new TestSuiteResult();
 		SimpleDateFormat currentTime = new SimpleDateFormat("dd.MM.yy_HH.mm.ss");
-		String testResultsFile = "results/testresults_" + currentTime.format(new Date()) + ".txt";
+		String testResultsFile = "results/testresults_" + testName + "_" + currentTime.format(new Date()) + ".txt";
 		for (int i = 0; i < suite.getTests().size(); i++) {
 			TestCase testCase = suite.getTests().get(i);
 			AssertionPrinter.print(testCase);

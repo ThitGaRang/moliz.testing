@@ -121,13 +121,14 @@ public class StateAssertionValidator {
 							Object nodeExecution = traceUtil.getExecution(((ConstraintCheck) check).getObject().getRef().eContainer());
 							context = traceUtil.getValueInstance(((ConstraintCheck) check).getObject().getRef(), nodeExecution);
 						}
+						ConstraintResult constraintResult = new ConstraintResult(name, assertion);
 						for (State state : states) {
-							boolean constraintResultInSingleState = checkConstraint(name, context, state);
+							boolean constraintResultInSingleState = checkConstraint(name, context, state);							
 							results.add(constraintResultInSingleState);
+							constraintResult.putStateResult(state, constraintResultInSingleState);
 						}
 						boolean overallResult = compileResult(results, assertion);
 						results.removeAll(results);
-						ConstraintResult constraintResult = new ConstraintResult(name, assertion);
 						constraintResult.setValidationResult(overallResult);
 						result.addConstraintResult(constraintResult);
 

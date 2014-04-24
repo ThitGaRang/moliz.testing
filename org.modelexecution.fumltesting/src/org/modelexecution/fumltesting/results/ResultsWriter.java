@@ -145,14 +145,13 @@ public class ResultsWriter {
 						writer.println("\tConstraints checked: " + stateAssertionResult.numberOfConstraintsChecked());
 						writer.println("\tConstraints failed: " + stateAssertionResult.getFailedConstraints().size());
 						for (ConstraintResult constraintResult : stateAssertionResult.getFailedConstraints()) {
-							writer.print("\t\tConstraint: " + constraintResult.getConstraint() + " failed in assertion "
-									+ constraintResult.getAssertion().getQuantifier() + " " + constraintResult.getAssertion().getOperator() + " ");
-							if (constraintResult.getAssertion().getReferencePoint() instanceof ActionReferencePoint) {
-								writer.println(((ActionReferencePoint) constraintResult.getAssertion().getReferencePoint()).getAction().getName());
+							writer.print("\t\tConstraint: " + constraintResult.getConstraint() + " State(s): ");
+							for (int count = 0; count < constraintResult.getFailedStates().size(); count++) {
+								writer.print(constraintResult.getFailedStates().get(count).getNodeExecution().getNode().name);
+								if (count < constraintResult.getFailedStates().size() - 1)
+									writer.print(", ");
 							}
-							if (constraintResult.getAssertion().getReferencePoint() instanceof ConstraintReferencePoint) {
-								writer.println(((ConstraintReferencePoint) constraintResult.getAssertion().getReferencePoint()).getConstraintName());
-							}
+							writer.println();
 						}
 					}
 					if (((StateAssertionResult) assertionResult).getFailedStateExpressions().size() > 0) {
