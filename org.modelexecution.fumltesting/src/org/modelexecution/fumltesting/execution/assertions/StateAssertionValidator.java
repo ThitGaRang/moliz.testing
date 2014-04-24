@@ -100,6 +100,12 @@ public class StateAssertionValidator {
 
 		if (assertion.getReferencePoint() instanceof ConstraintReferencePoint) {
 			System.out.println("CONSTRAINT REFERENCE POINT NOT YET SUPPORTED!");
+			// TODO implement constraint reference point
+			return result;
+		}
+		if (assertion.getUntilPoint() instanceof ConstraintReferencePoint) {
+			System.out.println("CONSTRAINT REFERENCE POINT NOT YET SUPPORTED!");
+			// TODO implement constraint reference point
 			return result;
 		}
 
@@ -335,241 +341,246 @@ public class StateAssertionValidator {
 			System.out.println("Operator <, >, <=, and => not allowed!");
 			return false;
 		}
-
 		Object_ fumlTarget = (Object_) testDataConverter.getFUMLElement(expression.getValue());
-		boolean sameType = false;
 
 		if (expression instanceof ObjectStateExpression) {
-			ArrayList<Boolean> results = new ArrayList<Boolean>();
-			for (ValueSnapshot snapshot : list) {
-				Object_ object_ = (Object_) snapshot.getValue();
-
-				// compare types
-				search: for (Class_ class_ : object_.types) {
-					for (Class_ targetClass_ : fumlTarget.types) {
-						if (class_.qualifiedName.equals(targetClass_.qualifiedName))
-							sameType = true;
-						break search;
-					}
-				}
-				if (sameType == false)
-					return false;
-
-				// compare each feature
-				for (FeatureValue featureValue : object_.featureValues) {
-					if (expression.getOperator() == ArithmeticOperator.EQUAL) {
-						for (FeatureValue targetFeatureValue : fumlTarget.featureValues) {
-							if (targetFeatureValue.feature.name.equals(featureValue.feature.name)) {
-								boolean result = compare(targetFeatureValue, featureValue);
-								results.add(result);
-							}
-						}
-					}
-					if (expression.getOperator() == ArithmeticOperator.NOT_EQUAL) {
-						for (FeatureValue targetFeatureValue : fumlTarget.featureValues) {
-							if (targetFeatureValue.feature.name.equals(featureValue.feature.name)) {
-								boolean result = compare(targetFeatureValue, featureValue) == false;
-								results.add(result);
-							}
-						}
-					}
-				}
-			}
-			return compileResult(results, (StateAssertion) expression.eContainer());
+			return processStateExpression((ObjectStateExpression) expression, list, fumlTarget);
 		}
-
 		// link validation
 		if (expression instanceof PropertyStateExpression) {
-			ArrayList<Boolean> results = new ArrayList<Boolean>();
-			List<ValueInstance> links = new ArrayList<ValueInstance>();
+			return processStateExpression((PropertyStateExpression) expression, list, fumlTarget);
+		}
+		return false;
+	}
 
-			StateAssertion assertion = (StateAssertion) expression.eContainer();
-			TemporalOperator operator = assertion.getOperator();
-			ReferencePoint untilPoint = assertion.getUntilPoint();
+	private boolean processStateExpression(ObjectStateExpression expression, List<ValueSnapshot> list, Object_ fumlTarget) {
+		boolean sameType = false;
+		ArrayList<Boolean> results = new ArrayList<Boolean>();
+		for (ValueSnapshot snapshot : list) {
+			Object_ object_ = (Object_) snapshot.getValue();
 
-			PropertyStateExpression propertyExpression = (PropertyStateExpression) expression;
-			if (propertyExpression.getProperty().getType() instanceof org.eclipse.uml2.uml.Class) {
-				Object variableAction = propertyExpression.getPin().getRef().eContainer();
-				ValueInstance source = null;
-				if (propertyExpression.getPin().getRef().eContainer() instanceof Action) {
-					ActionExecution execution = (ActionExecution) traceUtil.getExecution(variableAction);
-					if (propertyExpression.getPin().getRef() instanceof InputPin) {
-						for (Input input : execution.getInputs()) {
-							if (input.getInputPin().name.equals(propertyExpression.getPin().getRef().getName()))
-								source = (ValueInstance) ((ValueSnapshot) input.getInputValues().get(0).getInputValueSnapshot()).eContainer();
-						}
-					}
-					if (propertyExpression.getPin().getRef() instanceof OutputPin) {
-						for (Output output : execution.getOutputs()) {
-							if (output.getOutputPin().name.equals(propertyExpression.getPin().getRef().getName()))
-								source = (ValueInstance) ((ValueSnapshot) output.getOutputValues().get(0).getOutputValueSnapshot()).eContainer();
+			// compare types
+			search: for (Class_ class_ : object_.types) {
+				for (Class_ targetClass_ : fumlTarget.types) {
+					if (class_.qualifiedName.equals(targetClass_.qualifiedName))
+						sameType = true;
+					break search;
+				}
+			}
+			if (sameType == false)
+				return false;
+
+			// compare each feature
+			for (FeatureValue featureValue : object_.featureValues) {
+				if (expression.getOperator() == ArithmeticOperator.EQUAL) {
+					for (FeatureValue targetFeatureValue : fumlTarget.featureValues) {
+						if (targetFeatureValue.feature.name.equals(featureValue.feature.name)) {
+							boolean result = compare(targetFeatureValue, featureValue);
+							results.add(result);
 						}
 					}
 				}
-				if (propertyExpression.getPin().getRef().eContainer() instanceof Activity) {
-					ActivityExecution execution = (ActivityExecution) traceUtil.getExecution(variableAction);
-					ActivityParameterNode parameterNode = (ActivityParameterNode) propertyExpression.getPin().getRef();
-					if (parameterNode.getParameter().getDirection().getValue() == ParameterDirectionKind.OUT) {
-						for (OutputParameterSetting output : execution.getActivityOutputs()) {
-							if (output.getParameter().name.equals(parameterNode.getName()))
-								source = (ValueInstance) ((ValueSnapshot) output.getParameterValues().get(0).getValueSnapshot()).eContainer();
-						}
-					}
-					if (parameterNode.getParameter().getDirection().getValue() == ParameterDirectionKind.IN) {
-						for (InputParameterSetting input : execution.getActivityInputs()) {
-							if (input.getParameter().name.equals(parameterNode.getName()))
-								source = (ValueInstance) ((ValueSnapshot) input.getParameterValues().get(0).getValueSnapshot()).eContainer();
+				if (expression.getOperator() == ArithmeticOperator.NOT_EQUAL) {
+					for (FeatureValue targetFeatureValue : fumlTarget.featureValues) {
+						if (targetFeatureValue.feature.name.equals(featureValue.feature.name)) {
+							boolean result = compare(targetFeatureValue, featureValue) == false;
+							results.add(result);
 						}
 					}
 				}
+			}
+		}
+		return compileResult(results, (StateAssertion) expression.eContainer());
+	}
 
-				if (propertyExpression.getValue() instanceof SimpleValue) {
-					// this is the case where we might compare null to a link
-					SimpleValue value = (SimpleValue) propertyExpression.getValue();
-					if (!(value.getValue() instanceof XNullLiteral)) {
-						System.out.println("For links only null is allowed!");
-						return false;
+	private boolean processStateExpression(PropertyStateExpression expression, List<ValueSnapshot> list, Object_ fumlTarget) {
+		ArrayList<Boolean> results = new ArrayList<Boolean>();
+		List<ValueInstance> links = new ArrayList<ValueInstance>();
+
+		StateAssertion assertion = (StateAssertion) expression.eContainer();
+		TemporalOperator operator = assertion.getOperator();
+		ReferencePoint untilPoint = assertion.getUntilPoint();
+
+		PropertyStateExpression propertyExpression = (PropertyStateExpression) expression;
+		if (propertyExpression.getProperty().getType() instanceof org.eclipse.uml2.uml.Class) {
+			Object variableAction = propertyExpression.getPin().getRef().eContainer();
+			ValueInstance source = null;
+			if (propertyExpression.getPin().getRef().eContainer() instanceof Action) {
+				ActionExecution execution = (ActionExecution) traceUtil.getExecution(variableAction);
+				if (propertyExpression.getPin().getRef() instanceof InputPin) {
+					for (Input input : execution.getInputs()) {
+						if (input.getInputPin().name.equals(propertyExpression.getPin().getRef().getName()))
+							source = (ValueInstance) ((ValueSnapshot) input.getInputValues().get(0).getInputValueSnapshot()).eContainer();
 					}
 				}
-
-				for (ValueInstance linkValueInstance : traceUtil.getAllLinks()) {
-					Link link = (Link) linkValueInstance.getRuntimeValue();
-					boolean sourceContained = false;
-					if (link.type == UmlConverter.getInstance().getAssociation(propertyExpression.getProperty().getAssociation())) {
-						for (FeatureValue value : link.getFeatureValues()) {
-							Reference reference = (Reference) value.values.get(0);
-							for (ValueSnapshot snapshot : source.getSnapshots()) {
-								if (snapshot.getValue() == reference.referent)
-									sourceContained = true;
-							}
-						}
+				if (propertyExpression.getPin().getRef() instanceof OutputPin) {
+					for (Output output : execution.getOutputs()) {
+						if (output.getOutputPin().name.equals(propertyExpression.getPin().getRef().getName()))
+							source = (ValueInstance) ((ValueSnapshot) output.getOutputValues().get(0).getOutputValueSnapshot()).eContainer();
 					}
-					boolean isRelevantLink = true;
-					switch (operator) {
-					case AFTER:
-						if (linkValueInstance.getDestroyer() != null
-								&& !traceUtil.isAfter(linkValueInstance.getDestroyer(), getReferencePointExecution(assertion)))
-							isRelevantLink = false;
-						if (untilPoint instanceof ActionReferencePoint) {
-							ActivityNodeExecution untilActionExecution = (ActivityNodeExecution) traceUtil
-									.getExecution(((ActionReferencePoint) untilPoint).getAction());
-							if (linkValueInstance.getCreator() == untilActionExecution) {
-								isRelevantLink = false;
-							} else if (traceUtil.isAfter(linkValueInstance.getCreator(), untilActionExecution))
-								isRelevantLink = false;
-						}
-						break;
-					case UNTIL:
-						if (linkValueInstance.getCreator() == getReferencePointExecution(assertion)) {
-							isRelevantLink = false;
-						} else if (traceUtil.isAfter(linkValueInstance.getCreator(), getReferencePointExecution(assertion)))
-							isRelevantLink = false;
-						break;
+				}
+			}
+			if (propertyExpression.getPin().getRef().eContainer() instanceof Activity) {
+				ActivityExecution execution = (ActivityExecution) traceUtil.getExecution(variableAction);
+				ActivityParameterNode parameterNode = (ActivityParameterNode) propertyExpression.getPin().getRef();
+				if (parameterNode.getParameter().getDirection().getValue() == ParameterDirectionKind.OUT) {
+					for (OutputParameterSetting output : execution.getActivityOutputs()) {
+						if (output.getParameter().name.equals(parameterNode.getName()))
+							source = (ValueInstance) ((ValueSnapshot) output.getParameterValues().get(0).getValueSnapshot()).eContainer();
 					}
-					if (sourceContained && isRelevantLink) {
-						links.add(linkValueInstance);
+				}
+				if (parameterNode.getParameter().getDirection().getValue() == ParameterDirectionKind.IN) {
+					for (InputParameterSetting input : execution.getActivityInputs()) {
+						if (input.getParameter().name.equals(parameterNode.getName()))
+							source = (ValueInstance) ((ValueSnapshot) input.getParameterValues().get(0).getValueSnapshot()).eContainer();
 					}
 				}
 			}
 
-			if (fumlTarget != null) {
-				for (ValueInstance link : links) {
-					Link theLink = (Link) link.getRuntimeValue();
-					for (FeatureValue featureValue : theLink.featureValues) {
-						if (featureValue.feature.name.equals(propertyExpression.getProperty().getName())) {
-							Object_ realValue = ((Reference) featureValue.values.get(0)).referent;
-							for (FeatureValue targetValue : fumlTarget.featureValues) {
-								for (FeatureValue checkedFeature : realValue.featureValues) {
-									if (targetValue.feature.name.equals(checkedFeature.feature.name)) {
-										if (expression.getOperator() == ArithmeticOperator.EQUAL) {
-											boolean result = compare(targetValue, checkedFeature);
-											results.add(result);
-										}
-										if (expression.getOperator() == ArithmeticOperator.NOT_EQUAL) {
-											boolean result = !compare(targetValue, checkedFeature);
-											results.add(result);
-										}
+			if (propertyExpression.getValue() instanceof SimpleValue) {
+				// this is the case where we might compare null to a link
+				SimpleValue value = (SimpleValue) propertyExpression.getValue();
+				if (!(value.getValue() instanceof XNullLiteral)) {
+					System.out.println("For links only null is allowed!");
+					return false;
+				}
+			}
+
+			for (ValueInstance linkValueInstance : traceUtil.getAllLinks()) {
+				Link link = (Link) linkValueInstance.getRuntimeValue();
+				boolean sourceContained = false;
+				if (link.type == UmlConverter.getInstance().getAssociation(propertyExpression.getProperty().getAssociation())) {
+					for (FeatureValue value : link.getFeatureValues()) {
+						Reference reference = (Reference) value.values.get(0);
+						for (ValueSnapshot snapshot : source.getSnapshots()) {
+							if (snapshot.getValue() == reference.referent)
+								sourceContained = true;
+						}
+					}
+				}
+				boolean isRelevantLink = true;
+				switch (operator) {
+				case AFTER:
+					if (linkValueInstance.getDestroyer() != null
+							&& !traceUtil.isAfter(linkValueInstance.getDestroyer(), getReferencePointExecution(assertion)))
+						isRelevantLink = false;
+					if (untilPoint instanceof ActionReferencePoint) {
+						ActivityNodeExecution untilActionExecution = (ActivityNodeExecution) traceUtil
+								.getExecution(((ActionReferencePoint) untilPoint).getAction());
+						if (linkValueInstance.getCreator() == untilActionExecution) {
+							isRelevantLink = false;
+						} else if (traceUtil.isAfter(linkValueInstance.getCreator(), untilActionExecution))
+							isRelevantLink = false;
+					}
+					break;
+				case UNTIL:
+					if (linkValueInstance.getCreator() == getReferencePointExecution(assertion)) {
+						isRelevantLink = false;
+					} else if (traceUtil.isAfter(linkValueInstance.getCreator(), getReferencePointExecution(assertion)))
+						isRelevantLink = false;
+					break;
+				}
+				if (sourceContained && isRelevantLink) {
+					links.add(linkValueInstance);
+				}
+			}
+		}
+
+		if (fumlTarget != null) {
+			for (ValueInstance link : links) {
+				Link theLink = (Link) link.getRuntimeValue();
+				for (FeatureValue featureValue : theLink.featureValues) {
+					if (featureValue.feature.name.equals(propertyExpression.getProperty().getName())) {
+						Object_ realValue = ((Reference) featureValue.values.get(0)).referent;
+						for (FeatureValue targetValue : fumlTarget.featureValues) {
+							for (FeatureValue checkedFeature : realValue.featureValues) {
+								if (targetValue.feature.name.equals(checkedFeature.feature.name)) {
+									if (expression.getOperator() == ArithmeticOperator.EQUAL) {
+										boolean result = compare(targetValue, checkedFeature);
+										results.add(result);
+									}
+									if (expression.getOperator() == ArithmeticOperator.NOT_EQUAL) {
+										boolean result = !compare(targetValue, checkedFeature);
+										results.add(result);
 									}
 								}
 							}
 						}
 					}
 				}
-			} else {
-				TemporalQuantifier quantifier = ((StateAssertion) expression.eContainer()).getQuantifier();
-				if (propertyExpression.getOperator() == ArithmeticOperator.EQUAL) {
-					switch (quantifier) {
-					case ALWAYS:
-						if (links.size() > 0) {
-							results.add(false);
-						} else {
-							results.add(true);
-						}
-						break;
-					case EVENTUALLY:
-						if (links.size() > 0) {
-							for (ValueInstance linkInstance : links) {
-								if (linkInstance.getDestroyer() != null
-										&& (!traceUtil.isAfter(linkInstance.getDestroyer(), getReferencePointExecution(assertion)) || (getUntilPointExecution(assertion) != null && !traceUtil
-												.isAfter(linkInstance.getDestroyer(), getUntilPointExecution(assertion)))))
-									results.add(true);
-								else {
-									results.add(false);
-								}
-							}
-						} else {
-							results.add(true);
-						}
-						break;
-					case IMMEDIATELY:
-						if (links.size() > 0) {
-							for (ValueInstance linkInstance : links) {
-								if (traceUtil.isAfter(linkInstance.getCreator(), getReferencePointExecution(assertion))
-										|| (getUntilPointExecution(assertion) != null && traceUtil.isAfter(linkInstance.getCreator(),
-												getUntilPointExecution(assertion))))
-									results.add(true);
-								else {
-									results.add(false);
-								}
-							}
-						} else {
-							results.add(true);
-						}
-						break;
-					case SOMETIMES:
-						if (links.size() > 0) {
-							for (ValueInstance linkInstance : links) {
-								if (traceUtil.isAfter(linkInstance.getCreator(), getReferencePointExecution(assertion))
-										|| (linkInstance.getDestroyer() != null && getUntilPointExecution(assertion) != null && !traceUtil.isAfter(
-												linkInstance.getDestroyer(), getUntilPointExecution(assertion))))
-									results.add(true);
-								else {
-									results.add(false);
-								}
-							}
-						} else {
-							results.add(true);
-						}
-						break;
-					}
-				} else if (propertyExpression.getOperator() == ArithmeticOperator.NOT_EQUAL) {
-					if (links.size() == 0)
-						results.add(false);
-					else
-						results.add(true);
-				}
 			}
-
-			return compileResult(results, (StateAssertion) expression.eContainer());
+		} else {
+			TemporalQuantifier quantifier = ((StateAssertion) expression.eContainer()).getQuantifier();
+			if (propertyExpression.getOperator() == ArithmeticOperator.EQUAL) {
+				switch (quantifier) {
+				case ALWAYS:
+					if (links.size() > 0) {
+						results.add(false);
+					} else {
+						results.add(true);
+					}
+					break;
+				case EVENTUALLY:
+					if (links.size() > 0) {
+						for (ValueInstance linkInstance : links) {
+							if (linkInstance.getDestroyer() != null
+									&& (!traceUtil.isAfter(linkInstance.getDestroyer(), getReferencePointExecution(assertion)) || (getUntilPointExecution(assertion) != null && !traceUtil
+											.isAfter(linkInstance.getDestroyer(), getUntilPointExecution(assertion)))))
+								results.add(true);
+							else {
+								results.add(false);
+							}
+						}
+					} else {
+						results.add(true);
+					}
+					break;
+				case IMMEDIATELY:
+					if (links.size() > 0) {
+						for (ValueInstance linkInstance : links) {
+							if (traceUtil.isAfter(linkInstance.getCreator(), getReferencePointExecution(assertion))
+									|| (getUntilPointExecution(assertion) != null && traceUtil.isAfter(linkInstance.getCreator(),
+											getUntilPointExecution(assertion))))
+								results.add(true);
+							else {
+								results.add(false);
+							}
+						}
+					} else {
+						results.add(true);
+					}
+					break;
+				case SOMETIMES:
+					if (links.size() > 0) {
+						for (ValueInstance linkInstance : links) {
+							if (traceUtil.isAfter(linkInstance.getCreator(), getReferencePointExecution(assertion))
+									|| (linkInstance.getDestroyer() != null && getUntilPointExecution(assertion) != null && !traceUtil.isAfter(
+											linkInstance.getDestroyer(), getUntilPointExecution(assertion))))
+								results.add(true);
+							else {
+								results.add(false);
+							}
+						}
+					} else {
+						results.add(true);
+					}
+					break;
+				}
+			} else if (propertyExpression.getOperator() == ArithmeticOperator.NOT_EQUAL) {
+				if (links.size() == 0)
+					results.add(false);
+				else
+					results.add(true);
+			}
 		}
-		return false;
+		return compileResult(results, (StateAssertion) expression.eContainer());
 	}
 
 	private ActionExecution getReferencePointExecution(StateAssertion assertion) {
 		Action referredAction = null;
 		if (assertion.getReferencePoint() instanceof ActionReferencePoint)
 			referredAction = ((ActionReferencePoint) assertion.getReferencePoint()).getAction();
-		// TODO maybe here I can add constraint reference point?!
+		// TODO add reference action according to constraint here
 		return (ActionExecution) traceUtil.getExecution(referredAction);
 	}
 
@@ -578,7 +589,7 @@ public class StateAssertionValidator {
 		if (assertion.getUntilPoint() instanceof ActionReferencePoint) {
 			untilAction = ((ActionReferencePoint) assertion.getUntilPoint()).getAction();
 		}
-		// TODO maybe here I can add constraint until point?!
+		// TODO add reference action according to constraint here
 		return (ActionExecution) traceUtil.getExecution(untilAction);
 	}
 
