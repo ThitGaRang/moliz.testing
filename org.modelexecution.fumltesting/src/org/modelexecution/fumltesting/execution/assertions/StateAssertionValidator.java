@@ -7,7 +7,6 @@
 package org.modelexecution.fumltesting.execution.assertions;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.eclipse.uml2.uml.Action;
@@ -41,7 +40,6 @@ import org.modelexecution.fumltesting.testLang.ActionReferencePoint;
 import org.modelexecution.fumltesting.testLang.ArithmeticOperator;
 import org.modelexecution.fumltesting.testLang.Check;
 import org.modelexecution.fumltesting.testLang.ConstraintCheck;
-import org.modelexecution.fumltesting.testLang.ConstraintReferencePoint;
 import org.modelexecution.fumltesting.testLang.FinallyStateAssertion;
 import org.modelexecution.fumltesting.testLang.ObjectStateExpression;
 import org.modelexecution.fumltesting.testLang.ObjectValue;
@@ -52,12 +50,11 @@ import org.modelexecution.fumltesting.testLang.StateAssertion;
 import org.modelexecution.fumltesting.testLang.StateExpression;
 import org.modelexecution.fumltesting.testLang.TemporalOperator;
 import org.modelexecution.fumltesting.testLang.TemporalQuantifier;
+import org.modelexecution.fumltesting.testLang.TestCase;
 import org.modelexecution.fumltesting.testLang.TestLangFactory;
 import org.modelexecution.fumltesting.trace.SnapshotUtil;
 import org.modelexecution.fumltesting.trace.TraceUtil;
 
-import tudresden.ocl20.pivot.modelinstance.IModelInstance;
-import tudresden.ocl20.pivot.modelinstancetype.exception.TypeNotFoundInModelException;
 import UMLPrimitiveTypes.UnlimitedNatural;
 import fUML.Semantics.Classes.Kernel.BooleanValue;
 import fUML.Semantics.Classes.Kernel.FeatureValue;
@@ -84,30 +81,26 @@ public class StateAssertionValidator {
 	private TraceUtil traceUtil;
 	/** Utility class for managing a concrete value instance from an expression. */
 	private SnapshotUtil snapshotUtil;
-	/** Hash map of adapted states for the OCL interpreter. */
-	private HashMap<State, IModelInstance> adaptedStates;
+
+	/**
+	 * Action execution corresponding to reference and until point specified in
+	 * state assertion.
+	 */
+	private ActionExecution referenceActionExecution;
+	private ActionExecution untilActionExecution;
 
 	public StateAssertionValidator(TraceUtil traceUtil) {
 		testDataConverter = TestDataConverter.getInstance();
 		this.traceUtil = traceUtil;
 		snapshotUtil = new SnapshotUtil(traceUtil);
-		adaptedStates = new HashMap<State, IModelInstance>();
 	}
 
 	public StateAssertionResult check(StateAssertion assertion) {
 		AssertionPrinter.printStateAssertion(assertion);
 		StateAssertionResult result = new StateAssertionResult(assertion);
 
-		if (assertion.getReferencePoint() instanceof ConstraintReferencePoint) {
-			System.out.println("CONSTRAINT REFERENCE POINT NOT YET SUPPORTED!");
-			// TODO implement constraint reference point
-			return result;
-		}
-		if (assertion.getUntilPoint() instanceof ConstraintReferencePoint) {
-			System.out.println("CONSTRAINT REFERENCE POINT NOT YET SUPPORTED!");
-			// TODO implement constraint reference point
-			return result;
-		}
+		referenceActionExecution = traceUtil.getReferenceActionExecution(assertion);
+		untilActionExecution = traceUtil.getUntilActionExecution(assertion);
 
 		if (assertion.getChecks() != null && assertion.getChecks().size() > 0) {
 			List<State> states = traceUtil.getStates(assertion);
@@ -123,7 +116,7 @@ public class StateAssertionValidator {
 						}
 						ConstraintResult constraintResult = new ConstraintResult(name, assertion);
 						for (State state : states) {
-							boolean constraintResultInSingleState = checkConstraint(name, context, state);							
+							boolean constraintResultInSingleState = OclExecutor.getInstance().checkConstraint(name, context, state);
 							results.add(constraintResultInSingleState);
 							constraintResult.putStateResult(state, constraintResultInSingleState);
 						}
@@ -153,6 +146,7 @@ public class StateAssertionValidator {
 	}
 
 	public StateAssertionResult check(FinallyStateAssertion assertion) {
+		System.out.println("Finally state assertion validation..");
 		StateAssertion stateAssertion = TestLangFactory.eINSTANCE.createStateAssertion();
 
 		stateAssertion.setQuantifier(TemporalQuantifier.ALWAYS);
@@ -160,41 +154,14 @@ public class StateAssertionValidator {
 
 		ActionReferencePoint point = TestLangFactory.eINSTANCE.createActionReferencePoint();
 		point.setAction((Action) traceUtil.getLastExecutedAction());
-
 		stateAssertion.setReferencePoint(point);
 
 		stateAssertion.getChecks().addAll(assertion.getChecks());
+		// add the replacement state assertion instead of the finally assertion
+		((TestCase) assertion.eContainer()).getAssertions().add(stateAssertion);
+		((TestCase) assertion.eContainer()).getAssertions().remove(assertion);
+
 		return check(stateAssertion);
-	}
-
-	private boolean checkConstraint(String constraintName, ValueInstance contextObject, State state) {
-		IModelInstance modelInstance = null;
-		org.modelexecution.fuml.Semantics.Classes.Kernel.Object contextObjectSnapshot = state.getStateSnapshot(contextObject);
-
-		if (adaptedStates.containsKey(state)) {
-			modelInstance = adaptedStates.get(state);
-		} else {
-			modelInstance = OclExecutor.getInstance().getEmptyModelInstance();
-			try {
-				ArrayList<org.modelexecution.fuml.Semantics.Classes.Kernel.Object> objects = new ArrayList<org.modelexecution.fuml.Semantics.Classes.Kernel.Object>();
-				objects.addAll(state.getObjects());
-
-				ArrayList<org.modelexecution.fuml.Semantics.Classes.Kernel.Link> links = new ArrayList<org.modelexecution.fuml.Semantics.Classes.Kernel.Link>();
-				links.addAll(state.getLinks());
-
-				for (org.modelexecution.fuml.Semantics.Classes.Kernel.Object object : objects) {
-					modelInstance.addModelInstanceElement(object);
-				}
-				for (org.modelexecution.fuml.Semantics.Classes.Kernel.Link link : links) {
-					modelInstance.addModelInstanceElement(link);
-				}
-				adaptedStates.put(state, modelInstance);
-			} catch (TypeNotFoundInModelException e) {
-				e.printStackTrace();
-			}
-		}
-		boolean validationResult = OclExecutor.getInstance().evaluateConstraint(constraintName, contextObjectSnapshot, modelInstance);
-		return validationResult;
 	}
 
 	private StateExpressionResult checkExpression(StateExpression expression) {
@@ -462,8 +429,7 @@ public class StateAssertionValidator {
 				boolean isRelevantLink = true;
 				switch (operator) {
 				case AFTER:
-					if (linkValueInstance.getDestroyer() != null
-							&& !traceUtil.isAfter(linkValueInstance.getDestroyer(), getReferencePointExecution(assertion)))
+					if (linkValueInstance.getDestroyer() != null && !traceUtil.isAfter(linkValueInstance.getDestroyer(), referenceActionExecution))
 						isRelevantLink = false;
 					if (untilPoint instanceof ActionReferencePoint) {
 						ActivityNodeExecution untilActionExecution = (ActivityNodeExecution) traceUtil
@@ -475,9 +441,9 @@ public class StateAssertionValidator {
 					}
 					break;
 				case UNTIL:
-					if (linkValueInstance.getCreator() == getReferencePointExecution(assertion)) {
+					if (linkValueInstance.getCreator() == referenceActionExecution) {
 						isRelevantLink = false;
-					} else if (traceUtil.isAfter(linkValueInstance.getCreator(), getReferencePointExecution(assertion)))
+					} else if (traceUtil.isAfter(linkValueInstance.getCreator(), referenceActionExecution))
 						isRelevantLink = false;
 					break;
 				}
@@ -525,8 +491,8 @@ public class StateAssertionValidator {
 					if (links.size() > 0) {
 						for (ValueInstance linkInstance : links) {
 							if (linkInstance.getDestroyer() != null
-									&& (!traceUtil.isAfter(linkInstance.getDestroyer(), getReferencePointExecution(assertion)) || (getUntilPointExecution(assertion) != null && !traceUtil
-											.isAfter(linkInstance.getDestroyer(), getUntilPointExecution(assertion)))))
+									&& (!traceUtil.isAfter(linkInstance.getDestroyer(), referenceActionExecution) || (untilActionExecution != null && !traceUtil
+											.isAfter(linkInstance.getDestroyer(), untilActionExecution))))
 								results.add(true);
 							else {
 								results.add(false);
@@ -539,9 +505,8 @@ public class StateAssertionValidator {
 				case IMMEDIATELY:
 					if (links.size() > 0) {
 						for (ValueInstance linkInstance : links) {
-							if (traceUtil.isAfter(linkInstance.getCreator(), getReferencePointExecution(assertion))
-									|| (getUntilPointExecution(assertion) != null && traceUtil.isAfter(linkInstance.getCreator(),
-											getUntilPointExecution(assertion))))
+							if (traceUtil.isAfter(linkInstance.getCreator(), referenceActionExecution)
+									|| (untilActionExecution != null && traceUtil.isAfter(linkInstance.getCreator(), untilActionExecution)))
 								results.add(true);
 							else {
 								results.add(false);
@@ -554,9 +519,9 @@ public class StateAssertionValidator {
 				case SOMETIMES:
 					if (links.size() > 0) {
 						for (ValueInstance linkInstance : links) {
-							if (traceUtil.isAfter(linkInstance.getCreator(), getReferencePointExecution(assertion))
-									|| (linkInstance.getDestroyer() != null && getUntilPointExecution(assertion) != null && !traceUtil.isAfter(
-											linkInstance.getDestroyer(), getUntilPointExecution(assertion))))
+							if (traceUtil.isAfter(linkInstance.getCreator(), referenceActionExecution)
+									|| (linkInstance.getDestroyer() != null && untilActionExecution != null && !traceUtil.isAfter(
+											linkInstance.getDestroyer(), untilActionExecution)))
 								results.add(true);
 							else {
 								results.add(false);
@@ -575,23 +540,6 @@ public class StateAssertionValidator {
 			}
 		}
 		return compileResult(results, (StateAssertion) expression.eContainer());
-	}
-
-	private ActionExecution getReferencePointExecution(StateAssertion assertion) {
-		Action referredAction = null;
-		if (assertion.getReferencePoint() instanceof ActionReferencePoint)
-			referredAction = ((ActionReferencePoint) assertion.getReferencePoint()).getAction();
-		// TODO add reference action according to constraint here
-		return (ActionExecution) traceUtil.getExecution(referredAction);
-	}
-
-	private ActionExecution getUntilPointExecution(StateAssertion assertion) {
-		Action untilAction = null;
-		if (assertion.getUntilPoint() instanceof ActionReferencePoint) {
-			untilAction = ((ActionReferencePoint) assertion.getUntilPoint()).getAction();
-		}
-		// TODO add reference action according to constraint here
-		return (ActionExecution) traceUtil.getExecution(untilAction);
 	}
 
 	/**

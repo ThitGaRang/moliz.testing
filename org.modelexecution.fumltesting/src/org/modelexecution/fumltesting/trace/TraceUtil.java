@@ -16,6 +16,7 @@ import org.eclipse.uml2.uml.ActivityParameterNode;
 import org.eclipse.uml2.uml.InputPin;
 import org.eclipse.uml2.uml.ObjectNode;
 import org.eclipse.uml2.uml.OutputPin;
+import org.eclipse.xtext.xbase.XStringLiteral;
 import org.modelexecution.fumldebug.core.ExecutionContext;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
@@ -28,13 +29,16 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.OutputParameterSetting
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 import org.modelexecution.fumltesting.convert.UmlConverter;
+import org.modelexecution.fumltesting.execution.OclExecutor;
 import org.modelexecution.fumltesting.parallelism.ExecutionPathFinder;
 import org.modelexecution.fumltesting.sequence.Sequence;
 import org.modelexecution.fumltesting.sequence.SequenceTrace;
 import org.modelexecution.fumltesting.sequence.State;
 import org.modelexecution.fumltesting.sequence.execution.SequenceGenerator;
 import org.modelexecution.fumltesting.testLang.ActionReferencePoint;
+import org.modelexecution.fumltesting.testLang.ConstraintReferencePoint;
 import org.modelexecution.fumltesting.testLang.StateAssertion;
+import org.modelexecution.fumltesting.testLang.TestCase;
 
 import fUML.Semantics.Classes.Kernel.Link;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNodeList;
@@ -45,6 +49,7 @@ import fUML.Syntax.Activities.IntermediateActivities.ActivityNodeList;
  * @author Stefan Mijatov
  * 
  */
+@SuppressWarnings("restriction")
 public class TraceUtil {
 	/** Trace of an activity execution. */
 	private Trace trace;
@@ -86,34 +91,6 @@ public class TraceUtil {
 				return execution.getActivityExecutionID();
 		}
 		return id;
-	}
-
-	/**
-	 * Generates flat list of all executed nodes, from main activity and all
-	 * nested activities.
-	 */
-	private void generateExecutionOrderList(List<ActivityNodeExecution> nodes) {
-		for (ActivityNodeExecution exe : nodes) {
-			executedNodes.add(exe);
-			if (exe instanceof CallActionExecution) {
-				if (((CallActionExecution) exe).getCallee() != null)
-					generateExecutionOrderList(((CallActionExecution) exe).getCallee().getNodeExecutions());
-			}
-		}
-	}
-
-	/**
-	 * Returns a flat list of all executed nodes, from main activity and any
-	 * nested inside it.
-	 */
-	private List<ActivityNodeExecution> initializeExecutedNodesList(int activityExecutionID) {
-		ActivityExecution activityExecution = trace.getActivityExecutionByID(activityExecutionID);
-		List<ActivityNodeExecution> nodeExecutions = activityExecution.getNodeExecutions();
-		if (executedNodesListGenerated == false) {
-			generateExecutionOrderList(nodeExecutions);
-			executedNodesListGenerated = true;
-		}
-		return executedNodes;
 	}
 
 	/**
@@ -215,35 +192,20 @@ public class TraceUtil {
 		return lastAction;
 	}
 
-	private ActivityNodeExecution lastAction(ActivityNodeExecution lastNode) {
-		if (lastNode.getNode() instanceof fUML.Syntax.Actions.BasicActions.Action)
-			return lastNode;
-		if (lastNode.getChronologicalPredecessor() == null) {
-			System.out.println("No action in the trace found!");
-			return null;
-		}
-		return lastAction(lastNode.getChronologicalPredecessor());
-	}
-
 	public List<State> getStates(StateAssertion assertion) {
-		Action referredAction = null;
-		if (assertion.getReferencePoint() instanceof ActionReferencePoint)
-			referredAction = ((ActionReferencePoint) assertion.getReferencePoint()).getAction();
-
-		ActionExecution nodeExecution = (ActionExecution) getExecution(referredAction);
+		ActionExecution referredActionExecution = getReferenceActionExecution(assertion);
+		ActionExecution untilActionExecution = getUntilActionExecution(assertion);
 
 		List<State> states = new ArrayList<State>();
 		for (Sequence sequence : sTrace.getSequences()) {
-			if (sequence.getActivityExecution() == nodeExecution.getActivityExecution()) {
+			if (sequence.getActivityExecution() == referredActionExecution.getActivityExecution()) {
 				for (State state : sequence.getStates()) {
-					if (state.getNodeExecution() == nodeExecution) {
+					if (state.getNodeExecution() == referredActionExecution) {
 						switch (assertion.getOperator()) {
 						case AFTER:
 							while (state != null) {
-								if (assertion.getUntilPoint() != null && assertion.getUntilPoint() instanceof ActionReferencePoint) {
-									Action untilAction = ((ActionReferencePoint) assertion.getUntilPoint()).getAction();
-									if (untilAction == UmlConverter.getInstance().getOriginal(state.getNodeExecution().getNode()))
-										break;
+								if (untilActionExecution != null && untilActionExecution == state.getNodeExecution()) {
+									break;
 								}
 								states.add(state);
 								state = state.getSuccessor();
@@ -263,6 +225,58 @@ public class TraceUtil {
 		return states;
 	}
 
+	public ActionExecution getReferenceActionExecution(StateAssertion assertion) {
+		ActionExecution referenceActionExecution = null;
+		Activity activityUnderTest = ((TestCase) assertion.eContainer()).getActivityUnderTest();
+		fUML.Syntax.Activities.IntermediateActivities.Activity convertedActivity = UmlConverter.getInstance().getActivity(activityUnderTest);
+
+		if (assertion.getReferencePoint() instanceof ActionReferencePoint)
+			referenceActionExecution = (ActionExecution) getExecution(((ActionReferencePoint) assertion.getReferencePoint()).getAction());
+
+		if (assertion.getReferencePoint() instanceof ConstraintReferencePoint) {
+			String constraintRefPoint = ((XStringLiteral) ((ConstraintReferencePoint) assertion.getReferencePoint()).getConstraintName()).getValue();
+			for (Sequence sequence : sTrace.getSequences()) {
+				if (sequence.getActivityExecution().getActivity() == convertedActivity) {
+					for (State state : sequence.getStates()) {
+						boolean result = OclExecutor.getInstance().checkConstraint(constraintRefPoint, null, state);
+						if (result) {
+							referenceActionExecution = (ActionExecution) state.getNodeExecution();
+							break;
+						}
+					}
+				}
+			}
+		}
+		return referenceActionExecution;
+	}
+
+	public ActionExecution getUntilActionExecution(StateAssertion assertion) {
+		ActionExecution untilActionExecution = null;
+		Activity activityUnderTest = ((TestCase) assertion.eContainer()).getActivityUnderTest();
+		fUML.Syntax.Activities.IntermediateActivities.Activity convertedActivity = UmlConverter.getInstance().getActivity(activityUnderTest);
+
+		if (assertion.getUntilPoint() != null && assertion.getUntilPoint() instanceof ActionReferencePoint)
+			untilActionExecution = (ActionExecution) getExecution(((ActionReferencePoint) assertion.getUntilPoint()).getAction());
+
+		if (assertion.getUntilPoint() instanceof ConstraintReferencePoint) {
+			String constraintUntilPoint = ((XStringLiteral) ((ConstraintReferencePoint) assertion.getUntilPoint()).getConstraintName()).getValue();
+			for (Sequence sequence : sTrace.getSequences()) {
+				if (sequence.getActivityExecution().getActivity() == convertedActivity) {
+					for (State state : sequence.getStates()) {
+						if (isAfter(getReferenceActionExecution(assertion), state.getNodeExecution()))
+							continue;
+						boolean result = OclExecutor.getInstance().checkConstraint(constraintUntilPoint, null, state);
+						if (result) {
+							untilActionExecution = (ActionExecution) state.getNodeExecution();
+							break;
+						}
+					}
+				}
+			}
+		}
+		return untilActionExecution;
+	}
+
 	public ArrayList<ArrayList<ActivityNodeExecution>> getAllPaths() {
 		return pathFinder.getAllPaths();
 	}
@@ -270,6 +284,16 @@ public class TraceUtil {
 	public ActivityNodeExecution getLastExecutedNode(ActivityNodeExecution nodeExecution) {
 		ActivityNodeList nodes = nodeExecution.getNode().activity.node;
 		return getLastNode(nodeExecution, nodes);
+	}
+
+	private ActivityNodeExecution lastAction(ActivityNodeExecution lastNode) {
+		if (lastNode.getNode() instanceof fUML.Syntax.Actions.BasicActions.Action)
+			return lastNode;
+		if (lastNode.getChronologicalPredecessor() == null) {
+			System.out.println("No action in the trace found!");
+			return null;
+		}
+		return lastAction(lastNode.getChronologicalPredecessor());
 	}
 
 	private ActivityNodeExecution getLastNode(ActivityNodeExecution nodeExecution, ActivityNodeList nodeList) {
@@ -284,5 +308,33 @@ public class TraceUtil {
 			return nodeExecution.getChronologicalSuccessor();
 		}
 		return getLastNode(nodeExecution.getChronologicalSuccessor(), nodeList);
+	}
+
+	/**
+	 * Returns a flat list of all executed nodes, from main activity and any
+	 * nested inside it.
+	 */
+	private List<ActivityNodeExecution> initializeExecutedNodesList(int activityExecutionID) {
+		ActivityExecution activityExecution = trace.getActivityExecutionByID(activityExecutionID);
+		List<ActivityNodeExecution> nodeExecutions = activityExecution.getNodeExecutions();
+		if (executedNodesListGenerated == false) {
+			generateExecutionOrderList(nodeExecutions);
+			executedNodesListGenerated = true;
+		}
+		return executedNodes;
+	}
+
+	/**
+	 * Generates flat list of all executed nodes, from main activity and all
+	 * nested activities.
+	 */
+	private void generateExecutionOrderList(List<ActivityNodeExecution> nodes) {
+		for (ActivityNodeExecution exe : nodes) {
+			executedNodes.add(exe);
+			if (exe instanceof CallActionExecution) {
+				if (((CallActionExecution) exe).getCallee() != null)
+					generateExecutionOrderList(((CallActionExecution) exe).getCallee().getNodeExecutions());
+			}
+		}
 	}
 }
