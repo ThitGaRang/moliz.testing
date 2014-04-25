@@ -29,6 +29,7 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.OutputParameterSetting
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 import org.modelexecution.fumltesting.convert.UmlConverter;
+import org.modelexecution.fumltesting.exceptions.ConstraintNotFoundException;
 import org.modelexecution.fumltesting.execution.OclExecutor;
 import org.modelexecution.fumltesting.parallelism.ExecutionPathFinder;
 import org.modelexecution.fumltesting.sequence.Sequence;
@@ -192,7 +193,7 @@ public class TraceUtil {
 		return lastAction;
 	}
 
-	public List<State> getStates(StateAssertion assertion) {
+	public List<State> getStates(StateAssertion assertion) throws ConstraintNotFoundException {
 		ActionExecution referredActionExecution = getReferenceActionExecution(assertion);
 		ActionExecution untilActionExecution = getUntilActionExecution(assertion);
 
@@ -225,7 +226,7 @@ public class TraceUtil {
 		return states;
 	}
 
-	public ActionExecution getReferenceActionExecution(StateAssertion assertion) {
+	public ActionExecution getReferenceActionExecution(StateAssertion assertion) throws ConstraintNotFoundException {
 		ActionExecution referenceActionExecution = null;
 		Activity activityUnderTest = ((TestCase) assertion.eContainer()).getActivityUnderTest();
 		fUML.Syntax.Activities.IntermediateActivities.Activity convertedActivity = UmlConverter.getInstance().getActivity(activityUnderTest);
@@ -250,7 +251,7 @@ public class TraceUtil {
 		return referenceActionExecution;
 	}
 
-	public ActionExecution getUntilActionExecution(StateAssertion assertion) {
+	public ActionExecution getUntilActionExecution(StateAssertion assertion) throws ConstraintNotFoundException {
 		ActionExecution untilActionExecution = null;
 		Activity activityUnderTest = ((TestCase) assertion.eContainer()).getActivityUnderTest();
 		fUML.Syntax.Activities.IntermediateActivities.Activity convertedActivity = UmlConverter.getInstance().getActivity(activityUnderTest);

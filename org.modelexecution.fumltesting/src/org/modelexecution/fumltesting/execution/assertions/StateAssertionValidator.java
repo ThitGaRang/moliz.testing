@@ -31,6 +31,7 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot;
 import org.modelexecution.fumltesting.convert.TestDataConverter;
 import org.modelexecution.fumltesting.convert.UmlConverter;
+import org.modelexecution.fumltesting.exceptions.ConstraintNotFoundException;
 import org.modelexecution.fumltesting.execution.OclExecutor;
 import org.modelexecution.fumltesting.results.ConstraintResult;
 import org.modelexecution.fumltesting.results.StateAssertionResult;
@@ -98,12 +99,19 @@ public class StateAssertionValidator {
 	public StateAssertionResult check(StateAssertion assertion) {
 		AssertionPrinter.printStateAssertion(assertion);
 		StateAssertionResult result = new StateAssertionResult(assertion);
+		List<State> states = new ArrayList<State>();
 
-		referenceActionExecution = traceUtil.getReferenceActionExecution(assertion);
-		untilActionExecution = traceUtil.getUntilActionExecution(assertion);
+		try {
+			referenceActionExecution = traceUtil.getReferenceActionExecution(assertion);
+			untilActionExecution = traceUtil.getUntilActionExecution(assertion);
+			states = traceUtil.getStates(assertion);
+		} catch (ConstraintNotFoundException e) {
+			System.out.println(e.getMessage());
+			result.setError(e.getMessage());
+			return result;
+		}
 
 		if (assertion.getChecks() != null && assertion.getChecks().size() > 0) {
-			List<State> states = traceUtil.getStates(assertion);
 			for (Check check : assertion.getChecks()) {
 				if (check instanceof ConstraintCheck) {
 					ArrayList<Boolean> results = new ArrayList<Boolean>();
@@ -116,7 +124,15 @@ public class StateAssertionValidator {
 						}
 						ConstraintResult constraintResult = new ConstraintResult(name, assertion);
 						for (State state : states) {
-							boolean constraintResultInSingleState = OclExecutor.getInstance().checkConstraint(name, context, state);
+							boolean constraintResultInSingleState = false;
+							try {
+								constraintResultInSingleState = OclExecutor.getInstance().checkConstraint(name, context, state);
+							} catch (ConstraintNotFoundException e) {
+								System.out.println(e.getMessage());
+								result.setError(e.getMessage());
+								constraintResult.setValidationResult(false);
+								return result;
+							}
 							results.add(constraintResultInSingleState);
 							constraintResult.putStateResult(state, constraintResultInSingleState);
 						}
@@ -166,7 +182,7 @@ public class StateAssertionValidator {
 
 	private StateExpressionResult checkExpression(StateExpression expression) {
 		StateExpressionResult result = new StateExpressionResult(expression);
-		ArrayList<ValueSnapshot> list = snapshotUtil.getRelevantSnapshots(expression);
+		ArrayList<ValueSnapshot> list = snapshotUtil.getRelevantSnapshots(expression, referenceActionExecution, untilActionExecution);
 
 		if (expression.getValue() instanceof SimpleValue) {
 			// special case

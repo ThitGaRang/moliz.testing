@@ -13,6 +13,7 @@ import java.util.List;
 
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Package;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
+import org.modelexecution.fumltesting.exceptions.ConstraintNotFoundException;
 import org.modelexecution.fumltesting.ocl.internal.model.FUMLClass;
 import org.modelexecution.fumltesting.ocl.internal.provider.FUMLModelInstanceProvider;
 import org.modelexecution.fumltesting.ocl.internal.provider.FUMLModelProvider;
@@ -80,7 +81,7 @@ public class OclExecutor {
 		return modelInstanceProvider.createEmptyModelInstance(modelProvider.getModel());
 	}
 
-	public boolean checkConstraint(String constraintName, ValueInstance contextObject, State state) {
+	public boolean checkConstraint(String constraintName, ValueInstance contextObject, State state) throws ConstraintNotFoundException {
 		IModelInstance modelInstance = null;
 		org.modelexecution.fuml.Semantics.Classes.Kernel.Object contextObjectSnapshot = state.getStateSnapshot(contextObject);
 
@@ -111,7 +112,7 @@ public class OclExecutor {
 	}
 
 	private boolean evaluateConstraint(String constraintName, org.modelexecution.fuml.Semantics.Classes.Kernel.Object contextObject,
-			IModelInstance modelInstance) {
+			IModelInstance modelInstance) throws ConstraintNotFoundException {
 		Constraint constraint = null;
 		boolean result = false;
 
@@ -121,7 +122,8 @@ public class OclExecutor {
 				break;
 			}
 		}
-
+		if (constraint == null)
+			throw new ConstraintNotFoundException("Constraint " + constraintName + " not found!");
 		if (constraint != null) {
 			// TODO continue implementing constraint checking
 			System.out.println("Checking constraint..\n" + constraint.getSpecification().getBody().trim());
@@ -146,10 +148,7 @@ public class OclExecutor {
 					}
 				}
 			}
-		} else {
-			System.out.println("Constraint " + constraintName + " not found!");
 		}
-
 		return result;
 	}
 

@@ -15,6 +15,8 @@ import org.modelexecution.fumltesting.testLang.Assertion;
  */
 public abstract class AssertionResult {
 	private Assertion assertion;
+	private String error;
+	private boolean hasError = false;
 
 	public void setAssertion(Assertion assertion) {
 		this.assertion = assertion;
@@ -22,6 +24,19 @@ public abstract class AssertionResult {
 
 	public Assertion getAssertion() {
 		return assertion;
+	}
+
+	public void setError(String error) {
+		this.error = error;
+		this.hasError = true;
+	}
+
+	public String getError() {
+		return error;
+	}
+
+	public boolean hasError() {
+		return this.hasError;
 	}
 
 	public abstract boolean getAssertionValidationResult();

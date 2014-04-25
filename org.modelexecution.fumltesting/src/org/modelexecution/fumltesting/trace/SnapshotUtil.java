@@ -17,8 +17,6 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.Input;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Output;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot;
-import org.modelexecution.fumltesting.testLang.ActionReferencePoint;
-import org.modelexecution.fumltesting.testLang.ConstraintReferencePoint;
 import org.modelexecution.fumltesting.testLang.StateAssertion;
 import org.modelexecution.fumltesting.testLang.StateExpression;
 import org.modelexecution.fumltesting.testLang.TemporalOperator;
@@ -36,8 +34,8 @@ public class SnapshotUtil {
 	private ArrayList<ValueSnapshot> successorSnapshots;
 
 	private ValueInstance valueInstance;
-	private Action untilAction;
-	private ActionExecution referredActionExecution;
+	private ActionExecution referenceActionExecution;
+	private ActionExecution untilActionExecution;
 	private TraceUtil traceUtil;
 
 	public SnapshotUtil(TraceUtil traceUtil) {
@@ -53,8 +51,11 @@ public class SnapshotUtil {
 	 * @param expression
 	 * @return
 	 */
-	public ArrayList<ValueSnapshot> getRelevantSnapshots(StateExpression expression) {
+	public ArrayList<ValueSnapshot> getRelevantSnapshots(StateExpression expression, ActionExecution referenceActionExecution,
+			ActionExecution untilActionExecution) {
 		ArrayList<ValueSnapshot> list = new ArrayList<ValueSnapshot>();
+		this.referenceActionExecution = referenceActionExecution;
+		this.untilActionExecution = untilActionExecution;
 		setupPreconditions(expression);
 		getSuccessorSnapshots(expression);
 		getPredecessorSnapshots(expression);
@@ -66,8 +67,7 @@ public class SnapshotUtil {
 			list = predecessorSnapshots;
 		}
 		if (assertion.getOperator() == TemporalOperator.AFTER) {
-			if (((ActionReferencePoint) assertion.getReferencePoint()).getAction() != expressionAction && successorSnapshots.size() == 0
-					&& predecessorSnapshots.size() > 0) {
+			if (referenceActionExecution.getNode() != expressionAction && successorSnapshots.size() == 0 && predecessorSnapshots.size() > 0) {
 				// we need to add last predecessor to successors
 				// if the value was not changed after the referred action
 				successorSnapshots.add(predecessorSnapshots.get(0));
@@ -85,7 +85,7 @@ public class SnapshotUtil {
 	 */
 	private ArrayList<ValueSnapshot> getSuccessorSnapshots(StateExpression expression) {
 		StateAssertion assertion = (StateAssertion) expression.eContainer();
-		setupSucessors(assertion.getOperator(), referredActionExecution);
+		setupSucessors(assertion.getOperator(), referenceActionExecution);
 		return successorSnapshots;
 	}
 
@@ -97,7 +97,7 @@ public class SnapshotUtil {
 	 */
 	private ArrayList<ValueSnapshot> getPredecessorSnapshots(StateExpression expression) {
 		StateAssertion assertion = (StateAssertion) expression.eContainer();
-		setupPredecessors(assertion.getOperator(), referredActionExecution);
+		setupPredecessors(assertion.getOperator(), referenceActionExecution);
 		return predecessorSnapshots;
 	}
 
@@ -108,19 +108,8 @@ public class SnapshotUtil {
 	 * @param expression
 	 */
 	private void setupPreconditions(StateExpression expression) {
-		StateAssertion assertion = (StateAssertion) expression.eContainer();
-		if (assertion.getUntilPoint() != null && assertion.getUntilPoint() instanceof ActionReferencePoint)
-			untilAction = ((ActionReferencePoint) assertion.getUntilPoint()).getAction();
-
 		successorSnapshots.removeAll(successorSnapshots);
 		predecessorSnapshots.removeAll(predecessorSnapshots);
-
-		Action referredAction = null;
-		if (assertion.getReferencePoint() instanceof ActionReferencePoint)
-			referredAction = ((ActionReferencePoint) assertion.getReferencePoint()).getAction();
-		if (assertion.getReferencePoint() instanceof ConstraintReferencePoint) {
-			System.out.println("CONSTRAINT REFERENCE POINT NOT YET SUPPORTED!");
-		}
 
 		Object expressionAction = expression.getPin().getRef().eContainer();
 		Object expressionNodeExecution = null;
@@ -130,8 +119,6 @@ public class SnapshotUtil {
 			expressionNodeExecution = (ActivityExecution) traceUtil.getExecution((Activity) expressionAction);
 		}
 		valueInstance = traceUtil.getValueInstance(expression.getPin().getRef(), expressionNodeExecution);
-
-		referredActionExecution = (ActionExecution) traceUtil.getExecution(referredAction);
 	}
 
 	/**
@@ -197,7 +184,7 @@ public class SnapshotUtil {
 		ActivityNodeExecution predecessor = nodeExecution.getChronologicalPredecessor();
 		if (predecessor == null)
 			return;
-		if (untilAction != null && untilAction.getName().equals(predecessor.getNode().name))
+		if (untilActionExecution != null && untilActionExecution.getNode().name.equals(predecessor.getNode().name))
 			return;
 		if (predecessor instanceof ActionExecution) {
 			for (Output predecesorsOutput : ((ActionExecution) predecessor).getOutputs()) {
@@ -226,7 +213,7 @@ public class SnapshotUtil {
 		ActivityNodeExecution successor = nodeExecution.getChronologicalSuccessor();
 		if (successor == null)
 			return;
-		if (untilAction != null && untilAction.getName().equals(successor.getNode().name))
+		if (untilActionExecution != null && untilActionExecution.getNode().name.equals(successor.getNode().name))
 			return;
 		if (successor instanceof ActionExecution) {
 			for (Input successorsInput : ((ActionExecution) successor).getInputs()) {

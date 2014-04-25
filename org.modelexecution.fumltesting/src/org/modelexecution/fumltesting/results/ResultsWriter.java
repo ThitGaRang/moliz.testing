@@ -129,18 +129,23 @@ public class ResultsWriter {
 					StateAssertion assertion = (StateAssertion) stateAssertionResult.getAssertion();
 					writer.print("\n\tState assertion: " + assertion.getQuantifier() + " " + assertion.getOperator() + " ");
 					if (assertion.getReferencePoint() instanceof ActionReferencePoint)
-						writer.print(((ActionReferencePoint) assertion.getReferencePoint()).getAction().getName());
+						writer.print("action " + ((ActionReferencePoint) assertion.getReferencePoint()).getAction().getName());
 					if (assertion.getReferencePoint() instanceof ConstraintReferencePoint) {
-						writer.print(((ConstraintReferencePoint) assertion.getReferencePoint()).getConstraintName());
+						writer.print("constraint "
+								+ ((XStringLiteral) ((ConstraintReferencePoint) assertion.getReferencePoint()).getConstraintName()).getValue());
 					}
 					if (assertion.getUntilPoint() != null) {
 						if (assertion.getUntilPoint() instanceof ActionReferencePoint)
-							writer.print(" until " + ((ActionReferencePoint) assertion.getUntilPoint()).getAction().getName());
+							writer.print(" until action " + ((ActionReferencePoint) assertion.getUntilPoint()).getAction().getName());
 						if (assertion.getUntilPoint() instanceof ConstraintReferencePoint) {
-							writer.print(" until " + ((ConstraintReferencePoint) assertion.getUntilPoint()).getConstraintName());
+							writer.print(" until constraint "
+									+ (((XStringLiteral) ((ConstraintReferencePoint) assertion.getUntilPoint()).getConstraintName()).getValue()));
 						}
 					}
 					writer.println();
+					if (assertionResult.hasError()) {
+						writer.print("\tError occurred: " + assertionResult.getError());
+					}
 					if (stateAssertionResult.numberOfConstraintsChecked() > 0) {
 						writer.println("\tConstraints checked: " + stateAssertionResult.numberOfConstraintsChecked());
 						writer.println("\tConstraints failed: " + stateAssertionResult.getFailedConstraints().size());
