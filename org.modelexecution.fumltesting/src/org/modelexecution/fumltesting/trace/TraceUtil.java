@@ -200,6 +200,7 @@ public class TraceUtil {
 		List<State> states = new ArrayList<State>();
 		for (Sequence sequence : sTrace.getSequences()) {
 			if (sequence.getActivityExecution() == referredActionExecution.getActivityExecution()) {
+				referredActionExecution = findLastCreator(referredActionExecution, sequence);
 				for (State state : sequence.getStates()) {
 					if (state.getNodeExecution() == referredActionExecution) {
 						switch (assertion.getOperator()) {
@@ -224,6 +225,13 @@ public class TraceUtil {
 			}
 		}
 		return states;
+	}
+
+	private ActivityNodeExecution findLastCreator(ActivityNodeExecution nodeExecution, Sequence sequence) {
+		if (sequence.hasCreatedState(nodeExecution))
+			return nodeExecution;
+		else
+			return findLastCreator(nodeExecution.getChronologicalPredecessor(), sequence);
 	}
 
 	public ActivityNodeExecution getReferenceActionExecution(StateAssertion assertion) throws ConstraintNotFoundException {

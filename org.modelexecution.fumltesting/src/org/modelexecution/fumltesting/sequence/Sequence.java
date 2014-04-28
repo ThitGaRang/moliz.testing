@@ -3,10 +3,9 @@
 package org.modelexecution.fumltesting.sequence;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EObject;
-
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 
 /**
  * <!-- begin-user-doc -->
@@ -91,5 +90,13 @@ public interface Sequence extends EObject {
 	 * @generated
 	 */
 	State firstState();
+	
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model
+	 * @generated NOT
+	 */
+	boolean hasCreatedState(ActivityNodeExecution nodeExecution);
 
 } // Sequence
