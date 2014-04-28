@@ -18,7 +18,7 @@ scenario TestData[
 test totalItemCost activity ItemTotalCostActivity on TestData.itemTD{
 	var totalItemCost = totalCost;
 	
-	assertOrder ItemTotalCostActivity.init, ItemTotalCostActivity.self, *, ItemTotalCostActivity.multiply;
+	assertOrder ItemTotalCostActivity.init, ItemTotalCostActivity.context, *, ItemTotalCostActivity.multiply, ItemTotalCostActivity.final;
 	
 	finally {
 		totalItemCost = 1250;

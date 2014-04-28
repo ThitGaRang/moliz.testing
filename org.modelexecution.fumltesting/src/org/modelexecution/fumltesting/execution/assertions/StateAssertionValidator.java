@@ -470,21 +470,30 @@ public class StateAssertionValidator {
 		}
 
 		if (fumlTarget != null) {
-			for (ValueInstance link : links) {
-				Link theLink = (Link) link.getRuntimeValue();
-				for (FeatureValue featureValue : theLink.featureValues) {
-					if (featureValue.feature.name.equals(propertyExpression.getProperty().getName())) {
-						Object_ realValue = ((Reference) featureValue.values.get(0)).referent;
-						for (FeatureValue targetValue : fumlTarget.featureValues) {
-							for (FeatureValue checkedFeature : realValue.featureValues) {
-								if (targetValue.feature.name.equals(checkedFeature.feature.name)) {
-									if (expression.getOperator() == ArithmeticOperator.EQUAL) {
-										boolean result = compare(targetValue, checkedFeature);
-										results.add(result);
-									}
-									if (expression.getOperator() == ArithmeticOperator.NOT_EQUAL) {
-										boolean result = !compare(targetValue, checkedFeature);
-										results.add(result);
+			if (links.size() == 0) {
+				if (propertyExpression.getOperator() == ArithmeticOperator.INCLUDES)
+					results.add(false);
+				if (propertyExpression.getOperator() == ArithmeticOperator.EXCLUDES)
+					results.add(true);
+			} else {
+				for (ValueInstance link : links) {
+					Link theLink = (Link) link.getRuntimeValue();
+					for (FeatureValue featureValue : theLink.featureValues) {
+						if (featureValue.feature.name.equals(propertyExpression.getProperty().getName())) {
+							Object_ realValue = ((Reference) featureValue.values.get(0)).referent;
+							for (FeatureValue targetValue : fumlTarget.featureValues) {
+								for (FeatureValue checkedFeature : realValue.featureValues) {
+									if (targetValue.feature.name.equals(checkedFeature.feature.name)) {
+										if (expression.getOperator() == ArithmeticOperator.EQUAL
+												|| expression.getOperator() == ArithmeticOperator.INCLUDES) {
+											boolean result = compare(targetValue, checkedFeature);
+											results.add(result);
+										}
+										if (expression.getOperator() == ArithmeticOperator.NOT_EQUAL
+												|| expression.getOperator() == ArithmeticOperator.EXCLUDES) {
+											boolean result = !compare(targetValue, checkedFeature);
+											results.add(result);
+										}
 									}
 								}
 							}

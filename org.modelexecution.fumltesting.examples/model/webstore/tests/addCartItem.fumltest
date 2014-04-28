@@ -1,0 +1,26 @@
+import webstore.structure.*
+import webstore.behavior.*
+
+scenario TestData[
+	object itemTD1: Item{number=1;}
+	object itemTD2: Item{number=2;}
+	object cartTD: Cart{}
+	
+	link cart_item {source cart=cartTD; target items=itemTD1;}
+]
+
+test addCartItem activity AddCartItemActivity(item=TestData.itemTD2) on TestData.cartTD{
+	var cart = addItemToCart.result;
+	
+	assertOrder AddCartItemActivity.init, AddCartItemActivity.context, AddCartItemActivity.addItemToCart, AddCartItemActivity.final;
+	
+	assertState always until action AddCartItemActivity.addItemToCart{
+		cart::items includes TestData.itemTD1;
+		cart::items excludes TestData.itemTD2;
+	}
+	
+	assertState always after action AddCartItemActivity.addItemToCart{
+		cart::items includes TestData.itemTD1;
+		cart::items includes TestData.itemTD2;
+	}
+}
