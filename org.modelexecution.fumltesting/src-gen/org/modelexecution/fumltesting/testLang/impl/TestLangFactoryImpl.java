@@ -67,7 +67,6 @@ public class TestLangFactoryImpl extends EFactoryImpl implements TestLangFactory
     {
       case TestLangPackage.TEST_SUITE: return createTestSuite();
       case TestLangPackage.IMPORT: return createImport();
-      case TestLangPackage.VAR_DECLARATION: return createVarDeclaration();
       case TestLangPackage.TEST_CASE: return createTestCase();
       case TestLangPackage.ACTIVITY_INPUT: return createActivityInput();
       case TestLangPackage.VALUE: return createValue();
@@ -158,17 +157,6 @@ public class TestLangFactoryImpl extends EFactoryImpl implements TestLangFactory
   {
     ImportImpl import_ = new ImportImpl();
     return import_;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public VarDeclaration createVarDeclaration()
-  {
-    VarDeclarationImpl varDeclaration = new VarDeclarationImpl();
-    return varDeclaration;
   }
 
   /**

@@ -35,17 +35,12 @@
     <genClasses ecoreClass="TestLang.ecore#//Import">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TestLang.ecore#//Import/importedNamespace"/>
     </genClasses>
-    <genClasses ecoreClass="TestLang.ecore#//VarDeclaration">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TestLang.ecore#//VarDeclaration/name"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference TestLang.ecore#//VarDeclaration/ref"/>
-    </genClasses>
     <genClasses ecoreClass="TestLang.ecore#//TestCase">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute TestLang.ecore#//TestCase/name"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference TestLang.ecore#//TestCase/activityUnderTest"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TestLang.ecore#//TestCase/inputs"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference TestLang.ecore#//TestCase/contextObject"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference TestLang.ecore#//TestCase/initScenarios"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TestLang.ecore#//TestCase/variables"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference TestLang.ecore#//TestCase/assertions"/>
     </genClasses>
     <genClasses ecoreClass="TestLang.ecore#//ActivityInput">

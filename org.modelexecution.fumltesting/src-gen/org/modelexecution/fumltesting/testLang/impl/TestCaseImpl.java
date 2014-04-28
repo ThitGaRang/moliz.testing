@@ -27,7 +27,6 @@ import org.modelexecution.fumltesting.testLang.ObjectSpecification;
 import org.modelexecution.fumltesting.testLang.Scenario;
 import org.modelexecution.fumltesting.testLang.TestCase;
 import org.modelexecution.fumltesting.testLang.TestLangPackage;
-import org.modelexecution.fumltesting.testLang.VarDeclaration;
 
 /**
  * <!-- begin-user-doc -->
@@ -41,7 +40,6 @@ import org.modelexecution.fumltesting.testLang.VarDeclaration;
  *   <li>{@link org.modelexecution.fumltesting.testLang.impl.TestCaseImpl#getInputs <em>Inputs</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.testLang.impl.TestCaseImpl#getContextObject <em>Context Object</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.testLang.impl.TestCaseImpl#getInitScenarios <em>Init Scenarios</em>}</li>
- *   <li>{@link org.modelexecution.fumltesting.testLang.impl.TestCaseImpl#getVariables <em>Variables</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.testLang.impl.TestCaseImpl#getAssertions <em>Assertions</em>}</li>
  * </ul>
  * </p>
@@ -109,16 +107,6 @@ public class TestCaseImpl extends MinimalEObjectImpl.Container implements TestCa
    * @ordered
    */
   protected EList<Scenario> initScenarios;
-
-  /**
-   * The cached value of the '{@link #getVariables() <em>Variables</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getVariables()
-   * @generated
-   * @ordered
-   */
-  protected EList<VarDeclaration> variables;
 
   /**
    * The cached value of the '{@link #getAssertions() <em>Assertions</em>}' containment reference list.
@@ -293,20 +281,6 @@ public class TestCaseImpl extends MinimalEObjectImpl.Container implements TestCa
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<VarDeclaration> getVariables()
-  {
-    if (variables == null)
-    {
-      variables = new EObjectContainmentEList<VarDeclaration>(VarDeclaration.class, this, TestLangPackage.TEST_CASE__VARIABLES);
-    }
-    return variables;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EList<Assertion> getAssertions()
   {
     if (assertions == null)
@@ -328,8 +302,6 @@ public class TestCaseImpl extends MinimalEObjectImpl.Container implements TestCa
     {
       case TestLangPackage.TEST_CASE__INPUTS:
         return ((InternalEList<?>)getInputs()).basicRemove(otherEnd, msgs);
-      case TestLangPackage.TEST_CASE__VARIABLES:
-        return ((InternalEList<?>)getVariables()).basicRemove(otherEnd, msgs);
       case TestLangPackage.TEST_CASE__ASSERTIONS:
         return ((InternalEList<?>)getAssertions()).basicRemove(otherEnd, msgs);
     }
@@ -358,8 +330,6 @@ public class TestCaseImpl extends MinimalEObjectImpl.Container implements TestCa
         return basicGetContextObject();
       case TestLangPackage.TEST_CASE__INIT_SCENARIOS:
         return getInitScenarios();
-      case TestLangPackage.TEST_CASE__VARIABLES:
-        return getVariables();
       case TestLangPackage.TEST_CASE__ASSERTIONS:
         return getAssertions();
     }
@@ -394,10 +364,6 @@ public class TestCaseImpl extends MinimalEObjectImpl.Container implements TestCa
         getInitScenarios().clear();
         getInitScenarios().addAll((Collection<? extends Scenario>)newValue);
         return;
-      case TestLangPackage.TEST_CASE__VARIABLES:
-        getVariables().clear();
-        getVariables().addAll((Collection<? extends VarDeclaration>)newValue);
-        return;
       case TestLangPackage.TEST_CASE__ASSERTIONS:
         getAssertions().clear();
         getAssertions().addAll((Collection<? extends Assertion>)newValue);
@@ -431,9 +397,6 @@ public class TestCaseImpl extends MinimalEObjectImpl.Container implements TestCa
       case TestLangPackage.TEST_CASE__INIT_SCENARIOS:
         getInitScenarios().clear();
         return;
-      case TestLangPackage.TEST_CASE__VARIABLES:
-        getVariables().clear();
-        return;
       case TestLangPackage.TEST_CASE__ASSERTIONS:
         getAssertions().clear();
         return;
@@ -461,8 +424,6 @@ public class TestCaseImpl extends MinimalEObjectImpl.Container implements TestCa
         return contextObject != null;
       case TestLangPackage.TEST_CASE__INIT_SCENARIOS:
         return initScenarios != null && !initScenarios.isEmpty();
-      case TestLangPackage.TEST_CASE__VARIABLES:
-        return variables != null && !variables.isEmpty();
       case TestLangPackage.TEST_CASE__ASSERTIONS:
         return assertions != null && !assertions.isEmpty();
     }

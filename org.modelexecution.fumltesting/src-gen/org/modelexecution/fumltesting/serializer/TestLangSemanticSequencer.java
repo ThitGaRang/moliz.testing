@@ -76,7 +76,6 @@ import org.modelexecution.fumltesting.testLang.StateAssertion;
 import org.modelexecution.fumltesting.testLang.TestCase;
 import org.modelexecution.fumltesting.testLang.TestLangPackage;
 import org.modelexecution.fumltesting.testLang.TestSuite;
-import org.modelexecution.fumltesting.testLang.VarDeclaration;
 
 @SuppressWarnings("all")
 public class TestLangSemanticSequencer extends XbaseSemanticSequencer {
@@ -215,12 +214,6 @@ public class TestLangSemanticSequencer extends XbaseSemanticSequencer {
 			case TestLangPackage.TEST_SUITE:
 				if(context == grammarAccess.getTestSuiteRule()) {
 					sequence_TestSuite(context, (TestSuite) semanticObject); 
-					return; 
-				}
-				else break;
-			case TestLangPackage.VAR_DECLARATION:
-				if(context == grammarAccess.getVarDeclarationRule()) {
-					sequence_VarDeclaration(context, (VarDeclaration) semanticObject); 
 					return; 
 				}
 				else break;
@@ -1222,7 +1215,7 @@ public class TestLangSemanticSequencer extends XbaseSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (constraintNames+=XStringLiteral constraintNames+=XStringLiteral* object=[VarDeclaration|QualifiedName]?)
+	 *     (constraintNames+=XStringLiteral constraintNames+=XStringLiteral* object=[ObjectNode|QualifiedName]?)
 	 */
 	protected void sequence_ConstraintCheck(EObject context, ConstraintCheck semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1333,7 +1326,7 @@ public class TestLangSemanticSequencer extends XbaseSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (pin=[VarDeclaration|ID] operator=ArithmeticOperator value=Value)
+	 *     (pin=[ObjectNode|QualifiedName] operator=ArithmeticOperator value=Value)
 	 */
 	protected void sequence_ObjectStateExpression(EObject context, ObjectStateExpression semanticObject) {
 		if(errorAcceptor != null) {
@@ -1346,7 +1339,7 @@ public class TestLangSemanticSequencer extends XbaseSemanticSequencer {
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getObjectStateExpressionAccess().getPinVarDeclarationIDTerminalRuleCall_0_0_1(), semanticObject.getPin());
+		feeder.accept(grammarAccess.getObjectStateExpressionAccess().getPinObjectNodeQualifiedNameParserRuleCall_0_0_1(), semanticObject.getPin());
 		feeder.accept(grammarAccess.getObjectStateExpressionAccess().getOperatorArithmeticOperatorEnumRuleCall_1_0(), semanticObject.getOperator());
 		feeder.accept(grammarAccess.getObjectStateExpressionAccess().getValueValueParserRuleCall_2_0(), semanticObject.getValue());
 		feeder.finish();
@@ -1387,7 +1380,7 @@ public class TestLangSemanticSequencer extends XbaseSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (pin=[VarDeclaration|ID] property=[Property|QualifiedName] operator=ArithmeticOperator value=Value)
+	 *     (pin=[ObjectNode|QualifiedName] property=[Property|QualifiedName] operator=ArithmeticOperator value=Value)
 	 */
 	protected void sequence_PropertyStateExpression(EObject context, PropertyStateExpression semanticObject) {
 		if(errorAcceptor != null) {
@@ -1402,7 +1395,7 @@ public class TestLangSemanticSequencer extends XbaseSemanticSequencer {
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getPropertyStateExpressionAccess().getPinVarDeclarationIDTerminalRuleCall_0_0_1(), semanticObject.getPin());
+		feeder.accept(grammarAccess.getPropertyStateExpressionAccess().getPinObjectNodeQualifiedNameParserRuleCall_0_0_1(), semanticObject.getPin());
 		feeder.accept(grammarAccess.getPropertyStateExpressionAccess().getPropertyPropertyQualifiedNameParserRuleCall_2_0_1(), semanticObject.getProperty());
 		feeder.accept(grammarAccess.getPropertyStateExpressionAccess().getOperatorArithmeticOperatorEnumRuleCall_3_0(), semanticObject.getOperator());
 		feeder.accept(grammarAccess.getPropertyStateExpressionAccess().getValueValueParserRuleCall_4_0(), semanticObject.getValue());
@@ -1452,7 +1445,6 @@ public class TestLangSemanticSequencer extends XbaseSemanticSequencer {
 	 *         (inputs+=ActivityInput inputs+=ActivityInput*)? 
 	 *         contextObject=[ObjectSpecification|QualifiedName]? 
 	 *         (initScenarios+=[Scenario|ID] initScenarios+=[Scenario|ID]*)? 
-	 *         variables+=VarDeclaration* 
 	 *         assertions+=Assertion*
 	 *     )
 	 */
@@ -1467,24 +1459,5 @@ public class TestLangSemanticSequencer extends XbaseSemanticSequencer {
 	 */
 	protected void sequence_TestSuite(EObject context, TestSuite semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (name=ID ref=[ObjectNode|QualifiedName])
-	 */
-	protected void sequence_VarDeclaration(EObject context, VarDeclaration semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.VAR_DECLARATION__NAME) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.VAR_DECLARATION__NAME));
-			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.VAR_DECLARATION__REF) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.VAR_DECLARATION__REF));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getVarDeclarationAccess().getNameIDTerminalRuleCall_1_0(), semanticObject.getName());
-		feeder.accept(grammarAccess.getVarDeclarationAccess().getRefObjectNodeQualifiedNameParserRuleCall_3_0_1(), semanticObject.getRef());
-		feeder.finish();
 	}
 }

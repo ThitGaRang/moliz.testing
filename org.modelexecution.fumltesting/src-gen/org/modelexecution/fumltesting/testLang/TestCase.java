@@ -21,7 +21,6 @@ import org.eclipse.uml2.uml.Activity;
  *   <li>{@link org.modelexecution.fumltesting.testLang.TestCase#getInputs <em>Inputs</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.testLang.TestCase#getContextObject <em>Context Object</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.testLang.TestCase#getInitScenarios <em>Init Scenarios</em>}</li>
- *   <li>{@link org.modelexecution.fumltesting.testLang.TestCase#getVariables <em>Variables</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.testLang.TestCase#getAssertions <em>Assertions</em>}</li>
  * </ul>
  * </p>
@@ -141,22 +140,6 @@ public interface TestCase extends EObject
    * @generated
    */
   EList<Scenario> getInitScenarios();
-
-  /**
-   * Returns the value of the '<em><b>Variables</b></em>' containment reference list.
-   * The list contents are of type {@link org.modelexecution.fumltesting.testLang.VarDeclaration}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Variables</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Variables</em>' containment reference list.
-   * @see org.modelexecution.fumltesting.testLang.TestLangPackage#getTestCase_Variables()
-   * @model containment="true"
-   * @generated
-   */
-  EList<VarDeclaration> getVariables();
 
   /**
    * Returns the value of the '<em><b>Assertions</b></em>' containment reference list.

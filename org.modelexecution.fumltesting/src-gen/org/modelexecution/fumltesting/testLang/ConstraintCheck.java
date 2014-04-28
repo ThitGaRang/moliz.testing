@@ -4,6 +4,8 @@ package org.modelexecution.fumltesting.testLang;
 
 import org.eclipse.emf.common.util.EList;
 
+import org.eclipse.uml2.uml.ObjectNode;
+
 import org.eclipse.xtext.xbase.XExpression;
 
 /**
@@ -50,12 +52,12 @@ public interface ConstraintCheck extends Check
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Object</em>' reference.
-   * @see #setObject(VarDeclaration)
+   * @see #setObject(ObjectNode)
    * @see org.modelexecution.fumltesting.testLang.TestLangPackage#getConstraintCheck_Object()
    * @model
    * @generated
    */
-  VarDeclaration getObject();
+  ObjectNode getObject();
 
   /**
    * Sets the value of the '{@link org.modelexecution.fumltesting.testLang.ConstraintCheck#getObject <em>Object</em>}' reference.
@@ -65,6 +67,6 @@ public interface ConstraintCheck extends Check
    * @see #getObject()
    * @generated
    */
-  void setObject(VarDeclaration value);
+  void setObject(ObjectNode value);
 
 } // ConstraintCheck

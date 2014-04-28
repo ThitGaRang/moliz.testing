@@ -45,7 +45,6 @@ import org.modelexecution.fumltesting.testLang.TestLangFactory;
 import org.modelexecution.fumltesting.testLang.TestLangPackage;
 import org.modelexecution.fumltesting.testLang.TestSuite;
 import org.modelexecution.fumltesting.testLang.Value;
-import org.modelexecution.fumltesting.testLang.VarDeclaration;
 
 /**
  * <!-- begin-user-doc -->
@@ -68,13 +67,6 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * @generated
    */
   private EClass importEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass varDeclarationEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -390,36 +382,6 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getVarDeclaration()
-  {
-    return varDeclarationEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getVarDeclaration_Name()
-  {
-    return (EAttribute)varDeclarationEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getVarDeclaration_Ref()
-  {
-    return (EReference)varDeclarationEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EClass getTestCase()
   {
     return testCaseEClass;
@@ -480,19 +442,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getTestCase_Variables()
-  {
-    return (EReference)testCaseEClass.getEStructuralFeatures().get(5);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EReference getTestCase_Assertions()
   {
-    return (EReference)testCaseEClass.getEStructuralFeatures().get(6);
+    return (EReference)testCaseEClass.getEStructuralFeatures().get(5);
   }
 
   /**
@@ -1153,17 +1105,12 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
     importEClass = createEClass(IMPORT);
     createEAttribute(importEClass, IMPORT__IMPORTED_NAMESPACE);
 
-    varDeclarationEClass = createEClass(VAR_DECLARATION);
-    createEAttribute(varDeclarationEClass, VAR_DECLARATION__NAME);
-    createEReference(varDeclarationEClass, VAR_DECLARATION__REF);
-
     testCaseEClass = createEClass(TEST_CASE);
     createEAttribute(testCaseEClass, TEST_CASE__NAME);
     createEReference(testCaseEClass, TEST_CASE__ACTIVITY_UNDER_TEST);
     createEReference(testCaseEClass, TEST_CASE__INPUTS);
     createEReference(testCaseEClass, TEST_CASE__CONTEXT_OBJECT);
     createEReference(testCaseEClass, TEST_CASE__INIT_SCENARIOS);
-    createEReference(testCaseEClass, TEST_CASE__VARIABLES);
     createEReference(testCaseEClass, TEST_CASE__ASSERTIONS);
 
     activityInputEClass = createEClass(ACTIVITY_INPUT);
@@ -1308,17 +1255,12 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
     initEClass(importEClass, Import.class, "Import", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getImport_ImportedNamespace(), theEcorePackage.getEString(), "importedNamespace", null, 0, 1, Import.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(varDeclarationEClass, VarDeclaration.class, "VarDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getVarDeclaration_Name(), theEcorePackage.getEString(), "name", null, 0, 1, VarDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getVarDeclaration_Ref(), theUMLPackage.getObjectNode(), null, "ref", null, 0, 1, VarDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
     initEClass(testCaseEClass, TestCase.class, "TestCase", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getTestCase_Name(), theEcorePackage.getEString(), "name", null, 0, 1, TestCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getTestCase_ActivityUnderTest(), theUMLPackage.getActivity(), null, "activityUnderTest", null, 0, 1, TestCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getTestCase_Inputs(), this.getActivityInput(), null, "inputs", null, 0, -1, TestCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getTestCase_ContextObject(), this.getObjectSpecification(), null, "contextObject", null, 0, 1, TestCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getTestCase_InitScenarios(), this.getScenario(), null, "initScenarios", null, 0, -1, TestCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getTestCase_Variables(), this.getVarDeclaration(), null, "variables", null, 0, -1, TestCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getTestCase_Assertions(), this.getAssertion(), null, "assertions", null, 0, -1, TestCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(activityInputEClass, ActivityInput.class, "ActivityInput", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1378,10 +1320,10 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
 
     initEClass(constraintCheckEClass, ConstraintCheck.class, "ConstraintCheck", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getConstraintCheck_ConstraintNames(), theXbasePackage.getXExpression(), null, "constraintNames", null, 0, -1, ConstraintCheck.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getConstraintCheck_Object(), this.getVarDeclaration(), null, "object", null, 0, 1, ConstraintCheck.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getConstraintCheck_Object(), theUMLPackage.getObjectNode(), null, "object", null, 0, 1, ConstraintCheck.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(stateExpressionEClass, StateExpression.class, "StateExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getStateExpression_Pin(), this.getVarDeclaration(), null, "pin", null, 0, 1, StateExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getStateExpression_Pin(), theUMLPackage.getObjectNode(), null, "pin", null, 0, 1, StateExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getStateExpression_Operator(), this.getArithmeticOperator(), "operator", null, 0, 1, StateExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getStateExpression_Value(), this.getValue(), null, "value", null, 0, 1, StateExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

@@ -43,7 +43,6 @@ import org.modelexecution.fumltesting.testLang.Scenario;
 import org.modelexecution.fumltesting.testLang.StateAssertion;
 import org.modelexecution.fumltesting.testLang.TestCase;
 import org.modelexecution.fumltesting.testLang.TestSuite;
-import org.modelexecution.fumltesting.testLang.VarDeclaration;
 
 /**
  * Utility class for scoping in TestLang editor.
@@ -56,8 +55,8 @@ public class TestLangScopeProvider extends XbaseScopeProvider {
 	@Override
 	public IScope getScope(EObject context, EReference reference) {
 
-		/** VARIABLE DECLARATION SCOPE */
-		if (context instanceof VarDeclaration && reference.getName().equals("ref")) {
+		/** STATE ASSERTION PIN SCOPE */
+		if (context instanceof StateAssertion && reference.getName().equals("pin")) {
 			Activity activity = ((TestCase) context.eContainer()).getActivityUnderTest();
 			List<ObjectNode> nodes = new ArrayList<ObjectNode>();
 			for (ActivityNode node : activity.getNodes()) {
@@ -204,7 +203,7 @@ public class TestLangScopeProvider extends XbaseScopeProvider {
 
 		/** PROPERTY DECLARATION SCOPE */
 		if (context instanceof PropertyStateExpression && reference.getName().equals("property")) {
-			Type type = ((PropertyStateExpression) context).getPin().getRef().getType();
+			Type type = ((PropertyStateExpression) context).getPin().getType();
 			ArrayList<Property> properties = new ArrayList<Property>();
 
 			if (type == null)

@@ -61,7 +61,7 @@ public class SnapshotUtil {
 		getPredecessorSnapshots(expression);
 
 		StateAssertion assertion = (StateAssertion) expression.eContainer();
-		Object expressionAction = expression.getPin().getRef().eContainer();
+		Object expressionAction = expression.getPin().eContainer();
 
 		if (assertion.getOperator() == TemporalOperator.UNTIL) {
 			list = predecessorSnapshots;
@@ -113,14 +113,14 @@ public class SnapshotUtil {
 		successorSnapshots.removeAll(successorSnapshots);
 		predecessorSnapshots.removeAll(predecessorSnapshots);
 
-		Object expressionAction = expression.getPin().getRef().eContainer();
+		Object expressionAction = expression.getPin().eContainer();
 		Object expressionNodeExecution = null;
 		if (expressionAction instanceof Action)
 			expressionNodeExecution = (ActionExecution) traceUtil.getExecution((Action) expressionAction);
 		if (expressionAction instanceof Activity) {
 			expressionNodeExecution = (ActivityExecution) traceUtil.getExecution((Activity) expressionAction);
 		}
-		valueInstance = traceUtil.getValueInstance(expression.getPin().getRef(), expressionNodeExecution);
+		valueInstance = traceUtil.getValueInstance(expression.getPin(), expressionNodeExecution);
 	}
 
 	/**

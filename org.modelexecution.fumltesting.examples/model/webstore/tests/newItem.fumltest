@@ -10,8 +10,6 @@ scenario TestData[
 ]
 
 test newItemTest activity NewItemActivity(product=TestData.productTD, quantity=5){
-	var item = createItem.result;
-	
 	assertOrder *, NewItemActivity.createItem, *, NewItemActivity.setNumber, *, 
 		NewItemActivity.setUnitCost, NewItemActivity.setQuantity, NewItemActivity.setProduct, NewItemActivity.final;
 	

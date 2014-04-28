@@ -10,13 +10,10 @@ TestSuite:
 Import:
 	'import' importedNamespace=QualifiedNameWithWildcard;
 
-VarDeclaration:
-	'var' name=ID '=' ref=[uml::ObjectNode|QualifiedName] ';';
-
 TestCase:
 	'test' name=ID 'activity' activityUnderTest=[uml::Activity|QualifiedName] ('(' inputs+=ActivityInput (','
 	inputs+=ActivityInput)* ')')? ('on' contextObject=[ObjectSpecification|QualifiedName])? '{' ('initialize' '['
-	(initScenarios+=[Scenario]) (',' initScenarios+=[Scenario])* ']' ';')? (variables+=VarDeclaration)*
+	(initScenarios+=[Scenario]) (',' initScenarios+=[Scenario])* ']' ';')?
 	(assertions+=Assertion)* '}';
 
 ActivityInput:
@@ -69,16 +66,16 @@ Check:
 
 ConstraintCheck:
 	'check' constraintNames+=XStringLiteral (',' constraintNames+=XStringLiteral)* ('on'
-	object=[VarDeclaration|QualifiedName])? ';';
+	object=[uml::ObjectNode|QualifiedName])? ';';
 
 StateExpression:
 	ObjectStateExpression | PropertyStateExpression;
 
 ObjectStateExpression:
-	pin=[VarDeclaration] operator=ArithmeticOperator value=Value ';';
+	pin=[uml::ObjectNode|QualifiedName] operator=ArithmeticOperator value=Value ';';
 
 PropertyStateExpression:
-	pin=[VarDeclaration] '::' property=[uml::Property|QualifiedName] operator=ArithmeticOperator value=Value ';';
+	pin=[uml::ObjectNode|QualifiedName] '::' property=[uml::Property|QualifiedName] operator=ArithmeticOperator value=Value ';';
 
 OrderAssertion:
 	'assertOrder' order=NodeOrder ';';

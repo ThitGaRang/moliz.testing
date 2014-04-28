@@ -132,43 +132,6 @@ public interface TestLangPackage extends EPackage
   int IMPORT_FEATURE_COUNT = 1;
 
   /**
-   * The meta object id for the '{@link org.modelexecution.fumltesting.testLang.impl.VarDeclarationImpl <em>Var Declaration</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.modelexecution.fumltesting.testLang.impl.VarDeclarationImpl
-   * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getVarDeclaration()
-   * @generated
-   */
-  int VAR_DECLARATION = 2;
-
-  /**
-   * The feature id for the '<em><b>Name</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VAR_DECLARATION__NAME = 0;
-
-  /**
-   * The feature id for the '<em><b>Ref</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VAR_DECLARATION__REF = 1;
-
-  /**
-   * The number of structural features of the '<em>Var Declaration</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int VAR_DECLARATION_FEATURE_COUNT = 2;
-
-  /**
    * The meta object id for the '{@link org.modelexecution.fumltesting.testLang.impl.TestCaseImpl <em>Test Case</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -176,7 +139,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getTestCase()
    * @generated
    */
-  int TEST_CASE = 3;
+  int TEST_CASE = 2;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -224,22 +187,13 @@ public interface TestLangPackage extends EPackage
   int TEST_CASE__INIT_SCENARIOS = 4;
 
   /**
-   * The feature id for the '<em><b>Variables</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int TEST_CASE__VARIABLES = 5;
-
-  /**
    * The feature id for the '<em><b>Assertions</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int TEST_CASE__ASSERTIONS = 6;
+  int TEST_CASE__ASSERTIONS = 5;
 
   /**
    * The number of structural features of the '<em>Test Case</em>' class.
@@ -248,7 +202,7 @@ public interface TestLangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int TEST_CASE_FEATURE_COUNT = 7;
+  int TEST_CASE_FEATURE_COUNT = 6;
 
   /**
    * The meta object id for the '{@link org.modelexecution.fumltesting.testLang.impl.ActivityInputImpl <em>Activity Input</em>}' class.
@@ -258,7 +212,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getActivityInput()
    * @generated
    */
-  int ACTIVITY_INPUT = 4;
+  int ACTIVITY_INPUT = 3;
 
   /**
    * The feature id for the '<em><b>Parameter</b></em>' reference.
@@ -295,7 +249,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getValue()
    * @generated
    */
-  int VALUE = 5;
+  int VALUE = 4;
 
   /**
    * The number of structural features of the '<em>Value</em>' class.
@@ -314,7 +268,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getSimpleValue()
    * @generated
    */
-  int SIMPLE_VALUE = 6;
+  int SIMPLE_VALUE = 5;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' containment reference.
@@ -342,7 +296,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getObjectValue()
    * @generated
    */
-  int OBJECT_VALUE = 7;
+  int OBJECT_VALUE = 6;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' reference.
@@ -370,7 +324,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getScenario()
    * @generated
    */
-  int SCENARIO = 8;
+  int SCENARIO = 7;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -416,7 +370,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getObjectSpecification()
    * @generated
    */
-  int OBJECT_SPECIFICATION = 9;
+  int OBJECT_SPECIFICATION = 8;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -462,7 +416,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getAttribute()
    * @generated
    */
-  int ATTRIBUTE = 10;
+  int ATTRIBUTE = 9;
 
   /**
    * The feature id for the '<em><b>Att</b></em>' reference.
@@ -499,7 +453,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getLink()
    * @generated
    */
-  int LINK = 11;
+  int LINK = 10;
 
   /**
    * The feature id for the '<em><b>Assoc</b></em>' reference.
@@ -563,7 +517,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getAssertion()
    * @generated
    */
-  int ASSERTION = 12;
+  int ASSERTION = 11;
 
   /**
    * The number of structural features of the '<em>Assertion</em>' class.
@@ -582,7 +536,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getStateAssertion()
    * @generated
    */
-  int STATE_ASSERTION = 13;
+  int STATE_ASSERTION = 12;
 
   /**
    * The feature id for the '<em><b>Quantifier</b></em>' attribute.
@@ -646,7 +600,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getReferencePoint()
    * @generated
    */
-  int REFERENCE_POINT = 14;
+  int REFERENCE_POINT = 13;
 
   /**
    * The number of structural features of the '<em>Reference Point</em>' class.
@@ -665,7 +619,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getActionReferencePoint()
    * @generated
    */
-  int ACTION_REFERENCE_POINT = 15;
+  int ACTION_REFERENCE_POINT = 14;
 
   /**
    * The feature id for the '<em><b>Action</b></em>' reference.
@@ -693,7 +647,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getConstraintReferencePoint()
    * @generated
    */
-  int CONSTRAINT_REFERENCE_POINT = 16;
+  int CONSTRAINT_REFERENCE_POINT = 15;
 
   /**
    * The feature id for the '<em><b>Constraint Name</b></em>' containment reference.
@@ -721,7 +675,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getFinallyStateAssertion()
    * @generated
    */
-  int FINALLY_STATE_ASSERTION = 17;
+  int FINALLY_STATE_ASSERTION = 16;
 
   /**
    * The feature id for the '<em><b>Checks</b></em>' containment reference list.
@@ -749,7 +703,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getCheck()
    * @generated
    */
-  int CHECK = 18;
+  int CHECK = 17;
 
   /**
    * The number of structural features of the '<em>Check</em>' class.
@@ -768,7 +722,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getConstraintCheck()
    * @generated
    */
-  int CONSTRAINT_CHECK = 19;
+  int CONSTRAINT_CHECK = 18;
 
   /**
    * The feature id for the '<em><b>Constraint Names</b></em>' containment reference list.
@@ -805,7 +759,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getStateExpression()
    * @generated
    */
-  int STATE_EXPRESSION = 20;
+  int STATE_EXPRESSION = 19;
 
   /**
    * The feature id for the '<em><b>Pin</b></em>' reference.
@@ -851,7 +805,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getObjectStateExpression()
    * @generated
    */
-  int OBJECT_STATE_EXPRESSION = 21;
+  int OBJECT_STATE_EXPRESSION = 20;
 
   /**
    * The feature id for the '<em><b>Pin</b></em>' reference.
@@ -897,7 +851,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getPropertyStateExpression()
    * @generated
    */
-  int PROPERTY_STATE_EXPRESSION = 22;
+  int PROPERTY_STATE_EXPRESSION = 21;
 
   /**
    * The feature id for the '<em><b>Pin</b></em>' reference.
@@ -952,7 +906,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getOrderAssertion()
    * @generated
    */
-  int ORDER_ASSERTION = 23;
+  int ORDER_ASSERTION = 22;
 
   /**
    * The feature id for the '<em><b>Order</b></em>' containment reference.
@@ -980,7 +934,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getNodeOrder()
    * @generated
    */
-  int NODE_ORDER = 24;
+  int NODE_ORDER = 23;
 
   /**
    * The feature id for the '<em><b>Nodes</b></em>' containment reference list.
@@ -1008,7 +962,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getNodeSpecification()
    * @generated
    */
-  int NODE_SPECIFICATION = 25;
+  int NODE_SPECIFICATION = 24;
 
   /**
    * The feature id for the '<em><b>Node</b></em>' reference.
@@ -1063,7 +1017,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getArithmeticOperator()
    * @generated
    */
-  int ARITHMETIC_OPERATOR = 26;
+  int ARITHMETIC_OPERATOR = 25;
 
   /**
    * The meta object id for the '{@link org.modelexecution.fumltesting.testLang.TemporalOperator <em>Temporal Operator</em>}' enum.
@@ -1073,7 +1027,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getTemporalOperator()
    * @generated
    */
-  int TEMPORAL_OPERATOR = 27;
+  int TEMPORAL_OPERATOR = 26;
 
   /**
    * The meta object id for the '{@link org.modelexecution.fumltesting.testLang.TemporalQuantifier <em>Temporal Quantifier</em>}' enum.
@@ -1083,7 +1037,7 @@ public interface TestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getTemporalQuantifier()
    * @generated
    */
-  int TEMPORAL_QUANTIFIER = 28;
+  int TEMPORAL_QUANTIFIER = 27;
 
 
   /**
@@ -1151,38 +1105,6 @@ public interface TestLangPackage extends EPackage
   EAttribute getImport_ImportedNamespace();
 
   /**
-   * Returns the meta object for class '{@link org.modelexecution.fumltesting.testLang.VarDeclaration <em>Var Declaration</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Var Declaration</em>'.
-   * @see org.modelexecution.fumltesting.testLang.VarDeclaration
-   * @generated
-   */
-  EClass getVarDeclaration();
-
-  /**
-   * Returns the meta object for the attribute '{@link org.modelexecution.fumltesting.testLang.VarDeclaration#getName <em>Name</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Name</em>'.
-   * @see org.modelexecution.fumltesting.testLang.VarDeclaration#getName()
-   * @see #getVarDeclaration()
-   * @generated
-   */
-  EAttribute getVarDeclaration_Name();
-
-  /**
-   * Returns the meta object for the reference '{@link org.modelexecution.fumltesting.testLang.VarDeclaration#getRef <em>Ref</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Ref</em>'.
-   * @see org.modelexecution.fumltesting.testLang.VarDeclaration#getRef()
-   * @see #getVarDeclaration()
-   * @generated
-   */
-  EReference getVarDeclaration_Ref();
-
-  /**
    * Returns the meta object for class '{@link org.modelexecution.fumltesting.testLang.TestCase <em>Test Case</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1246,17 +1168,6 @@ public interface TestLangPackage extends EPackage
    * @generated
    */
   EReference getTestCase_InitScenarios();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link org.modelexecution.fumltesting.testLang.TestCase#getVariables <em>Variables</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Variables</em>'.
-   * @see org.modelexecution.fumltesting.testLang.TestCase#getVariables()
-   * @see #getTestCase()
-   * @generated
-   */
-  EReference getTestCase_Variables();
 
   /**
    * Returns the meta object for the containment reference list '{@link org.modelexecution.fumltesting.testLang.TestCase#getAssertions <em>Assertions</em>}'.
@@ -2002,32 +1913,6 @@ public interface TestLangPackage extends EPackage
     EAttribute IMPORT__IMPORTED_NAMESPACE = eINSTANCE.getImport_ImportedNamespace();
 
     /**
-     * The meta object literal for the '{@link org.modelexecution.fumltesting.testLang.impl.VarDeclarationImpl <em>Var Declaration</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.modelexecution.fumltesting.testLang.impl.VarDeclarationImpl
-     * @see org.modelexecution.fumltesting.testLang.impl.TestLangPackageImpl#getVarDeclaration()
-     * @generated
-     */
-    EClass VAR_DECLARATION = eINSTANCE.getVarDeclaration();
-
-    /**
-     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute VAR_DECLARATION__NAME = eINSTANCE.getVarDeclaration_Name();
-
-    /**
-     * The meta object literal for the '<em><b>Ref</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference VAR_DECLARATION__REF = eINSTANCE.getVarDeclaration_Ref();
-
-    /**
      * The meta object literal for the '{@link org.modelexecution.fumltesting.testLang.impl.TestCaseImpl <em>Test Case</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2076,14 +1961,6 @@ public interface TestLangPackage extends EPackage
      * @generated
      */
     EReference TEST_CASE__INIT_SCENARIOS = eINSTANCE.getTestCase_InitScenarios();
-
-    /**
-     * The meta object literal for the '<em><b>Variables</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference TEST_CASE__VARIABLES = eINSTANCE.getTestCase_Variables();
 
     /**
      * The meta object literal for the '<em><b>Assertions</b></em>' containment reference list feature.

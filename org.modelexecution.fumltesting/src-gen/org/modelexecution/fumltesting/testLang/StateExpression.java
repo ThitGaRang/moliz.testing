@@ -2,6 +2,7 @@
  */
 package org.modelexecution.fumltesting.testLang;
 
+import org.eclipse.uml2.uml.ObjectNode;
 
 /**
  * <!-- begin-user-doc -->
@@ -32,12 +33,12 @@ public interface StateExpression extends Check
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Pin</em>' reference.
-   * @see #setPin(VarDeclaration)
+   * @see #setPin(ObjectNode)
    * @see org.modelexecution.fumltesting.testLang.TestLangPackage#getStateExpression_Pin()
    * @model
    * @generated
    */
-  VarDeclaration getPin();
+  ObjectNode getPin();
 
   /**
    * Sets the value of the '{@link org.modelexecution.fumltesting.testLang.StateExpression#getPin <em>Pin</em>}' reference.
@@ -47,7 +48,7 @@ public interface StateExpression extends Check
    * @see #getPin()
    * @generated
    */
-  void setPin(VarDeclaration value);
+  void setPin(ObjectNode value);
 
   /**
    * Returns the value of the '<em><b>Operator</b></em>' attribute.

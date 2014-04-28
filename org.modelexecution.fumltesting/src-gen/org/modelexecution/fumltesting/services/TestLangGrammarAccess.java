@@ -79,50 +79,6 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getImportedNamespaceQualifiedNameWithWildcardParserRuleCall_1_0() { return cImportedNamespaceQualifiedNameWithWildcardParserRuleCall_1_0; }
 	}
 
-	public class VarDeclarationElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "VarDeclaration");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cVarKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
-		private final Keyword cEqualsSignKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Assignment cRefAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final CrossReference cRefObjectNodeCrossReference_3_0 = (CrossReference)cRefAssignment_3.eContents().get(0);
-		private final RuleCall cRefObjectNodeQualifiedNameParserRuleCall_3_0_1 = (RuleCall)cRefObjectNodeCrossReference_3_0.eContents().get(1);
-		private final Keyword cSemicolonKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		
-		//VarDeclaration:
-		//	"var" name=ID "=" ref=[uml::ObjectNode|QualifiedName] ";";
-		public ParserRule getRule() { return rule; }
-
-		//"var" name=ID "=" ref=[uml::ObjectNode|QualifiedName] ";"
-		public Group getGroup() { return cGroup; }
-
-		//"var"
-		public Keyword getVarKeyword_0() { return cVarKeyword_0; }
-
-		//name=ID
-		public Assignment getNameAssignment_1() { return cNameAssignment_1; }
-
-		//ID
-		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
-
-		//"="
-		public Keyword getEqualsSignKeyword_2() { return cEqualsSignKeyword_2; }
-
-		//ref=[uml::ObjectNode|QualifiedName]
-		public Assignment getRefAssignment_3() { return cRefAssignment_3; }
-
-		//[uml::ObjectNode|QualifiedName]
-		public CrossReference getRefObjectNodeCrossReference_3_0() { return cRefObjectNodeCrossReference_3_0; }
-
-		//QualifiedName
-		public RuleCall getRefObjectNodeQualifiedNameParserRuleCall_3_0_1() { return cRefObjectNodeQualifiedNameParserRuleCall_3_0_1; }
-
-		//";"
-		public Keyword getSemicolonKeyword_4() { return cSemicolonKeyword_4; }
-	}
-
 	public class TestCaseElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "TestCase");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -161,23 +117,19 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cInitScenariosScenarioIDTerminalRuleCall_7_3_1_0_1 = (RuleCall)cInitScenariosScenarioCrossReference_7_3_1_0.eContents().get(1);
 		private final Keyword cRightSquareBracketKeyword_7_4 = (Keyword)cGroup_7.eContents().get(4);
 		private final Keyword cSemicolonKeyword_7_5 = (Keyword)cGroup_7.eContents().get(5);
-		private final Assignment cVariablesAssignment_8 = (Assignment)cGroup.eContents().get(8);
-		private final RuleCall cVariablesVarDeclarationParserRuleCall_8_0 = (RuleCall)cVariablesAssignment_8.eContents().get(0);
-		private final Assignment cAssertionsAssignment_9 = (Assignment)cGroup.eContents().get(9);
-		private final RuleCall cAssertionsAssertionParserRuleCall_9_0 = (RuleCall)cAssertionsAssignment_9.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_10 = (Keyword)cGroup.eContents().get(10);
+		private final Assignment cAssertionsAssignment_8 = (Assignment)cGroup.eContents().get(8);
+		private final RuleCall cAssertionsAssertionParserRuleCall_8_0 = (RuleCall)cAssertionsAssignment_8.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_9 = (Keyword)cGroup.eContents().get(9);
 		
 		//TestCase:
 		//	"test" name=ID "activity" activityUnderTest=[uml::Activity|QualifiedName] ("(" inputs+=ActivityInput (","
 		//	inputs+=ActivityInput)* ")")? ("on" contextObject=[ObjectSpecification|QualifiedName])? "{" ("initialize" "["
-		//	initScenarios+=[Scenario] ("," initScenarios+=[Scenario])* "]" ";")? variables+=VarDeclaration*
-		//	assertions+=Assertion* "}";
+		//	initScenarios+=[Scenario] ("," initScenarios+=[Scenario])* "]" ";")? assertions+=Assertion* "}";
 		public ParserRule getRule() { return rule; }
 
 		//"test" name=ID "activity" activityUnderTest=[uml::Activity|QualifiedName] ("(" inputs+=ActivityInput (","
 		//inputs+=ActivityInput)* ")")? ("on" contextObject=[ObjectSpecification|QualifiedName])? "{" ("initialize" "["
-		//initScenarios+=[Scenario] ("," initScenarios+=[Scenario])* "]" ";")? variables+=VarDeclaration* assertions+=Assertion*
-		//"}"
+		//initScenarios+=[Scenario] ("," initScenarios+=[Scenario])* "]" ";")? assertions+=Assertion* "}"
 		public Group getGroup() { return cGroup; }
 
 		//"test"
@@ -285,20 +237,14 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_7_5() { return cSemicolonKeyword_7_5; }
 
-		//variables+=VarDeclaration*
-		public Assignment getVariablesAssignment_8() { return cVariablesAssignment_8; }
-
-		//VarDeclaration
-		public RuleCall getVariablesVarDeclarationParserRuleCall_8_0() { return cVariablesVarDeclarationParserRuleCall_8_0; }
-
 		//assertions+=Assertion*
-		public Assignment getAssertionsAssignment_9() { return cAssertionsAssignment_9; }
+		public Assignment getAssertionsAssignment_8() { return cAssertionsAssignment_8; }
 
 		//Assertion
-		public RuleCall getAssertionsAssertionParserRuleCall_9_0() { return cAssertionsAssertionParserRuleCall_9_0; }
+		public RuleCall getAssertionsAssertionParserRuleCall_8_0() { return cAssertionsAssertionParserRuleCall_8_0; }
 
 		//"}"
-		public Keyword getRightCurlyBracketKeyword_10() { return cRightCurlyBracketKeyword_10; }
+		public Keyword getRightCurlyBracketKeyword_9() { return cRightCurlyBracketKeyword_9; }
 	}
 
 	public class ActivityInputElements extends AbstractParserRuleElementFinder {
@@ -888,17 +834,17 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
 		private final Keyword cOnKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
 		private final Assignment cObjectAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
-		private final CrossReference cObjectVarDeclarationCrossReference_3_1_0 = (CrossReference)cObjectAssignment_3_1.eContents().get(0);
-		private final RuleCall cObjectVarDeclarationQualifiedNameParserRuleCall_3_1_0_1 = (RuleCall)cObjectVarDeclarationCrossReference_3_1_0.eContents().get(1);
+		private final CrossReference cObjectObjectNodeCrossReference_3_1_0 = (CrossReference)cObjectAssignment_3_1.eContents().get(0);
+		private final RuleCall cObjectObjectNodeQualifiedNameParserRuleCall_3_1_0_1 = (RuleCall)cObjectObjectNodeCrossReference_3_1_0.eContents().get(1);
 		private final Keyword cSemicolonKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
 		//ConstraintCheck:
 		//	"check" constraintNames+=XStringLiteral ("," constraintNames+=XStringLiteral)* ("on"
-		//	object=[VarDeclaration|QualifiedName])? ";";
+		//	object=[uml::ObjectNode|QualifiedName])? ";";
 		public ParserRule getRule() { return rule; }
 
 		//"check" constraintNames+=XStringLiteral ("," constraintNames+=XStringLiteral)* ("on"
-		//object=[VarDeclaration|QualifiedName])? ";"
+		//object=[uml::ObjectNode|QualifiedName])? ";"
 		public Group getGroup() { return cGroup; }
 
 		//"check"
@@ -922,20 +868,20 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		//XStringLiteral
 		public RuleCall getConstraintNamesXStringLiteralParserRuleCall_2_1_0() { return cConstraintNamesXStringLiteralParserRuleCall_2_1_0; }
 
-		//("on" object=[VarDeclaration|QualifiedName])?
+		//("on" object=[uml::ObjectNode|QualifiedName])?
 		public Group getGroup_3() { return cGroup_3; }
 
 		//"on"
 		public Keyword getOnKeyword_3_0() { return cOnKeyword_3_0; }
 
-		//object=[VarDeclaration|QualifiedName]
+		//object=[uml::ObjectNode|QualifiedName]
 		public Assignment getObjectAssignment_3_1() { return cObjectAssignment_3_1; }
 
-		//[VarDeclaration|QualifiedName]
-		public CrossReference getObjectVarDeclarationCrossReference_3_1_0() { return cObjectVarDeclarationCrossReference_3_1_0; }
+		//[uml::ObjectNode|QualifiedName]
+		public CrossReference getObjectObjectNodeCrossReference_3_1_0() { return cObjectObjectNodeCrossReference_3_1_0; }
 
 		//QualifiedName
-		public RuleCall getObjectVarDeclarationQualifiedNameParserRuleCall_3_1_0_1() { return cObjectVarDeclarationQualifiedNameParserRuleCall_3_1_0_1; }
+		public RuleCall getObjectObjectNodeQualifiedNameParserRuleCall_3_1_0_1() { return cObjectObjectNodeQualifiedNameParserRuleCall_3_1_0_1; }
 
 		//";"
 		public Keyword getSemicolonKeyword_4() { return cSemicolonKeyword_4; }
@@ -965,8 +911,8 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ObjectStateExpression");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cPinAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final CrossReference cPinVarDeclarationCrossReference_0_0 = (CrossReference)cPinAssignment_0.eContents().get(0);
-		private final RuleCall cPinVarDeclarationIDTerminalRuleCall_0_0_1 = (RuleCall)cPinVarDeclarationCrossReference_0_0.eContents().get(1);
+		private final CrossReference cPinObjectNodeCrossReference_0_0 = (CrossReference)cPinAssignment_0.eContents().get(0);
+		private final RuleCall cPinObjectNodeQualifiedNameParserRuleCall_0_0_1 = (RuleCall)cPinObjectNodeCrossReference_0_0.eContents().get(1);
 		private final Assignment cOperatorAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cOperatorArithmeticOperatorEnumRuleCall_1_0 = (RuleCall)cOperatorAssignment_1.eContents().get(0);
 		private final Assignment cValueAssignment_2 = (Assignment)cGroup.eContents().get(2);
@@ -974,20 +920,20 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//ObjectStateExpression:
-		//	pin=[VarDeclaration] operator=ArithmeticOperator value=Value ";";
+		//	pin=[uml::ObjectNode|QualifiedName] operator=ArithmeticOperator value=Value ";";
 		public ParserRule getRule() { return rule; }
 
-		//pin=[VarDeclaration] operator=ArithmeticOperator value=Value ";"
+		//pin=[uml::ObjectNode|QualifiedName] operator=ArithmeticOperator value=Value ";"
 		public Group getGroup() { return cGroup; }
 
-		//pin=[VarDeclaration]
+		//pin=[uml::ObjectNode|QualifiedName]
 		public Assignment getPinAssignment_0() { return cPinAssignment_0; }
 
-		//[VarDeclaration]
-		public CrossReference getPinVarDeclarationCrossReference_0_0() { return cPinVarDeclarationCrossReference_0_0; }
+		//[uml::ObjectNode|QualifiedName]
+		public CrossReference getPinObjectNodeCrossReference_0_0() { return cPinObjectNodeCrossReference_0_0; }
 
-		//ID
-		public RuleCall getPinVarDeclarationIDTerminalRuleCall_0_0_1() { return cPinVarDeclarationIDTerminalRuleCall_0_0_1; }
+		//QualifiedName
+		public RuleCall getPinObjectNodeQualifiedNameParserRuleCall_0_0_1() { return cPinObjectNodeQualifiedNameParserRuleCall_0_0_1; }
 
 		//operator=ArithmeticOperator
 		public Assignment getOperatorAssignment_1() { return cOperatorAssignment_1; }
@@ -1009,8 +955,8 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PropertyStateExpression");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cPinAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final CrossReference cPinVarDeclarationCrossReference_0_0 = (CrossReference)cPinAssignment_0.eContents().get(0);
-		private final RuleCall cPinVarDeclarationIDTerminalRuleCall_0_0_1 = (RuleCall)cPinVarDeclarationCrossReference_0_0.eContents().get(1);
+		private final CrossReference cPinObjectNodeCrossReference_0_0 = (CrossReference)cPinAssignment_0.eContents().get(0);
+		private final RuleCall cPinObjectNodeQualifiedNameParserRuleCall_0_0_1 = (RuleCall)cPinObjectNodeCrossReference_0_0.eContents().get(1);
 		private final Keyword cColonColonKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cPropertyAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final CrossReference cPropertyPropertyCrossReference_2_0 = (CrossReference)cPropertyAssignment_2.eContents().get(0);
@@ -1022,20 +968,22 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//PropertyStateExpression:
-		//	pin=[VarDeclaration] "::" property=[uml::Property|QualifiedName] operator=ArithmeticOperator value=Value ";";
+		//	pin=[uml::ObjectNode|QualifiedName] "::" property=[uml::Property|QualifiedName] operator=ArithmeticOperator
+		//	value=Value ";";
 		public ParserRule getRule() { return rule; }
 
-		//pin=[VarDeclaration] "::" property=[uml::Property|QualifiedName] operator=ArithmeticOperator value=Value ";"
+		//pin=[uml::ObjectNode|QualifiedName] "::" property=[uml::Property|QualifiedName] operator=ArithmeticOperator value=Value
+		//";"
 		public Group getGroup() { return cGroup; }
 
-		//pin=[VarDeclaration]
+		//pin=[uml::ObjectNode|QualifiedName]
 		public Assignment getPinAssignment_0() { return cPinAssignment_0; }
 
-		//[VarDeclaration]
-		public CrossReference getPinVarDeclarationCrossReference_0_0() { return cPinVarDeclarationCrossReference_0_0; }
+		//[uml::ObjectNode|QualifiedName]
+		public CrossReference getPinObjectNodeCrossReference_0_0() { return cPinObjectNodeCrossReference_0_0; }
 
-		//ID
-		public RuleCall getPinVarDeclarationIDTerminalRuleCall_0_0_1() { return cPinVarDeclarationIDTerminalRuleCall_0_0_1; }
+		//QualifiedName
+		public RuleCall getPinObjectNodeQualifiedNameParserRuleCall_0_0_1() { return cPinObjectNodeQualifiedNameParserRuleCall_0_0_1; }
 
 		//"::"
 		public Keyword getColonColonKeyword_1() { return cColonColonKeyword_1; }
@@ -1362,7 +1310,6 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 	
 	private TestSuiteElements pTestSuite;
 	private ImportElements pImport;
-	private VarDeclarationElements pVarDeclaration;
 	private TestCaseElements pTestCase;
 	private ActivityInputElements pActivityInput;
 	private ValueElements pValue;
@@ -1448,21 +1395,10 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		return getImportAccess().getRule();
 	}
 
-	//VarDeclaration:
-	//	"var" name=ID "=" ref=[uml::ObjectNode|QualifiedName] ";";
-	public VarDeclarationElements getVarDeclarationAccess() {
-		return (pVarDeclaration != null) ? pVarDeclaration : (pVarDeclaration = new VarDeclarationElements());
-	}
-	
-	public ParserRule getVarDeclarationRule() {
-		return getVarDeclarationAccess().getRule();
-	}
-
 	//TestCase:
 	//	"test" name=ID "activity" activityUnderTest=[uml::Activity|QualifiedName] ("(" inputs+=ActivityInput (","
 	//	inputs+=ActivityInput)* ")")? ("on" contextObject=[ObjectSpecification|QualifiedName])? "{" ("initialize" "["
-	//	initScenarios+=[Scenario] ("," initScenarios+=[Scenario])* "]" ";")? variables+=VarDeclaration*
-	//	assertions+=Assertion* "}";
+	//	initScenarios+=[Scenario] ("," initScenarios+=[Scenario])* "]" ";")? assertions+=Assertion* "}";
 	public TestCaseElements getTestCaseAccess() {
 		return (pTestCase != null) ? pTestCase : (pTestCase = new TestCaseElements());
 	}
@@ -1626,7 +1562,7 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 
 	//ConstraintCheck:
 	//	"check" constraintNames+=XStringLiteral ("," constraintNames+=XStringLiteral)* ("on"
-	//	object=[VarDeclaration|QualifiedName])? ";";
+	//	object=[uml::ObjectNode|QualifiedName])? ";";
 	public ConstraintCheckElements getConstraintCheckAccess() {
 		return (pConstraintCheck != null) ? pConstraintCheck : (pConstraintCheck = new ConstraintCheckElements());
 	}
@@ -1646,7 +1582,7 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ObjectStateExpression:
-	//	pin=[VarDeclaration] operator=ArithmeticOperator value=Value ";";
+	//	pin=[uml::ObjectNode|QualifiedName] operator=ArithmeticOperator value=Value ";";
 	public ObjectStateExpressionElements getObjectStateExpressionAccess() {
 		return (pObjectStateExpression != null) ? pObjectStateExpression : (pObjectStateExpression = new ObjectStateExpressionElements());
 	}
@@ -1656,7 +1592,8 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//PropertyStateExpression:
-	//	pin=[VarDeclaration] "::" property=[uml::Property|QualifiedName] operator=ArithmeticOperator value=Value ";";
+	//	pin=[uml::ObjectNode|QualifiedName] "::" property=[uml::Property|QualifiedName] operator=ArithmeticOperator
+	//	value=Value ";";
 	public PropertyStateExpressionElements getPropertyStateExpressionAccess() {
 		return (pPropertyStateExpression != null) ? pPropertyStateExpression : (pPropertyStateExpression = new PropertyStateExpressionElements());
 	}

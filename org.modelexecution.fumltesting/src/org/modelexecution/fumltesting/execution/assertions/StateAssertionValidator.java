@@ -124,8 +124,8 @@ public class StateAssertionValidator {
 						String name = ((XStringLiteral) constraintName).getValue();
 						ValueInstance context = null;
 						if (((ConstraintCheck) check).getObject() != null) {
-							Object nodeExecution = traceUtil.getExecution(((ConstraintCheck) check).getObject().getRef().eContainer());
-							context = traceUtil.getValueInstance(((ConstraintCheck) check).getObject().getRef(), nodeExecution);
+							Object nodeExecution = traceUtil.getExecution(((ConstraintCheck) check).getObject().eContainer());
+							context = traceUtil.getValueInstance(((ConstraintCheck) check).getObject(), nodeExecution);
 						}
 						ConstraintResult constraintResult = new ConstraintResult(name, assertion);
 						for (State state : states) {
@@ -192,7 +192,7 @@ public class StateAssertionValidator {
 		if (expression.getValue() instanceof SimpleValue) {
 			// special case
 			if (expression instanceof PropertyStateExpression
-					&& ((PropertyStateExpression) expression).getProperty().getOwner() != expression.getPin().getRef().getType()) {
+					&& ((PropertyStateExpression) expression).getProperty().getOwner() != expression.getPin().getType()) {
 				result.setValidationResult(processObject(expression, list));
 			} else {
 				result.setValidationResult(processValue(expression, list));
@@ -391,26 +391,26 @@ public class StateAssertionValidator {
 
 		PropertyStateExpression propertyExpression = (PropertyStateExpression) expression;
 		if (propertyExpression.getProperty().getType() instanceof org.eclipse.uml2.uml.Class) {
-			Object variableAction = propertyExpression.getPin().getRef().eContainer();
+			Object variableAction = propertyExpression.getPin().eContainer();
 			ValueInstance source = null;
-			if (propertyExpression.getPin().getRef().eContainer() instanceof Action) {
+			if (propertyExpression.getPin().eContainer() instanceof Action) {
 				ActionExecution execution = (ActionExecution) traceUtil.getExecution(variableAction);
-				if (propertyExpression.getPin().getRef() instanceof InputPin) {
+				if (propertyExpression.getPin() instanceof InputPin) {
 					for (Input input : execution.getInputs()) {
-						if (input.getInputPin().name.equals(propertyExpression.getPin().getRef().getName()))
+						if (input.getInputPin().name.equals(propertyExpression.getPin().getName()))
 							source = (ValueInstance) ((ValueSnapshot) input.getInputValues().get(0).getInputValueSnapshot()).eContainer();
 					}
 				}
-				if (propertyExpression.getPin().getRef() instanceof OutputPin) {
+				if (propertyExpression.getPin() instanceof OutputPin) {
 					for (Output output : execution.getOutputs()) {
-						if (output.getOutputPin().name.equals(propertyExpression.getPin().getRef().getName()))
+						if (output.getOutputPin().name.equals(propertyExpression.getPin().getName()))
 							source = (ValueInstance) ((ValueSnapshot) output.getOutputValues().get(0).getOutputValueSnapshot()).eContainer();
 					}
 				}
 			}
-			if (propertyExpression.getPin().getRef().eContainer() instanceof Activity) {
+			if (propertyExpression.getPin().eContainer() instanceof Activity) {
 				ActivityExecution execution = (ActivityExecution) traceUtil.getExecution(variableAction);
-				ActivityParameterNode parameterNode = (ActivityParameterNode) propertyExpression.getPin().getRef();
+				ActivityParameterNode parameterNode = (ActivityParameterNode) propertyExpression.getPin();
 				if (parameterNode.getParameter().getDirection().getValue() == ParameterDirectionKind.OUT) {
 					for (OutputParameterSetting output : execution.getActivityOutputs()) {
 						if (output.getParameter().name.equals(parameterNode.getName()))

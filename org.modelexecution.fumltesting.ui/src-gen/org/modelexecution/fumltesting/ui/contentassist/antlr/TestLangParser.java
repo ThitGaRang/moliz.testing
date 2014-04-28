@@ -85,7 +85,6 @@ public class TestLangParser extends AbstractContentAssistParser {
 					put(grammarAccess.getTemporalQuantifierAccess().getAlternatives(), "rule__TemporalQuantifier__Alternatives");
 					put(grammarAccess.getTestSuiteAccess().getGroup(), "rule__TestSuite__Group__0");
 					put(grammarAccess.getImportAccess().getGroup(), "rule__Import__Group__0");
-					put(grammarAccess.getVarDeclarationAccess().getGroup(), "rule__VarDeclaration__Group__0");
 					put(grammarAccess.getTestCaseAccess().getGroup(), "rule__TestCase__Group__0");
 					put(grammarAccess.getTestCaseAccess().getGroup_4(), "rule__TestCase__Group_4__0");
 					put(grammarAccess.getTestCaseAccess().getGroup_4_2(), "rule__TestCase__Group_4_2__0");
@@ -270,8 +269,6 @@ public class TestLangParser extends AbstractContentAssistParser {
 					put(grammarAccess.getTestSuiteAccess().getScenariosAssignment_1(), "rule__TestSuite__ScenariosAssignment_1");
 					put(grammarAccess.getTestSuiteAccess().getTestsAssignment_2(), "rule__TestSuite__TestsAssignment_2");
 					put(grammarAccess.getImportAccess().getImportedNamespaceAssignment_1(), "rule__Import__ImportedNamespaceAssignment_1");
-					put(grammarAccess.getVarDeclarationAccess().getNameAssignment_1(), "rule__VarDeclaration__NameAssignment_1");
-					put(grammarAccess.getVarDeclarationAccess().getRefAssignment_3(), "rule__VarDeclaration__RefAssignment_3");
 					put(grammarAccess.getTestCaseAccess().getNameAssignment_1(), "rule__TestCase__NameAssignment_1");
 					put(grammarAccess.getTestCaseAccess().getActivityUnderTestAssignment_3(), "rule__TestCase__ActivityUnderTestAssignment_3");
 					put(grammarAccess.getTestCaseAccess().getInputsAssignment_4_1(), "rule__TestCase__InputsAssignment_4_1");
@@ -279,8 +276,7 @@ public class TestLangParser extends AbstractContentAssistParser {
 					put(grammarAccess.getTestCaseAccess().getContextObjectAssignment_5_1(), "rule__TestCase__ContextObjectAssignment_5_1");
 					put(grammarAccess.getTestCaseAccess().getInitScenariosAssignment_7_2(), "rule__TestCase__InitScenariosAssignment_7_2");
 					put(grammarAccess.getTestCaseAccess().getInitScenariosAssignment_7_3_1(), "rule__TestCase__InitScenariosAssignment_7_3_1");
-					put(grammarAccess.getTestCaseAccess().getVariablesAssignment_8(), "rule__TestCase__VariablesAssignment_8");
-					put(grammarAccess.getTestCaseAccess().getAssertionsAssignment_9(), "rule__TestCase__AssertionsAssignment_9");
+					put(grammarAccess.getTestCaseAccess().getAssertionsAssignment_8(), "rule__TestCase__AssertionsAssignment_8");
 					put(grammarAccess.getActivityInputAccess().getParameterAssignment_0(), "rule__ActivityInput__ParameterAssignment_0");
 					put(grammarAccess.getActivityInputAccess().getValueAssignment_2(), "rule__ActivityInput__ValueAssignment_2");
 					put(grammarAccess.getSimpleValueAccess().getValueAssignment(), "rule__SimpleValue__ValueAssignment");

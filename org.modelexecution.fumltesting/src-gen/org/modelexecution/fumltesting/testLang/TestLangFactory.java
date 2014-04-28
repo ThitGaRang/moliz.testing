@@ -41,15 +41,6 @@ public interface TestLangFactory extends EFactory
   Import createImport();
 
   /**
-   * Returns a new object of class '<em>Var Declaration</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Var Declaration</em>'.
-   * @generated
-   */
-  VarDeclaration createVarDeclaration();
-
-  /**
    * Returns a new object of class '<em>Test Case</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

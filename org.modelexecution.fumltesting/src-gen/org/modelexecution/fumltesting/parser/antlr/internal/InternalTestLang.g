@@ -182,72 +182,6 @@ ruleImport returns [EObject current=null]
 
 
 
-// Entry rule entryRuleVarDeclaration
-entryRuleVarDeclaration returns [EObject current=null] 
-	:
-	{ newCompositeNode(grammarAccess.getVarDeclarationRule()); }
-	 iv_ruleVarDeclaration=ruleVarDeclaration 
-	 { $current=$iv_ruleVarDeclaration.current; } 
-	 EOF 
-;
-
-// Rule VarDeclaration
-ruleVarDeclaration returns [EObject current=null] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-(	otherlv_0='var' 
-    {
-    	newLeafNode(otherlv_0, grammarAccess.getVarDeclarationAccess().getVarKeyword_0());
-    }
-(
-(
-		lv_name_1_0=RULE_ID
-		{
-			newLeafNode(lv_name_1_0, grammarAccess.getVarDeclarationAccess().getNameIDTerminalRuleCall_1_0()); 
-		}
-		{
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getVarDeclarationRule());
-	        }
-       		setWithLastConsumed(
-       			$current, 
-       			"name",
-        		lv_name_1_0, 
-        		"ID");
-	    }
-
-)
-)	otherlv_2='=' 
-    {
-    	newLeafNode(otherlv_2, grammarAccess.getVarDeclarationAccess().getEqualsSignKeyword_2());
-    }
-(
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getVarDeclarationRule());
-	        }
-        }
-		{ 
-	        newCompositeNode(grammarAccess.getVarDeclarationAccess().getRefObjectNodeCrossReference_3_0()); 
-	    }
-		ruleQualifiedName		{ 
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)	otherlv_4=';' 
-    {
-    	newLeafNode(otherlv_4, grammarAccess.getVarDeclarationAccess().getSemicolonKeyword_4());
-    }
-)
-;
-
-
-
-
-
 // Entry rule entryRuleTestCase
 entryRuleTestCase returns [EObject current=null] 
 	:
@@ -423,42 +357,24 @@ ruleTestCase returns [EObject current=null]
 )?(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getTestCaseAccess().getVariablesVarDeclarationParserRuleCall_8_0()); 
+	        newCompositeNode(grammarAccess.getTestCaseAccess().getAssertionsAssertionParserRuleCall_8_0()); 
 	    }
-		lv_variables_19_0=ruleVarDeclaration		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getTestCaseRule());
-	        }
-       		add(
-       			$current, 
-       			"variables",
-        		lv_variables_19_0, 
-        		"VarDeclaration");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)*(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getTestCaseAccess().getAssertionsAssertionParserRuleCall_9_0()); 
-	    }
-		lv_assertions_20_0=ruleAssertion		{
+		lv_assertions_19_0=ruleAssertion		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getTestCaseRule());
 	        }
        		add(
        			$current, 
        			"assertions",
-        		lv_assertions_20_0, 
+        		lv_assertions_19_0, 
         		"Assertion");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)*	otherlv_21='}' 
+)*	otherlv_20='}' 
     {
-    	newLeafNode(otherlv_21, grammarAccess.getTestCaseAccess().getRightCurlyBracketKeyword_10());
+    	newLeafNode(otherlv_20, grammarAccess.getTestCaseAccess().getRightCurlyBracketKeyword_9());
     }
 )
 ;
@@ -1476,7 +1392,7 @@ ruleConstraintCheck returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getConstraintCheckAccess().getObjectVarDeclarationCrossReference_3_1_0()); 
+	        newCompositeNode(grammarAccess.getConstraintCheckAccess().getObjectObjectNodeCrossReference_3_1_0()); 
 	    }
 		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
@@ -1555,10 +1471,12 @@ ruleObjectStateExpression returns [EObject current=null]
 	            $current = createModelElement(grammarAccess.getObjectStateExpressionRule());
 	        }
         }
-	otherlv_0=RULE_ID
-	{
-		newLeafNode(otherlv_0, grammarAccess.getObjectStateExpressionAccess().getPinVarDeclarationCrossReference_0_0()); 
-	}
+		{ 
+	        newCompositeNode(grammarAccess.getObjectStateExpressionAccess().getPinObjectNodeCrossReference_0_0()); 
+	    }
+		ruleQualifiedName		{ 
+	        afterParserOrEnumRuleCall();
+	    }
 
 )
 )(
@@ -1629,10 +1547,12 @@ rulePropertyStateExpression returns [EObject current=null]
 	            $current = createModelElement(grammarAccess.getPropertyStateExpressionRule());
 	        }
         }
-	otherlv_0=RULE_ID
-	{
-		newLeafNode(otherlv_0, grammarAccess.getPropertyStateExpressionAccess().getPinVarDeclarationCrossReference_0_0()); 
-	}
+		{ 
+	        newCompositeNode(grammarAccess.getPropertyStateExpressionAccess().getPinObjectNodeCrossReference_0_0()); 
+	    }
+		ruleQualifiedName		{ 
+	        afterParserOrEnumRuleCall();
+	    }
 
 )
 )	otherlv_1='::' 

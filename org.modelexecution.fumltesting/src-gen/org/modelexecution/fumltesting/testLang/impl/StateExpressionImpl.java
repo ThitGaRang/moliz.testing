@@ -10,11 +10,12 @@ import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
+import org.eclipse.uml2.uml.ObjectNode;
+
 import org.modelexecution.fumltesting.testLang.ArithmeticOperator;
 import org.modelexecution.fumltesting.testLang.StateExpression;
 import org.modelexecution.fumltesting.testLang.TestLangPackage;
 import org.modelexecution.fumltesting.testLang.Value;
-import org.modelexecution.fumltesting.testLang.VarDeclaration;
 
 /**
  * <!-- begin-user-doc -->
@@ -41,7 +42,7 @@ public class StateExpressionImpl extends CheckImpl implements StateExpression
    * @generated
    * @ordered
    */
-  protected VarDeclaration pin;
+  protected ObjectNode pin;
 
   /**
    * The default value of the '{@link #getOperator() <em>Operator</em>}' attribute.
@@ -99,12 +100,12 @@ public class StateExpressionImpl extends CheckImpl implements StateExpression
    * <!-- end-user-doc -->
    * @generated
    */
-  public VarDeclaration getPin()
+  public ObjectNode getPin()
   {
     if (pin != null && pin.eIsProxy())
     {
       InternalEObject oldPin = (InternalEObject)pin;
-      pin = (VarDeclaration)eResolveProxy(oldPin);
+      pin = (ObjectNode)eResolveProxy(oldPin);
       if (pin != oldPin)
       {
         if (eNotificationRequired())
@@ -119,7 +120,7 @@ public class StateExpressionImpl extends CheckImpl implements StateExpression
    * <!-- end-user-doc -->
    * @generated
    */
-  public VarDeclaration basicGetPin()
+  public ObjectNode basicGetPin()
   {
     return pin;
   }
@@ -129,9 +130,9 @@ public class StateExpressionImpl extends CheckImpl implements StateExpression
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setPin(VarDeclaration newPin)
+  public void setPin(ObjectNode newPin)
   {
-    VarDeclaration oldPin = pin;
+    ObjectNode oldPin = pin;
     pin = newPin;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, TestLangPackage.STATE_EXPRESSION__PIN, oldPin, pin));
@@ -256,7 +257,7 @@ public class StateExpressionImpl extends CheckImpl implements StateExpression
     switch (featureID)
     {
       case TestLangPackage.STATE_EXPRESSION__PIN:
-        setPin((VarDeclaration)newValue);
+        setPin((ObjectNode)newValue);
         return;
       case TestLangPackage.STATE_EXPRESSION__OPERATOR:
         setOperator((ArithmeticOperator)newValue);
@@ -279,7 +280,7 @@ public class StateExpressionImpl extends CheckImpl implements StateExpression
     switch (featureID)
     {
       case TestLangPackage.STATE_EXPRESSION__PIN:
-        setPin((VarDeclaration)null);
+        setPin((ObjectNode)null);
         return;
       case TestLangPackage.STATE_EXPRESSION__OPERATOR:
         setOperator(OPERATOR_EDEFAULT);

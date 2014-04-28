@@ -17,11 +17,12 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.eclipse.uml2.uml.ObjectNode;
+
 import org.eclipse.xtext.xbase.XExpression;
 
 import org.modelexecution.fumltesting.testLang.ConstraintCheck;
 import org.modelexecution.fumltesting.testLang.TestLangPackage;
-import org.modelexecution.fumltesting.testLang.VarDeclaration;
 
 /**
  * <!-- begin-user-doc -->
@@ -57,7 +58,7 @@ public class ConstraintCheckImpl extends CheckImpl implements ConstraintCheck
    * @generated
    * @ordered
    */
-  protected VarDeclaration object;
+  protected ObjectNode object;
 
   /**
    * <!-- begin-user-doc -->
@@ -99,12 +100,12 @@ public class ConstraintCheckImpl extends CheckImpl implements ConstraintCheck
    * <!-- end-user-doc -->
    * @generated
    */
-  public VarDeclaration getObject()
+  public ObjectNode getObject()
   {
     if (object != null && object.eIsProxy())
     {
       InternalEObject oldObject = (InternalEObject)object;
-      object = (VarDeclaration)eResolveProxy(oldObject);
+      object = (ObjectNode)eResolveProxy(oldObject);
       if (object != oldObject)
       {
         if (eNotificationRequired())
@@ -119,7 +120,7 @@ public class ConstraintCheckImpl extends CheckImpl implements ConstraintCheck
    * <!-- end-user-doc -->
    * @generated
    */
-  public VarDeclaration basicGetObject()
+  public ObjectNode basicGetObject()
   {
     return object;
   }
@@ -129,9 +130,9 @@ public class ConstraintCheckImpl extends CheckImpl implements ConstraintCheck
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setObject(VarDeclaration newObject)
+  public void setObject(ObjectNode newObject)
   {
-    VarDeclaration oldObject = object;
+    ObjectNode oldObject = object;
     object = newObject;
     if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, TestLangPackage.CONSTRAINT_CHECK__OBJECT, oldObject, object));
@@ -188,7 +189,7 @@ public class ConstraintCheckImpl extends CheckImpl implements ConstraintCheck
         getConstraintNames().addAll((Collection<? extends XExpression>)newValue);
         return;
       case TestLangPackage.CONSTRAINT_CHECK__OBJECT:
-        setObject((VarDeclaration)newValue);
+        setObject((ObjectNode)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -208,7 +209,7 @@ public class ConstraintCheckImpl extends CheckImpl implements ConstraintCheck
         getConstraintNames().clear();
         return;
       case TestLangPackage.CONSTRAINT_CHECK__OBJECT:
-        setObject((VarDeclaration)null);
+        setObject((ObjectNode)null);
         return;
     }
     super.eUnset(featureID);

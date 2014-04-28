@@ -10,17 +10,15 @@ scenario TestData[
 ]
 
 test addCartItem activity AddCartItemActivity(item=TestData.itemTD2) on TestData.cartTD{
-	var cart = addItemToCart.result;
-	
 	assertOrder AddCartItemActivity.init, AddCartItemActivity.context, AddCartItemActivity.addItemToCart, AddCartItemActivity.final;
 	
 	assertState always until action AddCartItemActivity.addItemToCart{
-		cart::items includes TestData.itemTD1;
-		cart::items excludes TestData.itemTD2;
+		addItemToCart.result::items includes TestData.itemTD1;
+		addItemToCart.result::items excludes TestData.itemTD2;
 	}
 	
 	assertState always after action AddCartItemActivity.addItemToCart{
-		cart::items includes TestData.itemTD1;
-		cart::items includes TestData.itemTD2;
+		addItemToCart.result::items includes TestData.itemTD1;
+		addItemToCart.result::items includes TestData.itemTD2;
 	}
 }
