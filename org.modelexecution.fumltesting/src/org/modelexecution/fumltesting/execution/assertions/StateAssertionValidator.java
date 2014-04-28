@@ -45,7 +45,6 @@ import org.modelexecution.fumltesting.testLang.FinallyStateAssertion;
 import org.modelexecution.fumltesting.testLang.ObjectStateExpression;
 import org.modelexecution.fumltesting.testLang.ObjectValue;
 import org.modelexecution.fumltesting.testLang.PropertyStateExpression;
-import org.modelexecution.fumltesting.testLang.ReferencePoint;
 import org.modelexecution.fumltesting.testLang.SimpleValue;
 import org.modelexecution.fumltesting.testLang.StateAssertion;
 import org.modelexecution.fumltesting.testLang.StateExpression;
@@ -87,8 +86,8 @@ public class StateAssertionValidator {
 	 * Action execution corresponding to reference and until point specified in
 	 * state assertion.
 	 */
-	private ActionExecution referenceActionExecution;
-	private ActionExecution untilActionExecution;
+	private ActivityNodeExecution referenceActionExecution;
+	private ActivityNodeExecution untilActionExecution;
 
 	public StateAssertionValidator(TraceUtil traceUtil) {
 		testDataConverter = TestDataConverter.getInstance();
@@ -108,6 +107,12 @@ public class StateAssertionValidator {
 		} catch (ConstraintNotFoundException e) {
 			System.out.println(e.getMessage());
 			result.setError(e.getMessage());
+			return result;
+		}
+
+		if (states.size() == 0) {
+			System.out.println("There are no states for a given constraint.");
+			result.setError("There are no states for a given constraint.");
 			return result;
 		}
 
@@ -383,7 +388,6 @@ public class StateAssertionValidator {
 
 		StateAssertion assertion = (StateAssertion) expression.eContainer();
 		TemporalOperator operator = assertion.getOperator();
-		ReferencePoint untilPoint = assertion.getUntilPoint();
 
 		PropertyStateExpression propertyExpression = (PropertyStateExpression) expression;
 		if (propertyExpression.getProperty().getType() instanceof org.eclipse.uml2.uml.Class) {
@@ -447,14 +451,10 @@ public class StateAssertionValidator {
 				case AFTER:
 					if (linkValueInstance.getDestroyer() != null && !traceUtil.isAfter(linkValueInstance.getDestroyer(), referenceActionExecution))
 						isRelevantLink = false;
-					if (untilPoint instanceof ActionReferencePoint) {
-						ActivityNodeExecution untilActionExecution = (ActivityNodeExecution) traceUtil
-								.getExecution(((ActionReferencePoint) untilPoint).getAction());
-						if (linkValueInstance.getCreator() == untilActionExecution) {
-							isRelevantLink = false;
-						} else if (traceUtil.isAfter(linkValueInstance.getCreator(), untilActionExecution))
-							isRelevantLink = false;
-					}
+					if (linkValueInstance.getCreator() == untilActionExecution) {
+						isRelevantLink = false;
+					} else if (untilActionExecution != null && traceUtil.isAfter(linkValueInstance.getCreator(), untilActionExecution))
+						isRelevantLink = false;
 					break;
 				case UNTIL:
 					if (linkValueInstance.getCreator() == referenceActionExecution) {

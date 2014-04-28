@@ -34,8 +34,8 @@ public class SnapshotUtil {
 	private ArrayList<ValueSnapshot> successorSnapshots;
 
 	private ValueInstance valueInstance;
-	private ActionExecution referenceActionExecution;
-	private ActionExecution untilActionExecution;
+	private ActivityNodeExecution referenceActionExecution;
+	private ActivityNodeExecution untilActionExecution;
 	private TraceUtil traceUtil;
 
 	public SnapshotUtil(TraceUtil traceUtil) {
@@ -51,8 +51,8 @@ public class SnapshotUtil {
 	 * @param expression
 	 * @return
 	 */
-	public ArrayList<ValueSnapshot> getRelevantSnapshots(StateExpression expression, ActionExecution referenceActionExecution,
-			ActionExecution untilActionExecution) {
+	public ArrayList<ValueSnapshot> getRelevantSnapshots(StateExpression expression, ActivityNodeExecution referenceActionExecution,
+			ActivityNodeExecution untilActionExecution) {
 		ArrayList<ValueSnapshot> list = new ArrayList<ValueSnapshot>();
 		this.referenceActionExecution = referenceActionExecution;
 		this.untilActionExecution = untilActionExecution;
@@ -85,7 +85,8 @@ public class SnapshotUtil {
 	 */
 	private ArrayList<ValueSnapshot> getSuccessorSnapshots(StateExpression expression) {
 		StateAssertion assertion = (StateAssertion) expression.eContainer();
-		setupSucessors(assertion.getOperator(), referenceActionExecution);
+		if (referenceActionExecution instanceof ActionExecution)
+			setupSucessors(assertion.getOperator(), (ActionExecution) referenceActionExecution);
 		return successorSnapshots;
 	}
 
@@ -97,7 +98,8 @@ public class SnapshotUtil {
 	 */
 	private ArrayList<ValueSnapshot> getPredecessorSnapshots(StateExpression expression) {
 		StateAssertion assertion = (StateAssertion) expression.eContainer();
-		setupPredecessors(assertion.getOperator(), referenceActionExecution);
+		if (referenceActionExecution instanceof ActionExecution)
+			setupPredecessors(assertion.getOperator(), (ActionExecution) referenceActionExecution);
 		return predecessorSnapshots;
 	}
 

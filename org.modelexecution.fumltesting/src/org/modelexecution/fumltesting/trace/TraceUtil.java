@@ -194,8 +194,8 @@ public class TraceUtil {
 	}
 
 	public List<State> getStates(StateAssertion assertion) throws ConstraintNotFoundException {
-		ActionExecution referredActionExecution = getReferenceActionExecution(assertion);
-		ActionExecution untilActionExecution = getUntilActionExecution(assertion);
+		ActivityNodeExecution referredActionExecution = getReferenceActionExecution(assertion);
+		ActivityNodeExecution untilActionExecution = getUntilActionExecution(assertion);
 
 		List<State> states = new ArrayList<State>();
 		for (Sequence sequence : sTrace.getSequences()) {
@@ -226,13 +226,13 @@ public class TraceUtil {
 		return states;
 	}
 
-	public ActionExecution getReferenceActionExecution(StateAssertion assertion) throws ConstraintNotFoundException {
-		ActionExecution referenceActionExecution = null;
+	public ActivityNodeExecution getReferenceActionExecution(StateAssertion assertion) throws ConstraintNotFoundException {
+		ActivityNodeExecution referenceActionExecution = null;
 		Activity activityUnderTest = ((TestCase) assertion.eContainer()).getActivityUnderTest();
 		fUML.Syntax.Activities.IntermediateActivities.Activity convertedActivity = UmlConverter.getInstance().getActivity(activityUnderTest);
 
 		if (assertion.getReferencePoint() instanceof ActionReferencePoint)
-			referenceActionExecution = (ActionExecution) getExecution(((ActionReferencePoint) assertion.getReferencePoint()).getAction());
+			referenceActionExecution = (ActivityNodeExecution) getExecution(((ActionReferencePoint) assertion.getReferencePoint()).getAction());
 
 		if (assertion.getReferencePoint() instanceof ConstraintReferencePoint) {
 			String constraintRefPoint = ((XStringLiteral) ((ConstraintReferencePoint) assertion.getReferencePoint()).getConstraintName()).getValue();
@@ -241,7 +241,7 @@ public class TraceUtil {
 					for (State state : sequence.getStates()) {
 						boolean result = OclExecutor.getInstance().checkConstraint(constraintRefPoint, null, state);
 						if (result) {
-							referenceActionExecution = (ActionExecution) state.getNodeExecution();
+							referenceActionExecution = state.getNodeExecution();
 							break;
 						}
 					}
@@ -251,13 +251,13 @@ public class TraceUtil {
 		return referenceActionExecution;
 	}
 
-	public ActionExecution getUntilActionExecution(StateAssertion assertion) throws ConstraintNotFoundException {
-		ActionExecution untilActionExecution = null;
+	public ActivityNodeExecution getUntilActionExecution(StateAssertion assertion) throws ConstraintNotFoundException {
+		ActivityNodeExecution untilActionExecution = null;
 		Activity activityUnderTest = ((TestCase) assertion.eContainer()).getActivityUnderTest();
 		fUML.Syntax.Activities.IntermediateActivities.Activity convertedActivity = UmlConverter.getInstance().getActivity(activityUnderTest);
 
 		if (assertion.getUntilPoint() != null && assertion.getUntilPoint() instanceof ActionReferencePoint)
-			untilActionExecution = (ActionExecution) getExecution(((ActionReferencePoint) assertion.getUntilPoint()).getAction());
+			untilActionExecution = (ActivityNodeExecution) getExecution(((ActionReferencePoint) assertion.getUntilPoint()).getAction());
 
 		if (assertion.getUntilPoint() instanceof ConstraintReferencePoint) {
 			String constraintUntilPoint = ((XStringLiteral) ((ConstraintReferencePoint) assertion.getUntilPoint()).getConstraintName()).getValue();
@@ -268,7 +268,7 @@ public class TraceUtil {
 							continue;
 						boolean result = OclExecutor.getInstance().checkConstraint(constraintUntilPoint, null, state);
 						if (result) {
-							untilActionExecution = (ActionExecution) state.getNodeExecution();
+							untilActionExecution = state.getNodeExecution();
 							break;
 						}
 					}
