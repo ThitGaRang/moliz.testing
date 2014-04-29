@@ -75,7 +75,8 @@ ObjectStateExpression:
 	pin=[uml::ObjectNode|QualifiedName] operator=ArithmeticOperator value=Value ';';
 
 PropertyStateExpression:
-	pin=[uml::ObjectNode|QualifiedName] '::' property=[uml::Property|QualifiedName] operator=ArithmeticOperator value=Value ';';
+	pin=[uml::ObjectNode|QualifiedName] '::' property=[uml::Property|QualifiedName] operator=ArithmeticOperator
+	value=Value ';';
 
 OrderAssertion:
 	'assertOrder' order=NodeOrder ';';

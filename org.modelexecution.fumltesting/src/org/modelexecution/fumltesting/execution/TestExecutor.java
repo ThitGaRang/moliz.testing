@@ -56,51 +56,35 @@ import fUML.Syntax.Classes.Kernel.Package;
  */
 public class TestExecutor {
 
-	/** Utility class for executing fUML activities. */
-	private ActivityExecutor executor;
-	/** The resource set to be used for loading the model resource. */
-	private XtextResourceSet resourceSet;
-	/** The resource for reading test models. */
-	private Resource resource;
-	/** The resource for reading UML model. */
-	private Resource umlResource;
-	/** The UML Model. */
-	private NamedElement umlModel;
-	/** Complete test suite. */
-	private TestSuite suite;
-	/** Utility class for validating assertions. */
-	private AssertionValidator validator;
-	/** ID of the main activity. */
 	private int mainActivityExecutionID;
-	/** The fUML reference implementation to fUML meta model converter. */
+	private TestSuite suite;
+
+	private ActivityExecutor executor;
+	private AssertionValidator validator;
 	private FumlConverter fumlConverter;
-	/** Utility class for interpreting OCL constraints on fUML model. */
 	private OclExecutor oclExecutor;
 
-	/**
-	 * Sets up all the resources, UML model and testing model, and initializes
-	 * the testSuite.
-	 */
+	private XtextResourceSet resourceSet;
+	private Resource resource;
+	private Resource umlResource;
+	private NamedElement umlModel;
+
 	private void setup(String testLocation) throws Exception {
 		fumlConverter = new FumlConverter();
 		new UmlSupport().registerServices(true);
 		Injector injector = new TestLangStandaloneSetup().createInjectorAndDoEMFRegistration();
 		resourceSet = injector.getInstance(XtextResourceSet.class);
 		resourceSet.addLoadOption(XtextResource.OPTION_RESOLVE_ALL, Boolean.TRUE);
-
-		// model of the test suite to be executed
 		resource = resourceSet.getResource(URI.createFileURI(new File(testLocation).getAbsolutePath()), true);
 
 		resource.load(null);
 		if (resource != null) {
 			resourceSet.getPackageRegistry().put(UMLPackage.eNS_URI, UMLPackage.eINSTANCE);
 			resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(UMLResource.FILE_EXTENSION, UMLResource.Factory.INSTANCE);
-			// model with UML elements under test
 			umlResource = resourceSet.getResource(
 					URI.createFileURI(new File("../org.modelexecution.fumltesting.examples/model/webstore/webstore.uml").getAbsolutePath()), true);
 			umlResource.load(null);
 
-			// adds elements from UML model to test suite
 			resource.getContents().addAll(umlResource.getContents());
 			EcoreUtil.resolveAll(resourceSet);
 
@@ -113,6 +97,7 @@ public class TestExecutor {
 
 			if (executor == null)
 				throw new Exception("Couldn't load UML model properly!");
+
 			suite = (TestSuite) resource.getContents().get(0);
 		}
 
@@ -176,8 +161,7 @@ public class TestExecutor {
 			AssertionPrinter.print(testCase);
 			Activity activity = testCase.getActivityUnderTest();
 
-			TestDataConverter.getInstance().cleanUp();
-			executor.initScenarios(testCase.getInitScenarios());
+			TestDataConverter.cleanUp();
 
 			boolean requiresContext = false;
 			for (ActivityNode node : activity.getNodes()) {
@@ -201,7 +185,6 @@ public class TestExecutor {
 
 			validator = new AssertionValidator(mainActivityExecutionID);
 
-			// add test case result
 			TestCaseResult testCaseResult = new TestCaseResult(testCase.getName(), activity);
 			testCaseResult.setActivityContextObject(testCase.getContextObject());
 

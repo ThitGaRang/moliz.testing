@@ -21,7 +21,6 @@ import org.modelexecution.fumltesting.convert.UmlConverter;
 import org.modelexecution.fumltesting.testLang.ActivityInput;
 import org.modelexecution.fumltesting.testLang.ObjectSpecification;
 import org.modelexecution.fumltesting.testLang.ObjectValue;
-import org.modelexecution.fumltesting.testLang.Scenario;
 import org.modelexecution.fumltesting.testLang.TestLangFactory;
 
 import fUML.Semantics.Classes.Kernel.Object_;
@@ -42,48 +41,33 @@ import fUML.Syntax.Activities.IntermediateActivities.FinalNode;
  */
 public class ActivityExecutor implements ExecutionEventListener {
 
-	/** ID of main activity. */
 	private int mainActivityID;
-	/** ID of current activity. */
 	private int currentActivityID;
-	/** Flag for controlling the execution of the main activity. */
+
 	private boolean running;
-	/** List of events risen during execution. */
-	private List<Event> eventlist;
-	/** List of parameters for an activity. */
-	private ParameterValueList parameters;
+	private List<Event> eventlist = new ArrayList<Event>();
+	private ParameterValueList parameters = new ParameterValueList();
+	private Object_ contextObject = null;
 
-	public void initScenarios(List<Scenario> scenarios) {
-		for (Scenario scenario : scenarios) {
-			for (ObjectSpecification objectSpecification : scenario.getObjects()) {
-				org.modelexecution.fumltesting.testLang.ObjectValue value = TestLangFactory.eINSTANCE.createObjectValue();
-				value.setValue(objectSpecification);
-				// initializes fUML object, puts it into locus and returns it
-				TestDataConverter.getInstance().getFUMLElement(value);
-			}
-		}
-	}
-
-	/**
-	 * Activity executor constructor for a given UML model.
-	 * 
-	 * @param umlModel
-	 */
 	public ActivityExecutor(NamedElement umlModel) {
 		UmlConverter.getInstance().setModelAndConvert(umlModel);
-		parameters = new ParameterValueList();
 	}
 
-	/**
-	 * Converts the specified {@code activity} into fUML Activity and executes
-	 * it.
-	 */
 	public int executeActivity(org.eclipse.uml2.uml.Activity activity, List<ActivityInput> activityInputs, ObjectSpecification context) {
 		Activity fumlActivity = UmlConverter.getInstance().getActivity(activity);
+		loadInputs(fumlActivity, activityInputs);
+		loadContext(context);
 
+		eventlist.removeAll(eventlist);
+		ExecutionContext.getInstance().addEventListener(this);
+
+		executeActivity(fumlActivity);
+		return mainActivityID;
+	}
+
+	private void loadInputs(Activity fumlActivity, List<ActivityInput> activityInputs) {
 		for (ActivityInput input : activityInputs) {
 			Object object = TestDataConverter.getInstance().getFUMLElement(input.getValue());
-
 			ParameterValue parameterValue = new ParameterValue();
 			for (ActivityNode node : fumlActivity.node) {
 				if (node instanceof ActivityParameterNode && node.name.equals(input.getParameter().getName())) {
@@ -100,28 +84,21 @@ public class ActivityExecutor implements ExecutionEventListener {
 			}
 			parameters.add(parameterValue);
 		}
+	}
 
-		// converting and setting the context object
-		Object_ contextObject = null;
-		if (context != null) {
+	private void loadContext(ObjectSpecification context) {
+		if (context == null)
+			contextObject = null;
+		else {
 			ObjectValue contextValue = TestLangFactory.eINSTANCE.createObjectValue();
 			contextValue.setValue(context);
 			contextObject = (Object_) TestDataConverter.getInstance().getFUMLElement(contextValue);
 		}
+	}
 
-		// add a listener
-		eventlist = new ArrayList<Event>();
-		ExecutionContext.getInstance().addEventListener(this);
-
-		// insert the converted context object, if it exists
-		if (context != null) {
-			running = true;
-			ExecutionContext.getInstance().executeStepwise(fumlActivity, contextObject, parameters);
-		} else {
-			running = true;
-			ExecutionContext.getInstance().executeStepwise(fumlActivity, null, parameters);
-		}
-		// activity execution
+	private void executeActivity(Activity fumlActivity) {
+		running = true;
+		ExecutionContext.getInstance().executeStepwise(fumlActivity, contextObject, parameters);
 		while (running) {
 			List<ActivityNode> enabledNodes = ExecutionContext.getInstance().getEnabledNodes(currentActivityID);
 			ActivityNode nonFinalNode = null;
@@ -139,28 +116,18 @@ public class ActivityExecutor implements ExecutionEventListener {
 				ExecutionContext.getInstance().nextStep(currentActivityID, nonFinalNode);
 			}
 		}
-
-		return mainActivityID;
 	}
 
-	/**
-	 * Control of execution based on events.
-	 */
 	@Override
 	public void notify(Event event) {
-		if (event instanceof ActivityEntryEvent && (((ActivityEntryEvent) event).getParent() == null)) {
+		if (event instanceof ActivityEntryEvent && (((ActivityEntryEvent) event).getParent() == null))
 			mainActivityID = ((ActivityEntryEvent) event).getActivityExecutionID();
-
-		}
-		if (event instanceof ActivityEntryEvent) {
+		if (event instanceof ActivityEntryEvent)
 			currentActivityID = ((ActivityEntryEvent) event).getActivityExecutionID();
-		}
-		if (event instanceof ActivityNodeExitEvent) {
+		if (event instanceof ActivityNodeExitEvent)
 			currentActivityID = ((ActivityNodeExitEvent) event).getActivityExecutionID();
-		}
-		if (event instanceof ActivityExitEvent && (((ActivityExitEvent) event).getActivityExecutionID() == mainActivityID)) {
+		if (event instanceof ActivityExitEvent && (((ActivityExitEvent) event).getActivityExecutionID() == mainActivityID))
 			running = false;
-		}
 		eventlist.add(event);
 	}
 }

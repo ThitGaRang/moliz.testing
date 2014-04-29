@@ -10,102 +10,109 @@ var projectName = "org.modelexecution.fumltesting"
 var runtimeProject = "../${projectName}"
 
 Workflow {
-    bean = StandaloneSetup {
-            scanClassPath = true
-            platformUri = "${runtimeProject}/.."
-            // The following two lines can be removed, if Xbase is not used.
-            registerGeneratedEPackage = "org.eclipse.xtext.xbase.XbasePackage"
-            registerGenModelFile = "platform:/resource/org.eclipse.xtext.xbase/model/Xbase.genmodel"
-            
-            uriMap = {
-            	from = "platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel"
-            to = "platform:/resource/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel"
-	        }
-	        uriMap = {
-	            from = "platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel"
-	            to = "platform:/resource/org.eclipse.emf.ecore/model/Ecore.genmodel"
-	        }
-	        uriMap = {
-	            from = "platform:/plugin/org.eclipse.uml2.codegen.ecore/model/GenModel.genmodel"
-	            to = "platform:/resource/org.eclipse.uml2.codegen.ecore/model/GenModel.genmodel"
-	        }
-	        uriMap = {
-	            from = "platform:/plugin/org.eclipse.uml2.uml/model/UML.genmodel"
-	            to = "platform:/resource/org.eclipse.uml2.uml/model/UML.genmodel"
-	        }
-	        uriMap = {
-	            from = "platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore"
-	            to = "platform:/resource/org.eclipse.emf.codegen.ecore/model/GenModel.ecore"
-	        }
-	        uriMap = {
-	            from = "platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore"
-	            to = "platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore"
-	        }
-	        uriMap = {
-	            from = "platform:/plugin/org.eclipse.uml2.codegen.ecore/model/GenModel.ecore"
-	            to = "platform:/resource/org.eclipse.uml2.codegen.ecore/model/GenModel.ecore"
-	        }
-	        uriMap = {
-	            from = "platform:/plugin/org.eclipse.uml2.uml/model/UML.ecore"
-	            to = "platform:/resource/org.eclipse.uml2.uml/model/UML.ecore"
-	        }	        
-	        uriMap = {
-				from = "platform:/plugin/org.eclipse.uml2.types/model/Types.genmodel"
-				to = "platform:/resource/org.eclipse.uml2.types/model/Types.genmodel"
-			}
-			uriMap = {
-				from = "platform:/plugin/org.eclipse.uml2.types/model/Types.ecore"
-				to = "platform:/resource/org.eclipse.uml2.types/model/Types.ecore"
-			}			
-			
-			registerGeneratedEPackage = "org.eclipse.uml2.types.TypesPackage"
-	        registerGeneratedEPackage = "org.eclipse.emf.ecore.EcorePackage"
-	        registerGeneratedEPackage = "org.eclipse.uml2.uml.UMLPackage"
-	        registerGeneratedEPackage = "org.eclipse.emf.codegen.ecore.genmodel.GenModelPackage"
-	        registerGeneratedEPackage = "org.eclipse.uml2.codegen.ecore.genmodel.GenModelPackage"	        
-			
-			registerGenModelFile = "platform:/resource/org.eclipse.emf.ecore/model/Ecore.genmodel"
-	        registerGenModelFile = "platform:/resource/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel"
-	        registerGenModelFile = "platform:/resource/org.eclipse.uml2.uml/model/UML.genmodel"
-	        registerGenModelFile = "platform:/resource/org.eclipse.uml2.codegen.ecore/model/GenModel.genmodel"
-        }
-    
-        component = DirectoryCleaner { directory = "${runtimeProject}/src-gen" }    
-        component = DirectoryCleaner { directory = "${runtimeProject}.ui/src-gen" }
-    
-        component = Generator {
-            pathRtProject = runtimeProject
-            pathUiProject = "${runtimeProject}.ui"
-            pathTestProject = "${runtimeProject}.tests"
-            projectNameRt = projectName
-            projectNameUi = "${projectName}.ui"
-            language = {
-                uri = grammarURI
-                fileExtensions = file.extensions    
+	bean = StandaloneSetup {
+		scanClassPath = true
+		platformUri = "${runtimeProject}/.."// The following two lines can be removed, if Xbase is not used.
 
-                fragment = grammarAccess.GrammarAccessFragment {}
-                fragment = ecore.EcoreGeneratorFragment {}
-                fragment = serializer.SerializerFragment { generateStub = false }
-                fragment = resourceFactory.ResourceFactoryFragment { fileExtensions = file.extensions }
-                fragment = parser.antlr.XtextAntlrGeneratorFragment {}
-                fragment = validation.JavaValidatorFragment {}
-                fragment = scoping.ImportNamespacesScopingFragment {}
-                fragment = exporting.QualifiedNamesFragment {}
-                fragment = builder.BuilderIntegrationFragment {}
-                fragment = generator.GeneratorFragment { generateMwe = false generateJavaMain = false }
-                fragment = formatting.FormatterFragment {}
-                fragment = labeling.LabelProviderFragment {}
-                fragment = outline.OutlineTreeProviderFragment {}
-                fragment = outline.QuickOutlineFragment {}
-                fragment = quickfix.QuickfixProviderFragment {}
-                fragment = contentAssist.JavaBasedContentAssistFragment {}
-                fragment = parser.antlr.XtextAntlrUiGeneratorFragment {}
-                fragment = junit.Junit4Fragment {}
-                fragment = refactoring.RefactorElementNameFragment {}
-                fragment = types.TypesGeneratorFragment {}
-                fragment = xbase.XbaseGeneratorFragment {}
-                fragment = templates.CodetemplatesGeneratorFragment {}
-                fragment = compare.CompareFragment { fileExtensions = file.extensions }
-            }
-        }
+		registerGeneratedEPackage = "org.eclipse.xtext.xbase.XbasePackage"
+		registerGenModelFile = "platform:/resource/org.eclipse.xtext.xbase/model/Xbase.genmodel"
+		uriMap = {
+			from = "platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel"
+			to = "platform:/resource/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel"
+		}
+		uriMap = {
+			from = "platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel"
+			to = "platform:/resource/org.eclipse.emf.ecore/model/Ecore.genmodel"
+		}
+		uriMap = {
+			from = "platform:/plugin/org.eclipse.uml2.codegen.ecore/model/GenModel.genmodel"
+			to = "platform:/resource/org.eclipse.uml2.codegen.ecore/model/GenModel.genmodel"
+		}
+		uriMap = {
+			from = "platform:/plugin/org.eclipse.uml2.uml/model/UML.genmodel"
+			to = "platform:/resource/org.eclipse.uml2.uml/model/UML.genmodel"
+		}
+		uriMap = {
+			from = "platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore"
+			to = "platform:/resource/org.eclipse.emf.codegen.ecore/model/GenModel.ecore"
+		}
+		uriMap = {
+			from = "platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore"
+			to = "platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore"
+		}
+		uriMap = {
+			from = "platform:/plugin/org.eclipse.uml2.codegen.ecore/model/GenModel.ecore"
+			to = "platform:/resource/org.eclipse.uml2.codegen.ecore/model/GenModel.ecore"
+		}
+		uriMap = {
+			from = "platform:/plugin/org.eclipse.uml2.uml/model/UML.ecore"
+			to = "platform:/resource/org.eclipse.uml2.uml/model/UML.ecore"
+		}
+		uriMap = {
+			from = "platform:/plugin/org.eclipse.uml2.types/model/Types.genmodel"
+			to = "platform:/resource/org.eclipse.uml2.types/model/Types.genmodel"
+		}
+		uriMap = {
+			from = "platform:/plugin/org.eclipse.uml2.types/model/Types.ecore"
+			to = "platform:/resource/org.eclipse.uml2.types/model/Types.ecore"
+		}
+		registerGeneratedEPackage = "org.eclipse.uml2.types.TypesPackage"
+		registerGeneratedEPackage = "org.eclipse.emf.ecore.EcorePackage"
+		registerGeneratedEPackage = "org.eclipse.uml2.uml.UMLPackage"
+		registerGeneratedEPackage = "org.eclipse.emf.codegen.ecore.genmodel.GenModelPackage"
+		registerGeneratedEPackage = "org.eclipse.uml2.codegen.ecore.genmodel.GenModelPackage"
+		registerGenModelFile = "platform:/resource/org.eclipse.emf.ecore/model/Ecore.genmodel"
+		registerGenModelFile = "platform:/resource/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel"
+		registerGenModelFile = "platform:/resource/org.eclipse.uml2.uml/model/UML.genmodel"
+		registerGenModelFile = "platform:/resource/org.eclipse.uml2.codegen.ecore/model/GenModel.genmodel"
+	}
+	component = DirectoryCleaner {
+		directory = "${runtimeProject}/src-gen"
+	}
+	component = DirectoryCleaner {
+		directory = "${runtimeProject}.ui/src-gen"
+	}
+	component = Generator {
+		pathRtProject = runtimeProject
+		pathUiProject = "${runtimeProject}.ui"
+		pathTestProject = "${runtimeProject}.tests"
+		projectNameRt = projectName
+		projectNameUi = "${projectName}.ui"
+		language = {
+			uri = grammarURI
+			fileExtensions = file.extensions
+			fragment = grammarAccess.GrammarAccessFragment {}
+			fragment = ecore.EcoreGeneratorFragment {}
+			fragment = serializer.SerializerFragment {
+				generateStub = false
+			}
+			fragment = resourceFactory.ResourceFactoryFragment {
+				fileExtensions = file.extensions
+			}
+			fragment = parser.antlr.XtextAntlrGeneratorFragment {}
+			fragment = validation.JavaValidatorFragment {}
+			fragment = scoping.ImportNamespacesScopingFragment {}
+			fragment = exporting.QualifiedNamesFragment {}
+			fragment = builder.BuilderIntegrationFragment {}
+			fragment = generator.GeneratorFragment {
+				generateMwe = false
+				generateJavaMain = false
+			}
+			fragment = formatting.FormatterFragment {}
+			fragment = labeling.LabelProviderFragment {}
+			fragment = outline.OutlineTreeProviderFragment {}
+			fragment = outline.QuickOutlineFragment {}
+			fragment = quickfix.QuickfixProviderFragment {}
+			fragment = contentAssist.JavaBasedContentAssistFragment {}
+			fragment = parser.antlr.XtextAntlrUiGeneratorFragment {}
+			fragment = junit.Junit4Fragment {}
+			fragment = refactoring.RefactorElementNameFragment {}
+			fragment = types.TypesGeneratorFragment {}
+			fragment = xbase.XbaseGeneratorFragment {}
+			fragment = templates.CodetemplatesGeneratorFragment {}
+			fragment = compare.CompareFragment {
+				fileExtensions = file.extensions
+			}
+		}
+	}
 }

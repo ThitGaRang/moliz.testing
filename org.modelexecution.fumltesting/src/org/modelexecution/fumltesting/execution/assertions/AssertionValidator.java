@@ -22,14 +22,13 @@ import org.modelexecution.fumltesting.trace.TraceUtil;
  */
 public class AssertionValidator {
 
-	private OrderAssertionValidator orderValidator;
+	private OrderAssertionValidator orderValidator = new OrderAssertionValidator();
 	private StateAssertionValidator stateValidator;
 	private TraceUtil traceUtil;
 
 	public AssertionValidator(int activityExecutionID) {
 		traceUtil = new TraceUtil(activityExecutionID);
 		stateValidator = new StateAssertionValidator(traceUtil);
-		orderValidator = new OrderAssertionValidator();
 	}
 
 	public AssertionResult check(Assertion assertion) {

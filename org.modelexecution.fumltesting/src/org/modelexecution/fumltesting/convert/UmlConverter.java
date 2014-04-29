@@ -35,9 +35,7 @@ import fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
  * 
  */
 public class UmlConverter {
-	/** Original UML model under test. */
 	private static NamedElement MODEL;
-	/** Result obtained from converting UML to fUML model. */
 	private static IConversionResult CONVERTED_MODEL;
 	private static UmlConverter INSTANCE;
 
@@ -57,7 +55,6 @@ public class UmlConverter {
 		replaceOpaqueBehaviors();
 	}
 
-	/** Returns original UML element that was converted to {@code element}. */
 	public Object getOriginal(Element element) {
 		return CONVERTED_MODEL.getInputObject(element);
 	}
@@ -73,11 +70,11 @@ public class UmlConverter {
 	public Association getAssociation(org.eclipse.uml2.uml.Association association) {
 		return (Association) CONVERTED_MODEL.getFUMLElement(association);
 	}
-	
-	public Package getPackage(org.eclipse.uml2.uml.Package umlPackage){
-		return (Package)CONVERTED_MODEL.getFUMLElement(umlPackage);
+
+	public Package getPackage(org.eclipse.uml2.uml.Package umlPackage) {
+		return (Package) CONVERTED_MODEL.getFUMLElement(umlPackage);
 	}
-	
+
 	public Collection<Activity> getAllActivities() {
 		return CONVERTED_MODEL.getAllActivities();
 	}
@@ -91,7 +88,6 @@ public class UmlConverter {
 		for (fUML.Syntax.Activities.IntermediateActivities.Activity activity : CONVERTED_MODEL.getAllActivities()) {
 			nodesWithBehavior.addAll(getBehaviorNodes(activity.node));
 		}
-
 		for (ActivityNode node : nodesWithBehavior) {
 			if (node instanceof CallBehaviorAction) {
 				CallBehaviorAction callBehaviorAction = (CallBehaviorAction) node;

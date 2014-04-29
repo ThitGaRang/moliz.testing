@@ -44,17 +44,10 @@ import fUML.Syntax.Classes.Kernel.Class_;
 public class TestDataConverter {
 
 	private static TestDataConverter INSTANCE;
-	private static Locus LOCUS;
-	private static HashMap<Value, Object> FUML_OBJECTS;
+	private static Locus LOCUS = ExecutionContext.getInstance().getLocus();
+	private static HashMap<Value, Object> FUML_OBJECTS = new HashMap<Value, Object>();
 
 	private TestDataConverter() {
-		LOCUS = ExecutionContext.getInstance().getLocus();
-		FUML_OBJECTS = new HashMap<Value, Object>();
-	}
-
-	public void cleanUp() {
-		FUML_OBJECTS = new HashMap<Value, Object>();
-		LOCUS.extensionalValues.removeAll(LOCUS.extensionalValues);
 	}
 
 	public static TestDataConverter getInstance() {
@@ -62,6 +55,11 @@ public class TestDataConverter {
 			INSTANCE = new TestDataConverter();
 		}
 		return INSTANCE;
+	}
+
+	public static void cleanUp() {
+		FUML_OBJECTS = new HashMap<Value, Object>();
+		LOCUS.extensionalValues.removeAll(LOCUS.extensionalValues);
 	}
 
 	public Object getFUMLElement(Value value) {

@@ -46,7 +46,7 @@ public class OrderAssertionValidator {
 
 		for (ArrayList<ActivityNodeExecution> path : traceUtil.getAllPaths()) {
 			PathCheckResult pathCheckResult = new PathCheckResult(path);
-			boolean validationResult = checkOrderOneLevel(main, nodeOrder, path);
+			boolean validationResult = compare(getTopNodes(main, path), nodeOrder);
 			pathCheckResult.setValidationResult(validationResult);
 			result.addPathCheckResult(pathCheckResult);
 		}
@@ -73,7 +73,7 @@ public class OrderAssertionValidator {
 
 				for (ArrayList<ActivityNodeExecution> path : subTraceUtil.getAllPaths()) {
 					PathCheckResult pathCheckResult = new PathCheckResult(path);
-					boolean validationResult = checkOrderOneLevel(parent, nodeSpecification.getSubOrder().getNodes(), path);
+					boolean validationResult = compare(getTopNodes(parent, path), nodeSpecification.getSubOrder().getNodes());
 					pathCheckResult.setValidationResult(validationResult);
 					subOrderResult.addPathCheckResult(pathCheckResult);
 				}
@@ -83,27 +83,6 @@ public class OrderAssertionValidator {
 		return result;
 	}
 
-	/**
-	 * Check the order of executed nodes.
-	 * 
-	 * @param parentNodeName
-	 * @param specifiedOrder
-	 * @param executedNodes
-	 * @return
-	 */
-	private boolean checkOrderOneLevel(org.eclipse.uml2.uml.Activity parentActivity, List<NodeSpecification> specifiedOrder,
-			List<ActivityNodeExecution> executedNodes) {
-		return compare(getTopNodes(parentActivity, executedNodes), specifiedOrder);
-	}
-
-	/**
-	 * Compares the specified order with executed nodes(for top nodes and each
-	 * sub order).
-	 * 
-	 * @param executedNodes
-	 * @param nodeOrderList
-	 * @return
-	 */
 	private boolean compare(List<ActivityNodeExecution> executedNodes, List<NodeSpecification> nodeOrderList) {
 		int executedNodeIndex = 0;
 		for (int i = 0; i < nodeOrderList.size(); i++) {
@@ -143,13 +122,6 @@ public class OrderAssertionValidator {
 		return true;
 	}
 
-	/**
-	 * Returns the index of the executed node with the given name.
-	 * 
-	 * @param name
-	 * @param executedNodes
-	 * @return
-	 */
 	private int getExecutedNodeIndex(ActivityNode node, List<ActivityNodeExecution> executedNodes) {
 		for (int i = 0; i < executedNodes.size(); i++) {
 			if (UmlConverter.getInstance().getOriginal(executedNodes.get(i).getNode()) == node)
@@ -158,14 +130,6 @@ public class OrderAssertionValidator {
 		return -1;
 	}
 
-	/**
-	 * Returns top nodes for the given parent node name. Either activity or
-	 * CallBehaviorAction can be a parent node.
-	 * 
-	 * @param activityName
-	 * @param executedNodes
-	 * @return
-	 */
 	private List<ActivityNodeExecution> getTopNodes(org.eclipse.uml2.uml.Activity activity, List<ActivityNodeExecution> executedNodes) {
 		List<ActivityNodeExecution> topNodes = new ArrayList<ActivityNodeExecution>();
 		for (ActivityNodeExecution node : executedNodes) {

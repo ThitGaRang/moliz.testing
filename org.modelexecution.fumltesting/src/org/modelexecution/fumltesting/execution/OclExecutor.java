@@ -34,30 +34,30 @@ import tudresden.ocl20.pivot.parser.ParseException;
 import tudresden.ocl20.pivot.pivotmodel.ConstrainableElement;
 import tudresden.ocl20.pivot.pivotmodel.Constraint;
 
+import org.modelexecution.fuml.Semantics.Classes.Kernel.Link;
+import org.modelexecution.fuml.Semantics.Classes.Kernel.Object;
+
 /**
+ * Utility class for interpreting and evaluating OCL constraints.
  * 
  * @author Stefan Mijatov
  * 
  */
 public class OclExecutor {
+	private static OclExecutor INSTANCE;
+
+	private IMetamodel metamodel;
+	private FUMLModelProvider modelProvider;
+	private FUMLModelInstanceProvider modelInstanceProvider = new FUMLModelInstanceProvider();
+
+	private List<Constraint> constraints;
+	private IOclInterpreter oclInterpreter;
+	private HashMap<State, IModelInstance> adaptedStates = new HashMap<State, IModelInstance>();
+
 	private OclExecutor() {
 		metamodel = Ocl2ForEclipseFacade.getMetaModel("tudresden.ocl20.pivot.metamodels.fuml");
 		modelProvider = (FUMLModelProvider) metamodel.getModelProvider();
-		modelInstanceProvider = new FUMLModelInstanceProvider();
-		adaptedStates = new HashMap<State, IModelInstance>();
 	}
-
-	private static OclExecutor INSTANCE;
-
-	private IOclInterpreter oclInterpreter;
-	private List<Constraint> constraints;
-
-	private FUMLModelProvider modelProvider;
-	private FUMLModelInstanceProvider modelInstanceProvider;
-	private IMetamodel metamodel;
-
-	/** Hash map of adapted states for the OCL interpreter. */
-	private HashMap<State, IModelInstance> adaptedStates;
 
 	public static OclExecutor getInstance() {
 		if (INSTANCE == null)
@@ -77,29 +77,22 @@ public class OclExecutor {
 		constraints = Ocl2ForEclipseFacade.parseConstraints(oclFile, modelProvider.getModel(), false);
 	}
 
-	public IModelInstance getEmptyModelInstance() {
-		return modelInstanceProvider.createEmptyModelInstance(modelProvider.getModel());
-	}
-
 	public boolean checkConstraint(String constraintName, ValueInstance contextObject, State state) throws ConstraintNotFoundException {
 		IModelInstance modelInstance = null;
-		org.modelexecution.fuml.Semantics.Classes.Kernel.Object contextObjectSnapshot = state.getStateSnapshot(contextObject);
+		Object contextObjectSnapshot = state.getStateSnapshot(contextObject);
 
 		if (adaptedStates.containsKey(state)) {
 			modelInstance = adaptedStates.get(state);
 		} else {
-			modelInstance = OclExecutor.getInstance().getEmptyModelInstance();
+			modelInstance = modelInstanceProvider.createEmptyModelInstance(modelProvider.getModel());
 			try {
-				ArrayList<org.modelexecution.fuml.Semantics.Classes.Kernel.Object> objects = new ArrayList<org.modelexecution.fuml.Semantics.Classes.Kernel.Object>();
-				objects.addAll(state.getObjects());
+				ArrayList<Object> objects = new ArrayList<Object>(state.getObjects());
+				ArrayList<Link> links = new ArrayList<Link>(state.getLinks());
 
-				ArrayList<org.modelexecution.fuml.Semantics.Classes.Kernel.Link> links = new ArrayList<org.modelexecution.fuml.Semantics.Classes.Kernel.Link>();
-				links.addAll(state.getLinks());
-
-				for (org.modelexecution.fuml.Semantics.Classes.Kernel.Object object : objects) {
+				for (Object object : objects) {
 					modelInstance.addModelInstanceElement(object);
 				}
-				for (org.modelexecution.fuml.Semantics.Classes.Kernel.Link link : links) {
+				for (Link link : links) {
 					modelInstance.addModelInstanceElement(link);
 				}
 				adaptedStates.put(state, modelInstance);
@@ -107,12 +100,12 @@ public class OclExecutor {
 				e.printStackTrace();
 			}
 		}
+
 		boolean validationResult = OclExecutor.getInstance().evaluateConstraint(constraintName, contextObjectSnapshot, modelInstance);
 		return validationResult;
 	}
 
-	private boolean evaluateConstraint(String constraintName, org.modelexecution.fuml.Semantics.Classes.Kernel.Object contextObject,
-			IModelInstance modelInstance) throws ConstraintNotFoundException {
+	private boolean evaluateConstraint(String constraintName, Object contextObject, IModelInstance modelInstance) throws ConstraintNotFoundException {
 		Constraint constraint = null;
 		boolean result = false;
 
@@ -124,7 +117,7 @@ public class OclExecutor {
 		}
 		if (constraint == null)
 			throw new ConstraintNotFoundException("Constraint " + constraintName + " not found!");
-		if (constraint != null) {
+		else {
 			// TODO continue implementing constraint checking
 			System.out.println("Checking constraint..\n" + constraint.getSpecification().getBody().trim());
 
