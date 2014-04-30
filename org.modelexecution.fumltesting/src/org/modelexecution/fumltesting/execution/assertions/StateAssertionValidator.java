@@ -75,17 +75,11 @@ import fUML.Syntax.Classes.Kernel.Property;
  */
 @SuppressWarnings("restriction")
 public class StateAssertionValidator {
-	/** Utility class for converting input data for activity under test. */
 	private TestDataConverter testDataConverter;
-	/** Utility class for managing the execution trace. */
 	private TraceUtil traceUtil;
-	/** Utility class for managing a concrete value instance from an expression. */
 	private SnapshotUtil snapshotUtil;
+	private List<ValueSnapshot> relevantSnapshots;
 
-	/**
-	 * Action execution corresponding to reference and until point specified in
-	 * state assertion.
-	 */
 	private ActivityNodeExecution referenceActionExecution;
 	private ActivityNodeExecution untilActionExecution;
 
@@ -141,7 +135,7 @@ public class StateAssertionValidator {
 							results.add(constraintResultInSingleState);
 							constraintResult.putStateResult(state, constraintResultInSingleState);
 						}
-						boolean overallResult = compileResult(results, assertion);
+						boolean overallResult = compileResult(results, assertion.getQuantifier());
 						results.removeAll(results);
 						constraintResult.setValidationResult(overallResult);
 						result.addConstraintResult(constraintResult);
@@ -187,20 +181,20 @@ public class StateAssertionValidator {
 
 	private StateExpressionResult checkExpression(StateExpression expression) {
 		StateExpressionResult result = new StateExpressionResult(expression);
-		ArrayList<ValueSnapshot> list = snapshotUtil.getRelevantSnapshots(expression, referenceActionExecution, untilActionExecution);
+		relevantSnapshots = snapshotUtil.getRelevantSnapshots(expression, referenceActionExecution, untilActionExecution);
 
 		if (expression.getValue() instanceof SimpleValue) {
 			// special case
 			if (expression instanceof PropertyStateExpression
 					&& ((PropertyStateExpression) expression).getProperty().getOwner() != expression.getPin().getType()) {
-				result.setValidationResult(processObject(expression, list));
+				result.setValidationResult(processObject(expression));
 			} else {
-				result.setValidationResult(processValue(expression, list));
+				result.setValidationResult(processValue(expression));
 			}
 			AssertionPrinter.print(expression, result.getValidationResult());
 			return result;
 		} else if (expression.getValue() instanceof ObjectValue) {
-			result.setValidationResult(processObject(expression, list));
+			result.setValidationResult(processObject(expression));
 			AssertionPrinter.print(expression, result.getValidationResult());
 			return result;
 		} else {
@@ -212,18 +206,18 @@ public class StateAssertionValidator {
 
 	}
 
-	private boolean processValue(StateExpression expression, List<ValueSnapshot> list) {
+	private boolean processValue(StateExpression expression) {
 		ArrayList<Boolean> results = new ArrayList<Boolean>();
 		SimpleValue simpleValue = (SimpleValue) expression.getValue();
 
-		if (list.size() == 0) {
+		if (relevantSnapshots.size() == 0) {
 			if (simpleValue.getValue() instanceof XNullLiteral && expression.getOperator() == ArithmeticOperator.EQUAL)
 				results.add(true);
 			else
 				return false;
 		}
 
-		for (ValueSnapshot snapshot : list) {
+		for (ValueSnapshot snapshot : relevantSnapshots) {
 			if (expression instanceof PropertyStateExpression) {
 				Object_ object = (Object_) snapshot.getValue();
 				for (FeatureValue featureValue : object.featureValues) {
@@ -302,8 +296,9 @@ public class StateAssertionValidator {
 				}
 				if (simpleValue.getValue() instanceof XNullLiteral) {
 					if (expression.getOperator() == ArithmeticOperator.EQUAL)
-						if (list.size() != 0) {// at the beginning everything
-												// was equal to null
+						if (relevantSnapshots.size() != 0) {// at the beginning
+															// everything
+							// was equal to null
 							if (((StateAssertion) expression.eContainer()).getQuantifier() == TemporalQuantifier.SOMETIMES
 									&& ((StateAssertion) expression.eContainer()).getOperator() == TemporalOperator.UNTIL)
 								results.add(true);
@@ -313,7 +308,7 @@ public class StateAssertionValidator {
 							results.add(true);
 						}
 					if (expression.getOperator() == ArithmeticOperator.NOT_EQUAL)
-						if (list.size() == 0) {
+						if (relevantSnapshots.size() == 0) {
 							results.add(false);
 						} else {
 							results.add(true);
@@ -321,10 +316,10 @@ public class StateAssertionValidator {
 				}
 			}
 		}
-		return compileResult(results, (StateAssertion) expression.eContainer());
+		return compileResult(results, ((StateAssertion) expression.eContainer()).getQuantifier());
 	}
 
-	private boolean processObject(StateExpression expression, List<ValueSnapshot> list) {
+	private boolean processObject(StateExpression expression) {
 		if (expression.getOperator() != ArithmeticOperator.EQUAL && expression.getOperator() != ArithmeticOperator.NOT_EQUAL
 				&& expression.getOperator() != ArithmeticOperator.INCLUDES && expression.getOperator() != ArithmeticOperator.EXCLUDES) {
 			System.out.println("Operator <, >, <=, and => not allowed!");
@@ -333,19 +328,19 @@ public class StateAssertionValidator {
 		Object_ fumlTarget = (Object_) testDataConverter.getFUMLElement(expression.getValue());
 
 		if (expression instanceof ObjectStateExpression) {
-			return processStateExpression((ObjectStateExpression) expression, list, fumlTarget);
+			return processStateExpression((ObjectStateExpression) expression, fumlTarget);
 		}
 		// link validation
 		if (expression instanceof PropertyStateExpression) {
-			return processStateExpression((PropertyStateExpression) expression, list, fumlTarget);
+			return processStateExpression((PropertyStateExpression) expression, fumlTarget);
 		}
 		return false;
 	}
 
-	private boolean processStateExpression(ObjectStateExpression expression, List<ValueSnapshot> list, Object_ fumlTarget) {
+	private boolean processStateExpression(ObjectStateExpression expression, Object_ fumlTarget) {
 		boolean sameType = false;
 		ArrayList<Boolean> results = new ArrayList<Boolean>();
-		for (ValueSnapshot snapshot : list) {
+		for (ValueSnapshot snapshot : relevantSnapshots) {
 			Object_ object_ = (Object_) snapshot.getValue();
 
 			// compare types
@@ -379,10 +374,10 @@ public class StateAssertionValidator {
 				}
 			}
 		}
-		return compileResult(results, (StateAssertion) expression.eContainer());
+		return compileResult(results, ((StateAssertion) expression.eContainer()).getQuantifier());
 	}
 
-	private boolean processStateExpression(PropertyStateExpression expression, List<ValueSnapshot> list, Object_ fumlTarget) {
+	private boolean processStateExpression(PropertyStateExpression expression, Object_ fumlTarget) {
 		ArrayList<Boolean> results = new ArrayList<Boolean>();
 		List<ValueInstance> links = new ArrayList<ValueInstance>();
 
@@ -564,7 +559,7 @@ public class StateAssertionValidator {
 					results.add(true);
 			}
 		}
-		return compileResult(results, (StateAssertion) expression.eContainer());
+		return compileResult(results, ((StateAssertion) expression.eContainer()).getQuantifier());
 	}
 
 	/**
@@ -670,8 +665,8 @@ public class StateAssertionValidator {
 		return true;
 	}
 
-	private boolean compileResult(ArrayList<Boolean> results, StateAssertion assertion) {
-		switch (assertion.getQuantifier()) {
+	private boolean compileResult(ArrayList<Boolean> results, TemporalQuantifier quantifier) {
+		switch (quantifier) {
 		case ALWAYS:
 			for (boolean result : results) {
 				if (result == false)

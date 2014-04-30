@@ -47,6 +47,7 @@ public class OclExecutor {
 	private static OclExecutor INSTANCE;
 
 	private IMetamodel metamodel;
+	private IModelInstance modelInstance;
 	private FUMLModelProvider modelProvider;
 	private FUMLModelInstanceProvider modelInstanceProvider = new FUMLModelInstanceProvider();
 
@@ -78,7 +79,6 @@ public class OclExecutor {
 	}
 
 	public boolean checkConstraint(String constraintName, ValueInstance contextObject, State state) throws ConstraintNotFoundException {
-		IModelInstance modelInstance = null;
 		Object contextObjectSnapshot = state.getStateSnapshot(contextObject);
 
 		if (adaptedStates.containsKey(state)) {
@@ -101,11 +101,11 @@ public class OclExecutor {
 			}
 		}
 
-		boolean validationResult = OclExecutor.getInstance().evaluateConstraint(constraintName, contextObjectSnapshot, modelInstance);
+		boolean validationResult = OclExecutor.getInstance().evaluateConstraint(constraintName, contextObjectSnapshot);
 		return validationResult;
 	}
 
-	private boolean evaluateConstraint(String constraintName, Object contextObject, IModelInstance modelInstance) throws ConstraintNotFoundException {
+	private boolean evaluateConstraint(String constraintName, Object contextObject) throws ConstraintNotFoundException {
 		Constraint constraint = null;
 		boolean result = false;
 
