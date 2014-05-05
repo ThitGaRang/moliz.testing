@@ -25,7 +25,8 @@ Require-Bundle: org.eclipse.xtext;visibility:=reexport,
  org.eclipse.xtext.uml;bundle-version="1.0.0",
  org.modelexecution.fuml;bundle-version="1.0.0",
  tudresden.ocl20.pivot.facade;bundle-version="3.2.0",
- org.modelexecution.fumltesting.ocl;bundle-version="1.0.0"
+ org.modelexecution.fumltesting.ocl;bundle-version="1.0.0",
+ org.modelexecution.fumltesting.core;bundle-version="1.0.0"
 Import-Package: org.apache.log4j,
  org.eclipse.xtext.xbase.lib,
  org.junit;version="4.10.0"
@@ -37,7 +38,6 @@ Export-Package: org.modelexecution.fumltesting,
  org.modelexecution.fumltesting.parser.antlr,
  org.modelexecution.fumltesting.parser.antlr.internal,
  org.modelexecution.fumltesting.scoping,
- org.modelexecution.fumltesting.sequence,
  org.modelexecution.fumltesting.serializer,
  org.modelexecution.fumltesting.services,
  org.modelexecution.fumltesting.testLang,

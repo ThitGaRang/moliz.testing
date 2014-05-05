@@ -29,14 +29,15 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.Output;
 import org.modelexecution.fumldebug.core.trace.tracemodel.OutputParameterSetting;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot;
-import org.modelexecution.fumltesting.convert.TestDataConverter;
-import org.modelexecution.fumltesting.convert.UmlConverter;
-import org.modelexecution.fumltesting.exceptions.ConstraintNotFoundException;
-import org.modelexecution.fumltesting.execution.OclExecutor;
-import org.modelexecution.fumltesting.results.ConstraintResult;
-import org.modelexecution.fumltesting.results.StateAssertionResult;
-import org.modelexecution.fumltesting.results.StateExpressionResult;
-import org.modelexecution.fumltesting.sequence.State;
+import org.modelexecution.fumltesting.core.convert.TestDataConverter;
+import org.modelexecution.fumltesting.core.exceptions.ConstraintNotFoundException;
+import org.modelexecution.fumltesting.core.execution.OclExecutor;
+import org.modelexecution.fumltesting.core.results.ConstraintResult;
+import org.modelexecution.fumltesting.core.results.StateAssertionResult;
+import org.modelexecution.fumltesting.core.results.StateExpressionResult;
+import org.modelexecution.fumltesting.core.sequence.State;
+import org.modelexecution.fumltesting.core.trace.SnapshotUtil;
+import org.modelexecution.fumltesting.core.trace.TraceUtil;
 import org.modelexecution.fumltesting.testLang.ActionReferencePoint;
 import org.modelexecution.fumltesting.testLang.ArithmeticOperator;
 import org.modelexecution.fumltesting.testLang.Check;
@@ -52,8 +53,7 @@ import org.modelexecution.fumltesting.testLang.TemporalOperator;
 import org.modelexecution.fumltesting.testLang.TemporalQuantifier;
 import org.modelexecution.fumltesting.testLang.TestCase;
 import org.modelexecution.fumltesting.testLang.TestLangFactory;
-import org.modelexecution.fumltesting.trace.SnapshotUtil;
-import org.modelexecution.fumltesting.trace.TraceUtil;
+import org.modelexecution.fumltesting.trace.UmlSnapshotUtil;
 
 import UMLPrimitiveTypes.UnlimitedNatural;
 import fUML.Semantics.Classes.Kernel.BooleanValue;
@@ -83,10 +83,10 @@ public class StateAssertionValidator {
 	private ActivityNodeExecution referenceActionExecution;
 	private ActivityNodeExecution untilActionExecution;
 
-	public StateAssertionValidator(TraceUtil traceUtil) {
-		testDataConverter = TestDataConverter.getInstance();
+	public StateAssertionValidator(TraceUtil traceUtil, TestDataConverter testDataConverter) {
+		this.testDataConverter = testDataConverter;
 		this.traceUtil = traceUtil;
-		snapshotUtil = new SnapshotUtil(traceUtil);
+		snapshotUtil = new UmlSnapshotUtil(traceUtil);
 	}
 
 	public StateAssertionResult check(StateAssertion assertion) {
@@ -168,7 +168,7 @@ public class StateAssertionValidator {
 		stateAssertion.setOperator(TemporalOperator.AFTER);
 
 		ActionReferencePoint point = TestLangFactory.eINSTANCE.createActionReferencePoint();
-		point.setAction((Action) traceUtil.getLastExecutedAction());
+		point.setAction((Action) traceUtil.getModelConverter().getOriginal(traceUtil.getLastExecutedAction()));
 		stateAssertion.setReferencePoint(point);
 
 		stateAssertion.getChecks().addAll(assertion.getChecks());
@@ -432,7 +432,7 @@ public class StateAssertionValidator {
 			for (ValueInstance linkValueInstance : traceUtil.getAllLinks()) {
 				Link link = (Link) linkValueInstance.getRuntimeValue();
 				boolean sourceContained = false;
-				if (link.type == UmlConverter.getInstance().getAssociation(propertyExpression.getProperty().getAssociation())) {
+				if (link.type == traceUtil.getModelConverter().convertElement(propertyExpression.getProperty().getAssociation())) {
 					for (FeatureValue value : link.getFeatureValues()) {
 						Reference reference = (Reference) value.values.get(0);
 						for (ValueSnapshot snapshot : source.getSnapshots()) {

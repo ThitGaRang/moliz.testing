@@ -13,13 +13,13 @@ import org.eclipse.uml2.uml.ActivityNode;
 import org.eclipse.uml2.uml.CallBehaviorAction;
 import org.eclipse.uml2.uml.CallOperationAction;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
-import org.modelexecution.fumltesting.convert.UmlConverter;
-import org.modelexecution.fumltesting.results.OrderAssertionResult;
-import org.modelexecution.fumltesting.results.PathCheckResult;
+import org.modelexecution.fumltesting.core.results.OrderAssertionResult;
+import org.modelexecution.fumltesting.core.results.PathCheckResult;
+import org.modelexecution.fumltesting.core.trace.TraceUtil;
 import org.modelexecution.fumltesting.testLang.NodeSpecification;
 import org.modelexecution.fumltesting.testLang.OrderAssertion;
 import org.modelexecution.fumltesting.testLang.TestCase;
-import org.modelexecution.fumltesting.trace.TraceUtil;
+import org.modelexecution.fumltesting.trace.UmlTraceUtil;
 
 import fUML.Syntax.Actions.BasicActions.Action;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityFinalNode;
@@ -33,8 +33,14 @@ import fUML.Syntax.Activities.IntermediateActivities.InitialNode;
  */
 public class OrderAssertionValidator {
 
+	private TraceUtil traceUtil;
+
+	public OrderAssertionValidator(TraceUtil traceUtil) {
+		this.traceUtil = traceUtil;
+	}
+
 	/** Check order of nodes up to two levels and generate result. */
-	public OrderAssertionResult checkOrder(OrderAssertion assertion, TraceUtil traceUtil) {
+	public OrderAssertionResult checkOrder(OrderAssertion assertion) {
 		OrderAssertionResult result = new OrderAssertionResult(((OrderAssertion) assertion).getOrder());
 		result.setAssertion(assertion);
 
@@ -68,7 +74,7 @@ public class OrderAssertionValidator {
 				OrderAssertionResult subOrderResult = new OrderAssertionResult(nodeSpecification.getSubOrder());
 				subOrderResult.setAssertion(assertion);
 
-				TraceUtil subTraceUtil = new TraceUtil(activityExecutionID);
+				TraceUtil subTraceUtil = new UmlTraceUtil(activityExecutionID, traceUtil.getModelConverter());
 				System.out.println("Checking sub-order assertion against " + subTraceUtil.getAllPaths().size() + " generated paths..");
 
 				for (ArrayList<ActivityNodeExecution> path : subTraceUtil.getAllPaths()) {
@@ -106,7 +112,7 @@ public class OrderAssertionValidator {
 					}
 				}
 			} else {
-				if (nodeOrderList.get(i).getNode() != UmlConverter.getInstance().getOriginal(executedNodes.get(executedNodeIndex).getNode()))
+				if (nodeOrderList.get(i).getNode() != traceUtil.getModelConverter().getOriginal(executedNodes.get(executedNodeIndex).getNode()))
 					return false;
 				executedNodeIndex++;
 			}
@@ -124,7 +130,7 @@ public class OrderAssertionValidator {
 
 	private int getExecutedNodeIndex(ActivityNode node, List<ActivityNodeExecution> executedNodes) {
 		for (int i = 0; i < executedNodes.size(); i++) {
-			if (UmlConverter.getInstance().getOriginal(executedNodes.get(i).getNode()) == node)
+			if (traceUtil.getModelConverter().getOriginal(executedNodes.get(i).getNode()) == node)
 				return i;
 		}
 		return -1;
@@ -133,7 +139,7 @@ public class OrderAssertionValidator {
 	private List<ActivityNodeExecution> getTopNodes(org.eclipse.uml2.uml.Activity activity, List<ActivityNodeExecution> executedNodes) {
 		List<ActivityNodeExecution> topNodes = new ArrayList<ActivityNodeExecution>();
 		for (ActivityNodeExecution node : executedNodes) {
-			if (UmlConverter.getInstance().getOriginal(node.getNode().owner) == activity
+			if (traceUtil.getModelConverter().getOriginal(node.getNode().owner) == activity
 					&& (node.getNode() instanceof Action || node.getNode() instanceof InitialNode || node.getNode() instanceof ActivityFinalNode)) {
 				topNodes.add(node);
 			}
