@@ -74,7 +74,7 @@ import fUML.Syntax.Classes.Kernel.Property;
  * 
  */
 @SuppressWarnings("restriction")
-public class StateAssertionValidator {
+public class UmlStateAssertionValidator {
 	private TestDataConverter testDataConverter;
 	private TraceUtil traceUtil;
 	private SnapshotUtil snapshotUtil;
@@ -83,7 +83,7 @@ public class StateAssertionValidator {
 	private ActivityNodeExecution referenceActionExecution;
 	private ActivityNodeExecution untilActionExecution;
 
-	public StateAssertionValidator(TraceUtil traceUtil, TestDataConverter testDataConverter) {
+	public UmlStateAssertionValidator(TraceUtil traceUtil, TestDataConverter testDataConverter) {
 		this.testDataConverter = testDataConverter;
 		this.traceUtil = traceUtil;
 		snapshotUtil = new UmlSnapshotUtil(traceUtil);

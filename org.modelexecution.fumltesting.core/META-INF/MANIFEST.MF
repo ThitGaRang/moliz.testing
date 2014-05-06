@@ -15,4 +15,5 @@ Export-Package: org.modelexecution.fumltesting.core.convert,
  org.modelexecution.fumltesting.core.results,
  org.modelexecution.fumltesting.core.sequence,
  org.modelexecution.fumltesting.core.sequence.util,
- org.modelexecution.fumltesting.core.trace
+ org.modelexecution.fumltesting.core.trace,
+ org.modelexecution.fumltesting.execution.core.assertions

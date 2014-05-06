@@ -39,8 +39,9 @@ import org.modelexecution.fumltesting.core.results.TestCaseResult;
 import org.modelexecution.fumltesting.core.results.TestSuiteResult;
 import org.modelexecution.fumltesting.core.trace.TraceUtil;
 import org.modelexecution.fumltesting.execution.assertions.AssertionPrinter;
-import org.modelexecution.fumltesting.execution.assertions.OrderAssertionValidator;
-import org.modelexecution.fumltesting.execution.assertions.StateAssertionValidator;
+import org.modelexecution.fumltesting.execution.assertions.UmlOrderAssertionValidator;
+import org.modelexecution.fumltesting.execution.assertions.UmlStateAssertionValidator;
+import org.modelexecution.fumltesting.execution.core.assertions.OrderAssertionValidator;
 import org.modelexecution.fumltesting.testLang.ActivityInput;
 import org.modelexecution.fumltesting.testLang.Assertion;
 import org.modelexecution.fumltesting.testLang.FinallyStateAssertion;
@@ -81,7 +82,7 @@ public class TestExecutor {
 	private TraceUtil traceUtil;
 
 	private OrderAssertionValidator orderAssertionValidator;
-	private StateAssertionValidator stateAssertionValidator;
+	private UmlStateAssertionValidator stateAssertionValidator;
 
 	private XtextResourceSet resourceSet;
 	private Resource resource;
@@ -217,8 +218,8 @@ public class TestExecutor {
 			}
 
 			traceUtil = new UmlTraceUtil(mainActivityExecutionID, modelConverter);
-			orderAssertionValidator = new OrderAssertionValidator(traceUtil);
-			stateAssertionValidator = new StateAssertionValidator(traceUtil, testDataConverter);
+			orderAssertionValidator = new UmlOrderAssertionValidator(traceUtil);
+			stateAssertionValidator = new UmlStateAssertionValidator(traceUtil, testDataConverter);
 
 			TestCaseResult testCaseResult = new TestCaseResult(testCase.getName(), activity);
 			testCaseResult.setActivityContextObject(testCase.getContextObject());
