@@ -27,21 +27,15 @@ import org.eclipse.xtext.uml.UmlSupport;
 import org.junit.Test;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.KernelFactory;
 import org.modelexecution.fumltesting.TestLangStandaloneSetup;
-import org.modelexecution.fumltesting.convert.UmlTestDataConverter;
-import org.modelexecution.fumltesting.convert.UmlModelConverter;
-import org.modelexecution.fumltesting.core.convert.FumlConverter;
-import org.modelexecution.fumltesting.core.convert.ModelConverter;
-import org.modelexecution.fumltesting.core.convert.TestDataConverter;
-import org.modelexecution.fumltesting.core.execution.ActivityExecutor;
-import org.modelexecution.fumltesting.core.execution.OclExecutor;
-import org.modelexecution.fumltesting.core.results.AssertionResult;
-import org.modelexecution.fumltesting.core.results.TestCaseResult;
-import org.modelexecution.fumltesting.core.results.TestSuiteResult;
-import org.modelexecution.fumltesting.core.trace.TraceUtil;
+import org.modelexecution.fumltesting.convert.FumlConverter;
+import org.modelexecution.fumltesting.convert.ModelConverter;
+import org.modelexecution.fumltesting.convert.TestDataConverter;
 import org.modelexecution.fumltesting.execution.assertions.AssertionPrinter;
-import org.modelexecution.fumltesting.execution.assertions.UmlOrderAssertionValidator;
-import org.modelexecution.fumltesting.execution.assertions.UmlStateAssertionValidator;
-import org.modelexecution.fumltesting.execution.core.assertions.OrderAssertionValidator;
+import org.modelexecution.fumltesting.execution.assertions.OrderAssertionValidator;
+import org.modelexecution.fumltesting.execution.assertions.StateAssertionValidator;
+import org.modelexecution.fumltesting.results.AssertionResult;
+import org.modelexecution.fumltesting.results.TestCaseResult;
+import org.modelexecution.fumltesting.results.TestSuiteResult;
 import org.modelexecution.fumltesting.testLang.ActivityInput;
 import org.modelexecution.fumltesting.testLang.Assertion;
 import org.modelexecution.fumltesting.testLang.FinallyStateAssertion;
@@ -51,7 +45,7 @@ import org.modelexecution.fumltesting.testLang.StateAssertion;
 import org.modelexecution.fumltesting.testLang.TestCase;
 import org.modelexecution.fumltesting.testLang.TestLangFactory;
 import org.modelexecution.fumltesting.testLang.TestSuite;
-import org.modelexecution.fumltesting.trace.UmlTraceUtil;
+import org.modelexecution.fumltesting.trace.TraceUtil;
 
 import tudresden.ocl20.pivot.parser.ParseException;
 
@@ -82,7 +76,7 @@ public class TestExecutor {
 	private TraceUtil traceUtil;
 
 	private OrderAssertionValidator orderAssertionValidator;
-	private UmlStateAssertionValidator stateAssertionValidator;
+	private StateAssertionValidator stateAssertionValidator;
 
 	private XtextResourceSet resourceSet;
 	private Resource resource;
@@ -92,8 +86,8 @@ public class TestExecutor {
 	private void setup(String testLocation) throws Exception {
 		fumlConverter = new FumlConverter();
 		executor = new ActivityExecutor();
-		modelConverter = new UmlModelConverter();
-		testDataConverter = new UmlTestDataConverter(modelConverter);
+		modelConverter = new ModelConverter();
+		testDataConverter = new TestDataConverter(modelConverter);
 
 		new UmlSupport().registerServices(true);
 		Injector injector = new TestLangStandaloneSetup().createInjectorAndDoEMFRegistration();
@@ -217,16 +211,16 @@ public class TestExecutor {
 				mainActivityExecutionID = executor.executeActivity(activity, inputValues, null);
 			}
 
-			traceUtil = new UmlTraceUtil(mainActivityExecutionID, modelConverter);
-			orderAssertionValidator = new UmlOrderAssertionValidator(traceUtil);
-			stateAssertionValidator = new UmlStateAssertionValidator(traceUtil, testDataConverter);
+			traceUtil = new TraceUtil(mainActivityExecutionID, modelConverter);
+			orderAssertionValidator = new OrderAssertionValidator(traceUtil);
+			stateAssertionValidator = new StateAssertionValidator(traceUtil, testDataConverter);
 
 			TestCaseResult testCaseResult = new TestCaseResult(testCase.getName(), activity);
 			testCaseResult.setActivityContextObject(testCase.getContextObject());
 
 			for (ActivityInput activityInput : testCase.getInputs()) {
-				org.modelexecution.fumltesting.core.results.ActivityInput activityInputForResult = new org.modelexecution.fumltesting.core.results.ActivityInput(
-						activityInput.getParameter(), activityInput.getValue());
+				org.modelexecution.fumltesting.results.ActivityInput activityInputForResult = new org.modelexecution.fumltesting.results.ActivityInput(
+						modelConverter.convertElement(activityInput.getParameter()), activityInput.getValue());
 				testCaseResult.addActivityInputValue(activityInputForResult);
 			}
 

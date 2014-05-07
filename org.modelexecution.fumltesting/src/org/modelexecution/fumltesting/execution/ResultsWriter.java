@@ -12,22 +12,21 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import org.eclipse.uml2.uml.ActivityParameterNode;
 import org.eclipse.xtext.xbase.XBooleanLiteral;
 import org.eclipse.xtext.xbase.XExpression;
 import org.eclipse.xtext.xbase.XNullLiteral;
 import org.eclipse.xtext.xbase.XNumberLiteral;
 import org.eclipse.xtext.xbase.XStringLiteral;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
-import org.modelexecution.fumltesting.core.results.ActivityInput;
-import org.modelexecution.fumltesting.core.results.AssertionResult;
-import org.modelexecution.fumltesting.core.results.ConstraintResult;
-import org.modelexecution.fumltesting.core.results.OrderAssertionResult;
-import org.modelexecution.fumltesting.core.results.PathCheckResult;
-import org.modelexecution.fumltesting.core.results.StateAssertionResult;
-import org.modelexecution.fumltesting.core.results.StateExpressionResult;
-import org.modelexecution.fumltesting.core.results.TestCaseResult;
-import org.modelexecution.fumltesting.core.results.TestSuiteResult;
+import org.modelexecution.fumltesting.results.ActivityInput;
+import org.modelexecution.fumltesting.results.AssertionResult;
+import org.modelexecution.fumltesting.results.ConstraintResult;
+import org.modelexecution.fumltesting.results.OrderAssertionResult;
+import org.modelexecution.fumltesting.results.PathCheckResult;
+import org.modelexecution.fumltesting.results.StateAssertionResult;
+import org.modelexecution.fumltesting.results.StateExpressionResult;
+import org.modelexecution.fumltesting.results.TestCaseResult;
+import org.modelexecution.fumltesting.results.TestSuiteResult;
 import org.modelexecution.fumltesting.testLang.ActionReferencePoint;
 import org.modelexecution.fumltesting.testLang.ConstraintReferencePoint;
 import org.modelexecution.fumltesting.testLang.NodeOrder;
@@ -44,6 +43,7 @@ import org.modelexecution.fumltesting.testLang.Value;
 import fUML.Syntax.Actions.BasicActions.Action;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityFinalNode;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
 import fUML.Syntax.Activities.IntermediateActivities.InitialNode;
 
 /**
@@ -93,7 +93,7 @@ public class ResultsWriter {
 							value = "UNKNOWN";
 						}
 					}
-					writer.print(((ActivityParameterNode) activityInput.getParameter()).getName() + " = " + value + "; ");
+					writer.print(((ActivityParameterNode) activityInput.getParameter()).name + " = " + value + "; ");
 				}
 			}
 			writer.println();
