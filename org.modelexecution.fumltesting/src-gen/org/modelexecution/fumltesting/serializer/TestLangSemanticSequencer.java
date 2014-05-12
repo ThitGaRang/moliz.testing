@@ -55,27 +55,27 @@ import org.eclipse.xtext.xtype.XImportDeclaration;
 import org.eclipse.xtext.xtype.XImportSection;
 import org.eclipse.xtext.xtype.XtypePackage;
 import org.modelexecution.fumltesting.services.TestLangGrammarAccess;
-import org.modelexecution.fumltesting.testLang.ActionReferencePoint;
-import org.modelexecution.fumltesting.testLang.ActivityInput;
-import org.modelexecution.fumltesting.testLang.Attribute;
-import org.modelexecution.fumltesting.testLang.ConstraintCheck;
-import org.modelexecution.fumltesting.testLang.ConstraintReferencePoint;
 import org.modelexecution.fumltesting.testLang.FinallyStateAssertion;
 import org.modelexecution.fumltesting.testLang.Import;
-import org.modelexecution.fumltesting.testLang.Link;
-import org.modelexecution.fumltesting.testLang.NodeOrder;
-import org.modelexecution.fumltesting.testLang.NodeSpecification;
-import org.modelexecution.fumltesting.testLang.ObjectSpecification;
-import org.modelexecution.fumltesting.testLang.ObjectStateExpression;
-import org.modelexecution.fumltesting.testLang.ObjectValue;
-import org.modelexecution.fumltesting.testLang.OrderAssertion;
-import org.modelexecution.fumltesting.testLang.PropertyStateExpression;
-import org.modelexecution.fumltesting.testLang.Scenario;
-import org.modelexecution.fumltesting.testLang.SimpleValue;
-import org.modelexecution.fumltesting.testLang.StateAssertion;
-import org.modelexecution.fumltesting.testLang.TestCase;
 import org.modelexecution.fumltesting.testLang.TestLangPackage;
-import org.modelexecution.fumltesting.testLang.TestSuite;
+import org.modelexecution.fumltesting.testLang.UMLActionReferencePoint;
+import org.modelexecution.fumltesting.testLang.UMLActivityInput;
+import org.modelexecution.fumltesting.testLang.UMLAttribute;
+import org.modelexecution.fumltesting.testLang.UMLConstraintCheck;
+import org.modelexecution.fumltesting.testLang.UMLConstraintReferencePoint;
+import org.modelexecution.fumltesting.testLang.UMLLink;
+import org.modelexecution.fumltesting.testLang.UMLNodeOrder;
+import org.modelexecution.fumltesting.testLang.UMLNodeSpecification;
+import org.modelexecution.fumltesting.testLang.UMLObjectSpecification;
+import org.modelexecution.fumltesting.testLang.UMLObjectStateExpression;
+import org.modelexecution.fumltesting.testLang.UMLObjectValue;
+import org.modelexecution.fumltesting.testLang.UMLOrderAssertion;
+import org.modelexecution.fumltesting.testLang.UMLPropertyStateExpression;
+import org.modelexecution.fumltesting.testLang.UMLScenario;
+import org.modelexecution.fumltesting.testLang.UMLSimpleValue;
+import org.modelexecution.fumltesting.testLang.UMLStateAssertion;
+import org.modelexecution.fumltesting.testLang.UMLTestCase;
+import org.modelexecution.fumltesting.testLang.UMLTestSuite;
 
 @SuppressWarnings("all")
 public class TestLangSemanticSequencer extends XbaseSemanticSequencer {
@@ -85,43 +85,10 @@ public class TestLangSemanticSequencer extends XbaseSemanticSequencer {
 	
 	public void createSequence(EObject context, EObject semanticObject) {
 		if(semanticObject.eClass().getEPackage() == TestLangPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
-			case TestLangPackage.ACTION_REFERENCE_POINT:
-				if(context == grammarAccess.getActionReferencePointRule() ||
-				   context == grammarAccess.getReferencePointRule()) {
-					sequence_ActionReferencePoint(context, (ActionReferencePoint) semanticObject); 
-					return; 
-				}
-				else break;
-			case TestLangPackage.ACTIVITY_INPUT:
-				if(context == grammarAccess.getActivityInputRule()) {
-					sequence_ActivityInput(context, (ActivityInput) semanticObject); 
-					return; 
-				}
-				else break;
-			case TestLangPackage.ATTRIBUTE:
-				if(context == grammarAccess.getAttributeRule()) {
-					sequence_Attribute(context, (Attribute) semanticObject); 
-					return; 
-				}
-				else break;
-			case TestLangPackage.CONSTRAINT_CHECK:
-				if(context == grammarAccess.getCheckRule() ||
-				   context == grammarAccess.getConstraintCheckRule()) {
-					sequence_ConstraintCheck(context, (ConstraintCheck) semanticObject); 
-					return; 
-				}
-				else break;
-			case TestLangPackage.CONSTRAINT_REFERENCE_POINT:
-				if(context == grammarAccess.getConstraintReferencePointRule() ||
-				   context == grammarAccess.getReferencePointRule()) {
-					sequence_ConstraintReferencePoint(context, (ConstraintReferencePoint) semanticObject); 
-					return; 
-				}
-				else break;
 			case TestLangPackage.FINALLY_STATE_ASSERTION:
-				if(context == grammarAccess.getAssertionRule() ||
-				   context == grammarAccess.getFinallyStateAssertionRule()) {
-					sequence_FinallyStateAssertion(context, (FinallyStateAssertion) semanticObject); 
+				if(context == grammarAccess.getUMLAssertionRule() ||
+				   context == grammarAccess.getUMLFinallyStateAssertionRule()) {
+					sequence_UMLFinallyStateAssertion(context, (FinallyStateAssertion) semanticObject); 
 					return; 
 				}
 				else break;
@@ -131,89 +98,122 @@ public class TestLangSemanticSequencer extends XbaseSemanticSequencer {
 					return; 
 				}
 				else break;
-			case TestLangPackage.LINK:
-				if(context == grammarAccess.getLinkRule()) {
-					sequence_Link(context, (Link) semanticObject); 
+			case TestLangPackage.UML_ACTION_REFERENCE_POINT:
+				if(context == grammarAccess.getUMLActionReferencePointRule() ||
+				   context == grammarAccess.getUMLReferencePointRule()) {
+					sequence_UMLActionReferencePoint(context, (UMLActionReferencePoint) semanticObject); 
 					return; 
 				}
 				else break;
-			case TestLangPackage.NODE_ORDER:
-				if(context == grammarAccess.getNodeOrderRule()) {
-					sequence_NodeOrder(context, (NodeOrder) semanticObject); 
+			case TestLangPackage.UML_ACTIVITY_INPUT:
+				if(context == grammarAccess.getUMLActivityInputRule()) {
+					sequence_UMLActivityInput(context, (UMLActivityInput) semanticObject); 
 					return; 
 				}
 				else break;
-			case TestLangPackage.NODE_SPECIFICATION:
-				if(context == grammarAccess.getNodeSpecificationRule()) {
-					sequence_NodeSpecification(context, (NodeSpecification) semanticObject); 
+			case TestLangPackage.UML_ATTRIBUTE:
+				if(context == grammarAccess.getUMLAttributeRule()) {
+					sequence_UMLAttribute(context, (UMLAttribute) semanticObject); 
 					return; 
 				}
 				else break;
-			case TestLangPackage.OBJECT_SPECIFICATION:
-				if(context == grammarAccess.getObjectSpecificationRule()) {
-					sequence_ObjectSpecification(context, (ObjectSpecification) semanticObject); 
+			case TestLangPackage.UML_CONSTRAINT_CHECK:
+				if(context == grammarAccess.getUMLCheckRule() ||
+				   context == grammarAccess.getUMLConstraintCheckRule()) {
+					sequence_UMLConstraintCheck(context, (UMLConstraintCheck) semanticObject); 
 					return; 
 				}
 				else break;
-			case TestLangPackage.OBJECT_STATE_EXPRESSION:
-				if(context == grammarAccess.getCheckRule() ||
-				   context == grammarAccess.getObjectStateExpressionRule() ||
-				   context == grammarAccess.getStateExpressionRule()) {
-					sequence_ObjectStateExpression(context, (ObjectStateExpression) semanticObject); 
+			case TestLangPackage.UML_CONSTRAINT_REFERENCE_POINT:
+				if(context == grammarAccess.getUMLConstraintReferencePointRule() ||
+				   context == grammarAccess.getUMLReferencePointRule()) {
+					sequence_UMLConstraintReferencePoint(context, (UMLConstraintReferencePoint) semanticObject); 
 					return; 
 				}
 				else break;
-			case TestLangPackage.OBJECT_VALUE:
-				if(context == grammarAccess.getObjectValueRule() ||
-				   context == grammarAccess.getValueRule()) {
-					sequence_ObjectValue(context, (ObjectValue) semanticObject); 
+			case TestLangPackage.UML_LINK:
+				if(context == grammarAccess.getUMLLinkRule()) {
+					sequence_UMLLink(context, (UMLLink) semanticObject); 
 					return; 
 				}
 				else break;
-			case TestLangPackage.ORDER_ASSERTION:
-				if(context == grammarAccess.getAssertionRule() ||
-				   context == grammarAccess.getOrderAssertionRule()) {
-					sequence_OrderAssertion(context, (OrderAssertion) semanticObject); 
+			case TestLangPackage.UML_NODE_ORDER:
+				if(context == grammarAccess.getUMLNodeOrderRule()) {
+					sequence_UMLNodeOrder(context, (UMLNodeOrder) semanticObject); 
 					return; 
 				}
 				else break;
-			case TestLangPackage.PROPERTY_STATE_EXPRESSION:
-				if(context == grammarAccess.getCheckRule() ||
-				   context == grammarAccess.getPropertyStateExpressionRule() ||
-				   context == grammarAccess.getStateExpressionRule()) {
-					sequence_PropertyStateExpression(context, (PropertyStateExpression) semanticObject); 
+			case TestLangPackage.UML_NODE_SPECIFICATION:
+				if(context == grammarAccess.getUMLNodeSpecificationRule()) {
+					sequence_UMLNodeSpecification(context, (UMLNodeSpecification) semanticObject); 
 					return; 
 				}
 				else break;
-			case TestLangPackage.SCENARIO:
-				if(context == grammarAccess.getScenarioRule()) {
-					sequence_Scenario(context, (Scenario) semanticObject); 
+			case TestLangPackage.UML_OBJECT_SPECIFICATION:
+				if(context == grammarAccess.getUMLObjectSpecificationRule()) {
+					sequence_UMLObjectSpecification(context, (UMLObjectSpecification) semanticObject); 
 					return; 
 				}
 				else break;
-			case TestLangPackage.SIMPLE_VALUE:
-				if(context == grammarAccess.getSimpleValueRule() ||
-				   context == grammarAccess.getValueRule()) {
-					sequence_SimpleValue(context, (SimpleValue) semanticObject); 
+			case TestLangPackage.UML_OBJECT_STATE_EXPRESSION:
+				if(context == grammarAccess.getUMLCheckRule() ||
+				   context == grammarAccess.getUMLObjectStateExpressionRule() ||
+				   context == grammarAccess.getUMLStateExpressionRule()) {
+					sequence_UMLObjectStateExpression(context, (UMLObjectStateExpression) semanticObject); 
 					return; 
 				}
 				else break;
-			case TestLangPackage.STATE_ASSERTION:
-				if(context == grammarAccess.getAssertionRule() ||
-				   context == grammarAccess.getStateAssertionRule()) {
-					sequence_StateAssertion(context, (StateAssertion) semanticObject); 
+			case TestLangPackage.UML_OBJECT_VALUE:
+				if(context == grammarAccess.getUMLObjectValueRule() ||
+				   context == grammarAccess.getUMLValueRule()) {
+					sequence_UMLObjectValue(context, (UMLObjectValue) semanticObject); 
 					return; 
 				}
 				else break;
-			case TestLangPackage.TEST_CASE:
-				if(context == grammarAccess.getTestCaseRule()) {
-					sequence_TestCase(context, (TestCase) semanticObject); 
+			case TestLangPackage.UML_ORDER_ASSERTION:
+				if(context == grammarAccess.getUMLAssertionRule() ||
+				   context == grammarAccess.getUMLOrderAssertionRule()) {
+					sequence_UMLOrderAssertion(context, (UMLOrderAssertion) semanticObject); 
 					return; 
 				}
 				else break;
-			case TestLangPackage.TEST_SUITE:
-				if(context == grammarAccess.getTestSuiteRule()) {
-					sequence_TestSuite(context, (TestSuite) semanticObject); 
+			case TestLangPackage.UML_PROPERTY_STATE_EXPRESSION:
+				if(context == grammarAccess.getUMLCheckRule() ||
+				   context == grammarAccess.getUMLPropertyStateExpressionRule() ||
+				   context == grammarAccess.getUMLStateExpressionRule()) {
+					sequence_UMLPropertyStateExpression(context, (UMLPropertyStateExpression) semanticObject); 
+					return; 
+				}
+				else break;
+			case TestLangPackage.UML_SCENARIO:
+				if(context == grammarAccess.getUMLScenarioRule()) {
+					sequence_UMLScenario(context, (UMLScenario) semanticObject); 
+					return; 
+				}
+				else break;
+			case TestLangPackage.UML_SIMPLE_VALUE:
+				if(context == grammarAccess.getUMLSimpleValueRule() ||
+				   context == grammarAccess.getUMLValueRule()) {
+					sequence_UMLSimpleValue(context, (UMLSimpleValue) semanticObject); 
+					return; 
+				}
+				else break;
+			case TestLangPackage.UML_STATE_ASSERTION:
+				if(context == grammarAccess.getUMLAssertionRule() ||
+				   context == grammarAccess.getUMLStateAssertionRule()) {
+					sequence_UMLStateAssertion(context, (UMLStateAssertion) semanticObject); 
+					return; 
+				}
+				else break;
+			case TestLangPackage.UML_TEST_CASE:
+				if(context == grammarAccess.getUMLTestCaseRule()) {
+					sequence_UMLTestCase(context, (UMLTestCase) semanticObject); 
+					return; 
+				}
+				else break;
+			case TestLangPackage.UML_TEST_SUITE:
+				if(context == grammarAccess.getUMLTestSuiteRule()) {
+					sequence_UMLTestSuite(context, (UMLTestSuite) semanticObject); 
 					return; 
 				}
 				else break;
@@ -1161,94 +1161,6 @@ public class TestLangSemanticSequencer extends XbaseSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     action=[Action|QualifiedName]
-	 */
-	protected void sequence_ActionReferencePoint(EObject context, ActionReferencePoint semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.ACTION_REFERENCE_POINT__ACTION) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.ACTION_REFERENCE_POINT__ACTION));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getActionReferencePointAccess().getActionActionQualifiedNameParserRuleCall_1_0_1(), semanticObject.getAction());
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (parameter=[ActivityParameterNode|QualifiedName] value=Value)
-	 */
-	protected void sequence_ActivityInput(EObject context, ActivityInput semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.ACTIVITY_INPUT__PARAMETER) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.ACTIVITY_INPUT__PARAMETER));
-			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.ACTIVITY_INPUT__VALUE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.ACTIVITY_INPUT__VALUE));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getActivityInputAccess().getParameterActivityParameterNodeQualifiedNameParserRuleCall_0_0_1(), semanticObject.getParameter());
-		feeder.accept(grammarAccess.getActivityInputAccess().getValueValueParserRuleCall_2_0(), semanticObject.getValue());
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (att=[Property|QualifiedName] value=Value)
-	 */
-	protected void sequence_Attribute(EObject context, Attribute semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.ATTRIBUTE__ATT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.ATTRIBUTE__ATT));
-			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.ATTRIBUTE__VALUE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.ATTRIBUTE__VALUE));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getAttributeAccess().getAttPropertyQualifiedNameParserRuleCall_0_0_1(), semanticObject.getAtt());
-		feeder.accept(grammarAccess.getAttributeAccess().getValueValueParserRuleCall_2_0(), semanticObject.getValue());
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (constraintNames+=XStringLiteral constraintNames+=XStringLiteral* object=[ObjectNode|QualifiedName]?)
-	 */
-	protected void sequence_ConstraintCheck(EObject context, ConstraintCheck semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     constraintName=XStringLiteral
-	 */
-	protected void sequence_ConstraintReferencePoint(EObject context, ConstraintReferencePoint semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.CONSTRAINT_REFERENCE_POINT__CONSTRAINT_NAME) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.CONSTRAINT_REFERENCE_POINT__CONSTRAINT_NAME));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getConstraintReferencePointAccess().getConstraintNameXStringLiteralParserRuleCall_1_0(), semanticObject.getConstraintName());
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (checks+=Check*)
-	 */
-	protected void sequence_FinallyStateAssertion(EObject context, FinallyStateAssertion semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
 	 *     importedNamespace=QualifiedNameWithWildcard
 	 */
 	protected void sequence_Import(EObject context, Import semanticObject) {
@@ -1265,149 +1177,237 @@ public class TestLangSemanticSequencer extends XbaseSemanticSequencer {
 	
 	/**
 	 * Constraint:
+	 *     action=[Action|QualifiedName]
+	 */
+	protected void sequence_UMLActionReferencePoint(EObject context, UMLActionReferencePoint semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.UML_ACTION_REFERENCE_POINT__ACTION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.UML_ACTION_REFERENCE_POINT__ACTION));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getUMLActionReferencePointAccess().getActionActionQualifiedNameParserRuleCall_1_0_1(), semanticObject.getAction());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (parameter=[ActivityParameterNode|QualifiedName] value=UMLValue)
+	 */
+	protected void sequence_UMLActivityInput(EObject context, UMLActivityInput semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.UML_ACTIVITY_INPUT__PARAMETER) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.UML_ACTIVITY_INPUT__PARAMETER));
+			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.UML_ACTIVITY_INPUT__VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.UML_ACTIVITY_INPUT__VALUE));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getUMLActivityInputAccess().getParameterActivityParameterNodeQualifiedNameParserRuleCall_0_0_1(), semanticObject.getParameter());
+		feeder.accept(grammarAccess.getUMLActivityInputAccess().getValueUMLValueParserRuleCall_2_0(), semanticObject.getValue());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (att=[Property|QualifiedName] value=UMLValue)
+	 */
+	protected void sequence_UMLAttribute(EObject context, UMLAttribute semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.UML_ATTRIBUTE__ATT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.UML_ATTRIBUTE__ATT));
+			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.UML_ATTRIBUTE__VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.UML_ATTRIBUTE__VALUE));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getUMLAttributeAccess().getAttPropertyQualifiedNameParserRuleCall_0_0_1(), semanticObject.getAtt());
+		feeder.accept(grammarAccess.getUMLAttributeAccess().getValueUMLValueParserRuleCall_2_0(), semanticObject.getValue());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (constraintNames+=XStringLiteral constraintNames+=XStringLiteral* object=[ObjectNode|QualifiedName]?)
+	 */
+	protected void sequence_UMLConstraintCheck(EObject context, UMLConstraintCheck semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     constraintName=XStringLiteral
+	 */
+	protected void sequence_UMLConstraintReferencePoint(EObject context, UMLConstraintReferencePoint semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.UML_CONSTRAINT_REFERENCE_POINT__CONSTRAINT_NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.UML_CONSTRAINT_REFERENCE_POINT__CONSTRAINT_NAME));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getUMLConstraintReferencePointAccess().getConstraintNameXStringLiteralParserRuleCall_1_0(), semanticObject.getConstraintName());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (checks+=UMLCheck*)
+	 */
+	protected void sequence_UMLFinallyStateAssertion(EObject context, FinallyStateAssertion semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (
 	 *         assoc=[Association|QualifiedName] 
 	 *         sourceProperty=[Property|QualifiedName] 
-	 *         sourceValue=[ObjectSpecification|QualifiedName] 
+	 *         sourceValue=[UMLObjectSpecification|QualifiedName] 
 	 *         targetProperty=[Property|QualifiedName] 
-	 *         targetValue=[ObjectSpecification|QualifiedName]
+	 *         targetValue=[UMLObjectSpecification|QualifiedName]
 	 *     )
 	 */
-	protected void sequence_Link(EObject context, Link semanticObject) {
+	protected void sequence_UMLLink(EObject context, UMLLink semanticObject) {
 		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.LINK__ASSOC) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.LINK__ASSOC));
-			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.LINK__SOURCE_PROPERTY) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.LINK__SOURCE_PROPERTY));
-			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.LINK__SOURCE_VALUE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.LINK__SOURCE_VALUE));
-			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.LINK__TARGET_PROPERTY) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.LINK__TARGET_PROPERTY));
-			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.LINK__TARGET_VALUE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.LINK__TARGET_VALUE));
+			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.UML_LINK__ASSOC) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.UML_LINK__ASSOC));
+			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.UML_LINK__SOURCE_PROPERTY) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.UML_LINK__SOURCE_PROPERTY));
+			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.UML_LINK__SOURCE_VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.UML_LINK__SOURCE_VALUE));
+			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.UML_LINK__TARGET_PROPERTY) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.UML_LINK__TARGET_PROPERTY));
+			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.UML_LINK__TARGET_VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.UML_LINK__TARGET_VALUE));
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getLinkAccess().getAssocAssociationQualifiedNameParserRuleCall_1_0_1(), semanticObject.getAssoc());
-		feeder.accept(grammarAccess.getLinkAccess().getSourcePropertyPropertyQualifiedNameParserRuleCall_4_0_1(), semanticObject.getSourceProperty());
-		feeder.accept(grammarAccess.getLinkAccess().getSourceValueObjectSpecificationQualifiedNameParserRuleCall_6_0_1(), semanticObject.getSourceValue());
-		feeder.accept(grammarAccess.getLinkAccess().getTargetPropertyPropertyQualifiedNameParserRuleCall_9_0_1(), semanticObject.getTargetProperty());
-		feeder.accept(grammarAccess.getLinkAccess().getTargetValueObjectSpecificationQualifiedNameParserRuleCall_11_0_1(), semanticObject.getTargetValue());
+		feeder.accept(grammarAccess.getUMLLinkAccess().getAssocAssociationQualifiedNameParserRuleCall_1_0_1(), semanticObject.getAssoc());
+		feeder.accept(grammarAccess.getUMLLinkAccess().getSourcePropertyPropertyQualifiedNameParserRuleCall_4_0_1(), semanticObject.getSourceProperty());
+		feeder.accept(grammarAccess.getUMLLinkAccess().getSourceValueUMLObjectSpecificationQualifiedNameParserRuleCall_6_0_1(), semanticObject.getSourceValue());
+		feeder.accept(grammarAccess.getUMLLinkAccess().getTargetPropertyPropertyQualifiedNameParserRuleCall_9_0_1(), semanticObject.getTargetProperty());
+		feeder.accept(grammarAccess.getUMLLinkAccess().getTargetValueUMLObjectSpecificationQualifiedNameParserRuleCall_11_0_1(), semanticObject.getTargetValue());
 		feeder.finish();
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     (nodes+=NodeSpecification nodes+=NodeSpecification*)
+	 *     (nodes+=UMLNodeSpecification nodes+=UMLNodeSpecification*)
 	 */
-	protected void sequence_NodeOrder(EObject context, NodeOrder semanticObject) {
+	protected void sequence_UMLNodeOrder(EObject context, UMLNodeOrder semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     ((node=[ActivityNode|QualifiedName] size=XNumberLiteral? subOrder=NodeOrder?) | joker='*' | joker='_')
+	 *     ((node=[ActivityNode|QualifiedName] size=XNumberLiteral? subOrder=UMLNodeOrder?) | joker='*' | joker='_')
 	 */
-	protected void sequence_NodeSpecification(EObject context, NodeSpecification semanticObject) {
+	protected void sequence_UMLNodeSpecification(EObject context, UMLNodeSpecification semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     (name=ID type=[Class|QualifiedName] attributes+=Attribute*)
+	 *     (name=ID type=[Class|QualifiedName] attributes+=UMLAttribute*)
 	 */
-	protected void sequence_ObjectSpecification(EObject context, ObjectSpecification semanticObject) {
+	protected void sequence_UMLObjectSpecification(EObject context, UMLObjectSpecification semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     (pin=[ObjectNode|QualifiedName] operator=ArithmeticOperator value=Value)
+	 *     (pin=[ObjectNode|QualifiedName] operator=UMLArithmeticOperator value=UMLValue)
 	 */
-	protected void sequence_ObjectStateExpression(EObject context, ObjectStateExpression semanticObject) {
+	protected void sequence_UMLObjectStateExpression(EObject context, UMLObjectStateExpression semanticObject) {
 		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.STATE_EXPRESSION__PIN) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.STATE_EXPRESSION__PIN));
-			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.STATE_EXPRESSION__OPERATOR) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.STATE_EXPRESSION__OPERATOR));
-			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.STATE_EXPRESSION__VALUE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.STATE_EXPRESSION__VALUE));
+			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.UML_STATE_EXPRESSION__PIN) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.UML_STATE_EXPRESSION__PIN));
+			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.UML_STATE_EXPRESSION__OPERATOR) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.UML_STATE_EXPRESSION__OPERATOR));
+			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.UML_STATE_EXPRESSION__VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.UML_STATE_EXPRESSION__VALUE));
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getObjectStateExpressionAccess().getPinObjectNodeQualifiedNameParserRuleCall_0_0_1(), semanticObject.getPin());
-		feeder.accept(grammarAccess.getObjectStateExpressionAccess().getOperatorArithmeticOperatorEnumRuleCall_1_0(), semanticObject.getOperator());
-		feeder.accept(grammarAccess.getObjectStateExpressionAccess().getValueValueParserRuleCall_2_0(), semanticObject.getValue());
+		feeder.accept(grammarAccess.getUMLObjectStateExpressionAccess().getPinObjectNodeQualifiedNameParserRuleCall_0_0_1(), semanticObject.getPin());
+		feeder.accept(grammarAccess.getUMLObjectStateExpressionAccess().getOperatorUMLArithmeticOperatorEnumRuleCall_1_0(), semanticObject.getOperator());
+		feeder.accept(grammarAccess.getUMLObjectStateExpressionAccess().getValueUMLValueParserRuleCall_2_0(), semanticObject.getValue());
 		feeder.finish();
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     value=[ObjectSpecification|QualifiedName]
+	 *     value=[UMLObjectSpecification|QualifiedName]
 	 */
-	protected void sequence_ObjectValue(EObject context, ObjectValue semanticObject) {
+	protected void sequence_UMLObjectValue(EObject context, UMLObjectValue semanticObject) {
 		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.OBJECT_VALUE__VALUE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.OBJECT_VALUE__VALUE));
+			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.UML_OBJECT_VALUE__VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.UML_OBJECT_VALUE__VALUE));
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getObjectValueAccess().getValueObjectSpecificationQualifiedNameParserRuleCall_0_1(), semanticObject.getValue());
+		feeder.accept(grammarAccess.getUMLObjectValueAccess().getValueUMLObjectSpecificationQualifiedNameParserRuleCall_0_1(), semanticObject.getValue());
 		feeder.finish();
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     order=NodeOrder
+	 *     order=UMLNodeOrder
 	 */
-	protected void sequence_OrderAssertion(EObject context, OrderAssertion semanticObject) {
+	protected void sequence_UMLOrderAssertion(EObject context, UMLOrderAssertion semanticObject) {
 		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.ORDER_ASSERTION__ORDER) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.ORDER_ASSERTION__ORDER));
+			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.UML_ORDER_ASSERTION__ORDER) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.UML_ORDER_ASSERTION__ORDER));
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getOrderAssertionAccess().getOrderNodeOrderParserRuleCall_1_0(), semanticObject.getOrder());
+		feeder.accept(grammarAccess.getUMLOrderAssertionAccess().getOrderUMLNodeOrderParserRuleCall_1_0(), semanticObject.getOrder());
 		feeder.finish();
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     (pin=[ObjectNode|QualifiedName] property=[Property|QualifiedName] operator=ArithmeticOperator value=Value)
+	 *     (pin=[ObjectNode|QualifiedName] property=[Property|QualifiedName] operator=UMLArithmeticOperator value=UMLValue)
 	 */
-	protected void sequence_PropertyStateExpression(EObject context, PropertyStateExpression semanticObject) {
+	protected void sequence_UMLPropertyStateExpression(EObject context, UMLPropertyStateExpression semanticObject) {
 		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.STATE_EXPRESSION__PIN) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.STATE_EXPRESSION__PIN));
-			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.STATE_EXPRESSION__OPERATOR) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.STATE_EXPRESSION__OPERATOR));
-			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.STATE_EXPRESSION__VALUE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.STATE_EXPRESSION__VALUE));
-			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.PROPERTY_STATE_EXPRESSION__PROPERTY) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.PROPERTY_STATE_EXPRESSION__PROPERTY));
+			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.UML_STATE_EXPRESSION__PIN) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.UML_STATE_EXPRESSION__PIN));
+			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.UML_STATE_EXPRESSION__OPERATOR) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.UML_STATE_EXPRESSION__OPERATOR));
+			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.UML_STATE_EXPRESSION__VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.UML_STATE_EXPRESSION__VALUE));
+			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.UML_PROPERTY_STATE_EXPRESSION__PROPERTY) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.UML_PROPERTY_STATE_EXPRESSION__PROPERTY));
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getPropertyStateExpressionAccess().getPinObjectNodeQualifiedNameParserRuleCall_0_0_1(), semanticObject.getPin());
-		feeder.accept(grammarAccess.getPropertyStateExpressionAccess().getPropertyPropertyQualifiedNameParserRuleCall_2_0_1(), semanticObject.getProperty());
-		feeder.accept(grammarAccess.getPropertyStateExpressionAccess().getOperatorArithmeticOperatorEnumRuleCall_3_0(), semanticObject.getOperator());
-		feeder.accept(grammarAccess.getPropertyStateExpressionAccess().getValueValueParserRuleCall_4_0(), semanticObject.getValue());
+		feeder.accept(grammarAccess.getUMLPropertyStateExpressionAccess().getPinObjectNodeQualifiedNameParserRuleCall_0_0_1(), semanticObject.getPin());
+		feeder.accept(grammarAccess.getUMLPropertyStateExpressionAccess().getPropertyPropertyQualifiedNameParserRuleCall_2_0_1(), semanticObject.getProperty());
+		feeder.accept(grammarAccess.getUMLPropertyStateExpressionAccess().getOperatorUMLArithmeticOperatorEnumRuleCall_3_0(), semanticObject.getOperator());
+		feeder.accept(grammarAccess.getUMLPropertyStateExpressionAccess().getValueUMLValueParserRuleCall_4_0(), semanticObject.getValue());
 		feeder.finish();
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     (name=ID objects+=ObjectSpecification* links+=Link*)
+	 *     (name=ID objects+=UMLObjectSpecification* links+=UMLLink*)
 	 */
-	protected void sequence_Scenario(EObject context, Scenario semanticObject) {
+	protected void sequence_UMLScenario(EObject context, UMLScenario semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -1416,23 +1416,23 @@ public class TestLangSemanticSequencer extends XbaseSemanticSequencer {
 	 * Constraint:
 	 *     value=XLiteral
 	 */
-	protected void sequence_SimpleValue(EObject context, SimpleValue semanticObject) {
+	protected void sequence_UMLSimpleValue(EObject context, UMLSimpleValue semanticObject) {
 		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.SIMPLE_VALUE__VALUE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.SIMPLE_VALUE__VALUE));
+			if(transientValues.isValueTransient(semanticObject, TestLangPackage.Literals.UML_SIMPLE_VALUE__VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, TestLangPackage.Literals.UML_SIMPLE_VALUE__VALUE));
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getSimpleValueAccess().getValueXLiteralParserRuleCall_0(), semanticObject.getValue());
+		feeder.accept(grammarAccess.getUMLSimpleValueAccess().getValueXLiteralParserRuleCall_0(), semanticObject.getValue());
 		feeder.finish();
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     (quantifier=TemporalQuantifier operator=TemporalOperator referencePoint=ReferencePoint untilPoint=ReferencePoint? checks+=Check*)
+	 *     (quantifier=UMLTemporalQuantifier operator=UMLTemporalOperator referencePoint=UMLReferencePoint untilPoint=UMLReferencePoint? checks+=UMLCheck*)
 	 */
-	protected void sequence_StateAssertion(EObject context, StateAssertion semanticObject) {
+	protected void sequence_UMLStateAssertion(EObject context, UMLStateAssertion semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -1442,22 +1442,22 @@ public class TestLangSemanticSequencer extends XbaseSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         activityUnderTest=[Activity|QualifiedName] 
-	 *         (inputs+=ActivityInput inputs+=ActivityInput*)? 
-	 *         contextObject=[ObjectSpecification|QualifiedName]? 
-	 *         (initScenarios+=[Scenario|ID] initScenarios+=[Scenario|ID]*)? 
-	 *         assertions+=Assertion*
+	 *         (inputs+=UMLActivityInput inputs+=UMLActivityInput*)? 
+	 *         contextObject=[UMLObjectSpecification|QualifiedName]? 
+	 *         (initScenarios+=[UMLScenario|ID] initScenarios+=[UMLScenario|ID]*)? 
+	 *         assertions+=UMLAssertion*
 	 *     )
 	 */
-	protected void sequence_TestCase(EObject context, TestCase semanticObject) {
+	protected void sequence_UMLTestCase(EObject context, UMLTestCase semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     (imports+=Import* scenarios+=Scenario* tests+=TestCase*)
+	 *     (imports+=Import* scenarios+=UMLScenario* tests+=UMLTestCase*)
 	 */
-	protected void sequence_TestSuite(EObject context, TestSuite semanticObject) {
+	protected void sequence_UMLTestSuite(EObject context, UMLTestSuite semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 }

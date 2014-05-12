@@ -31,18 +31,18 @@ import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.Scopes;
 import org.eclipse.xtext.uml.UmlQualifiedNameProvider;
 import org.eclipse.xtext.xbase.scoping.XbaseScopeProvider;
-import org.modelexecution.fumltesting.testLang.ActionReferencePoint;
-import org.modelexecution.fumltesting.testLang.Attribute;
-import org.modelexecution.fumltesting.testLang.Link;
-import org.modelexecution.fumltesting.testLang.NodeOrder;
-import org.modelexecution.fumltesting.testLang.NodeSpecification;
-import org.modelexecution.fumltesting.testLang.ObjectSpecification;
-import org.modelexecution.fumltesting.testLang.OrderAssertion;
-import org.modelexecution.fumltesting.testLang.PropertyStateExpression;
-import org.modelexecution.fumltesting.testLang.Scenario;
-import org.modelexecution.fumltesting.testLang.StateAssertion;
-import org.modelexecution.fumltesting.testLang.TestCase;
-import org.modelexecution.fumltesting.testLang.TestSuite;
+import org.modelexecution.fumltesting.testLang.UMLActionReferencePoint;
+import org.modelexecution.fumltesting.testLang.UMLAttribute;
+import org.modelexecution.fumltesting.testLang.UMLLink;
+import org.modelexecution.fumltesting.testLang.UMLNodeOrder;
+import org.modelexecution.fumltesting.testLang.UMLNodeSpecification;
+import org.modelexecution.fumltesting.testLang.UMLObjectSpecification;
+import org.modelexecution.fumltesting.testLang.UMLOrderAssertion;
+import org.modelexecution.fumltesting.testLang.UMLPropertyStateExpression;
+import org.modelexecution.fumltesting.testLang.UMLScenario;
+import org.modelexecution.fumltesting.testLang.UMLStateAssertion;
+import org.modelexecution.fumltesting.testLang.UMLTestCase;
+import org.modelexecution.fumltesting.testLang.UMLTestSuite;
 
 /**
  * Utility class for scoping in TestLang editor.
@@ -56,8 +56,8 @@ public class TestLangScopeProvider extends XbaseScopeProvider {
 	public IScope getScope(EObject context, EReference reference) {
 
 		/** STATE ASSERTION PIN SCOPE */
-		if (context instanceof StateAssertion && reference.getName().equals("pin")) {
-			Activity activity = ((TestCase) context.eContainer()).getActivityUnderTest();
+		if (context instanceof UMLStateAssertion && reference.getName().equals("pin")) {
+			Activity activity = (Activity) ((UMLTestCase) context.eContainer()).getActivityUnderTest();
 			List<ObjectNode> nodes = new ArrayList<ObjectNode>();
 			for (ActivityNode node : activity.getNodes()) {
 				if (node instanceof ObjectNode) {
@@ -76,19 +76,19 @@ public class TestLangScopeProvider extends XbaseScopeProvider {
 		}
 
 		/** INIT SCENARIOS DECLARATION SCOPE */
-		if (context instanceof TestCase && reference.getName().equals("initScenarios")) {
-			ArrayList<Scenario> scenarios = new ArrayList<Scenario>();
-			TestSuite suite = (TestSuite) ((TestCase) context).eContainer();
-			for (Scenario scenario : suite.getScenarios()) {
+		if (context instanceof UMLTestCase && reference.getName().equals("initScenarios")) {
+			ArrayList<UMLScenario> scenarios = new ArrayList<UMLScenario>();
+			UMLTestSuite suite = (UMLTestSuite) ((UMLTestCase) context).eContainer();
+			for (UMLScenario scenario : suite.getScenarios()) {
 				scenarios.add(scenario);
 			}
 			return Scopes.scopeFor(scenarios, new UmlQualifiedNameProvider(), IScope.NULLSCOPE);
 		}
 
 		/** ACTIVITY PARAMETER ASSIGNMENT SCOPE */
-		if (context instanceof TestCase && reference.getName().equals("parameter")) {
+		if (context instanceof UMLTestCase && reference.getName().equals("parameter")) {
 			ArrayList<ActivityNode> nodes = new ArrayList<ActivityNode>();
-			Activity activity = ((TestCase) context).getActivityUnderTest();
+			Activity activity = (Activity) ((UMLTestCase) context).getActivityUnderTest();
 			for (ActivityNode node : activity.getNodes()) {
 				if (node.getOwner().equals(activity) && node instanceof ActivityParameterNode)
 					nodes.add(node);
@@ -97,10 +97,10 @@ public class TestLangScopeProvider extends XbaseScopeProvider {
 		}
 
 		/** ATTRIBUTE DECLARATION SCOPE */
-		if (context instanceof ObjectSpecification && reference.getName().equals("att")) {
-			ObjectSpecification specification = (ObjectSpecification) context;
+		if (context instanceof UMLObjectSpecification && reference.getName().equals("att")) {
+			UMLObjectSpecification specification = (UMLObjectSpecification) context;
 			ArrayList<Property> properties = new ArrayList<Property>();
-			for (Property property : specification.getType().getAttributes()) {
+			for (Property property : ((Class) specification.getType()).getAttributes()) {
 				if (property.getType() instanceof PrimitiveType)
 					properties.add(property);
 			}
@@ -108,10 +108,10 @@ public class TestLangScopeProvider extends XbaseScopeProvider {
 		}
 
 		/** ATTRIBUTE DECLARATION SCOPE - DEEPER REFERENCE */
-		if (context instanceof Attribute && reference.getName().equals("att")) {
-			ObjectSpecification specification = (ObjectSpecification) context.eContainer();
+		if (context instanceof UMLAttribute && reference.getName().equals("att")) {
+			UMLObjectSpecification specification = (UMLObjectSpecification) context.eContainer();
 			ArrayList<Property> properties = new ArrayList<Property>();
-			for (Property property : specification.getType().getAttributes()) {
+			for (Property property : ((Class) specification.getType()).getAttributes()) {
 				if (property.getType() instanceof PrimitiveType)
 					properties.add(property);
 			}
@@ -119,9 +119,9 @@ public class TestLangScopeProvider extends XbaseScopeProvider {
 		}
 
 		/** ORDER NODE DECLARATION SCOPE */
-		if (context instanceof OrderAssertion && reference.getName().equals("node")) {
-			TestCase testCase = (TestCase) context.eContainer();
-			Activity activity = testCase.getActivityUnderTest();
+		if (context instanceof UMLOrderAssertion && reference.getName().equals("node")) {
+			UMLTestCase testCase = (UMLTestCase) context.eContainer();
+			Activity activity = (Activity) testCase.getActivityUnderTest();
 			ArrayList<ActivityNode> nodes = new ArrayList<ActivityNode>();
 			for (ActivityNode node : activity.getNodes()) {
 				if (node instanceof Action || node instanceof ActivityFinalNode || node instanceof InitialNode)
@@ -131,18 +131,18 @@ public class TestLangScopeProvider extends XbaseScopeProvider {
 		}
 
 		/** ORDER NODE DECLARATION SCOPE - DEEPER REFERENCE */
-		if (context instanceof NodeOrder && reference.getName().equals("node")) {
+		if (context instanceof UMLNodeOrder && reference.getName().equals("node")) {
 			ArrayList<ActivityNode> nodes = new ArrayList<ActivityNode>();
-			if (context.eContainer().eContainer() instanceof TestCase) {
-				TestCase testCase = (TestCase) context.eContainer().eContainer();
-				Activity activity = testCase.getActivityUnderTest();
+			if (context.eContainer().eContainer() instanceof UMLTestCase) {
+				UMLTestCase testCase = (UMLTestCase) context.eContainer().eContainer();
+				Activity activity = (Activity) testCase.getActivityUnderTest();
 				for (ActivityNode node : activity.getNodes()) {
 					if (node instanceof Action || node instanceof ActivityFinalNode || node instanceof InitialNode)
 						nodes.add(node);
 				}
 			}
-			if (context.eContainer().eContainer() instanceof NodeOrder) {
-				NodeSpecification nodeSpec = (NodeSpecification) context.eContainer();
+			if (context.eContainer().eContainer() instanceof UMLNodeOrder) {
+				UMLNodeSpecification nodeSpec = (UMLNodeSpecification) context.eContainer();
 				if (nodeSpec.getNode() instanceof CallBehaviorAction) {
 					CallBehaviorAction action = (CallBehaviorAction) nodeSpec.getNode();
 					for (ActivityNode node : ((Activity) action.getBehavior()).getNodes()) {
@@ -162,8 +162,8 @@ public class TestLangScopeProvider extends XbaseScopeProvider {
 		}
 
 		/** SUB-ORDER SCOPE */
-		if (context instanceof NodeSpecification && reference.getName().equals("node")) {
-			ActivityNode node = ((NodeSpecification) context).getNode();
+		if (context instanceof UMLNodeSpecification && reference.getName().equals("node")) {
+			ActivityNode node = (ActivityNode) ((UMLNodeSpecification) context).getNode();
 			Activity subActivity = null;
 			if (node instanceof CallBehaviorAction) {
 				subActivity = (Activity) ((CallBehaviorAction) node).getBehavior();
@@ -182,17 +182,18 @@ public class TestLangScopeProvider extends XbaseScopeProvider {
 		}
 
 		/** LINK PROPERTIES DECLARATION SCOPE */
-		if (context instanceof Link && (reference.getName().equals("sourceProperty") || reference.getName().equals("targetProperty"))) {
+		if (context instanceof UMLLink && (reference.getName().equals("sourceProperty") || reference.getName().equals("targetProperty"))) {
 			ArrayList<Property> properties = new ArrayList<Property>();
-			for (Property property : ((Link) context).getAssoc().getMemberEnds()) {
+			for (Property property : ((Association) ((UMLLink) context).getAssoc()).getMemberEnds()) {
 				properties.add(property);
 			}
 			return Scopes.scopeFor(properties, new UmlQualifiedNameProvider(), IScope.NULLSCOPE);
 		}
 
 		/** REFERENCE ACTION AND UNTIL ACTION DECLARATION SCOPE */
-		if (context instanceof ActionReferencePoint && reference.getName().equals("action")) {
-			Activity activity = ((TestCase) ((StateAssertion) ((ActionReferencePoint) context).eContainer()).eContainer()).getActivityUnderTest();
+		if (context instanceof UMLActionReferencePoint && reference.getName().equals("action")) {
+			Activity activity = (Activity) ((UMLTestCase) ((UMLStateAssertion) ((UMLActionReferencePoint) context).eContainer()).eContainer())
+					.getActivityUnderTest();
 			ArrayList<ActivityNode> nodes = new ArrayList<ActivityNode>();
 			for (ActivityNode node : activity.getNodes()) {
 				if (node instanceof Action)
@@ -202,8 +203,8 @@ public class TestLangScopeProvider extends XbaseScopeProvider {
 		}
 
 		/** PROPERTY DECLARATION SCOPE */
-		if (context instanceof PropertyStateExpression && reference.getName().equals("property")) {
-			Type type = ((PropertyStateExpression) context).getPin().getType();
+		if (context instanceof UMLPropertyStateExpression && reference.getName().equals("property")) {
+			Type type = ((ObjectNode) ((UMLPropertyStateExpression) context).getPin()).getType();
 			ArrayList<Property> properties = new ArrayList<Property>();
 
 			if (type == null)

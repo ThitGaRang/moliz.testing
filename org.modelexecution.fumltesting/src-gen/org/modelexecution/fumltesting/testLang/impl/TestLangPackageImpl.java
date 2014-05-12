@@ -15,36 +15,37 @@ import org.eclipse.uml2.uml.UMLPackage;
 
 import org.eclipse.xtext.xbase.XbasePackage;
 
-import org.modelexecution.fumltesting.testLang.ActionReferencePoint;
-import org.modelexecution.fumltesting.testLang.ActivityInput;
-import org.modelexecution.fumltesting.testLang.ArithmeticOperator;
-import org.modelexecution.fumltesting.testLang.Assertion;
-import org.modelexecution.fumltesting.testLang.Attribute;
-import org.modelexecution.fumltesting.testLang.Check;
-import org.modelexecution.fumltesting.testLang.ConstraintCheck;
-import org.modelexecution.fumltesting.testLang.ConstraintReferencePoint;
 import org.modelexecution.fumltesting.testLang.FinallyStateAssertion;
 import org.modelexecution.fumltesting.testLang.Import;
-import org.modelexecution.fumltesting.testLang.Link;
-import org.modelexecution.fumltesting.testLang.NodeOrder;
-import org.modelexecution.fumltesting.testLang.NodeSpecification;
-import org.modelexecution.fumltesting.testLang.ObjectSpecification;
-import org.modelexecution.fumltesting.testLang.ObjectStateExpression;
-import org.modelexecution.fumltesting.testLang.ObjectValue;
-import org.modelexecution.fumltesting.testLang.OrderAssertion;
-import org.modelexecution.fumltesting.testLang.PropertyStateExpression;
-import org.modelexecution.fumltesting.testLang.ReferencePoint;
-import org.modelexecution.fumltesting.testLang.Scenario;
-import org.modelexecution.fumltesting.testLang.SimpleValue;
-import org.modelexecution.fumltesting.testLang.StateAssertion;
-import org.modelexecution.fumltesting.testLang.StateExpression;
-import org.modelexecution.fumltesting.testLang.TemporalOperator;
-import org.modelexecution.fumltesting.testLang.TemporalQuantifier;
-import org.modelexecution.fumltesting.testLang.TestCase;
 import org.modelexecution.fumltesting.testLang.TestLangFactory;
 import org.modelexecution.fumltesting.testLang.TestLangPackage;
-import org.modelexecution.fumltesting.testLang.TestSuite;
-import org.modelexecution.fumltesting.testLang.Value;
+import org.modelexecution.fumltesting.testLang.UMLActionReferencePoint;
+import org.modelexecution.fumltesting.testLang.UMLActivityInput;
+import org.modelexecution.fumltesting.testLang.UMLArithmeticOperator;
+import org.modelexecution.fumltesting.testLang.UMLAssertion;
+import org.modelexecution.fumltesting.testLang.UMLAttribute;
+import org.modelexecution.fumltesting.testLang.UMLCheck;
+import org.modelexecution.fumltesting.testLang.UMLConstraintCheck;
+import org.modelexecution.fumltesting.testLang.UMLConstraintReferencePoint;
+import org.modelexecution.fumltesting.testLang.UMLFinallyStateAssertion;
+import org.modelexecution.fumltesting.testLang.UMLLink;
+import org.modelexecution.fumltesting.testLang.UMLNodeOrder;
+import org.modelexecution.fumltesting.testLang.UMLNodeSpecification;
+import org.modelexecution.fumltesting.testLang.UMLObjectSpecification;
+import org.modelexecution.fumltesting.testLang.UMLObjectStateExpression;
+import org.modelexecution.fumltesting.testLang.UMLObjectValue;
+import org.modelexecution.fumltesting.testLang.UMLOrderAssertion;
+import org.modelexecution.fumltesting.testLang.UMLPropertyStateExpression;
+import org.modelexecution.fumltesting.testLang.UMLReferencePoint;
+import org.modelexecution.fumltesting.testLang.UMLScenario;
+import org.modelexecution.fumltesting.testLang.UMLSimpleValue;
+import org.modelexecution.fumltesting.testLang.UMLStateAssertion;
+import org.modelexecution.fumltesting.testLang.UMLStateExpression;
+import org.modelexecution.fumltesting.testLang.UMLTemporalOperator;
+import org.modelexecution.fumltesting.testLang.UMLTemporalQuantifier;
+import org.modelexecution.fumltesting.testLang.UMLTestCase;
+import org.modelexecution.fumltesting.testLang.UMLTestSuite;
+import org.modelexecution.fumltesting.testLang.UMLValue;
 
 /**
  * <!-- begin-user-doc -->
@@ -59,7 +60,7 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass testSuiteEClass = null;
+  private EClass umlTestSuiteEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -73,98 +74,161 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass testCaseEClass = null;
+  private EClass umlTestCaseEClass = null;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass activityInputEClass = null;
+  private EClass umlActivityInputEClass = null;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass valueEClass = null;
+  private EClass umlValueEClass = null;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass simpleValueEClass = null;
+  private EClass umlSimpleValueEClass = null;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass objectValueEClass = null;
+  private EClass umlObjectValueEClass = null;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass scenarioEClass = null;
+  private EClass umlScenarioEClass = null;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass objectSpecificationEClass = null;
+  private EClass umlObjectSpecificationEClass = null;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass attributeEClass = null;
+  private EClass umlAttributeEClass = null;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass linkEClass = null;
+  private EClass umlLinkEClass = null;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass assertionEClass = null;
+  private EClass umlAssertionEClass = null;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass stateAssertionEClass = null;
+  private EClass umlStateAssertionEClass = null;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass referencePointEClass = null;
+  private EClass umlReferencePointEClass = null;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass actionReferencePointEClass = null;
+  private EClass umlActionReferencePointEClass = null;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass constraintReferencePointEClass = null;
+  private EClass umlConstraintReferencePointEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass umlFinallyStateAssertionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass umlCheckEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass umlConstraintCheckEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass umlStateExpressionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass umlObjectStateExpressionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass umlPropertyStateExpressionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass umlOrderAssertionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass umlNodeOrderEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass umlNodeSpecificationEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -178,77 +242,21 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass checkEClass = null;
+  private EEnum umlArithmeticOperatorEEnum = null;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass constraintCheckEClass = null;
+  private EEnum umlTemporalOperatorEEnum = null;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass stateExpressionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass objectStateExpressionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass propertyStateExpressionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass orderAssertionEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass nodeOrderEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass nodeSpecificationEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EEnum arithmeticOperatorEEnum = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EEnum temporalOperatorEEnum = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EEnum temporalQuantifierEEnum = null;
+  private EEnum umlTemporalQuantifierEEnum = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -322,9 +330,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getTestSuite()
+  public EClass getUMLTestSuite()
   {
-    return testSuiteEClass;
+    return umlTestSuiteEClass;
   }
 
   /**
@@ -332,9 +340,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getTestSuite_Imports()
+  public EReference getUMLTestSuite_Imports()
   {
-    return (EReference)testSuiteEClass.getEStructuralFeatures().get(0);
+    return (EReference)umlTestSuiteEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -342,9 +350,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getTestSuite_Scenarios()
+  public EReference getUMLTestSuite_Scenarios()
   {
-    return (EReference)testSuiteEClass.getEStructuralFeatures().get(1);
+    return (EReference)umlTestSuiteEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -352,9 +360,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getTestSuite_Tests()
+  public EReference getUMLTestSuite_Tests()
   {
-    return (EReference)testSuiteEClass.getEStructuralFeatures().get(2);
+    return (EReference)umlTestSuiteEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -382,9 +390,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getTestCase()
+  public EClass getUMLTestCase()
   {
-    return testCaseEClass;
+    return umlTestCaseEClass;
   }
 
   /**
@@ -392,9 +400,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getTestCase_Name()
+  public EAttribute getUMLTestCase_Name()
   {
-    return (EAttribute)testCaseEClass.getEStructuralFeatures().get(0);
+    return (EAttribute)umlTestCaseEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -402,9 +410,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getTestCase_ActivityUnderTest()
+  public EReference getUMLTestCase_ActivityUnderTest()
   {
-    return (EReference)testCaseEClass.getEStructuralFeatures().get(1);
+    return (EReference)umlTestCaseEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -412,9 +420,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getTestCase_Inputs()
+  public EReference getUMLTestCase_Inputs()
   {
-    return (EReference)testCaseEClass.getEStructuralFeatures().get(2);
+    return (EReference)umlTestCaseEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -422,9 +430,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getTestCase_ContextObject()
+  public EReference getUMLTestCase_ContextObject()
   {
-    return (EReference)testCaseEClass.getEStructuralFeatures().get(3);
+    return (EReference)umlTestCaseEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -432,9 +440,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getTestCase_InitScenarios()
+  public EReference getUMLTestCase_InitScenarios()
   {
-    return (EReference)testCaseEClass.getEStructuralFeatures().get(4);
+    return (EReference)umlTestCaseEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -442,9 +450,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getTestCase_Assertions()
+  public EReference getUMLTestCase_Assertions()
   {
-    return (EReference)testCaseEClass.getEStructuralFeatures().get(5);
+    return (EReference)umlTestCaseEClass.getEStructuralFeatures().get(5);
   }
 
   /**
@@ -452,9 +460,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getActivityInput()
+  public EClass getUMLActivityInput()
   {
-    return activityInputEClass;
+    return umlActivityInputEClass;
   }
 
   /**
@@ -462,9 +470,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getActivityInput_Parameter()
+  public EReference getUMLActivityInput_Parameter()
   {
-    return (EReference)activityInputEClass.getEStructuralFeatures().get(0);
+    return (EReference)umlActivityInputEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -472,9 +480,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getActivityInput_Value()
+  public EReference getUMLActivityInput_Value()
   {
-    return (EReference)activityInputEClass.getEStructuralFeatures().get(1);
+    return (EReference)umlActivityInputEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -482,9 +490,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getValue()
+  public EClass getUMLValue()
   {
-    return valueEClass;
+    return umlValueEClass;
   }
 
   /**
@@ -492,9 +500,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getSimpleValue()
+  public EClass getUMLSimpleValue()
   {
-    return simpleValueEClass;
+    return umlSimpleValueEClass;
   }
 
   /**
@@ -502,9 +510,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getSimpleValue_Value()
+  public EReference getUMLSimpleValue_Value()
   {
-    return (EReference)simpleValueEClass.getEStructuralFeatures().get(0);
+    return (EReference)umlSimpleValueEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -512,9 +520,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getObjectValue()
+  public EClass getUMLObjectValue()
   {
-    return objectValueEClass;
+    return umlObjectValueEClass;
   }
 
   /**
@@ -522,9 +530,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getObjectValue_Value()
+  public EReference getUMLObjectValue_Value()
   {
-    return (EReference)objectValueEClass.getEStructuralFeatures().get(0);
+    return (EReference)umlObjectValueEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -532,9 +540,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getScenario()
+  public EClass getUMLScenario()
   {
-    return scenarioEClass;
+    return umlScenarioEClass;
   }
 
   /**
@@ -542,9 +550,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getScenario_Name()
+  public EAttribute getUMLScenario_Name()
   {
-    return (EAttribute)scenarioEClass.getEStructuralFeatures().get(0);
+    return (EAttribute)umlScenarioEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -552,9 +560,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getScenario_Objects()
+  public EReference getUMLScenario_Objects()
   {
-    return (EReference)scenarioEClass.getEStructuralFeatures().get(1);
+    return (EReference)umlScenarioEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -562,9 +570,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getScenario_Links()
+  public EReference getUMLScenario_Links()
   {
-    return (EReference)scenarioEClass.getEStructuralFeatures().get(2);
+    return (EReference)umlScenarioEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -572,9 +580,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getObjectSpecification()
+  public EClass getUMLObjectSpecification()
   {
-    return objectSpecificationEClass;
+    return umlObjectSpecificationEClass;
   }
 
   /**
@@ -582,9 +590,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getObjectSpecification_Name()
+  public EAttribute getUMLObjectSpecification_Name()
   {
-    return (EAttribute)objectSpecificationEClass.getEStructuralFeatures().get(0);
+    return (EAttribute)umlObjectSpecificationEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -592,9 +600,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getObjectSpecification_Type()
+  public EReference getUMLObjectSpecification_Type()
   {
-    return (EReference)objectSpecificationEClass.getEStructuralFeatures().get(1);
+    return (EReference)umlObjectSpecificationEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -602,9 +610,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getObjectSpecification_Attributes()
+  public EReference getUMLObjectSpecification_Attributes()
   {
-    return (EReference)objectSpecificationEClass.getEStructuralFeatures().get(2);
+    return (EReference)umlObjectSpecificationEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -612,9 +620,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getAttribute()
+  public EClass getUMLAttribute()
   {
-    return attributeEClass;
+    return umlAttributeEClass;
   }
 
   /**
@@ -622,9 +630,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getAttribute_Att()
+  public EReference getUMLAttribute_Att()
   {
-    return (EReference)attributeEClass.getEStructuralFeatures().get(0);
+    return (EReference)umlAttributeEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -632,9 +640,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getAttribute_Value()
+  public EReference getUMLAttribute_Value()
   {
-    return (EReference)attributeEClass.getEStructuralFeatures().get(1);
+    return (EReference)umlAttributeEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -642,9 +650,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getLink()
+  public EClass getUMLLink()
   {
-    return linkEClass;
+    return umlLinkEClass;
   }
 
   /**
@@ -652,9 +660,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getLink_Assoc()
+  public EReference getUMLLink_Assoc()
   {
-    return (EReference)linkEClass.getEStructuralFeatures().get(0);
+    return (EReference)umlLinkEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -662,9 +670,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getLink_SourceProperty()
+  public EReference getUMLLink_SourceProperty()
   {
-    return (EReference)linkEClass.getEStructuralFeatures().get(1);
+    return (EReference)umlLinkEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -672,9 +680,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getLink_SourceValue()
+  public EReference getUMLLink_SourceValue()
   {
-    return (EReference)linkEClass.getEStructuralFeatures().get(2);
+    return (EReference)umlLinkEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -682,9 +690,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getLink_TargetProperty()
+  public EReference getUMLLink_TargetProperty()
   {
-    return (EReference)linkEClass.getEStructuralFeatures().get(3);
+    return (EReference)umlLinkEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -692,9 +700,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getLink_TargetValue()
+  public EReference getUMLLink_TargetValue()
   {
-    return (EReference)linkEClass.getEStructuralFeatures().get(4);
+    return (EReference)umlLinkEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -702,9 +710,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getAssertion()
+  public EClass getUMLAssertion()
   {
-    return assertionEClass;
+    return umlAssertionEClass;
   }
 
   /**
@@ -712,9 +720,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getStateAssertion()
+  public EClass getUMLStateAssertion()
   {
-    return stateAssertionEClass;
+    return umlStateAssertionEClass;
   }
 
   /**
@@ -722,9 +730,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getStateAssertion_Quantifier()
+  public EAttribute getUMLStateAssertion_Quantifier()
   {
-    return (EAttribute)stateAssertionEClass.getEStructuralFeatures().get(0);
+    return (EAttribute)umlStateAssertionEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -732,9 +740,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getStateAssertion_Operator()
+  public EAttribute getUMLStateAssertion_Operator()
   {
-    return (EAttribute)stateAssertionEClass.getEStructuralFeatures().get(1);
+    return (EAttribute)umlStateAssertionEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -742,9 +750,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getStateAssertion_ReferencePoint()
+  public EReference getUMLStateAssertion_ReferencePoint()
   {
-    return (EReference)stateAssertionEClass.getEStructuralFeatures().get(2);
+    return (EReference)umlStateAssertionEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -752,9 +760,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getStateAssertion_UntilPoint()
+  public EReference getUMLStateAssertion_UntilPoint()
   {
-    return (EReference)stateAssertionEClass.getEStructuralFeatures().get(3);
+    return (EReference)umlStateAssertionEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -762,9 +770,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getStateAssertion_Checks()
+  public EReference getUMLStateAssertion_Checks()
   {
-    return (EReference)stateAssertionEClass.getEStructuralFeatures().get(4);
+    return (EReference)umlStateAssertionEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -772,9 +780,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getReferencePoint()
+  public EClass getUMLReferencePoint()
   {
-    return referencePointEClass;
+    return umlReferencePointEClass;
   }
 
   /**
@@ -782,9 +790,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getActionReferencePoint()
+  public EClass getUMLActionReferencePoint()
   {
-    return actionReferencePointEClass;
+    return umlActionReferencePointEClass;
   }
 
   /**
@@ -792,9 +800,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getActionReferencePoint_Action()
+  public EReference getUMLActionReferencePoint_Action()
   {
-    return (EReference)actionReferencePointEClass.getEStructuralFeatures().get(0);
+    return (EReference)umlActionReferencePointEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -802,9 +810,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getConstraintReferencePoint()
+  public EClass getUMLConstraintReferencePoint()
   {
-    return constraintReferencePointEClass;
+    return umlConstraintReferencePointEClass;
   }
 
   /**
@@ -812,9 +820,219 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getConstraintReferencePoint_ConstraintName()
+  public EReference getUMLConstraintReferencePoint_ConstraintName()
   {
-    return (EReference)constraintReferencePointEClass.getEStructuralFeatures().get(0);
+    return (EReference)umlConstraintReferencePointEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getUMLFinallyStateAssertion()
+  {
+    return umlFinallyStateAssertionEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getUMLCheck()
+  {
+    return umlCheckEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getUMLConstraintCheck()
+  {
+    return umlConstraintCheckEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getUMLConstraintCheck_ConstraintNames()
+  {
+    return (EReference)umlConstraintCheckEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getUMLConstraintCheck_Object()
+  {
+    return (EReference)umlConstraintCheckEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getUMLStateExpression()
+  {
+    return umlStateExpressionEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getUMLStateExpression_Pin()
+  {
+    return (EReference)umlStateExpressionEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getUMLStateExpression_Operator()
+  {
+    return (EAttribute)umlStateExpressionEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getUMLStateExpression_Value()
+  {
+    return (EReference)umlStateExpressionEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getUMLObjectStateExpression()
+  {
+    return umlObjectStateExpressionEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getUMLPropertyStateExpression()
+  {
+    return umlPropertyStateExpressionEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getUMLPropertyStateExpression_Property()
+  {
+    return (EReference)umlPropertyStateExpressionEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getUMLOrderAssertion()
+  {
+    return umlOrderAssertionEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getUMLOrderAssertion_Order()
+  {
+    return (EReference)umlOrderAssertionEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getUMLNodeOrder()
+  {
+    return umlNodeOrderEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getUMLNodeOrder_Nodes()
+  {
+    return (EReference)umlNodeOrderEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getUMLNodeSpecification()
+  {
+    return umlNodeSpecificationEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getUMLNodeSpecification_Node()
+  {
+    return (EReference)umlNodeSpecificationEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getUMLNodeSpecification_Size()
+  {
+    return (EReference)umlNodeSpecificationEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getUMLNodeSpecification_SubOrder()
+  {
+    return (EReference)umlNodeSpecificationEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getUMLNodeSpecification_Joker()
+  {
+    return (EAttribute)umlNodeSpecificationEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -842,9 +1060,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getCheck()
+  public EEnum getUMLArithmeticOperator()
   {
-    return checkEClass;
+    return umlArithmeticOperatorEEnum;
   }
 
   /**
@@ -852,9 +1070,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getConstraintCheck()
+  public EEnum getUMLTemporalOperator()
   {
-    return constraintCheckEClass;
+    return umlTemporalOperatorEEnum;
   }
 
   /**
@@ -862,209 +1080,9 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getConstraintCheck_ConstraintNames()
+  public EEnum getUMLTemporalQuantifier()
   {
-    return (EReference)constraintCheckEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getConstraintCheck_Object()
-  {
-    return (EReference)constraintCheckEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getStateExpression()
-  {
-    return stateExpressionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getStateExpression_Pin()
-  {
-    return (EReference)stateExpressionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getStateExpression_Operator()
-  {
-    return (EAttribute)stateExpressionEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getStateExpression_Value()
-  {
-    return (EReference)stateExpressionEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getObjectStateExpression()
-  {
-    return objectStateExpressionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getPropertyStateExpression()
-  {
-    return propertyStateExpressionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getPropertyStateExpression_Property()
-  {
-    return (EReference)propertyStateExpressionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getOrderAssertion()
-  {
-    return orderAssertionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getOrderAssertion_Order()
-  {
-    return (EReference)orderAssertionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getNodeOrder()
-  {
-    return nodeOrderEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getNodeOrder_Nodes()
-  {
-    return (EReference)nodeOrderEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EClass getNodeSpecification()
-  {
-    return nodeSpecificationEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getNodeSpecification_Node()
-  {
-    return (EReference)nodeSpecificationEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getNodeSpecification_Size()
-  {
-    return (EReference)nodeSpecificationEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getNodeSpecification_SubOrder()
-  {
-    return (EReference)nodeSpecificationEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getNodeSpecification_Joker()
-  {
-    return (EAttribute)nodeSpecificationEClass.getEStructuralFeatures().get(3);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EEnum getArithmeticOperator()
-  {
-    return arithmeticOperatorEEnum;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EEnum getTemporalOperator()
-  {
-    return temporalOperatorEEnum;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EEnum getTemporalQuantifier()
-  {
-    return temporalQuantifierEEnum;
+    return umlTemporalQuantifierEEnum;
   }
 
   /**
@@ -1097,107 +1115,109 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
     isCreated = true;
 
     // Create classes and their features
-    testSuiteEClass = createEClass(TEST_SUITE);
-    createEReference(testSuiteEClass, TEST_SUITE__IMPORTS);
-    createEReference(testSuiteEClass, TEST_SUITE__SCENARIOS);
-    createEReference(testSuiteEClass, TEST_SUITE__TESTS);
+    umlTestSuiteEClass = createEClass(UML_TEST_SUITE);
+    createEReference(umlTestSuiteEClass, UML_TEST_SUITE__IMPORTS);
+    createEReference(umlTestSuiteEClass, UML_TEST_SUITE__SCENARIOS);
+    createEReference(umlTestSuiteEClass, UML_TEST_SUITE__TESTS);
 
     importEClass = createEClass(IMPORT);
     createEAttribute(importEClass, IMPORT__IMPORTED_NAMESPACE);
 
-    testCaseEClass = createEClass(TEST_CASE);
-    createEAttribute(testCaseEClass, TEST_CASE__NAME);
-    createEReference(testCaseEClass, TEST_CASE__ACTIVITY_UNDER_TEST);
-    createEReference(testCaseEClass, TEST_CASE__INPUTS);
-    createEReference(testCaseEClass, TEST_CASE__CONTEXT_OBJECT);
-    createEReference(testCaseEClass, TEST_CASE__INIT_SCENARIOS);
-    createEReference(testCaseEClass, TEST_CASE__ASSERTIONS);
+    umlTestCaseEClass = createEClass(UML_TEST_CASE);
+    createEAttribute(umlTestCaseEClass, UML_TEST_CASE__NAME);
+    createEReference(umlTestCaseEClass, UML_TEST_CASE__ACTIVITY_UNDER_TEST);
+    createEReference(umlTestCaseEClass, UML_TEST_CASE__INPUTS);
+    createEReference(umlTestCaseEClass, UML_TEST_CASE__CONTEXT_OBJECT);
+    createEReference(umlTestCaseEClass, UML_TEST_CASE__INIT_SCENARIOS);
+    createEReference(umlTestCaseEClass, UML_TEST_CASE__ASSERTIONS);
 
-    activityInputEClass = createEClass(ACTIVITY_INPUT);
-    createEReference(activityInputEClass, ACTIVITY_INPUT__PARAMETER);
-    createEReference(activityInputEClass, ACTIVITY_INPUT__VALUE);
+    umlActivityInputEClass = createEClass(UML_ACTIVITY_INPUT);
+    createEReference(umlActivityInputEClass, UML_ACTIVITY_INPUT__PARAMETER);
+    createEReference(umlActivityInputEClass, UML_ACTIVITY_INPUT__VALUE);
 
-    valueEClass = createEClass(VALUE);
+    umlValueEClass = createEClass(UML_VALUE);
 
-    simpleValueEClass = createEClass(SIMPLE_VALUE);
-    createEReference(simpleValueEClass, SIMPLE_VALUE__VALUE);
+    umlSimpleValueEClass = createEClass(UML_SIMPLE_VALUE);
+    createEReference(umlSimpleValueEClass, UML_SIMPLE_VALUE__VALUE);
 
-    objectValueEClass = createEClass(OBJECT_VALUE);
-    createEReference(objectValueEClass, OBJECT_VALUE__VALUE);
+    umlObjectValueEClass = createEClass(UML_OBJECT_VALUE);
+    createEReference(umlObjectValueEClass, UML_OBJECT_VALUE__VALUE);
 
-    scenarioEClass = createEClass(SCENARIO);
-    createEAttribute(scenarioEClass, SCENARIO__NAME);
-    createEReference(scenarioEClass, SCENARIO__OBJECTS);
-    createEReference(scenarioEClass, SCENARIO__LINKS);
+    umlScenarioEClass = createEClass(UML_SCENARIO);
+    createEAttribute(umlScenarioEClass, UML_SCENARIO__NAME);
+    createEReference(umlScenarioEClass, UML_SCENARIO__OBJECTS);
+    createEReference(umlScenarioEClass, UML_SCENARIO__LINKS);
 
-    objectSpecificationEClass = createEClass(OBJECT_SPECIFICATION);
-    createEAttribute(objectSpecificationEClass, OBJECT_SPECIFICATION__NAME);
-    createEReference(objectSpecificationEClass, OBJECT_SPECIFICATION__TYPE);
-    createEReference(objectSpecificationEClass, OBJECT_SPECIFICATION__ATTRIBUTES);
+    umlObjectSpecificationEClass = createEClass(UML_OBJECT_SPECIFICATION);
+    createEAttribute(umlObjectSpecificationEClass, UML_OBJECT_SPECIFICATION__NAME);
+    createEReference(umlObjectSpecificationEClass, UML_OBJECT_SPECIFICATION__TYPE);
+    createEReference(umlObjectSpecificationEClass, UML_OBJECT_SPECIFICATION__ATTRIBUTES);
 
-    attributeEClass = createEClass(ATTRIBUTE);
-    createEReference(attributeEClass, ATTRIBUTE__ATT);
-    createEReference(attributeEClass, ATTRIBUTE__VALUE);
+    umlAttributeEClass = createEClass(UML_ATTRIBUTE);
+    createEReference(umlAttributeEClass, UML_ATTRIBUTE__ATT);
+    createEReference(umlAttributeEClass, UML_ATTRIBUTE__VALUE);
 
-    linkEClass = createEClass(LINK);
-    createEReference(linkEClass, LINK__ASSOC);
-    createEReference(linkEClass, LINK__SOURCE_PROPERTY);
-    createEReference(linkEClass, LINK__SOURCE_VALUE);
-    createEReference(linkEClass, LINK__TARGET_PROPERTY);
-    createEReference(linkEClass, LINK__TARGET_VALUE);
+    umlLinkEClass = createEClass(UML_LINK);
+    createEReference(umlLinkEClass, UML_LINK__ASSOC);
+    createEReference(umlLinkEClass, UML_LINK__SOURCE_PROPERTY);
+    createEReference(umlLinkEClass, UML_LINK__SOURCE_VALUE);
+    createEReference(umlLinkEClass, UML_LINK__TARGET_PROPERTY);
+    createEReference(umlLinkEClass, UML_LINK__TARGET_VALUE);
 
-    assertionEClass = createEClass(ASSERTION);
+    umlAssertionEClass = createEClass(UML_ASSERTION);
 
-    stateAssertionEClass = createEClass(STATE_ASSERTION);
-    createEAttribute(stateAssertionEClass, STATE_ASSERTION__QUANTIFIER);
-    createEAttribute(stateAssertionEClass, STATE_ASSERTION__OPERATOR);
-    createEReference(stateAssertionEClass, STATE_ASSERTION__REFERENCE_POINT);
-    createEReference(stateAssertionEClass, STATE_ASSERTION__UNTIL_POINT);
-    createEReference(stateAssertionEClass, STATE_ASSERTION__CHECKS);
+    umlStateAssertionEClass = createEClass(UML_STATE_ASSERTION);
+    createEAttribute(umlStateAssertionEClass, UML_STATE_ASSERTION__QUANTIFIER);
+    createEAttribute(umlStateAssertionEClass, UML_STATE_ASSERTION__OPERATOR);
+    createEReference(umlStateAssertionEClass, UML_STATE_ASSERTION__REFERENCE_POINT);
+    createEReference(umlStateAssertionEClass, UML_STATE_ASSERTION__UNTIL_POINT);
+    createEReference(umlStateAssertionEClass, UML_STATE_ASSERTION__CHECKS);
 
-    referencePointEClass = createEClass(REFERENCE_POINT);
+    umlReferencePointEClass = createEClass(UML_REFERENCE_POINT);
 
-    actionReferencePointEClass = createEClass(ACTION_REFERENCE_POINT);
-    createEReference(actionReferencePointEClass, ACTION_REFERENCE_POINT__ACTION);
+    umlActionReferencePointEClass = createEClass(UML_ACTION_REFERENCE_POINT);
+    createEReference(umlActionReferencePointEClass, UML_ACTION_REFERENCE_POINT__ACTION);
 
-    constraintReferencePointEClass = createEClass(CONSTRAINT_REFERENCE_POINT);
-    createEReference(constraintReferencePointEClass, CONSTRAINT_REFERENCE_POINT__CONSTRAINT_NAME);
+    umlConstraintReferencePointEClass = createEClass(UML_CONSTRAINT_REFERENCE_POINT);
+    createEReference(umlConstraintReferencePointEClass, UML_CONSTRAINT_REFERENCE_POINT__CONSTRAINT_NAME);
+
+    umlFinallyStateAssertionEClass = createEClass(UML_FINALLY_STATE_ASSERTION);
+
+    umlCheckEClass = createEClass(UML_CHECK);
+
+    umlConstraintCheckEClass = createEClass(UML_CONSTRAINT_CHECK);
+    createEReference(umlConstraintCheckEClass, UML_CONSTRAINT_CHECK__CONSTRAINT_NAMES);
+    createEReference(umlConstraintCheckEClass, UML_CONSTRAINT_CHECK__OBJECT);
+
+    umlStateExpressionEClass = createEClass(UML_STATE_EXPRESSION);
+    createEReference(umlStateExpressionEClass, UML_STATE_EXPRESSION__PIN);
+    createEAttribute(umlStateExpressionEClass, UML_STATE_EXPRESSION__OPERATOR);
+    createEReference(umlStateExpressionEClass, UML_STATE_EXPRESSION__VALUE);
+
+    umlObjectStateExpressionEClass = createEClass(UML_OBJECT_STATE_EXPRESSION);
+
+    umlPropertyStateExpressionEClass = createEClass(UML_PROPERTY_STATE_EXPRESSION);
+    createEReference(umlPropertyStateExpressionEClass, UML_PROPERTY_STATE_EXPRESSION__PROPERTY);
+
+    umlOrderAssertionEClass = createEClass(UML_ORDER_ASSERTION);
+    createEReference(umlOrderAssertionEClass, UML_ORDER_ASSERTION__ORDER);
+
+    umlNodeOrderEClass = createEClass(UML_NODE_ORDER);
+    createEReference(umlNodeOrderEClass, UML_NODE_ORDER__NODES);
+
+    umlNodeSpecificationEClass = createEClass(UML_NODE_SPECIFICATION);
+    createEReference(umlNodeSpecificationEClass, UML_NODE_SPECIFICATION__NODE);
+    createEReference(umlNodeSpecificationEClass, UML_NODE_SPECIFICATION__SIZE);
+    createEReference(umlNodeSpecificationEClass, UML_NODE_SPECIFICATION__SUB_ORDER);
+    createEAttribute(umlNodeSpecificationEClass, UML_NODE_SPECIFICATION__JOKER);
 
     finallyStateAssertionEClass = createEClass(FINALLY_STATE_ASSERTION);
     createEReference(finallyStateAssertionEClass, FINALLY_STATE_ASSERTION__CHECKS);
 
-    checkEClass = createEClass(CHECK);
-
-    constraintCheckEClass = createEClass(CONSTRAINT_CHECK);
-    createEReference(constraintCheckEClass, CONSTRAINT_CHECK__CONSTRAINT_NAMES);
-    createEReference(constraintCheckEClass, CONSTRAINT_CHECK__OBJECT);
-
-    stateExpressionEClass = createEClass(STATE_EXPRESSION);
-    createEReference(stateExpressionEClass, STATE_EXPRESSION__PIN);
-    createEAttribute(stateExpressionEClass, STATE_EXPRESSION__OPERATOR);
-    createEReference(stateExpressionEClass, STATE_EXPRESSION__VALUE);
-
-    objectStateExpressionEClass = createEClass(OBJECT_STATE_EXPRESSION);
-
-    propertyStateExpressionEClass = createEClass(PROPERTY_STATE_EXPRESSION);
-    createEReference(propertyStateExpressionEClass, PROPERTY_STATE_EXPRESSION__PROPERTY);
-
-    orderAssertionEClass = createEClass(ORDER_ASSERTION);
-    createEReference(orderAssertionEClass, ORDER_ASSERTION__ORDER);
-
-    nodeOrderEClass = createEClass(NODE_ORDER);
-    createEReference(nodeOrderEClass, NODE_ORDER__NODES);
-
-    nodeSpecificationEClass = createEClass(NODE_SPECIFICATION);
-    createEReference(nodeSpecificationEClass, NODE_SPECIFICATION__NODE);
-    createEReference(nodeSpecificationEClass, NODE_SPECIFICATION__SIZE);
-    createEReference(nodeSpecificationEClass, NODE_SPECIFICATION__SUB_ORDER);
-    createEAttribute(nodeSpecificationEClass, NODE_SPECIFICATION__JOKER);
-
     // Create enums
-    arithmeticOperatorEEnum = createEEnum(ARITHMETIC_OPERATOR);
-    temporalOperatorEEnum = createEEnum(TEMPORAL_OPERATOR);
-    temporalQuantifierEEnum = createEEnum(TEMPORAL_QUANTIFIER);
+    umlArithmeticOperatorEEnum = createEEnum(UML_ARITHMETIC_OPERATOR);
+    umlTemporalOperatorEEnum = createEEnum(UML_TEMPORAL_OPERATOR);
+    umlTemporalQuantifierEEnum = createEEnum(UML_TEMPORAL_QUANTIFIER);
   }
 
   /**
@@ -1234,136 +1254,139 @@ public class TestLangPackageImpl extends EPackageImpl implements TestLangPackage
     // Set bounds for type parameters
 
     // Add supertypes to classes
-    simpleValueEClass.getESuperTypes().add(this.getValue());
-    objectValueEClass.getESuperTypes().add(this.getValue());
-    stateAssertionEClass.getESuperTypes().add(this.getAssertion());
-    actionReferencePointEClass.getESuperTypes().add(this.getReferencePoint());
-    constraintReferencePointEClass.getESuperTypes().add(this.getReferencePoint());
-    finallyStateAssertionEClass.getESuperTypes().add(this.getAssertion());
-    constraintCheckEClass.getESuperTypes().add(this.getCheck());
-    stateExpressionEClass.getESuperTypes().add(this.getCheck());
-    objectStateExpressionEClass.getESuperTypes().add(this.getStateExpression());
-    propertyStateExpressionEClass.getESuperTypes().add(this.getStateExpression());
-    orderAssertionEClass.getESuperTypes().add(this.getAssertion());
+    umlSimpleValueEClass.getESuperTypes().add(this.getUMLValue());
+    umlObjectValueEClass.getESuperTypes().add(this.getUMLValue());
+    umlStateAssertionEClass.getESuperTypes().add(this.getUMLAssertion());
+    umlActionReferencePointEClass.getESuperTypes().add(this.getUMLReferencePoint());
+    umlConstraintReferencePointEClass.getESuperTypes().add(this.getUMLReferencePoint());
+    umlFinallyStateAssertionEClass.getESuperTypes().add(this.getUMLAssertion());
+    umlConstraintCheckEClass.getESuperTypes().add(this.getUMLCheck());
+    umlStateExpressionEClass.getESuperTypes().add(this.getUMLCheck());
+    umlObjectStateExpressionEClass.getESuperTypes().add(this.getUMLStateExpression());
+    umlPropertyStateExpressionEClass.getESuperTypes().add(this.getUMLStateExpression());
+    umlOrderAssertionEClass.getESuperTypes().add(this.getUMLAssertion());
+    finallyStateAssertionEClass.getESuperTypes().add(this.getUMLFinallyStateAssertion());
 
     // Initialize classes and features; add operations and parameters
-    initEClass(testSuiteEClass, TestSuite.class, "TestSuite", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getTestSuite_Imports(), this.getImport(), null, "imports", null, 0, -1, TestSuite.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getTestSuite_Scenarios(), this.getScenario(), null, "scenarios", null, 0, -1, TestSuite.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getTestSuite_Tests(), this.getTestCase(), null, "tests", null, 0, -1, TestSuite.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(umlTestSuiteEClass, UMLTestSuite.class, "UMLTestSuite", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getUMLTestSuite_Imports(), this.getImport(), null, "imports", null, 0, -1, UMLTestSuite.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getUMLTestSuite_Scenarios(), this.getUMLScenario(), null, "scenarios", null, 0, -1, UMLTestSuite.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getUMLTestSuite_Tests(), this.getUMLTestCase(), null, "tests", null, 0, -1, UMLTestSuite.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(importEClass, Import.class, "Import", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getImport_ImportedNamespace(), theEcorePackage.getEString(), "importedNamespace", null, 0, 1, Import.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(testCaseEClass, TestCase.class, "TestCase", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getTestCase_Name(), theEcorePackage.getEString(), "name", null, 0, 1, TestCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getTestCase_ActivityUnderTest(), theUMLPackage.getActivity(), null, "activityUnderTest", null, 0, 1, TestCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getTestCase_Inputs(), this.getActivityInput(), null, "inputs", null, 0, -1, TestCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getTestCase_ContextObject(), this.getObjectSpecification(), null, "contextObject", null, 0, 1, TestCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getTestCase_InitScenarios(), this.getScenario(), null, "initScenarios", null, 0, -1, TestCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getTestCase_Assertions(), this.getAssertion(), null, "assertions", null, 0, -1, TestCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(umlTestCaseEClass, UMLTestCase.class, "UMLTestCase", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getUMLTestCase_Name(), theEcorePackage.getEString(), "name", null, 0, 1, UMLTestCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getUMLTestCase_ActivityUnderTest(), theUMLPackage.getActivity(), null, "activityUnderTest", null, 0, 1, UMLTestCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getUMLTestCase_Inputs(), this.getUMLActivityInput(), null, "inputs", null, 0, -1, UMLTestCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getUMLTestCase_ContextObject(), this.getUMLObjectSpecification(), null, "contextObject", null, 0, 1, UMLTestCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getUMLTestCase_InitScenarios(), this.getUMLScenario(), null, "initScenarios", null, 0, -1, UMLTestCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getUMLTestCase_Assertions(), this.getUMLAssertion(), null, "assertions", null, 0, -1, UMLTestCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(activityInputEClass, ActivityInput.class, "ActivityInput", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getActivityInput_Parameter(), theUMLPackage.getActivityParameterNode(), null, "parameter", null, 0, 1, ActivityInput.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getActivityInput_Value(), this.getValue(), null, "value", null, 0, 1, ActivityInput.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(umlActivityInputEClass, UMLActivityInput.class, "UMLActivityInput", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getUMLActivityInput_Parameter(), theUMLPackage.getActivityParameterNode(), null, "parameter", null, 0, 1, UMLActivityInput.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getUMLActivityInput_Value(), this.getUMLValue(), null, "value", null, 0, 1, UMLActivityInput.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(valueEClass, Value.class, "Value", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEClass(umlValueEClass, UMLValue.class, "UMLValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-    initEClass(simpleValueEClass, SimpleValue.class, "SimpleValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getSimpleValue_Value(), theXbasePackage.getXExpression(), null, "value", null, 0, 1, SimpleValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(umlSimpleValueEClass, UMLSimpleValue.class, "UMLSimpleValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getUMLSimpleValue_Value(), theXbasePackage.getXExpression(), null, "value", null, 0, 1, UMLSimpleValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(objectValueEClass, ObjectValue.class, "ObjectValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getObjectValue_Value(), this.getObjectSpecification(), null, "value", null, 0, 1, ObjectValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(umlObjectValueEClass, UMLObjectValue.class, "UMLObjectValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getUMLObjectValue_Value(), this.getUMLObjectSpecification(), null, "value", null, 0, 1, UMLObjectValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(scenarioEClass, Scenario.class, "Scenario", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getScenario_Name(), theEcorePackage.getEString(), "name", null, 0, 1, Scenario.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getScenario_Objects(), this.getObjectSpecification(), null, "objects", null, 0, -1, Scenario.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getScenario_Links(), this.getLink(), null, "links", null, 0, -1, Scenario.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(umlScenarioEClass, UMLScenario.class, "UMLScenario", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getUMLScenario_Name(), theEcorePackage.getEString(), "name", null, 0, 1, UMLScenario.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getUMLScenario_Objects(), this.getUMLObjectSpecification(), null, "objects", null, 0, -1, UMLScenario.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getUMLScenario_Links(), this.getUMLLink(), null, "links", null, 0, -1, UMLScenario.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(objectSpecificationEClass, ObjectSpecification.class, "ObjectSpecification", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getObjectSpecification_Name(), theEcorePackage.getEString(), "name", null, 0, 1, ObjectSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getObjectSpecification_Type(), theUMLPackage.getClass_(), null, "type", null, 0, 1, ObjectSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getObjectSpecification_Attributes(), this.getAttribute(), null, "attributes", null, 0, -1, ObjectSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(umlObjectSpecificationEClass, UMLObjectSpecification.class, "UMLObjectSpecification", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getUMLObjectSpecification_Name(), theEcorePackage.getEString(), "name", null, 0, 1, UMLObjectSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getUMLObjectSpecification_Type(), theUMLPackage.getClass_(), null, "type", null, 0, 1, UMLObjectSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getUMLObjectSpecification_Attributes(), this.getUMLAttribute(), null, "attributes", null, 0, -1, UMLObjectSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(attributeEClass, Attribute.class, "Attribute", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getAttribute_Att(), theUMLPackage.getProperty(), null, "att", null, 0, 1, Attribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getAttribute_Value(), this.getValue(), null, "value", null, 0, 1, Attribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(umlAttributeEClass, UMLAttribute.class, "UMLAttribute", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getUMLAttribute_Att(), theUMLPackage.getProperty(), null, "att", null, 0, 1, UMLAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getUMLAttribute_Value(), this.getUMLValue(), null, "value", null, 0, 1, UMLAttribute.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(linkEClass, Link.class, "Link", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getLink_Assoc(), theUMLPackage.getAssociation(), null, "assoc", null, 0, 1, Link.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getLink_SourceProperty(), theUMLPackage.getProperty(), null, "sourceProperty", null, 0, 1, Link.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getLink_SourceValue(), this.getObjectSpecification(), null, "sourceValue", null, 0, 1, Link.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getLink_TargetProperty(), theUMLPackage.getProperty(), null, "targetProperty", null, 0, 1, Link.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getLink_TargetValue(), this.getObjectSpecification(), null, "targetValue", null, 0, 1, Link.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(umlLinkEClass, UMLLink.class, "UMLLink", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getUMLLink_Assoc(), theUMLPackage.getAssociation(), null, "assoc", null, 0, 1, UMLLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getUMLLink_SourceProperty(), theUMLPackage.getProperty(), null, "sourceProperty", null, 0, 1, UMLLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getUMLLink_SourceValue(), this.getUMLObjectSpecification(), null, "sourceValue", null, 0, 1, UMLLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getUMLLink_TargetProperty(), theUMLPackage.getProperty(), null, "targetProperty", null, 0, 1, UMLLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getUMLLink_TargetValue(), this.getUMLObjectSpecification(), null, "targetValue", null, 0, 1, UMLLink.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(assertionEClass, Assertion.class, "Assertion", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEClass(umlAssertionEClass, UMLAssertion.class, "UMLAssertion", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-    initEClass(stateAssertionEClass, StateAssertion.class, "StateAssertion", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getStateAssertion_Quantifier(), this.getTemporalQuantifier(), "quantifier", null, 0, 1, StateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getStateAssertion_Operator(), this.getTemporalOperator(), "operator", null, 0, 1, StateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getStateAssertion_ReferencePoint(), this.getReferencePoint(), null, "referencePoint", null, 0, 1, StateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getStateAssertion_UntilPoint(), this.getReferencePoint(), null, "untilPoint", null, 0, 1, StateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getStateAssertion_Checks(), this.getCheck(), null, "checks", null, 0, -1, StateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(umlStateAssertionEClass, UMLStateAssertion.class, "UMLStateAssertion", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getUMLStateAssertion_Quantifier(), this.getUMLTemporalQuantifier(), "quantifier", null, 0, 1, UMLStateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getUMLStateAssertion_Operator(), this.getUMLTemporalOperator(), "operator", null, 0, 1, UMLStateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getUMLStateAssertion_ReferencePoint(), this.getUMLReferencePoint(), null, "referencePoint", null, 0, 1, UMLStateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getUMLStateAssertion_UntilPoint(), this.getUMLReferencePoint(), null, "untilPoint", null, 0, 1, UMLStateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getUMLStateAssertion_Checks(), this.getUMLCheck(), null, "checks", null, 0, -1, UMLStateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(referencePointEClass, ReferencePoint.class, "ReferencePoint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEClass(umlReferencePointEClass, UMLReferencePoint.class, "UMLReferencePoint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-    initEClass(actionReferencePointEClass, ActionReferencePoint.class, "ActionReferencePoint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getActionReferencePoint_Action(), theUMLPackage.getAction(), null, "action", null, 0, 1, ActionReferencePoint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(umlActionReferencePointEClass, UMLActionReferencePoint.class, "UMLActionReferencePoint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getUMLActionReferencePoint_Action(), theUMLPackage.getAction(), null, "action", null, 0, 1, UMLActionReferencePoint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(constraintReferencePointEClass, ConstraintReferencePoint.class, "ConstraintReferencePoint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getConstraintReferencePoint_ConstraintName(), theXbasePackage.getXExpression(), null, "constraintName", null, 0, 1, ConstraintReferencePoint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(umlConstraintReferencePointEClass, UMLConstraintReferencePoint.class, "UMLConstraintReferencePoint", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getUMLConstraintReferencePoint_ConstraintName(), theXbasePackage.getXExpression(), null, "constraintName", null, 0, 1, UMLConstraintReferencePoint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(umlFinallyStateAssertionEClass, UMLFinallyStateAssertion.class, "UMLFinallyStateAssertion", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(umlCheckEClass, UMLCheck.class, "UMLCheck", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(umlConstraintCheckEClass, UMLConstraintCheck.class, "UMLConstraintCheck", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getUMLConstraintCheck_ConstraintNames(), theXbasePackage.getXExpression(), null, "constraintNames", null, 0, -1, UMLConstraintCheck.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getUMLConstraintCheck_Object(), theUMLPackage.getObjectNode(), null, "object", null, 0, 1, UMLConstraintCheck.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(umlStateExpressionEClass, UMLStateExpression.class, "UMLStateExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getUMLStateExpression_Pin(), theUMLPackage.getObjectNode(), null, "pin", null, 0, 1, UMLStateExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getUMLStateExpression_Operator(), this.getUMLArithmeticOperator(), "operator", null, 0, 1, UMLStateExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getUMLStateExpression_Value(), this.getUMLValue(), null, "value", null, 0, 1, UMLStateExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(umlObjectStateExpressionEClass, UMLObjectStateExpression.class, "UMLObjectStateExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(umlPropertyStateExpressionEClass, UMLPropertyStateExpression.class, "UMLPropertyStateExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getUMLPropertyStateExpression_Property(), theUMLPackage.getProperty(), null, "property", null, 0, 1, UMLPropertyStateExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(umlOrderAssertionEClass, UMLOrderAssertion.class, "UMLOrderAssertion", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getUMLOrderAssertion_Order(), this.getUMLNodeOrder(), null, "order", null, 0, 1, UMLOrderAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(umlNodeOrderEClass, UMLNodeOrder.class, "UMLNodeOrder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getUMLNodeOrder_Nodes(), this.getUMLNodeSpecification(), null, "nodes", null, 0, -1, UMLNodeOrder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(umlNodeSpecificationEClass, UMLNodeSpecification.class, "UMLNodeSpecification", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getUMLNodeSpecification_Node(), theUMLPackage.getActivityNode(), null, "node", null, 0, 1, UMLNodeSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getUMLNodeSpecification_Size(), theXbasePackage.getXExpression(), null, "size", null, 0, 1, UMLNodeSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getUMLNodeSpecification_SubOrder(), this.getUMLNodeOrder(), null, "subOrder", null, 0, 1, UMLNodeSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getUMLNodeSpecification_Joker(), theEcorePackage.getEString(), "joker", null, 0, 1, UMLNodeSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(finallyStateAssertionEClass, FinallyStateAssertion.class, "FinallyStateAssertion", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getFinallyStateAssertion_Checks(), this.getCheck(), null, "checks", null, 0, -1, FinallyStateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(checkEClass, Check.class, "Check", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-    initEClass(constraintCheckEClass, ConstraintCheck.class, "ConstraintCheck", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getConstraintCheck_ConstraintNames(), theXbasePackage.getXExpression(), null, "constraintNames", null, 0, -1, ConstraintCheck.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getConstraintCheck_Object(), theUMLPackage.getObjectNode(), null, "object", null, 0, 1, ConstraintCheck.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(stateExpressionEClass, StateExpression.class, "StateExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getStateExpression_Pin(), theUMLPackage.getObjectNode(), null, "pin", null, 0, 1, StateExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getStateExpression_Operator(), this.getArithmeticOperator(), "operator", null, 0, 1, StateExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getStateExpression_Value(), this.getValue(), null, "value", null, 0, 1, StateExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(objectStateExpressionEClass, ObjectStateExpression.class, "ObjectStateExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-
-    initEClass(propertyStateExpressionEClass, PropertyStateExpression.class, "PropertyStateExpression", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getPropertyStateExpression_Property(), theUMLPackage.getProperty(), null, "property", null, 0, 1, PropertyStateExpression.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(orderAssertionEClass, OrderAssertion.class, "OrderAssertion", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getOrderAssertion_Order(), this.getNodeOrder(), null, "order", null, 0, 1, OrderAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(nodeOrderEClass, NodeOrder.class, "NodeOrder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getNodeOrder_Nodes(), this.getNodeSpecification(), null, "nodes", null, 0, -1, NodeOrder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(nodeSpecificationEClass, NodeSpecification.class, "NodeSpecification", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getNodeSpecification_Node(), theUMLPackage.getActivityNode(), null, "node", null, 0, 1, NodeSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getNodeSpecification_Size(), theXbasePackage.getXExpression(), null, "size", null, 0, 1, NodeSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getNodeSpecification_SubOrder(), this.getNodeOrder(), null, "subOrder", null, 0, 1, NodeSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getNodeSpecification_Joker(), theEcorePackage.getEString(), "joker", null, 0, 1, NodeSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getFinallyStateAssertion_Checks(), this.getUMLCheck(), null, "checks", null, 0, -1, FinallyStateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Initialize enums and add enum literals
-    initEEnum(arithmeticOperatorEEnum, ArithmeticOperator.class, "ArithmeticOperator");
-    addEEnumLiteral(arithmeticOperatorEEnum, ArithmeticOperator.EQUAL);
-    addEEnumLiteral(arithmeticOperatorEEnum, ArithmeticOperator.NOT_EQUAL);
-    addEEnumLiteral(arithmeticOperatorEEnum, ArithmeticOperator.GREATER);
-    addEEnumLiteral(arithmeticOperatorEEnum, ArithmeticOperator.SMALLER);
-    addEEnumLiteral(arithmeticOperatorEEnum, ArithmeticOperator.GREATER_EQUAL);
-    addEEnumLiteral(arithmeticOperatorEEnum, ArithmeticOperator.SMALLER_EQUAL);
-    addEEnumLiteral(arithmeticOperatorEEnum, ArithmeticOperator.INCLUDES);
-    addEEnumLiteral(arithmeticOperatorEEnum, ArithmeticOperator.EXCLUDES);
+    initEEnum(umlArithmeticOperatorEEnum, UMLArithmeticOperator.class, "UMLArithmeticOperator");
+    addEEnumLiteral(umlArithmeticOperatorEEnum, UMLArithmeticOperator.EQUAL);
+    addEEnumLiteral(umlArithmeticOperatorEEnum, UMLArithmeticOperator.NOT_EQUAL);
+    addEEnumLiteral(umlArithmeticOperatorEEnum, UMLArithmeticOperator.GREATER);
+    addEEnumLiteral(umlArithmeticOperatorEEnum, UMLArithmeticOperator.SMALLER);
+    addEEnumLiteral(umlArithmeticOperatorEEnum, UMLArithmeticOperator.GREATER_EQUAL);
+    addEEnumLiteral(umlArithmeticOperatorEEnum, UMLArithmeticOperator.SMALLER_EQUAL);
+    addEEnumLiteral(umlArithmeticOperatorEEnum, UMLArithmeticOperator.INCLUDES);
+    addEEnumLiteral(umlArithmeticOperatorEEnum, UMLArithmeticOperator.EXCLUDES);
 
-    initEEnum(temporalOperatorEEnum, TemporalOperator.class, "TemporalOperator");
-    addEEnumLiteral(temporalOperatorEEnum, TemporalOperator.AFTER);
-    addEEnumLiteral(temporalOperatorEEnum, TemporalOperator.UNTIL);
+    initEEnum(umlTemporalOperatorEEnum, UMLTemporalOperator.class, "UMLTemporalOperator");
+    addEEnumLiteral(umlTemporalOperatorEEnum, UMLTemporalOperator.AFTER);
+    addEEnumLiteral(umlTemporalOperatorEEnum, UMLTemporalOperator.UNTIL);
 
-    initEEnum(temporalQuantifierEEnum, TemporalQuantifier.class, "TemporalQuantifier");
-    addEEnumLiteral(temporalQuantifierEEnum, TemporalQuantifier.ALWAYS);
-    addEEnumLiteral(temporalQuantifierEEnum, TemporalQuantifier.SOMETIMES);
-    addEEnumLiteral(temporalQuantifierEEnum, TemporalQuantifier.EVENTUALLY);
-    addEEnumLiteral(temporalQuantifierEEnum, TemporalQuantifier.IMMEDIATELY);
+    initEEnum(umlTemporalQuantifierEEnum, UMLTemporalQuantifier.class, "UMLTemporalQuantifier");
+    addEEnumLiteral(umlTemporalQuantifierEEnum, UMLTemporalQuantifier.ALWAYS);
+    addEEnumLiteral(umlTemporalQuantifierEEnum, UMLTemporalQuantifier.SOMETIMES);
+    addEEnumLiteral(umlTemporalQuantifierEEnum, UMLTemporalQuantifier.EVENTUALLY);
+    addEEnumLiteral(umlTemporalQuantifierEEnum, UMLTemporalQuantifier.IMMEDIATELY);
 
     // Create resource
     createResource(eNS_URI);

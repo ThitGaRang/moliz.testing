@@ -14,9 +14,9 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.modelexecution.fumltesting.testLang.Check;
 import org.modelexecution.fumltesting.testLang.FinallyStateAssertion;
 import org.modelexecution.fumltesting.testLang.TestLangPackage;
+import org.modelexecution.fumltesting.testLang.UMLCheck;
 
 /**
  * <!-- begin-user-doc -->
@@ -31,7 +31,7 @@ import org.modelexecution.fumltesting.testLang.TestLangPackage;
  *
  * @generated
  */
-public class FinallyStateAssertionImpl extends AssertionImpl implements FinallyStateAssertion
+public class FinallyStateAssertionImpl extends UMLFinallyStateAssertionImpl implements FinallyStateAssertion
 {
   /**
    * The cached value of the '{@link #getChecks() <em>Checks</em>}' containment reference list.
@@ -41,7 +41,7 @@ public class FinallyStateAssertionImpl extends AssertionImpl implements FinallyS
    * @generated
    * @ordered
    */
-  protected EList<Check> checks;
+  protected EList<UMLCheck> checks;
 
   /**
    * <!-- begin-user-doc -->
@@ -69,11 +69,11 @@ public class FinallyStateAssertionImpl extends AssertionImpl implements FinallyS
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Check> getChecks()
+  public EList<UMLCheck> getChecks()
   {
     if (checks == null)
     {
-      checks = new EObjectContainmentEList<Check>(Check.class, this, TestLangPackage.FINALLY_STATE_ASSERTION__CHECKS);
+      checks = new EObjectContainmentEList<UMLCheck>(UMLCheck.class, this, TestLangPackage.FINALLY_STATE_ASSERTION__CHECKS);
     }
     return checks;
   }
@@ -123,7 +123,7 @@ public class FinallyStateAssertionImpl extends AssertionImpl implements FinallyS
     {
       case TestLangPackage.FINALLY_STATE_ASSERTION__CHECKS:
         getChecks().clear();
-        getChecks().addAll((Collection<? extends Check>)newValue);
+        getChecks().addAll((Collection<? extends UMLCheck>)newValue);
         return;
     }
     super.eSet(featureID, newValue);

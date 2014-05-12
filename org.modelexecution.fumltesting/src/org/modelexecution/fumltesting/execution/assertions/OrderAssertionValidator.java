@@ -12,9 +12,9 @@ import java.util.List;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumltesting.results.OrderAssertionResult;
 import org.modelexecution.fumltesting.results.PathCheckResult;
-import org.modelexecution.fumltesting.testLang.NodeSpecification;
-import org.modelexecution.fumltesting.testLang.OrderAssertion;
-import org.modelexecution.fumltesting.testLang.TestCase;
+import org.modelexecution.fumltesting.testLang.UMLNodeSpecification;
+import org.modelexecution.fumltesting.testLang.UMLOrderAssertion;
+import org.modelexecution.fumltesting.testLang.UMLTestCase;
 import org.modelexecution.fumltesting.trace.TraceUtil;
 
 import fUML.Syntax.Actions.BasicActions.Action;
@@ -34,19 +34,21 @@ import fUML.Syntax.Activities.IntermediateActivities.InitialNode;
 public class OrderAssertionValidator {
 
 	private TraceUtil traceUtil;
+	private AssertionPrinter assertionPrinter;
 
 	public OrderAssertionValidator(TraceUtil traceUtil) {
 		this.traceUtil = traceUtil;
+		this.assertionPrinter = new AssertionPrinter(traceUtil.getModelConverter());
 	}
 
-	public OrderAssertionResult checkOrder(OrderAssertion assertion) {
-		OrderAssertionResult result = new OrderAssertionResult(((OrderAssertion) assertion).getOrder());
+	public OrderAssertionResult checkOrder(UMLOrderAssertion assertion) {
+		OrderAssertionResult result = new OrderAssertionResult(((UMLOrderAssertion) assertion).getOrder());
 		result.setAssertion(assertion);
 
-		List<NodeSpecification> nodeOrder = ((OrderAssertion) assertion).getOrder().getNodes();
-		Activity main = (Activity) traceUtil.getModelConverter().convertElement(((TestCase) assertion.eContainer()).getActivityUnderTest());
+		List<UMLNodeSpecification> nodeOrder = ((UMLOrderAssertion) assertion).getOrder().getNodes();
+		Activity main = traceUtil.getModelConverter().convertActivity(((UMLTestCase) assertion.eContainer()).getActivityUnderTest());
 
-		AssertionPrinter.printOrderSpecification(nodeOrder);
+		assertionPrinter.printOrderSpecification(nodeOrder);
 		System.out.println("Checking order assertion against " + traceUtil.getAllPaths().size() + " generated paths..");
 
 		for (ArrayList<ActivityNodeExecution> path : traceUtil.getAllPaths()) {
@@ -58,10 +60,10 @@ public class OrderAssertionValidator {
 			result.addPathCheckResult(pathCheckResult);
 		}
 
-		for (NodeSpecification nodeSpecification : nodeOrder) {
+		for (UMLNodeSpecification nodeSpecification : nodeOrder) {
 			if (nodeSpecification.getSubOrder() != null) {
 				Activity parent = null;
-				ActivityNode node = (ActivityNode) traceUtil.getModelConverter().convertElement(nodeSpecification.getNode());
+				ActivityNode node = traceUtil.getModelConverter().convertActivityNode(nodeSpecification.getNode());
 
 				if (node instanceof CallBehaviorAction) {
 					parent = (Activity) ((CallBehaviorAction) node).behavior;
@@ -72,7 +74,7 @@ public class OrderAssertionValidator {
 
 				int activityExecutionID = traceUtil.getActivityExecutionID(parent.name);
 				System.out.println("Checking sub-order: ");
-				AssertionPrinter.printOrderSpecification(nodeSpecification.getSubOrder().getNodes());
+				assertionPrinter.printOrderSpecification(nodeSpecification.getSubOrder().getNodes());
 
 				OrderAssertionResult subOrderResult = new OrderAssertionResult(nodeSpecification.getSubOrder());
 				subOrderResult.setAssertion(assertion);
@@ -92,7 +94,7 @@ public class OrderAssertionValidator {
 		return result;
 	}
 
-	private boolean compare(List<ActivityNodeExecution> executedNodes, List<NodeSpecification> nodeOrder) {
+	private boolean compare(List<ActivityNodeExecution> executedNodes, List<UMLNodeSpecification> nodeOrder) {
 		int executedNodeIndex = 0;
 		for (int i = 0; i < nodeOrder.size(); i++) {
 			if (executedNodeIndex == -1) {
@@ -109,13 +111,13 @@ public class OrderAssertionValidator {
 							System.out.println("Assertion skipped!");
 							return false;
 						}
-						ActivityNode nextNode = (ActivityNode) traceUtil.getModelConverter().convertElement(nodeOrder.get(i + 1).getNode());
+						ActivityNode nextNode = traceUtil.getModelConverter().convertActivityNode(nodeOrder.get(i + 1).getNode());
 						if (nodeOrder.get(i + 1).getNode() != null)
 							executedNodeIndex = getExecutedNodeIndex(nextNode, executedNodes);
 					}
 				}
 			} else {
-				if (traceUtil.getModelConverter().convertElement(nodeOrder.get(i).getNode()) != executedNodes.get(executedNodeIndex).getNode())
+				if (traceUtil.getModelConverter().convertActivityNode(nodeOrder.get(i).getNode()) != executedNodes.get(executedNodeIndex).getNode())
 					return false;
 				executedNodeIndex++;
 			}

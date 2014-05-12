@@ -72,10 +72,10 @@ public class TestLangSwitch<T> extends Switch<T>
   {
     switch (classifierID)
     {
-      case TestLangPackage.TEST_SUITE:
+      case TestLangPackage.UML_TEST_SUITE:
       {
-        TestSuite testSuite = (TestSuite)theEObject;
-        T result = caseTestSuite(testSuite);
+        UMLTestSuite umlTestSuite = (UMLTestSuite)theEObject;
+        T result = caseUMLTestSuite(umlTestSuite);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -86,106 +86,177 @@ public class TestLangSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case TestLangPackage.TEST_CASE:
+      case TestLangPackage.UML_TEST_CASE:
       {
-        TestCase testCase = (TestCase)theEObject;
-        T result = caseTestCase(testCase);
+        UMLTestCase umlTestCase = (UMLTestCase)theEObject;
+        T result = caseUMLTestCase(umlTestCase);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case TestLangPackage.ACTIVITY_INPUT:
+      case TestLangPackage.UML_ACTIVITY_INPUT:
       {
-        ActivityInput activityInput = (ActivityInput)theEObject;
-        T result = caseActivityInput(activityInput);
+        UMLActivityInput umlActivityInput = (UMLActivityInput)theEObject;
+        T result = caseUMLActivityInput(umlActivityInput);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case TestLangPackage.VALUE:
+      case TestLangPackage.UML_VALUE:
       {
-        Value value = (Value)theEObject;
-        T result = caseValue(value);
+        UMLValue umlValue = (UMLValue)theEObject;
+        T result = caseUMLValue(umlValue);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case TestLangPackage.SIMPLE_VALUE:
+      case TestLangPackage.UML_SIMPLE_VALUE:
       {
-        SimpleValue simpleValue = (SimpleValue)theEObject;
-        T result = caseSimpleValue(simpleValue);
-        if (result == null) result = caseValue(simpleValue);
+        UMLSimpleValue umlSimpleValue = (UMLSimpleValue)theEObject;
+        T result = caseUMLSimpleValue(umlSimpleValue);
+        if (result == null) result = caseUMLValue(umlSimpleValue);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case TestLangPackage.OBJECT_VALUE:
+      case TestLangPackage.UML_OBJECT_VALUE:
       {
-        ObjectValue objectValue = (ObjectValue)theEObject;
-        T result = caseObjectValue(objectValue);
-        if (result == null) result = caseValue(objectValue);
+        UMLObjectValue umlObjectValue = (UMLObjectValue)theEObject;
+        T result = caseUMLObjectValue(umlObjectValue);
+        if (result == null) result = caseUMLValue(umlObjectValue);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case TestLangPackage.SCENARIO:
+      case TestLangPackage.UML_SCENARIO:
       {
-        Scenario scenario = (Scenario)theEObject;
-        T result = caseScenario(scenario);
+        UMLScenario umlScenario = (UMLScenario)theEObject;
+        T result = caseUMLScenario(umlScenario);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case TestLangPackage.OBJECT_SPECIFICATION:
+      case TestLangPackage.UML_OBJECT_SPECIFICATION:
       {
-        ObjectSpecification objectSpecification = (ObjectSpecification)theEObject;
-        T result = caseObjectSpecification(objectSpecification);
+        UMLObjectSpecification umlObjectSpecification = (UMLObjectSpecification)theEObject;
+        T result = caseUMLObjectSpecification(umlObjectSpecification);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case TestLangPackage.ATTRIBUTE:
+      case TestLangPackage.UML_ATTRIBUTE:
       {
-        Attribute attribute = (Attribute)theEObject;
-        T result = caseAttribute(attribute);
+        UMLAttribute umlAttribute = (UMLAttribute)theEObject;
+        T result = caseUMLAttribute(umlAttribute);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case TestLangPackage.LINK:
+      case TestLangPackage.UML_LINK:
       {
-        Link link = (Link)theEObject;
-        T result = caseLink(link);
+        UMLLink umlLink = (UMLLink)theEObject;
+        T result = caseUMLLink(umlLink);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case TestLangPackage.ASSERTION:
+      case TestLangPackage.UML_ASSERTION:
       {
-        Assertion assertion = (Assertion)theEObject;
-        T result = caseAssertion(assertion);
+        UMLAssertion umlAssertion = (UMLAssertion)theEObject;
+        T result = caseUMLAssertion(umlAssertion);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case TestLangPackage.STATE_ASSERTION:
+      case TestLangPackage.UML_STATE_ASSERTION:
       {
-        StateAssertion stateAssertion = (StateAssertion)theEObject;
-        T result = caseStateAssertion(stateAssertion);
-        if (result == null) result = caseAssertion(stateAssertion);
+        UMLStateAssertion umlStateAssertion = (UMLStateAssertion)theEObject;
+        T result = caseUMLStateAssertion(umlStateAssertion);
+        if (result == null) result = caseUMLAssertion(umlStateAssertion);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case TestLangPackage.REFERENCE_POINT:
+      case TestLangPackage.UML_REFERENCE_POINT:
       {
-        ReferencePoint referencePoint = (ReferencePoint)theEObject;
-        T result = caseReferencePoint(referencePoint);
+        UMLReferencePoint umlReferencePoint = (UMLReferencePoint)theEObject;
+        T result = caseUMLReferencePoint(umlReferencePoint);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case TestLangPackage.ACTION_REFERENCE_POINT:
+      case TestLangPackage.UML_ACTION_REFERENCE_POINT:
       {
-        ActionReferencePoint actionReferencePoint = (ActionReferencePoint)theEObject;
-        T result = caseActionReferencePoint(actionReferencePoint);
-        if (result == null) result = caseReferencePoint(actionReferencePoint);
+        UMLActionReferencePoint umlActionReferencePoint = (UMLActionReferencePoint)theEObject;
+        T result = caseUMLActionReferencePoint(umlActionReferencePoint);
+        if (result == null) result = caseUMLReferencePoint(umlActionReferencePoint);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case TestLangPackage.CONSTRAINT_REFERENCE_POINT:
+      case TestLangPackage.UML_CONSTRAINT_REFERENCE_POINT:
       {
-        ConstraintReferencePoint constraintReferencePoint = (ConstraintReferencePoint)theEObject;
-        T result = caseConstraintReferencePoint(constraintReferencePoint);
-        if (result == null) result = caseReferencePoint(constraintReferencePoint);
+        UMLConstraintReferencePoint umlConstraintReferencePoint = (UMLConstraintReferencePoint)theEObject;
+        T result = caseUMLConstraintReferencePoint(umlConstraintReferencePoint);
+        if (result == null) result = caseUMLReferencePoint(umlConstraintReferencePoint);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case TestLangPackage.UML_FINALLY_STATE_ASSERTION:
+      {
+        UMLFinallyStateAssertion umlFinallyStateAssertion = (UMLFinallyStateAssertion)theEObject;
+        T result = caseUMLFinallyStateAssertion(umlFinallyStateAssertion);
+        if (result == null) result = caseUMLAssertion(umlFinallyStateAssertion);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case TestLangPackage.UML_CHECK:
+      {
+        UMLCheck umlCheck = (UMLCheck)theEObject;
+        T result = caseUMLCheck(umlCheck);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case TestLangPackage.UML_CONSTRAINT_CHECK:
+      {
+        UMLConstraintCheck umlConstraintCheck = (UMLConstraintCheck)theEObject;
+        T result = caseUMLConstraintCheck(umlConstraintCheck);
+        if (result == null) result = caseUMLCheck(umlConstraintCheck);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case TestLangPackage.UML_STATE_EXPRESSION:
+      {
+        UMLStateExpression umlStateExpression = (UMLStateExpression)theEObject;
+        T result = caseUMLStateExpression(umlStateExpression);
+        if (result == null) result = caseUMLCheck(umlStateExpression);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case TestLangPackage.UML_OBJECT_STATE_EXPRESSION:
+      {
+        UMLObjectStateExpression umlObjectStateExpression = (UMLObjectStateExpression)theEObject;
+        T result = caseUMLObjectStateExpression(umlObjectStateExpression);
+        if (result == null) result = caseUMLStateExpression(umlObjectStateExpression);
+        if (result == null) result = caseUMLCheck(umlObjectStateExpression);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case TestLangPackage.UML_PROPERTY_STATE_EXPRESSION:
+      {
+        UMLPropertyStateExpression umlPropertyStateExpression = (UMLPropertyStateExpression)theEObject;
+        T result = caseUMLPropertyStateExpression(umlPropertyStateExpression);
+        if (result == null) result = caseUMLStateExpression(umlPropertyStateExpression);
+        if (result == null) result = caseUMLCheck(umlPropertyStateExpression);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case TestLangPackage.UML_ORDER_ASSERTION:
+      {
+        UMLOrderAssertion umlOrderAssertion = (UMLOrderAssertion)theEObject;
+        T result = caseUMLOrderAssertion(umlOrderAssertion);
+        if (result == null) result = caseUMLAssertion(umlOrderAssertion);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case TestLangPackage.UML_NODE_ORDER:
+      {
+        UMLNodeOrder umlNodeOrder = (UMLNodeOrder)theEObject;
+        T result = caseUMLNodeOrder(umlNodeOrder);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case TestLangPackage.UML_NODE_SPECIFICATION:
+      {
+        UMLNodeSpecification umlNodeSpecification = (UMLNodeSpecification)theEObject;
+        T result = caseUMLNodeSpecification(umlNodeSpecification);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -193,70 +264,8 @@ public class TestLangSwitch<T> extends Switch<T>
       {
         FinallyStateAssertion finallyStateAssertion = (FinallyStateAssertion)theEObject;
         T result = caseFinallyStateAssertion(finallyStateAssertion);
-        if (result == null) result = caseAssertion(finallyStateAssertion);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case TestLangPackage.CHECK:
-      {
-        Check check = (Check)theEObject;
-        T result = caseCheck(check);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case TestLangPackage.CONSTRAINT_CHECK:
-      {
-        ConstraintCheck constraintCheck = (ConstraintCheck)theEObject;
-        T result = caseConstraintCheck(constraintCheck);
-        if (result == null) result = caseCheck(constraintCheck);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case TestLangPackage.STATE_EXPRESSION:
-      {
-        StateExpression stateExpression = (StateExpression)theEObject;
-        T result = caseStateExpression(stateExpression);
-        if (result == null) result = caseCheck(stateExpression);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case TestLangPackage.OBJECT_STATE_EXPRESSION:
-      {
-        ObjectStateExpression objectStateExpression = (ObjectStateExpression)theEObject;
-        T result = caseObjectStateExpression(objectStateExpression);
-        if (result == null) result = caseStateExpression(objectStateExpression);
-        if (result == null) result = caseCheck(objectStateExpression);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case TestLangPackage.PROPERTY_STATE_EXPRESSION:
-      {
-        PropertyStateExpression propertyStateExpression = (PropertyStateExpression)theEObject;
-        T result = casePropertyStateExpression(propertyStateExpression);
-        if (result == null) result = caseStateExpression(propertyStateExpression);
-        if (result == null) result = caseCheck(propertyStateExpression);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case TestLangPackage.ORDER_ASSERTION:
-      {
-        OrderAssertion orderAssertion = (OrderAssertion)theEObject;
-        T result = caseOrderAssertion(orderAssertion);
-        if (result == null) result = caseAssertion(orderAssertion);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case TestLangPackage.NODE_ORDER:
-      {
-        NodeOrder nodeOrder = (NodeOrder)theEObject;
-        T result = caseNodeOrder(nodeOrder);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case TestLangPackage.NODE_SPECIFICATION:
-      {
-        NodeSpecification nodeSpecification = (NodeSpecification)theEObject;
-        T result = caseNodeSpecification(nodeSpecification);
+        if (result == null) result = caseUMLFinallyStateAssertion(finallyStateAssertion);
+        if (result == null) result = caseUMLAssertion(finallyStateAssertion);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -265,17 +274,17 @@ public class TestLangSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Test Suite</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>UML Test Suite</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Test Suite</em>'.
+   * @return the result of interpreting the object as an instance of '<em>UML Test Suite</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseTestSuite(TestSuite object)
+  public T caseUMLTestSuite(UMLTestSuite object)
   {
     return null;
   }
@@ -297,225 +306,369 @@ public class TestLangSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Test Case</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>UML Test Case</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Test Case</em>'.
+   * @return the result of interpreting the object as an instance of '<em>UML Test Case</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseTestCase(TestCase object)
+  public T caseUMLTestCase(UMLTestCase object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Activity Input</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>UML Activity Input</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Activity Input</em>'.
+   * @return the result of interpreting the object as an instance of '<em>UML Activity Input</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseActivityInput(ActivityInput object)
+  public T caseUMLActivityInput(UMLActivityInput object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Value</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>UML Value</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Value</em>'.
+   * @return the result of interpreting the object as an instance of '<em>UML Value</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseValue(Value object)
+  public T caseUMLValue(UMLValue object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Simple Value</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>UML Simple Value</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Simple Value</em>'.
+   * @return the result of interpreting the object as an instance of '<em>UML Simple Value</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseSimpleValue(SimpleValue object)
+  public T caseUMLSimpleValue(UMLSimpleValue object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Object Value</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>UML Object Value</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Object Value</em>'.
+   * @return the result of interpreting the object as an instance of '<em>UML Object Value</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseObjectValue(ObjectValue object)
+  public T caseUMLObjectValue(UMLObjectValue object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Scenario</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>UML Scenario</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Scenario</em>'.
+   * @return the result of interpreting the object as an instance of '<em>UML Scenario</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseScenario(Scenario object)
+  public T caseUMLScenario(UMLScenario object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Object Specification</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>UML Object Specification</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Object Specification</em>'.
+   * @return the result of interpreting the object as an instance of '<em>UML Object Specification</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseObjectSpecification(ObjectSpecification object)
+  public T caseUMLObjectSpecification(UMLObjectSpecification object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Attribute</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>UML Attribute</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Attribute</em>'.
+   * @return the result of interpreting the object as an instance of '<em>UML Attribute</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseAttribute(Attribute object)
+  public T caseUMLAttribute(UMLAttribute object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Link</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>UML Link</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Link</em>'.
+   * @return the result of interpreting the object as an instance of '<em>UML Link</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseLink(Link object)
+  public T caseUMLLink(UMLLink object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Assertion</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>UML Assertion</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Assertion</em>'.
+   * @return the result of interpreting the object as an instance of '<em>UML Assertion</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseAssertion(Assertion object)
+  public T caseUMLAssertion(UMLAssertion object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>State Assertion</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>UML State Assertion</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>State Assertion</em>'.
+   * @return the result of interpreting the object as an instance of '<em>UML State Assertion</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseStateAssertion(StateAssertion object)
+  public T caseUMLStateAssertion(UMLStateAssertion object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Reference Point</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>UML Reference Point</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Reference Point</em>'.
+   * @return the result of interpreting the object as an instance of '<em>UML Reference Point</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseReferencePoint(ReferencePoint object)
+  public T caseUMLReferencePoint(UMLReferencePoint object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Action Reference Point</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>UML Action Reference Point</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Action Reference Point</em>'.
+   * @return the result of interpreting the object as an instance of '<em>UML Action Reference Point</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseActionReferencePoint(ActionReferencePoint object)
+  public T caseUMLActionReferencePoint(UMLActionReferencePoint object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Constraint Reference Point</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>UML Constraint Reference Point</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Constraint Reference Point</em>'.
+   * @return the result of interpreting the object as an instance of '<em>UML Constraint Reference Point</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseConstraintReferencePoint(ConstraintReferencePoint object)
+  public T caseUMLConstraintReferencePoint(UMLConstraintReferencePoint object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>UML Finally State Assertion</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>UML Finally State Assertion</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseUMLFinallyStateAssertion(UMLFinallyStateAssertion object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>UML Check</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>UML Check</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseUMLCheck(UMLCheck object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>UML Constraint Check</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>UML Constraint Check</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseUMLConstraintCheck(UMLConstraintCheck object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>UML State Expression</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>UML State Expression</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseUMLStateExpression(UMLStateExpression object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>UML Object State Expression</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>UML Object State Expression</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseUMLObjectStateExpression(UMLObjectStateExpression object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>UML Property State Expression</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>UML Property State Expression</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseUMLPropertyStateExpression(UMLPropertyStateExpression object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>UML Order Assertion</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>UML Order Assertion</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseUMLOrderAssertion(UMLOrderAssertion object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>UML Node Order</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>UML Node Order</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseUMLNodeOrder(UMLNodeOrder object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>UML Node Specification</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>UML Node Specification</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseUMLNodeSpecification(UMLNodeSpecification object)
   {
     return null;
   }
@@ -532,134 +685,6 @@ public class TestLangSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseFinallyStateAssertion(FinallyStateAssertion object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Check</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Check</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseCheck(Check object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Constraint Check</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Constraint Check</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseConstraintCheck(ConstraintCheck object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>State Expression</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>State Expression</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseStateExpression(StateExpression object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Object State Expression</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Object State Expression</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseObjectStateExpression(ObjectStateExpression object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Property State Expression</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Property State Expression</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T casePropertyStateExpression(PropertyStateExpression object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Order Assertion</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Order Assertion</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseOrderAssertion(OrderAssertion object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Node Order</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Node Order</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseNodeOrder(NodeOrder object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Node Specification</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Node Specification</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseNodeSpecification(NodeSpecification object)
   {
     return null;
   }

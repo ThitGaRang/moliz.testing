@@ -65,31 +65,32 @@ public class TestLangFactoryImpl extends EFactoryImpl implements TestLangFactory
   {
     switch (eClass.getClassifierID())
     {
-      case TestLangPackage.TEST_SUITE: return createTestSuite();
+      case TestLangPackage.UML_TEST_SUITE: return createUMLTestSuite();
       case TestLangPackage.IMPORT: return createImport();
-      case TestLangPackage.TEST_CASE: return createTestCase();
-      case TestLangPackage.ACTIVITY_INPUT: return createActivityInput();
-      case TestLangPackage.VALUE: return createValue();
-      case TestLangPackage.SIMPLE_VALUE: return createSimpleValue();
-      case TestLangPackage.OBJECT_VALUE: return createObjectValue();
-      case TestLangPackage.SCENARIO: return createScenario();
-      case TestLangPackage.OBJECT_SPECIFICATION: return createObjectSpecification();
-      case TestLangPackage.ATTRIBUTE: return createAttribute();
-      case TestLangPackage.LINK: return createLink();
-      case TestLangPackage.ASSERTION: return createAssertion();
-      case TestLangPackage.STATE_ASSERTION: return createStateAssertion();
-      case TestLangPackage.REFERENCE_POINT: return createReferencePoint();
-      case TestLangPackage.ACTION_REFERENCE_POINT: return createActionReferencePoint();
-      case TestLangPackage.CONSTRAINT_REFERENCE_POINT: return createConstraintReferencePoint();
+      case TestLangPackage.UML_TEST_CASE: return createUMLTestCase();
+      case TestLangPackage.UML_ACTIVITY_INPUT: return createUMLActivityInput();
+      case TestLangPackage.UML_VALUE: return createUMLValue();
+      case TestLangPackage.UML_SIMPLE_VALUE: return createUMLSimpleValue();
+      case TestLangPackage.UML_OBJECT_VALUE: return createUMLObjectValue();
+      case TestLangPackage.UML_SCENARIO: return createUMLScenario();
+      case TestLangPackage.UML_OBJECT_SPECIFICATION: return createUMLObjectSpecification();
+      case TestLangPackage.UML_ATTRIBUTE: return createUMLAttribute();
+      case TestLangPackage.UML_LINK: return createUMLLink();
+      case TestLangPackage.UML_ASSERTION: return createUMLAssertion();
+      case TestLangPackage.UML_STATE_ASSERTION: return createUMLStateAssertion();
+      case TestLangPackage.UML_REFERENCE_POINT: return createUMLReferencePoint();
+      case TestLangPackage.UML_ACTION_REFERENCE_POINT: return createUMLActionReferencePoint();
+      case TestLangPackage.UML_CONSTRAINT_REFERENCE_POINT: return createUMLConstraintReferencePoint();
+      case TestLangPackage.UML_FINALLY_STATE_ASSERTION: return createUMLFinallyStateAssertion();
+      case TestLangPackage.UML_CHECK: return createUMLCheck();
+      case TestLangPackage.UML_CONSTRAINT_CHECK: return createUMLConstraintCheck();
+      case TestLangPackage.UML_STATE_EXPRESSION: return createUMLStateExpression();
+      case TestLangPackage.UML_OBJECT_STATE_EXPRESSION: return createUMLObjectStateExpression();
+      case TestLangPackage.UML_PROPERTY_STATE_EXPRESSION: return createUMLPropertyStateExpression();
+      case TestLangPackage.UML_ORDER_ASSERTION: return createUMLOrderAssertion();
+      case TestLangPackage.UML_NODE_ORDER: return createUMLNodeOrder();
+      case TestLangPackage.UML_NODE_SPECIFICATION: return createUMLNodeSpecification();
       case TestLangPackage.FINALLY_STATE_ASSERTION: return createFinallyStateAssertion();
-      case TestLangPackage.CHECK: return createCheck();
-      case TestLangPackage.CONSTRAINT_CHECK: return createConstraintCheck();
-      case TestLangPackage.STATE_EXPRESSION: return createStateExpression();
-      case TestLangPackage.OBJECT_STATE_EXPRESSION: return createObjectStateExpression();
-      case TestLangPackage.PROPERTY_STATE_EXPRESSION: return createPropertyStateExpression();
-      case TestLangPackage.ORDER_ASSERTION: return createOrderAssertion();
-      case TestLangPackage.NODE_ORDER: return createNodeOrder();
-      case TestLangPackage.NODE_SPECIFICATION: return createNodeSpecification();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -105,12 +106,12 @@ public class TestLangFactoryImpl extends EFactoryImpl implements TestLangFactory
   {
     switch (eDataType.getClassifierID())
     {
-      case TestLangPackage.ARITHMETIC_OPERATOR:
-        return createArithmeticOperatorFromString(eDataType, initialValue);
-      case TestLangPackage.TEMPORAL_OPERATOR:
-        return createTemporalOperatorFromString(eDataType, initialValue);
-      case TestLangPackage.TEMPORAL_QUANTIFIER:
-        return createTemporalQuantifierFromString(eDataType, initialValue);
+      case TestLangPackage.UML_ARITHMETIC_OPERATOR:
+        return createUMLArithmeticOperatorFromString(eDataType, initialValue);
+      case TestLangPackage.UML_TEMPORAL_OPERATOR:
+        return createUMLTemporalOperatorFromString(eDataType, initialValue);
+      case TestLangPackage.UML_TEMPORAL_QUANTIFIER:
+        return createUMLTemporalQuantifierFromString(eDataType, initialValue);
       default:
         throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
     }
@@ -126,12 +127,12 @@ public class TestLangFactoryImpl extends EFactoryImpl implements TestLangFactory
   {
     switch (eDataType.getClassifierID())
     {
-      case TestLangPackage.ARITHMETIC_OPERATOR:
-        return convertArithmeticOperatorToString(eDataType, instanceValue);
-      case TestLangPackage.TEMPORAL_OPERATOR:
-        return convertTemporalOperatorToString(eDataType, instanceValue);
-      case TestLangPackage.TEMPORAL_QUANTIFIER:
-        return convertTemporalQuantifierToString(eDataType, instanceValue);
+      case TestLangPackage.UML_ARITHMETIC_OPERATOR:
+        return convertUMLArithmeticOperatorToString(eDataType, instanceValue);
+      case TestLangPackage.UML_TEMPORAL_OPERATOR:
+        return convertUMLTemporalOperatorToString(eDataType, instanceValue);
+      case TestLangPackage.UML_TEMPORAL_QUANTIFIER:
+        return convertUMLTemporalQuantifierToString(eDataType, instanceValue);
       default:
         throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
     }
@@ -142,10 +143,10 @@ public class TestLangFactoryImpl extends EFactoryImpl implements TestLangFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public TestSuite createTestSuite()
+  public UMLTestSuite createUMLTestSuite()
   {
-    TestSuiteImpl testSuite = new TestSuiteImpl();
-    return testSuite;
+    UMLTestSuiteImpl umlTestSuite = new UMLTestSuiteImpl();
+    return umlTestSuite;
   }
 
   /**
@@ -164,10 +165,10 @@ public class TestLangFactoryImpl extends EFactoryImpl implements TestLangFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public TestCase createTestCase()
+  public UMLTestCase createUMLTestCase()
   {
-    TestCaseImpl testCase = new TestCaseImpl();
-    return testCase;
+    UMLTestCaseImpl umlTestCase = new UMLTestCaseImpl();
+    return umlTestCase;
   }
 
   /**
@@ -175,10 +176,10 @@ public class TestLangFactoryImpl extends EFactoryImpl implements TestLangFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public ActivityInput createActivityInput()
+  public UMLActivityInput createUMLActivityInput()
   {
-    ActivityInputImpl activityInput = new ActivityInputImpl();
-    return activityInput;
+    UMLActivityInputImpl umlActivityInput = new UMLActivityInputImpl();
+    return umlActivityInput;
   }
 
   /**
@@ -186,10 +187,10 @@ public class TestLangFactoryImpl extends EFactoryImpl implements TestLangFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public Value createValue()
+  public UMLValue createUMLValue()
   {
-    ValueImpl value = new ValueImpl();
-    return value;
+    UMLValueImpl umlValue = new UMLValueImpl();
+    return umlValue;
   }
 
   /**
@@ -197,10 +198,10 @@ public class TestLangFactoryImpl extends EFactoryImpl implements TestLangFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public SimpleValue createSimpleValue()
+  public UMLSimpleValue createUMLSimpleValue()
   {
-    SimpleValueImpl simpleValue = new SimpleValueImpl();
-    return simpleValue;
+    UMLSimpleValueImpl umlSimpleValue = new UMLSimpleValueImpl();
+    return umlSimpleValue;
   }
 
   /**
@@ -208,10 +209,10 @@ public class TestLangFactoryImpl extends EFactoryImpl implements TestLangFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public ObjectValue createObjectValue()
+  public UMLObjectValue createUMLObjectValue()
   {
-    ObjectValueImpl objectValue = new ObjectValueImpl();
-    return objectValue;
+    UMLObjectValueImpl umlObjectValue = new UMLObjectValueImpl();
+    return umlObjectValue;
   }
 
   /**
@@ -219,10 +220,10 @@ public class TestLangFactoryImpl extends EFactoryImpl implements TestLangFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public Scenario createScenario()
+  public UMLScenario createUMLScenario()
   {
-    ScenarioImpl scenario = new ScenarioImpl();
-    return scenario;
+    UMLScenarioImpl umlScenario = new UMLScenarioImpl();
+    return umlScenario;
   }
 
   /**
@@ -230,10 +231,10 @@ public class TestLangFactoryImpl extends EFactoryImpl implements TestLangFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public ObjectSpecification createObjectSpecification()
+  public UMLObjectSpecification createUMLObjectSpecification()
   {
-    ObjectSpecificationImpl objectSpecification = new ObjectSpecificationImpl();
-    return objectSpecification;
+    UMLObjectSpecificationImpl umlObjectSpecification = new UMLObjectSpecificationImpl();
+    return umlObjectSpecification;
   }
 
   /**
@@ -241,10 +242,10 @@ public class TestLangFactoryImpl extends EFactoryImpl implements TestLangFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public Attribute createAttribute()
+  public UMLAttribute createUMLAttribute()
   {
-    AttributeImpl attribute = new AttributeImpl();
-    return attribute;
+    UMLAttributeImpl umlAttribute = new UMLAttributeImpl();
+    return umlAttribute;
   }
 
   /**
@@ -252,10 +253,10 @@ public class TestLangFactoryImpl extends EFactoryImpl implements TestLangFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public Link createLink()
+  public UMLLink createUMLLink()
   {
-    LinkImpl link = new LinkImpl();
-    return link;
+    UMLLinkImpl umlLink = new UMLLinkImpl();
+    return umlLink;
   }
 
   /**
@@ -263,10 +264,10 @@ public class TestLangFactoryImpl extends EFactoryImpl implements TestLangFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public Assertion createAssertion()
+  public UMLAssertion createUMLAssertion()
   {
-    AssertionImpl assertion = new AssertionImpl();
-    return assertion;
+    UMLAssertionImpl umlAssertion = new UMLAssertionImpl();
+    return umlAssertion;
   }
 
   /**
@@ -274,10 +275,10 @@ public class TestLangFactoryImpl extends EFactoryImpl implements TestLangFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public StateAssertion createStateAssertion()
+  public UMLStateAssertion createUMLStateAssertion()
   {
-    StateAssertionImpl stateAssertion = new StateAssertionImpl();
-    return stateAssertion;
+    UMLStateAssertionImpl umlStateAssertion = new UMLStateAssertionImpl();
+    return umlStateAssertion;
   }
 
   /**
@@ -285,10 +286,10 @@ public class TestLangFactoryImpl extends EFactoryImpl implements TestLangFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public ReferencePoint createReferencePoint()
+  public UMLReferencePoint createUMLReferencePoint()
   {
-    ReferencePointImpl referencePoint = new ReferencePointImpl();
-    return referencePoint;
+    UMLReferencePointImpl umlReferencePoint = new UMLReferencePointImpl();
+    return umlReferencePoint;
   }
 
   /**
@@ -296,10 +297,10 @@ public class TestLangFactoryImpl extends EFactoryImpl implements TestLangFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public ActionReferencePoint createActionReferencePoint()
+  public UMLActionReferencePoint createUMLActionReferencePoint()
   {
-    ActionReferencePointImpl actionReferencePoint = new ActionReferencePointImpl();
-    return actionReferencePoint;
+    UMLActionReferencePointImpl umlActionReferencePoint = new UMLActionReferencePointImpl();
+    return umlActionReferencePoint;
   }
 
   /**
@@ -307,10 +308,109 @@ public class TestLangFactoryImpl extends EFactoryImpl implements TestLangFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public ConstraintReferencePoint createConstraintReferencePoint()
+  public UMLConstraintReferencePoint createUMLConstraintReferencePoint()
   {
-    ConstraintReferencePointImpl constraintReferencePoint = new ConstraintReferencePointImpl();
-    return constraintReferencePoint;
+    UMLConstraintReferencePointImpl umlConstraintReferencePoint = new UMLConstraintReferencePointImpl();
+    return umlConstraintReferencePoint;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public UMLFinallyStateAssertion createUMLFinallyStateAssertion()
+  {
+    UMLFinallyStateAssertionImpl umlFinallyStateAssertion = new UMLFinallyStateAssertionImpl();
+    return umlFinallyStateAssertion;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public UMLCheck createUMLCheck()
+  {
+    UMLCheckImpl umlCheck = new UMLCheckImpl();
+    return umlCheck;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public UMLConstraintCheck createUMLConstraintCheck()
+  {
+    UMLConstraintCheckImpl umlConstraintCheck = new UMLConstraintCheckImpl();
+    return umlConstraintCheck;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public UMLStateExpression createUMLStateExpression()
+  {
+    UMLStateExpressionImpl umlStateExpression = new UMLStateExpressionImpl();
+    return umlStateExpression;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public UMLObjectStateExpression createUMLObjectStateExpression()
+  {
+    UMLObjectStateExpressionImpl umlObjectStateExpression = new UMLObjectStateExpressionImpl();
+    return umlObjectStateExpression;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public UMLPropertyStateExpression createUMLPropertyStateExpression()
+  {
+    UMLPropertyStateExpressionImpl umlPropertyStateExpression = new UMLPropertyStateExpressionImpl();
+    return umlPropertyStateExpression;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public UMLOrderAssertion createUMLOrderAssertion()
+  {
+    UMLOrderAssertionImpl umlOrderAssertion = new UMLOrderAssertionImpl();
+    return umlOrderAssertion;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public UMLNodeOrder createUMLNodeOrder()
+  {
+    UMLNodeOrderImpl umlNodeOrder = new UMLNodeOrderImpl();
+    return umlNodeOrder;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public UMLNodeSpecification createUMLNodeSpecification()
+  {
+    UMLNodeSpecificationImpl umlNodeSpecification = new UMLNodeSpecificationImpl();
+    return umlNodeSpecification;
   }
 
   /**
@@ -329,97 +429,9 @@ public class TestLangFactoryImpl extends EFactoryImpl implements TestLangFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public Check createCheck()
+  public UMLArithmeticOperator createUMLArithmeticOperatorFromString(EDataType eDataType, String initialValue)
   {
-    CheckImpl check = new CheckImpl();
-    return check;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ConstraintCheck createConstraintCheck()
-  {
-    ConstraintCheckImpl constraintCheck = new ConstraintCheckImpl();
-    return constraintCheck;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public StateExpression createStateExpression()
-  {
-    StateExpressionImpl stateExpression = new StateExpressionImpl();
-    return stateExpression;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ObjectStateExpression createObjectStateExpression()
-  {
-    ObjectStateExpressionImpl objectStateExpression = new ObjectStateExpressionImpl();
-    return objectStateExpression;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public PropertyStateExpression createPropertyStateExpression()
-  {
-    PropertyStateExpressionImpl propertyStateExpression = new PropertyStateExpressionImpl();
-    return propertyStateExpression;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public OrderAssertion createOrderAssertion()
-  {
-    OrderAssertionImpl orderAssertion = new OrderAssertionImpl();
-    return orderAssertion;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NodeOrder createNodeOrder()
-  {
-    NodeOrderImpl nodeOrder = new NodeOrderImpl();
-    return nodeOrder;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NodeSpecification createNodeSpecification()
-  {
-    NodeSpecificationImpl nodeSpecification = new NodeSpecificationImpl();
-    return nodeSpecification;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ArithmeticOperator createArithmeticOperatorFromString(EDataType eDataType, String initialValue)
-  {
-    ArithmeticOperator result = ArithmeticOperator.get(initialValue);
+    UMLArithmeticOperator result = UMLArithmeticOperator.get(initialValue);
     if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
     return result;
   }
@@ -429,7 +441,7 @@ public class TestLangFactoryImpl extends EFactoryImpl implements TestLangFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public String convertArithmeticOperatorToString(EDataType eDataType, Object instanceValue)
+  public String convertUMLArithmeticOperatorToString(EDataType eDataType, Object instanceValue)
   {
     return instanceValue == null ? null : instanceValue.toString();
   }
@@ -439,9 +451,9 @@ public class TestLangFactoryImpl extends EFactoryImpl implements TestLangFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public TemporalOperator createTemporalOperatorFromString(EDataType eDataType, String initialValue)
+  public UMLTemporalOperator createUMLTemporalOperatorFromString(EDataType eDataType, String initialValue)
   {
-    TemporalOperator result = TemporalOperator.get(initialValue);
+    UMLTemporalOperator result = UMLTemporalOperator.get(initialValue);
     if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
     return result;
   }
@@ -451,7 +463,7 @@ public class TestLangFactoryImpl extends EFactoryImpl implements TestLangFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public String convertTemporalOperatorToString(EDataType eDataType, Object instanceValue)
+  public String convertUMLTemporalOperatorToString(EDataType eDataType, Object instanceValue)
   {
     return instanceValue == null ? null : instanceValue.toString();
   }
@@ -461,9 +473,9 @@ public class TestLangFactoryImpl extends EFactoryImpl implements TestLangFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public TemporalQuantifier createTemporalQuantifierFromString(EDataType eDataType, String initialValue)
+  public UMLTemporalQuantifier createUMLTemporalQuantifierFromString(EDataType eDataType, String initialValue)
   {
-    TemporalQuantifier result = TemporalQuantifier.get(initialValue);
+    UMLTemporalQuantifier result = UMLTemporalQuantifier.get(initialValue);
     if (result == null) throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '" + eDataType.getName() + "'");
     return result;
   }
@@ -473,7 +485,7 @@ public class TestLangFactoryImpl extends EFactoryImpl implements TestLangFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public String convertTemporalQuantifierToString(EDataType eDataType, Object instanceValue)
+  public String convertUMLTemporalQuantifierToString(EDataType eDataType, Object instanceValue)
   {
     return instanceValue == null ? null : instanceValue.toString();
   }

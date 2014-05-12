@@ -9,13 +9,13 @@ package org.modelexecution.fumltesting.validation;
 import java.util.HashSet;
 
 import org.eclipse.xtext.validation.Check;
-import org.modelexecution.fumltesting.testLang.NodeSpecification;
-import org.modelexecution.fumltesting.testLang.OrderAssertion;
-import org.modelexecution.fumltesting.testLang.Scenario;
-import org.modelexecution.fumltesting.testLang.StateAssertion;
-import org.modelexecution.fumltesting.testLang.TemporalOperator;
-import org.modelexecution.fumltesting.testLang.TestCase;
 import org.modelexecution.fumltesting.testLang.TestLangPackage;
+import org.modelexecution.fumltesting.testLang.UMLNodeSpecification;
+import org.modelexecution.fumltesting.testLang.UMLOrderAssertion;
+import org.modelexecution.fumltesting.testLang.UMLScenario;
+import org.modelexecution.fumltesting.testLang.UMLStateAssertion;
+import org.modelexecution.fumltesting.testLang.UMLTemporalOperator;
+import org.modelexecution.fumltesting.testLang.UMLTestCase;
 
 /**
  * Utility class for validation in TestLang editor.
@@ -25,16 +25,16 @@ import org.modelexecution.fumltesting.testLang.TestLangPackage;
  */
 public class TestLangJavaValidator extends AbstractTestLangJavaValidator {
 	@Check
-	public void checkAfterSpecified(StateAssertion assertion) {
-		if (assertion.getOperator() == TemporalOperator.UNTIL && assertion.getUntilPoint() != null) {
-			warning("Subsequent usage of UNTIL is not allowed!", TestLangPackage.Literals.STATE_ASSERTION__UNTIL_POINT);
+	public void checkAfterSpecified(UMLStateAssertion assertion) {
+		if (assertion.getOperator() == UMLTemporalOperator.UNTIL && assertion.getUntilPoint() != null) {
+			warning("Subsequent usage of UNTIL is not allowed!", TestLangPackage.Literals.UML_STATE_ASSERTION__UNTIL_POINT);
 		}
 	}
 
 	@Check
-	public void checkUseOfJokers(OrderAssertion assertion) {
+	public void checkUseOfJokers(UMLOrderAssertion assertion) {
 		boolean subsequentStarUsed = false;
-		for (NodeSpecification nodeSpecification : assertion.getOrder().getNodes()) {
+		for (UMLNodeSpecification nodeSpecification : assertion.getOrder().getNodes()) {
 			if (nodeSpecification.getJoker() != null && nodeSpecification.getJoker().equals("*")) {
 				int nextNodeIndex = assertion.getOrder().getNodes().indexOf(nodeSpecification) + 1;
 				if (assertion.getOrder().getNodes().size() > nextNodeIndex
@@ -43,13 +43,13 @@ public class TestLangJavaValidator extends AbstractTestLangJavaValidator {
 			}
 		}
 		if (subsequentStarUsed)
-			error("Use of subsequent STAR is not allowed!", TestLangPackage.Literals.ORDER_ASSERTION__ORDER);
+			error("Use of subsequent STAR is not allowed!", TestLangPackage.Literals.UML_ORDER_ASSERTION__ORDER);
 	}
 
 	@Check
-	public void checkScenarioInitialize(TestCase testCase) {
-		HashSet<Scenario> set = new HashSet<Scenario>(testCase.getInitScenarios());
+	public void checkScenarioInitialize(UMLTestCase testCase) {
+		HashSet<UMLScenario> set = new HashSet<UMLScenario>(testCase.getInitScenarios());
 		if (testCase.getInitScenarios().size() > set.size())
-			error("Duplicate scenario declarations!", TestLangPackage.Literals.TEST_CASE__INIT_SCENARIOS);
+			error("Duplicate scenario declarations!", TestLangPackage.Literals.UML_TEST_CASE__INIT_SCENARIOS);
 	}
 }

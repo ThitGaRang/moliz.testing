@@ -23,13 +23,13 @@ public interface TestLangFactory extends EFactory
   TestLangFactory eINSTANCE = org.modelexecution.fumltesting.testLang.impl.TestLangFactoryImpl.init();
 
   /**
-   * Returns a new object of class '<em>Test Suite</em>'.
+   * Returns a new object of class '<em>UML Test Suite</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Test Suite</em>'.
+   * @return a new object of class '<em>UML Test Suite</em>'.
    * @generated
    */
-  TestSuite createTestSuite();
+  UMLTestSuite createUMLTestSuite();
 
   /**
    * Returns a new object of class '<em>Import</em>'.
@@ -41,130 +41,211 @@ public interface TestLangFactory extends EFactory
   Import createImport();
 
   /**
-   * Returns a new object of class '<em>Test Case</em>'.
+   * Returns a new object of class '<em>UML Test Case</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Test Case</em>'.
+   * @return a new object of class '<em>UML Test Case</em>'.
    * @generated
    */
-  TestCase createTestCase();
+  UMLTestCase createUMLTestCase();
 
   /**
-   * Returns a new object of class '<em>Activity Input</em>'.
+   * Returns a new object of class '<em>UML Activity Input</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Activity Input</em>'.
+   * @return a new object of class '<em>UML Activity Input</em>'.
    * @generated
    */
-  ActivityInput createActivityInput();
+  UMLActivityInput createUMLActivityInput();
 
   /**
-   * Returns a new object of class '<em>Value</em>'.
+   * Returns a new object of class '<em>UML Value</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Value</em>'.
+   * @return a new object of class '<em>UML Value</em>'.
    * @generated
    */
-  Value createValue();
+  UMLValue createUMLValue();
 
   /**
-   * Returns a new object of class '<em>Simple Value</em>'.
+   * Returns a new object of class '<em>UML Simple Value</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Simple Value</em>'.
+   * @return a new object of class '<em>UML Simple Value</em>'.
    * @generated
    */
-  SimpleValue createSimpleValue();
+  UMLSimpleValue createUMLSimpleValue();
 
   /**
-   * Returns a new object of class '<em>Object Value</em>'.
+   * Returns a new object of class '<em>UML Object Value</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Object Value</em>'.
+   * @return a new object of class '<em>UML Object Value</em>'.
    * @generated
    */
-  ObjectValue createObjectValue();
+  UMLObjectValue createUMLObjectValue();
 
   /**
-   * Returns a new object of class '<em>Scenario</em>'.
+   * Returns a new object of class '<em>UML Scenario</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Scenario</em>'.
+   * @return a new object of class '<em>UML Scenario</em>'.
    * @generated
    */
-  Scenario createScenario();
+  UMLScenario createUMLScenario();
 
   /**
-   * Returns a new object of class '<em>Object Specification</em>'.
+   * Returns a new object of class '<em>UML Object Specification</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Object Specification</em>'.
+   * @return a new object of class '<em>UML Object Specification</em>'.
    * @generated
    */
-  ObjectSpecification createObjectSpecification();
+  UMLObjectSpecification createUMLObjectSpecification();
 
   /**
-   * Returns a new object of class '<em>Attribute</em>'.
+   * Returns a new object of class '<em>UML Attribute</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Attribute</em>'.
+   * @return a new object of class '<em>UML Attribute</em>'.
    * @generated
    */
-  Attribute createAttribute();
+  UMLAttribute createUMLAttribute();
 
   /**
-   * Returns a new object of class '<em>Link</em>'.
+   * Returns a new object of class '<em>UML Link</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Link</em>'.
+   * @return a new object of class '<em>UML Link</em>'.
    * @generated
    */
-  Link createLink();
+  UMLLink createUMLLink();
 
   /**
-   * Returns a new object of class '<em>Assertion</em>'.
+   * Returns a new object of class '<em>UML Assertion</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Assertion</em>'.
+   * @return a new object of class '<em>UML Assertion</em>'.
    * @generated
    */
-  Assertion createAssertion();
+  UMLAssertion createUMLAssertion();
 
   /**
-   * Returns a new object of class '<em>State Assertion</em>'.
+   * Returns a new object of class '<em>UML State Assertion</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>State Assertion</em>'.
+   * @return a new object of class '<em>UML State Assertion</em>'.
    * @generated
    */
-  StateAssertion createStateAssertion();
+  UMLStateAssertion createUMLStateAssertion();
 
   /**
-   * Returns a new object of class '<em>Reference Point</em>'.
+   * Returns a new object of class '<em>UML Reference Point</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Reference Point</em>'.
+   * @return a new object of class '<em>UML Reference Point</em>'.
    * @generated
    */
-  ReferencePoint createReferencePoint();
+  UMLReferencePoint createUMLReferencePoint();
 
   /**
-   * Returns a new object of class '<em>Action Reference Point</em>'.
+   * Returns a new object of class '<em>UML Action Reference Point</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Action Reference Point</em>'.
+   * @return a new object of class '<em>UML Action Reference Point</em>'.
    * @generated
    */
-  ActionReferencePoint createActionReferencePoint();
+  UMLActionReferencePoint createUMLActionReferencePoint();
 
   /**
-   * Returns a new object of class '<em>Constraint Reference Point</em>'.
+   * Returns a new object of class '<em>UML Constraint Reference Point</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Constraint Reference Point</em>'.
+   * @return a new object of class '<em>UML Constraint Reference Point</em>'.
    * @generated
    */
-  ConstraintReferencePoint createConstraintReferencePoint();
+  UMLConstraintReferencePoint createUMLConstraintReferencePoint();
+
+  /**
+   * Returns a new object of class '<em>UML Finally State Assertion</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>UML Finally State Assertion</em>'.
+   * @generated
+   */
+  UMLFinallyStateAssertion createUMLFinallyStateAssertion();
+
+  /**
+   * Returns a new object of class '<em>UML Check</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>UML Check</em>'.
+   * @generated
+   */
+  UMLCheck createUMLCheck();
+
+  /**
+   * Returns a new object of class '<em>UML Constraint Check</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>UML Constraint Check</em>'.
+   * @generated
+   */
+  UMLConstraintCheck createUMLConstraintCheck();
+
+  /**
+   * Returns a new object of class '<em>UML State Expression</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>UML State Expression</em>'.
+   * @generated
+   */
+  UMLStateExpression createUMLStateExpression();
+
+  /**
+   * Returns a new object of class '<em>UML Object State Expression</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>UML Object State Expression</em>'.
+   * @generated
+   */
+  UMLObjectStateExpression createUMLObjectStateExpression();
+
+  /**
+   * Returns a new object of class '<em>UML Property State Expression</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>UML Property State Expression</em>'.
+   * @generated
+   */
+  UMLPropertyStateExpression createUMLPropertyStateExpression();
+
+  /**
+   * Returns a new object of class '<em>UML Order Assertion</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>UML Order Assertion</em>'.
+   * @generated
+   */
+  UMLOrderAssertion createUMLOrderAssertion();
+
+  /**
+   * Returns a new object of class '<em>UML Node Order</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>UML Node Order</em>'.
+   * @generated
+   */
+  UMLNodeOrder createUMLNodeOrder();
+
+  /**
+   * Returns a new object of class '<em>UML Node Specification</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>UML Node Specification</em>'.
+   * @generated
+   */
+  UMLNodeSpecification createUMLNodeSpecification();
 
   /**
    * Returns a new object of class '<em>Finally State Assertion</em>'.
@@ -174,78 +255,6 @@ public interface TestLangFactory extends EFactory
    * @generated
    */
   FinallyStateAssertion createFinallyStateAssertion();
-
-  /**
-   * Returns a new object of class '<em>Check</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Check</em>'.
-   * @generated
-   */
-  Check createCheck();
-
-  /**
-   * Returns a new object of class '<em>Constraint Check</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Constraint Check</em>'.
-   * @generated
-   */
-  ConstraintCheck createConstraintCheck();
-
-  /**
-   * Returns a new object of class '<em>State Expression</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>State Expression</em>'.
-   * @generated
-   */
-  StateExpression createStateExpression();
-
-  /**
-   * Returns a new object of class '<em>Object State Expression</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Object State Expression</em>'.
-   * @generated
-   */
-  ObjectStateExpression createObjectStateExpression();
-
-  /**
-   * Returns a new object of class '<em>Property State Expression</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Property State Expression</em>'.
-   * @generated
-   */
-  PropertyStateExpression createPropertyStateExpression();
-
-  /**
-   * Returns a new object of class '<em>Order Assertion</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Order Assertion</em>'.
-   * @generated
-   */
-  OrderAssertion createOrderAssertion();
-
-  /**
-   * Returns a new object of class '<em>Node Order</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Node Order</em>'.
-   * @generated
-   */
-  NodeOrder createNodeOrder();
-
-  /**
-   * Returns a new object of class '<em>Node Specification</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Node Specification</em>'.
-   * @generated
-   */
-  NodeSpecification createNodeSpecification();
 
   /**
    * Returns the package supported by this factory.

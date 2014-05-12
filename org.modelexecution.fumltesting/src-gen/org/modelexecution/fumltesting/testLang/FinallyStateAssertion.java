@@ -20,11 +20,11 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface FinallyStateAssertion extends Assertion
+public interface FinallyStateAssertion extends UMLFinallyStateAssertion
 {
   /**
    * Returns the value of the '<em><b>Checks</b></em>' containment reference list.
-   * The list contents are of type {@link org.modelexecution.fumltesting.testLang.Check}.
+   * The list contents are of type {@link org.modelexecution.fumltesting.testLang.UMLCheck}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Checks</em>' containment reference list isn't clear,
@@ -36,6 +36,6 @@ public interface FinallyStateAssertion extends Assertion
    * @model containment="true"
    * @generated
    */
-  EList<Check> getChecks();
+  EList<UMLCheck> getChecks();
 
 } // FinallyStateAssertion

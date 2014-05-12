@@ -15,12 +15,18 @@ import org.modelexecution.fuml.convert.IConversionResult;
 import org.modelexecution.fuml.convert.IConverter;
 import org.modelexecution.fumldebug.core.ExecutionContext;
 
+import fUML.Syntax.Actions.BasicActions.Action;
 import fUML.Syntax.Actions.BasicActions.CallBehaviorAction;
 import fUML.Syntax.Activities.CompleteStructuredActivities.StructuredActivityNode;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
 import fUML.Syntax.Activities.IntermediateActivities.DecisionNode;
+import fUML.Syntax.Activities.IntermediateActivities.ObjectNode;
+import fUML.Syntax.Classes.Kernel.Association;
+import fUML.Syntax.Classes.Kernel.Class_;
 import fUML.Syntax.Classes.Kernel.Element;
+import fUML.Syntax.Classes.Kernel.Property;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.Behavior;
 import fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
 
@@ -45,6 +51,42 @@ public class ModelConverter {
 
 	public Object convertElement(Object element) {
 		return convertedModel.getFUMLElement(element);
+	}
+
+	public fUML.Syntax.Classes.Kernel.Package convertPackage(Object aPackage) {
+		return (fUML.Syntax.Classes.Kernel.Package) convertedModel.getFUMLElement(aPackage);
+	}
+
+	public Class_ convertClass(Object aClass) {
+		return (Class_) convertedModel.getFUMLElement(aClass);
+	}
+
+	public Property convertProperty(Object aProperty) {
+		return (Property) convertedModel.getFUMLElement(aProperty);
+	}
+
+	public Association convertAssociation(Object anAssociation) {
+		return (Association) convertedModel.getFUMLElement(anAssociation);
+	}
+
+	public Activity convertActivity(Object anActivity) {
+		return (Activity) convertedModel.getFUMLElement(anActivity);
+	}
+
+	public ActivityParameterNode convertActivityParameterNode(Object anActivityParameterNode) {
+		return (ActivityParameterNode) convertedModel.getFUMLElement(anActivityParameterNode);
+	}
+
+	public ActivityNode convertActivityNode(Object anActivityNode) {
+		return (ActivityNode) convertedModel.getFUMLElement(anActivityNode);
+	}
+
+	public Action convertAction(Object anAction) {
+		return (Action) convertedModel.getFUMLElement(anAction);
+	}
+
+	public ObjectNode convertPin(Object aPin) {
+		return (ObjectNode) convertedModel.getFUMLElement(aPin);
 	}
 
 	public Collection<Activity> getAllActivities() {

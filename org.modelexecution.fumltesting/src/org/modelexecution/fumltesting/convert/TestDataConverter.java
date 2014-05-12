@@ -13,13 +13,14 @@ import org.eclipse.xtext.xbase.XExpression;
 import org.eclipse.xtext.xbase.XNumberLiteral;
 import org.eclipse.xtext.xbase.XStringLiteral;
 import org.modelexecution.fumldebug.core.ExecutionContext;
-import org.modelexecution.fumltesting.testLang.Attribute;
-import org.modelexecution.fumltesting.testLang.ObjectSpecification;
-import org.modelexecution.fumltesting.testLang.ObjectValue;
-import org.modelexecution.fumltesting.testLang.Scenario;
-import org.modelexecution.fumltesting.testLang.SimpleValue;
 import org.modelexecution.fumltesting.testLang.TestLangFactory;
-import org.modelexecution.fumltesting.testLang.Value;
+import org.modelexecution.fumltesting.testLang.UMLAttribute;
+import org.modelexecution.fumltesting.testLang.UMLLink;
+import org.modelexecution.fumltesting.testLang.UMLObjectSpecification;
+import org.modelexecution.fumltesting.testLang.UMLObjectValue;
+import org.modelexecution.fumltesting.testLang.UMLScenario;
+import org.modelexecution.fumltesting.testLang.UMLSimpleValue;
+import org.modelexecution.fumltesting.testLang.UMLValue;
 
 import fUML.Semantics.Classes.Kernel.BooleanValue;
 import fUML.Semantics.Classes.Kernel.FeatureValue;
@@ -56,24 +57,24 @@ public class TestDataConverter {
 		locus.extensionalValues.removeAll(locus.extensionalValues);
 	}
 
-	public Object getFUMLElement(Value value) {
-		if (value instanceof SimpleValue) {
-			XExpression expression = ((SimpleValue) value).getValue();
+	public Object getFUMLElement(UMLValue value) {
+		if (value instanceof UMLSimpleValue) {
+			XExpression expression = ((UMLSimpleValue) value).getValue();
 			return getFumlValue(expression);
 		}
-		if (value instanceof ObjectValue) {
+		if (value instanceof UMLObjectValue) {
 			if (fumlElements.containsKey(value))
 				return fumlElements.get(value);
-			ObjectSpecification object = ((ObjectValue) value).getValue();
-			Scenario testData = (Scenario) object.eContainer();
+			UMLObjectSpecification object = ((UMLObjectValue) value).getValue();
+			UMLScenario testData = (UMLScenario) object.eContainer();
 
 			Object_ object_ = null;
-			Class_ class_ = (Class_) modelConverter.convertElement((((ObjectValue) value).getValue().getType()));
+			Class_ class_ = modelConverter.convertClass((((UMLObjectValue) value).getValue().getType()));
 			object_ = locus.instantiate(class_);
 
-			for (Attribute attribute : object.getAttributes()) {
-				Property property = (Property) modelConverter.convertElement(((Attribute) attribute).getAtt());
-				XExpression expression = ((SimpleValue) ((Attribute) attribute).getValue()).getValue();
+			for (UMLAttribute attribute : object.getAttributes()) {
+				Property property = modelConverter.convertProperty(((UMLAttribute) attribute).getAtt());
+				XExpression expression = ((UMLSimpleValue) ((UMLAttribute) attribute).getValue()).getValue();
 
 				for (FeatureValue featureValue : object_.featureValues) {
 					if (featureValue.feature.name.equals(property.name)) {
@@ -83,17 +84,17 @@ public class TestDataConverter {
 				}
 			}
 
-			for (org.modelexecution.fumltesting.testLang.Link link : testData.getLinks()) {
+			for (UMLLink link : testData.getLinks()) {
 				if (link.getSourceValue().equals(object)) {
 					Link fumlLink = new Link();
-					Association fumlAssoc = (Association) modelConverter.convertElement((link.getAssoc()));
+					Association fumlAssoc = modelConverter.convertAssociation((link.getAssoc()));
 					fumlLink.type = fumlAssoc;
 
 					FeatureValue sourceValue = new FeatureValue();
 					FeatureValue targetValue = new FeatureValue();
 
-					Property source = (Property) modelConverter.convertElement(link.getSourceProperty());
-					Property target = (Property) modelConverter.convertElement(link.getTargetProperty());
+					Property source = modelConverter.convertProperty(link.getSourceProperty());
+					Property target = modelConverter.convertProperty(link.getTargetProperty());
 
 					fUML.Syntax.Classes.Kernel.Property sourcePropertyFuml = null;
 					fUML.Syntax.Classes.Kernel.Property targetPropertyFuml = null;
@@ -108,14 +109,14 @@ public class TestDataConverter {
 					}
 
 					sourceValue.feature = sourcePropertyFuml;
-					ObjectValue objectValueSource = TestLangFactory.eINSTANCE.createObjectValue();
+					UMLObjectValue objectValueSource = TestLangFactory.eINSTANCE.createUMLObjectValue();
 					objectValueSource.setValue(link.getSourceValue());
 					Reference sourceReference = new Reference();
 					sourceReference.referent = object_;
 					sourceValue.values.add(sourceReference);
 
 					targetValue.feature = targetPropertyFuml;
-					ObjectValue objectValueTarget = TestLangFactory.eINSTANCE.createObjectValue();
+					UMLObjectValue objectValueTarget = TestLangFactory.eINSTANCE.createUMLObjectValue();
 					objectValueTarget.setValue(link.getTargetValue());
 					Object_ targetObject_ = (Object_) getFUMLElement(objectValueTarget);
 					Reference targetReference = new Reference();

@@ -30,21 +30,21 @@ import org.modelexecution.fumltesting.results.ConstraintResult;
 import org.modelexecution.fumltesting.results.StateAssertionResult;
 import org.modelexecution.fumltesting.results.StateExpressionResult;
 import org.modelexecution.fumltesting.sequence.State;
-import org.modelexecution.fumltesting.testLang.ActionReferencePoint;
-import org.modelexecution.fumltesting.testLang.ArithmeticOperator;
-import org.modelexecution.fumltesting.testLang.Check;
-import org.modelexecution.fumltesting.testLang.ConstraintCheck;
 import org.modelexecution.fumltesting.testLang.FinallyStateAssertion;
-import org.modelexecution.fumltesting.testLang.ObjectStateExpression;
-import org.modelexecution.fumltesting.testLang.ObjectValue;
-import org.modelexecution.fumltesting.testLang.PropertyStateExpression;
-import org.modelexecution.fumltesting.testLang.SimpleValue;
-import org.modelexecution.fumltesting.testLang.StateAssertion;
-import org.modelexecution.fumltesting.testLang.StateExpression;
-import org.modelexecution.fumltesting.testLang.TemporalOperator;
-import org.modelexecution.fumltesting.testLang.TemporalQuantifier;
-import org.modelexecution.fumltesting.testLang.TestCase;
 import org.modelexecution.fumltesting.testLang.TestLangFactory;
+import org.modelexecution.fumltesting.testLang.UMLActionReferencePoint;
+import org.modelexecution.fumltesting.testLang.UMLArithmeticOperator;
+import org.modelexecution.fumltesting.testLang.UMLCheck;
+import org.modelexecution.fumltesting.testLang.UMLConstraintCheck;
+import org.modelexecution.fumltesting.testLang.UMLObjectStateExpression;
+import org.modelexecution.fumltesting.testLang.UMLObjectValue;
+import org.modelexecution.fumltesting.testLang.UMLPropertyStateExpression;
+import org.modelexecution.fumltesting.testLang.UMLSimpleValue;
+import org.modelexecution.fumltesting.testLang.UMLStateAssertion;
+import org.modelexecution.fumltesting.testLang.UMLStateExpression;
+import org.modelexecution.fumltesting.testLang.UMLTemporalOperator;
+import org.modelexecution.fumltesting.testLang.UMLTemporalQuantifier;
+import org.modelexecution.fumltesting.testLang.UMLTestCase;
 import org.modelexecution.fumltesting.trace.SnapshotUtil;
 import org.modelexecution.fumltesting.trace.TraceUtil;
 
@@ -83,14 +83,17 @@ public class StateAssertionValidator {
 	private ActivityNodeExecution referenceActionExecution;
 	private ActivityNodeExecution untilActionExecution;
 
+	private AssertionPrinter assertionPrinter;
+
 	public StateAssertionValidator(TraceUtil traceUtil, TestDataConverter testDataConverter) {
 		this.testDataConverter = testDataConverter;
 		this.traceUtil = traceUtil;
 		snapshotUtil = new SnapshotUtil(traceUtil);
+		assertionPrinter = new AssertionPrinter(traceUtil.getModelConverter());
 	}
 
-	public StateAssertionResult check(StateAssertion assertion) {
-		AssertionPrinter.printStateAssertion(assertion);
+	public StateAssertionResult check(UMLStateAssertion assertion) {
+		assertionPrinter.printStateAssertion(assertion);
 		StateAssertionResult result = new StateAssertionResult(assertion);
 		List<State> states = new ArrayList<State>();
 
@@ -111,15 +114,15 @@ public class StateAssertionValidator {
 		}
 
 		if (assertion.getChecks() != null && assertion.getChecks().size() > 0) {
-			for (Check check : assertion.getChecks()) {
-				if (check instanceof ConstraintCheck) {
+			for (UMLCheck check : assertion.getChecks()) {
+				if (check instanceof UMLConstraintCheck) {
 					ArrayList<Boolean> results = new ArrayList<Boolean>();
-					for (XExpression constraintName : ((ConstraintCheck) check).getConstraintNames()) {
+					for (XExpression constraintName : ((UMLConstraintCheck) check).getConstraintNames()) {
 						String name = ((XStringLiteral) constraintName).getValue();
 						ValueInstance context = null;
-						if (((ConstraintCheck) check).getObject() != null) {
-							Object nodeExecution = traceUtil.getExecution(((ConstraintCheck) check).getObject().eContainer());
-							ObjectNode objectNode = (ObjectNode) traceUtil.getModelConverter().convertElement(((ConstraintCheck) check).getObject());
+						if (((UMLConstraintCheck) check).getObject() != null) {
+							Object nodeExecution = traceUtil.getExecution(((UMLConstraintCheck) check).getObject().eContainer());
+							ObjectNode objectNode = traceUtil.getModelConverter().convertPin(((UMLConstraintCheck) check).getObject());
 							context = traceUtil.getValueInstance(objectNode, nodeExecution);
 						}
 						ConstraintResult constraintResult = new ConstraintResult(name, assertion);
@@ -151,80 +154,82 @@ public class StateAssertionValidator {
 			}
 		}
 
-		for (Check check : assertion.getChecks()) {
-			if (check instanceof StateExpression) {
-				result.addExpressionResult(checkExpression((StateExpression) check));
+		for (UMLCheck check : assertion.getChecks()) {
+			if (check instanceof UMLStateExpression) {
+				result.addExpressionResult(checkExpression((UMLStateExpression) check));
 			}
 		}
 
-		AssertionPrinter.printStartEnd();
+		assertionPrinter.printStartEnd();
 		return result;
 	}
 
 	public StateAssertionResult check(FinallyStateAssertion assertion) {
 		System.out.println("Finally state assertion validation..");
-		StateAssertion stateAssertion = TestLangFactory.eINSTANCE.createStateAssertion();
+		UMLStateAssertion stateAssertion = TestLangFactory.eINSTANCE.createUMLStateAssertion();
 
-		stateAssertion.setQuantifier(TemporalQuantifier.ALWAYS);
-		stateAssertion.setOperator(TemporalOperator.AFTER);
+		stateAssertion.setQuantifier(UMLTemporalQuantifier.ALWAYS);
+		stateAssertion.setOperator(UMLTemporalOperator.AFTER);
 
-		ActionReferencePoint point = TestLangFactory.eINSTANCE.createActionReferencePoint();
-		//TODO try to abstract here from UML
+		UMLActionReferencePoint point = TestLangFactory.eINSTANCE.createUMLActionReferencePoint();
+		// TODO abstract from UML
 		point.setAction((org.eclipse.uml2.uml.Action) traceUtil.getModelConverter().getOriginal(traceUtil.getLastExecutedAction()));
 		stateAssertion.setReferencePoint(point);
 
 		stateAssertion.getChecks().addAll(assertion.getChecks());
 		// add the replacement state assertion instead of the finally assertion
-		((TestCase) assertion.eContainer()).getAssertions().add(stateAssertion);
-		((TestCase) assertion.eContainer()).getAssertions().remove(assertion);
+		((UMLTestCase) assertion.eContainer()).getAssertions().add(stateAssertion);
+		((UMLTestCase) assertion.eContainer()).getAssertions().remove(assertion);
 
 		return check(stateAssertion);
 	}
 
-	private StateExpressionResult checkExpression(StateExpression expression) {
+	private StateExpressionResult checkExpression(UMLStateExpression expression) {
 		StateExpressionResult result = new StateExpressionResult(expression);
 		relevantSnapshots = snapshotUtil.getRelevantSnapshots(expression, referenceActionExecution, untilActionExecution);
 
-		if (expression.getValue() instanceof SimpleValue) {
+		if (expression.getValue() instanceof UMLSimpleValue) {
 			// special case
-			if (expression instanceof PropertyStateExpression
-					&& ((PropertyStateExpression) expression).getProperty().getOwner() != expression.getPin().getType()) {
+			if (expression instanceof UMLPropertyStateExpression
+					&& ((Property) convertElement(((UMLPropertyStateExpression) expression).getProperty())).owner != ((ObjectNode) convertElement(expression
+							.getPin())).typedElement.type) {
 				result.setValidationResult(processObject(expression));
 			} else {
 				result.setValidationResult(processValue(expression));
 			}
-			AssertionPrinter.print(expression, result.getValidationResult());
+			assertionPrinter.print(expression, result.getValidationResult());
 			return result;
-		} else if (expression.getValue() instanceof ObjectValue) {
+		} else if (expression.getValue() instanceof UMLObjectValue) {
 			result.setValidationResult(processObject(expression));
-			AssertionPrinter.print(expression, result.getValidationResult());
+			assertionPrinter.print(expression, result.getValidationResult());
 			return result;
 		} else {
 			result.setValidationResult(false);
 			result.setError("Type of specified value is not allowed!");
-			AssertionPrinter.print(expression, result.getValidationResult());
+			assertionPrinter.print(expression, result.getValidationResult());
 			return result;
 		}
 
 	}
 
-	private boolean processValue(StateExpression expression) {
+	private boolean processValue(UMLStateExpression expression) {
 		ArrayList<Boolean> results = new ArrayList<Boolean>();
-		SimpleValue simpleValue = (SimpleValue) expression.getValue();
+		UMLSimpleValue simpleValue = (UMLSimpleValue) expression.getValue();
 
 		if (relevantSnapshots.size() == 0) {
-			if (simpleValue.getValue() instanceof XNullLiteral && expression.getOperator() == ArithmeticOperator.EQUAL)
+			if (simpleValue.getValue() instanceof XNullLiteral && expression.getOperator() == UMLArithmeticOperator.EQUAL)
 				results.add(true);
 			else
 				return false;
 		}
 
 		for (ValueSnapshot snapshot : relevantSnapshots) {
-			if (expression instanceof PropertyStateExpression) {
+			if (expression instanceof UMLPropertyStateExpression) {
 				Object_ object = (Object_) snapshot.getValue();
 				for (FeatureValue featureValue : object.featureValues) {
 					String featureName = featureValue.feature.name;
-					String targetFeatureName = ((PropertyStateExpression) expression).getProperty().getName();
+					Property property = (Property) convertElement(((UMLPropertyStateExpression) expression).getProperty());
+					String targetFeatureName = property.name;
 					if (featureName.equals(targetFeatureName)) {
 						if (featureValue.values.size() > 0) {
 							if (simpleValue.getValue() instanceof XStringLiteral) {
@@ -254,13 +259,13 @@ public class StateAssertionValidator {
 							}
 						} else {
 							if (simpleValue.getValue() instanceof XNullLiteral) {
-								if (expression.getOperator() == ArithmeticOperator.EQUAL)
+								if (expression.getOperator() == UMLArithmeticOperator.EQUAL)
 									if (featureValue.values.size() != 0) {
 										results.add(false);
 									} else {
 										results.add(true);
 									}
-								if (expression.getOperator() == ArithmeticOperator.NOT_EQUAL)
+								if (expression.getOperator() == UMLArithmeticOperator.NOT_EQUAL)
 									if (featureValue.values.size() == 0) {
 										results.add(false);
 									} else {
@@ -273,7 +278,7 @@ public class StateAssertionValidator {
 					}
 				}
 			}
-			if (expression instanceof ObjectStateExpression) {
+			if (expression instanceof UMLObjectStateExpression) {
 				if (simpleValue.getValue() instanceof XStringLiteral) {
 					String target = ((XStringLiteral) simpleValue.getValue()).getValue();
 					String value = ((StringValue) snapshot.getValue()).value;
@@ -297,19 +302,19 @@ public class StateAssertionValidator {
 					results.add(result);
 				}
 				if (simpleValue.getValue() instanceof XNullLiteral) {
-					if (expression.getOperator() == ArithmeticOperator.EQUAL)
+					if (expression.getOperator() == UMLArithmeticOperator.EQUAL)
 						if (relevantSnapshots.size() != 0) {// at the beginning
 															// everything
 							// was equal to null
-							if (((StateAssertion) expression.eContainer()).getQuantifier() == TemporalQuantifier.SOMETIMES
-									&& ((StateAssertion) expression.eContainer()).getOperator() == TemporalOperator.UNTIL)
+							if (((UMLStateAssertion) expression.eContainer()).getQuantifier() == UMLTemporalQuantifier.SOMETIMES
+									&& ((UMLStateAssertion) expression.eContainer()).getOperator() == UMLTemporalOperator.UNTIL)
 								results.add(true);
 							else
 								results.add(false);
 						} else {
 							results.add(true);
 						}
-					if (expression.getOperator() == ArithmeticOperator.NOT_EQUAL)
+					if (expression.getOperator() == UMLArithmeticOperator.NOT_EQUAL)
 						if (relevantSnapshots.size() == 0) {
 							results.add(false);
 						} else {
@@ -318,28 +323,28 @@ public class StateAssertionValidator {
 				}
 			}
 		}
-		return compileResult(results, ((StateAssertion) expression.eContainer()).getQuantifier());
+		return compileResult(results, ((UMLStateAssertion) expression.eContainer()).getQuantifier());
 	}
 
-	private boolean processObject(StateExpression expression) {
-		if (expression.getOperator() != ArithmeticOperator.EQUAL && expression.getOperator() != ArithmeticOperator.NOT_EQUAL
-				&& expression.getOperator() != ArithmeticOperator.INCLUDES && expression.getOperator() != ArithmeticOperator.EXCLUDES) {
+	private boolean processObject(UMLStateExpression expression) {
+		if (expression.getOperator() != UMLArithmeticOperator.EQUAL && expression.getOperator() != UMLArithmeticOperator.NOT_EQUAL
+				&& expression.getOperator() != UMLArithmeticOperator.INCLUDES && expression.getOperator() != UMLArithmeticOperator.EXCLUDES) {
 			System.out.println("Operator <, >, <=, and => not allowed!");
 			return false;
 		}
 		Object_ fumlTarget = (Object_) testDataConverter.getFUMLElement(expression.getValue());
 
-		if (expression instanceof ObjectStateExpression) {
-			return processStateExpression((ObjectStateExpression) expression, fumlTarget);
+		if (expression instanceof UMLObjectStateExpression) {
+			return processStateExpression((UMLObjectStateExpression) expression, fumlTarget);
 		}
 		// link validation
-		if (expression instanceof PropertyStateExpression) {
-			return processStateExpression((PropertyStateExpression) expression, fumlTarget);
+		if (expression instanceof UMLPropertyStateExpression) {
+			return processStateExpression((UMLPropertyStateExpression) expression, fumlTarget);
 		}
 		return false;
 	}
 
-	private boolean processStateExpression(ObjectStateExpression expression, Object_ fumlTarget) {
+	private boolean processStateExpression(UMLObjectStateExpression expression, Object_ fumlTarget) {
 		boolean sameType = false;
 		ArrayList<Boolean> results = new ArrayList<Boolean>();
 		for (ValueSnapshot snapshot : relevantSnapshots) {
@@ -358,7 +363,7 @@ public class StateAssertionValidator {
 
 			// compare each feature
 			for (FeatureValue featureValue : object_.featureValues) {
-				if (expression.getOperator() == ArithmeticOperator.EQUAL) {
+				if (expression.getOperator() == UMLArithmeticOperator.EQUAL) {
 					for (FeatureValue targetFeatureValue : fumlTarget.featureValues) {
 						if (targetFeatureValue.feature.name.equals(featureValue.feature.name)) {
 							boolean result = compare(targetFeatureValue, featureValue);
@@ -366,7 +371,7 @@ public class StateAssertionValidator {
 						}
 					}
 				}
-				if (expression.getOperator() == ArithmeticOperator.NOT_EQUAL) {
+				if (expression.getOperator() == UMLArithmeticOperator.NOT_EQUAL) {
 					for (FeatureValue targetFeatureValue : fumlTarget.featureValues) {
 						if (targetFeatureValue.feature.name.equals(featureValue.feature.name)) {
 							boolean result = compare(targetFeatureValue, featureValue) == false;
@@ -376,34 +381,35 @@ public class StateAssertionValidator {
 				}
 			}
 		}
-		return compileResult(results, ((StateAssertion) expression.eContainer()).getQuantifier());
+		return compileResult(results, ((UMLStateAssertion) expression.eContainer()).getQuantifier());
 	}
 
-	private boolean processStateExpression(PropertyStateExpression expression, Object_ fumlTarget) {
+	private boolean processStateExpression(UMLPropertyStateExpression expression, Object_ fumlTarget) {
 		ArrayList<Boolean> results = new ArrayList<Boolean>();
 		List<ValueInstance> links = new ArrayList<ValueInstance>();
 
-		StateAssertion assertion = (StateAssertion) expression.eContainer();
-		TemporalOperator operator = assertion.getOperator();
+		UMLStateAssertion assertion = (UMLStateAssertion) expression.eContainer();
+		UMLTemporalOperator operator = assertion.getOperator();
 
-		PropertyStateExpression propertyExpression = (PropertyStateExpression) expression;
-		if (propertyExpression.getProperty().getType() instanceof org.eclipse.uml2.uml.Class) {
+		UMLPropertyStateExpression propertyExpression = (UMLPropertyStateExpression) expression;
+		Property property = (Property) convertElement(propertyExpression.getProperty());
+		if (property.typedElement.type instanceof Class_) {
 
 			ValueInstance source = null;
-			ObjectNode pin = (ObjectNode) traceUtil.getModelConverter().convertElement(propertyExpression.getPin());
+			ObjectNode pin = traceUtil.getModelConverter().convertPin(propertyExpression.getPin());
 			Object pinOwner = traceUtil.getModelConverter().convertElement(propertyExpression.getPin().eContainer());
 
 			if (pinOwner instanceof Action) {
 				ActionExecution execution = (ActionExecution) traceUtil.getExecution(pinOwner);
 				if (pin instanceof InputPin) {
 					for (Input input : execution.getInputs()) {
-						if (input.getInputPin().name.equals(propertyExpression.getPin().getName()))
+						if (input.getInputPin().name.equals(pin.name))
 							source = (ValueInstance) ((ValueSnapshot) input.getInputValues().get(0).getInputValueSnapshot()).eContainer();
 					}
 				}
 				if (pin instanceof OutputPin) {
 					for (Output output : execution.getOutputs()) {
-						if (output.getOutputPin().name.equals(propertyExpression.getPin().getName()))
+						if (output.getOutputPin().name.equals(pin.name))
 							source = (ValueInstance) ((ValueSnapshot) output.getOutputValues().get(0).getOutputValueSnapshot()).eContainer();
 					}
 				}
@@ -426,9 +432,9 @@ public class StateAssertionValidator {
 				}
 			}
 
-			if (propertyExpression.getValue() instanceof SimpleValue) {
+			if (propertyExpression.getValue() instanceof UMLSimpleValue) {
 				// this is the case where we might compare null to a link
-				SimpleValue value = (SimpleValue) propertyExpression.getValue();
+				UMLSimpleValue value = (UMLSimpleValue) propertyExpression.getValue();
 				if (!(value.getValue() instanceof XNullLiteral)) {
 					System.out.println("For links only null is allowed!");
 					return false;
@@ -438,7 +444,7 @@ public class StateAssertionValidator {
 			for (ValueInstance linkValueInstance : traceUtil.getAllLinks()) {
 				Link link = (Link) linkValueInstance.getRuntimeValue();
 				boolean sourceContained = false;
-				if (link.type == traceUtil.getModelConverter().convertElement(propertyExpression.getProperty().getAssociation())) {
+				if (link.type == property.association) {
 					for (FeatureValue value : link.getFeatureValues()) {
 						Reference reference = (Reference) value.values.get(0);
 						for (ValueSnapshot snapshot : source.getSnapshots()) {
@@ -472,26 +478,26 @@ public class StateAssertionValidator {
 
 		if (fumlTarget != null) {
 			if (links.size() == 0) {
-				if (propertyExpression.getOperator() == ArithmeticOperator.INCLUDES)
+				if (propertyExpression.getOperator() == UMLArithmeticOperator.INCLUDES)
 					results.add(false);
-				if (propertyExpression.getOperator() == ArithmeticOperator.EXCLUDES)
+				if (propertyExpression.getOperator() == UMLArithmeticOperator.EXCLUDES)
 					results.add(true);
 			} else {
 				for (ValueInstance link : links) {
 					Link theLink = (Link) link.getRuntimeValue();
 					for (FeatureValue featureValue : theLink.featureValues) {
-						if (featureValue.feature.name.equals(propertyExpression.getProperty().getName())) {
+						if (featureValue.feature.name.equals(property.name)) {
 							Object_ realValue = ((Reference) featureValue.values.get(0)).referent;
 							for (FeatureValue targetValue : fumlTarget.featureValues) {
 								for (FeatureValue checkedFeature : realValue.featureValues) {
 									if (targetValue.feature.name.equals(checkedFeature.feature.name)) {
-										if (expression.getOperator() == ArithmeticOperator.EQUAL
-												|| expression.getOperator() == ArithmeticOperator.INCLUDES) {
+										if (expression.getOperator() == UMLArithmeticOperator.EQUAL
+												|| expression.getOperator() == UMLArithmeticOperator.INCLUDES) {
 											boolean result = compare(targetValue, checkedFeature);
 											results.add(result);
 										}
-										if (expression.getOperator() == ArithmeticOperator.NOT_EQUAL
-												|| expression.getOperator() == ArithmeticOperator.EXCLUDES) {
+										if (expression.getOperator() == UMLArithmeticOperator.NOT_EQUAL
+												|| expression.getOperator() == UMLArithmeticOperator.EXCLUDES) {
 											boolean result = !compare(targetValue, checkedFeature);
 											results.add(result);
 										}
@@ -503,8 +509,8 @@ public class StateAssertionValidator {
 				}
 			}
 		} else {
-			TemporalQuantifier quantifier = ((StateAssertion) expression.eContainer()).getQuantifier();
-			if (propertyExpression.getOperator() == ArithmeticOperator.EQUAL) {
+			UMLTemporalQuantifier quantifier = ((UMLStateAssertion) expression.eContainer()).getQuantifier();
+			if (propertyExpression.getOperator() == UMLArithmeticOperator.EQUAL) {
 				switch (quantifier) {
 				case ALWAYS:
 					if (links.size() > 0) {
@@ -558,14 +564,14 @@ public class StateAssertionValidator {
 					}
 					break;
 				}
-			} else if (propertyExpression.getOperator() == ArithmeticOperator.NOT_EQUAL) {
+			} else if (propertyExpression.getOperator() == UMLArithmeticOperator.NOT_EQUAL) {
 				if (links.size() == 0)
 					results.add(false);
 				else
 					results.add(true);
 			}
 		}
-		return compileResult(results, ((StateAssertion) expression.eContainer()).getQuantifier());
+		return compileResult(results, ((UMLStateAssertion) expression.eContainer()).getQuantifier());
 	}
 
 	/**
@@ -638,40 +644,40 @@ public class StateAssertionValidator {
 	}
 
 	/** Comparison of simple values: String, Boolean, Double */
-	private boolean compareValues(ArithmeticOperator operator, Object value, Object target) {
+	private boolean compareValues(UMLArithmeticOperator operator, Object value, Object target) {
 		System.out.println("Expected value: " + target + " Real value: " + value);
 		if (value instanceof String || value instanceof Boolean) {
-			if (operator == ArithmeticOperator.EQUAL)
+			if (operator == UMLArithmeticOperator.EQUAL)
 				if (!value.equals(target))
 					return false;
-			if (operator == ArithmeticOperator.NOT_EQUAL)
+			if (operator == UMLArithmeticOperator.NOT_EQUAL)
 				if (value.equals(target))
 					return false;
 		}
 		if (value instanceof Double) {
-			if (operator == ArithmeticOperator.EQUAL)
+			if (operator == UMLArithmeticOperator.EQUAL)
 				if (!value.equals(target))
 					return false;
-			if (operator == ArithmeticOperator.NOT_EQUAL)
+			if (operator ==UMLArithmeticOperator.NOT_EQUAL)
 				if (value.equals(target))
 					return false;
-			if (operator == ArithmeticOperator.GREATER)
+			if (operator == UMLArithmeticOperator.GREATER)
 				if ((Double) value <= (Double) target)
 					return false;
-			if (operator == ArithmeticOperator.GREATER_EQUAL)
+			if (operator == UMLArithmeticOperator.GREATER_EQUAL)
 				if ((Double) value < (Double) target)
 					return false;
-			if (operator == ArithmeticOperator.SMALLER)
+			if (operator == UMLArithmeticOperator.SMALLER)
 				if ((Double) value >= (Double) target)
 					return false;
-			if (operator == ArithmeticOperator.SMALLER_EQUAL)
+			if (operator == UMLArithmeticOperator.SMALLER_EQUAL)
 				if ((Double) value > (Double) target)
 					return false;
 		}
 		return true;
 	}
 
-	private boolean compileResult(ArrayList<Boolean> results, TemporalQuantifier quantifier) {
+	private boolean compileResult(ArrayList<Boolean> results, UMLTemporalQuantifier quantifier) {
 		switch (quantifier) {
 		case ALWAYS:
 			for (boolean result : results) {
@@ -699,5 +705,9 @@ public class StateAssertionValidator {
 			return false;
 		}
 		return false;
+	}
+
+	private Object convertElement(Object element) {
+		return traceUtil.getModelConverter().convertElement(element);
 	}
 }

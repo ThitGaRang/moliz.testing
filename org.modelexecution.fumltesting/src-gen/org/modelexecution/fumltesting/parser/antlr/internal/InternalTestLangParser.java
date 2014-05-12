@@ -157,7 +157,7 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         
         @Override
         protected String getFirstRuleName() {
-        	return "TestSuite";	
+        	return "UMLTestSuite";	
        	}
        	
        	@Override
@@ -167,30 +167,30 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
 
 
-    // $ANTLR start "entryRuleTestSuite"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:68:1: entryRuleTestSuite returns [EObject current=null] : iv_ruleTestSuite= ruleTestSuite EOF ;
-    public final EObject entryRuleTestSuite() throws RecognitionException {
+    // $ANTLR start "entryRuleUMLTestSuite"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:68:1: entryRuleUMLTestSuite returns [EObject current=null] : iv_ruleUMLTestSuite= ruleUMLTestSuite EOF ;
+    public final EObject entryRuleUMLTestSuite() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleTestSuite = null;
+        EObject iv_ruleUMLTestSuite = null;
 
 
         try {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:69:2: (iv_ruleTestSuite= ruleTestSuite EOF )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:70:2: iv_ruleTestSuite= ruleTestSuite EOF
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:69:2: (iv_ruleUMLTestSuite= ruleUMLTestSuite EOF )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:70:2: iv_ruleUMLTestSuite= ruleUMLTestSuite EOF
             {
             if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getTestSuiteRule()); 
+               newCompositeNode(grammarAccess.getUMLTestSuiteRule()); 
             }
-            pushFollow(FOLLOW_ruleTestSuite_in_entryRuleTestSuite75);
-            iv_ruleTestSuite=ruleTestSuite();
+            pushFollow(FOLLOW_ruleUMLTestSuite_in_entryRuleUMLTestSuite75);
+            iv_ruleUMLTestSuite=ruleUMLTestSuite();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
-               current =iv_ruleTestSuite; 
+               current =iv_ruleUMLTestSuite; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleTestSuite85); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleUMLTestSuite85); if (state.failed) return current;
 
             }
 
@@ -204,12 +204,12 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleTestSuite"
+    // $ANTLR end "entryRuleUMLTestSuite"
 
 
-    // $ANTLR start "ruleTestSuite"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:77:1: ruleTestSuite returns [EObject current=null] : ( ( (lv_imports_0_0= ruleImport ) )* ( (lv_scenarios_1_0= ruleScenario ) )* ( (lv_tests_2_0= ruleTestCase ) )* ) ;
-    public final EObject ruleTestSuite() throws RecognitionException {
+    // $ANTLR start "ruleUMLTestSuite"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:77:1: ruleUMLTestSuite returns [EObject current=null] : ( ( (lv_imports_0_0= ruleImport ) )* ( (lv_scenarios_1_0= ruleUMLScenario ) )* ( (lv_tests_2_0= ruleUMLTestCase ) )* ) ;
+    public final EObject ruleUMLTestSuite() throws RecognitionException {
         EObject current = null;
 
         EObject lv_imports_0_0 = null;
@@ -222,11 +222,11 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:80:28: ( ( ( (lv_imports_0_0= ruleImport ) )* ( (lv_scenarios_1_0= ruleScenario ) )* ( (lv_tests_2_0= ruleTestCase ) )* ) )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:81:1: ( ( (lv_imports_0_0= ruleImport ) )* ( (lv_scenarios_1_0= ruleScenario ) )* ( (lv_tests_2_0= ruleTestCase ) )* )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:80:28: ( ( ( (lv_imports_0_0= ruleImport ) )* ( (lv_scenarios_1_0= ruleUMLScenario ) )* ( (lv_tests_2_0= ruleUMLTestCase ) )* ) )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:81:1: ( ( (lv_imports_0_0= ruleImport ) )* ( (lv_scenarios_1_0= ruleUMLScenario ) )* ( (lv_tests_2_0= ruleUMLTestCase ) )* )
             {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:81:1: ( ( (lv_imports_0_0= ruleImport ) )* ( (lv_scenarios_1_0= ruleScenario ) )* ( (lv_tests_2_0= ruleTestCase ) )* )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:81:2: ( (lv_imports_0_0= ruleImport ) )* ( (lv_scenarios_1_0= ruleScenario ) )* ( (lv_tests_2_0= ruleTestCase ) )*
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:81:1: ( ( (lv_imports_0_0= ruleImport ) )* ( (lv_scenarios_1_0= ruleUMLScenario ) )* ( (lv_tests_2_0= ruleUMLTestCase ) )* )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:81:2: ( (lv_imports_0_0= ruleImport ) )* ( (lv_scenarios_1_0= ruleUMLScenario ) )* ( (lv_tests_2_0= ruleUMLTestCase ) )*
             {
             // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:81:2: ( (lv_imports_0_0= ruleImport ) )*
             loop1:
@@ -248,10 +248,10 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
             	    {
             	    if ( state.backtracking==0 ) {
             	       
-            	      	        newCompositeNode(grammarAccess.getTestSuiteAccess().getImportsImportParserRuleCall_0_0()); 
+            	      	        newCompositeNode(grammarAccess.getUMLTestSuiteAccess().getImportsImportParserRuleCall_0_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleImport_in_ruleTestSuite131);
+            	    pushFollow(FOLLOW_ruleImport_in_ruleUMLTestSuite131);
             	    lv_imports_0_0=ruleImport();
 
             	    state._fsp--;
@@ -259,7 +259,7 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
             	    if ( state.backtracking==0 ) {
 
             	      	        if (current==null) {
-            	      	            current = createModelElementForParent(grammarAccess.getTestSuiteRule());
+            	      	            current = createModelElementForParent(grammarAccess.getUMLTestSuiteRule());
             	      	        }
             	             		add(
             	             			current, 
@@ -281,7 +281,7 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:99:3: ( (lv_scenarios_1_0= ruleScenario ) )*
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:99:3: ( (lv_scenarios_1_0= ruleUMLScenario ) )*
             loop2:
             do {
                 int alt2=2;
@@ -294,31 +294,31 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
                 switch (alt2) {
             	case 1 :
-            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:100:1: (lv_scenarios_1_0= ruleScenario )
+            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:100:1: (lv_scenarios_1_0= ruleUMLScenario )
             	    {
-            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:100:1: (lv_scenarios_1_0= ruleScenario )
-            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:101:3: lv_scenarios_1_0= ruleScenario
+            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:100:1: (lv_scenarios_1_0= ruleUMLScenario )
+            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:101:3: lv_scenarios_1_0= ruleUMLScenario
             	    {
             	    if ( state.backtracking==0 ) {
             	       
-            	      	        newCompositeNode(grammarAccess.getTestSuiteAccess().getScenariosScenarioParserRuleCall_1_0()); 
+            	      	        newCompositeNode(grammarAccess.getUMLTestSuiteAccess().getScenariosUMLScenarioParserRuleCall_1_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleScenario_in_ruleTestSuite153);
-            	    lv_scenarios_1_0=ruleScenario();
+            	    pushFollow(FOLLOW_ruleUMLScenario_in_ruleUMLTestSuite153);
+            	    lv_scenarios_1_0=ruleUMLScenario();
 
             	    state._fsp--;
             	    if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	      	        if (current==null) {
-            	      	            current = createModelElementForParent(grammarAccess.getTestSuiteRule());
+            	      	            current = createModelElementForParent(grammarAccess.getUMLTestSuiteRule());
             	      	        }
             	             		add(
             	             			current, 
             	             			"scenarios",
             	              		lv_scenarios_1_0, 
-            	              		"Scenario");
+            	              		"UMLScenario");
             	      	        afterParserOrEnumRuleCall();
             	      	    
             	    }
@@ -334,7 +334,7 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:117:3: ( (lv_tests_2_0= ruleTestCase ) )*
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:117:3: ( (lv_tests_2_0= ruleUMLTestCase ) )*
             loop3:
             do {
                 int alt3=2;
@@ -347,31 +347,31 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
                 switch (alt3) {
             	case 1 :
-            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:118:1: (lv_tests_2_0= ruleTestCase )
+            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:118:1: (lv_tests_2_0= ruleUMLTestCase )
             	    {
-            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:118:1: (lv_tests_2_0= ruleTestCase )
-            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:119:3: lv_tests_2_0= ruleTestCase
+            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:118:1: (lv_tests_2_0= ruleUMLTestCase )
+            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:119:3: lv_tests_2_0= ruleUMLTestCase
             	    {
             	    if ( state.backtracking==0 ) {
             	       
-            	      	        newCompositeNode(grammarAccess.getTestSuiteAccess().getTestsTestCaseParserRuleCall_2_0()); 
+            	      	        newCompositeNode(grammarAccess.getUMLTestSuiteAccess().getTestsUMLTestCaseParserRuleCall_2_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleTestCase_in_ruleTestSuite175);
-            	    lv_tests_2_0=ruleTestCase();
+            	    pushFollow(FOLLOW_ruleUMLTestCase_in_ruleUMLTestSuite175);
+            	    lv_tests_2_0=ruleUMLTestCase();
 
             	    state._fsp--;
             	    if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	      	        if (current==null) {
-            	      	            current = createModelElementForParent(grammarAccess.getTestSuiteRule());
+            	      	            current = createModelElementForParent(grammarAccess.getUMLTestSuiteRule());
             	      	        }
             	             		add(
             	             			current, 
             	             			"tests",
             	              		lv_tests_2_0, 
-            	              		"TestCase");
+            	              		"UMLTestCase");
             	      	        afterParserOrEnumRuleCall();
             	      	    
             	    }
@@ -406,7 +406,7 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleTestSuite"
+    // $ANTLR end "ruleUMLTestSuite"
 
 
     // $ANTLR start "entryRuleImport"
@@ -530,30 +530,30 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
     // $ANTLR end "ruleImport"
 
 
-    // $ANTLR start "entryRuleTestCase"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:186:1: entryRuleTestCase returns [EObject current=null] : iv_ruleTestCase= ruleTestCase EOF ;
-    public final EObject entryRuleTestCase() throws RecognitionException {
+    // $ANTLR start "entryRuleUMLTestCase"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:186:1: entryRuleUMLTestCase returns [EObject current=null] : iv_ruleUMLTestCase= ruleUMLTestCase EOF ;
+    public final EObject entryRuleUMLTestCase() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleTestCase = null;
+        EObject iv_ruleUMLTestCase = null;
 
 
         try {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:187:2: (iv_ruleTestCase= ruleTestCase EOF )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:188:2: iv_ruleTestCase= ruleTestCase EOF
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:187:2: (iv_ruleUMLTestCase= ruleUMLTestCase EOF )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:188:2: iv_ruleUMLTestCase= ruleUMLTestCase EOF
             {
             if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getTestCaseRule()); 
+               newCompositeNode(grammarAccess.getUMLTestCaseRule()); 
             }
-            pushFollow(FOLLOW_ruleTestCase_in_entryRuleTestCase316);
-            iv_ruleTestCase=ruleTestCase();
+            pushFollow(FOLLOW_ruleUMLTestCase_in_entryRuleUMLTestCase316);
+            iv_ruleUMLTestCase=ruleUMLTestCase();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
-               current =iv_ruleTestCase; 
+               current =iv_ruleUMLTestCase; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleTestCase326); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleUMLTestCase326); if (state.failed) return current;
 
             }
 
@@ -567,12 +567,12 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleTestCase"
+    // $ANTLR end "entryRuleUMLTestCase"
 
 
-    // $ANTLR start "ruleTestCase"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:195:1: ruleTestCase returns [EObject current=null] : (otherlv_0= 'test' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= 'activity' ( ( ruleQualifiedName ) ) (otherlv_4= '(' ( (lv_inputs_5_0= ruleActivityInput ) ) (otherlv_6= ',' ( (lv_inputs_7_0= ruleActivityInput ) ) )* otherlv_8= ')' )? (otherlv_9= 'on' ( ( ruleQualifiedName ) ) )? otherlv_11= '{' (otherlv_12= 'initialize' otherlv_13= '[' ( (otherlv_14= RULE_ID ) ) (otherlv_15= ',' ( (otherlv_16= RULE_ID ) ) )* otherlv_17= ']' otherlv_18= ';' )? ( (lv_assertions_19_0= ruleAssertion ) )* otherlv_20= '}' ) ;
-    public final EObject ruleTestCase() throws RecognitionException {
+    // $ANTLR start "ruleUMLTestCase"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:195:1: ruleUMLTestCase returns [EObject current=null] : (otherlv_0= 'test' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= 'activity' ( ( ruleQualifiedName ) ) (otherlv_4= '(' ( (lv_inputs_5_0= ruleUMLActivityInput ) ) (otherlv_6= ',' ( (lv_inputs_7_0= ruleUMLActivityInput ) ) )* otherlv_8= ')' )? (otherlv_9= 'on' ( ( ruleQualifiedName ) ) )? otherlv_11= '{' (otherlv_12= 'initialize' otherlv_13= '[' ( (otherlv_14= RULE_ID ) ) (otherlv_15= ',' ( (otherlv_16= RULE_ID ) ) )* otherlv_17= ']' otherlv_18= ';' )? ( (lv_assertions_19_0= ruleUMLAssertion ) )* otherlv_20= '}' ) ;
+    public final EObject ruleUMLTestCase() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_0=null;
@@ -601,16 +601,16 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:198:28: ( (otherlv_0= 'test' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= 'activity' ( ( ruleQualifiedName ) ) (otherlv_4= '(' ( (lv_inputs_5_0= ruleActivityInput ) ) (otherlv_6= ',' ( (lv_inputs_7_0= ruleActivityInput ) ) )* otherlv_8= ')' )? (otherlv_9= 'on' ( ( ruleQualifiedName ) ) )? otherlv_11= '{' (otherlv_12= 'initialize' otherlv_13= '[' ( (otherlv_14= RULE_ID ) ) (otherlv_15= ',' ( (otherlv_16= RULE_ID ) ) )* otherlv_17= ']' otherlv_18= ';' )? ( (lv_assertions_19_0= ruleAssertion ) )* otherlv_20= '}' ) )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:199:1: (otherlv_0= 'test' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= 'activity' ( ( ruleQualifiedName ) ) (otherlv_4= '(' ( (lv_inputs_5_0= ruleActivityInput ) ) (otherlv_6= ',' ( (lv_inputs_7_0= ruleActivityInput ) ) )* otherlv_8= ')' )? (otherlv_9= 'on' ( ( ruleQualifiedName ) ) )? otherlv_11= '{' (otherlv_12= 'initialize' otherlv_13= '[' ( (otherlv_14= RULE_ID ) ) (otherlv_15= ',' ( (otherlv_16= RULE_ID ) ) )* otherlv_17= ']' otherlv_18= ';' )? ( (lv_assertions_19_0= ruleAssertion ) )* otherlv_20= '}' )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:198:28: ( (otherlv_0= 'test' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= 'activity' ( ( ruleQualifiedName ) ) (otherlv_4= '(' ( (lv_inputs_5_0= ruleUMLActivityInput ) ) (otherlv_6= ',' ( (lv_inputs_7_0= ruleUMLActivityInput ) ) )* otherlv_8= ')' )? (otherlv_9= 'on' ( ( ruleQualifiedName ) ) )? otherlv_11= '{' (otherlv_12= 'initialize' otherlv_13= '[' ( (otherlv_14= RULE_ID ) ) (otherlv_15= ',' ( (otherlv_16= RULE_ID ) ) )* otherlv_17= ']' otherlv_18= ';' )? ( (lv_assertions_19_0= ruleUMLAssertion ) )* otherlv_20= '}' ) )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:199:1: (otherlv_0= 'test' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= 'activity' ( ( ruleQualifiedName ) ) (otherlv_4= '(' ( (lv_inputs_5_0= ruleUMLActivityInput ) ) (otherlv_6= ',' ( (lv_inputs_7_0= ruleUMLActivityInput ) ) )* otherlv_8= ')' )? (otherlv_9= 'on' ( ( ruleQualifiedName ) ) )? otherlv_11= '{' (otherlv_12= 'initialize' otherlv_13= '[' ( (otherlv_14= RULE_ID ) ) (otherlv_15= ',' ( (otherlv_16= RULE_ID ) ) )* otherlv_17= ']' otherlv_18= ';' )? ( (lv_assertions_19_0= ruleUMLAssertion ) )* otherlv_20= '}' )
             {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:199:1: (otherlv_0= 'test' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= 'activity' ( ( ruleQualifiedName ) ) (otherlv_4= '(' ( (lv_inputs_5_0= ruleActivityInput ) ) (otherlv_6= ',' ( (lv_inputs_7_0= ruleActivityInput ) ) )* otherlv_8= ')' )? (otherlv_9= 'on' ( ( ruleQualifiedName ) ) )? otherlv_11= '{' (otherlv_12= 'initialize' otherlv_13= '[' ( (otherlv_14= RULE_ID ) ) (otherlv_15= ',' ( (otherlv_16= RULE_ID ) ) )* otherlv_17= ']' otherlv_18= ';' )? ( (lv_assertions_19_0= ruleAssertion ) )* otherlv_20= '}' )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:199:3: otherlv_0= 'test' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= 'activity' ( ( ruleQualifiedName ) ) (otherlv_4= '(' ( (lv_inputs_5_0= ruleActivityInput ) ) (otherlv_6= ',' ( (lv_inputs_7_0= ruleActivityInput ) ) )* otherlv_8= ')' )? (otherlv_9= 'on' ( ( ruleQualifiedName ) ) )? otherlv_11= '{' (otherlv_12= 'initialize' otherlv_13= '[' ( (otherlv_14= RULE_ID ) ) (otherlv_15= ',' ( (otherlv_16= RULE_ID ) ) )* otherlv_17= ']' otherlv_18= ';' )? ( (lv_assertions_19_0= ruleAssertion ) )* otherlv_20= '}'
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:199:1: (otherlv_0= 'test' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= 'activity' ( ( ruleQualifiedName ) ) (otherlv_4= '(' ( (lv_inputs_5_0= ruleUMLActivityInput ) ) (otherlv_6= ',' ( (lv_inputs_7_0= ruleUMLActivityInput ) ) )* otherlv_8= ')' )? (otherlv_9= 'on' ( ( ruleQualifiedName ) ) )? otherlv_11= '{' (otherlv_12= 'initialize' otherlv_13= '[' ( (otherlv_14= RULE_ID ) ) (otherlv_15= ',' ( (otherlv_16= RULE_ID ) ) )* otherlv_17= ']' otherlv_18= ';' )? ( (lv_assertions_19_0= ruleUMLAssertion ) )* otherlv_20= '}' )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:199:3: otherlv_0= 'test' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= 'activity' ( ( ruleQualifiedName ) ) (otherlv_4= '(' ( (lv_inputs_5_0= ruleUMLActivityInput ) ) (otherlv_6= ',' ( (lv_inputs_7_0= ruleUMLActivityInput ) ) )* otherlv_8= ')' )? (otherlv_9= 'on' ( ( ruleQualifiedName ) ) )? otherlv_11= '{' (otherlv_12= 'initialize' otherlv_13= '[' ( (otherlv_14= RULE_ID ) ) (otherlv_15= ',' ( (otherlv_16= RULE_ID ) ) )* otherlv_17= ']' otherlv_18= ';' )? ( (lv_assertions_19_0= ruleUMLAssertion ) )* otherlv_20= '}'
             {
-            otherlv_0=(Token)match(input,14,FOLLOW_14_in_ruleTestCase363); if (state.failed) return current;
+            otherlv_0=(Token)match(input,14,FOLLOW_14_in_ruleUMLTestCase363); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_0, grammarAccess.getTestCaseAccess().getTestKeyword_0());
+                  	newLeafNode(otherlv_0, grammarAccess.getUMLTestCaseAccess().getTestKeyword_0());
                   
             }
             // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:203:1: ( (lv_name_1_0= RULE_ID ) )
@@ -619,16 +619,16 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
             // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:204:1: (lv_name_1_0= RULE_ID )
             // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:205:3: lv_name_1_0= RULE_ID
             {
-            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleTestCase380); if (state.failed) return current;
+            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleUMLTestCase380); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-              			newLeafNode(lv_name_1_0, grammarAccess.getTestCaseAccess().getNameIDTerminalRuleCall_1_0()); 
+              			newLeafNode(lv_name_1_0, grammarAccess.getUMLTestCaseAccess().getNameIDTerminalRuleCall_1_0()); 
               		
             }
             if ( state.backtracking==0 ) {
 
               	        if (current==null) {
-              	            current = createModelElement(grammarAccess.getTestCaseRule());
+              	            current = createModelElement(grammarAccess.getUMLTestCaseRule());
               	        }
                      		setWithLastConsumed(
                      			current, 
@@ -643,10 +643,10 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_2=(Token)match(input,15,FOLLOW_15_in_ruleTestCase397); if (state.failed) return current;
+            otherlv_2=(Token)match(input,15,FOLLOW_15_in_ruleUMLTestCase397); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_2, grammarAccess.getTestCaseAccess().getActivityKeyword_2());
+                  	newLeafNode(otherlv_2, grammarAccess.getUMLTestCaseAccess().getActivityKeyword_2());
                   
             }
             // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:225:1: ( ( ruleQualifiedName ) )
@@ -658,16 +658,16 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
 
               			if (current==null) {
-              	            current = createModelElement(grammarAccess.getTestCaseRule());
+              	            current = createModelElement(grammarAccess.getUMLTestCaseRule());
               	        }
                       
             }
             if ( state.backtracking==0 ) {
                
-              	        newCompositeNode(grammarAccess.getTestCaseAccess().getActivityUnderTestActivityCrossReference_3_0()); 
+              	        newCompositeNode(grammarAccess.getUMLTestCaseAccess().getActivityUnderTestActivityCrossReference_3_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleQualifiedName_in_ruleTestCase420);
+            pushFollow(FOLLOW_ruleQualifiedName_in_ruleUMLTestCase420);
             ruleQualifiedName();
 
             state._fsp--;
@@ -683,7 +683,7 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:240:2: (otherlv_4= '(' ( (lv_inputs_5_0= ruleActivityInput ) ) (otherlv_6= ',' ( (lv_inputs_7_0= ruleActivityInput ) ) )* otherlv_8= ')' )?
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:240:2: (otherlv_4= '(' ( (lv_inputs_5_0= ruleUMLActivityInput ) ) (otherlv_6= ',' ( (lv_inputs_7_0= ruleUMLActivityInput ) ) )* otherlv_8= ')' )?
             int alt5=2;
             int LA5_0 = input.LA(1);
 
@@ -692,40 +692,40 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
             }
             switch (alt5) {
                 case 1 :
-                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:240:4: otherlv_4= '(' ( (lv_inputs_5_0= ruleActivityInput ) ) (otherlv_6= ',' ( (lv_inputs_7_0= ruleActivityInput ) ) )* otherlv_8= ')'
+                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:240:4: otherlv_4= '(' ( (lv_inputs_5_0= ruleUMLActivityInput ) ) (otherlv_6= ',' ( (lv_inputs_7_0= ruleUMLActivityInput ) ) )* otherlv_8= ')'
                     {
-                    otherlv_4=(Token)match(input,16,FOLLOW_16_in_ruleTestCase433); if (state.failed) return current;
+                    otherlv_4=(Token)match(input,16,FOLLOW_16_in_ruleUMLTestCase433); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                          	newLeafNode(otherlv_4, grammarAccess.getTestCaseAccess().getLeftParenthesisKeyword_4_0());
+                          	newLeafNode(otherlv_4, grammarAccess.getUMLTestCaseAccess().getLeftParenthesisKeyword_4_0());
                           
                     }
-                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:244:1: ( (lv_inputs_5_0= ruleActivityInput ) )
-                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:245:1: (lv_inputs_5_0= ruleActivityInput )
+                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:244:1: ( (lv_inputs_5_0= ruleUMLActivityInput ) )
+                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:245:1: (lv_inputs_5_0= ruleUMLActivityInput )
                     {
-                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:245:1: (lv_inputs_5_0= ruleActivityInput )
-                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:246:3: lv_inputs_5_0= ruleActivityInput
+                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:245:1: (lv_inputs_5_0= ruleUMLActivityInput )
+                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:246:3: lv_inputs_5_0= ruleUMLActivityInput
                     {
                     if ( state.backtracking==0 ) {
                        
-                      	        newCompositeNode(grammarAccess.getTestCaseAccess().getInputsActivityInputParserRuleCall_4_1_0()); 
+                      	        newCompositeNode(grammarAccess.getUMLTestCaseAccess().getInputsUMLActivityInputParserRuleCall_4_1_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleActivityInput_in_ruleTestCase454);
-                    lv_inputs_5_0=ruleActivityInput();
+                    pushFollow(FOLLOW_ruleUMLActivityInput_in_ruleUMLTestCase454);
+                    lv_inputs_5_0=ruleUMLActivityInput();
 
                     state._fsp--;
                     if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       	        if (current==null) {
-                      	            current = createModelElementForParent(grammarAccess.getTestCaseRule());
+                      	            current = createModelElementForParent(grammarAccess.getUMLTestCaseRule());
                       	        }
                              		add(
                              			current, 
                              			"inputs",
                               		lv_inputs_5_0, 
-                              		"ActivityInput");
+                              		"UMLActivityInput");
                       	        afterParserOrEnumRuleCall();
                       	    
                     }
@@ -735,7 +735,7 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:262:2: (otherlv_6= ',' ( (lv_inputs_7_0= ruleActivityInput ) ) )*
+                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:262:2: (otherlv_6= ',' ( (lv_inputs_7_0= ruleUMLActivityInput ) ) )*
                     loop4:
                     do {
                         int alt4=2;
@@ -748,40 +748,40 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
                         switch (alt4) {
                     	case 1 :
-                    	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:262:4: otherlv_6= ',' ( (lv_inputs_7_0= ruleActivityInput ) )
+                    	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:262:4: otherlv_6= ',' ( (lv_inputs_7_0= ruleUMLActivityInput ) )
                     	    {
-                    	    otherlv_6=(Token)match(input,17,FOLLOW_17_in_ruleTestCase467); if (state.failed) return current;
+                    	    otherlv_6=(Token)match(input,17,FOLLOW_17_in_ruleUMLTestCase467); if (state.failed) return current;
                     	    if ( state.backtracking==0 ) {
 
-                    	          	newLeafNode(otherlv_6, grammarAccess.getTestCaseAccess().getCommaKeyword_4_2_0());
+                    	          	newLeafNode(otherlv_6, grammarAccess.getUMLTestCaseAccess().getCommaKeyword_4_2_0());
                     	          
                     	    }
-                    	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:266:1: ( (lv_inputs_7_0= ruleActivityInput ) )
-                    	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:267:1: (lv_inputs_7_0= ruleActivityInput )
+                    	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:266:1: ( (lv_inputs_7_0= ruleUMLActivityInput ) )
+                    	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:267:1: (lv_inputs_7_0= ruleUMLActivityInput )
                     	    {
-                    	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:267:1: (lv_inputs_7_0= ruleActivityInput )
-                    	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:268:3: lv_inputs_7_0= ruleActivityInput
+                    	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:267:1: (lv_inputs_7_0= ruleUMLActivityInput )
+                    	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:268:3: lv_inputs_7_0= ruleUMLActivityInput
                     	    {
                     	    if ( state.backtracking==0 ) {
                     	       
-                    	      	        newCompositeNode(grammarAccess.getTestCaseAccess().getInputsActivityInputParserRuleCall_4_2_1_0()); 
+                    	      	        newCompositeNode(grammarAccess.getUMLTestCaseAccess().getInputsUMLActivityInputParserRuleCall_4_2_1_0()); 
                     	      	    
                     	    }
-                    	    pushFollow(FOLLOW_ruleActivityInput_in_ruleTestCase488);
-                    	    lv_inputs_7_0=ruleActivityInput();
+                    	    pushFollow(FOLLOW_ruleUMLActivityInput_in_ruleUMLTestCase488);
+                    	    lv_inputs_7_0=ruleUMLActivityInput();
 
                     	    state._fsp--;
                     	    if (state.failed) return current;
                     	    if ( state.backtracking==0 ) {
 
                     	      	        if (current==null) {
-                    	      	            current = createModelElementForParent(grammarAccess.getTestCaseRule());
+                    	      	            current = createModelElementForParent(grammarAccess.getUMLTestCaseRule());
                     	      	        }
                     	             		add(
                     	             			current, 
                     	             			"inputs",
                     	              		lv_inputs_7_0, 
-                    	              		"ActivityInput");
+                    	              		"UMLActivityInput");
                     	      	        afterParserOrEnumRuleCall();
                     	      	    
                     	    }
@@ -800,10 +800,10 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                         }
                     } while (true);
 
-                    otherlv_8=(Token)match(input,18,FOLLOW_18_in_ruleTestCase502); if (state.failed) return current;
+                    otherlv_8=(Token)match(input,18,FOLLOW_18_in_ruleUMLTestCase502); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                          	newLeafNode(otherlv_8, grammarAccess.getTestCaseAccess().getRightParenthesisKeyword_4_3());
+                          	newLeafNode(otherlv_8, grammarAccess.getUMLTestCaseAccess().getRightParenthesisKeyword_4_3());
                           
                     }
 
@@ -823,10 +823,10 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                 case 1 :
                     // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:288:5: otherlv_9= 'on' ( ( ruleQualifiedName ) )
                     {
-                    otherlv_9=(Token)match(input,19,FOLLOW_19_in_ruleTestCase517); if (state.failed) return current;
+                    otherlv_9=(Token)match(input,19,FOLLOW_19_in_ruleUMLTestCase517); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                          	newLeafNode(otherlv_9, grammarAccess.getTestCaseAccess().getOnKeyword_5_0());
+                          	newLeafNode(otherlv_9, grammarAccess.getUMLTestCaseAccess().getOnKeyword_5_0());
                           
                     }
                     // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:292:1: ( ( ruleQualifiedName ) )
@@ -838,16 +838,16 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                     if ( state.backtracking==0 ) {
 
                       			if (current==null) {
-                      	            current = createModelElement(grammarAccess.getTestCaseRule());
+                      	            current = createModelElement(grammarAccess.getUMLTestCaseRule());
                       	        }
                               
                     }
                     if ( state.backtracking==0 ) {
                        
-                      	        newCompositeNode(grammarAccess.getTestCaseAccess().getContextObjectObjectSpecificationCrossReference_5_1_0()); 
+                      	        newCompositeNode(grammarAccess.getUMLTestCaseAccess().getContextObjectUMLObjectSpecificationCrossReference_5_1_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleQualifiedName_in_ruleTestCase540);
+                    pushFollow(FOLLOW_ruleQualifiedName_in_ruleUMLTestCase540);
                     ruleQualifiedName();
 
                     state._fsp--;
@@ -869,10 +869,10 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_11=(Token)match(input,20,FOLLOW_20_in_ruleTestCase554); if (state.failed) return current;
+            otherlv_11=(Token)match(input,20,FOLLOW_20_in_ruleUMLTestCase554); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_11, grammarAccess.getTestCaseAccess().getLeftCurlyBracketKeyword_6());
+                  	newLeafNode(otherlv_11, grammarAccess.getUMLTestCaseAccess().getLeftCurlyBracketKeyword_6());
                   
             }
             // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:311:1: (otherlv_12= 'initialize' otherlv_13= '[' ( (otherlv_14= RULE_ID ) ) (otherlv_15= ',' ( (otherlv_16= RULE_ID ) ) )* otherlv_17= ']' otherlv_18= ';' )?
@@ -886,16 +886,16 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                 case 1 :
                     // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:311:3: otherlv_12= 'initialize' otherlv_13= '[' ( (otherlv_14= RULE_ID ) ) (otherlv_15= ',' ( (otherlv_16= RULE_ID ) ) )* otherlv_17= ']' otherlv_18= ';'
                     {
-                    otherlv_12=(Token)match(input,21,FOLLOW_21_in_ruleTestCase567); if (state.failed) return current;
+                    otherlv_12=(Token)match(input,21,FOLLOW_21_in_ruleUMLTestCase567); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                          	newLeafNode(otherlv_12, grammarAccess.getTestCaseAccess().getInitializeKeyword_7_0());
+                          	newLeafNode(otherlv_12, grammarAccess.getUMLTestCaseAccess().getInitializeKeyword_7_0());
                           
                     }
-                    otherlv_13=(Token)match(input,22,FOLLOW_22_in_ruleTestCase579); if (state.failed) return current;
+                    otherlv_13=(Token)match(input,22,FOLLOW_22_in_ruleUMLTestCase579); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                          	newLeafNode(otherlv_13, grammarAccess.getTestCaseAccess().getLeftSquareBracketKeyword_7_1());
+                          	newLeafNode(otherlv_13, grammarAccess.getUMLTestCaseAccess().getLeftSquareBracketKeyword_7_1());
                           
                     }
                     // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:319:1: ( (otherlv_14= RULE_ID ) )
@@ -907,14 +907,14 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                     if ( state.backtracking==0 ) {
 
                       			if (current==null) {
-                      	            current = createModelElement(grammarAccess.getTestCaseRule());
+                      	            current = createModelElement(grammarAccess.getUMLTestCaseRule());
                       	        }
                               
                     }
-                    otherlv_14=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleTestCase599); if (state.failed) return current;
+                    otherlv_14=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleUMLTestCase599); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                      		newLeafNode(otherlv_14, grammarAccess.getTestCaseAccess().getInitScenariosScenarioCrossReference_7_2_0()); 
+                      		newLeafNode(otherlv_14, grammarAccess.getUMLTestCaseAccess().getInitScenariosUMLScenarioCrossReference_7_2_0()); 
                       	
                     }
 
@@ -938,10 +938,10 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                     	case 1 :
                     	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:332:4: otherlv_15= ',' ( (otherlv_16= RULE_ID ) )
                     	    {
-                    	    otherlv_15=(Token)match(input,17,FOLLOW_17_in_ruleTestCase612); if (state.failed) return current;
+                    	    otherlv_15=(Token)match(input,17,FOLLOW_17_in_ruleUMLTestCase612); if (state.failed) return current;
                     	    if ( state.backtracking==0 ) {
 
-                    	          	newLeafNode(otherlv_15, grammarAccess.getTestCaseAccess().getCommaKeyword_7_3_0());
+                    	          	newLeafNode(otherlv_15, grammarAccess.getUMLTestCaseAccess().getCommaKeyword_7_3_0());
                     	          
                     	    }
                     	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:336:1: ( (otherlv_16= RULE_ID ) )
@@ -953,14 +953,14 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                     	    if ( state.backtracking==0 ) {
 
                     	      			if (current==null) {
-                    	      	            current = createModelElement(grammarAccess.getTestCaseRule());
+                    	      	            current = createModelElement(grammarAccess.getUMLTestCaseRule());
                     	      	        }
                     	              
                     	    }
-                    	    otherlv_16=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleTestCase632); if (state.failed) return current;
+                    	    otherlv_16=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleUMLTestCase632); if (state.failed) return current;
                     	    if ( state.backtracking==0 ) {
 
-                    	      		newLeafNode(otherlv_16, grammarAccess.getTestCaseAccess().getInitScenariosScenarioCrossReference_7_3_1_0()); 
+                    	      		newLeafNode(otherlv_16, grammarAccess.getUMLTestCaseAccess().getInitScenariosUMLScenarioCrossReference_7_3_1_0()); 
                     	      	
                     	    }
 
@@ -978,16 +978,16 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                         }
                     } while (true);
 
-                    otherlv_17=(Token)match(input,23,FOLLOW_23_in_ruleTestCase646); if (state.failed) return current;
+                    otherlv_17=(Token)match(input,23,FOLLOW_23_in_ruleUMLTestCase646); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                          	newLeafNode(otherlv_17, grammarAccess.getTestCaseAccess().getRightSquareBracketKeyword_7_4());
+                          	newLeafNode(otherlv_17, grammarAccess.getUMLTestCaseAccess().getRightSquareBracketKeyword_7_4());
                           
                     }
-                    otherlv_18=(Token)match(input,24,FOLLOW_24_in_ruleTestCase658); if (state.failed) return current;
+                    otherlv_18=(Token)match(input,24,FOLLOW_24_in_ruleUMLTestCase658); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                          	newLeafNode(otherlv_18, grammarAccess.getTestCaseAccess().getSemicolonKeyword_7_5());
+                          	newLeafNode(otherlv_18, grammarAccess.getUMLTestCaseAccess().getSemicolonKeyword_7_5());
                           
                     }
 
@@ -996,7 +996,7 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:357:3: ( (lv_assertions_19_0= ruleAssertion ) )*
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:357:3: ( (lv_assertions_19_0= ruleUMLAssertion ) )*
             loop9:
             do {
                 int alt9=2;
@@ -1009,31 +1009,31 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
                 switch (alt9) {
             	case 1 :
-            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:358:1: (lv_assertions_19_0= ruleAssertion )
+            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:358:1: (lv_assertions_19_0= ruleUMLAssertion )
             	    {
-            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:358:1: (lv_assertions_19_0= ruleAssertion )
-            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:359:3: lv_assertions_19_0= ruleAssertion
+            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:358:1: (lv_assertions_19_0= ruleUMLAssertion )
+            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:359:3: lv_assertions_19_0= ruleUMLAssertion
             	    {
             	    if ( state.backtracking==0 ) {
             	       
-            	      	        newCompositeNode(grammarAccess.getTestCaseAccess().getAssertionsAssertionParserRuleCall_8_0()); 
+            	      	        newCompositeNode(grammarAccess.getUMLTestCaseAccess().getAssertionsUMLAssertionParserRuleCall_8_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleAssertion_in_ruleTestCase681);
-            	    lv_assertions_19_0=ruleAssertion();
+            	    pushFollow(FOLLOW_ruleUMLAssertion_in_ruleUMLTestCase681);
+            	    lv_assertions_19_0=ruleUMLAssertion();
 
             	    state._fsp--;
             	    if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	      	        if (current==null) {
-            	      	            current = createModelElementForParent(grammarAccess.getTestCaseRule());
+            	      	            current = createModelElementForParent(grammarAccess.getUMLTestCaseRule());
             	      	        }
             	             		add(
             	             			current, 
             	             			"assertions",
             	              		lv_assertions_19_0, 
-            	              		"Assertion");
+            	              		"UMLAssertion");
             	      	        afterParserOrEnumRuleCall();
             	      	    
             	    }
@@ -1049,10 +1049,10 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-            otherlv_20=(Token)match(input,25,FOLLOW_25_in_ruleTestCase694); if (state.failed) return current;
+            otherlv_20=(Token)match(input,25,FOLLOW_25_in_ruleUMLTestCase694); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_20, grammarAccess.getTestCaseAccess().getRightCurlyBracketKeyword_9());
+                  	newLeafNode(otherlv_20, grammarAccess.getUMLTestCaseAccess().getRightCurlyBracketKeyword_9());
                   
             }
 
@@ -1074,33 +1074,33 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleTestCase"
+    // $ANTLR end "ruleUMLTestCase"
 
 
-    // $ANTLR start "entryRuleActivityInput"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:387:1: entryRuleActivityInput returns [EObject current=null] : iv_ruleActivityInput= ruleActivityInput EOF ;
-    public final EObject entryRuleActivityInput() throws RecognitionException {
+    // $ANTLR start "entryRuleUMLActivityInput"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:387:1: entryRuleUMLActivityInput returns [EObject current=null] : iv_ruleUMLActivityInput= ruleUMLActivityInput EOF ;
+    public final EObject entryRuleUMLActivityInput() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleActivityInput = null;
+        EObject iv_ruleUMLActivityInput = null;
 
 
         try {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:388:2: (iv_ruleActivityInput= ruleActivityInput EOF )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:389:2: iv_ruleActivityInput= ruleActivityInput EOF
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:388:2: (iv_ruleUMLActivityInput= ruleUMLActivityInput EOF )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:389:2: iv_ruleUMLActivityInput= ruleUMLActivityInput EOF
             {
             if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getActivityInputRule()); 
+               newCompositeNode(grammarAccess.getUMLActivityInputRule()); 
             }
-            pushFollow(FOLLOW_ruleActivityInput_in_entryRuleActivityInput730);
-            iv_ruleActivityInput=ruleActivityInput();
+            pushFollow(FOLLOW_ruleUMLActivityInput_in_entryRuleUMLActivityInput730);
+            iv_ruleUMLActivityInput=ruleUMLActivityInput();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
-               current =iv_ruleActivityInput; 
+               current =iv_ruleUMLActivityInput; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleActivityInput740); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleUMLActivityInput740); if (state.failed) return current;
 
             }
 
@@ -1114,12 +1114,12 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleActivityInput"
+    // $ANTLR end "entryRuleUMLActivityInput"
 
 
-    // $ANTLR start "ruleActivityInput"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:396:1: ruleActivityInput returns [EObject current=null] : ( ( ( ruleQualifiedName ) ) otherlv_1= '=' ( (lv_value_2_0= ruleValue ) ) ) ;
-    public final EObject ruleActivityInput() throws RecognitionException {
+    // $ANTLR start "ruleUMLActivityInput"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:396:1: ruleUMLActivityInput returns [EObject current=null] : ( ( ( ruleQualifiedName ) ) otherlv_1= '=' ( (lv_value_2_0= ruleUMLValue ) ) ) ;
+    public final EObject ruleUMLActivityInput() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_1=null;
@@ -1129,11 +1129,11 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:399:28: ( ( ( ( ruleQualifiedName ) ) otherlv_1= '=' ( (lv_value_2_0= ruleValue ) ) ) )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:400:1: ( ( ( ruleQualifiedName ) ) otherlv_1= '=' ( (lv_value_2_0= ruleValue ) ) )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:399:28: ( ( ( ( ruleQualifiedName ) ) otherlv_1= '=' ( (lv_value_2_0= ruleUMLValue ) ) ) )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:400:1: ( ( ( ruleQualifiedName ) ) otherlv_1= '=' ( (lv_value_2_0= ruleUMLValue ) ) )
             {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:400:1: ( ( ( ruleQualifiedName ) ) otherlv_1= '=' ( (lv_value_2_0= ruleValue ) ) )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:400:2: ( ( ruleQualifiedName ) ) otherlv_1= '=' ( (lv_value_2_0= ruleValue ) )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:400:1: ( ( ( ruleQualifiedName ) ) otherlv_1= '=' ( (lv_value_2_0= ruleUMLValue ) ) )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:400:2: ( ( ruleQualifiedName ) ) otherlv_1= '=' ( (lv_value_2_0= ruleUMLValue ) )
             {
             // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:400:2: ( ( ruleQualifiedName ) )
             // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:401:1: ( ruleQualifiedName )
@@ -1144,16 +1144,16 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
 
               			if (current==null) {
-              	            current = createModelElement(grammarAccess.getActivityInputRule());
+              	            current = createModelElement(grammarAccess.getUMLActivityInputRule());
               	        }
                       
             }
             if ( state.backtracking==0 ) {
                
-              	        newCompositeNode(grammarAccess.getActivityInputAccess().getParameterActivityParameterNodeCrossReference_0_0()); 
+              	        newCompositeNode(grammarAccess.getUMLActivityInputAccess().getParameterActivityParameterNodeCrossReference_0_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleQualifiedName_in_ruleActivityInput788);
+            pushFollow(FOLLOW_ruleQualifiedName_in_ruleUMLActivityInput788);
             ruleQualifiedName();
 
             state._fsp--;
@@ -1169,38 +1169,38 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,26,FOLLOW_26_in_ruleActivityInput800); if (state.failed) return current;
+            otherlv_1=(Token)match(input,26,FOLLOW_26_in_ruleUMLActivityInput800); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_1, grammarAccess.getActivityInputAccess().getEqualsSignKeyword_1());
+                  	newLeafNode(otherlv_1, grammarAccess.getUMLActivityInputAccess().getEqualsSignKeyword_1());
                   
             }
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:419:1: ( (lv_value_2_0= ruleValue ) )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:420:1: (lv_value_2_0= ruleValue )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:419:1: ( (lv_value_2_0= ruleUMLValue ) )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:420:1: (lv_value_2_0= ruleUMLValue )
             {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:420:1: (lv_value_2_0= ruleValue )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:421:3: lv_value_2_0= ruleValue
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:420:1: (lv_value_2_0= ruleUMLValue )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:421:3: lv_value_2_0= ruleUMLValue
             {
             if ( state.backtracking==0 ) {
                
-              	        newCompositeNode(grammarAccess.getActivityInputAccess().getValueValueParserRuleCall_2_0()); 
+              	        newCompositeNode(grammarAccess.getUMLActivityInputAccess().getValueUMLValueParserRuleCall_2_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleValue_in_ruleActivityInput821);
-            lv_value_2_0=ruleValue();
+            pushFollow(FOLLOW_ruleUMLValue_in_ruleUMLActivityInput821);
+            lv_value_2_0=ruleUMLValue();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               	        if (current==null) {
-              	            current = createModelElementForParent(grammarAccess.getActivityInputRule());
+              	            current = createModelElementForParent(grammarAccess.getUMLActivityInputRule());
               	        }
                      		set(
                      			current, 
                      			"value",
                       		lv_value_2_0, 
-                      		"Value");
+                      		"UMLValue");
               	        afterParserOrEnumRuleCall();
               	    
             }
@@ -1229,33 +1229,33 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleActivityInput"
+    // $ANTLR end "ruleUMLActivityInput"
 
 
-    // $ANTLR start "entryRuleValue"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:445:1: entryRuleValue returns [EObject current=null] : iv_ruleValue= ruleValue EOF ;
-    public final EObject entryRuleValue() throws RecognitionException {
+    // $ANTLR start "entryRuleUMLValue"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:445:1: entryRuleUMLValue returns [EObject current=null] : iv_ruleUMLValue= ruleUMLValue EOF ;
+    public final EObject entryRuleUMLValue() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleValue = null;
+        EObject iv_ruleUMLValue = null;
 
 
         try {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:446:2: (iv_ruleValue= ruleValue EOF )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:447:2: iv_ruleValue= ruleValue EOF
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:446:2: (iv_ruleUMLValue= ruleUMLValue EOF )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:447:2: iv_ruleUMLValue= ruleUMLValue EOF
             {
             if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getValueRule()); 
+               newCompositeNode(grammarAccess.getUMLValueRule()); 
             }
-            pushFollow(FOLLOW_ruleValue_in_entryRuleValue857);
-            iv_ruleValue=ruleValue();
+            pushFollow(FOLLOW_ruleUMLValue_in_entryRuleUMLValue857);
+            iv_ruleUMLValue=ruleUMLValue();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
-               current =iv_ruleValue; 
+               current =iv_ruleUMLValue; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleValue867); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleUMLValue867); if (state.failed) return current;
 
             }
 
@@ -1269,26 +1269,26 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleValue"
+    // $ANTLR end "entryRuleUMLValue"
 
 
-    // $ANTLR start "ruleValue"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:454:1: ruleValue returns [EObject current=null] : (this_SimpleValue_0= ruleSimpleValue | this_ObjectValue_1= ruleObjectValue ) ;
-    public final EObject ruleValue() throws RecognitionException {
+    // $ANTLR start "ruleUMLValue"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:454:1: ruleUMLValue returns [EObject current=null] : (this_UMLSimpleValue_0= ruleUMLSimpleValue | this_UMLObjectValue_1= ruleUMLObjectValue ) ;
+    public final EObject ruleUMLValue() throws RecognitionException {
         EObject current = null;
 
-        EObject this_SimpleValue_0 = null;
+        EObject this_UMLSimpleValue_0 = null;
 
-        EObject this_ObjectValue_1 = null;
+        EObject this_UMLObjectValue_1 = null;
 
 
          enterRule(); 
             
         try {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:457:28: ( (this_SimpleValue_0= ruleSimpleValue | this_ObjectValue_1= ruleObjectValue ) )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:458:1: (this_SimpleValue_0= ruleSimpleValue | this_ObjectValue_1= ruleObjectValue )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:457:28: ( (this_UMLSimpleValue_0= ruleUMLSimpleValue | this_UMLObjectValue_1= ruleUMLObjectValue ) )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:458:1: (this_UMLSimpleValue_0= ruleUMLSimpleValue | this_UMLObjectValue_1= ruleUMLObjectValue )
             {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:458:1: (this_SimpleValue_0= ruleSimpleValue | this_ObjectValue_1= ruleObjectValue )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:458:1: (this_UMLSimpleValue_0= ruleUMLSimpleValue | this_UMLObjectValue_1= ruleUMLObjectValue )
             int alt10=2;
             int LA10_0 = input.LA(1);
 
@@ -1307,21 +1307,21 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
             }
             switch (alt10) {
                 case 1 :
-                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:459:5: this_SimpleValue_0= ruleSimpleValue
+                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:459:5: this_UMLSimpleValue_0= ruleUMLSimpleValue
                     {
                     if ( state.backtracking==0 ) {
                        
-                              newCompositeNode(grammarAccess.getValueAccess().getSimpleValueParserRuleCall_0()); 
+                              newCompositeNode(grammarAccess.getUMLValueAccess().getUMLSimpleValueParserRuleCall_0()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleSimpleValue_in_ruleValue914);
-                    this_SimpleValue_0=ruleSimpleValue();
+                    pushFollow(FOLLOW_ruleUMLSimpleValue_in_ruleUMLValue914);
+                    this_UMLSimpleValue_0=ruleUMLSimpleValue();
 
                     state._fsp--;
                     if (state.failed) return current;
                     if ( state.backtracking==0 ) {
                        
-                              current = this_SimpleValue_0; 
+                              current = this_UMLSimpleValue_0; 
                               afterParserOrEnumRuleCall();
                           
                     }
@@ -1329,21 +1329,21 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:469:5: this_ObjectValue_1= ruleObjectValue
+                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:469:5: this_UMLObjectValue_1= ruleUMLObjectValue
                     {
                     if ( state.backtracking==0 ) {
                        
-                              newCompositeNode(grammarAccess.getValueAccess().getObjectValueParserRuleCall_1()); 
+                              newCompositeNode(grammarAccess.getUMLValueAccess().getUMLObjectValueParserRuleCall_1()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleObjectValue_in_ruleValue941);
-                    this_ObjectValue_1=ruleObjectValue();
+                    pushFollow(FOLLOW_ruleUMLObjectValue_in_ruleUMLValue941);
+                    this_UMLObjectValue_1=ruleUMLObjectValue();
 
                     state._fsp--;
                     if (state.failed) return current;
                     if ( state.backtracking==0 ) {
                        
-                              current = this_ObjectValue_1; 
+                              current = this_UMLObjectValue_1; 
                               afterParserOrEnumRuleCall();
                           
                     }
@@ -1369,33 +1369,33 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleValue"
+    // $ANTLR end "ruleUMLValue"
 
 
-    // $ANTLR start "entryRuleSimpleValue"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:485:1: entryRuleSimpleValue returns [EObject current=null] : iv_ruleSimpleValue= ruleSimpleValue EOF ;
-    public final EObject entryRuleSimpleValue() throws RecognitionException {
+    // $ANTLR start "entryRuleUMLSimpleValue"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:485:1: entryRuleUMLSimpleValue returns [EObject current=null] : iv_ruleUMLSimpleValue= ruleUMLSimpleValue EOF ;
+    public final EObject entryRuleUMLSimpleValue() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleSimpleValue = null;
+        EObject iv_ruleUMLSimpleValue = null;
 
 
         try {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:486:2: (iv_ruleSimpleValue= ruleSimpleValue EOF )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:487:2: iv_ruleSimpleValue= ruleSimpleValue EOF
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:486:2: (iv_ruleUMLSimpleValue= ruleUMLSimpleValue EOF )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:487:2: iv_ruleUMLSimpleValue= ruleUMLSimpleValue EOF
             {
             if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getSimpleValueRule()); 
+               newCompositeNode(grammarAccess.getUMLSimpleValueRule()); 
             }
-            pushFollow(FOLLOW_ruleSimpleValue_in_entryRuleSimpleValue976);
-            iv_ruleSimpleValue=ruleSimpleValue();
+            pushFollow(FOLLOW_ruleUMLSimpleValue_in_entryRuleUMLSimpleValue976);
+            iv_ruleUMLSimpleValue=ruleUMLSimpleValue();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
-               current =iv_ruleSimpleValue; 
+               current =iv_ruleUMLSimpleValue; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleSimpleValue986); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleUMLSimpleValue986); if (state.failed) return current;
 
             }
 
@@ -1409,12 +1409,12 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleSimpleValue"
+    // $ANTLR end "entryRuleUMLSimpleValue"
 
 
-    // $ANTLR start "ruleSimpleValue"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:494:1: ruleSimpleValue returns [EObject current=null] : ( (lv_value_0_0= ruleXLiteral ) ) ;
-    public final EObject ruleSimpleValue() throws RecognitionException {
+    // $ANTLR start "ruleUMLSimpleValue"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:494:1: ruleUMLSimpleValue returns [EObject current=null] : ( (lv_value_0_0= ruleXLiteral ) ) ;
+    public final EObject ruleUMLSimpleValue() throws RecognitionException {
         EObject current = null;
 
         EObject lv_value_0_0 = null;
@@ -1434,10 +1434,10 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
             {
             if ( state.backtracking==0 ) {
                
-              	        newCompositeNode(grammarAccess.getSimpleValueAccess().getValueXLiteralParserRuleCall_0()); 
+              	        newCompositeNode(grammarAccess.getUMLSimpleValueAccess().getValueXLiteralParserRuleCall_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleXLiteral_in_ruleSimpleValue1031);
+            pushFollow(FOLLOW_ruleXLiteral_in_ruleUMLSimpleValue1031);
             lv_value_0_0=ruleXLiteral();
 
             state._fsp--;
@@ -1445,7 +1445,7 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
 
               	        if (current==null) {
-              	            current = createModelElementForParent(grammarAccess.getSimpleValueRule());
+              	            current = createModelElementForParent(grammarAccess.getUMLSimpleValueRule());
               	        }
                      		set(
                      			current, 
@@ -1477,33 +1477,33 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleSimpleValue"
+    // $ANTLR end "ruleUMLSimpleValue"
 
 
-    // $ANTLR start "entryRuleObjectValue"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:524:1: entryRuleObjectValue returns [EObject current=null] : iv_ruleObjectValue= ruleObjectValue EOF ;
-    public final EObject entryRuleObjectValue() throws RecognitionException {
+    // $ANTLR start "entryRuleUMLObjectValue"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:524:1: entryRuleUMLObjectValue returns [EObject current=null] : iv_ruleUMLObjectValue= ruleUMLObjectValue EOF ;
+    public final EObject entryRuleUMLObjectValue() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleObjectValue = null;
+        EObject iv_ruleUMLObjectValue = null;
 
 
         try {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:525:2: (iv_ruleObjectValue= ruleObjectValue EOF )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:526:2: iv_ruleObjectValue= ruleObjectValue EOF
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:525:2: (iv_ruleUMLObjectValue= ruleUMLObjectValue EOF )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:526:2: iv_ruleUMLObjectValue= ruleUMLObjectValue EOF
             {
             if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getObjectValueRule()); 
+               newCompositeNode(grammarAccess.getUMLObjectValueRule()); 
             }
-            pushFollow(FOLLOW_ruleObjectValue_in_entryRuleObjectValue1066);
-            iv_ruleObjectValue=ruleObjectValue();
+            pushFollow(FOLLOW_ruleUMLObjectValue_in_entryRuleUMLObjectValue1066);
+            iv_ruleUMLObjectValue=ruleUMLObjectValue();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
-               current =iv_ruleObjectValue; 
+               current =iv_ruleUMLObjectValue; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleObjectValue1076); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleUMLObjectValue1076); if (state.failed) return current;
 
             }
 
@@ -1517,12 +1517,12 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleObjectValue"
+    // $ANTLR end "entryRuleUMLObjectValue"
 
 
-    // $ANTLR start "ruleObjectValue"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:533:1: ruleObjectValue returns [EObject current=null] : ( ( ruleQualifiedName ) ) ;
-    public final EObject ruleObjectValue() throws RecognitionException {
+    // $ANTLR start "ruleUMLObjectValue"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:533:1: ruleUMLObjectValue returns [EObject current=null] : ( ( ruleQualifiedName ) ) ;
+    public final EObject ruleUMLObjectValue() throws RecognitionException {
         EObject current = null;
 
          enterRule(); 
@@ -1540,16 +1540,16 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
 
               			if (current==null) {
-              	            current = createModelElement(grammarAccess.getObjectValueRule());
+              	            current = createModelElement(grammarAccess.getUMLObjectValueRule());
               	        }
                       
             }
             if ( state.backtracking==0 ) {
                
-              	        newCompositeNode(grammarAccess.getObjectValueAccess().getValueObjectSpecificationCrossReference_0()); 
+              	        newCompositeNode(grammarAccess.getUMLObjectValueAccess().getValueUMLObjectSpecificationCrossReference_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleQualifiedName_in_ruleObjectValue1123);
+            pushFollow(FOLLOW_ruleQualifiedName_in_ruleUMLObjectValue1123);
             ruleQualifiedName();
 
             state._fsp--;
@@ -1581,33 +1581,33 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleObjectValue"
+    // $ANTLR end "ruleUMLObjectValue"
 
 
-    // $ANTLR start "entryRuleScenario"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:560:1: entryRuleScenario returns [EObject current=null] : iv_ruleScenario= ruleScenario EOF ;
-    public final EObject entryRuleScenario() throws RecognitionException {
+    // $ANTLR start "entryRuleUMLScenario"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:560:1: entryRuleUMLScenario returns [EObject current=null] : iv_ruleUMLScenario= ruleUMLScenario EOF ;
+    public final EObject entryRuleUMLScenario() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleScenario = null;
+        EObject iv_ruleUMLScenario = null;
 
 
         try {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:561:2: (iv_ruleScenario= ruleScenario EOF )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:562:2: iv_ruleScenario= ruleScenario EOF
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:561:2: (iv_ruleUMLScenario= ruleUMLScenario EOF )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:562:2: iv_ruleUMLScenario= ruleUMLScenario EOF
             {
             if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getScenarioRule()); 
+               newCompositeNode(grammarAccess.getUMLScenarioRule()); 
             }
-            pushFollow(FOLLOW_ruleScenario_in_entryRuleScenario1158);
-            iv_ruleScenario=ruleScenario();
+            pushFollow(FOLLOW_ruleUMLScenario_in_entryRuleUMLScenario1158);
+            iv_ruleUMLScenario=ruleUMLScenario();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
-               current =iv_ruleScenario; 
+               current =iv_ruleUMLScenario; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleScenario1168); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleUMLScenario1168); if (state.failed) return current;
 
             }
 
@@ -1621,12 +1621,12 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleScenario"
+    // $ANTLR end "entryRuleUMLScenario"
 
 
-    // $ANTLR start "ruleScenario"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:569:1: ruleScenario returns [EObject current=null] : (otherlv_0= 'scenario' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '[' ( (lv_objects_3_0= ruleObjectSpecification ) )* ( (lv_links_4_0= ruleLink ) )* otherlv_5= ']' ) ;
-    public final EObject ruleScenario() throws RecognitionException {
+    // $ANTLR start "ruleUMLScenario"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:569:1: ruleUMLScenario returns [EObject current=null] : (otherlv_0= 'scenario' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '[' ( (lv_objects_3_0= ruleUMLObjectSpecification ) )* ( (lv_links_4_0= ruleUMLLink ) )* otherlv_5= ']' ) ;
+    public final EObject ruleUMLScenario() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_0=null;
@@ -1641,16 +1641,16 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:572:28: ( (otherlv_0= 'scenario' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '[' ( (lv_objects_3_0= ruleObjectSpecification ) )* ( (lv_links_4_0= ruleLink ) )* otherlv_5= ']' ) )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:573:1: (otherlv_0= 'scenario' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '[' ( (lv_objects_3_0= ruleObjectSpecification ) )* ( (lv_links_4_0= ruleLink ) )* otherlv_5= ']' )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:572:28: ( (otherlv_0= 'scenario' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '[' ( (lv_objects_3_0= ruleUMLObjectSpecification ) )* ( (lv_links_4_0= ruleUMLLink ) )* otherlv_5= ']' ) )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:573:1: (otherlv_0= 'scenario' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '[' ( (lv_objects_3_0= ruleUMLObjectSpecification ) )* ( (lv_links_4_0= ruleUMLLink ) )* otherlv_5= ']' )
             {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:573:1: (otherlv_0= 'scenario' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '[' ( (lv_objects_3_0= ruleObjectSpecification ) )* ( (lv_links_4_0= ruleLink ) )* otherlv_5= ']' )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:573:3: otherlv_0= 'scenario' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '[' ( (lv_objects_3_0= ruleObjectSpecification ) )* ( (lv_links_4_0= ruleLink ) )* otherlv_5= ']'
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:573:1: (otherlv_0= 'scenario' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '[' ( (lv_objects_3_0= ruleUMLObjectSpecification ) )* ( (lv_links_4_0= ruleUMLLink ) )* otherlv_5= ']' )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:573:3: otherlv_0= 'scenario' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= '[' ( (lv_objects_3_0= ruleUMLObjectSpecification ) )* ( (lv_links_4_0= ruleUMLLink ) )* otherlv_5= ']'
             {
-            otherlv_0=(Token)match(input,27,FOLLOW_27_in_ruleScenario1205); if (state.failed) return current;
+            otherlv_0=(Token)match(input,27,FOLLOW_27_in_ruleUMLScenario1205); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_0, grammarAccess.getScenarioAccess().getScenarioKeyword_0());
+                  	newLeafNode(otherlv_0, grammarAccess.getUMLScenarioAccess().getScenarioKeyword_0());
                   
             }
             // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:577:1: ( (lv_name_1_0= RULE_ID ) )
@@ -1659,16 +1659,16 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
             // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:578:1: (lv_name_1_0= RULE_ID )
             // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:579:3: lv_name_1_0= RULE_ID
             {
-            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleScenario1222); if (state.failed) return current;
+            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleUMLScenario1222); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-              			newLeafNode(lv_name_1_0, grammarAccess.getScenarioAccess().getNameIDTerminalRuleCall_1_0()); 
+              			newLeafNode(lv_name_1_0, grammarAccess.getUMLScenarioAccess().getNameIDTerminalRuleCall_1_0()); 
               		
             }
             if ( state.backtracking==0 ) {
 
               	        if (current==null) {
-              	            current = createModelElement(grammarAccess.getScenarioRule());
+              	            current = createModelElement(grammarAccess.getUMLScenarioRule());
               	        }
                      		setWithLastConsumed(
                      			current, 
@@ -1683,13 +1683,13 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_2=(Token)match(input,22,FOLLOW_22_in_ruleScenario1239); if (state.failed) return current;
+            otherlv_2=(Token)match(input,22,FOLLOW_22_in_ruleUMLScenario1239); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_2, grammarAccess.getScenarioAccess().getLeftSquareBracketKeyword_2());
+                  	newLeafNode(otherlv_2, grammarAccess.getUMLScenarioAccess().getLeftSquareBracketKeyword_2());
                   
             }
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:599:1: ( (lv_objects_3_0= ruleObjectSpecification ) )*
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:599:1: ( (lv_objects_3_0= ruleUMLObjectSpecification ) )*
             loop11:
             do {
                 int alt11=2;
@@ -1702,31 +1702,31 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
                 switch (alt11) {
             	case 1 :
-            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:600:1: (lv_objects_3_0= ruleObjectSpecification )
+            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:600:1: (lv_objects_3_0= ruleUMLObjectSpecification )
             	    {
-            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:600:1: (lv_objects_3_0= ruleObjectSpecification )
-            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:601:3: lv_objects_3_0= ruleObjectSpecification
+            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:600:1: (lv_objects_3_0= ruleUMLObjectSpecification )
+            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:601:3: lv_objects_3_0= ruleUMLObjectSpecification
             	    {
             	    if ( state.backtracking==0 ) {
             	       
-            	      	        newCompositeNode(grammarAccess.getScenarioAccess().getObjectsObjectSpecificationParserRuleCall_3_0()); 
+            	      	        newCompositeNode(grammarAccess.getUMLScenarioAccess().getObjectsUMLObjectSpecificationParserRuleCall_3_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleObjectSpecification_in_ruleScenario1260);
-            	    lv_objects_3_0=ruleObjectSpecification();
+            	    pushFollow(FOLLOW_ruleUMLObjectSpecification_in_ruleUMLScenario1260);
+            	    lv_objects_3_0=ruleUMLObjectSpecification();
 
             	    state._fsp--;
             	    if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	      	        if (current==null) {
-            	      	            current = createModelElementForParent(grammarAccess.getScenarioRule());
+            	      	            current = createModelElementForParent(grammarAccess.getUMLScenarioRule());
             	      	        }
             	             		add(
             	             			current, 
             	             			"objects",
             	              		lv_objects_3_0, 
-            	              		"ObjectSpecification");
+            	              		"UMLObjectSpecification");
             	      	        afterParserOrEnumRuleCall();
             	      	    
             	    }
@@ -1742,7 +1742,7 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:617:3: ( (lv_links_4_0= ruleLink ) )*
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:617:3: ( (lv_links_4_0= ruleUMLLink ) )*
             loop12:
             do {
                 int alt12=2;
@@ -1755,31 +1755,31 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
                 switch (alt12) {
             	case 1 :
-            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:618:1: (lv_links_4_0= ruleLink )
+            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:618:1: (lv_links_4_0= ruleUMLLink )
             	    {
-            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:618:1: (lv_links_4_0= ruleLink )
-            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:619:3: lv_links_4_0= ruleLink
+            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:618:1: (lv_links_4_0= ruleUMLLink )
+            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:619:3: lv_links_4_0= ruleUMLLink
             	    {
             	    if ( state.backtracking==0 ) {
             	       
-            	      	        newCompositeNode(grammarAccess.getScenarioAccess().getLinksLinkParserRuleCall_4_0()); 
+            	      	        newCompositeNode(grammarAccess.getUMLScenarioAccess().getLinksUMLLinkParserRuleCall_4_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleLink_in_ruleScenario1282);
-            	    lv_links_4_0=ruleLink();
+            	    pushFollow(FOLLOW_ruleUMLLink_in_ruleUMLScenario1282);
+            	    lv_links_4_0=ruleUMLLink();
 
             	    state._fsp--;
             	    if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	      	        if (current==null) {
-            	      	            current = createModelElementForParent(grammarAccess.getScenarioRule());
+            	      	            current = createModelElementForParent(grammarAccess.getUMLScenarioRule());
             	      	        }
             	             		add(
             	             			current, 
             	             			"links",
             	              		lv_links_4_0, 
-            	              		"Link");
+            	              		"UMLLink");
             	      	        afterParserOrEnumRuleCall();
             	      	    
             	    }
@@ -1795,10 +1795,10 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-            otherlv_5=(Token)match(input,23,FOLLOW_23_in_ruleScenario1295); if (state.failed) return current;
+            otherlv_5=(Token)match(input,23,FOLLOW_23_in_ruleUMLScenario1295); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_5, grammarAccess.getScenarioAccess().getRightSquareBracketKeyword_5());
+                  	newLeafNode(otherlv_5, grammarAccess.getUMLScenarioAccess().getRightSquareBracketKeyword_5());
                   
             }
 
@@ -1820,33 +1820,33 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleScenario"
+    // $ANTLR end "ruleUMLScenario"
 
 
-    // $ANTLR start "entryRuleObjectSpecification"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:647:1: entryRuleObjectSpecification returns [EObject current=null] : iv_ruleObjectSpecification= ruleObjectSpecification EOF ;
-    public final EObject entryRuleObjectSpecification() throws RecognitionException {
+    // $ANTLR start "entryRuleUMLObjectSpecification"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:647:1: entryRuleUMLObjectSpecification returns [EObject current=null] : iv_ruleUMLObjectSpecification= ruleUMLObjectSpecification EOF ;
+    public final EObject entryRuleUMLObjectSpecification() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleObjectSpecification = null;
+        EObject iv_ruleUMLObjectSpecification = null;
 
 
         try {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:648:2: (iv_ruleObjectSpecification= ruleObjectSpecification EOF )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:649:2: iv_ruleObjectSpecification= ruleObjectSpecification EOF
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:648:2: (iv_ruleUMLObjectSpecification= ruleUMLObjectSpecification EOF )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:649:2: iv_ruleUMLObjectSpecification= ruleUMLObjectSpecification EOF
             {
             if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getObjectSpecificationRule()); 
+               newCompositeNode(grammarAccess.getUMLObjectSpecificationRule()); 
             }
-            pushFollow(FOLLOW_ruleObjectSpecification_in_entryRuleObjectSpecification1331);
-            iv_ruleObjectSpecification=ruleObjectSpecification();
+            pushFollow(FOLLOW_ruleUMLObjectSpecification_in_entryRuleUMLObjectSpecification1331);
+            iv_ruleUMLObjectSpecification=ruleUMLObjectSpecification();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
-               current =iv_ruleObjectSpecification; 
+               current =iv_ruleUMLObjectSpecification; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleObjectSpecification1341); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleUMLObjectSpecification1341); if (state.failed) return current;
 
             }
 
@@ -1860,12 +1860,12 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleObjectSpecification"
+    // $ANTLR end "entryRuleUMLObjectSpecification"
 
 
-    // $ANTLR start "ruleObjectSpecification"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:656:1: ruleObjectSpecification returns [EObject current=null] : (otherlv_0= 'object' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= ':' ( ( ruleQualifiedName ) ) otherlv_4= '{' ( (lv_attributes_5_0= ruleAttribute ) )* otherlv_6= '}' ) ;
-    public final EObject ruleObjectSpecification() throws RecognitionException {
+    // $ANTLR start "ruleUMLObjectSpecification"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:656:1: ruleUMLObjectSpecification returns [EObject current=null] : (otherlv_0= 'object' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= ':' ( ( ruleQualifiedName ) ) otherlv_4= '{' ( (lv_attributes_5_0= ruleUMLAttribute ) )* otherlv_6= '}' ) ;
+    public final EObject ruleUMLObjectSpecification() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_0=null;
@@ -1879,16 +1879,16 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:659:28: ( (otherlv_0= 'object' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= ':' ( ( ruleQualifiedName ) ) otherlv_4= '{' ( (lv_attributes_5_0= ruleAttribute ) )* otherlv_6= '}' ) )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:660:1: (otherlv_0= 'object' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= ':' ( ( ruleQualifiedName ) ) otherlv_4= '{' ( (lv_attributes_5_0= ruleAttribute ) )* otherlv_6= '}' )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:659:28: ( (otherlv_0= 'object' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= ':' ( ( ruleQualifiedName ) ) otherlv_4= '{' ( (lv_attributes_5_0= ruleUMLAttribute ) )* otherlv_6= '}' ) )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:660:1: (otherlv_0= 'object' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= ':' ( ( ruleQualifiedName ) ) otherlv_4= '{' ( (lv_attributes_5_0= ruleUMLAttribute ) )* otherlv_6= '}' )
             {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:660:1: (otherlv_0= 'object' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= ':' ( ( ruleQualifiedName ) ) otherlv_4= '{' ( (lv_attributes_5_0= ruleAttribute ) )* otherlv_6= '}' )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:660:3: otherlv_0= 'object' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= ':' ( ( ruleQualifiedName ) ) otherlv_4= '{' ( (lv_attributes_5_0= ruleAttribute ) )* otherlv_6= '}'
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:660:1: (otherlv_0= 'object' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= ':' ( ( ruleQualifiedName ) ) otherlv_4= '{' ( (lv_attributes_5_0= ruleUMLAttribute ) )* otherlv_6= '}' )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:660:3: otherlv_0= 'object' ( (lv_name_1_0= RULE_ID ) ) otherlv_2= ':' ( ( ruleQualifiedName ) ) otherlv_4= '{' ( (lv_attributes_5_0= ruleUMLAttribute ) )* otherlv_6= '}'
             {
-            otherlv_0=(Token)match(input,28,FOLLOW_28_in_ruleObjectSpecification1378); if (state.failed) return current;
+            otherlv_0=(Token)match(input,28,FOLLOW_28_in_ruleUMLObjectSpecification1378); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_0, grammarAccess.getObjectSpecificationAccess().getObjectKeyword_0());
+                  	newLeafNode(otherlv_0, grammarAccess.getUMLObjectSpecificationAccess().getObjectKeyword_0());
                   
             }
             // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:664:1: ( (lv_name_1_0= RULE_ID ) )
@@ -1897,16 +1897,16 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
             // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:665:1: (lv_name_1_0= RULE_ID )
             // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:666:3: lv_name_1_0= RULE_ID
             {
-            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleObjectSpecification1395); if (state.failed) return current;
+            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleUMLObjectSpecification1395); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-              			newLeafNode(lv_name_1_0, grammarAccess.getObjectSpecificationAccess().getNameIDTerminalRuleCall_1_0()); 
+              			newLeafNode(lv_name_1_0, grammarAccess.getUMLObjectSpecificationAccess().getNameIDTerminalRuleCall_1_0()); 
               		
             }
             if ( state.backtracking==0 ) {
 
               	        if (current==null) {
-              	            current = createModelElement(grammarAccess.getObjectSpecificationRule());
+              	            current = createModelElement(grammarAccess.getUMLObjectSpecificationRule());
               	        }
                      		setWithLastConsumed(
                      			current, 
@@ -1921,10 +1921,10 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_2=(Token)match(input,29,FOLLOW_29_in_ruleObjectSpecification1412); if (state.failed) return current;
+            otherlv_2=(Token)match(input,29,FOLLOW_29_in_ruleUMLObjectSpecification1412); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_2, grammarAccess.getObjectSpecificationAccess().getColonKeyword_2());
+                  	newLeafNode(otherlv_2, grammarAccess.getUMLObjectSpecificationAccess().getColonKeyword_2());
                   
             }
             // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:686:1: ( ( ruleQualifiedName ) )
@@ -1936,16 +1936,16 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
 
               			if (current==null) {
-              	            current = createModelElement(grammarAccess.getObjectSpecificationRule());
+              	            current = createModelElement(grammarAccess.getUMLObjectSpecificationRule());
               	        }
                       
             }
             if ( state.backtracking==0 ) {
                
-              	        newCompositeNode(grammarAccess.getObjectSpecificationAccess().getTypeClassCrossReference_3_0()); 
+              	        newCompositeNode(grammarAccess.getUMLObjectSpecificationAccess().getTypeClassCrossReference_3_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleQualifiedName_in_ruleObjectSpecification1435);
+            pushFollow(FOLLOW_ruleQualifiedName_in_ruleUMLObjectSpecification1435);
             ruleQualifiedName();
 
             state._fsp--;
@@ -1961,13 +1961,13 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_4=(Token)match(input,20,FOLLOW_20_in_ruleObjectSpecification1447); if (state.failed) return current;
+            otherlv_4=(Token)match(input,20,FOLLOW_20_in_ruleUMLObjectSpecification1447); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_4, grammarAccess.getObjectSpecificationAccess().getLeftCurlyBracketKeyword_4());
+                  	newLeafNode(otherlv_4, grammarAccess.getUMLObjectSpecificationAccess().getLeftCurlyBracketKeyword_4());
                   
             }
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:705:1: ( (lv_attributes_5_0= ruleAttribute ) )*
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:705:1: ( (lv_attributes_5_0= ruleUMLAttribute ) )*
             loop13:
             do {
                 int alt13=2;
@@ -1980,31 +1980,31 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
                 switch (alt13) {
             	case 1 :
-            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:706:1: (lv_attributes_5_0= ruleAttribute )
+            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:706:1: (lv_attributes_5_0= ruleUMLAttribute )
             	    {
-            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:706:1: (lv_attributes_5_0= ruleAttribute )
-            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:707:3: lv_attributes_5_0= ruleAttribute
+            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:706:1: (lv_attributes_5_0= ruleUMLAttribute )
+            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:707:3: lv_attributes_5_0= ruleUMLAttribute
             	    {
             	    if ( state.backtracking==0 ) {
             	       
-            	      	        newCompositeNode(grammarAccess.getObjectSpecificationAccess().getAttributesAttributeParserRuleCall_5_0()); 
+            	      	        newCompositeNode(grammarAccess.getUMLObjectSpecificationAccess().getAttributesUMLAttributeParserRuleCall_5_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleAttribute_in_ruleObjectSpecification1468);
-            	    lv_attributes_5_0=ruleAttribute();
+            	    pushFollow(FOLLOW_ruleUMLAttribute_in_ruleUMLObjectSpecification1468);
+            	    lv_attributes_5_0=ruleUMLAttribute();
 
             	    state._fsp--;
             	    if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	      	        if (current==null) {
-            	      	            current = createModelElementForParent(grammarAccess.getObjectSpecificationRule());
+            	      	            current = createModelElementForParent(grammarAccess.getUMLObjectSpecificationRule());
             	      	        }
             	             		add(
             	             			current, 
             	             			"attributes",
             	              		lv_attributes_5_0, 
-            	              		"Attribute");
+            	              		"UMLAttribute");
             	      	        afterParserOrEnumRuleCall();
             	      	    
             	    }
@@ -2020,10 +2020,10 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-            otherlv_6=(Token)match(input,25,FOLLOW_25_in_ruleObjectSpecification1481); if (state.failed) return current;
+            otherlv_6=(Token)match(input,25,FOLLOW_25_in_ruleUMLObjectSpecification1481); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_6, grammarAccess.getObjectSpecificationAccess().getRightCurlyBracketKeyword_6());
+                  	newLeafNode(otherlv_6, grammarAccess.getUMLObjectSpecificationAccess().getRightCurlyBracketKeyword_6());
                   
             }
 
@@ -2045,33 +2045,33 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleObjectSpecification"
+    // $ANTLR end "ruleUMLObjectSpecification"
 
 
-    // $ANTLR start "entryRuleAttribute"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:735:1: entryRuleAttribute returns [EObject current=null] : iv_ruleAttribute= ruleAttribute EOF ;
-    public final EObject entryRuleAttribute() throws RecognitionException {
+    // $ANTLR start "entryRuleUMLAttribute"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:735:1: entryRuleUMLAttribute returns [EObject current=null] : iv_ruleUMLAttribute= ruleUMLAttribute EOF ;
+    public final EObject entryRuleUMLAttribute() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleAttribute = null;
+        EObject iv_ruleUMLAttribute = null;
 
 
         try {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:736:2: (iv_ruleAttribute= ruleAttribute EOF )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:737:2: iv_ruleAttribute= ruleAttribute EOF
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:736:2: (iv_ruleUMLAttribute= ruleUMLAttribute EOF )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:737:2: iv_ruleUMLAttribute= ruleUMLAttribute EOF
             {
             if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getAttributeRule()); 
+               newCompositeNode(grammarAccess.getUMLAttributeRule()); 
             }
-            pushFollow(FOLLOW_ruleAttribute_in_entryRuleAttribute1517);
-            iv_ruleAttribute=ruleAttribute();
+            pushFollow(FOLLOW_ruleUMLAttribute_in_entryRuleUMLAttribute1517);
+            iv_ruleUMLAttribute=ruleUMLAttribute();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
-               current =iv_ruleAttribute; 
+               current =iv_ruleUMLAttribute; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAttribute1527); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleUMLAttribute1527); if (state.failed) return current;
 
             }
 
@@ -2085,12 +2085,12 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleAttribute"
+    // $ANTLR end "entryRuleUMLAttribute"
 
 
-    // $ANTLR start "ruleAttribute"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:744:1: ruleAttribute returns [EObject current=null] : ( ( ( ruleQualifiedName ) ) otherlv_1= '=' ( (lv_value_2_0= ruleValue ) ) otherlv_3= ';' ) ;
-    public final EObject ruleAttribute() throws RecognitionException {
+    // $ANTLR start "ruleUMLAttribute"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:744:1: ruleUMLAttribute returns [EObject current=null] : ( ( ( ruleQualifiedName ) ) otherlv_1= '=' ( (lv_value_2_0= ruleUMLValue ) ) otherlv_3= ';' ) ;
+    public final EObject ruleUMLAttribute() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_1=null;
@@ -2101,11 +2101,11 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:747:28: ( ( ( ( ruleQualifiedName ) ) otherlv_1= '=' ( (lv_value_2_0= ruleValue ) ) otherlv_3= ';' ) )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:748:1: ( ( ( ruleQualifiedName ) ) otherlv_1= '=' ( (lv_value_2_0= ruleValue ) ) otherlv_3= ';' )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:747:28: ( ( ( ( ruleQualifiedName ) ) otherlv_1= '=' ( (lv_value_2_0= ruleUMLValue ) ) otherlv_3= ';' ) )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:748:1: ( ( ( ruleQualifiedName ) ) otherlv_1= '=' ( (lv_value_2_0= ruleUMLValue ) ) otherlv_3= ';' )
             {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:748:1: ( ( ( ruleQualifiedName ) ) otherlv_1= '=' ( (lv_value_2_0= ruleValue ) ) otherlv_3= ';' )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:748:2: ( ( ruleQualifiedName ) ) otherlv_1= '=' ( (lv_value_2_0= ruleValue ) ) otherlv_3= ';'
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:748:1: ( ( ( ruleQualifiedName ) ) otherlv_1= '=' ( (lv_value_2_0= ruleUMLValue ) ) otherlv_3= ';' )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:748:2: ( ( ruleQualifiedName ) ) otherlv_1= '=' ( (lv_value_2_0= ruleUMLValue ) ) otherlv_3= ';'
             {
             // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:748:2: ( ( ruleQualifiedName ) )
             // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:749:1: ( ruleQualifiedName )
@@ -2116,16 +2116,16 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
 
               			if (current==null) {
-              	            current = createModelElement(grammarAccess.getAttributeRule());
+              	            current = createModelElement(grammarAccess.getUMLAttributeRule());
               	        }
                       
             }
             if ( state.backtracking==0 ) {
                
-              	        newCompositeNode(grammarAccess.getAttributeAccess().getAttPropertyCrossReference_0_0()); 
+              	        newCompositeNode(grammarAccess.getUMLAttributeAccess().getAttPropertyCrossReference_0_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleQualifiedName_in_ruleAttribute1575);
+            pushFollow(FOLLOW_ruleQualifiedName_in_ruleUMLAttribute1575);
             ruleQualifiedName();
 
             state._fsp--;
@@ -2141,38 +2141,38 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,26,FOLLOW_26_in_ruleAttribute1587); if (state.failed) return current;
+            otherlv_1=(Token)match(input,26,FOLLOW_26_in_ruleUMLAttribute1587); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_1, grammarAccess.getAttributeAccess().getEqualsSignKeyword_1());
+                  	newLeafNode(otherlv_1, grammarAccess.getUMLAttributeAccess().getEqualsSignKeyword_1());
                   
             }
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:767:1: ( (lv_value_2_0= ruleValue ) )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:768:1: (lv_value_2_0= ruleValue )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:767:1: ( (lv_value_2_0= ruleUMLValue ) )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:768:1: (lv_value_2_0= ruleUMLValue )
             {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:768:1: (lv_value_2_0= ruleValue )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:769:3: lv_value_2_0= ruleValue
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:768:1: (lv_value_2_0= ruleUMLValue )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:769:3: lv_value_2_0= ruleUMLValue
             {
             if ( state.backtracking==0 ) {
                
-              	        newCompositeNode(grammarAccess.getAttributeAccess().getValueValueParserRuleCall_2_0()); 
+              	        newCompositeNode(grammarAccess.getUMLAttributeAccess().getValueUMLValueParserRuleCall_2_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleValue_in_ruleAttribute1608);
-            lv_value_2_0=ruleValue();
+            pushFollow(FOLLOW_ruleUMLValue_in_ruleUMLAttribute1608);
+            lv_value_2_0=ruleUMLValue();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               	        if (current==null) {
-              	            current = createModelElementForParent(grammarAccess.getAttributeRule());
+              	            current = createModelElementForParent(grammarAccess.getUMLAttributeRule());
               	        }
                      		set(
                      			current, 
                      			"value",
                       		lv_value_2_0, 
-                      		"Value");
+                      		"UMLValue");
               	        afterParserOrEnumRuleCall();
               	    
             }
@@ -2182,10 +2182,10 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_3=(Token)match(input,24,FOLLOW_24_in_ruleAttribute1620); if (state.failed) return current;
+            otherlv_3=(Token)match(input,24,FOLLOW_24_in_ruleUMLAttribute1620); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_3, grammarAccess.getAttributeAccess().getSemicolonKeyword_3());
+                  	newLeafNode(otherlv_3, grammarAccess.getUMLAttributeAccess().getSemicolonKeyword_3());
                   
             }
 
@@ -2207,33 +2207,33 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleAttribute"
+    // $ANTLR end "ruleUMLAttribute"
 
 
-    // $ANTLR start "entryRuleLink"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:797:1: entryRuleLink returns [EObject current=null] : iv_ruleLink= ruleLink EOF ;
-    public final EObject entryRuleLink() throws RecognitionException {
+    // $ANTLR start "entryRuleUMLLink"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:797:1: entryRuleUMLLink returns [EObject current=null] : iv_ruleUMLLink= ruleUMLLink EOF ;
+    public final EObject entryRuleUMLLink() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleLink = null;
+        EObject iv_ruleUMLLink = null;
 
 
         try {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:798:2: (iv_ruleLink= ruleLink EOF )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:799:2: iv_ruleLink= ruleLink EOF
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:798:2: (iv_ruleUMLLink= ruleUMLLink EOF )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:799:2: iv_ruleUMLLink= ruleUMLLink EOF
             {
             if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getLinkRule()); 
+               newCompositeNode(grammarAccess.getUMLLinkRule()); 
             }
-            pushFollow(FOLLOW_ruleLink_in_entryRuleLink1656);
-            iv_ruleLink=ruleLink();
+            pushFollow(FOLLOW_ruleUMLLink_in_entryRuleUMLLink1656);
+            iv_ruleUMLLink=ruleUMLLink();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
-               current =iv_ruleLink; 
+               current =iv_ruleUMLLink; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleLink1666); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleUMLLink1666); if (state.failed) return current;
 
             }
 
@@ -2247,12 +2247,12 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleLink"
+    // $ANTLR end "entryRuleUMLLink"
 
 
-    // $ANTLR start "ruleLink"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:806:1: ruleLink returns [EObject current=null] : (otherlv_0= 'link' ( ( ruleQualifiedName ) ) otherlv_2= '{' otherlv_3= 'source' ( ( ruleQualifiedName ) ) otherlv_5= '=' ( ( ruleQualifiedName ) ) otherlv_7= ';' otherlv_8= 'target' ( ( ruleQualifiedName ) ) otherlv_10= '=' ( ( ruleQualifiedName ) ) otherlv_12= ';' otherlv_13= '}' ) ;
-    public final EObject ruleLink() throws RecognitionException {
+    // $ANTLR start "ruleUMLLink"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:806:1: ruleUMLLink returns [EObject current=null] : (otherlv_0= 'link' ( ( ruleQualifiedName ) ) otherlv_2= '{' otherlv_3= 'source' ( ( ruleQualifiedName ) ) otherlv_5= '=' ( ( ruleQualifiedName ) ) otherlv_7= ';' otherlv_8= 'target' ( ( ruleQualifiedName ) ) otherlv_10= '=' ( ( ruleQualifiedName ) ) otherlv_12= ';' otherlv_13= '}' ) ;
+    public final EObject ruleUMLLink() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_0=null;
@@ -2274,10 +2274,10 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
             // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:810:1: (otherlv_0= 'link' ( ( ruleQualifiedName ) ) otherlv_2= '{' otherlv_3= 'source' ( ( ruleQualifiedName ) ) otherlv_5= '=' ( ( ruleQualifiedName ) ) otherlv_7= ';' otherlv_8= 'target' ( ( ruleQualifiedName ) ) otherlv_10= '=' ( ( ruleQualifiedName ) ) otherlv_12= ';' otherlv_13= '}' )
             // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:810:3: otherlv_0= 'link' ( ( ruleQualifiedName ) ) otherlv_2= '{' otherlv_3= 'source' ( ( ruleQualifiedName ) ) otherlv_5= '=' ( ( ruleQualifiedName ) ) otherlv_7= ';' otherlv_8= 'target' ( ( ruleQualifiedName ) ) otherlv_10= '=' ( ( ruleQualifiedName ) ) otherlv_12= ';' otherlv_13= '}'
             {
-            otherlv_0=(Token)match(input,30,FOLLOW_30_in_ruleLink1703); if (state.failed) return current;
+            otherlv_0=(Token)match(input,30,FOLLOW_30_in_ruleUMLLink1703); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_0, grammarAccess.getLinkAccess().getLinkKeyword_0());
+                  	newLeafNode(otherlv_0, grammarAccess.getUMLLinkAccess().getLinkKeyword_0());
                   
             }
             // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:814:1: ( ( ruleQualifiedName ) )
@@ -2289,16 +2289,16 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
 
               			if (current==null) {
-              	            current = createModelElement(grammarAccess.getLinkRule());
+              	            current = createModelElement(grammarAccess.getUMLLinkRule());
               	        }
                       
             }
             if ( state.backtracking==0 ) {
                
-              	        newCompositeNode(grammarAccess.getLinkAccess().getAssocAssociationCrossReference_1_0()); 
+              	        newCompositeNode(grammarAccess.getUMLLinkAccess().getAssocAssociationCrossReference_1_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleQualifiedName_in_ruleLink1726);
+            pushFollow(FOLLOW_ruleQualifiedName_in_ruleUMLLink1726);
             ruleQualifiedName();
 
             state._fsp--;
@@ -2314,16 +2314,16 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_2=(Token)match(input,20,FOLLOW_20_in_ruleLink1738); if (state.failed) return current;
+            otherlv_2=(Token)match(input,20,FOLLOW_20_in_ruleUMLLink1738); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_2, grammarAccess.getLinkAccess().getLeftCurlyBracketKeyword_2());
+                  	newLeafNode(otherlv_2, grammarAccess.getUMLLinkAccess().getLeftCurlyBracketKeyword_2());
                   
             }
-            otherlv_3=(Token)match(input,31,FOLLOW_31_in_ruleLink1750); if (state.failed) return current;
+            otherlv_3=(Token)match(input,31,FOLLOW_31_in_ruleUMLLink1750); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_3, grammarAccess.getLinkAccess().getSourceKeyword_3());
+                  	newLeafNode(otherlv_3, grammarAccess.getUMLLinkAccess().getSourceKeyword_3());
                   
             }
             // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:837:1: ( ( ruleQualifiedName ) )
@@ -2335,16 +2335,16 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
 
               			if (current==null) {
-              	            current = createModelElement(grammarAccess.getLinkRule());
+              	            current = createModelElement(grammarAccess.getUMLLinkRule());
               	        }
                       
             }
             if ( state.backtracking==0 ) {
                
-              	        newCompositeNode(grammarAccess.getLinkAccess().getSourcePropertyPropertyCrossReference_4_0()); 
+              	        newCompositeNode(grammarAccess.getUMLLinkAccess().getSourcePropertyPropertyCrossReference_4_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleQualifiedName_in_ruleLink1773);
+            pushFollow(FOLLOW_ruleQualifiedName_in_ruleUMLLink1773);
             ruleQualifiedName();
 
             state._fsp--;
@@ -2360,10 +2360,10 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_5=(Token)match(input,26,FOLLOW_26_in_ruleLink1785); if (state.failed) return current;
+            otherlv_5=(Token)match(input,26,FOLLOW_26_in_ruleUMLLink1785); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_5, grammarAccess.getLinkAccess().getEqualsSignKeyword_5());
+                  	newLeafNode(otherlv_5, grammarAccess.getUMLLinkAccess().getEqualsSignKeyword_5());
                   
             }
             // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:856:1: ( ( ruleQualifiedName ) )
@@ -2375,16 +2375,16 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
 
               			if (current==null) {
-              	            current = createModelElement(grammarAccess.getLinkRule());
+              	            current = createModelElement(grammarAccess.getUMLLinkRule());
               	        }
                       
             }
             if ( state.backtracking==0 ) {
                
-              	        newCompositeNode(grammarAccess.getLinkAccess().getSourceValueObjectSpecificationCrossReference_6_0()); 
+              	        newCompositeNode(grammarAccess.getUMLLinkAccess().getSourceValueUMLObjectSpecificationCrossReference_6_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleQualifiedName_in_ruleLink1808);
+            pushFollow(FOLLOW_ruleQualifiedName_in_ruleUMLLink1808);
             ruleQualifiedName();
 
             state._fsp--;
@@ -2400,16 +2400,16 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_7=(Token)match(input,24,FOLLOW_24_in_ruleLink1820); if (state.failed) return current;
+            otherlv_7=(Token)match(input,24,FOLLOW_24_in_ruleUMLLink1820); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_7, grammarAccess.getLinkAccess().getSemicolonKeyword_7());
+                  	newLeafNode(otherlv_7, grammarAccess.getUMLLinkAccess().getSemicolonKeyword_7());
                   
             }
-            otherlv_8=(Token)match(input,32,FOLLOW_32_in_ruleLink1832); if (state.failed) return current;
+            otherlv_8=(Token)match(input,32,FOLLOW_32_in_ruleUMLLink1832); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_8, grammarAccess.getLinkAccess().getTargetKeyword_8());
+                  	newLeafNode(otherlv_8, grammarAccess.getUMLLinkAccess().getTargetKeyword_8());
                   
             }
             // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:879:1: ( ( ruleQualifiedName ) )
@@ -2421,16 +2421,16 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
 
               			if (current==null) {
-              	            current = createModelElement(grammarAccess.getLinkRule());
+              	            current = createModelElement(grammarAccess.getUMLLinkRule());
               	        }
                       
             }
             if ( state.backtracking==0 ) {
                
-              	        newCompositeNode(grammarAccess.getLinkAccess().getTargetPropertyPropertyCrossReference_9_0()); 
+              	        newCompositeNode(grammarAccess.getUMLLinkAccess().getTargetPropertyPropertyCrossReference_9_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleQualifiedName_in_ruleLink1855);
+            pushFollow(FOLLOW_ruleQualifiedName_in_ruleUMLLink1855);
             ruleQualifiedName();
 
             state._fsp--;
@@ -2446,10 +2446,10 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_10=(Token)match(input,26,FOLLOW_26_in_ruleLink1867); if (state.failed) return current;
+            otherlv_10=(Token)match(input,26,FOLLOW_26_in_ruleUMLLink1867); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_10, grammarAccess.getLinkAccess().getEqualsSignKeyword_10());
+                  	newLeafNode(otherlv_10, grammarAccess.getUMLLinkAccess().getEqualsSignKeyword_10());
                   
             }
             // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:898:1: ( ( ruleQualifiedName ) )
@@ -2461,16 +2461,16 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
 
               			if (current==null) {
-              	            current = createModelElement(grammarAccess.getLinkRule());
+              	            current = createModelElement(grammarAccess.getUMLLinkRule());
               	        }
                       
             }
             if ( state.backtracking==0 ) {
                
-              	        newCompositeNode(grammarAccess.getLinkAccess().getTargetValueObjectSpecificationCrossReference_11_0()); 
+              	        newCompositeNode(grammarAccess.getUMLLinkAccess().getTargetValueUMLObjectSpecificationCrossReference_11_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleQualifiedName_in_ruleLink1890);
+            pushFollow(FOLLOW_ruleQualifiedName_in_ruleUMLLink1890);
             ruleQualifiedName();
 
             state._fsp--;
@@ -2486,16 +2486,16 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_12=(Token)match(input,24,FOLLOW_24_in_ruleLink1902); if (state.failed) return current;
+            otherlv_12=(Token)match(input,24,FOLLOW_24_in_ruleUMLLink1902); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_12, grammarAccess.getLinkAccess().getSemicolonKeyword_12());
+                  	newLeafNode(otherlv_12, grammarAccess.getUMLLinkAccess().getSemicolonKeyword_12());
                   
             }
-            otherlv_13=(Token)match(input,25,FOLLOW_25_in_ruleLink1914); if (state.failed) return current;
+            otherlv_13=(Token)match(input,25,FOLLOW_25_in_ruleUMLLink1914); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_13, grammarAccess.getLinkAccess().getRightCurlyBracketKeyword_13());
+                  	newLeafNode(otherlv_13, grammarAccess.getUMLLinkAccess().getRightCurlyBracketKeyword_13());
                   
             }
 
@@ -2517,33 +2517,33 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleLink"
+    // $ANTLR end "ruleUMLLink"
 
 
-    // $ANTLR start "entryRuleAssertion"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:929:1: entryRuleAssertion returns [EObject current=null] : iv_ruleAssertion= ruleAssertion EOF ;
-    public final EObject entryRuleAssertion() throws RecognitionException {
+    // $ANTLR start "entryRuleUMLAssertion"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:929:1: entryRuleUMLAssertion returns [EObject current=null] : iv_ruleUMLAssertion= ruleUMLAssertion EOF ;
+    public final EObject entryRuleUMLAssertion() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleAssertion = null;
+        EObject iv_ruleUMLAssertion = null;
 
 
         try {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:930:2: (iv_ruleAssertion= ruleAssertion EOF )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:931:2: iv_ruleAssertion= ruleAssertion EOF
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:930:2: (iv_ruleUMLAssertion= ruleUMLAssertion EOF )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:931:2: iv_ruleUMLAssertion= ruleUMLAssertion EOF
             {
             if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getAssertionRule()); 
+               newCompositeNode(grammarAccess.getUMLAssertionRule()); 
             }
-            pushFollow(FOLLOW_ruleAssertion_in_entryRuleAssertion1950);
-            iv_ruleAssertion=ruleAssertion();
+            pushFollow(FOLLOW_ruleUMLAssertion_in_entryRuleUMLAssertion1950);
+            iv_ruleUMLAssertion=ruleUMLAssertion();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
-               current =iv_ruleAssertion; 
+               current =iv_ruleUMLAssertion; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAssertion1960); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleUMLAssertion1960); if (state.failed) return current;
 
             }
 
@@ -2557,28 +2557,28 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleAssertion"
+    // $ANTLR end "entryRuleUMLAssertion"
 
 
-    // $ANTLR start "ruleAssertion"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:938:1: ruleAssertion returns [EObject current=null] : (this_OrderAssertion_0= ruleOrderAssertion | this_StateAssertion_1= ruleStateAssertion | this_FinallyStateAssertion_2= ruleFinallyStateAssertion ) ;
-    public final EObject ruleAssertion() throws RecognitionException {
+    // $ANTLR start "ruleUMLAssertion"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:938:1: ruleUMLAssertion returns [EObject current=null] : (this_UMLOrderAssertion_0= ruleUMLOrderAssertion | this_UMLStateAssertion_1= ruleUMLStateAssertion | this_UMLFinallyStateAssertion_2= ruleUMLFinallyStateAssertion ) ;
+    public final EObject ruleUMLAssertion() throws RecognitionException {
         EObject current = null;
 
-        EObject this_OrderAssertion_0 = null;
+        EObject this_UMLOrderAssertion_0 = null;
 
-        EObject this_StateAssertion_1 = null;
+        EObject this_UMLStateAssertion_1 = null;
 
-        EObject this_FinallyStateAssertion_2 = null;
+        EObject this_UMLFinallyStateAssertion_2 = null;
 
 
          enterRule(); 
             
         try {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:941:28: ( (this_OrderAssertion_0= ruleOrderAssertion | this_StateAssertion_1= ruleStateAssertion | this_FinallyStateAssertion_2= ruleFinallyStateAssertion ) )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:942:1: (this_OrderAssertion_0= ruleOrderAssertion | this_StateAssertion_1= ruleStateAssertion | this_FinallyStateAssertion_2= ruleFinallyStateAssertion )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:941:28: ( (this_UMLOrderAssertion_0= ruleUMLOrderAssertion | this_UMLStateAssertion_1= ruleUMLStateAssertion | this_UMLFinallyStateAssertion_2= ruleUMLFinallyStateAssertion ) )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:942:1: (this_UMLOrderAssertion_0= ruleUMLOrderAssertion | this_UMLStateAssertion_1= ruleUMLStateAssertion | this_UMLFinallyStateAssertion_2= ruleUMLFinallyStateAssertion )
             {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:942:1: (this_OrderAssertion_0= ruleOrderAssertion | this_StateAssertion_1= ruleStateAssertion | this_FinallyStateAssertion_2= ruleFinallyStateAssertion )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:942:1: (this_UMLOrderAssertion_0= ruleUMLOrderAssertion | this_UMLStateAssertion_1= ruleUMLStateAssertion | this_UMLFinallyStateAssertion_2= ruleUMLFinallyStateAssertion )
             int alt14=3;
             switch ( input.LA(1) ) {
             case 40:
@@ -2606,21 +2606,21 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
             switch (alt14) {
                 case 1 :
-                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:943:5: this_OrderAssertion_0= ruleOrderAssertion
+                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:943:5: this_UMLOrderAssertion_0= ruleUMLOrderAssertion
                     {
                     if ( state.backtracking==0 ) {
                        
-                              newCompositeNode(grammarAccess.getAssertionAccess().getOrderAssertionParserRuleCall_0()); 
+                              newCompositeNode(grammarAccess.getUMLAssertionAccess().getUMLOrderAssertionParserRuleCall_0()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleOrderAssertion_in_ruleAssertion2007);
-                    this_OrderAssertion_0=ruleOrderAssertion();
+                    pushFollow(FOLLOW_ruleUMLOrderAssertion_in_ruleUMLAssertion2007);
+                    this_UMLOrderAssertion_0=ruleUMLOrderAssertion();
 
                     state._fsp--;
                     if (state.failed) return current;
                     if ( state.backtracking==0 ) {
                        
-                              current = this_OrderAssertion_0; 
+                              current = this_UMLOrderAssertion_0; 
                               afterParserOrEnumRuleCall();
                           
                     }
@@ -2628,21 +2628,21 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:953:5: this_StateAssertion_1= ruleStateAssertion
+                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:953:5: this_UMLStateAssertion_1= ruleUMLStateAssertion
                     {
                     if ( state.backtracking==0 ) {
                        
-                              newCompositeNode(grammarAccess.getAssertionAccess().getStateAssertionParserRuleCall_1()); 
+                              newCompositeNode(grammarAccess.getUMLAssertionAccess().getUMLStateAssertionParserRuleCall_1()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleStateAssertion_in_ruleAssertion2034);
-                    this_StateAssertion_1=ruleStateAssertion();
+                    pushFollow(FOLLOW_ruleUMLStateAssertion_in_ruleUMLAssertion2034);
+                    this_UMLStateAssertion_1=ruleUMLStateAssertion();
 
                     state._fsp--;
                     if (state.failed) return current;
                     if ( state.backtracking==0 ) {
                        
-                              current = this_StateAssertion_1; 
+                              current = this_UMLStateAssertion_1; 
                               afterParserOrEnumRuleCall();
                           
                     }
@@ -2650,21 +2650,21 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:963:5: this_FinallyStateAssertion_2= ruleFinallyStateAssertion
+                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:963:5: this_UMLFinallyStateAssertion_2= ruleUMLFinallyStateAssertion
                     {
                     if ( state.backtracking==0 ) {
                        
-                              newCompositeNode(grammarAccess.getAssertionAccess().getFinallyStateAssertionParserRuleCall_2()); 
+                              newCompositeNode(grammarAccess.getUMLAssertionAccess().getUMLFinallyStateAssertionParserRuleCall_2()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleFinallyStateAssertion_in_ruleAssertion2061);
-                    this_FinallyStateAssertion_2=ruleFinallyStateAssertion();
+                    pushFollow(FOLLOW_ruleUMLFinallyStateAssertion_in_ruleUMLAssertion2061);
+                    this_UMLFinallyStateAssertion_2=ruleUMLFinallyStateAssertion();
 
                     state._fsp--;
                     if (state.failed) return current;
                     if ( state.backtracking==0 ) {
                        
-                              current = this_FinallyStateAssertion_2; 
+                              current = this_UMLFinallyStateAssertion_2; 
                               afterParserOrEnumRuleCall();
                           
                     }
@@ -2690,33 +2690,33 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleAssertion"
+    // $ANTLR end "ruleUMLAssertion"
 
 
-    // $ANTLR start "entryRuleStateAssertion"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:979:1: entryRuleStateAssertion returns [EObject current=null] : iv_ruleStateAssertion= ruleStateAssertion EOF ;
-    public final EObject entryRuleStateAssertion() throws RecognitionException {
+    // $ANTLR start "entryRuleUMLStateAssertion"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:979:1: entryRuleUMLStateAssertion returns [EObject current=null] : iv_ruleUMLStateAssertion= ruleUMLStateAssertion EOF ;
+    public final EObject entryRuleUMLStateAssertion() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleStateAssertion = null;
+        EObject iv_ruleUMLStateAssertion = null;
 
 
         try {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:980:2: (iv_ruleStateAssertion= ruleStateAssertion EOF )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:981:2: iv_ruleStateAssertion= ruleStateAssertion EOF
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:980:2: (iv_ruleUMLStateAssertion= ruleUMLStateAssertion EOF )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:981:2: iv_ruleUMLStateAssertion= ruleUMLStateAssertion EOF
             {
             if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getStateAssertionRule()); 
+               newCompositeNode(grammarAccess.getUMLStateAssertionRule()); 
             }
-            pushFollow(FOLLOW_ruleStateAssertion_in_entryRuleStateAssertion2096);
-            iv_ruleStateAssertion=ruleStateAssertion();
+            pushFollow(FOLLOW_ruleUMLStateAssertion_in_entryRuleUMLStateAssertion2096);
+            iv_ruleUMLStateAssertion=ruleUMLStateAssertion();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
-               current =iv_ruleStateAssertion; 
+               current =iv_ruleUMLStateAssertion; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleStateAssertion2106); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleUMLStateAssertion2106); if (state.failed) return current;
 
             }
 
@@ -2730,12 +2730,12 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleStateAssertion"
+    // $ANTLR end "entryRuleUMLStateAssertion"
 
 
-    // $ANTLR start "ruleStateAssertion"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:988:1: ruleStateAssertion returns [EObject current=null] : (otherlv_0= 'assertState' ( (lv_quantifier_1_0= ruleTemporalQuantifier ) ) ( (lv_operator_2_0= ruleTemporalOperator ) ) ( (lv_referencePoint_3_0= ruleReferencePoint ) ) (otherlv_4= 'until' ( (lv_untilPoint_5_0= ruleReferencePoint ) ) )? otherlv_6= '{' ( (lv_checks_7_0= ruleCheck ) )* otherlv_8= '}' ) ;
-    public final EObject ruleStateAssertion() throws RecognitionException {
+    // $ANTLR start "ruleUMLStateAssertion"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:988:1: ruleUMLStateAssertion returns [EObject current=null] : (otherlv_0= 'assertState' ( (lv_quantifier_1_0= ruleUMLTemporalQuantifier ) ) ( (lv_operator_2_0= ruleUMLTemporalOperator ) ) ( (lv_referencePoint_3_0= ruleUMLReferencePoint ) ) (otherlv_4= 'until' ( (lv_untilPoint_5_0= ruleUMLReferencePoint ) ) )? otherlv_6= '{' ( (lv_checks_7_0= ruleUMLCheck ) )* otherlv_8= '}' ) ;
+    public final EObject ruleUMLStateAssertion() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_0=null;
@@ -2756,44 +2756,44 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:991:28: ( (otherlv_0= 'assertState' ( (lv_quantifier_1_0= ruleTemporalQuantifier ) ) ( (lv_operator_2_0= ruleTemporalOperator ) ) ( (lv_referencePoint_3_0= ruleReferencePoint ) ) (otherlv_4= 'until' ( (lv_untilPoint_5_0= ruleReferencePoint ) ) )? otherlv_6= '{' ( (lv_checks_7_0= ruleCheck ) )* otherlv_8= '}' ) )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:992:1: (otherlv_0= 'assertState' ( (lv_quantifier_1_0= ruleTemporalQuantifier ) ) ( (lv_operator_2_0= ruleTemporalOperator ) ) ( (lv_referencePoint_3_0= ruleReferencePoint ) ) (otherlv_4= 'until' ( (lv_untilPoint_5_0= ruleReferencePoint ) ) )? otherlv_6= '{' ( (lv_checks_7_0= ruleCheck ) )* otherlv_8= '}' )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:991:28: ( (otherlv_0= 'assertState' ( (lv_quantifier_1_0= ruleUMLTemporalQuantifier ) ) ( (lv_operator_2_0= ruleUMLTemporalOperator ) ) ( (lv_referencePoint_3_0= ruleUMLReferencePoint ) ) (otherlv_4= 'until' ( (lv_untilPoint_5_0= ruleUMLReferencePoint ) ) )? otherlv_6= '{' ( (lv_checks_7_0= ruleUMLCheck ) )* otherlv_8= '}' ) )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:992:1: (otherlv_0= 'assertState' ( (lv_quantifier_1_0= ruleUMLTemporalQuantifier ) ) ( (lv_operator_2_0= ruleUMLTemporalOperator ) ) ( (lv_referencePoint_3_0= ruleUMLReferencePoint ) ) (otherlv_4= 'until' ( (lv_untilPoint_5_0= ruleUMLReferencePoint ) ) )? otherlv_6= '{' ( (lv_checks_7_0= ruleUMLCheck ) )* otherlv_8= '}' )
             {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:992:1: (otherlv_0= 'assertState' ( (lv_quantifier_1_0= ruleTemporalQuantifier ) ) ( (lv_operator_2_0= ruleTemporalOperator ) ) ( (lv_referencePoint_3_0= ruleReferencePoint ) ) (otherlv_4= 'until' ( (lv_untilPoint_5_0= ruleReferencePoint ) ) )? otherlv_6= '{' ( (lv_checks_7_0= ruleCheck ) )* otherlv_8= '}' )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:992:3: otherlv_0= 'assertState' ( (lv_quantifier_1_0= ruleTemporalQuantifier ) ) ( (lv_operator_2_0= ruleTemporalOperator ) ) ( (lv_referencePoint_3_0= ruleReferencePoint ) ) (otherlv_4= 'until' ( (lv_untilPoint_5_0= ruleReferencePoint ) ) )? otherlv_6= '{' ( (lv_checks_7_0= ruleCheck ) )* otherlv_8= '}'
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:992:1: (otherlv_0= 'assertState' ( (lv_quantifier_1_0= ruleUMLTemporalQuantifier ) ) ( (lv_operator_2_0= ruleUMLTemporalOperator ) ) ( (lv_referencePoint_3_0= ruleUMLReferencePoint ) ) (otherlv_4= 'until' ( (lv_untilPoint_5_0= ruleUMLReferencePoint ) ) )? otherlv_6= '{' ( (lv_checks_7_0= ruleUMLCheck ) )* otherlv_8= '}' )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:992:3: otherlv_0= 'assertState' ( (lv_quantifier_1_0= ruleUMLTemporalQuantifier ) ) ( (lv_operator_2_0= ruleUMLTemporalOperator ) ) ( (lv_referencePoint_3_0= ruleUMLReferencePoint ) ) (otherlv_4= 'until' ( (lv_untilPoint_5_0= ruleUMLReferencePoint ) ) )? otherlv_6= '{' ( (lv_checks_7_0= ruleUMLCheck ) )* otherlv_8= '}'
             {
-            otherlv_0=(Token)match(input,33,FOLLOW_33_in_ruleStateAssertion2143); if (state.failed) return current;
+            otherlv_0=(Token)match(input,33,FOLLOW_33_in_ruleUMLStateAssertion2143); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_0, grammarAccess.getStateAssertionAccess().getAssertStateKeyword_0());
+                  	newLeafNode(otherlv_0, grammarAccess.getUMLStateAssertionAccess().getAssertStateKeyword_0());
                   
             }
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:996:1: ( (lv_quantifier_1_0= ruleTemporalQuantifier ) )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:997:1: (lv_quantifier_1_0= ruleTemporalQuantifier )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:996:1: ( (lv_quantifier_1_0= ruleUMLTemporalQuantifier ) )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:997:1: (lv_quantifier_1_0= ruleUMLTemporalQuantifier )
             {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:997:1: (lv_quantifier_1_0= ruleTemporalQuantifier )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:998:3: lv_quantifier_1_0= ruleTemporalQuantifier
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:997:1: (lv_quantifier_1_0= ruleUMLTemporalQuantifier )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:998:3: lv_quantifier_1_0= ruleUMLTemporalQuantifier
             {
             if ( state.backtracking==0 ) {
                
-              	        newCompositeNode(grammarAccess.getStateAssertionAccess().getQuantifierTemporalQuantifierEnumRuleCall_1_0()); 
+              	        newCompositeNode(grammarAccess.getUMLStateAssertionAccess().getQuantifierUMLTemporalQuantifierEnumRuleCall_1_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleTemporalQuantifier_in_ruleStateAssertion2164);
-            lv_quantifier_1_0=ruleTemporalQuantifier();
+            pushFollow(FOLLOW_ruleUMLTemporalQuantifier_in_ruleUMLStateAssertion2164);
+            lv_quantifier_1_0=ruleUMLTemporalQuantifier();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               	        if (current==null) {
-              	            current = createModelElementForParent(grammarAccess.getStateAssertionRule());
+              	            current = createModelElementForParent(grammarAccess.getUMLStateAssertionRule());
               	        }
                      		set(
                      			current, 
                      			"quantifier",
                       		lv_quantifier_1_0, 
-                      		"TemporalQuantifier");
+                      		"UMLTemporalQuantifier");
               	        afterParserOrEnumRuleCall();
               	    
             }
@@ -2803,32 +2803,32 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1014:2: ( (lv_operator_2_0= ruleTemporalOperator ) )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1015:1: (lv_operator_2_0= ruleTemporalOperator )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1014:2: ( (lv_operator_2_0= ruleUMLTemporalOperator ) )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1015:1: (lv_operator_2_0= ruleUMLTemporalOperator )
             {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1015:1: (lv_operator_2_0= ruleTemporalOperator )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1016:3: lv_operator_2_0= ruleTemporalOperator
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1015:1: (lv_operator_2_0= ruleUMLTemporalOperator )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1016:3: lv_operator_2_0= ruleUMLTemporalOperator
             {
             if ( state.backtracking==0 ) {
                
-              	        newCompositeNode(grammarAccess.getStateAssertionAccess().getOperatorTemporalOperatorEnumRuleCall_2_0()); 
+              	        newCompositeNode(grammarAccess.getUMLStateAssertionAccess().getOperatorUMLTemporalOperatorEnumRuleCall_2_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleTemporalOperator_in_ruleStateAssertion2185);
-            lv_operator_2_0=ruleTemporalOperator();
+            pushFollow(FOLLOW_ruleUMLTemporalOperator_in_ruleUMLStateAssertion2185);
+            lv_operator_2_0=ruleUMLTemporalOperator();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               	        if (current==null) {
-              	            current = createModelElementForParent(grammarAccess.getStateAssertionRule());
+              	            current = createModelElementForParent(grammarAccess.getUMLStateAssertionRule());
               	        }
                      		set(
                      			current, 
                      			"operator",
                       		lv_operator_2_0, 
-                      		"TemporalOperator");
+                      		"UMLTemporalOperator");
               	        afterParserOrEnumRuleCall();
               	    
             }
@@ -2838,32 +2838,32 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1032:2: ( (lv_referencePoint_3_0= ruleReferencePoint ) )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1033:1: (lv_referencePoint_3_0= ruleReferencePoint )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1032:2: ( (lv_referencePoint_3_0= ruleUMLReferencePoint ) )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1033:1: (lv_referencePoint_3_0= ruleUMLReferencePoint )
             {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1033:1: (lv_referencePoint_3_0= ruleReferencePoint )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1034:3: lv_referencePoint_3_0= ruleReferencePoint
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1033:1: (lv_referencePoint_3_0= ruleUMLReferencePoint )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1034:3: lv_referencePoint_3_0= ruleUMLReferencePoint
             {
             if ( state.backtracking==0 ) {
                
-              	        newCompositeNode(grammarAccess.getStateAssertionAccess().getReferencePointReferencePointParserRuleCall_3_0()); 
+              	        newCompositeNode(grammarAccess.getUMLStateAssertionAccess().getReferencePointUMLReferencePointParserRuleCall_3_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleReferencePoint_in_ruleStateAssertion2206);
-            lv_referencePoint_3_0=ruleReferencePoint();
+            pushFollow(FOLLOW_ruleUMLReferencePoint_in_ruleUMLStateAssertion2206);
+            lv_referencePoint_3_0=ruleUMLReferencePoint();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               	        if (current==null) {
-              	            current = createModelElementForParent(grammarAccess.getStateAssertionRule());
+              	            current = createModelElementForParent(grammarAccess.getUMLStateAssertionRule());
               	        }
                      		set(
                      			current, 
                      			"referencePoint",
                       		lv_referencePoint_3_0, 
-                      		"ReferencePoint");
+                      		"UMLReferencePoint");
               	        afterParserOrEnumRuleCall();
               	    
             }
@@ -2873,7 +2873,7 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1050:2: (otherlv_4= 'until' ( (lv_untilPoint_5_0= ruleReferencePoint ) ) )?
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1050:2: (otherlv_4= 'until' ( (lv_untilPoint_5_0= ruleUMLReferencePoint ) ) )?
             int alt15=2;
             int LA15_0 = input.LA(1);
 
@@ -2882,40 +2882,40 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
             }
             switch (alt15) {
                 case 1 :
-                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1050:4: otherlv_4= 'until' ( (lv_untilPoint_5_0= ruleReferencePoint ) )
+                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1050:4: otherlv_4= 'until' ( (lv_untilPoint_5_0= ruleUMLReferencePoint ) )
                     {
-                    otherlv_4=(Token)match(input,34,FOLLOW_34_in_ruleStateAssertion2219); if (state.failed) return current;
+                    otherlv_4=(Token)match(input,34,FOLLOW_34_in_ruleUMLStateAssertion2219); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                          	newLeafNode(otherlv_4, grammarAccess.getStateAssertionAccess().getUntilKeyword_4_0());
+                          	newLeafNode(otherlv_4, grammarAccess.getUMLStateAssertionAccess().getUntilKeyword_4_0());
                           
                     }
-                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1054:1: ( (lv_untilPoint_5_0= ruleReferencePoint ) )
-                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1055:1: (lv_untilPoint_5_0= ruleReferencePoint )
+                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1054:1: ( (lv_untilPoint_5_0= ruleUMLReferencePoint ) )
+                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1055:1: (lv_untilPoint_5_0= ruleUMLReferencePoint )
                     {
-                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1055:1: (lv_untilPoint_5_0= ruleReferencePoint )
-                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1056:3: lv_untilPoint_5_0= ruleReferencePoint
+                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1055:1: (lv_untilPoint_5_0= ruleUMLReferencePoint )
+                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1056:3: lv_untilPoint_5_0= ruleUMLReferencePoint
                     {
                     if ( state.backtracking==0 ) {
                        
-                      	        newCompositeNode(grammarAccess.getStateAssertionAccess().getUntilPointReferencePointParserRuleCall_4_1_0()); 
+                      	        newCompositeNode(grammarAccess.getUMLStateAssertionAccess().getUntilPointUMLReferencePointParserRuleCall_4_1_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleReferencePoint_in_ruleStateAssertion2240);
-                    lv_untilPoint_5_0=ruleReferencePoint();
+                    pushFollow(FOLLOW_ruleUMLReferencePoint_in_ruleUMLStateAssertion2240);
+                    lv_untilPoint_5_0=ruleUMLReferencePoint();
 
                     state._fsp--;
                     if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       	        if (current==null) {
-                      	            current = createModelElementForParent(grammarAccess.getStateAssertionRule());
+                      	            current = createModelElementForParent(grammarAccess.getUMLStateAssertionRule());
                       	        }
                              		set(
                              			current, 
                              			"untilPoint",
                               		lv_untilPoint_5_0, 
-                              		"ReferencePoint");
+                              		"UMLReferencePoint");
                       	        afterParserOrEnumRuleCall();
                       	    
                     }
@@ -2931,13 +2931,13 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_6=(Token)match(input,20,FOLLOW_20_in_ruleStateAssertion2254); if (state.failed) return current;
+            otherlv_6=(Token)match(input,20,FOLLOW_20_in_ruleUMLStateAssertion2254); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_6, grammarAccess.getStateAssertionAccess().getLeftCurlyBracketKeyword_5());
+                  	newLeafNode(otherlv_6, grammarAccess.getUMLStateAssertionAccess().getLeftCurlyBracketKeyword_5());
                   
             }
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1076:1: ( (lv_checks_7_0= ruleCheck ) )*
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1076:1: ( (lv_checks_7_0= ruleUMLCheck ) )*
             loop16:
             do {
                 int alt16=2;
@@ -2950,31 +2950,31 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
                 switch (alt16) {
             	case 1 :
-            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1077:1: (lv_checks_7_0= ruleCheck )
+            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1077:1: (lv_checks_7_0= ruleUMLCheck )
             	    {
-            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1077:1: (lv_checks_7_0= ruleCheck )
-            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1078:3: lv_checks_7_0= ruleCheck
+            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1077:1: (lv_checks_7_0= ruleUMLCheck )
+            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1078:3: lv_checks_7_0= ruleUMLCheck
             	    {
             	    if ( state.backtracking==0 ) {
             	       
-            	      	        newCompositeNode(grammarAccess.getStateAssertionAccess().getChecksCheckParserRuleCall_6_0()); 
+            	      	        newCompositeNode(grammarAccess.getUMLStateAssertionAccess().getChecksUMLCheckParserRuleCall_6_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleCheck_in_ruleStateAssertion2275);
-            	    lv_checks_7_0=ruleCheck();
+            	    pushFollow(FOLLOW_ruleUMLCheck_in_ruleUMLStateAssertion2275);
+            	    lv_checks_7_0=ruleUMLCheck();
 
             	    state._fsp--;
             	    if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	      	        if (current==null) {
-            	      	            current = createModelElementForParent(grammarAccess.getStateAssertionRule());
+            	      	            current = createModelElementForParent(grammarAccess.getUMLStateAssertionRule());
             	      	        }
             	             		add(
             	             			current, 
             	             			"checks",
             	              		lv_checks_7_0, 
-            	              		"Check");
+            	              		"UMLCheck");
             	      	        afterParserOrEnumRuleCall();
             	      	    
             	    }
@@ -2990,10 +2990,10 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-            otherlv_8=(Token)match(input,25,FOLLOW_25_in_ruleStateAssertion2288); if (state.failed) return current;
+            otherlv_8=(Token)match(input,25,FOLLOW_25_in_ruleUMLStateAssertion2288); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_8, grammarAccess.getStateAssertionAccess().getRightCurlyBracketKeyword_7());
+                  	newLeafNode(otherlv_8, grammarAccess.getUMLStateAssertionAccess().getRightCurlyBracketKeyword_7());
                   
             }
 
@@ -3015,33 +3015,33 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleStateAssertion"
+    // $ANTLR end "ruleUMLStateAssertion"
 
 
-    // $ANTLR start "entryRuleReferencePoint"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1106:1: entryRuleReferencePoint returns [EObject current=null] : iv_ruleReferencePoint= ruleReferencePoint EOF ;
-    public final EObject entryRuleReferencePoint() throws RecognitionException {
+    // $ANTLR start "entryRuleUMLReferencePoint"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1106:1: entryRuleUMLReferencePoint returns [EObject current=null] : iv_ruleUMLReferencePoint= ruleUMLReferencePoint EOF ;
+    public final EObject entryRuleUMLReferencePoint() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleReferencePoint = null;
+        EObject iv_ruleUMLReferencePoint = null;
 
 
         try {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1107:2: (iv_ruleReferencePoint= ruleReferencePoint EOF )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1108:2: iv_ruleReferencePoint= ruleReferencePoint EOF
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1107:2: (iv_ruleUMLReferencePoint= ruleUMLReferencePoint EOF )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1108:2: iv_ruleUMLReferencePoint= ruleUMLReferencePoint EOF
             {
             if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getReferencePointRule()); 
+               newCompositeNode(grammarAccess.getUMLReferencePointRule()); 
             }
-            pushFollow(FOLLOW_ruleReferencePoint_in_entryRuleReferencePoint2324);
-            iv_ruleReferencePoint=ruleReferencePoint();
+            pushFollow(FOLLOW_ruleUMLReferencePoint_in_entryRuleUMLReferencePoint2324);
+            iv_ruleUMLReferencePoint=ruleUMLReferencePoint();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
-               current =iv_ruleReferencePoint; 
+               current =iv_ruleUMLReferencePoint; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleReferencePoint2334); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleUMLReferencePoint2334); if (state.failed) return current;
 
             }
 
@@ -3055,26 +3055,26 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleReferencePoint"
+    // $ANTLR end "entryRuleUMLReferencePoint"
 
 
-    // $ANTLR start "ruleReferencePoint"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1115:1: ruleReferencePoint returns [EObject current=null] : (this_ActionReferencePoint_0= ruleActionReferencePoint | this_ConstraintReferencePoint_1= ruleConstraintReferencePoint ) ;
-    public final EObject ruleReferencePoint() throws RecognitionException {
+    // $ANTLR start "ruleUMLReferencePoint"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1115:1: ruleUMLReferencePoint returns [EObject current=null] : (this_UMLActionReferencePoint_0= ruleUMLActionReferencePoint | this_UMLConstraintReferencePoint_1= ruleUMLConstraintReferencePoint ) ;
+    public final EObject ruleUMLReferencePoint() throws RecognitionException {
         EObject current = null;
 
-        EObject this_ActionReferencePoint_0 = null;
+        EObject this_UMLActionReferencePoint_0 = null;
 
-        EObject this_ConstraintReferencePoint_1 = null;
+        EObject this_UMLConstraintReferencePoint_1 = null;
 
 
          enterRule(); 
             
         try {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1118:28: ( (this_ActionReferencePoint_0= ruleActionReferencePoint | this_ConstraintReferencePoint_1= ruleConstraintReferencePoint ) )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1119:1: (this_ActionReferencePoint_0= ruleActionReferencePoint | this_ConstraintReferencePoint_1= ruleConstraintReferencePoint )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1118:28: ( (this_UMLActionReferencePoint_0= ruleUMLActionReferencePoint | this_UMLConstraintReferencePoint_1= ruleUMLConstraintReferencePoint ) )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1119:1: (this_UMLActionReferencePoint_0= ruleUMLActionReferencePoint | this_UMLConstraintReferencePoint_1= ruleUMLConstraintReferencePoint )
             {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1119:1: (this_ActionReferencePoint_0= ruleActionReferencePoint | this_ConstraintReferencePoint_1= ruleConstraintReferencePoint )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1119:1: (this_UMLActionReferencePoint_0= ruleUMLActionReferencePoint | this_UMLConstraintReferencePoint_1= ruleUMLConstraintReferencePoint )
             int alt17=2;
             int LA17_0 = input.LA(1);
 
@@ -3093,21 +3093,21 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
             }
             switch (alt17) {
                 case 1 :
-                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1120:5: this_ActionReferencePoint_0= ruleActionReferencePoint
+                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1120:5: this_UMLActionReferencePoint_0= ruleUMLActionReferencePoint
                     {
                     if ( state.backtracking==0 ) {
                        
-                              newCompositeNode(grammarAccess.getReferencePointAccess().getActionReferencePointParserRuleCall_0()); 
+                              newCompositeNode(grammarAccess.getUMLReferencePointAccess().getUMLActionReferencePointParserRuleCall_0()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleActionReferencePoint_in_ruleReferencePoint2381);
-                    this_ActionReferencePoint_0=ruleActionReferencePoint();
+                    pushFollow(FOLLOW_ruleUMLActionReferencePoint_in_ruleUMLReferencePoint2381);
+                    this_UMLActionReferencePoint_0=ruleUMLActionReferencePoint();
 
                     state._fsp--;
                     if (state.failed) return current;
                     if ( state.backtracking==0 ) {
                        
-                              current = this_ActionReferencePoint_0; 
+                              current = this_UMLActionReferencePoint_0; 
                               afterParserOrEnumRuleCall();
                           
                     }
@@ -3115,21 +3115,21 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1130:5: this_ConstraintReferencePoint_1= ruleConstraintReferencePoint
+                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1130:5: this_UMLConstraintReferencePoint_1= ruleUMLConstraintReferencePoint
                     {
                     if ( state.backtracking==0 ) {
                        
-                              newCompositeNode(grammarAccess.getReferencePointAccess().getConstraintReferencePointParserRuleCall_1()); 
+                              newCompositeNode(grammarAccess.getUMLReferencePointAccess().getUMLConstraintReferencePointParserRuleCall_1()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleConstraintReferencePoint_in_ruleReferencePoint2408);
-                    this_ConstraintReferencePoint_1=ruleConstraintReferencePoint();
+                    pushFollow(FOLLOW_ruleUMLConstraintReferencePoint_in_ruleUMLReferencePoint2408);
+                    this_UMLConstraintReferencePoint_1=ruleUMLConstraintReferencePoint();
 
                     state._fsp--;
                     if (state.failed) return current;
                     if ( state.backtracking==0 ) {
                        
-                              current = this_ConstraintReferencePoint_1; 
+                              current = this_UMLConstraintReferencePoint_1; 
                               afterParserOrEnumRuleCall();
                           
                     }
@@ -3155,33 +3155,33 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleReferencePoint"
+    // $ANTLR end "ruleUMLReferencePoint"
 
 
-    // $ANTLR start "entryRuleActionReferencePoint"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1146:1: entryRuleActionReferencePoint returns [EObject current=null] : iv_ruleActionReferencePoint= ruleActionReferencePoint EOF ;
-    public final EObject entryRuleActionReferencePoint() throws RecognitionException {
+    // $ANTLR start "entryRuleUMLActionReferencePoint"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1146:1: entryRuleUMLActionReferencePoint returns [EObject current=null] : iv_ruleUMLActionReferencePoint= ruleUMLActionReferencePoint EOF ;
+    public final EObject entryRuleUMLActionReferencePoint() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleActionReferencePoint = null;
+        EObject iv_ruleUMLActionReferencePoint = null;
 
 
         try {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1147:2: (iv_ruleActionReferencePoint= ruleActionReferencePoint EOF )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1148:2: iv_ruleActionReferencePoint= ruleActionReferencePoint EOF
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1147:2: (iv_ruleUMLActionReferencePoint= ruleUMLActionReferencePoint EOF )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1148:2: iv_ruleUMLActionReferencePoint= ruleUMLActionReferencePoint EOF
             {
             if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getActionReferencePointRule()); 
+               newCompositeNode(grammarAccess.getUMLActionReferencePointRule()); 
             }
-            pushFollow(FOLLOW_ruleActionReferencePoint_in_entryRuleActionReferencePoint2443);
-            iv_ruleActionReferencePoint=ruleActionReferencePoint();
+            pushFollow(FOLLOW_ruleUMLActionReferencePoint_in_entryRuleUMLActionReferencePoint2443);
+            iv_ruleUMLActionReferencePoint=ruleUMLActionReferencePoint();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
-               current =iv_ruleActionReferencePoint; 
+               current =iv_ruleUMLActionReferencePoint; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleActionReferencePoint2453); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleUMLActionReferencePoint2453); if (state.failed) return current;
 
             }
 
@@ -3195,12 +3195,12 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleActionReferencePoint"
+    // $ANTLR end "entryRuleUMLActionReferencePoint"
 
 
-    // $ANTLR start "ruleActionReferencePoint"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1155:1: ruleActionReferencePoint returns [EObject current=null] : (otherlv_0= 'action' ( ( ruleQualifiedName ) ) ) ;
-    public final EObject ruleActionReferencePoint() throws RecognitionException {
+    // $ANTLR start "ruleUMLActionReferencePoint"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1155:1: ruleUMLActionReferencePoint returns [EObject current=null] : (otherlv_0= 'action' ( ( ruleQualifiedName ) ) ) ;
+    public final EObject ruleUMLActionReferencePoint() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_0=null;
@@ -3214,10 +3214,10 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
             // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1159:1: (otherlv_0= 'action' ( ( ruleQualifiedName ) ) )
             // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1159:3: otherlv_0= 'action' ( ( ruleQualifiedName ) )
             {
-            otherlv_0=(Token)match(input,35,FOLLOW_35_in_ruleActionReferencePoint2490); if (state.failed) return current;
+            otherlv_0=(Token)match(input,35,FOLLOW_35_in_ruleUMLActionReferencePoint2490); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_0, grammarAccess.getActionReferencePointAccess().getActionKeyword_0());
+                  	newLeafNode(otherlv_0, grammarAccess.getUMLActionReferencePointAccess().getActionKeyword_0());
                   
             }
             // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1163:1: ( ( ruleQualifiedName ) )
@@ -3229,16 +3229,16 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
 
               			if (current==null) {
-              	            current = createModelElement(grammarAccess.getActionReferencePointRule());
+              	            current = createModelElement(grammarAccess.getUMLActionReferencePointRule());
               	        }
                       
             }
             if ( state.backtracking==0 ) {
                
-              	        newCompositeNode(grammarAccess.getActionReferencePointAccess().getActionActionCrossReference_1_0()); 
+              	        newCompositeNode(grammarAccess.getUMLActionReferencePointAccess().getActionActionCrossReference_1_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleQualifiedName_in_ruleActionReferencePoint2513);
+            pushFollow(FOLLOW_ruleQualifiedName_in_ruleUMLActionReferencePoint2513);
             ruleQualifiedName();
 
             state._fsp--;
@@ -3273,33 +3273,33 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleActionReferencePoint"
+    // $ANTLR end "ruleUMLActionReferencePoint"
 
 
-    // $ANTLR start "entryRuleConstraintReferencePoint"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1186:1: entryRuleConstraintReferencePoint returns [EObject current=null] : iv_ruleConstraintReferencePoint= ruleConstraintReferencePoint EOF ;
-    public final EObject entryRuleConstraintReferencePoint() throws RecognitionException {
+    // $ANTLR start "entryRuleUMLConstraintReferencePoint"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1186:1: entryRuleUMLConstraintReferencePoint returns [EObject current=null] : iv_ruleUMLConstraintReferencePoint= ruleUMLConstraintReferencePoint EOF ;
+    public final EObject entryRuleUMLConstraintReferencePoint() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleConstraintReferencePoint = null;
+        EObject iv_ruleUMLConstraintReferencePoint = null;
 
 
         try {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1187:2: (iv_ruleConstraintReferencePoint= ruleConstraintReferencePoint EOF )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1188:2: iv_ruleConstraintReferencePoint= ruleConstraintReferencePoint EOF
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1187:2: (iv_ruleUMLConstraintReferencePoint= ruleUMLConstraintReferencePoint EOF )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1188:2: iv_ruleUMLConstraintReferencePoint= ruleUMLConstraintReferencePoint EOF
             {
             if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getConstraintReferencePointRule()); 
+               newCompositeNode(grammarAccess.getUMLConstraintReferencePointRule()); 
             }
-            pushFollow(FOLLOW_ruleConstraintReferencePoint_in_entryRuleConstraintReferencePoint2549);
-            iv_ruleConstraintReferencePoint=ruleConstraintReferencePoint();
+            pushFollow(FOLLOW_ruleUMLConstraintReferencePoint_in_entryRuleUMLConstraintReferencePoint2549);
+            iv_ruleUMLConstraintReferencePoint=ruleUMLConstraintReferencePoint();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
-               current =iv_ruleConstraintReferencePoint; 
+               current =iv_ruleUMLConstraintReferencePoint; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleConstraintReferencePoint2559); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleUMLConstraintReferencePoint2559); if (state.failed) return current;
 
             }
 
@@ -3313,12 +3313,12 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleConstraintReferencePoint"
+    // $ANTLR end "entryRuleUMLConstraintReferencePoint"
 
 
-    // $ANTLR start "ruleConstraintReferencePoint"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1195:1: ruleConstraintReferencePoint returns [EObject current=null] : (otherlv_0= 'constraint' ( (lv_constraintName_1_0= ruleXStringLiteral ) ) ) ;
-    public final EObject ruleConstraintReferencePoint() throws RecognitionException {
+    // $ANTLR start "ruleUMLConstraintReferencePoint"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1195:1: ruleUMLConstraintReferencePoint returns [EObject current=null] : (otherlv_0= 'constraint' ( (lv_constraintName_1_0= ruleXStringLiteral ) ) ) ;
+    public final EObject ruleUMLConstraintReferencePoint() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_0=null;
@@ -3334,10 +3334,10 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
             // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1199:1: (otherlv_0= 'constraint' ( (lv_constraintName_1_0= ruleXStringLiteral ) ) )
             // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1199:3: otherlv_0= 'constraint' ( (lv_constraintName_1_0= ruleXStringLiteral ) )
             {
-            otherlv_0=(Token)match(input,36,FOLLOW_36_in_ruleConstraintReferencePoint2596); if (state.failed) return current;
+            otherlv_0=(Token)match(input,36,FOLLOW_36_in_ruleUMLConstraintReferencePoint2596); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_0, grammarAccess.getConstraintReferencePointAccess().getConstraintKeyword_0());
+                  	newLeafNode(otherlv_0, grammarAccess.getUMLConstraintReferencePointAccess().getConstraintKeyword_0());
                   
             }
             // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1203:1: ( (lv_constraintName_1_0= ruleXStringLiteral ) )
@@ -3348,10 +3348,10 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
             {
             if ( state.backtracking==0 ) {
                
-              	        newCompositeNode(grammarAccess.getConstraintReferencePointAccess().getConstraintNameXStringLiteralParserRuleCall_1_0()); 
+              	        newCompositeNode(grammarAccess.getUMLConstraintReferencePointAccess().getConstraintNameXStringLiteralParserRuleCall_1_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleXStringLiteral_in_ruleConstraintReferencePoint2617);
+            pushFollow(FOLLOW_ruleXStringLiteral_in_ruleUMLConstraintReferencePoint2617);
             lv_constraintName_1_0=ruleXStringLiteral();
 
             state._fsp--;
@@ -3359,7 +3359,7 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
 
               	        if (current==null) {
-              	            current = createModelElementForParent(grammarAccess.getConstraintReferencePointRule());
+              	            current = createModelElementForParent(grammarAccess.getUMLConstraintReferencePointRule());
               	        }
                      		set(
                      			current, 
@@ -3394,33 +3394,33 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleConstraintReferencePoint"
+    // $ANTLR end "ruleUMLConstraintReferencePoint"
 
 
-    // $ANTLR start "entryRuleFinallyStateAssertion"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1229:1: entryRuleFinallyStateAssertion returns [EObject current=null] : iv_ruleFinallyStateAssertion= ruleFinallyStateAssertion EOF ;
-    public final EObject entryRuleFinallyStateAssertion() throws RecognitionException {
+    // $ANTLR start "entryRuleUMLFinallyStateAssertion"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1229:1: entryRuleUMLFinallyStateAssertion returns [EObject current=null] : iv_ruleUMLFinallyStateAssertion= ruleUMLFinallyStateAssertion EOF ;
+    public final EObject entryRuleUMLFinallyStateAssertion() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleFinallyStateAssertion = null;
+        EObject iv_ruleUMLFinallyStateAssertion = null;
 
 
         try {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1230:2: (iv_ruleFinallyStateAssertion= ruleFinallyStateAssertion EOF )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1231:2: iv_ruleFinallyStateAssertion= ruleFinallyStateAssertion EOF
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1230:2: (iv_ruleUMLFinallyStateAssertion= ruleUMLFinallyStateAssertion EOF )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1231:2: iv_ruleUMLFinallyStateAssertion= ruleUMLFinallyStateAssertion EOF
             {
             if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getFinallyStateAssertionRule()); 
+               newCompositeNode(grammarAccess.getUMLFinallyStateAssertionRule()); 
             }
-            pushFollow(FOLLOW_ruleFinallyStateAssertion_in_entryRuleFinallyStateAssertion2653);
-            iv_ruleFinallyStateAssertion=ruleFinallyStateAssertion();
+            pushFollow(FOLLOW_ruleUMLFinallyStateAssertion_in_entryRuleUMLFinallyStateAssertion2653);
+            iv_ruleUMLFinallyStateAssertion=ruleUMLFinallyStateAssertion();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
-               current =iv_ruleFinallyStateAssertion; 
+               current =iv_ruleUMLFinallyStateAssertion; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleFinallyStateAssertion2663); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleUMLFinallyStateAssertion2663); if (state.failed) return current;
 
             }
 
@@ -3434,12 +3434,12 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleFinallyStateAssertion"
+    // $ANTLR end "entryRuleUMLFinallyStateAssertion"
 
 
-    // $ANTLR start "ruleFinallyStateAssertion"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1238:1: ruleFinallyStateAssertion returns [EObject current=null] : (otherlv_0= 'finally' otherlv_1= '{' () ( (lv_checks_3_0= ruleCheck ) )* otherlv_4= '}' ) ;
-    public final EObject ruleFinallyStateAssertion() throws RecognitionException {
+    // $ANTLR start "ruleUMLFinallyStateAssertion"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1238:1: ruleUMLFinallyStateAssertion returns [EObject current=null] : (otherlv_0= 'finally' otherlv_1= '{' () ( (lv_checks_3_0= ruleUMLCheck ) )* otherlv_4= '}' ) ;
+    public final EObject ruleUMLFinallyStateAssertion() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_0=null;
@@ -3451,22 +3451,22 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1241:28: ( (otherlv_0= 'finally' otherlv_1= '{' () ( (lv_checks_3_0= ruleCheck ) )* otherlv_4= '}' ) )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1242:1: (otherlv_0= 'finally' otherlv_1= '{' () ( (lv_checks_3_0= ruleCheck ) )* otherlv_4= '}' )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1241:28: ( (otherlv_0= 'finally' otherlv_1= '{' () ( (lv_checks_3_0= ruleUMLCheck ) )* otherlv_4= '}' ) )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1242:1: (otherlv_0= 'finally' otherlv_1= '{' () ( (lv_checks_3_0= ruleUMLCheck ) )* otherlv_4= '}' )
             {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1242:1: (otherlv_0= 'finally' otherlv_1= '{' () ( (lv_checks_3_0= ruleCheck ) )* otherlv_4= '}' )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1242:3: otherlv_0= 'finally' otherlv_1= '{' () ( (lv_checks_3_0= ruleCheck ) )* otherlv_4= '}'
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1242:1: (otherlv_0= 'finally' otherlv_1= '{' () ( (lv_checks_3_0= ruleUMLCheck ) )* otherlv_4= '}' )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1242:3: otherlv_0= 'finally' otherlv_1= '{' () ( (lv_checks_3_0= ruleUMLCheck ) )* otherlv_4= '}'
             {
-            otherlv_0=(Token)match(input,37,FOLLOW_37_in_ruleFinallyStateAssertion2700); if (state.failed) return current;
+            otherlv_0=(Token)match(input,37,FOLLOW_37_in_ruleUMLFinallyStateAssertion2700); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_0, grammarAccess.getFinallyStateAssertionAccess().getFinallyKeyword_0());
+                  	newLeafNode(otherlv_0, grammarAccess.getUMLFinallyStateAssertionAccess().getFinallyKeyword_0());
                   
             }
-            otherlv_1=(Token)match(input,20,FOLLOW_20_in_ruleFinallyStateAssertion2712); if (state.failed) return current;
+            otherlv_1=(Token)match(input,20,FOLLOW_20_in_ruleUMLFinallyStateAssertion2712); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_1, grammarAccess.getFinallyStateAssertionAccess().getLeftCurlyBracketKeyword_1());
+                  	newLeafNode(otherlv_1, grammarAccess.getUMLFinallyStateAssertionAccess().getLeftCurlyBracketKeyword_1());
                   
             }
             // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1250:1: ()
@@ -3475,14 +3475,14 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
 
                       current = forceCreateModelElement(
-                          grammarAccess.getFinallyStateAssertionAccess().getFinallyStateAssertionAction_2(),
+                          grammarAccess.getUMLFinallyStateAssertionAccess().getFinallyStateAssertionAction_2(),
                           current);
                   
             }
 
             }
 
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1256:2: ( (lv_checks_3_0= ruleCheck ) )*
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1256:2: ( (lv_checks_3_0= ruleUMLCheck ) )*
             loop18:
             do {
                 int alt18=2;
@@ -3495,31 +3495,31 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
                 switch (alt18) {
             	case 1 :
-            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1257:1: (lv_checks_3_0= ruleCheck )
+            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1257:1: (lv_checks_3_0= ruleUMLCheck )
             	    {
-            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1257:1: (lv_checks_3_0= ruleCheck )
-            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1258:3: lv_checks_3_0= ruleCheck
+            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1257:1: (lv_checks_3_0= ruleUMLCheck )
+            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1258:3: lv_checks_3_0= ruleUMLCheck
             	    {
             	    if ( state.backtracking==0 ) {
             	       
-            	      	        newCompositeNode(grammarAccess.getFinallyStateAssertionAccess().getChecksCheckParserRuleCall_3_0()); 
+            	      	        newCompositeNode(grammarAccess.getUMLFinallyStateAssertionAccess().getChecksUMLCheckParserRuleCall_3_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleCheck_in_ruleFinallyStateAssertion2742);
-            	    lv_checks_3_0=ruleCheck();
+            	    pushFollow(FOLLOW_ruleUMLCheck_in_ruleUMLFinallyStateAssertion2742);
+            	    lv_checks_3_0=ruleUMLCheck();
 
             	    state._fsp--;
             	    if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	      	        if (current==null) {
-            	      	            current = createModelElementForParent(grammarAccess.getFinallyStateAssertionRule());
+            	      	            current = createModelElementForParent(grammarAccess.getUMLFinallyStateAssertionRule());
             	      	        }
             	             		add(
             	             			current, 
             	             			"checks",
             	              		lv_checks_3_0, 
-            	              		"Check");
+            	              		"UMLCheck");
             	      	        afterParserOrEnumRuleCall();
             	      	    
             	    }
@@ -3535,10 +3535,10 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-            otherlv_4=(Token)match(input,25,FOLLOW_25_in_ruleFinallyStateAssertion2755); if (state.failed) return current;
+            otherlv_4=(Token)match(input,25,FOLLOW_25_in_ruleUMLFinallyStateAssertion2755); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_4, grammarAccess.getFinallyStateAssertionAccess().getRightCurlyBracketKeyword_4());
+                  	newLeafNode(otherlv_4, grammarAccess.getUMLFinallyStateAssertionAccess().getRightCurlyBracketKeyword_4());
                   
             }
 
@@ -3560,33 +3560,33 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleFinallyStateAssertion"
+    // $ANTLR end "ruleUMLFinallyStateAssertion"
 
 
-    // $ANTLR start "entryRuleCheck"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1286:1: entryRuleCheck returns [EObject current=null] : iv_ruleCheck= ruleCheck EOF ;
-    public final EObject entryRuleCheck() throws RecognitionException {
+    // $ANTLR start "entryRuleUMLCheck"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1286:1: entryRuleUMLCheck returns [EObject current=null] : iv_ruleUMLCheck= ruleUMLCheck EOF ;
+    public final EObject entryRuleUMLCheck() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleCheck = null;
+        EObject iv_ruleUMLCheck = null;
 
 
         try {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1287:2: (iv_ruleCheck= ruleCheck EOF )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1288:2: iv_ruleCheck= ruleCheck EOF
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1287:2: (iv_ruleUMLCheck= ruleUMLCheck EOF )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1288:2: iv_ruleUMLCheck= ruleUMLCheck EOF
             {
             if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getCheckRule()); 
+               newCompositeNode(grammarAccess.getUMLCheckRule()); 
             }
-            pushFollow(FOLLOW_ruleCheck_in_entryRuleCheck2791);
-            iv_ruleCheck=ruleCheck();
+            pushFollow(FOLLOW_ruleUMLCheck_in_entryRuleUMLCheck2791);
+            iv_ruleUMLCheck=ruleUMLCheck();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
-               current =iv_ruleCheck; 
+               current =iv_ruleUMLCheck; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleCheck2801); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleUMLCheck2801); if (state.failed) return current;
 
             }
 
@@ -3600,26 +3600,26 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleCheck"
+    // $ANTLR end "entryRuleUMLCheck"
 
 
-    // $ANTLR start "ruleCheck"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1295:1: ruleCheck returns [EObject current=null] : (this_ConstraintCheck_0= ruleConstraintCheck | this_StateExpression_1= ruleStateExpression ) ;
-    public final EObject ruleCheck() throws RecognitionException {
+    // $ANTLR start "ruleUMLCheck"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1295:1: ruleUMLCheck returns [EObject current=null] : (this_UMLConstraintCheck_0= ruleUMLConstraintCheck | this_UMLStateExpression_1= ruleUMLStateExpression ) ;
+    public final EObject ruleUMLCheck() throws RecognitionException {
         EObject current = null;
 
-        EObject this_ConstraintCheck_0 = null;
+        EObject this_UMLConstraintCheck_0 = null;
 
-        EObject this_StateExpression_1 = null;
+        EObject this_UMLStateExpression_1 = null;
 
 
          enterRule(); 
             
         try {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1298:28: ( (this_ConstraintCheck_0= ruleConstraintCheck | this_StateExpression_1= ruleStateExpression ) )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1299:1: (this_ConstraintCheck_0= ruleConstraintCheck | this_StateExpression_1= ruleStateExpression )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1298:28: ( (this_UMLConstraintCheck_0= ruleUMLConstraintCheck | this_UMLStateExpression_1= ruleUMLStateExpression ) )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1299:1: (this_UMLConstraintCheck_0= ruleUMLConstraintCheck | this_UMLStateExpression_1= ruleUMLStateExpression )
             {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1299:1: (this_ConstraintCheck_0= ruleConstraintCheck | this_StateExpression_1= ruleStateExpression )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1299:1: (this_UMLConstraintCheck_0= ruleUMLConstraintCheck | this_UMLStateExpression_1= ruleUMLStateExpression )
             int alt19=2;
             int LA19_0 = input.LA(1);
 
@@ -3638,21 +3638,21 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
             }
             switch (alt19) {
                 case 1 :
-                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1300:5: this_ConstraintCheck_0= ruleConstraintCheck
+                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1300:5: this_UMLConstraintCheck_0= ruleUMLConstraintCheck
                     {
                     if ( state.backtracking==0 ) {
                        
-                              newCompositeNode(grammarAccess.getCheckAccess().getConstraintCheckParserRuleCall_0()); 
+                              newCompositeNode(grammarAccess.getUMLCheckAccess().getUMLConstraintCheckParserRuleCall_0()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleConstraintCheck_in_ruleCheck2848);
-                    this_ConstraintCheck_0=ruleConstraintCheck();
+                    pushFollow(FOLLOW_ruleUMLConstraintCheck_in_ruleUMLCheck2848);
+                    this_UMLConstraintCheck_0=ruleUMLConstraintCheck();
 
                     state._fsp--;
                     if (state.failed) return current;
                     if ( state.backtracking==0 ) {
                        
-                              current = this_ConstraintCheck_0; 
+                              current = this_UMLConstraintCheck_0; 
                               afterParserOrEnumRuleCall();
                           
                     }
@@ -3660,21 +3660,21 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1310:5: this_StateExpression_1= ruleStateExpression
+                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1310:5: this_UMLStateExpression_1= ruleUMLStateExpression
                     {
                     if ( state.backtracking==0 ) {
                        
-                              newCompositeNode(grammarAccess.getCheckAccess().getStateExpressionParserRuleCall_1()); 
+                              newCompositeNode(grammarAccess.getUMLCheckAccess().getUMLStateExpressionParserRuleCall_1()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleStateExpression_in_ruleCheck2875);
-                    this_StateExpression_1=ruleStateExpression();
+                    pushFollow(FOLLOW_ruleUMLStateExpression_in_ruleUMLCheck2875);
+                    this_UMLStateExpression_1=ruleUMLStateExpression();
 
                     state._fsp--;
                     if (state.failed) return current;
                     if ( state.backtracking==0 ) {
                        
-                              current = this_StateExpression_1; 
+                              current = this_UMLStateExpression_1; 
                               afterParserOrEnumRuleCall();
                           
                     }
@@ -3700,33 +3700,33 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleCheck"
+    // $ANTLR end "ruleUMLCheck"
 
 
-    // $ANTLR start "entryRuleConstraintCheck"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1326:1: entryRuleConstraintCheck returns [EObject current=null] : iv_ruleConstraintCheck= ruleConstraintCheck EOF ;
-    public final EObject entryRuleConstraintCheck() throws RecognitionException {
+    // $ANTLR start "entryRuleUMLConstraintCheck"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1326:1: entryRuleUMLConstraintCheck returns [EObject current=null] : iv_ruleUMLConstraintCheck= ruleUMLConstraintCheck EOF ;
+    public final EObject entryRuleUMLConstraintCheck() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleConstraintCheck = null;
+        EObject iv_ruleUMLConstraintCheck = null;
 
 
         try {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1327:2: (iv_ruleConstraintCheck= ruleConstraintCheck EOF )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1328:2: iv_ruleConstraintCheck= ruleConstraintCheck EOF
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1327:2: (iv_ruleUMLConstraintCheck= ruleUMLConstraintCheck EOF )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1328:2: iv_ruleUMLConstraintCheck= ruleUMLConstraintCheck EOF
             {
             if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getConstraintCheckRule()); 
+               newCompositeNode(grammarAccess.getUMLConstraintCheckRule()); 
             }
-            pushFollow(FOLLOW_ruleConstraintCheck_in_entryRuleConstraintCheck2910);
-            iv_ruleConstraintCheck=ruleConstraintCheck();
+            pushFollow(FOLLOW_ruleUMLConstraintCheck_in_entryRuleUMLConstraintCheck2910);
+            iv_ruleUMLConstraintCheck=ruleUMLConstraintCheck();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
-               current =iv_ruleConstraintCheck; 
+               current =iv_ruleUMLConstraintCheck; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleConstraintCheck2920); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleUMLConstraintCheck2920); if (state.failed) return current;
 
             }
 
@@ -3740,12 +3740,12 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleConstraintCheck"
+    // $ANTLR end "entryRuleUMLConstraintCheck"
 
 
-    // $ANTLR start "ruleConstraintCheck"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1335:1: ruleConstraintCheck returns [EObject current=null] : (otherlv_0= 'check' ( (lv_constraintNames_1_0= ruleXStringLiteral ) ) (otherlv_2= ',' ( (lv_constraintNames_3_0= ruleXStringLiteral ) ) )* (otherlv_4= 'on' ( ( ruleQualifiedName ) ) )? otherlv_6= ';' ) ;
-    public final EObject ruleConstraintCheck() throws RecognitionException {
+    // $ANTLR start "ruleUMLConstraintCheck"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1335:1: ruleUMLConstraintCheck returns [EObject current=null] : (otherlv_0= 'check' ( (lv_constraintNames_1_0= ruleXStringLiteral ) ) (otherlv_2= ',' ( (lv_constraintNames_3_0= ruleXStringLiteral ) ) )* (otherlv_4= 'on' ( ( ruleQualifiedName ) ) )? otherlv_6= ';' ) ;
+    public final EObject ruleUMLConstraintCheck() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_0=null;
@@ -3766,10 +3766,10 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
             // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1339:1: (otherlv_0= 'check' ( (lv_constraintNames_1_0= ruleXStringLiteral ) ) (otherlv_2= ',' ( (lv_constraintNames_3_0= ruleXStringLiteral ) ) )* (otherlv_4= 'on' ( ( ruleQualifiedName ) ) )? otherlv_6= ';' )
             // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1339:3: otherlv_0= 'check' ( (lv_constraintNames_1_0= ruleXStringLiteral ) ) (otherlv_2= ',' ( (lv_constraintNames_3_0= ruleXStringLiteral ) ) )* (otherlv_4= 'on' ( ( ruleQualifiedName ) ) )? otherlv_6= ';'
             {
-            otherlv_0=(Token)match(input,38,FOLLOW_38_in_ruleConstraintCheck2957); if (state.failed) return current;
+            otherlv_0=(Token)match(input,38,FOLLOW_38_in_ruleUMLConstraintCheck2957); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_0, grammarAccess.getConstraintCheckAccess().getCheckKeyword_0());
+                  	newLeafNode(otherlv_0, grammarAccess.getUMLConstraintCheckAccess().getCheckKeyword_0());
                   
             }
             // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1343:1: ( (lv_constraintNames_1_0= ruleXStringLiteral ) )
@@ -3780,10 +3780,10 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
             {
             if ( state.backtracking==0 ) {
                
-              	        newCompositeNode(grammarAccess.getConstraintCheckAccess().getConstraintNamesXStringLiteralParserRuleCall_1_0()); 
+              	        newCompositeNode(grammarAccess.getUMLConstraintCheckAccess().getConstraintNamesXStringLiteralParserRuleCall_1_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleXStringLiteral_in_ruleConstraintCheck2978);
+            pushFollow(FOLLOW_ruleXStringLiteral_in_ruleUMLConstraintCheck2978);
             lv_constraintNames_1_0=ruleXStringLiteral();
 
             state._fsp--;
@@ -3791,7 +3791,7 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
 
               	        if (current==null) {
-              	            current = createModelElementForParent(grammarAccess.getConstraintCheckRule());
+              	            current = createModelElementForParent(grammarAccess.getUMLConstraintCheckRule());
               	        }
                      		add(
                      			current, 
@@ -3822,10 +3822,10 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
             	case 1 :
             	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1361:4: otherlv_2= ',' ( (lv_constraintNames_3_0= ruleXStringLiteral ) )
             	    {
-            	    otherlv_2=(Token)match(input,17,FOLLOW_17_in_ruleConstraintCheck2991); if (state.failed) return current;
+            	    otherlv_2=(Token)match(input,17,FOLLOW_17_in_ruleUMLConstraintCheck2991); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
-            	          	newLeafNode(otherlv_2, grammarAccess.getConstraintCheckAccess().getCommaKeyword_2_0());
+            	          	newLeafNode(otherlv_2, grammarAccess.getUMLConstraintCheckAccess().getCommaKeyword_2_0());
             	          
             	    }
             	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1365:1: ( (lv_constraintNames_3_0= ruleXStringLiteral ) )
@@ -3836,10 +3836,10 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
             	    {
             	    if ( state.backtracking==0 ) {
             	       
-            	      	        newCompositeNode(grammarAccess.getConstraintCheckAccess().getConstraintNamesXStringLiteralParserRuleCall_2_1_0()); 
+            	      	        newCompositeNode(grammarAccess.getUMLConstraintCheckAccess().getConstraintNamesXStringLiteralParserRuleCall_2_1_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleXStringLiteral_in_ruleConstraintCheck3012);
+            	    pushFollow(FOLLOW_ruleXStringLiteral_in_ruleUMLConstraintCheck3012);
             	    lv_constraintNames_3_0=ruleXStringLiteral();
 
             	    state._fsp--;
@@ -3847,7 +3847,7 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
             	    if ( state.backtracking==0 ) {
 
             	      	        if (current==null) {
-            	      	            current = createModelElementForParent(grammarAccess.getConstraintCheckRule());
+            	      	            current = createModelElementForParent(grammarAccess.getUMLConstraintCheckRule());
             	      	        }
             	             		add(
             	             			current, 
@@ -3883,10 +3883,10 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                 case 1 :
                     // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1383:6: otherlv_4= 'on' ( ( ruleQualifiedName ) )
                     {
-                    otherlv_4=(Token)match(input,19,FOLLOW_19_in_ruleConstraintCheck3027); if (state.failed) return current;
+                    otherlv_4=(Token)match(input,19,FOLLOW_19_in_ruleUMLConstraintCheck3027); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                          	newLeafNode(otherlv_4, grammarAccess.getConstraintCheckAccess().getOnKeyword_3_0());
+                          	newLeafNode(otherlv_4, grammarAccess.getUMLConstraintCheckAccess().getOnKeyword_3_0());
                           
                     }
                     // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1387:1: ( ( ruleQualifiedName ) )
@@ -3898,16 +3898,16 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                     if ( state.backtracking==0 ) {
 
                       			if (current==null) {
-                      	            current = createModelElement(grammarAccess.getConstraintCheckRule());
+                      	            current = createModelElement(grammarAccess.getUMLConstraintCheckRule());
                       	        }
                               
                     }
                     if ( state.backtracking==0 ) {
                        
-                      	        newCompositeNode(grammarAccess.getConstraintCheckAccess().getObjectObjectNodeCrossReference_3_1_0()); 
+                      	        newCompositeNode(grammarAccess.getUMLConstraintCheckAccess().getObjectObjectNodeCrossReference_3_1_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleQualifiedName_in_ruleConstraintCheck3050);
+                    pushFollow(FOLLOW_ruleQualifiedName_in_ruleUMLConstraintCheck3050);
                     ruleQualifiedName();
 
                     state._fsp--;
@@ -3929,10 +3929,10 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_6=(Token)match(input,24,FOLLOW_24_in_ruleConstraintCheck3064); if (state.failed) return current;
+            otherlv_6=(Token)match(input,24,FOLLOW_24_in_ruleUMLConstraintCheck3064); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_6, grammarAccess.getConstraintCheckAccess().getSemicolonKeyword_4());
+                  	newLeafNode(otherlv_6, grammarAccess.getUMLConstraintCheckAccess().getSemicolonKeyword_4());
                   
             }
 
@@ -3954,33 +3954,33 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleConstraintCheck"
+    // $ANTLR end "ruleUMLConstraintCheck"
 
 
-    // $ANTLR start "entryRuleStateExpression"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1414:1: entryRuleStateExpression returns [EObject current=null] : iv_ruleStateExpression= ruleStateExpression EOF ;
-    public final EObject entryRuleStateExpression() throws RecognitionException {
+    // $ANTLR start "entryRuleUMLStateExpression"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1414:1: entryRuleUMLStateExpression returns [EObject current=null] : iv_ruleUMLStateExpression= ruleUMLStateExpression EOF ;
+    public final EObject entryRuleUMLStateExpression() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleStateExpression = null;
+        EObject iv_ruleUMLStateExpression = null;
 
 
         try {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1415:2: (iv_ruleStateExpression= ruleStateExpression EOF )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1416:2: iv_ruleStateExpression= ruleStateExpression EOF
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1415:2: (iv_ruleUMLStateExpression= ruleUMLStateExpression EOF )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1416:2: iv_ruleUMLStateExpression= ruleUMLStateExpression EOF
             {
             if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getStateExpressionRule()); 
+               newCompositeNode(grammarAccess.getUMLStateExpressionRule()); 
             }
-            pushFollow(FOLLOW_ruleStateExpression_in_entryRuleStateExpression3100);
-            iv_ruleStateExpression=ruleStateExpression();
+            pushFollow(FOLLOW_ruleUMLStateExpression_in_entryRuleUMLStateExpression3100);
+            iv_ruleUMLStateExpression=ruleUMLStateExpression();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
-               current =iv_ruleStateExpression; 
+               current =iv_ruleUMLStateExpression; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleStateExpression3110); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleUMLStateExpression3110); if (state.failed) return current;
 
             }
 
@@ -3994,45 +3994,45 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleStateExpression"
+    // $ANTLR end "entryRuleUMLStateExpression"
 
 
-    // $ANTLR start "ruleStateExpression"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1423:1: ruleStateExpression returns [EObject current=null] : (this_ObjectStateExpression_0= ruleObjectStateExpression | this_PropertyStateExpression_1= rulePropertyStateExpression ) ;
-    public final EObject ruleStateExpression() throws RecognitionException {
+    // $ANTLR start "ruleUMLStateExpression"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1423:1: ruleUMLStateExpression returns [EObject current=null] : (this_UMLObjectStateExpression_0= ruleUMLObjectStateExpression | this_UMLPropertyStateExpression_1= ruleUMLPropertyStateExpression ) ;
+    public final EObject ruleUMLStateExpression() throws RecognitionException {
         EObject current = null;
 
-        EObject this_ObjectStateExpression_0 = null;
+        EObject this_UMLObjectStateExpression_0 = null;
 
-        EObject this_PropertyStateExpression_1 = null;
+        EObject this_UMLPropertyStateExpression_1 = null;
 
 
          enterRule(); 
             
         try {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1426:28: ( (this_ObjectStateExpression_0= ruleObjectStateExpression | this_PropertyStateExpression_1= rulePropertyStateExpression ) )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1427:1: (this_ObjectStateExpression_0= ruleObjectStateExpression | this_PropertyStateExpression_1= rulePropertyStateExpression )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1426:28: ( (this_UMLObjectStateExpression_0= ruleUMLObjectStateExpression | this_UMLPropertyStateExpression_1= ruleUMLPropertyStateExpression ) )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1427:1: (this_UMLObjectStateExpression_0= ruleUMLObjectStateExpression | this_UMLPropertyStateExpression_1= ruleUMLPropertyStateExpression )
             {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1427:1: (this_ObjectStateExpression_0= ruleObjectStateExpression | this_PropertyStateExpression_1= rulePropertyStateExpression )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1427:1: (this_UMLObjectStateExpression_0= ruleUMLObjectStateExpression | this_UMLPropertyStateExpression_1= ruleUMLPropertyStateExpression )
             int alt22=2;
             alt22 = dfa22.predict(input);
             switch (alt22) {
                 case 1 :
-                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1428:5: this_ObjectStateExpression_0= ruleObjectStateExpression
+                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1428:5: this_UMLObjectStateExpression_0= ruleUMLObjectStateExpression
                     {
                     if ( state.backtracking==0 ) {
                        
-                              newCompositeNode(grammarAccess.getStateExpressionAccess().getObjectStateExpressionParserRuleCall_0()); 
+                              newCompositeNode(grammarAccess.getUMLStateExpressionAccess().getUMLObjectStateExpressionParserRuleCall_0()); 
                           
                     }
-                    pushFollow(FOLLOW_ruleObjectStateExpression_in_ruleStateExpression3157);
-                    this_ObjectStateExpression_0=ruleObjectStateExpression();
+                    pushFollow(FOLLOW_ruleUMLObjectStateExpression_in_ruleUMLStateExpression3157);
+                    this_UMLObjectStateExpression_0=ruleUMLObjectStateExpression();
 
                     state._fsp--;
                     if (state.failed) return current;
                     if ( state.backtracking==0 ) {
                        
-                              current = this_ObjectStateExpression_0; 
+                              current = this_UMLObjectStateExpression_0; 
                               afterParserOrEnumRuleCall();
                           
                     }
@@ -4040,21 +4040,21 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1438:5: this_PropertyStateExpression_1= rulePropertyStateExpression
+                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1438:5: this_UMLPropertyStateExpression_1= ruleUMLPropertyStateExpression
                     {
                     if ( state.backtracking==0 ) {
                        
-                              newCompositeNode(grammarAccess.getStateExpressionAccess().getPropertyStateExpressionParserRuleCall_1()); 
+                              newCompositeNode(grammarAccess.getUMLStateExpressionAccess().getUMLPropertyStateExpressionParserRuleCall_1()); 
                           
                     }
-                    pushFollow(FOLLOW_rulePropertyStateExpression_in_ruleStateExpression3184);
-                    this_PropertyStateExpression_1=rulePropertyStateExpression();
+                    pushFollow(FOLLOW_ruleUMLPropertyStateExpression_in_ruleUMLStateExpression3184);
+                    this_UMLPropertyStateExpression_1=ruleUMLPropertyStateExpression();
 
                     state._fsp--;
                     if (state.failed) return current;
                     if ( state.backtracking==0 ) {
                        
-                              current = this_PropertyStateExpression_1; 
+                              current = this_UMLPropertyStateExpression_1; 
                               afterParserOrEnumRuleCall();
                           
                     }
@@ -4080,33 +4080,33 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleStateExpression"
+    // $ANTLR end "ruleUMLStateExpression"
 
 
-    // $ANTLR start "entryRuleObjectStateExpression"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1454:1: entryRuleObjectStateExpression returns [EObject current=null] : iv_ruleObjectStateExpression= ruleObjectStateExpression EOF ;
-    public final EObject entryRuleObjectStateExpression() throws RecognitionException {
+    // $ANTLR start "entryRuleUMLObjectStateExpression"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1454:1: entryRuleUMLObjectStateExpression returns [EObject current=null] : iv_ruleUMLObjectStateExpression= ruleUMLObjectStateExpression EOF ;
+    public final EObject entryRuleUMLObjectStateExpression() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleObjectStateExpression = null;
+        EObject iv_ruleUMLObjectStateExpression = null;
 
 
         try {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1455:2: (iv_ruleObjectStateExpression= ruleObjectStateExpression EOF )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1456:2: iv_ruleObjectStateExpression= ruleObjectStateExpression EOF
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1455:2: (iv_ruleUMLObjectStateExpression= ruleUMLObjectStateExpression EOF )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1456:2: iv_ruleUMLObjectStateExpression= ruleUMLObjectStateExpression EOF
             {
             if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getObjectStateExpressionRule()); 
+               newCompositeNode(grammarAccess.getUMLObjectStateExpressionRule()); 
             }
-            pushFollow(FOLLOW_ruleObjectStateExpression_in_entryRuleObjectStateExpression3219);
-            iv_ruleObjectStateExpression=ruleObjectStateExpression();
+            pushFollow(FOLLOW_ruleUMLObjectStateExpression_in_entryRuleUMLObjectStateExpression3219);
+            iv_ruleUMLObjectStateExpression=ruleUMLObjectStateExpression();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
-               current =iv_ruleObjectStateExpression; 
+               current =iv_ruleUMLObjectStateExpression; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleObjectStateExpression3229); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleUMLObjectStateExpression3229); if (state.failed) return current;
 
             }
 
@@ -4120,12 +4120,12 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleObjectStateExpression"
+    // $ANTLR end "entryRuleUMLObjectStateExpression"
 
 
-    // $ANTLR start "ruleObjectStateExpression"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1463:1: ruleObjectStateExpression returns [EObject current=null] : ( ( ( ruleQualifiedName ) ) ( (lv_operator_1_0= ruleArithmeticOperator ) ) ( (lv_value_2_0= ruleValue ) ) otherlv_3= ';' ) ;
-    public final EObject ruleObjectStateExpression() throws RecognitionException {
+    // $ANTLR start "ruleUMLObjectStateExpression"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1463:1: ruleUMLObjectStateExpression returns [EObject current=null] : ( ( ( ruleQualifiedName ) ) ( (lv_operator_1_0= ruleUMLArithmeticOperator ) ) ( (lv_value_2_0= ruleUMLValue ) ) otherlv_3= ';' ) ;
+    public final EObject ruleUMLObjectStateExpression() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_3=null;
@@ -4137,11 +4137,11 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1466:28: ( ( ( ( ruleQualifiedName ) ) ( (lv_operator_1_0= ruleArithmeticOperator ) ) ( (lv_value_2_0= ruleValue ) ) otherlv_3= ';' ) )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1467:1: ( ( ( ruleQualifiedName ) ) ( (lv_operator_1_0= ruleArithmeticOperator ) ) ( (lv_value_2_0= ruleValue ) ) otherlv_3= ';' )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1466:28: ( ( ( ( ruleQualifiedName ) ) ( (lv_operator_1_0= ruleUMLArithmeticOperator ) ) ( (lv_value_2_0= ruleUMLValue ) ) otherlv_3= ';' ) )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1467:1: ( ( ( ruleQualifiedName ) ) ( (lv_operator_1_0= ruleUMLArithmeticOperator ) ) ( (lv_value_2_0= ruleUMLValue ) ) otherlv_3= ';' )
             {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1467:1: ( ( ( ruleQualifiedName ) ) ( (lv_operator_1_0= ruleArithmeticOperator ) ) ( (lv_value_2_0= ruleValue ) ) otherlv_3= ';' )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1467:2: ( ( ruleQualifiedName ) ) ( (lv_operator_1_0= ruleArithmeticOperator ) ) ( (lv_value_2_0= ruleValue ) ) otherlv_3= ';'
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1467:1: ( ( ( ruleQualifiedName ) ) ( (lv_operator_1_0= ruleUMLArithmeticOperator ) ) ( (lv_value_2_0= ruleUMLValue ) ) otherlv_3= ';' )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1467:2: ( ( ruleQualifiedName ) ) ( (lv_operator_1_0= ruleUMLArithmeticOperator ) ) ( (lv_value_2_0= ruleUMLValue ) ) otherlv_3= ';'
             {
             // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1467:2: ( ( ruleQualifiedName ) )
             // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1468:1: ( ruleQualifiedName )
@@ -4152,16 +4152,16 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
 
               			if (current==null) {
-              	            current = createModelElement(grammarAccess.getObjectStateExpressionRule());
+              	            current = createModelElement(grammarAccess.getUMLObjectStateExpressionRule());
               	        }
                       
             }
             if ( state.backtracking==0 ) {
                
-              	        newCompositeNode(grammarAccess.getObjectStateExpressionAccess().getPinObjectNodeCrossReference_0_0()); 
+              	        newCompositeNode(grammarAccess.getUMLObjectStateExpressionAccess().getPinObjectNodeCrossReference_0_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleQualifiedName_in_ruleObjectStateExpression3277);
+            pushFollow(FOLLOW_ruleQualifiedName_in_ruleUMLObjectStateExpression3277);
             ruleQualifiedName();
 
             state._fsp--;
@@ -4177,32 +4177,32 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1482:2: ( (lv_operator_1_0= ruleArithmeticOperator ) )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1483:1: (lv_operator_1_0= ruleArithmeticOperator )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1482:2: ( (lv_operator_1_0= ruleUMLArithmeticOperator ) )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1483:1: (lv_operator_1_0= ruleUMLArithmeticOperator )
             {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1483:1: (lv_operator_1_0= ruleArithmeticOperator )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1484:3: lv_operator_1_0= ruleArithmeticOperator
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1483:1: (lv_operator_1_0= ruleUMLArithmeticOperator )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1484:3: lv_operator_1_0= ruleUMLArithmeticOperator
             {
             if ( state.backtracking==0 ) {
                
-              	        newCompositeNode(grammarAccess.getObjectStateExpressionAccess().getOperatorArithmeticOperatorEnumRuleCall_1_0()); 
+              	        newCompositeNode(grammarAccess.getUMLObjectStateExpressionAccess().getOperatorUMLArithmeticOperatorEnumRuleCall_1_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleArithmeticOperator_in_ruleObjectStateExpression3298);
-            lv_operator_1_0=ruleArithmeticOperator();
+            pushFollow(FOLLOW_ruleUMLArithmeticOperator_in_ruleUMLObjectStateExpression3298);
+            lv_operator_1_0=ruleUMLArithmeticOperator();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               	        if (current==null) {
-              	            current = createModelElementForParent(grammarAccess.getObjectStateExpressionRule());
+              	            current = createModelElementForParent(grammarAccess.getUMLObjectStateExpressionRule());
               	        }
                      		set(
                      			current, 
                      			"operator",
                       		lv_operator_1_0, 
-                      		"ArithmeticOperator");
+                      		"UMLArithmeticOperator");
               	        afterParserOrEnumRuleCall();
               	    
             }
@@ -4212,32 +4212,32 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1500:2: ( (lv_value_2_0= ruleValue ) )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1501:1: (lv_value_2_0= ruleValue )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1500:2: ( (lv_value_2_0= ruleUMLValue ) )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1501:1: (lv_value_2_0= ruleUMLValue )
             {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1501:1: (lv_value_2_0= ruleValue )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1502:3: lv_value_2_0= ruleValue
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1501:1: (lv_value_2_0= ruleUMLValue )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1502:3: lv_value_2_0= ruleUMLValue
             {
             if ( state.backtracking==0 ) {
                
-              	        newCompositeNode(grammarAccess.getObjectStateExpressionAccess().getValueValueParserRuleCall_2_0()); 
+              	        newCompositeNode(grammarAccess.getUMLObjectStateExpressionAccess().getValueUMLValueParserRuleCall_2_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleValue_in_ruleObjectStateExpression3319);
-            lv_value_2_0=ruleValue();
+            pushFollow(FOLLOW_ruleUMLValue_in_ruleUMLObjectStateExpression3319);
+            lv_value_2_0=ruleUMLValue();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               	        if (current==null) {
-              	            current = createModelElementForParent(grammarAccess.getObjectStateExpressionRule());
+              	            current = createModelElementForParent(grammarAccess.getUMLObjectStateExpressionRule());
               	        }
                      		set(
                      			current, 
                      			"value",
                       		lv_value_2_0, 
-                      		"Value");
+                      		"UMLValue");
               	        afterParserOrEnumRuleCall();
               	    
             }
@@ -4247,10 +4247,10 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_3=(Token)match(input,24,FOLLOW_24_in_ruleObjectStateExpression3331); if (state.failed) return current;
+            otherlv_3=(Token)match(input,24,FOLLOW_24_in_ruleUMLObjectStateExpression3331); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_3, grammarAccess.getObjectStateExpressionAccess().getSemicolonKeyword_3());
+                  	newLeafNode(otherlv_3, grammarAccess.getUMLObjectStateExpressionAccess().getSemicolonKeyword_3());
                   
             }
 
@@ -4272,33 +4272,33 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleObjectStateExpression"
+    // $ANTLR end "ruleUMLObjectStateExpression"
 
 
-    // $ANTLR start "entryRulePropertyStateExpression"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1530:1: entryRulePropertyStateExpression returns [EObject current=null] : iv_rulePropertyStateExpression= rulePropertyStateExpression EOF ;
-    public final EObject entryRulePropertyStateExpression() throws RecognitionException {
+    // $ANTLR start "entryRuleUMLPropertyStateExpression"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1530:1: entryRuleUMLPropertyStateExpression returns [EObject current=null] : iv_ruleUMLPropertyStateExpression= ruleUMLPropertyStateExpression EOF ;
+    public final EObject entryRuleUMLPropertyStateExpression() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_rulePropertyStateExpression = null;
+        EObject iv_ruleUMLPropertyStateExpression = null;
 
 
         try {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1531:2: (iv_rulePropertyStateExpression= rulePropertyStateExpression EOF )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1532:2: iv_rulePropertyStateExpression= rulePropertyStateExpression EOF
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1531:2: (iv_ruleUMLPropertyStateExpression= ruleUMLPropertyStateExpression EOF )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1532:2: iv_ruleUMLPropertyStateExpression= ruleUMLPropertyStateExpression EOF
             {
             if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getPropertyStateExpressionRule()); 
+               newCompositeNode(grammarAccess.getUMLPropertyStateExpressionRule()); 
             }
-            pushFollow(FOLLOW_rulePropertyStateExpression_in_entryRulePropertyStateExpression3367);
-            iv_rulePropertyStateExpression=rulePropertyStateExpression();
+            pushFollow(FOLLOW_ruleUMLPropertyStateExpression_in_entryRuleUMLPropertyStateExpression3367);
+            iv_ruleUMLPropertyStateExpression=ruleUMLPropertyStateExpression();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
-               current =iv_rulePropertyStateExpression; 
+               current =iv_ruleUMLPropertyStateExpression; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRulePropertyStateExpression3377); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleUMLPropertyStateExpression3377); if (state.failed) return current;
 
             }
 
@@ -4312,12 +4312,12 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRulePropertyStateExpression"
+    // $ANTLR end "entryRuleUMLPropertyStateExpression"
 
 
-    // $ANTLR start "rulePropertyStateExpression"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1539:1: rulePropertyStateExpression returns [EObject current=null] : ( ( ( ruleQualifiedName ) ) otherlv_1= '::' ( ( ruleQualifiedName ) ) ( (lv_operator_3_0= ruleArithmeticOperator ) ) ( (lv_value_4_0= ruleValue ) ) otherlv_5= ';' ) ;
-    public final EObject rulePropertyStateExpression() throws RecognitionException {
+    // $ANTLR start "ruleUMLPropertyStateExpression"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1539:1: ruleUMLPropertyStateExpression returns [EObject current=null] : ( ( ( ruleQualifiedName ) ) otherlv_1= '::' ( ( ruleQualifiedName ) ) ( (lv_operator_3_0= ruleUMLArithmeticOperator ) ) ( (lv_value_4_0= ruleUMLValue ) ) otherlv_5= ';' ) ;
+    public final EObject ruleUMLPropertyStateExpression() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_1=null;
@@ -4330,11 +4330,11 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1542:28: ( ( ( ( ruleQualifiedName ) ) otherlv_1= '::' ( ( ruleQualifiedName ) ) ( (lv_operator_3_0= ruleArithmeticOperator ) ) ( (lv_value_4_0= ruleValue ) ) otherlv_5= ';' ) )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1543:1: ( ( ( ruleQualifiedName ) ) otherlv_1= '::' ( ( ruleQualifiedName ) ) ( (lv_operator_3_0= ruleArithmeticOperator ) ) ( (lv_value_4_0= ruleValue ) ) otherlv_5= ';' )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1542:28: ( ( ( ( ruleQualifiedName ) ) otherlv_1= '::' ( ( ruleQualifiedName ) ) ( (lv_operator_3_0= ruleUMLArithmeticOperator ) ) ( (lv_value_4_0= ruleUMLValue ) ) otherlv_5= ';' ) )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1543:1: ( ( ( ruleQualifiedName ) ) otherlv_1= '::' ( ( ruleQualifiedName ) ) ( (lv_operator_3_0= ruleUMLArithmeticOperator ) ) ( (lv_value_4_0= ruleUMLValue ) ) otherlv_5= ';' )
             {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1543:1: ( ( ( ruleQualifiedName ) ) otherlv_1= '::' ( ( ruleQualifiedName ) ) ( (lv_operator_3_0= ruleArithmeticOperator ) ) ( (lv_value_4_0= ruleValue ) ) otherlv_5= ';' )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1543:2: ( ( ruleQualifiedName ) ) otherlv_1= '::' ( ( ruleQualifiedName ) ) ( (lv_operator_3_0= ruleArithmeticOperator ) ) ( (lv_value_4_0= ruleValue ) ) otherlv_5= ';'
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1543:1: ( ( ( ruleQualifiedName ) ) otherlv_1= '::' ( ( ruleQualifiedName ) ) ( (lv_operator_3_0= ruleUMLArithmeticOperator ) ) ( (lv_value_4_0= ruleUMLValue ) ) otherlv_5= ';' )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1543:2: ( ( ruleQualifiedName ) ) otherlv_1= '::' ( ( ruleQualifiedName ) ) ( (lv_operator_3_0= ruleUMLArithmeticOperator ) ) ( (lv_value_4_0= ruleUMLValue ) ) otherlv_5= ';'
             {
             // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1543:2: ( ( ruleQualifiedName ) )
             // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1544:1: ( ruleQualifiedName )
@@ -4345,16 +4345,16 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
 
               			if (current==null) {
-              	            current = createModelElement(grammarAccess.getPropertyStateExpressionRule());
+              	            current = createModelElement(grammarAccess.getUMLPropertyStateExpressionRule());
               	        }
                       
             }
             if ( state.backtracking==0 ) {
                
-              	        newCompositeNode(grammarAccess.getPropertyStateExpressionAccess().getPinObjectNodeCrossReference_0_0()); 
+              	        newCompositeNode(grammarAccess.getUMLPropertyStateExpressionAccess().getPinObjectNodeCrossReference_0_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleQualifiedName_in_rulePropertyStateExpression3425);
+            pushFollow(FOLLOW_ruleQualifiedName_in_ruleUMLPropertyStateExpression3425);
             ruleQualifiedName();
 
             state._fsp--;
@@ -4370,10 +4370,10 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,39,FOLLOW_39_in_rulePropertyStateExpression3437); if (state.failed) return current;
+            otherlv_1=(Token)match(input,39,FOLLOW_39_in_ruleUMLPropertyStateExpression3437); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_1, grammarAccess.getPropertyStateExpressionAccess().getColonColonKeyword_1());
+                  	newLeafNode(otherlv_1, grammarAccess.getUMLPropertyStateExpressionAccess().getColonColonKeyword_1());
                   
             }
             // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1562:1: ( ( ruleQualifiedName ) )
@@ -4385,16 +4385,16 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
 
               			if (current==null) {
-              	            current = createModelElement(grammarAccess.getPropertyStateExpressionRule());
+              	            current = createModelElement(grammarAccess.getUMLPropertyStateExpressionRule());
               	        }
                       
             }
             if ( state.backtracking==0 ) {
                
-              	        newCompositeNode(grammarAccess.getPropertyStateExpressionAccess().getPropertyPropertyCrossReference_2_0()); 
+              	        newCompositeNode(grammarAccess.getUMLPropertyStateExpressionAccess().getPropertyPropertyCrossReference_2_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleQualifiedName_in_rulePropertyStateExpression3460);
+            pushFollow(FOLLOW_ruleQualifiedName_in_ruleUMLPropertyStateExpression3460);
             ruleQualifiedName();
 
             state._fsp--;
@@ -4410,32 +4410,32 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1577:2: ( (lv_operator_3_0= ruleArithmeticOperator ) )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1578:1: (lv_operator_3_0= ruleArithmeticOperator )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1577:2: ( (lv_operator_3_0= ruleUMLArithmeticOperator ) )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1578:1: (lv_operator_3_0= ruleUMLArithmeticOperator )
             {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1578:1: (lv_operator_3_0= ruleArithmeticOperator )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1579:3: lv_operator_3_0= ruleArithmeticOperator
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1578:1: (lv_operator_3_0= ruleUMLArithmeticOperator )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1579:3: lv_operator_3_0= ruleUMLArithmeticOperator
             {
             if ( state.backtracking==0 ) {
                
-              	        newCompositeNode(grammarAccess.getPropertyStateExpressionAccess().getOperatorArithmeticOperatorEnumRuleCall_3_0()); 
+              	        newCompositeNode(grammarAccess.getUMLPropertyStateExpressionAccess().getOperatorUMLArithmeticOperatorEnumRuleCall_3_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleArithmeticOperator_in_rulePropertyStateExpression3481);
-            lv_operator_3_0=ruleArithmeticOperator();
+            pushFollow(FOLLOW_ruleUMLArithmeticOperator_in_ruleUMLPropertyStateExpression3481);
+            lv_operator_3_0=ruleUMLArithmeticOperator();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               	        if (current==null) {
-              	            current = createModelElementForParent(grammarAccess.getPropertyStateExpressionRule());
+              	            current = createModelElementForParent(grammarAccess.getUMLPropertyStateExpressionRule());
               	        }
                      		set(
                      			current, 
                      			"operator",
                       		lv_operator_3_0, 
-                      		"ArithmeticOperator");
+                      		"UMLArithmeticOperator");
               	        afterParserOrEnumRuleCall();
               	    
             }
@@ -4445,32 +4445,32 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1595:2: ( (lv_value_4_0= ruleValue ) )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1596:1: (lv_value_4_0= ruleValue )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1595:2: ( (lv_value_4_0= ruleUMLValue ) )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1596:1: (lv_value_4_0= ruleUMLValue )
             {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1596:1: (lv_value_4_0= ruleValue )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1597:3: lv_value_4_0= ruleValue
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1596:1: (lv_value_4_0= ruleUMLValue )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1597:3: lv_value_4_0= ruleUMLValue
             {
             if ( state.backtracking==0 ) {
                
-              	        newCompositeNode(grammarAccess.getPropertyStateExpressionAccess().getValueValueParserRuleCall_4_0()); 
+              	        newCompositeNode(grammarAccess.getUMLPropertyStateExpressionAccess().getValueUMLValueParserRuleCall_4_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleValue_in_rulePropertyStateExpression3502);
-            lv_value_4_0=ruleValue();
+            pushFollow(FOLLOW_ruleUMLValue_in_ruleUMLPropertyStateExpression3502);
+            lv_value_4_0=ruleUMLValue();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               	        if (current==null) {
-              	            current = createModelElementForParent(grammarAccess.getPropertyStateExpressionRule());
+              	            current = createModelElementForParent(grammarAccess.getUMLPropertyStateExpressionRule());
               	        }
                      		set(
                      			current, 
                      			"value",
                       		lv_value_4_0, 
-                      		"Value");
+                      		"UMLValue");
               	        afterParserOrEnumRuleCall();
               	    
             }
@@ -4480,10 +4480,10 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_5=(Token)match(input,24,FOLLOW_24_in_rulePropertyStateExpression3514); if (state.failed) return current;
+            otherlv_5=(Token)match(input,24,FOLLOW_24_in_ruleUMLPropertyStateExpression3514); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_5, grammarAccess.getPropertyStateExpressionAccess().getSemicolonKeyword_5());
+                  	newLeafNode(otherlv_5, grammarAccess.getUMLPropertyStateExpressionAccess().getSemicolonKeyword_5());
                   
             }
 
@@ -4505,33 +4505,33 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "rulePropertyStateExpression"
+    // $ANTLR end "ruleUMLPropertyStateExpression"
 
 
-    // $ANTLR start "entryRuleOrderAssertion"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1625:1: entryRuleOrderAssertion returns [EObject current=null] : iv_ruleOrderAssertion= ruleOrderAssertion EOF ;
-    public final EObject entryRuleOrderAssertion() throws RecognitionException {
+    // $ANTLR start "entryRuleUMLOrderAssertion"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1625:1: entryRuleUMLOrderAssertion returns [EObject current=null] : iv_ruleUMLOrderAssertion= ruleUMLOrderAssertion EOF ;
+    public final EObject entryRuleUMLOrderAssertion() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleOrderAssertion = null;
+        EObject iv_ruleUMLOrderAssertion = null;
 
 
         try {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1626:2: (iv_ruleOrderAssertion= ruleOrderAssertion EOF )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1627:2: iv_ruleOrderAssertion= ruleOrderAssertion EOF
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1626:2: (iv_ruleUMLOrderAssertion= ruleUMLOrderAssertion EOF )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1627:2: iv_ruleUMLOrderAssertion= ruleUMLOrderAssertion EOF
             {
             if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getOrderAssertionRule()); 
+               newCompositeNode(grammarAccess.getUMLOrderAssertionRule()); 
             }
-            pushFollow(FOLLOW_ruleOrderAssertion_in_entryRuleOrderAssertion3550);
-            iv_ruleOrderAssertion=ruleOrderAssertion();
+            pushFollow(FOLLOW_ruleUMLOrderAssertion_in_entryRuleUMLOrderAssertion3550);
+            iv_ruleUMLOrderAssertion=ruleUMLOrderAssertion();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
-               current =iv_ruleOrderAssertion; 
+               current =iv_ruleUMLOrderAssertion; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleOrderAssertion3560); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleUMLOrderAssertion3560); if (state.failed) return current;
 
             }
 
@@ -4545,12 +4545,12 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleOrderAssertion"
+    // $ANTLR end "entryRuleUMLOrderAssertion"
 
 
-    // $ANTLR start "ruleOrderAssertion"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1634:1: ruleOrderAssertion returns [EObject current=null] : (otherlv_0= 'assertOrder' ( (lv_order_1_0= ruleNodeOrder ) ) otherlv_2= ';' ) ;
-    public final EObject ruleOrderAssertion() throws RecognitionException {
+    // $ANTLR start "ruleUMLOrderAssertion"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1634:1: ruleUMLOrderAssertion returns [EObject current=null] : (otherlv_0= 'assertOrder' ( (lv_order_1_0= ruleUMLNodeOrder ) ) otherlv_2= ';' ) ;
+    public final EObject ruleUMLOrderAssertion() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_0=null;
@@ -4561,44 +4561,44 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1637:28: ( (otherlv_0= 'assertOrder' ( (lv_order_1_0= ruleNodeOrder ) ) otherlv_2= ';' ) )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1638:1: (otherlv_0= 'assertOrder' ( (lv_order_1_0= ruleNodeOrder ) ) otherlv_2= ';' )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1637:28: ( (otherlv_0= 'assertOrder' ( (lv_order_1_0= ruleUMLNodeOrder ) ) otherlv_2= ';' ) )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1638:1: (otherlv_0= 'assertOrder' ( (lv_order_1_0= ruleUMLNodeOrder ) ) otherlv_2= ';' )
             {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1638:1: (otherlv_0= 'assertOrder' ( (lv_order_1_0= ruleNodeOrder ) ) otherlv_2= ';' )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1638:3: otherlv_0= 'assertOrder' ( (lv_order_1_0= ruleNodeOrder ) ) otherlv_2= ';'
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1638:1: (otherlv_0= 'assertOrder' ( (lv_order_1_0= ruleUMLNodeOrder ) ) otherlv_2= ';' )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1638:3: otherlv_0= 'assertOrder' ( (lv_order_1_0= ruleUMLNodeOrder ) ) otherlv_2= ';'
             {
-            otherlv_0=(Token)match(input,40,FOLLOW_40_in_ruleOrderAssertion3597); if (state.failed) return current;
+            otherlv_0=(Token)match(input,40,FOLLOW_40_in_ruleUMLOrderAssertion3597); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_0, grammarAccess.getOrderAssertionAccess().getAssertOrderKeyword_0());
+                  	newLeafNode(otherlv_0, grammarAccess.getUMLOrderAssertionAccess().getAssertOrderKeyword_0());
                   
             }
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1642:1: ( (lv_order_1_0= ruleNodeOrder ) )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1643:1: (lv_order_1_0= ruleNodeOrder )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1642:1: ( (lv_order_1_0= ruleUMLNodeOrder ) )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1643:1: (lv_order_1_0= ruleUMLNodeOrder )
             {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1643:1: (lv_order_1_0= ruleNodeOrder )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1644:3: lv_order_1_0= ruleNodeOrder
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1643:1: (lv_order_1_0= ruleUMLNodeOrder )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1644:3: lv_order_1_0= ruleUMLNodeOrder
             {
             if ( state.backtracking==0 ) {
                
-              	        newCompositeNode(grammarAccess.getOrderAssertionAccess().getOrderNodeOrderParserRuleCall_1_0()); 
+              	        newCompositeNode(grammarAccess.getUMLOrderAssertionAccess().getOrderUMLNodeOrderParserRuleCall_1_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleNodeOrder_in_ruleOrderAssertion3618);
-            lv_order_1_0=ruleNodeOrder();
+            pushFollow(FOLLOW_ruleUMLNodeOrder_in_ruleUMLOrderAssertion3618);
+            lv_order_1_0=ruleUMLNodeOrder();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               	        if (current==null) {
-              	            current = createModelElementForParent(grammarAccess.getOrderAssertionRule());
+              	            current = createModelElementForParent(grammarAccess.getUMLOrderAssertionRule());
               	        }
                      		set(
                      			current, 
                      			"order",
                       		lv_order_1_0, 
-                      		"NodeOrder");
+                      		"UMLNodeOrder");
               	        afterParserOrEnumRuleCall();
               	    
             }
@@ -4608,10 +4608,10 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_2=(Token)match(input,24,FOLLOW_24_in_ruleOrderAssertion3630); if (state.failed) return current;
+            otherlv_2=(Token)match(input,24,FOLLOW_24_in_ruleUMLOrderAssertion3630); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_2, grammarAccess.getOrderAssertionAccess().getSemicolonKeyword_2());
+                  	newLeafNode(otherlv_2, grammarAccess.getUMLOrderAssertionAccess().getSemicolonKeyword_2());
                   
             }
 
@@ -4633,33 +4633,33 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleOrderAssertion"
+    // $ANTLR end "ruleUMLOrderAssertion"
 
 
-    // $ANTLR start "entryRuleNodeOrder"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1672:1: entryRuleNodeOrder returns [EObject current=null] : iv_ruleNodeOrder= ruleNodeOrder EOF ;
-    public final EObject entryRuleNodeOrder() throws RecognitionException {
+    // $ANTLR start "entryRuleUMLNodeOrder"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1672:1: entryRuleUMLNodeOrder returns [EObject current=null] : iv_ruleUMLNodeOrder= ruleUMLNodeOrder EOF ;
+    public final EObject entryRuleUMLNodeOrder() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleNodeOrder = null;
+        EObject iv_ruleUMLNodeOrder = null;
 
 
         try {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1673:2: (iv_ruleNodeOrder= ruleNodeOrder EOF )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1674:2: iv_ruleNodeOrder= ruleNodeOrder EOF
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1673:2: (iv_ruleUMLNodeOrder= ruleUMLNodeOrder EOF )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1674:2: iv_ruleUMLNodeOrder= ruleUMLNodeOrder EOF
             {
             if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getNodeOrderRule()); 
+               newCompositeNode(grammarAccess.getUMLNodeOrderRule()); 
             }
-            pushFollow(FOLLOW_ruleNodeOrder_in_entryRuleNodeOrder3666);
-            iv_ruleNodeOrder=ruleNodeOrder();
+            pushFollow(FOLLOW_ruleUMLNodeOrder_in_entryRuleUMLNodeOrder3666);
+            iv_ruleUMLNodeOrder=ruleUMLNodeOrder();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
-               current =iv_ruleNodeOrder; 
+               current =iv_ruleUMLNodeOrder; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleNodeOrder3676); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleUMLNodeOrder3676); if (state.failed) return current;
 
             }
 
@@ -4673,12 +4673,12 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleNodeOrder"
+    // $ANTLR end "entryRuleUMLNodeOrder"
 
 
-    // $ANTLR start "ruleNodeOrder"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1681:1: ruleNodeOrder returns [EObject current=null] : ( ( (lv_nodes_0_0= ruleNodeSpecification ) ) (otherlv_1= ',' ( (lv_nodes_2_0= ruleNodeSpecification ) ) )* ) ;
-    public final EObject ruleNodeOrder() throws RecognitionException {
+    // $ANTLR start "ruleUMLNodeOrder"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1681:1: ruleUMLNodeOrder returns [EObject current=null] : ( ( (lv_nodes_0_0= ruleUMLNodeSpecification ) ) (otherlv_1= ',' ( (lv_nodes_2_0= ruleUMLNodeSpecification ) ) )* ) ;
+    public final EObject ruleUMLNodeOrder() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_1=null;
@@ -4690,38 +4690,38 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1684:28: ( ( ( (lv_nodes_0_0= ruleNodeSpecification ) ) (otherlv_1= ',' ( (lv_nodes_2_0= ruleNodeSpecification ) ) )* ) )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1685:1: ( ( (lv_nodes_0_0= ruleNodeSpecification ) ) (otherlv_1= ',' ( (lv_nodes_2_0= ruleNodeSpecification ) ) )* )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1684:28: ( ( ( (lv_nodes_0_0= ruleUMLNodeSpecification ) ) (otherlv_1= ',' ( (lv_nodes_2_0= ruleUMLNodeSpecification ) ) )* ) )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1685:1: ( ( (lv_nodes_0_0= ruleUMLNodeSpecification ) ) (otherlv_1= ',' ( (lv_nodes_2_0= ruleUMLNodeSpecification ) ) )* )
             {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1685:1: ( ( (lv_nodes_0_0= ruleNodeSpecification ) ) (otherlv_1= ',' ( (lv_nodes_2_0= ruleNodeSpecification ) ) )* )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1685:2: ( (lv_nodes_0_0= ruleNodeSpecification ) ) (otherlv_1= ',' ( (lv_nodes_2_0= ruleNodeSpecification ) ) )*
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1685:1: ( ( (lv_nodes_0_0= ruleUMLNodeSpecification ) ) (otherlv_1= ',' ( (lv_nodes_2_0= ruleUMLNodeSpecification ) ) )* )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1685:2: ( (lv_nodes_0_0= ruleUMLNodeSpecification ) ) (otherlv_1= ',' ( (lv_nodes_2_0= ruleUMLNodeSpecification ) ) )*
             {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1685:2: ( (lv_nodes_0_0= ruleNodeSpecification ) )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1686:1: (lv_nodes_0_0= ruleNodeSpecification )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1685:2: ( (lv_nodes_0_0= ruleUMLNodeSpecification ) )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1686:1: (lv_nodes_0_0= ruleUMLNodeSpecification )
             {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1686:1: (lv_nodes_0_0= ruleNodeSpecification )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1687:3: lv_nodes_0_0= ruleNodeSpecification
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1686:1: (lv_nodes_0_0= ruleUMLNodeSpecification )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1687:3: lv_nodes_0_0= ruleUMLNodeSpecification
             {
             if ( state.backtracking==0 ) {
                
-              	        newCompositeNode(grammarAccess.getNodeOrderAccess().getNodesNodeSpecificationParserRuleCall_0_0()); 
+              	        newCompositeNode(grammarAccess.getUMLNodeOrderAccess().getNodesUMLNodeSpecificationParserRuleCall_0_0()); 
               	    
             }
-            pushFollow(FOLLOW_ruleNodeSpecification_in_ruleNodeOrder3722);
-            lv_nodes_0_0=ruleNodeSpecification();
+            pushFollow(FOLLOW_ruleUMLNodeSpecification_in_ruleUMLNodeOrder3722);
+            lv_nodes_0_0=ruleUMLNodeSpecification();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               	        if (current==null) {
-              	            current = createModelElementForParent(grammarAccess.getNodeOrderRule());
+              	            current = createModelElementForParent(grammarAccess.getUMLNodeOrderRule());
               	        }
                      		add(
                      			current, 
                      			"nodes",
                       		lv_nodes_0_0, 
-                      		"NodeSpecification");
+                      		"UMLNodeSpecification");
               	        afterParserOrEnumRuleCall();
               	    
             }
@@ -4731,7 +4731,7 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1703:2: (otherlv_1= ',' ( (lv_nodes_2_0= ruleNodeSpecification ) ) )*
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1703:2: (otherlv_1= ',' ( (lv_nodes_2_0= ruleUMLNodeSpecification ) ) )*
             loop23:
             do {
                 int alt23=2;
@@ -4744,40 +4744,40 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
                 switch (alt23) {
             	case 1 :
-            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1703:4: otherlv_1= ',' ( (lv_nodes_2_0= ruleNodeSpecification ) )
+            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1703:4: otherlv_1= ',' ( (lv_nodes_2_0= ruleUMLNodeSpecification ) )
             	    {
-            	    otherlv_1=(Token)match(input,17,FOLLOW_17_in_ruleNodeOrder3735); if (state.failed) return current;
+            	    otherlv_1=(Token)match(input,17,FOLLOW_17_in_ruleUMLNodeOrder3735); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
-            	          	newLeafNode(otherlv_1, grammarAccess.getNodeOrderAccess().getCommaKeyword_1_0());
+            	          	newLeafNode(otherlv_1, grammarAccess.getUMLNodeOrderAccess().getCommaKeyword_1_0());
             	          
             	    }
-            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1707:1: ( (lv_nodes_2_0= ruleNodeSpecification ) )
-            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1708:1: (lv_nodes_2_0= ruleNodeSpecification )
+            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1707:1: ( (lv_nodes_2_0= ruleUMLNodeSpecification ) )
+            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1708:1: (lv_nodes_2_0= ruleUMLNodeSpecification )
             	    {
-            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1708:1: (lv_nodes_2_0= ruleNodeSpecification )
-            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1709:3: lv_nodes_2_0= ruleNodeSpecification
+            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1708:1: (lv_nodes_2_0= ruleUMLNodeSpecification )
+            	    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1709:3: lv_nodes_2_0= ruleUMLNodeSpecification
             	    {
             	    if ( state.backtracking==0 ) {
             	       
-            	      	        newCompositeNode(grammarAccess.getNodeOrderAccess().getNodesNodeSpecificationParserRuleCall_1_1_0()); 
+            	      	        newCompositeNode(grammarAccess.getUMLNodeOrderAccess().getNodesUMLNodeSpecificationParserRuleCall_1_1_0()); 
             	      	    
             	    }
-            	    pushFollow(FOLLOW_ruleNodeSpecification_in_ruleNodeOrder3756);
-            	    lv_nodes_2_0=ruleNodeSpecification();
+            	    pushFollow(FOLLOW_ruleUMLNodeSpecification_in_ruleUMLNodeOrder3756);
+            	    lv_nodes_2_0=ruleUMLNodeSpecification();
 
             	    state._fsp--;
             	    if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	      	        if (current==null) {
-            	      	            current = createModelElementForParent(grammarAccess.getNodeOrderRule());
+            	      	            current = createModelElementForParent(grammarAccess.getUMLNodeOrderRule());
             	      	        }
             	             		add(
             	             			current, 
             	             			"nodes",
             	              		lv_nodes_2_0, 
-            	              		"NodeSpecification");
+            	              		"UMLNodeSpecification");
             	      	        afterParserOrEnumRuleCall();
             	      	    
             	    }
@@ -4815,33 +4815,33 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleNodeOrder"
+    // $ANTLR end "ruleUMLNodeOrder"
 
 
-    // $ANTLR start "entryRuleNodeSpecification"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1733:1: entryRuleNodeSpecification returns [EObject current=null] : iv_ruleNodeSpecification= ruleNodeSpecification EOF ;
-    public final EObject entryRuleNodeSpecification() throws RecognitionException {
+    // $ANTLR start "entryRuleUMLNodeSpecification"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1733:1: entryRuleUMLNodeSpecification returns [EObject current=null] : iv_ruleUMLNodeSpecification= ruleUMLNodeSpecification EOF ;
+    public final EObject entryRuleUMLNodeSpecification() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleNodeSpecification = null;
+        EObject iv_ruleUMLNodeSpecification = null;
 
 
         try {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1734:2: (iv_ruleNodeSpecification= ruleNodeSpecification EOF )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1735:2: iv_ruleNodeSpecification= ruleNodeSpecification EOF
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1734:2: (iv_ruleUMLNodeSpecification= ruleUMLNodeSpecification EOF )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1735:2: iv_ruleUMLNodeSpecification= ruleUMLNodeSpecification EOF
             {
             if ( state.backtracking==0 ) {
-               newCompositeNode(grammarAccess.getNodeSpecificationRule()); 
+               newCompositeNode(grammarAccess.getUMLNodeSpecificationRule()); 
             }
-            pushFollow(FOLLOW_ruleNodeSpecification_in_entryRuleNodeSpecification3794);
-            iv_ruleNodeSpecification=ruleNodeSpecification();
+            pushFollow(FOLLOW_ruleUMLNodeSpecification_in_entryRuleUMLNodeSpecification3794);
+            iv_ruleUMLNodeSpecification=ruleUMLNodeSpecification();
 
             state._fsp--;
             if (state.failed) return current;
             if ( state.backtracking==0 ) {
-               current =iv_ruleNodeSpecification; 
+               current =iv_ruleUMLNodeSpecification; 
             }
-            match(input,EOF,FOLLOW_EOF_in_entryRuleNodeSpecification3804); if (state.failed) return current;
+            match(input,EOF,FOLLOW_EOF_in_entryRuleUMLNodeSpecification3804); if (state.failed) return current;
 
             }
 
@@ -4855,12 +4855,12 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleNodeSpecification"
+    // $ANTLR end "entryRuleUMLNodeSpecification"
 
 
-    // $ANTLR start "ruleNodeSpecification"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1742:1: ruleNodeSpecification returns [EObject current=null] : ( ( ( ( ruleQualifiedName ) ) (otherlv_1= ':' ( (lv_size_2_0= ruleXNumberLiteral ) ) )? (otherlv_3= '(' ( (lv_subOrder_4_0= ruleNodeOrder ) ) otherlv_5= ')' )? ) | ( (lv_joker_6_0= '*' ) ) | ( (lv_joker_7_0= '_' ) ) ) ;
-    public final EObject ruleNodeSpecification() throws RecognitionException {
+    // $ANTLR start "ruleUMLNodeSpecification"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1742:1: ruleUMLNodeSpecification returns [EObject current=null] : ( ( ( ( ruleQualifiedName ) ) (otherlv_1= ':' ( (lv_size_2_0= ruleXNumberLiteral ) ) )? (otherlv_3= '(' ( (lv_subOrder_4_0= ruleUMLNodeOrder ) ) otherlv_5= ')' )? ) | ( (lv_joker_6_0= '*' ) ) | ( (lv_joker_7_0= '_' ) ) ) ;
+    public final EObject ruleUMLNodeSpecification() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_1=null;
@@ -4876,10 +4876,10 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1745:28: ( ( ( ( ( ruleQualifiedName ) ) (otherlv_1= ':' ( (lv_size_2_0= ruleXNumberLiteral ) ) )? (otherlv_3= '(' ( (lv_subOrder_4_0= ruleNodeOrder ) ) otherlv_5= ')' )? ) | ( (lv_joker_6_0= '*' ) ) | ( (lv_joker_7_0= '_' ) ) ) )
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1746:1: ( ( ( ( ruleQualifiedName ) ) (otherlv_1= ':' ( (lv_size_2_0= ruleXNumberLiteral ) ) )? (otherlv_3= '(' ( (lv_subOrder_4_0= ruleNodeOrder ) ) otherlv_5= ')' )? ) | ( (lv_joker_6_0= '*' ) ) | ( (lv_joker_7_0= '_' ) ) )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1745:28: ( ( ( ( ( ruleQualifiedName ) ) (otherlv_1= ':' ( (lv_size_2_0= ruleXNumberLiteral ) ) )? (otherlv_3= '(' ( (lv_subOrder_4_0= ruleUMLNodeOrder ) ) otherlv_5= ')' )? ) | ( (lv_joker_6_0= '*' ) ) | ( (lv_joker_7_0= '_' ) ) ) )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1746:1: ( ( ( ( ruleQualifiedName ) ) (otherlv_1= ':' ( (lv_size_2_0= ruleXNumberLiteral ) ) )? (otherlv_3= '(' ( (lv_subOrder_4_0= ruleUMLNodeOrder ) ) otherlv_5= ')' )? ) | ( (lv_joker_6_0= '*' ) ) | ( (lv_joker_7_0= '_' ) ) )
             {
-            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1746:1: ( ( ( ( ruleQualifiedName ) ) (otherlv_1= ':' ( (lv_size_2_0= ruleXNumberLiteral ) ) )? (otherlv_3= '(' ( (lv_subOrder_4_0= ruleNodeOrder ) ) otherlv_5= ')' )? ) | ( (lv_joker_6_0= '*' ) ) | ( (lv_joker_7_0= '_' ) ) )
+            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1746:1: ( ( ( ( ruleQualifiedName ) ) (otherlv_1= ':' ( (lv_size_2_0= ruleXNumberLiteral ) ) )? (otherlv_3= '(' ( (lv_subOrder_4_0= ruleUMLNodeOrder ) ) otherlv_5= ')' )? ) | ( (lv_joker_6_0= '*' ) ) | ( (lv_joker_7_0= '_' ) ) )
             int alt26=3;
             switch ( input.LA(1) ) {
             case RULE_ID:
@@ -4907,10 +4907,10 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
             switch (alt26) {
                 case 1 :
-                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1746:2: ( ( ( ruleQualifiedName ) ) (otherlv_1= ':' ( (lv_size_2_0= ruleXNumberLiteral ) ) )? (otherlv_3= '(' ( (lv_subOrder_4_0= ruleNodeOrder ) ) otherlv_5= ')' )? )
+                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1746:2: ( ( ( ruleQualifiedName ) ) (otherlv_1= ':' ( (lv_size_2_0= ruleXNumberLiteral ) ) )? (otherlv_3= '(' ( (lv_subOrder_4_0= ruleUMLNodeOrder ) ) otherlv_5= ')' )? )
                     {
-                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1746:2: ( ( ( ruleQualifiedName ) ) (otherlv_1= ':' ( (lv_size_2_0= ruleXNumberLiteral ) ) )? (otherlv_3= '(' ( (lv_subOrder_4_0= ruleNodeOrder ) ) otherlv_5= ')' )? )
-                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1746:3: ( ( ruleQualifiedName ) ) (otherlv_1= ':' ( (lv_size_2_0= ruleXNumberLiteral ) ) )? (otherlv_3= '(' ( (lv_subOrder_4_0= ruleNodeOrder ) ) otherlv_5= ')' )?
+                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1746:2: ( ( ( ruleQualifiedName ) ) (otherlv_1= ':' ( (lv_size_2_0= ruleXNumberLiteral ) ) )? (otherlv_3= '(' ( (lv_subOrder_4_0= ruleUMLNodeOrder ) ) otherlv_5= ')' )? )
+                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1746:3: ( ( ruleQualifiedName ) ) (otherlv_1= ':' ( (lv_size_2_0= ruleXNumberLiteral ) ) )? (otherlv_3= '(' ( (lv_subOrder_4_0= ruleUMLNodeOrder ) ) otherlv_5= ')' )?
                     {
                     // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1746:3: ( ( ruleQualifiedName ) )
                     // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1747:1: ( ruleQualifiedName )
@@ -4921,16 +4921,16 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                     if ( state.backtracking==0 ) {
 
                       			if (current==null) {
-                      	            current = createModelElement(grammarAccess.getNodeSpecificationRule());
+                      	            current = createModelElement(grammarAccess.getUMLNodeSpecificationRule());
                       	        }
                               
                     }
                     if ( state.backtracking==0 ) {
                        
-                      	        newCompositeNode(grammarAccess.getNodeSpecificationAccess().getNodeActivityNodeCrossReference_0_0_0()); 
+                      	        newCompositeNode(grammarAccess.getUMLNodeSpecificationAccess().getNodeActivityNodeCrossReference_0_0_0()); 
                       	    
                     }
-                    pushFollow(FOLLOW_ruleQualifiedName_in_ruleNodeSpecification3853);
+                    pushFollow(FOLLOW_ruleQualifiedName_in_ruleUMLNodeSpecification3853);
                     ruleQualifiedName();
 
                     state._fsp--;
@@ -4957,10 +4957,10 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                         case 1 :
                             // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1761:4: otherlv_1= ':' ( (lv_size_2_0= ruleXNumberLiteral ) )
                             {
-                            otherlv_1=(Token)match(input,29,FOLLOW_29_in_ruleNodeSpecification3866); if (state.failed) return current;
+                            otherlv_1=(Token)match(input,29,FOLLOW_29_in_ruleUMLNodeSpecification3866); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
-                                  	newLeafNode(otherlv_1, grammarAccess.getNodeSpecificationAccess().getColonKeyword_0_1_0());
+                                  	newLeafNode(otherlv_1, grammarAccess.getUMLNodeSpecificationAccess().getColonKeyword_0_1_0());
                                   
                             }
                             // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1765:1: ( (lv_size_2_0= ruleXNumberLiteral ) )
@@ -4971,10 +4971,10 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                             {
                             if ( state.backtracking==0 ) {
                                
-                              	        newCompositeNode(grammarAccess.getNodeSpecificationAccess().getSizeXNumberLiteralParserRuleCall_0_1_1_0()); 
+                              	        newCompositeNode(grammarAccess.getUMLNodeSpecificationAccess().getSizeXNumberLiteralParserRuleCall_0_1_1_0()); 
                               	    
                             }
-                            pushFollow(FOLLOW_ruleXNumberLiteral_in_ruleNodeSpecification3887);
+                            pushFollow(FOLLOW_ruleXNumberLiteral_in_ruleUMLNodeSpecification3887);
                             lv_size_2_0=ruleXNumberLiteral();
 
                             state._fsp--;
@@ -4982,7 +4982,7 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                             if ( state.backtracking==0 ) {
 
                               	        if (current==null) {
-                              	            current = createModelElementForParent(grammarAccess.getNodeSpecificationRule());
+                              	            current = createModelElementForParent(grammarAccess.getUMLNodeSpecificationRule());
                               	        }
                                      		set(
                                      			current, 
@@ -5004,7 +5004,7 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1783:4: (otherlv_3= '(' ( (lv_subOrder_4_0= ruleNodeOrder ) ) otherlv_5= ')' )?
+                    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1783:4: (otherlv_3= '(' ( (lv_subOrder_4_0= ruleUMLNodeOrder ) ) otherlv_5= ')' )?
                     int alt25=2;
                     int LA25_0 = input.LA(1);
 
@@ -5013,40 +5013,40 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                     }
                     switch (alt25) {
                         case 1 :
-                            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1783:6: otherlv_3= '(' ( (lv_subOrder_4_0= ruleNodeOrder ) ) otherlv_5= ')'
+                            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1783:6: otherlv_3= '(' ( (lv_subOrder_4_0= ruleUMLNodeOrder ) ) otherlv_5= ')'
                             {
-                            otherlv_3=(Token)match(input,16,FOLLOW_16_in_ruleNodeSpecification3902); if (state.failed) return current;
+                            otherlv_3=(Token)match(input,16,FOLLOW_16_in_ruleUMLNodeSpecification3902); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
-                                  	newLeafNode(otherlv_3, grammarAccess.getNodeSpecificationAccess().getLeftParenthesisKeyword_0_2_0());
+                                  	newLeafNode(otherlv_3, grammarAccess.getUMLNodeSpecificationAccess().getLeftParenthesisKeyword_0_2_0());
                                   
                             }
-                            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1787:1: ( (lv_subOrder_4_0= ruleNodeOrder ) )
-                            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1788:1: (lv_subOrder_4_0= ruleNodeOrder )
+                            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1787:1: ( (lv_subOrder_4_0= ruleUMLNodeOrder ) )
+                            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1788:1: (lv_subOrder_4_0= ruleUMLNodeOrder )
                             {
-                            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1788:1: (lv_subOrder_4_0= ruleNodeOrder )
-                            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1789:3: lv_subOrder_4_0= ruleNodeOrder
+                            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1788:1: (lv_subOrder_4_0= ruleUMLNodeOrder )
+                            // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1789:3: lv_subOrder_4_0= ruleUMLNodeOrder
                             {
                             if ( state.backtracking==0 ) {
                                
-                              	        newCompositeNode(grammarAccess.getNodeSpecificationAccess().getSubOrderNodeOrderParserRuleCall_0_2_1_0()); 
+                              	        newCompositeNode(grammarAccess.getUMLNodeSpecificationAccess().getSubOrderUMLNodeOrderParserRuleCall_0_2_1_0()); 
                               	    
                             }
-                            pushFollow(FOLLOW_ruleNodeOrder_in_ruleNodeSpecification3923);
-                            lv_subOrder_4_0=ruleNodeOrder();
+                            pushFollow(FOLLOW_ruleUMLNodeOrder_in_ruleUMLNodeSpecification3923);
+                            lv_subOrder_4_0=ruleUMLNodeOrder();
 
                             state._fsp--;
                             if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
                               	        if (current==null) {
-                              	            current = createModelElementForParent(grammarAccess.getNodeSpecificationRule());
+                              	            current = createModelElementForParent(grammarAccess.getUMLNodeSpecificationRule());
                               	        }
                                      		set(
                                      			current, 
                                      			"subOrder",
                                       		lv_subOrder_4_0, 
-                                      		"NodeOrder");
+                                      		"UMLNodeOrder");
                               	        afterParserOrEnumRuleCall();
                               	    
                             }
@@ -5056,10 +5056,10 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
 
                             }
 
-                            otherlv_5=(Token)match(input,18,FOLLOW_18_in_ruleNodeSpecification3935); if (state.failed) return current;
+                            otherlv_5=(Token)match(input,18,FOLLOW_18_in_ruleUMLNodeSpecification3935); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
-                                  	newLeafNode(otherlv_5, grammarAccess.getNodeSpecificationAccess().getRightParenthesisKeyword_0_2_2());
+                                  	newLeafNode(otherlv_5, grammarAccess.getUMLNodeSpecificationAccess().getRightParenthesisKeyword_0_2_2());
                                   
                             }
 
@@ -5083,16 +5083,16 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                     // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1811:1: (lv_joker_6_0= '*' )
                     // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1812:3: lv_joker_6_0= '*'
                     {
-                    lv_joker_6_0=(Token)match(input,41,FOLLOW_41_in_ruleNodeSpecification3962); if (state.failed) return current;
+                    lv_joker_6_0=(Token)match(input,41,FOLLOW_41_in_ruleUMLNodeSpecification3962); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                              newLeafNode(lv_joker_6_0, grammarAccess.getNodeSpecificationAccess().getJokerAsteriskKeyword_1_0());
+                              newLeafNode(lv_joker_6_0, grammarAccess.getUMLNodeSpecificationAccess().getJokerAsteriskKeyword_1_0());
                           
                     }
                     if ( state.backtracking==0 ) {
 
                       	        if (current==null) {
-                      	            current = createModelElement(grammarAccess.getNodeSpecificationRule());
+                      	            current = createModelElement(grammarAccess.getUMLNodeSpecificationRule());
                       	        }
                              		setWithLastConsumed(current, "joker", lv_joker_6_0, "*");
                       	    
@@ -5115,16 +5115,16 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                     // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1827:1: (lv_joker_7_0= '_' )
                     // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:1828:3: lv_joker_7_0= '_'
                     {
-                    lv_joker_7_0=(Token)match(input,42,FOLLOW_42_in_ruleNodeSpecification3999); if (state.failed) return current;
+                    lv_joker_7_0=(Token)match(input,42,FOLLOW_42_in_ruleUMLNodeSpecification3999); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                              newLeafNode(lv_joker_7_0, grammarAccess.getNodeSpecificationAccess().getJoker_Keyword_2_0());
+                              newLeafNode(lv_joker_7_0, grammarAccess.getUMLNodeSpecificationAccess().getJoker_Keyword_2_0());
                           
                     }
                     if ( state.backtracking==0 ) {
 
                       	        if (current==null) {
-                      	            current = createModelElement(grammarAccess.getNodeSpecificationRule());
+                      	            current = createModelElement(grammarAccess.getUMLNodeSpecificationRule());
                       	        }
                              		setWithLastConsumed(current, "joker", lv_joker_7_0, "_");
                       	    
@@ -5157,7 +5157,7 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleNodeSpecification"
+    // $ANTLR end "ruleUMLNodeSpecification"
 
 
     // $ANTLR start "entryRuleXExpression"
@@ -20483,9 +20483,9 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
     // $ANTLR end "ruleXImportDeclaration"
 
 
-    // $ANTLR start "ruleArithmeticOperator"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7090:1: ruleArithmeticOperator returns [Enumerator current=null] : ( (enumLiteral_0= '=' ) | (enumLiteral_1= '!=' ) | (enumLiteral_2= '>' ) | (enumLiteral_3= '<' ) | (enumLiteral_4= '>=' ) | (enumLiteral_5= '<=' ) | (enumLiteral_6= 'includes' ) | (enumLiteral_7= 'excludes' ) ) ;
-    public final Enumerator ruleArithmeticOperator() throws RecognitionException {
+    // $ANTLR start "ruleUMLArithmeticOperator"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7090:1: ruleUMLArithmeticOperator returns [Enumerator current=null] : ( (enumLiteral_0= '=' ) | (enumLiteral_1= '!=' ) | (enumLiteral_2= '>' ) | (enumLiteral_3= '<' ) | (enumLiteral_4= '>=' ) | (enumLiteral_5= '<=' ) | (enumLiteral_6= 'includes' ) | (enumLiteral_7= 'excludes' ) ) ;
+    public final Enumerator ruleUMLArithmeticOperator() throws RecognitionException {
         Enumerator current = null;
 
         Token enumLiteral_0=null;
@@ -20560,11 +20560,11 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                     // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7093:2: (enumLiteral_0= '=' )
                     // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7093:4: enumLiteral_0= '='
                     {
-                    enumLiteral_0=(Token)match(input,26,FOLLOW_26_in_ruleArithmeticOperator16600); if (state.failed) return current;
+                    enumLiteral_0=(Token)match(input,26,FOLLOW_26_in_ruleUMLArithmeticOperator16600); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                              current = grammarAccess.getArithmeticOperatorAccess().getEqualEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
-                              newLeafNode(enumLiteral_0, grammarAccess.getArithmeticOperatorAccess().getEqualEnumLiteralDeclaration_0()); 
+                              current = grammarAccess.getUMLArithmeticOperatorAccess().getEqualEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
+                              newLeafNode(enumLiteral_0, grammarAccess.getUMLArithmeticOperatorAccess().getEqualEnumLiteralDeclaration_0()); 
                           
                     }
 
@@ -20579,11 +20579,11 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                     // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7099:6: (enumLiteral_1= '!=' )
                     // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7099:8: enumLiteral_1= '!='
                     {
-                    enumLiteral_1=(Token)match(input,48,FOLLOW_48_in_ruleArithmeticOperator16617); if (state.failed) return current;
+                    enumLiteral_1=(Token)match(input,48,FOLLOW_48_in_ruleUMLArithmeticOperator16617); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                              current = grammarAccess.getArithmeticOperatorAccess().getNot_equalEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
-                              newLeafNode(enumLiteral_1, grammarAccess.getArithmeticOperatorAccess().getNot_equalEnumLiteralDeclaration_1()); 
+                              current = grammarAccess.getUMLArithmeticOperatorAccess().getNot_equalEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
+                              newLeafNode(enumLiteral_1, grammarAccess.getUMLArithmeticOperatorAccess().getNot_equalEnumLiteralDeclaration_1()); 
                           
                     }
 
@@ -20598,11 +20598,11 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                     // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7105:6: (enumLiteral_2= '>' )
                     // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7105:8: enumLiteral_2= '>'
                     {
-                    enumLiteral_2=(Token)match(input,54,FOLLOW_54_in_ruleArithmeticOperator16634); if (state.failed) return current;
+                    enumLiteral_2=(Token)match(input,54,FOLLOW_54_in_ruleUMLArithmeticOperator16634); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                              current = grammarAccess.getArithmeticOperatorAccess().getGreaterEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
-                              newLeafNode(enumLiteral_2, grammarAccess.getArithmeticOperatorAccess().getGreaterEnumLiteralDeclaration_2()); 
+                              current = grammarAccess.getUMLArithmeticOperatorAccess().getGreaterEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
+                              newLeafNode(enumLiteral_2, grammarAccess.getUMLArithmeticOperatorAccess().getGreaterEnumLiteralDeclaration_2()); 
                           
                     }
 
@@ -20617,11 +20617,11 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                     // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7111:6: (enumLiteral_3= '<' )
                     // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7111:8: enumLiteral_3= '<'
                     {
-                    enumLiteral_3=(Token)match(input,55,FOLLOW_55_in_ruleArithmeticOperator16651); if (state.failed) return current;
+                    enumLiteral_3=(Token)match(input,55,FOLLOW_55_in_ruleUMLArithmeticOperator16651); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                              current = grammarAccess.getArithmeticOperatorAccess().getSmallerEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
-                              newLeafNode(enumLiteral_3, grammarAccess.getArithmeticOperatorAccess().getSmallerEnumLiteralDeclaration_3()); 
+                              current = grammarAccess.getUMLArithmeticOperatorAccess().getSmallerEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
+                              newLeafNode(enumLiteral_3, grammarAccess.getUMLArithmeticOperatorAccess().getSmallerEnumLiteralDeclaration_3()); 
                           
                     }
 
@@ -20636,11 +20636,11 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                     // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7117:6: (enumLiteral_4= '>=' )
                     // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7117:8: enumLiteral_4= '>='
                     {
-                    enumLiteral_4=(Token)match(input,52,FOLLOW_52_in_ruleArithmeticOperator16668); if (state.failed) return current;
+                    enumLiteral_4=(Token)match(input,52,FOLLOW_52_in_ruleUMLArithmeticOperator16668); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                              current = grammarAccess.getArithmeticOperatorAccess().getGreater_equalEnumLiteralDeclaration_4().getEnumLiteral().getInstance();
-                              newLeafNode(enumLiteral_4, grammarAccess.getArithmeticOperatorAccess().getGreater_equalEnumLiteralDeclaration_4()); 
+                              current = grammarAccess.getUMLArithmeticOperatorAccess().getGreater_equalEnumLiteralDeclaration_4().getEnumLiteral().getInstance();
+                              newLeafNode(enumLiteral_4, grammarAccess.getUMLArithmeticOperatorAccess().getGreater_equalEnumLiteralDeclaration_4()); 
                           
                     }
 
@@ -20655,11 +20655,11 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                     // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7123:6: (enumLiteral_5= '<=' )
                     // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7123:8: enumLiteral_5= '<='
                     {
-                    enumLiteral_5=(Token)match(input,53,FOLLOW_53_in_ruleArithmeticOperator16685); if (state.failed) return current;
+                    enumLiteral_5=(Token)match(input,53,FOLLOW_53_in_ruleUMLArithmeticOperator16685); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                              current = grammarAccess.getArithmeticOperatorAccess().getSmaller_equalEnumLiteralDeclaration_5().getEnumLiteral().getInstance();
-                              newLeafNode(enumLiteral_5, grammarAccess.getArithmeticOperatorAccess().getSmaller_equalEnumLiteralDeclaration_5()); 
+                              current = grammarAccess.getUMLArithmeticOperatorAccess().getSmaller_equalEnumLiteralDeclaration_5().getEnumLiteral().getInstance();
+                              newLeafNode(enumLiteral_5, grammarAccess.getUMLArithmeticOperatorAccess().getSmaller_equalEnumLiteralDeclaration_5()); 
                           
                     }
 
@@ -20674,11 +20674,11 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                     // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7129:6: (enumLiteral_6= 'includes' )
                     // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7129:8: enumLiteral_6= 'includes'
                     {
-                    enumLiteral_6=(Token)match(input,99,FOLLOW_99_in_ruleArithmeticOperator16702); if (state.failed) return current;
+                    enumLiteral_6=(Token)match(input,99,FOLLOW_99_in_ruleUMLArithmeticOperator16702); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                              current = grammarAccess.getArithmeticOperatorAccess().getIncludesEnumLiteralDeclaration_6().getEnumLiteral().getInstance();
-                              newLeafNode(enumLiteral_6, grammarAccess.getArithmeticOperatorAccess().getIncludesEnumLiteralDeclaration_6()); 
+                              current = grammarAccess.getUMLArithmeticOperatorAccess().getIncludesEnumLiteralDeclaration_6().getEnumLiteral().getInstance();
+                              newLeafNode(enumLiteral_6, grammarAccess.getUMLArithmeticOperatorAccess().getIncludesEnumLiteralDeclaration_6()); 
                           
                     }
 
@@ -20693,11 +20693,11 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                     // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7135:6: (enumLiteral_7= 'excludes' )
                     // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7135:8: enumLiteral_7= 'excludes'
                     {
-                    enumLiteral_7=(Token)match(input,100,FOLLOW_100_in_ruleArithmeticOperator16719); if (state.failed) return current;
+                    enumLiteral_7=(Token)match(input,100,FOLLOW_100_in_ruleUMLArithmeticOperator16719); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                              current = grammarAccess.getArithmeticOperatorAccess().getExcludesEnumLiteralDeclaration_7().getEnumLiteral().getInstance();
-                              newLeafNode(enumLiteral_7, grammarAccess.getArithmeticOperatorAccess().getExcludesEnumLiteralDeclaration_7()); 
+                              current = grammarAccess.getUMLArithmeticOperatorAccess().getExcludesEnumLiteralDeclaration_7().getEnumLiteral().getInstance();
+                              newLeafNode(enumLiteral_7, grammarAccess.getUMLArithmeticOperatorAccess().getExcludesEnumLiteralDeclaration_7()); 
                           
                     }
 
@@ -20725,12 +20725,12 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleArithmeticOperator"
+    // $ANTLR end "ruleUMLArithmeticOperator"
 
 
-    // $ANTLR start "ruleTemporalOperator"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7145:1: ruleTemporalOperator returns [Enumerator current=null] : ( (enumLiteral_0= 'after' ) | (enumLiteral_1= 'until' ) ) ;
-    public final Enumerator ruleTemporalOperator() throws RecognitionException {
+    // $ANTLR start "ruleUMLTemporalOperator"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7145:1: ruleUMLTemporalOperator returns [Enumerator current=null] : ( (enumLiteral_0= 'after' ) | (enumLiteral_1= 'until' ) ) ;
+    public final Enumerator ruleUMLTemporalOperator() throws RecognitionException {
         Enumerator current = null;
 
         Token enumLiteral_0=null;
@@ -20765,11 +20765,11 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                     // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7148:2: (enumLiteral_0= 'after' )
                     // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7148:4: enumLiteral_0= 'after'
                     {
-                    enumLiteral_0=(Token)match(input,101,FOLLOW_101_in_ruleTemporalOperator16764); if (state.failed) return current;
+                    enumLiteral_0=(Token)match(input,101,FOLLOW_101_in_ruleUMLTemporalOperator16764); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                              current = grammarAccess.getTemporalOperatorAccess().getAfterEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
-                              newLeafNode(enumLiteral_0, grammarAccess.getTemporalOperatorAccess().getAfterEnumLiteralDeclaration_0()); 
+                              current = grammarAccess.getUMLTemporalOperatorAccess().getAfterEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
+                              newLeafNode(enumLiteral_0, grammarAccess.getUMLTemporalOperatorAccess().getAfterEnumLiteralDeclaration_0()); 
                           
                     }
 
@@ -20784,11 +20784,11 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                     // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7154:6: (enumLiteral_1= 'until' )
                     // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7154:8: enumLiteral_1= 'until'
                     {
-                    enumLiteral_1=(Token)match(input,34,FOLLOW_34_in_ruleTemporalOperator16781); if (state.failed) return current;
+                    enumLiteral_1=(Token)match(input,34,FOLLOW_34_in_ruleUMLTemporalOperator16781); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                              current = grammarAccess.getTemporalOperatorAccess().getUntilEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
-                              newLeafNode(enumLiteral_1, grammarAccess.getTemporalOperatorAccess().getUntilEnumLiteralDeclaration_1()); 
+                              current = grammarAccess.getUMLTemporalOperatorAccess().getUntilEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
+                              newLeafNode(enumLiteral_1, grammarAccess.getUMLTemporalOperatorAccess().getUntilEnumLiteralDeclaration_1()); 
                           
                     }
 
@@ -20816,12 +20816,12 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleTemporalOperator"
+    // $ANTLR end "ruleUMLTemporalOperator"
 
 
-    // $ANTLR start "ruleTemporalQuantifier"
-    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7164:1: ruleTemporalQuantifier returns [Enumerator current=null] : ( (enumLiteral_0= 'always' ) | (enumLiteral_1= 'sometimes' ) | (enumLiteral_2= 'eventually' ) | (enumLiteral_3= 'immediately' ) ) ;
-    public final Enumerator ruleTemporalQuantifier() throws RecognitionException {
+    // $ANTLR start "ruleUMLTemporalQuantifier"
+    // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7164:1: ruleUMLTemporalQuantifier returns [Enumerator current=null] : ( (enumLiteral_0= 'always' ) | (enumLiteral_1= 'sometimes' ) | (enumLiteral_2= 'eventually' ) | (enumLiteral_3= 'immediately' ) ) ;
+    public final Enumerator ruleUMLTemporalQuantifier() throws RecognitionException {
         Enumerator current = null;
 
         Token enumLiteral_0=null;
@@ -20872,11 +20872,11 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                     // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7167:2: (enumLiteral_0= 'always' )
                     // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7167:4: enumLiteral_0= 'always'
                     {
-                    enumLiteral_0=(Token)match(input,102,FOLLOW_102_in_ruleTemporalQuantifier16826); if (state.failed) return current;
+                    enumLiteral_0=(Token)match(input,102,FOLLOW_102_in_ruleUMLTemporalQuantifier16826); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                              current = grammarAccess.getTemporalQuantifierAccess().getAlwaysEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
-                              newLeafNode(enumLiteral_0, grammarAccess.getTemporalQuantifierAccess().getAlwaysEnumLiteralDeclaration_0()); 
+                              current = grammarAccess.getUMLTemporalQuantifierAccess().getAlwaysEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
+                              newLeafNode(enumLiteral_0, grammarAccess.getUMLTemporalQuantifierAccess().getAlwaysEnumLiteralDeclaration_0()); 
                           
                     }
 
@@ -20891,11 +20891,11 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                     // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7173:6: (enumLiteral_1= 'sometimes' )
                     // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7173:8: enumLiteral_1= 'sometimes'
                     {
-                    enumLiteral_1=(Token)match(input,103,FOLLOW_103_in_ruleTemporalQuantifier16843); if (state.failed) return current;
+                    enumLiteral_1=(Token)match(input,103,FOLLOW_103_in_ruleUMLTemporalQuantifier16843); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                              current = grammarAccess.getTemporalQuantifierAccess().getSometimesEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
-                              newLeafNode(enumLiteral_1, grammarAccess.getTemporalQuantifierAccess().getSometimesEnumLiteralDeclaration_1()); 
+                              current = grammarAccess.getUMLTemporalQuantifierAccess().getSometimesEnumLiteralDeclaration_1().getEnumLiteral().getInstance();
+                              newLeafNode(enumLiteral_1, grammarAccess.getUMLTemporalQuantifierAccess().getSometimesEnumLiteralDeclaration_1()); 
                           
                     }
 
@@ -20910,11 +20910,11 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                     // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7179:6: (enumLiteral_2= 'eventually' )
                     // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7179:8: enumLiteral_2= 'eventually'
                     {
-                    enumLiteral_2=(Token)match(input,104,FOLLOW_104_in_ruleTemporalQuantifier16860); if (state.failed) return current;
+                    enumLiteral_2=(Token)match(input,104,FOLLOW_104_in_ruleUMLTemporalQuantifier16860); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                              current = grammarAccess.getTemporalQuantifierAccess().getEventuallyEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
-                              newLeafNode(enumLiteral_2, grammarAccess.getTemporalQuantifierAccess().getEventuallyEnumLiteralDeclaration_2()); 
+                              current = grammarAccess.getUMLTemporalQuantifierAccess().getEventuallyEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
+                              newLeafNode(enumLiteral_2, grammarAccess.getUMLTemporalQuantifierAccess().getEventuallyEnumLiteralDeclaration_2()); 
                           
                     }
 
@@ -20929,11 +20929,11 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
                     // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7185:6: (enumLiteral_3= 'immediately' )
                     // ../org.modelexecution.fumltesting/src-gen/org/modelexecution/fumltesting/parser/antlr/internal/InternalTestLang.g:7185:8: enumLiteral_3= 'immediately'
                     {
-                    enumLiteral_3=(Token)match(input,105,FOLLOW_105_in_ruleTemporalQuantifier16877); if (state.failed) return current;
+                    enumLiteral_3=(Token)match(input,105,FOLLOW_105_in_ruleUMLTemporalQuantifier16877); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
-                              current = grammarAccess.getTemporalQuantifierAccess().getImmediatelyEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
-                              newLeafNode(enumLiteral_3, grammarAccess.getTemporalQuantifierAccess().getImmediatelyEnumLiteralDeclaration_3()); 
+                              current = grammarAccess.getUMLTemporalQuantifierAccess().getImmediatelyEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
+                              newLeafNode(enumLiteral_3, grammarAccess.getUMLTemporalQuantifierAccess().getImmediatelyEnumLiteralDeclaration_3()); 
                           
                     }
 
@@ -20961,7 +20961,7 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleTemporalQuantifier"
+    // $ANTLR end "ruleUMLTemporalQuantifier"
 
     // $ANTLR start synpred1_InternalTestLang
     public final void synpred1_InternalTestLang_fragment() throws RecognitionException {   
@@ -22912,7 +22912,7 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
             this.transition = DFA22_transition;
         }
         public String getDescription() {
-            return "1427:1: (this_ObjectStateExpression_0= ruleObjectStateExpression | this_PropertyStateExpression_1= rulePropertyStateExpression )";
+            return "1427:1: (this_UMLObjectStateExpression_0= ruleUMLObjectStateExpression | this_UMLPropertyStateExpression_1= ruleUMLPropertyStateExpression )";
         }
     }
     static final String DFA36_eotS =
@@ -25705,177 +25705,177 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
     }
  
 
-    public static final BitSet FOLLOW_ruleTestSuite_in_entryRuleTestSuite75 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleTestSuite85 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleImport_in_ruleTestSuite131 = new BitSet(new long[]{0x0000000008006002L});
-    public static final BitSet FOLLOW_ruleScenario_in_ruleTestSuite153 = new BitSet(new long[]{0x0000000008004002L});
-    public static final BitSet FOLLOW_ruleTestCase_in_ruleTestSuite175 = new BitSet(new long[]{0x0000000000004002L});
+    public static final BitSet FOLLOW_ruleUMLTestSuite_in_entryRuleUMLTestSuite75 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleUMLTestSuite85 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleImport_in_ruleUMLTestSuite131 = new BitSet(new long[]{0x0000000008006002L});
+    public static final BitSet FOLLOW_ruleUMLScenario_in_ruleUMLTestSuite153 = new BitSet(new long[]{0x0000000008004002L});
+    public static final BitSet FOLLOW_ruleUMLTestCase_in_ruleUMLTestSuite175 = new BitSet(new long[]{0x0000000000004002L});
     public static final BitSet FOLLOW_ruleImport_in_entryRuleImport212 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleImport222 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_13_in_ruleImport259 = new BitSet(new long[]{0x0000000000000010L});
     public static final BitSet FOLLOW_ruleQualifiedNameWithWildcard_in_ruleImport280 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleTestCase_in_entryRuleTestCase316 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleTestCase326 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_14_in_ruleTestCase363 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleTestCase380 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_15_in_ruleTestCase397 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleTestCase420 = new BitSet(new long[]{0x0000000000190000L});
-    public static final BitSet FOLLOW_16_in_ruleTestCase433 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleActivityInput_in_ruleTestCase454 = new BitSet(new long[]{0x0000000000060000L});
-    public static final BitSet FOLLOW_17_in_ruleTestCase467 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleActivityInput_in_ruleTestCase488 = new BitSet(new long[]{0x0000000000060000L});
-    public static final BitSet FOLLOW_18_in_ruleTestCase502 = new BitSet(new long[]{0x0000000000180000L});
-    public static final BitSet FOLLOW_19_in_ruleTestCase517 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleTestCase540 = new BitSet(new long[]{0x0000000000100000L});
-    public static final BitSet FOLLOW_20_in_ruleTestCase554 = new BitSet(new long[]{0x0000012202200000L});
-    public static final BitSet FOLLOW_21_in_ruleTestCase567 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_22_in_ruleTestCase579 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleTestCase599 = new BitSet(new long[]{0x0000000000820000L});
-    public static final BitSet FOLLOW_17_in_ruleTestCase612 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleTestCase632 = new BitSet(new long[]{0x0000000000820000L});
-    public static final BitSet FOLLOW_23_in_ruleTestCase646 = new BitSet(new long[]{0x0000000001000000L});
-    public static final BitSet FOLLOW_24_in_ruleTestCase658 = new BitSet(new long[]{0x0000012202000000L});
-    public static final BitSet FOLLOW_ruleAssertion_in_ruleTestCase681 = new BitSet(new long[]{0x0000012202000000L});
-    public static final BitSet FOLLOW_25_in_ruleTestCase694 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleActivityInput_in_entryRuleActivityInput730 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleActivityInput740 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleActivityInput788 = new BitSet(new long[]{0x0000000004000000L});
-    public static final BitSet FOLLOW_26_in_ruleActivityInput800 = new BitSet(new long[]{0x00000000004001F0L,0x000000001E000100L});
-    public static final BitSet FOLLOW_ruleValue_in_ruleActivityInput821 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleValue_in_entryRuleValue857 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleValue867 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleSimpleValue_in_ruleValue914 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleObjectValue_in_ruleValue941 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleSimpleValue_in_entryRuleSimpleValue976 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleSimpleValue986 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleXLiteral_in_ruleSimpleValue1031 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleObjectValue_in_entryRuleObjectValue1066 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleObjectValue1076 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleObjectValue1123 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleScenario_in_entryRuleScenario1158 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleScenario1168 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_27_in_ruleScenario1205 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleScenario1222 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_22_in_ruleScenario1239 = new BitSet(new long[]{0x0000000050800000L});
-    public static final BitSet FOLLOW_ruleObjectSpecification_in_ruleScenario1260 = new BitSet(new long[]{0x0000000050800000L});
-    public static final BitSet FOLLOW_ruleLink_in_ruleScenario1282 = new BitSet(new long[]{0x0000000040800000L});
-    public static final BitSet FOLLOW_23_in_ruleScenario1295 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleObjectSpecification_in_entryRuleObjectSpecification1331 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleObjectSpecification1341 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_28_in_ruleObjectSpecification1378 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleObjectSpecification1395 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_29_in_ruleObjectSpecification1412 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleObjectSpecification1435 = new BitSet(new long[]{0x0000000000100000L});
-    public static final BitSet FOLLOW_20_in_ruleObjectSpecification1447 = new BitSet(new long[]{0x0000000002000010L});
-    public static final BitSet FOLLOW_ruleAttribute_in_ruleObjectSpecification1468 = new BitSet(new long[]{0x0000000002000010L});
-    public static final BitSet FOLLOW_25_in_ruleObjectSpecification1481 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAttribute_in_entryRuleAttribute1517 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAttribute1527 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleAttribute1575 = new BitSet(new long[]{0x0000000004000000L});
-    public static final BitSet FOLLOW_26_in_ruleAttribute1587 = new BitSet(new long[]{0x00000000004001F0L,0x000000001E000100L});
-    public static final BitSet FOLLOW_ruleValue_in_ruleAttribute1608 = new BitSet(new long[]{0x0000000001000000L});
-    public static final BitSet FOLLOW_24_in_ruleAttribute1620 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleLink_in_entryRuleLink1656 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleLink1666 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_30_in_ruleLink1703 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleLink1726 = new BitSet(new long[]{0x0000000000100000L});
-    public static final BitSet FOLLOW_20_in_ruleLink1738 = new BitSet(new long[]{0x0000000080000000L});
-    public static final BitSet FOLLOW_31_in_ruleLink1750 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleLink1773 = new BitSet(new long[]{0x0000000004000000L});
-    public static final BitSet FOLLOW_26_in_ruleLink1785 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleLink1808 = new BitSet(new long[]{0x0000000001000000L});
-    public static final BitSet FOLLOW_24_in_ruleLink1820 = new BitSet(new long[]{0x0000000100000000L});
-    public static final BitSet FOLLOW_32_in_ruleLink1832 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleLink1855 = new BitSet(new long[]{0x0000000004000000L});
-    public static final BitSet FOLLOW_26_in_ruleLink1867 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleLink1890 = new BitSet(new long[]{0x0000000001000000L});
-    public static final BitSet FOLLOW_24_in_ruleLink1902 = new BitSet(new long[]{0x0000000002000000L});
-    public static final BitSet FOLLOW_25_in_ruleLink1914 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAssertion_in_entryRuleAssertion1950 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAssertion1960 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleOrderAssertion_in_ruleAssertion2007 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleStateAssertion_in_ruleAssertion2034 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleFinallyStateAssertion_in_ruleAssertion2061 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleStateAssertion_in_entryRuleStateAssertion2096 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleStateAssertion2106 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_33_in_ruleStateAssertion2143 = new BitSet(new long[]{0x0000000000000000L,0x000003C000000000L});
-    public static final BitSet FOLLOW_ruleTemporalQuantifier_in_ruleStateAssertion2164 = new BitSet(new long[]{0x0000000400000000L,0x0000002000000000L});
-    public static final BitSet FOLLOW_ruleTemporalOperator_in_ruleStateAssertion2185 = new BitSet(new long[]{0x0000001800000000L});
-    public static final BitSet FOLLOW_ruleReferencePoint_in_ruleStateAssertion2206 = new BitSet(new long[]{0x0000000400100000L});
-    public static final BitSet FOLLOW_34_in_ruleStateAssertion2219 = new BitSet(new long[]{0x0000001800000000L});
-    public static final BitSet FOLLOW_ruleReferencePoint_in_ruleStateAssertion2240 = new BitSet(new long[]{0x0000000000100000L});
-    public static final BitSet FOLLOW_20_in_ruleStateAssertion2254 = new BitSet(new long[]{0x0000004002000010L});
-    public static final BitSet FOLLOW_ruleCheck_in_ruleStateAssertion2275 = new BitSet(new long[]{0x0000004002000010L});
-    public static final BitSet FOLLOW_25_in_ruleStateAssertion2288 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleReferencePoint_in_entryRuleReferencePoint2324 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleReferencePoint2334 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleActionReferencePoint_in_ruleReferencePoint2381 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleConstraintReferencePoint_in_ruleReferencePoint2408 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleActionReferencePoint_in_entryRuleActionReferencePoint2443 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleActionReferencePoint2453 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_35_in_ruleActionReferencePoint2490 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleActionReferencePoint2513 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleConstraintReferencePoint_in_entryRuleConstraintReferencePoint2549 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleConstraintReferencePoint2559 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_36_in_ruleConstraintReferencePoint2596 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_ruleXStringLiteral_in_ruleConstraintReferencePoint2617 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleFinallyStateAssertion_in_entryRuleFinallyStateAssertion2653 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleFinallyStateAssertion2663 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_37_in_ruleFinallyStateAssertion2700 = new BitSet(new long[]{0x0000000000100000L});
-    public static final BitSet FOLLOW_20_in_ruleFinallyStateAssertion2712 = new BitSet(new long[]{0x0000004002000010L});
-    public static final BitSet FOLLOW_ruleCheck_in_ruleFinallyStateAssertion2742 = new BitSet(new long[]{0x0000004002000010L});
-    public static final BitSet FOLLOW_25_in_ruleFinallyStateAssertion2755 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleCheck_in_entryRuleCheck2791 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleCheck2801 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleConstraintCheck_in_ruleCheck2848 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleStateExpression_in_ruleCheck2875 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleConstraintCheck_in_entryRuleConstraintCheck2910 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleConstraintCheck2920 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_38_in_ruleConstraintCheck2957 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_ruleXStringLiteral_in_ruleConstraintCheck2978 = new BitSet(new long[]{0x00000000010A0000L});
-    public static final BitSet FOLLOW_17_in_ruleConstraintCheck2991 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_ruleXStringLiteral_in_ruleConstraintCheck3012 = new BitSet(new long[]{0x00000000010A0000L});
-    public static final BitSet FOLLOW_19_in_ruleConstraintCheck3027 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleConstraintCheck3050 = new BitSet(new long[]{0x0000000001000000L});
-    public static final BitSet FOLLOW_24_in_ruleConstraintCheck3064 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleStateExpression_in_entryRuleStateExpression3100 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleStateExpression3110 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleObjectStateExpression_in_ruleStateExpression3157 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulePropertyStateExpression_in_ruleStateExpression3184 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleObjectStateExpression_in_entryRuleObjectStateExpression3219 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleObjectStateExpression3229 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleObjectStateExpression3277 = new BitSet(new long[]{0x00F1000004000000L,0x0000001800000000L});
-    public static final BitSet FOLLOW_ruleArithmeticOperator_in_ruleObjectStateExpression3298 = new BitSet(new long[]{0x00000000004001F0L,0x000000001E000100L});
-    public static final BitSet FOLLOW_ruleValue_in_ruleObjectStateExpression3319 = new BitSet(new long[]{0x0000000001000000L});
-    public static final BitSet FOLLOW_24_in_ruleObjectStateExpression3331 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulePropertyStateExpression_in_entryRulePropertyStateExpression3367 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRulePropertyStateExpression3377 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rulePropertyStateExpression3425 = new BitSet(new long[]{0x0000008000000000L});
-    public static final BitSet FOLLOW_39_in_rulePropertyStateExpression3437 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rulePropertyStateExpression3460 = new BitSet(new long[]{0x00F1000004000000L,0x0000001800000000L});
-    public static final BitSet FOLLOW_ruleArithmeticOperator_in_rulePropertyStateExpression3481 = new BitSet(new long[]{0x00000000004001F0L,0x000000001E000100L});
-    public static final BitSet FOLLOW_ruleValue_in_rulePropertyStateExpression3502 = new BitSet(new long[]{0x0000000001000000L});
-    public static final BitSet FOLLOW_24_in_rulePropertyStateExpression3514 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleOrderAssertion_in_entryRuleOrderAssertion3550 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleOrderAssertion3560 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_40_in_ruleOrderAssertion3597 = new BitSet(new long[]{0x0000060000000010L});
-    public static final BitSet FOLLOW_ruleNodeOrder_in_ruleOrderAssertion3618 = new BitSet(new long[]{0x0000000001000000L});
-    public static final BitSet FOLLOW_24_in_ruleOrderAssertion3630 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNodeOrder_in_entryRuleNodeOrder3666 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleNodeOrder3676 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNodeSpecification_in_ruleNodeOrder3722 = new BitSet(new long[]{0x0000000000020002L});
-    public static final BitSet FOLLOW_17_in_ruleNodeOrder3735 = new BitSet(new long[]{0x0000060000000010L});
-    public static final BitSet FOLLOW_ruleNodeSpecification_in_ruleNodeOrder3756 = new BitSet(new long[]{0x0000000000020002L});
-    public static final BitSet FOLLOW_ruleNodeSpecification_in_entryRuleNodeSpecification3794 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleNodeSpecification3804 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleNodeSpecification3853 = new BitSet(new long[]{0x0000000020010002L});
-    public static final BitSet FOLLOW_29_in_ruleNodeSpecification3866 = new BitSet(new long[]{0x00000000000001C0L});
-    public static final BitSet FOLLOW_ruleXNumberLiteral_in_ruleNodeSpecification3887 = new BitSet(new long[]{0x0000000000010002L});
-    public static final BitSet FOLLOW_16_in_ruleNodeSpecification3902 = new BitSet(new long[]{0x0000060000000010L});
-    public static final BitSet FOLLOW_ruleNodeOrder_in_ruleNodeSpecification3923 = new BitSet(new long[]{0x0000000000040000L});
-    public static final BitSet FOLLOW_18_in_ruleNodeSpecification3935 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_41_in_ruleNodeSpecification3962 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_42_in_ruleNodeSpecification3999 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleUMLTestCase_in_entryRuleUMLTestCase316 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleUMLTestCase326 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_14_in_ruleUMLTestCase363 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleUMLTestCase380 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_15_in_ruleUMLTestCase397 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleUMLTestCase420 = new BitSet(new long[]{0x0000000000190000L});
+    public static final BitSet FOLLOW_16_in_ruleUMLTestCase433 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_ruleUMLActivityInput_in_ruleUMLTestCase454 = new BitSet(new long[]{0x0000000000060000L});
+    public static final BitSet FOLLOW_17_in_ruleUMLTestCase467 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_ruleUMLActivityInput_in_ruleUMLTestCase488 = new BitSet(new long[]{0x0000000000060000L});
+    public static final BitSet FOLLOW_18_in_ruleUMLTestCase502 = new BitSet(new long[]{0x0000000000180000L});
+    public static final BitSet FOLLOW_19_in_ruleUMLTestCase517 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleUMLTestCase540 = new BitSet(new long[]{0x0000000000100000L});
+    public static final BitSet FOLLOW_20_in_ruleUMLTestCase554 = new BitSet(new long[]{0x0000012202200000L});
+    public static final BitSet FOLLOW_21_in_ruleUMLTestCase567 = new BitSet(new long[]{0x0000000000400000L});
+    public static final BitSet FOLLOW_22_in_ruleUMLTestCase579 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleUMLTestCase599 = new BitSet(new long[]{0x0000000000820000L});
+    public static final BitSet FOLLOW_17_in_ruleUMLTestCase612 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleUMLTestCase632 = new BitSet(new long[]{0x0000000000820000L});
+    public static final BitSet FOLLOW_23_in_ruleUMLTestCase646 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_24_in_ruleUMLTestCase658 = new BitSet(new long[]{0x0000012202000000L});
+    public static final BitSet FOLLOW_ruleUMLAssertion_in_ruleUMLTestCase681 = new BitSet(new long[]{0x0000012202000000L});
+    public static final BitSet FOLLOW_25_in_ruleUMLTestCase694 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleUMLActivityInput_in_entryRuleUMLActivityInput730 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleUMLActivityInput740 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleUMLActivityInput788 = new BitSet(new long[]{0x0000000004000000L});
+    public static final BitSet FOLLOW_26_in_ruleUMLActivityInput800 = new BitSet(new long[]{0x00000000004001F0L,0x000000001E000100L});
+    public static final BitSet FOLLOW_ruleUMLValue_in_ruleUMLActivityInput821 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleUMLValue_in_entryRuleUMLValue857 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleUMLValue867 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleUMLSimpleValue_in_ruleUMLValue914 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleUMLObjectValue_in_ruleUMLValue941 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleUMLSimpleValue_in_entryRuleUMLSimpleValue976 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleUMLSimpleValue986 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleXLiteral_in_ruleUMLSimpleValue1031 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleUMLObjectValue_in_entryRuleUMLObjectValue1066 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleUMLObjectValue1076 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleUMLObjectValue1123 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleUMLScenario_in_entryRuleUMLScenario1158 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleUMLScenario1168 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_27_in_ruleUMLScenario1205 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleUMLScenario1222 = new BitSet(new long[]{0x0000000000400000L});
+    public static final BitSet FOLLOW_22_in_ruleUMLScenario1239 = new BitSet(new long[]{0x0000000050800000L});
+    public static final BitSet FOLLOW_ruleUMLObjectSpecification_in_ruleUMLScenario1260 = new BitSet(new long[]{0x0000000050800000L});
+    public static final BitSet FOLLOW_ruleUMLLink_in_ruleUMLScenario1282 = new BitSet(new long[]{0x0000000040800000L});
+    public static final BitSet FOLLOW_23_in_ruleUMLScenario1295 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleUMLObjectSpecification_in_entryRuleUMLObjectSpecification1331 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleUMLObjectSpecification1341 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_28_in_ruleUMLObjectSpecification1378 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleUMLObjectSpecification1395 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_29_in_ruleUMLObjectSpecification1412 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleUMLObjectSpecification1435 = new BitSet(new long[]{0x0000000000100000L});
+    public static final BitSet FOLLOW_20_in_ruleUMLObjectSpecification1447 = new BitSet(new long[]{0x0000000002000010L});
+    public static final BitSet FOLLOW_ruleUMLAttribute_in_ruleUMLObjectSpecification1468 = new BitSet(new long[]{0x0000000002000010L});
+    public static final BitSet FOLLOW_25_in_ruleUMLObjectSpecification1481 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleUMLAttribute_in_entryRuleUMLAttribute1517 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleUMLAttribute1527 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleUMLAttribute1575 = new BitSet(new long[]{0x0000000004000000L});
+    public static final BitSet FOLLOW_26_in_ruleUMLAttribute1587 = new BitSet(new long[]{0x00000000004001F0L,0x000000001E000100L});
+    public static final BitSet FOLLOW_ruleUMLValue_in_ruleUMLAttribute1608 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_24_in_ruleUMLAttribute1620 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleUMLLink_in_entryRuleUMLLink1656 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleUMLLink1666 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_30_in_ruleUMLLink1703 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleUMLLink1726 = new BitSet(new long[]{0x0000000000100000L});
+    public static final BitSet FOLLOW_20_in_ruleUMLLink1738 = new BitSet(new long[]{0x0000000080000000L});
+    public static final BitSet FOLLOW_31_in_ruleUMLLink1750 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleUMLLink1773 = new BitSet(new long[]{0x0000000004000000L});
+    public static final BitSet FOLLOW_26_in_ruleUMLLink1785 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleUMLLink1808 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_24_in_ruleUMLLink1820 = new BitSet(new long[]{0x0000000100000000L});
+    public static final BitSet FOLLOW_32_in_ruleUMLLink1832 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleUMLLink1855 = new BitSet(new long[]{0x0000000004000000L});
+    public static final BitSet FOLLOW_26_in_ruleUMLLink1867 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleUMLLink1890 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_24_in_ruleUMLLink1902 = new BitSet(new long[]{0x0000000002000000L});
+    public static final BitSet FOLLOW_25_in_ruleUMLLink1914 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleUMLAssertion_in_entryRuleUMLAssertion1950 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleUMLAssertion1960 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleUMLOrderAssertion_in_ruleUMLAssertion2007 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleUMLStateAssertion_in_ruleUMLAssertion2034 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleUMLFinallyStateAssertion_in_ruleUMLAssertion2061 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleUMLStateAssertion_in_entryRuleUMLStateAssertion2096 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleUMLStateAssertion2106 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_33_in_ruleUMLStateAssertion2143 = new BitSet(new long[]{0x0000000000000000L,0x000003C000000000L});
+    public static final BitSet FOLLOW_ruleUMLTemporalQuantifier_in_ruleUMLStateAssertion2164 = new BitSet(new long[]{0x0000000400000000L,0x0000002000000000L});
+    public static final BitSet FOLLOW_ruleUMLTemporalOperator_in_ruleUMLStateAssertion2185 = new BitSet(new long[]{0x0000001800000000L});
+    public static final BitSet FOLLOW_ruleUMLReferencePoint_in_ruleUMLStateAssertion2206 = new BitSet(new long[]{0x0000000400100000L});
+    public static final BitSet FOLLOW_34_in_ruleUMLStateAssertion2219 = new BitSet(new long[]{0x0000001800000000L});
+    public static final BitSet FOLLOW_ruleUMLReferencePoint_in_ruleUMLStateAssertion2240 = new BitSet(new long[]{0x0000000000100000L});
+    public static final BitSet FOLLOW_20_in_ruleUMLStateAssertion2254 = new BitSet(new long[]{0x0000004002000010L});
+    public static final BitSet FOLLOW_ruleUMLCheck_in_ruleUMLStateAssertion2275 = new BitSet(new long[]{0x0000004002000010L});
+    public static final BitSet FOLLOW_25_in_ruleUMLStateAssertion2288 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleUMLReferencePoint_in_entryRuleUMLReferencePoint2324 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleUMLReferencePoint2334 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleUMLActionReferencePoint_in_ruleUMLReferencePoint2381 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleUMLConstraintReferencePoint_in_ruleUMLReferencePoint2408 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleUMLActionReferencePoint_in_entryRuleUMLActionReferencePoint2443 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleUMLActionReferencePoint2453 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_35_in_ruleUMLActionReferencePoint2490 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleUMLActionReferencePoint2513 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleUMLConstraintReferencePoint_in_entryRuleUMLConstraintReferencePoint2549 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleUMLConstraintReferencePoint2559 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_36_in_ruleUMLConstraintReferencePoint2596 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_ruleXStringLiteral_in_ruleUMLConstraintReferencePoint2617 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleUMLFinallyStateAssertion_in_entryRuleUMLFinallyStateAssertion2653 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleUMLFinallyStateAssertion2663 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_37_in_ruleUMLFinallyStateAssertion2700 = new BitSet(new long[]{0x0000000000100000L});
+    public static final BitSet FOLLOW_20_in_ruleUMLFinallyStateAssertion2712 = new BitSet(new long[]{0x0000004002000010L});
+    public static final BitSet FOLLOW_ruleUMLCheck_in_ruleUMLFinallyStateAssertion2742 = new BitSet(new long[]{0x0000004002000010L});
+    public static final BitSet FOLLOW_25_in_ruleUMLFinallyStateAssertion2755 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleUMLCheck_in_entryRuleUMLCheck2791 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleUMLCheck2801 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleUMLConstraintCheck_in_ruleUMLCheck2848 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleUMLStateExpression_in_ruleUMLCheck2875 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleUMLConstraintCheck_in_entryRuleUMLConstraintCheck2910 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleUMLConstraintCheck2920 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_38_in_ruleUMLConstraintCheck2957 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_ruleXStringLiteral_in_ruleUMLConstraintCheck2978 = new BitSet(new long[]{0x00000000010A0000L});
+    public static final BitSet FOLLOW_17_in_ruleUMLConstraintCheck2991 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_ruleXStringLiteral_in_ruleUMLConstraintCheck3012 = new BitSet(new long[]{0x00000000010A0000L});
+    public static final BitSet FOLLOW_19_in_ruleUMLConstraintCheck3027 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleUMLConstraintCheck3050 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_24_in_ruleUMLConstraintCheck3064 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleUMLStateExpression_in_entryRuleUMLStateExpression3100 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleUMLStateExpression3110 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleUMLObjectStateExpression_in_ruleUMLStateExpression3157 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleUMLPropertyStateExpression_in_ruleUMLStateExpression3184 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleUMLObjectStateExpression_in_entryRuleUMLObjectStateExpression3219 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleUMLObjectStateExpression3229 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleUMLObjectStateExpression3277 = new BitSet(new long[]{0x00F1000004000000L,0x0000001800000000L});
+    public static final BitSet FOLLOW_ruleUMLArithmeticOperator_in_ruleUMLObjectStateExpression3298 = new BitSet(new long[]{0x00000000004001F0L,0x000000001E000100L});
+    public static final BitSet FOLLOW_ruleUMLValue_in_ruleUMLObjectStateExpression3319 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_24_in_ruleUMLObjectStateExpression3331 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleUMLPropertyStateExpression_in_entryRuleUMLPropertyStateExpression3367 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleUMLPropertyStateExpression3377 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleUMLPropertyStateExpression3425 = new BitSet(new long[]{0x0000008000000000L});
+    public static final BitSet FOLLOW_39_in_ruleUMLPropertyStateExpression3437 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleUMLPropertyStateExpression3460 = new BitSet(new long[]{0x00F1000004000000L,0x0000001800000000L});
+    public static final BitSet FOLLOW_ruleUMLArithmeticOperator_in_ruleUMLPropertyStateExpression3481 = new BitSet(new long[]{0x00000000004001F0L,0x000000001E000100L});
+    public static final BitSet FOLLOW_ruleUMLValue_in_ruleUMLPropertyStateExpression3502 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_24_in_ruleUMLPropertyStateExpression3514 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleUMLOrderAssertion_in_entryRuleUMLOrderAssertion3550 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleUMLOrderAssertion3560 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_40_in_ruleUMLOrderAssertion3597 = new BitSet(new long[]{0x0000060000000010L});
+    public static final BitSet FOLLOW_ruleUMLNodeOrder_in_ruleUMLOrderAssertion3618 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_24_in_ruleUMLOrderAssertion3630 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleUMLNodeOrder_in_entryRuleUMLNodeOrder3666 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleUMLNodeOrder3676 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleUMLNodeSpecification_in_ruleUMLNodeOrder3722 = new BitSet(new long[]{0x0000000000020002L});
+    public static final BitSet FOLLOW_17_in_ruleUMLNodeOrder3735 = new BitSet(new long[]{0x0000060000000010L});
+    public static final BitSet FOLLOW_ruleUMLNodeSpecification_in_ruleUMLNodeOrder3756 = new BitSet(new long[]{0x0000000000020002L});
+    public static final BitSet FOLLOW_ruleUMLNodeSpecification_in_entryRuleUMLNodeSpecification3794 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleUMLNodeSpecification3804 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_ruleUMLNodeSpecification3853 = new BitSet(new long[]{0x0000000020010002L});
+    public static final BitSet FOLLOW_29_in_ruleUMLNodeSpecification3866 = new BitSet(new long[]{0x00000000000001C0L});
+    public static final BitSet FOLLOW_ruleXNumberLiteral_in_ruleUMLNodeSpecification3887 = new BitSet(new long[]{0x0000000000010002L});
+    public static final BitSet FOLLOW_16_in_ruleUMLNodeSpecification3902 = new BitSet(new long[]{0x0000060000000010L});
+    public static final BitSet FOLLOW_ruleUMLNodeOrder_in_ruleUMLNodeSpecification3923 = new BitSet(new long[]{0x0000000000040000L});
+    public static final BitSet FOLLOW_18_in_ruleUMLNodeSpecification3935 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_41_in_ruleUMLNodeSpecification3962 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_42_in_ruleUMLNodeSpecification3999 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleXExpression_in_entryRuleXExpression4048 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleXExpression4058 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleXAssignment_in_ruleXExpression4104 = new BitSet(new long[]{0x0000000000000002L});
@@ -26335,20 +26335,20 @@ public class InternalTestLangParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_ruleQualifiedName_in_ruleXImportDeclaration16507 = new BitSet(new long[]{0x0000000001000002L});
     public static final BitSet FOLLOW_ruleQualifiedNameWithWildcard_in_ruleXImportDeclaration16534 = new BitSet(new long[]{0x0000000001000002L});
     public static final BitSet FOLLOW_24_in_ruleXImportDeclaration16548 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_26_in_ruleArithmeticOperator16600 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_48_in_ruleArithmeticOperator16617 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_54_in_ruleArithmeticOperator16634 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_55_in_ruleArithmeticOperator16651 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_52_in_ruleArithmeticOperator16668 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_53_in_ruleArithmeticOperator16685 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_99_in_ruleArithmeticOperator16702 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_100_in_ruleArithmeticOperator16719 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_101_in_ruleTemporalOperator16764 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_34_in_ruleTemporalOperator16781 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_102_in_ruleTemporalQuantifier16826 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_103_in_ruleTemporalQuantifier16843 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_104_in_ruleTemporalQuantifier16860 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_105_in_ruleTemporalQuantifier16877 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_26_in_ruleUMLArithmeticOperator16600 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_48_in_ruleUMLArithmeticOperator16617 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_54_in_ruleUMLArithmeticOperator16634 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_55_in_ruleUMLArithmeticOperator16651 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_52_in_ruleUMLArithmeticOperator16668 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_53_in_ruleUMLArithmeticOperator16685 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_99_in_ruleUMLArithmeticOperator16702 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_100_in_ruleUMLArithmeticOperator16719 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_101_in_ruleUMLTemporalOperator16764 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_34_in_ruleUMLTemporalOperator16781 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_102_in_ruleUMLTemporalQuantifier16826 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_103_in_ruleUMLTemporalQuantifier16843 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_104_in_ruleUMLTemporalQuantifier16860 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_105_in_ruleUMLTemporalQuantifier16877 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleOpMultiAssign_in_synpred1_InternalTestLang4293 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleOpOr_in_synpred2_InternalTestLang4662 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleOpAnd_in_synpred3_InternalTestLang4921 = new BitSet(new long[]{0x0000000000000002L});

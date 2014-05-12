@@ -29,10 +29,10 @@ import org.modelexecution.fumltesting.sequence.Sequence;
 import org.modelexecution.fumltesting.sequence.SequenceTrace;
 import org.modelexecution.fumltesting.sequence.State;
 import org.modelexecution.fumltesting.sequence.util.SequenceGenerator;
-import org.modelexecution.fumltesting.testLang.ActionReferencePoint;
-import org.modelexecution.fumltesting.testLang.ConstraintReferencePoint;
-import org.modelexecution.fumltesting.testLang.StateAssertion;
-import org.modelexecution.fumltesting.testLang.TestCase;
+import org.modelexecution.fumltesting.testLang.UMLActionReferencePoint;
+import org.modelexecution.fumltesting.testLang.UMLConstraintReferencePoint;
+import org.modelexecution.fumltesting.testLang.UMLStateAssertion;
+import org.modelexecution.fumltesting.testLang.UMLTestCase;
 
 import fUML.Semantics.Classes.Kernel.Link;
 import fUML.Syntax.Actions.BasicActions.Action;
@@ -134,7 +134,7 @@ public class TraceUtil {
 	}
 
 	public List<State> getStates(Object stateAssertion) throws ConstraintNotFoundException {
-		StateAssertion assertion = (StateAssertion) stateAssertion;
+		UMLStateAssertion assertion = (UMLStateAssertion) stateAssertion;
 		ActivityNodeExecution referredActionExecution = getReferenceActionExecution(assertion);
 		ActivityNodeExecution untilActionExecution = getUntilActionExecution(assertion);
 
@@ -168,16 +168,16 @@ public class TraceUtil {
 		return states;
 	}
 
-	public ActivityNodeExecution getReferenceActionExecution(StateAssertion assertion) throws ConstraintNotFoundException {
+	public ActivityNodeExecution getReferenceActionExecution(UMLStateAssertion assertion) throws ConstraintNotFoundException {
 		ActivityNodeExecution referenceActionExecution = null;
-		Activity activityUnderTest = (Activity) getModelConverter().convertElement(((TestCase) assertion.eContainer()).getActivityUnderTest());
+		Activity activityUnderTest = (Activity) getModelConverter().convertElement(((UMLTestCase) assertion.eContainer()).getActivityUnderTest());
 
-		if (assertion.getReferencePoint() instanceof ActionReferencePoint)
+		if (assertion.getReferencePoint() instanceof UMLActionReferencePoint)
 			referenceActionExecution = (ActivityNodeExecution) getExecution(getModelConverter().convertElement(
-					((ActionReferencePoint) assertion.getReferencePoint()).getAction()));
+					((UMLActionReferencePoint) assertion.getReferencePoint()).getAction()));
 
-		if (assertion.getReferencePoint() instanceof ConstraintReferencePoint) {
-			String constraintRefPoint = ((XStringLiteral) ((ConstraintReferencePoint) assertion.getReferencePoint()).getConstraintName()).getValue();
+		if (assertion.getReferencePoint() instanceof UMLConstraintReferencePoint) {
+			String constraintRefPoint = ((XStringLiteral) ((UMLConstraintReferencePoint) assertion.getReferencePoint()).getConstraintName()).getValue();
 			for (Sequence sequence : sTrace.getSequences()) {
 				if (sequence.getActivityExecution().getActivity() == activityUnderTest) {
 					for (State state : sequence.getStates()) {
@@ -193,16 +193,16 @@ public class TraceUtil {
 		return referenceActionExecution;
 	}
 
-	public ActivityNodeExecution getUntilActionExecution(StateAssertion assertion) throws ConstraintNotFoundException {
+	public ActivityNodeExecution getUntilActionExecution(UMLStateAssertion assertion) throws ConstraintNotFoundException {
 		ActivityNodeExecution untilActionExecution = null;
-		Activity activityUnderTest = (Activity) getModelConverter().convertElement(((TestCase) assertion.eContainer()).getActivityUnderTest());
+		Activity activityUnderTest = (Activity) getModelConverter().convertElement(((UMLTestCase) assertion.eContainer()).getActivityUnderTest());
 
-		if (assertion.getUntilPoint() != null && assertion.getUntilPoint() instanceof ActionReferencePoint)
+		if (assertion.getUntilPoint() != null && assertion.getUntilPoint() instanceof UMLActionReferencePoint)
 			untilActionExecution = (ActivityNodeExecution) getExecution(getModelConverter().convertElement(
-					((ActionReferencePoint) assertion.getUntilPoint()).getAction()));
+					((UMLActionReferencePoint) assertion.getUntilPoint()).getAction()));
 
-		if (assertion.getUntilPoint() instanceof ConstraintReferencePoint) {
-			String constraintUntilPoint = ((XStringLiteral) ((ConstraintReferencePoint) assertion.getUntilPoint()).getConstraintName()).getValue();
+		if (assertion.getUntilPoint() instanceof UMLConstraintReferencePoint) {
+			String constraintUntilPoint = ((XStringLiteral) ((UMLConstraintReferencePoint) assertion.getUntilPoint()).getConstraintName()).getValue();
 			for (Sequence sequence : sTrace.getSequences()) {
 				if (sequence.getActivityExecution().getActivity() == activityUnderTest) {
 					for (State state : sequence.getStates()) {

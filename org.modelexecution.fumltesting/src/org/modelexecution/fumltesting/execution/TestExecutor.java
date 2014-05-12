@@ -36,15 +36,15 @@ import org.modelexecution.fumltesting.execution.assertions.StateAssertionValidat
 import org.modelexecution.fumltesting.results.AssertionResult;
 import org.modelexecution.fumltesting.results.TestCaseResult;
 import org.modelexecution.fumltesting.results.TestSuiteResult;
-import org.modelexecution.fumltesting.testLang.ActivityInput;
-import org.modelexecution.fumltesting.testLang.Assertion;
 import org.modelexecution.fumltesting.testLang.FinallyStateAssertion;
-import org.modelexecution.fumltesting.testLang.ObjectValue;
-import org.modelexecution.fumltesting.testLang.OrderAssertion;
-import org.modelexecution.fumltesting.testLang.StateAssertion;
-import org.modelexecution.fumltesting.testLang.TestCase;
 import org.modelexecution.fumltesting.testLang.TestLangFactory;
-import org.modelexecution.fumltesting.testLang.TestSuite;
+import org.modelexecution.fumltesting.testLang.UMLActivityInput;
+import org.modelexecution.fumltesting.testLang.UMLAssertion;
+import org.modelexecution.fumltesting.testLang.UMLObjectValue;
+import org.modelexecution.fumltesting.testLang.UMLOrderAssertion;
+import org.modelexecution.fumltesting.testLang.UMLStateAssertion;
+import org.modelexecution.fumltesting.testLang.UMLTestCase;
+import org.modelexecution.fumltesting.testLang.UMLTestSuite;
 import org.modelexecution.fumltesting.trace.TraceUtil;
 
 import tudresden.ocl20.pivot.parser.ParseException;
@@ -66,7 +66,7 @@ import fUML.Syntax.Classes.Kernel.Package;
 public class TestExecutor {
 
 	private int mainActivityExecutionID;
-	private TestSuite suite;
+	private UMLTestSuite suite;
 
 	private ActivityExecutor executor;
 	private FumlConverter fumlConverter;
@@ -83,11 +83,14 @@ public class TestExecutor {
 	private Resource umlResource;
 	private NamedElement umlModel;
 
+	private AssertionPrinter assertionPrinter;
+
 	private void setup(String testLocation) throws Exception {
 		fumlConverter = new FumlConverter();
 		executor = new ActivityExecutor();
 		modelConverter = new ModelConverter();
 		testDataConverter = new TestDataConverter(modelConverter);
+		assertionPrinter = new AssertionPrinter(modelConverter);
 
 		new UmlSupport().registerServices(true);
 		Injector injector = new TestLangStandaloneSetup().createInjectorAndDoEMFRegistration();
@@ -109,13 +112,16 @@ public class TestExecutor {
 			for (EObject model : resource.getContents()) {
 				if (model instanceof NamedElement) {
 					umlModel = (NamedElement) model;
+					break;
 				}
 			}
 
-			if (executor == null)
-				throw new Exception("Couldn't load UML model properly!");
-
-			suite = (TestSuite) resource.getContents().get(0);
+			for (EObject testSuite : resource.getContents()) {
+				if (testSuite instanceof UMLTestSuite) {
+					suite = (UMLTestSuite) testSuite;
+					break;
+				}
+			}
 		}
 
 		oclExecutor = OclExecutor.getInstance();
@@ -135,7 +141,7 @@ public class TestExecutor {
 			}
 
 			for (org.eclipse.uml2.uml.Package umlPackage : ((Model) umlModel).getNestedPackages()) {
-				Package fumlPackage = (Package) modelConverter.convertElement(umlPackage);
+				Package fumlPackage = modelConverter.convertPackage(umlPackage);
 				if (fumlPackage != null) {
 					org.modelexecution.fuml.Syntax.Classes.Kernel.Package mappedPackage = fumlConverter.mapAndWire(fumlPackage);
 					modelPackage.getNestedPackage().add(mappedPackage);
@@ -175,9 +181,9 @@ public class TestExecutor {
 		SimpleDateFormat currentTime = new SimpleDateFormat("dd.MM.yy_HH.mm.ss");
 		String testResultsFile = "results/testresults_" + testName + "_" + currentTime.format(new Date()) + ".txt";
 		for (int i = 0; i < suite.getTests().size(); i++) {
-			TestCase testCase = suite.getTests().get(i);
-			AssertionPrinter.print(testCase);
-			Activity activity = (Activity) modelConverter.convertElement(testCase.getActivityUnderTest());
+			UMLTestCase testCase = suite.getTests().get(i);
+			assertionPrinter.print(testCase);
+			Activity activity = modelConverter.convertActivity(testCase.getActivityUnderTest());
 
 			testDataConverter.cleanUp();
 
@@ -190,14 +196,14 @@ public class TestExecutor {
 			}
 
 			HashMap<ActivityParameterNode, Object> inputValues = new HashMap<ActivityParameterNode, Object>();
-			for (ActivityInput input : testCase.getInputs()) {
-				ActivityParameterNode parameter = (ActivityParameterNode) modelConverter.convertElement(input.getParameter());
+			for (UMLActivityInput input : testCase.getInputs()) {
+				ActivityParameterNode parameter = modelConverter.convertActivityParameterNode(input.getParameter());
 				Object value = testDataConverter.getFUMLElement(input.getValue());
 				inputValues.put(parameter, value);
 			}
 
 			if (testCase.getContextObject() != null) {
-				ObjectValue contextValue = TestLangFactory.eINSTANCE.createObjectValue();
+				UMLObjectValue contextValue = TestLangFactory.eINSTANCE.createUMLObjectValue();
 				contextValue.setValue(testCase.getContextObject());
 				Object_ contextObject = (Object_) testDataConverter.getFUMLElement(contextValue);
 				mainActivityExecutionID = executor.executeActivity(activity, inputValues, contextObject);
@@ -205,7 +211,7 @@ public class TestExecutor {
 				if (requiresContext) {
 					System.out.println("CONTEXT for activity NOT defined. Please correct the test declaration.");
 					System.out.println("Test execution failed.");
-					AssertionPrinter.printStartEnd();
+					assertionPrinter.printStartEnd();
 					break;
 				}
 				mainActivityExecutionID = executor.executeActivity(activity, inputValues, null);
@@ -218,24 +224,24 @@ public class TestExecutor {
 			TestCaseResult testCaseResult = new TestCaseResult(testCase.getName(), activity);
 			testCaseResult.setActivityContextObject(testCase.getContextObject());
 
-			for (ActivityInput activityInput : testCase.getInputs()) {
+			for (UMLActivityInput activityInput : testCase.getInputs()) {
 				org.modelexecution.fumltesting.results.ActivityInput activityInputForResult = new org.modelexecution.fumltesting.results.ActivityInput(
-						modelConverter.convertElement(activityInput.getParameter()), activityInput.getValue());
+						modelConverter.convertActivityParameterNode(activityInput.getParameter()), activityInput.getValue());
 				testCaseResult.addActivityInputValue(activityInputForResult);
 			}
 
 			for (int j = 0; j < testCase.getAssertions().size(); j++) {
-				Assertion assertion = testCase.getAssertions().get(j);
+				UMLAssertion assertion = testCase.getAssertions().get(j);
 				AssertionResult result = null;
-				if (assertion instanceof OrderAssertion) {
-					result = orderAssertionValidator.checkOrder((OrderAssertion) assertion);
+				if (assertion instanceof UMLOrderAssertion) {
+					result = orderAssertionValidator.checkOrder((UMLOrderAssertion) assertion);
 					if (result.getAssertionValidationResult())
 						System.out.println("Assertion success!");
 					else
 						System.out.println("Assertion failed!");
 				}
-				if (assertion instanceof StateAssertion) {
-					result = stateAssertionValidator.check((StateAssertion) assertion);
+				if (assertion instanceof UMLStateAssertion) {
+					result = stateAssertionValidator.check((UMLStateAssertion) assertion);
 				}
 				if (assertion instanceof FinallyStateAssertion) {
 					result = stateAssertionValidator.check((FinallyStateAssertion) assertion);
@@ -246,10 +252,10 @@ public class TestExecutor {
 			suiteResult.addTestCaseResult(testCaseResult);
 
 			System.out.println("End of test.");
-			AssertionPrinter.printStartEnd();
+			assertionPrinter.printStartEnd();
 		}
 
-		ResultsWriter writer = new ResultsWriter(testResultsFile, suiteResult);
+		ResultsWriter writer = new ResultsWriter(testResultsFile, suiteResult, modelConverter);
 
 		try {
 			writer.writeResults();

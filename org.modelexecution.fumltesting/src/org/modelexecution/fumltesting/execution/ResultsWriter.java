@@ -18,6 +18,7 @@ import org.eclipse.xtext.xbase.XNullLiteral;
 import org.eclipse.xtext.xbase.XNumberLiteral;
 import org.eclipse.xtext.xbase.XStringLiteral;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
+import org.modelexecution.fumltesting.convert.ModelConverter;
 import org.modelexecution.fumltesting.results.ActivityInput;
 import org.modelexecution.fumltesting.results.AssertionResult;
 import org.modelexecution.fumltesting.results.ConstraintResult;
@@ -27,24 +28,27 @@ import org.modelexecution.fumltesting.results.StateAssertionResult;
 import org.modelexecution.fumltesting.results.StateExpressionResult;
 import org.modelexecution.fumltesting.results.TestCaseResult;
 import org.modelexecution.fumltesting.results.TestSuiteResult;
-import org.modelexecution.fumltesting.testLang.ActionReferencePoint;
-import org.modelexecution.fumltesting.testLang.ConstraintReferencePoint;
-import org.modelexecution.fumltesting.testLang.NodeOrder;
-import org.modelexecution.fumltesting.testLang.NodeSpecification;
-import org.modelexecution.fumltesting.testLang.ObjectSpecification;
-import org.modelexecution.fumltesting.testLang.ObjectStateExpression;
-import org.modelexecution.fumltesting.testLang.ObjectValue;
-import org.modelexecution.fumltesting.testLang.PropertyStateExpression;
-import org.modelexecution.fumltesting.testLang.SimpleValue;
-import org.modelexecution.fumltesting.testLang.StateAssertion;
-import org.modelexecution.fumltesting.testLang.StateExpression;
-import org.modelexecution.fumltesting.testLang.Value;
+import org.modelexecution.fumltesting.testLang.UMLActionReferencePoint;
+import org.modelexecution.fumltesting.testLang.UMLConstraintReferencePoint;
+import org.modelexecution.fumltesting.testLang.UMLNodeOrder;
+import org.modelexecution.fumltesting.testLang.UMLNodeSpecification;
+import org.modelexecution.fumltesting.testLang.UMLObjectSpecification;
+import org.modelexecution.fumltesting.testLang.UMLObjectStateExpression;
+import org.modelexecution.fumltesting.testLang.UMLObjectValue;
+import org.modelexecution.fumltesting.testLang.UMLPropertyStateExpression;
+import org.modelexecution.fumltesting.testLang.UMLSimpleValue;
+import org.modelexecution.fumltesting.testLang.UMLStateAssertion;
+import org.modelexecution.fumltesting.testLang.UMLStateExpression;
+import org.modelexecution.fumltesting.testLang.UMLValue;
 
 import fUML.Syntax.Actions.BasicActions.Action;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityFinalNode;
+import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
 import fUML.Syntax.Activities.IntermediateActivities.InitialNode;
+import fUML.Syntax.Activities.IntermediateActivities.ObjectNode;
+import fUML.Syntax.Classes.Kernel.Property;
 
 /**
  * 
@@ -56,10 +60,12 @@ public class ResultsWriter {
 	private String fileName;
 	private TestSuiteResult suiteResult;
 	private PrintWriter writer;
+	private ModelConverter modelConverter;
 
-	public ResultsWriter(String fileName, TestSuiteResult suiteResult) {
+	public ResultsWriter(String fileName, TestSuiteResult suiteResult, ModelConverter modelConverter) {
 		this.fileName = fileName;
 		this.suiteResult = suiteResult;
+		this.modelConverter = modelConverter;
 	}
 
 	public void writeResults() throws FileNotFoundException {
@@ -73,16 +79,16 @@ public class ResultsWriter {
 			writer.println("TestCase: " + testCaseResult.getTestCaseName());
 			writer.println("Activity: " + ((Activity) testCaseResult.getActivityUnderTest()).name);
 			if (testCaseResult.getActivityContextObject() != null) {
-				writer.println("Activity context object: " + ((ObjectSpecification) testCaseResult.getActivityContextObject()).getName());
+				writer.println("Activity context object: " + ((UMLObjectSpecification) testCaseResult.getActivityContextObject()).getName());
 			}
 			if (testCaseResult.getActivityInputValues().size() > 0) {
 				writer.print("Activity input: ");
 				for (ActivityInput activityInput : testCaseResult.getActivityInputValues()) {
 					String value = null;
-					if (activityInput.getValue() instanceof ObjectValue) {
-						value = ((ObjectValue) activityInput.getValue()).getValue().getName();
+					if (activityInput.getValue() instanceof UMLObjectValue) {
+						value = ((UMLObjectValue) activityInput.getValue()).getValue().getName();
 					} else {
-						XExpression expression = ((SimpleValue) activityInput.getValue()).getValue();
+						XExpression expression = ((UMLSimpleValue) activityInput.getValue()).getValue();
 						if (expression instanceof XStringLiteral) {
 							value = ((XStringLiteral) expression).getValue();
 						} else if (expression instanceof XNumberLiteral) {
@@ -100,7 +106,7 @@ public class ResultsWriter {
 			for (AssertionResult assertionResult : testCaseResult.getAssertionResults()) {
 				if (assertionResult instanceof OrderAssertionResult) {
 					OrderAssertionResult orderAssertionResult = (OrderAssertionResult) assertionResult;
-					printSpecification(((NodeOrder) orderAssertionResult.getNodeOrderSpecification()).getNodes());
+					printSpecification(((UMLNodeOrder) orderAssertionResult.getNodeOrderSpecification()).getNodes());
 					writer.println("\tNumber of paths checked: " + orderAssertionResult.numberOfPathsChecked());
 					writer.println("\tNumber of invalid paths: " + orderAssertionResult.getFailedPathCheckResults().size());
 					writer.println();
@@ -120,7 +126,7 @@ public class ResultsWriter {
 					for (OrderAssertionResult subResult : orderAssertionResult.getSubOrderResults()) {
 						writer.println("\t\tSub-order checked..");
 						writer.print("\t");
-						printSpecification(((NodeOrder) subResult.getNodeOrderSpecification()).getNodes());
+						printSpecification(((UMLNodeOrder) subResult.getNodeOrderSpecification()).getNodes());
 						writer.println("\t\tNumber of paths checked: " + subResult.numberOfPathsChecked());
 						writer.println("\t\tNumber of invalid paths: " + subResult.getFailedPathCheckResults().size());
 						writer.println();
@@ -139,20 +145,24 @@ public class ResultsWriter {
 				}
 				if (assertionResult instanceof StateAssertionResult) {
 					StateAssertionResult stateAssertionResult = (StateAssertionResult) assertionResult;
-					StateAssertion assertion = (StateAssertion) stateAssertionResult.getAssertion();
+					UMLStateAssertion assertion = (UMLStateAssertion) stateAssertionResult.getAssertion();
 					writer.print("\n\tState assertion: " + assertion.getQuantifier() + " " + assertion.getOperator() + " ");
-					if (assertion.getReferencePoint() instanceof ActionReferencePoint)
-						writer.print("action " + ((ActionReferencePoint) assertion.getReferencePoint()).getAction().getName());
-					if (assertion.getReferencePoint() instanceof ConstraintReferencePoint) {
+					if (assertion.getReferencePoint() instanceof UMLActionReferencePoint) {
+						Action action = modelConverter.convertAction(((UMLActionReferencePoint) assertion.getReferencePoint()).getAction());
+						writer.print("action " + action.name);
+					}
+					if (assertion.getReferencePoint() instanceof UMLConstraintReferencePoint) {
 						writer.print("constraint "
-								+ ((XStringLiteral) ((ConstraintReferencePoint) assertion.getReferencePoint()).getConstraintName()).getValue());
+								+ ((XStringLiteral) ((UMLConstraintReferencePoint) assertion.getReferencePoint()).getConstraintName()).getValue());
 					}
 					if (assertion.getUntilPoint() != null) {
-						if (assertion.getUntilPoint() instanceof ActionReferencePoint)
-							writer.print(" until action " + ((ActionReferencePoint) assertion.getUntilPoint()).getAction().getName());
-						if (assertion.getUntilPoint() instanceof ConstraintReferencePoint) {
+						if (assertion.getUntilPoint() instanceof UMLActionReferencePoint) {
+							Action action = modelConverter.convertAction(((UMLActionReferencePoint) assertion.getUntilPoint()).getAction());
+							writer.print(" until action " + action.name);
+						}
+						if (assertion.getUntilPoint() instanceof UMLConstraintReferencePoint) {
 							writer.print(" until constraint "
-									+ (((XStringLiteral) ((ConstraintReferencePoint) assertion.getUntilPoint()).getConstraintName()).getValue()));
+									+ (((XStringLiteral) ((UMLConstraintReferencePoint) assertion.getUntilPoint()).getConstraintName()).getValue()));
 						}
 					}
 					writer.println();
@@ -181,19 +191,23 @@ public class ResultsWriter {
 						writer.println("\tState expressions failed: " + ((StateAssertionResult) assertionResult).getFailedStateExpressions().size());
 
 						for (StateExpressionResult result : ((StateAssertionResult) assertionResult).getFailedStateExpressions()) {
-							if (result.getStateExpression() instanceof PropertyStateExpression)
-								writer.print("\t\tExpression: " + ((PropertyStateExpression) result.getStateExpression()).getPin().getName() + "::"
-										+ ((PropertyStateExpression) result.getStateExpression()).getProperty().getName() + " "
-										+ ((StateExpression) result.getStateExpression()).getOperator() + " ");
-							if (result.getStateExpression() instanceof ObjectStateExpression) {
-								writer.print("\t\tExpression: " + ((ObjectStateExpression) result.getStateExpression()).getPin().getName() + " "
-										+ ((StateExpression) result.getStateExpression()).getOperator() + " ");
+							if (result.getStateExpression() instanceof UMLPropertyStateExpression) {
+								ObjectNode pin = modelConverter.convertPin(((UMLPropertyStateExpression) result.getStateExpression()).getPin());
+								Property property = modelConverter.convertProperty(((UMLPropertyStateExpression) result.getStateExpression())
+										.getProperty());
+								writer.print("\t\tExpression: " + pin.name + "::" + property.name + " "
+										+ ((UMLStateExpression) result.getStateExpression()).getOperator() + " ");
 							}
-							Value value = ((StateExpression) result.getStateExpression()).getValue();
-							if (value instanceof ObjectValue) {
-								writer.print(((ObjectValue) value).getValue().getName());
-							} else if (value instanceof SimpleValue) {
-								XExpression valueExpression = ((SimpleValue) value).getValue();
+							if (result.getStateExpression() instanceof UMLObjectStateExpression) {
+								ObjectNode pin = modelConverter.convertPin(((UMLObjectStateExpression) result.getStateExpression()).getPin());
+								writer.print("\t\tExpression: " + pin.name + " " + ((UMLStateExpression) result.getStateExpression()).getOperator()
+										+ " ");
+							}
+							UMLValue value = ((UMLStateExpression) result.getStateExpression()).getValue();
+							if (value instanceof UMLObjectValue) {
+								writer.print(((UMLObjectValue) value).getValue().getName());
+							} else if (value instanceof UMLSimpleValue) {
+								XExpression valueExpression = ((UMLSimpleValue) value).getValue();
 								if (valueExpression instanceof XStringLiteral) {
 									writer.print(((XStringLiteral) valueExpression).getValue());
 								} else if (valueExpression instanceof XBooleanLiteral) {
@@ -212,14 +226,15 @@ public class ResultsWriter {
 		writer.close();
 	}
 
-	private void printSpecification(List<NodeSpecification> nodeOrder) {
+	private void printSpecification(List<UMLNodeSpecification> nodeOrder) {
 		writer.print("\tOrder specification: ");
 		for (int i = 0; i < nodeOrder.size(); i++) {
 			if (nodeOrder.get(i).getNode() != null) {
+				ActivityNode node = modelConverter.convertActivityNode(nodeOrder.get(i).getNode());
 				if (i == nodeOrder.size() - 1)
-					writer.print(nodeOrder.get(i).getNode().getName());
+					writer.print(node.name);
 				else
-					writer.print(nodeOrder.get(i).getNode().getName() + ", ");
+					writer.print(node.name + ", ");
 			}
 			if (nodeOrder.get(i).getJoker() != null) {
 				if (i == nodeOrder.size() - 1)

@@ -15,9 +15,9 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.Input;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Output;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot;
-import org.modelexecution.fumltesting.testLang.StateAssertion;
-import org.modelexecution.fumltesting.testLang.StateExpression;
-import org.modelexecution.fumltesting.testLang.TemporalOperator;
+import org.modelexecution.fumltesting.testLang.UMLStateAssertion;
+import org.modelexecution.fumltesting.testLang.UMLStateExpression;
+import org.modelexecution.fumltesting.testLang.UMLTemporalOperator;
 
 import fUML.Syntax.Actions.BasicActions.Action;
 import fUML.Syntax.Actions.BasicActions.CallBehaviorAction;
@@ -46,7 +46,7 @@ public class SnapshotUtil {
 		successorSnapshots = new ArrayList<ValueSnapshot>();
 	}
 
-	public ArrayList<ValueSnapshot> getRelevantSnapshots(StateExpression expression, ActivityNodeExecution referenceActionExecution,
+	public ArrayList<ValueSnapshot> getRelevantSnapshots(UMLStateExpression expression, ActivityNodeExecution referenceActionExecution,
 			ActivityNodeExecution untilActionExecution) {
 		ArrayList<ValueSnapshot> list = new ArrayList<ValueSnapshot>();
 		this.referenceActionExecution = referenceActionExecution;
@@ -56,7 +56,7 @@ public class SnapshotUtil {
 		predecessorSnapshots.removeAll(predecessorSnapshots);
 
 		Object expressionAction = traceUtil.getModelConverter().convertElement(expression.getPin().eContainer());
-		StateAssertion assertion = (StateAssertion) expression.eContainer();
+		UMLStateAssertion assertion = (UMLStateAssertion) expression.eContainer();
 
 		Object expressionNodeExecution = null;
 		if (expressionAction instanceof Action)
@@ -70,10 +70,10 @@ public class SnapshotUtil {
 		setupSucessors(assertion.getOperator(), (ActionExecution) this.referenceActionExecution);
 		setupPredecessors(assertion.getOperator(), (ActionExecution) this.referenceActionExecution);
 
-		if (assertion.getOperator() == TemporalOperator.UNTIL) {
+		if (assertion.getOperator() == UMLTemporalOperator.UNTIL) {
 			list = predecessorSnapshots;
 		}
-		if (assertion.getOperator() == TemporalOperator.AFTER) {
+		if (assertion.getOperator() == UMLTemporalOperator.AFTER) {
 			if (referenceActionExecution.getNode() != expressionAction && successorSnapshots.size() == 0 && predecessorSnapshots.size() > 0) {
 				// we need to add last predecessor to successors
 				// if the value was not changed after the referred action
@@ -130,14 +130,14 @@ public class SnapshotUtil {
 		initializeSuccessorSnapshots(successor);
 	}
 
-	private void setupPredecessors(TemporalOperator operator, ActionExecution nodeExecution) {
+	private void setupPredecessors(UMLTemporalOperator operator, ActionExecution nodeExecution) {
 		for (Input input : nodeExecution.getInputs()) {
 			if (input.getInputValues().size() == 0)
 				continue;
 			if (input.getInputValues().get(0).getInputValueSnapshot() == null)
 				continue;
 			ValueInstance referredValueInstance = (ValueInstance) input.getInputValues().get(0).getInputValueSnapshot().eContainer();
-			if (referredValueInstance == valueInstance && operator == TemporalOperator.UNTIL) {
+			if (referredValueInstance == valueInstance && operator == UMLTemporalOperator.UNTIL) {
 				if (predecessorSnapshots.contains(input.getInputValues().get(0).getInputValueSnapshot()))
 					predecessorSnapshots.add(input.getInputValues().get(0).getInputValueSnapshot());
 			}
@@ -154,14 +154,14 @@ public class SnapshotUtil {
 		}
 	}
 
-	private void setupSucessors(TemporalOperator operator, ActionExecution nodeExecution) {
+	private void setupSucessors(UMLTemporalOperator operator, ActionExecution nodeExecution) {
 		for (Output output : nodeExecution.getOutputs()) {
 			if (output.getOutputValues().size() == 0)
 				continue;
 			if (output.getOutputValues().get(0).getOutputValueSnapshot() == null)
 				continue;
 			ValueInstance referredValueInstance = (ValueInstance) output.getOutputValues().get(0).getOutputValueSnapshot().eContainer();
-			if (referredValueInstance == valueInstance && operator == TemporalOperator.AFTER)
+			if (referredValueInstance == valueInstance && operator == UMLTemporalOperator.AFTER)
 				if (successorSnapshots.contains(output.getOutputValues().get(0).getOutputValueSnapshot()) == false)
 					successorSnapshots.add(output.getOutputValues().get(0).getOutputValueSnapshot());
 		}

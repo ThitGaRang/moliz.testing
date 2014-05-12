@@ -75,9 +75,9 @@ public class TestLangAdapterFactory extends AdapterFactoryImpl
     new TestLangSwitch<Adapter>()
     {
       @Override
-      public Adapter caseTestSuite(TestSuite object)
+      public Adapter caseUMLTestSuite(UMLTestSuite object)
       {
-        return createTestSuiteAdapter();
+        return createUMLTestSuiteAdapter();
       }
       @Override
       public Adapter caseImport(Import object)
@@ -85,119 +85,124 @@ public class TestLangAdapterFactory extends AdapterFactoryImpl
         return createImportAdapter();
       }
       @Override
-      public Adapter caseTestCase(TestCase object)
+      public Adapter caseUMLTestCase(UMLTestCase object)
       {
-        return createTestCaseAdapter();
+        return createUMLTestCaseAdapter();
       }
       @Override
-      public Adapter caseActivityInput(ActivityInput object)
+      public Adapter caseUMLActivityInput(UMLActivityInput object)
       {
-        return createActivityInputAdapter();
+        return createUMLActivityInputAdapter();
       }
       @Override
-      public Adapter caseValue(Value object)
+      public Adapter caseUMLValue(UMLValue object)
       {
-        return createValueAdapter();
+        return createUMLValueAdapter();
       }
       @Override
-      public Adapter caseSimpleValue(SimpleValue object)
+      public Adapter caseUMLSimpleValue(UMLSimpleValue object)
       {
-        return createSimpleValueAdapter();
+        return createUMLSimpleValueAdapter();
       }
       @Override
-      public Adapter caseObjectValue(ObjectValue object)
+      public Adapter caseUMLObjectValue(UMLObjectValue object)
       {
-        return createObjectValueAdapter();
+        return createUMLObjectValueAdapter();
       }
       @Override
-      public Adapter caseScenario(Scenario object)
+      public Adapter caseUMLScenario(UMLScenario object)
       {
-        return createScenarioAdapter();
+        return createUMLScenarioAdapter();
       }
       @Override
-      public Adapter caseObjectSpecification(ObjectSpecification object)
+      public Adapter caseUMLObjectSpecification(UMLObjectSpecification object)
       {
-        return createObjectSpecificationAdapter();
+        return createUMLObjectSpecificationAdapter();
       }
       @Override
-      public Adapter caseAttribute(Attribute object)
+      public Adapter caseUMLAttribute(UMLAttribute object)
       {
-        return createAttributeAdapter();
+        return createUMLAttributeAdapter();
       }
       @Override
-      public Adapter caseLink(Link object)
+      public Adapter caseUMLLink(UMLLink object)
       {
-        return createLinkAdapter();
+        return createUMLLinkAdapter();
       }
       @Override
-      public Adapter caseAssertion(Assertion object)
+      public Adapter caseUMLAssertion(UMLAssertion object)
       {
-        return createAssertionAdapter();
+        return createUMLAssertionAdapter();
       }
       @Override
-      public Adapter caseStateAssertion(StateAssertion object)
+      public Adapter caseUMLStateAssertion(UMLStateAssertion object)
       {
-        return createStateAssertionAdapter();
+        return createUMLStateAssertionAdapter();
       }
       @Override
-      public Adapter caseReferencePoint(ReferencePoint object)
+      public Adapter caseUMLReferencePoint(UMLReferencePoint object)
       {
-        return createReferencePointAdapter();
+        return createUMLReferencePointAdapter();
       }
       @Override
-      public Adapter caseActionReferencePoint(ActionReferencePoint object)
+      public Adapter caseUMLActionReferencePoint(UMLActionReferencePoint object)
       {
-        return createActionReferencePointAdapter();
+        return createUMLActionReferencePointAdapter();
       }
       @Override
-      public Adapter caseConstraintReferencePoint(ConstraintReferencePoint object)
+      public Adapter caseUMLConstraintReferencePoint(UMLConstraintReferencePoint object)
       {
-        return createConstraintReferencePointAdapter();
+        return createUMLConstraintReferencePointAdapter();
+      }
+      @Override
+      public Adapter caseUMLFinallyStateAssertion(UMLFinallyStateAssertion object)
+      {
+        return createUMLFinallyStateAssertionAdapter();
+      }
+      @Override
+      public Adapter caseUMLCheck(UMLCheck object)
+      {
+        return createUMLCheckAdapter();
+      }
+      @Override
+      public Adapter caseUMLConstraintCheck(UMLConstraintCheck object)
+      {
+        return createUMLConstraintCheckAdapter();
+      }
+      @Override
+      public Adapter caseUMLStateExpression(UMLStateExpression object)
+      {
+        return createUMLStateExpressionAdapter();
+      }
+      @Override
+      public Adapter caseUMLObjectStateExpression(UMLObjectStateExpression object)
+      {
+        return createUMLObjectStateExpressionAdapter();
+      }
+      @Override
+      public Adapter caseUMLPropertyStateExpression(UMLPropertyStateExpression object)
+      {
+        return createUMLPropertyStateExpressionAdapter();
+      }
+      @Override
+      public Adapter caseUMLOrderAssertion(UMLOrderAssertion object)
+      {
+        return createUMLOrderAssertionAdapter();
+      }
+      @Override
+      public Adapter caseUMLNodeOrder(UMLNodeOrder object)
+      {
+        return createUMLNodeOrderAdapter();
+      }
+      @Override
+      public Adapter caseUMLNodeSpecification(UMLNodeSpecification object)
+      {
+        return createUMLNodeSpecificationAdapter();
       }
       @Override
       public Adapter caseFinallyStateAssertion(FinallyStateAssertion object)
       {
         return createFinallyStateAssertionAdapter();
-      }
-      @Override
-      public Adapter caseCheck(Check object)
-      {
-        return createCheckAdapter();
-      }
-      @Override
-      public Adapter caseConstraintCheck(ConstraintCheck object)
-      {
-        return createConstraintCheckAdapter();
-      }
-      @Override
-      public Adapter caseStateExpression(StateExpression object)
-      {
-        return createStateExpressionAdapter();
-      }
-      @Override
-      public Adapter caseObjectStateExpression(ObjectStateExpression object)
-      {
-        return createObjectStateExpressionAdapter();
-      }
-      @Override
-      public Adapter casePropertyStateExpression(PropertyStateExpression object)
-      {
-        return createPropertyStateExpressionAdapter();
-      }
-      @Override
-      public Adapter caseOrderAssertion(OrderAssertion object)
-      {
-        return createOrderAssertionAdapter();
-      }
-      @Override
-      public Adapter caseNodeOrder(NodeOrder object)
-      {
-        return createNodeOrderAdapter();
-      }
-      @Override
-      public Adapter caseNodeSpecification(NodeSpecification object)
-      {
-        return createNodeSpecificationAdapter();
       }
       @Override
       public Adapter defaultCase(EObject object)
@@ -222,16 +227,16 @@ public class TestLangAdapterFactory extends AdapterFactoryImpl
 
 
   /**
-   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.TestSuite <em>Test Suite</em>}'.
+   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.UMLTestSuite <em>UML Test Suite</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.modelexecution.fumltesting.testLang.TestSuite
+   * @see org.modelexecution.fumltesting.testLang.UMLTestSuite
    * @generated
    */
-  public Adapter createTestSuiteAdapter()
+  public Adapter createUMLTestSuiteAdapter()
   {
     return null;
   }
@@ -252,211 +257,346 @@ public class TestLangAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.TestCase <em>Test Case</em>}'.
+   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.UMLTestCase <em>UML Test Case</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.modelexecution.fumltesting.testLang.TestCase
+   * @see org.modelexecution.fumltesting.testLang.UMLTestCase
    * @generated
    */
-  public Adapter createTestCaseAdapter()
+  public Adapter createUMLTestCaseAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.ActivityInput <em>Activity Input</em>}'.
+   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.UMLActivityInput <em>UML Activity Input</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.modelexecution.fumltesting.testLang.ActivityInput
+   * @see org.modelexecution.fumltesting.testLang.UMLActivityInput
    * @generated
    */
-  public Adapter createActivityInputAdapter()
+  public Adapter createUMLActivityInputAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.Value <em>Value</em>}'.
+   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.UMLValue <em>UML Value</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.modelexecution.fumltesting.testLang.Value
+   * @see org.modelexecution.fumltesting.testLang.UMLValue
    * @generated
    */
-  public Adapter createValueAdapter()
+  public Adapter createUMLValueAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.SimpleValue <em>Simple Value</em>}'.
+   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.UMLSimpleValue <em>UML Simple Value</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.modelexecution.fumltesting.testLang.SimpleValue
+   * @see org.modelexecution.fumltesting.testLang.UMLSimpleValue
    * @generated
    */
-  public Adapter createSimpleValueAdapter()
+  public Adapter createUMLSimpleValueAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.ObjectValue <em>Object Value</em>}'.
+   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.UMLObjectValue <em>UML Object Value</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.modelexecution.fumltesting.testLang.ObjectValue
+   * @see org.modelexecution.fumltesting.testLang.UMLObjectValue
    * @generated
    */
-  public Adapter createObjectValueAdapter()
+  public Adapter createUMLObjectValueAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.Scenario <em>Scenario</em>}'.
+   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.UMLScenario <em>UML Scenario</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.modelexecution.fumltesting.testLang.Scenario
+   * @see org.modelexecution.fumltesting.testLang.UMLScenario
    * @generated
    */
-  public Adapter createScenarioAdapter()
+  public Adapter createUMLScenarioAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.ObjectSpecification <em>Object Specification</em>}'.
+   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.UMLObjectSpecification <em>UML Object Specification</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.modelexecution.fumltesting.testLang.ObjectSpecification
+   * @see org.modelexecution.fumltesting.testLang.UMLObjectSpecification
    * @generated
    */
-  public Adapter createObjectSpecificationAdapter()
+  public Adapter createUMLObjectSpecificationAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.Attribute <em>Attribute</em>}'.
+   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.UMLAttribute <em>UML Attribute</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.modelexecution.fumltesting.testLang.Attribute
+   * @see org.modelexecution.fumltesting.testLang.UMLAttribute
    * @generated
    */
-  public Adapter createAttributeAdapter()
+  public Adapter createUMLAttributeAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.Link <em>Link</em>}'.
+   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.UMLLink <em>UML Link</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.modelexecution.fumltesting.testLang.Link
+   * @see org.modelexecution.fumltesting.testLang.UMLLink
    * @generated
    */
-  public Adapter createLinkAdapter()
+  public Adapter createUMLLinkAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.Assertion <em>Assertion</em>}'.
+   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.UMLAssertion <em>UML Assertion</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.modelexecution.fumltesting.testLang.Assertion
+   * @see org.modelexecution.fumltesting.testLang.UMLAssertion
    * @generated
    */
-  public Adapter createAssertionAdapter()
+  public Adapter createUMLAssertionAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.StateAssertion <em>State Assertion</em>}'.
+   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.UMLStateAssertion <em>UML State Assertion</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.modelexecution.fumltesting.testLang.StateAssertion
+   * @see org.modelexecution.fumltesting.testLang.UMLStateAssertion
    * @generated
    */
-  public Adapter createStateAssertionAdapter()
+  public Adapter createUMLStateAssertionAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.ReferencePoint <em>Reference Point</em>}'.
+   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.UMLReferencePoint <em>UML Reference Point</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.modelexecution.fumltesting.testLang.ReferencePoint
+   * @see org.modelexecution.fumltesting.testLang.UMLReferencePoint
    * @generated
    */
-  public Adapter createReferencePointAdapter()
+  public Adapter createUMLReferencePointAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.ActionReferencePoint <em>Action Reference Point</em>}'.
+   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.UMLActionReferencePoint <em>UML Action Reference Point</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.modelexecution.fumltesting.testLang.ActionReferencePoint
+   * @see org.modelexecution.fumltesting.testLang.UMLActionReferencePoint
    * @generated
    */
-  public Adapter createActionReferencePointAdapter()
+  public Adapter createUMLActionReferencePointAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.ConstraintReferencePoint <em>Constraint Reference Point</em>}'.
+   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.UMLConstraintReferencePoint <em>UML Constraint Reference Point</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.modelexecution.fumltesting.testLang.ConstraintReferencePoint
+   * @see org.modelexecution.fumltesting.testLang.UMLConstraintReferencePoint
    * @generated
    */
-  public Adapter createConstraintReferencePointAdapter()
+  public Adapter createUMLConstraintReferencePointAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.UMLFinallyStateAssertion <em>UML Finally State Assertion</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.modelexecution.fumltesting.testLang.UMLFinallyStateAssertion
+   * @generated
+   */
+  public Adapter createUMLFinallyStateAssertionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.UMLCheck <em>UML Check</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.modelexecution.fumltesting.testLang.UMLCheck
+   * @generated
+   */
+  public Adapter createUMLCheckAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.UMLConstraintCheck <em>UML Constraint Check</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.modelexecution.fumltesting.testLang.UMLConstraintCheck
+   * @generated
+   */
+  public Adapter createUMLConstraintCheckAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.UMLStateExpression <em>UML State Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.modelexecution.fumltesting.testLang.UMLStateExpression
+   * @generated
+   */
+  public Adapter createUMLStateExpressionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.UMLObjectStateExpression <em>UML Object State Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.modelexecution.fumltesting.testLang.UMLObjectStateExpression
+   * @generated
+   */
+  public Adapter createUMLObjectStateExpressionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.UMLPropertyStateExpression <em>UML Property State Expression</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.modelexecution.fumltesting.testLang.UMLPropertyStateExpression
+   * @generated
+   */
+  public Adapter createUMLPropertyStateExpressionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.UMLOrderAssertion <em>UML Order Assertion</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.modelexecution.fumltesting.testLang.UMLOrderAssertion
+   * @generated
+   */
+  public Adapter createUMLOrderAssertionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.UMLNodeOrder <em>UML Node Order</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.modelexecution.fumltesting.testLang.UMLNodeOrder
+   * @generated
+   */
+  public Adapter createUMLNodeOrderAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.UMLNodeSpecification <em>UML Node Specification</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.modelexecution.fumltesting.testLang.UMLNodeSpecification
+   * @generated
+   */
+  public Adapter createUMLNodeSpecificationAdapter()
   {
     return null;
   }
@@ -472,126 +612,6 @@ public class TestLangAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createFinallyStateAssertionAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.Check <em>Check</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.modelexecution.fumltesting.testLang.Check
-   * @generated
-   */
-  public Adapter createCheckAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.ConstraintCheck <em>Constraint Check</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.modelexecution.fumltesting.testLang.ConstraintCheck
-   * @generated
-   */
-  public Adapter createConstraintCheckAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.StateExpression <em>State Expression</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.modelexecution.fumltesting.testLang.StateExpression
-   * @generated
-   */
-  public Adapter createStateExpressionAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.ObjectStateExpression <em>Object State Expression</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.modelexecution.fumltesting.testLang.ObjectStateExpression
-   * @generated
-   */
-  public Adapter createObjectStateExpressionAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.PropertyStateExpression <em>Property State Expression</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.modelexecution.fumltesting.testLang.PropertyStateExpression
-   * @generated
-   */
-  public Adapter createPropertyStateExpressionAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.OrderAssertion <em>Order Assertion</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.modelexecution.fumltesting.testLang.OrderAssertion
-   * @generated
-   */
-  public Adapter createOrderAssertionAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.NodeOrder <em>Node Order</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.modelexecution.fumltesting.testLang.NodeOrder
-   * @generated
-   */
-  public Adapter createNodeOrderAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.modelexecution.fumltesting.testLang.NodeSpecification <em>Node Specification</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.modelexecution.fumltesting.testLang.NodeSpecification
-   * @generated
-   */
-  public Adapter createNodeSpecificationAdapter()
   {
     return null;
   }

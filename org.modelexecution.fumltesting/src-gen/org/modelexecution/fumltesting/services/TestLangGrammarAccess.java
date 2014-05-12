@@ -19,21 +19,21 @@ import org.eclipse.xtext.xbase.services.XtypeGrammarAccess;
 public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 	
 	
-	public class TestSuiteElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "TestSuite");
+	public class UMLTestSuiteElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "UMLTestSuite");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cImportsAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final RuleCall cImportsImportParserRuleCall_0_0 = (RuleCall)cImportsAssignment_0.eContents().get(0);
 		private final Assignment cScenariosAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cScenariosScenarioParserRuleCall_1_0 = (RuleCall)cScenariosAssignment_1.eContents().get(0);
+		private final RuleCall cScenariosUMLScenarioParserRuleCall_1_0 = (RuleCall)cScenariosAssignment_1.eContents().get(0);
 		private final Assignment cTestsAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cTestsTestCaseParserRuleCall_2_0 = (RuleCall)cTestsAssignment_2.eContents().get(0);
+		private final RuleCall cTestsUMLTestCaseParserRuleCall_2_0 = (RuleCall)cTestsAssignment_2.eContents().get(0);
 		
-		//TestSuite:
-		//	imports+=Import* scenarios+=Scenario* tests+=TestCase*;
+		//UMLTestSuite:
+		//	imports+=Import* scenarios+=UMLScenario* tests+=UMLTestCase*;
 		public ParserRule getRule() { return rule; }
 
-		//imports+=Import* scenarios+=Scenario* tests+=TestCase*
+		//imports+=Import* scenarios+=UMLScenario* tests+=UMLTestCase*
 		public Group getGroup() { return cGroup; }
 
 		//imports+=Import*
@@ -42,17 +42,17 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		//Import
 		public RuleCall getImportsImportParserRuleCall_0_0() { return cImportsImportParserRuleCall_0_0; }
 
-		//scenarios+=Scenario*
+		//scenarios+=UMLScenario*
 		public Assignment getScenariosAssignment_1() { return cScenariosAssignment_1; }
 
-		//Scenario
-		public RuleCall getScenariosScenarioParserRuleCall_1_0() { return cScenariosScenarioParserRuleCall_1_0; }
+		//UMLScenario
+		public RuleCall getScenariosUMLScenarioParserRuleCall_1_0() { return cScenariosUMLScenarioParserRuleCall_1_0; }
 
-		//tests+=TestCase*
+		//tests+=UMLTestCase*
 		public Assignment getTestsAssignment_2() { return cTestsAssignment_2; }
 
-		//TestCase
-		public RuleCall getTestsTestCaseParserRuleCall_2_0() { return cTestsTestCaseParserRuleCall_2_0; }
+		//UMLTestCase
+		public RuleCall getTestsUMLTestCaseParserRuleCall_2_0() { return cTestsUMLTestCaseParserRuleCall_2_0; }
 	}
 
 	public class ImportElements extends AbstractParserRuleElementFinder {
@@ -79,8 +79,8 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getImportedNamespaceQualifiedNameWithWildcardParserRuleCall_1_0() { return cImportedNamespaceQualifiedNameWithWildcardParserRuleCall_1_0; }
 	}
 
-	public class TestCaseElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "TestCase");
+	public class UMLTestCaseElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "UMLTestCase");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cTestKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
@@ -92,44 +92,44 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
 		private final Keyword cLeftParenthesisKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
 		private final Assignment cInputsAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
-		private final RuleCall cInputsActivityInputParserRuleCall_4_1_0 = (RuleCall)cInputsAssignment_4_1.eContents().get(0);
+		private final RuleCall cInputsUMLActivityInputParserRuleCall_4_1_0 = (RuleCall)cInputsAssignment_4_1.eContents().get(0);
 		private final Group cGroup_4_2 = (Group)cGroup_4.eContents().get(2);
 		private final Keyword cCommaKeyword_4_2_0 = (Keyword)cGroup_4_2.eContents().get(0);
 		private final Assignment cInputsAssignment_4_2_1 = (Assignment)cGroup_4_2.eContents().get(1);
-		private final RuleCall cInputsActivityInputParserRuleCall_4_2_1_0 = (RuleCall)cInputsAssignment_4_2_1.eContents().get(0);
+		private final RuleCall cInputsUMLActivityInputParserRuleCall_4_2_1_0 = (RuleCall)cInputsAssignment_4_2_1.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_4_3 = (Keyword)cGroup_4.eContents().get(3);
 		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
 		private final Keyword cOnKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
 		private final Assignment cContextObjectAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
-		private final CrossReference cContextObjectObjectSpecificationCrossReference_5_1_0 = (CrossReference)cContextObjectAssignment_5_1.eContents().get(0);
-		private final RuleCall cContextObjectObjectSpecificationQualifiedNameParserRuleCall_5_1_0_1 = (RuleCall)cContextObjectObjectSpecificationCrossReference_5_1_0.eContents().get(1);
+		private final CrossReference cContextObjectUMLObjectSpecificationCrossReference_5_1_0 = (CrossReference)cContextObjectAssignment_5_1.eContents().get(0);
+		private final RuleCall cContextObjectUMLObjectSpecificationQualifiedNameParserRuleCall_5_1_0_1 = (RuleCall)cContextObjectUMLObjectSpecificationCrossReference_5_1_0.eContents().get(1);
 		private final Keyword cLeftCurlyBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		private final Group cGroup_7 = (Group)cGroup.eContents().get(7);
 		private final Keyword cInitializeKeyword_7_0 = (Keyword)cGroup_7.eContents().get(0);
 		private final Keyword cLeftSquareBracketKeyword_7_1 = (Keyword)cGroup_7.eContents().get(1);
 		private final Assignment cInitScenariosAssignment_7_2 = (Assignment)cGroup_7.eContents().get(2);
-		private final CrossReference cInitScenariosScenarioCrossReference_7_2_0 = (CrossReference)cInitScenariosAssignment_7_2.eContents().get(0);
-		private final RuleCall cInitScenariosScenarioIDTerminalRuleCall_7_2_0_1 = (RuleCall)cInitScenariosScenarioCrossReference_7_2_0.eContents().get(1);
+		private final CrossReference cInitScenariosUMLScenarioCrossReference_7_2_0 = (CrossReference)cInitScenariosAssignment_7_2.eContents().get(0);
+		private final RuleCall cInitScenariosUMLScenarioIDTerminalRuleCall_7_2_0_1 = (RuleCall)cInitScenariosUMLScenarioCrossReference_7_2_0.eContents().get(1);
 		private final Group cGroup_7_3 = (Group)cGroup_7.eContents().get(3);
 		private final Keyword cCommaKeyword_7_3_0 = (Keyword)cGroup_7_3.eContents().get(0);
 		private final Assignment cInitScenariosAssignment_7_3_1 = (Assignment)cGroup_7_3.eContents().get(1);
-		private final CrossReference cInitScenariosScenarioCrossReference_7_3_1_0 = (CrossReference)cInitScenariosAssignment_7_3_1.eContents().get(0);
-		private final RuleCall cInitScenariosScenarioIDTerminalRuleCall_7_3_1_0_1 = (RuleCall)cInitScenariosScenarioCrossReference_7_3_1_0.eContents().get(1);
+		private final CrossReference cInitScenariosUMLScenarioCrossReference_7_3_1_0 = (CrossReference)cInitScenariosAssignment_7_3_1.eContents().get(0);
+		private final RuleCall cInitScenariosUMLScenarioIDTerminalRuleCall_7_3_1_0_1 = (RuleCall)cInitScenariosUMLScenarioCrossReference_7_3_1_0.eContents().get(1);
 		private final Keyword cRightSquareBracketKeyword_7_4 = (Keyword)cGroup_7.eContents().get(4);
 		private final Keyword cSemicolonKeyword_7_5 = (Keyword)cGroup_7.eContents().get(5);
 		private final Assignment cAssertionsAssignment_8 = (Assignment)cGroup.eContents().get(8);
-		private final RuleCall cAssertionsAssertionParserRuleCall_8_0 = (RuleCall)cAssertionsAssignment_8.eContents().get(0);
+		private final RuleCall cAssertionsUMLAssertionParserRuleCall_8_0 = (RuleCall)cAssertionsAssignment_8.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_9 = (Keyword)cGroup.eContents().get(9);
 		
-		//TestCase:
-		//	"test" name=ID "activity" activityUnderTest=[uml::Activity|QualifiedName] ("(" inputs+=ActivityInput (","
-		//	inputs+=ActivityInput)* ")")? ("on" contextObject=[ObjectSpecification|QualifiedName])? "{" ("initialize" "["
-		//	initScenarios+=[Scenario] ("," initScenarios+=[Scenario])* "]" ";")? assertions+=Assertion* "}";
+		//UMLTestCase:
+		//	"test" name=ID "activity" activityUnderTest=[uml::Activity|QualifiedName] ("(" inputs+=UMLActivityInput (","
+		//	inputs+=UMLActivityInput)* ")")? ("on" contextObject=[UMLObjectSpecification|QualifiedName])? "{" ("initialize" "["
+		//	initScenarios+=[UMLScenario] ("," initScenarios+=[UMLScenario])* "]" ";")? assertions+=UMLAssertion* "}";
 		public ParserRule getRule() { return rule; }
 
-		//"test" name=ID "activity" activityUnderTest=[uml::Activity|QualifiedName] ("(" inputs+=ActivityInput (","
-		//inputs+=ActivityInput)* ")")? ("on" contextObject=[ObjectSpecification|QualifiedName])? "{" ("initialize" "["
-		//initScenarios+=[Scenario] ("," initScenarios+=[Scenario])* "]" ";")? assertions+=Assertion* "}"
+		//"test" name=ID "activity" activityUnderTest=[uml::Activity|QualifiedName] ("(" inputs+=UMLActivityInput (","
+		//inputs+=UMLActivityInput)* ")")? ("on" contextObject=[UMLObjectSpecification|QualifiedName])? "{" ("initialize" "["
+		//initScenarios+=[UMLScenario] ("," initScenarios+=[UMLScenario])* "]" ";")? assertions+=UMLAssertion* "}"
 		public Group getGroup() { return cGroup; }
 
 		//"test"
@@ -153,52 +153,52 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		//QualifiedName
 		public RuleCall getActivityUnderTestActivityQualifiedNameParserRuleCall_3_0_1() { return cActivityUnderTestActivityQualifiedNameParserRuleCall_3_0_1; }
 
-		//("(" inputs+=ActivityInput ("," inputs+=ActivityInput)* ")")?
+		//("(" inputs+=UMLActivityInput ("," inputs+=UMLActivityInput)* ")")?
 		public Group getGroup_4() { return cGroup_4; }
 
 		//"("
 		public Keyword getLeftParenthesisKeyword_4_0() { return cLeftParenthesisKeyword_4_0; }
 
-		//inputs+=ActivityInput
+		//inputs+=UMLActivityInput
 		public Assignment getInputsAssignment_4_1() { return cInputsAssignment_4_1; }
 
-		//ActivityInput
-		public RuleCall getInputsActivityInputParserRuleCall_4_1_0() { return cInputsActivityInputParserRuleCall_4_1_0; }
+		//UMLActivityInput
+		public RuleCall getInputsUMLActivityInputParserRuleCall_4_1_0() { return cInputsUMLActivityInputParserRuleCall_4_1_0; }
 
-		//("," inputs+=ActivityInput)*
+		//("," inputs+=UMLActivityInput)*
 		public Group getGroup_4_2() { return cGroup_4_2; }
 
 		//","
 		public Keyword getCommaKeyword_4_2_0() { return cCommaKeyword_4_2_0; }
 
-		//inputs+=ActivityInput
+		//inputs+=UMLActivityInput
 		public Assignment getInputsAssignment_4_2_1() { return cInputsAssignment_4_2_1; }
 
-		//ActivityInput
-		public RuleCall getInputsActivityInputParserRuleCall_4_2_1_0() { return cInputsActivityInputParserRuleCall_4_2_1_0; }
+		//UMLActivityInput
+		public RuleCall getInputsUMLActivityInputParserRuleCall_4_2_1_0() { return cInputsUMLActivityInputParserRuleCall_4_2_1_0; }
 
 		//")"
 		public Keyword getRightParenthesisKeyword_4_3() { return cRightParenthesisKeyword_4_3; }
 
-		//("on" contextObject=[ObjectSpecification|QualifiedName])?
+		//("on" contextObject=[UMLObjectSpecification|QualifiedName])?
 		public Group getGroup_5() { return cGroup_5; }
 
 		//"on"
 		public Keyword getOnKeyword_5_0() { return cOnKeyword_5_0; }
 
-		//contextObject=[ObjectSpecification|QualifiedName]
+		//contextObject=[UMLObjectSpecification|QualifiedName]
 		public Assignment getContextObjectAssignment_5_1() { return cContextObjectAssignment_5_1; }
 
-		//[ObjectSpecification|QualifiedName]
-		public CrossReference getContextObjectObjectSpecificationCrossReference_5_1_0() { return cContextObjectObjectSpecificationCrossReference_5_1_0; }
+		//[UMLObjectSpecification|QualifiedName]
+		public CrossReference getContextObjectUMLObjectSpecificationCrossReference_5_1_0() { return cContextObjectUMLObjectSpecificationCrossReference_5_1_0; }
 
 		//QualifiedName
-		public RuleCall getContextObjectObjectSpecificationQualifiedNameParserRuleCall_5_1_0_1() { return cContextObjectObjectSpecificationQualifiedNameParserRuleCall_5_1_0_1; }
+		public RuleCall getContextObjectUMLObjectSpecificationQualifiedNameParserRuleCall_5_1_0_1() { return cContextObjectUMLObjectSpecificationQualifiedNameParserRuleCall_5_1_0_1; }
 
 		//"{"
 		public Keyword getLeftCurlyBracketKeyword_6() { return cLeftCurlyBracketKeyword_6; }
 
-		//("initialize" "[" initScenarios+=[Scenario] ("," initScenarios+=[Scenario])* "]" ";")?
+		//("initialize" "[" initScenarios+=[UMLScenario] ("," initScenarios+=[UMLScenario])* "]" ";")?
 		public Group getGroup_7() { return cGroup_7; }
 
 		//"initialize"
@@ -207,29 +207,29 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_7_1() { return cLeftSquareBracketKeyword_7_1; }
 
-		//initScenarios+=[Scenario]
+		//initScenarios+=[UMLScenario]
 		public Assignment getInitScenariosAssignment_7_2() { return cInitScenariosAssignment_7_2; }
 
-		//[Scenario]
-		public CrossReference getInitScenariosScenarioCrossReference_7_2_0() { return cInitScenariosScenarioCrossReference_7_2_0; }
+		//[UMLScenario]
+		public CrossReference getInitScenariosUMLScenarioCrossReference_7_2_0() { return cInitScenariosUMLScenarioCrossReference_7_2_0; }
 
 		//ID
-		public RuleCall getInitScenariosScenarioIDTerminalRuleCall_7_2_0_1() { return cInitScenariosScenarioIDTerminalRuleCall_7_2_0_1; }
+		public RuleCall getInitScenariosUMLScenarioIDTerminalRuleCall_7_2_0_1() { return cInitScenariosUMLScenarioIDTerminalRuleCall_7_2_0_1; }
 
-		//("," initScenarios+=[Scenario])*
+		//("," initScenarios+=[UMLScenario])*
 		public Group getGroup_7_3() { return cGroup_7_3; }
 
 		//","
 		public Keyword getCommaKeyword_7_3_0() { return cCommaKeyword_7_3_0; }
 
-		//initScenarios+=[Scenario]
+		//initScenarios+=[UMLScenario]
 		public Assignment getInitScenariosAssignment_7_3_1() { return cInitScenariosAssignment_7_3_1; }
 
-		//[Scenario]
-		public CrossReference getInitScenariosScenarioCrossReference_7_3_1_0() { return cInitScenariosScenarioCrossReference_7_3_1_0; }
+		//[UMLScenario]
+		public CrossReference getInitScenariosUMLScenarioCrossReference_7_3_1_0() { return cInitScenariosUMLScenarioCrossReference_7_3_1_0; }
 
 		//ID
-		public RuleCall getInitScenariosScenarioIDTerminalRuleCall_7_3_1_0_1() { return cInitScenariosScenarioIDTerminalRuleCall_7_3_1_0_1; }
+		public RuleCall getInitScenariosUMLScenarioIDTerminalRuleCall_7_3_1_0_1() { return cInitScenariosUMLScenarioIDTerminalRuleCall_7_3_1_0_1; }
 
 		//"]"
 		public Keyword getRightSquareBracketKeyword_7_4() { return cRightSquareBracketKeyword_7_4; }
@@ -237,31 +237,31 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_7_5() { return cSemicolonKeyword_7_5; }
 
-		//assertions+=Assertion*
+		//assertions+=UMLAssertion*
 		public Assignment getAssertionsAssignment_8() { return cAssertionsAssignment_8; }
 
-		//Assertion
-		public RuleCall getAssertionsAssertionParserRuleCall_8_0() { return cAssertionsAssertionParserRuleCall_8_0; }
+		//UMLAssertion
+		public RuleCall getAssertionsUMLAssertionParserRuleCall_8_0() { return cAssertionsUMLAssertionParserRuleCall_8_0; }
 
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_9() { return cRightCurlyBracketKeyword_9; }
 	}
 
-	public class ActivityInputElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ActivityInput");
+	public class UMLActivityInputElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "UMLActivityInput");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cParameterAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final CrossReference cParameterActivityParameterNodeCrossReference_0_0 = (CrossReference)cParameterAssignment_0.eContents().get(0);
 		private final RuleCall cParameterActivityParameterNodeQualifiedNameParserRuleCall_0_0_1 = (RuleCall)cParameterActivityParameterNodeCrossReference_0_0.eContents().get(1);
 		private final Keyword cEqualsSignKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cValueAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cValueValueParserRuleCall_2_0 = (RuleCall)cValueAssignment_2.eContents().get(0);
+		private final RuleCall cValueUMLValueParserRuleCall_2_0 = (RuleCall)cValueAssignment_2.eContents().get(0);
 		
-		//ActivityInput:
-		//	parameter=[uml::ActivityParameterNode|QualifiedName] "=" value=Value;
+		//UMLActivityInput:
+		//	parameter=[uml::ActivityParameterNode|QualifiedName] "=" value=UMLValue;
 		public ParserRule getRule() { return rule; }
 
-		//parameter=[uml::ActivityParameterNode|QualifiedName] "=" value=Value
+		//parameter=[uml::ActivityParameterNode|QualifiedName] "=" value=UMLValue
 		public Group getGroup() { return cGroup; }
 
 		//parameter=[uml::ActivityParameterNode|QualifiedName]
@@ -276,39 +276,39 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		//"="
 		public Keyword getEqualsSignKeyword_1() { return cEqualsSignKeyword_1; }
 
-		//value=Value
+		//value=UMLValue
 		public Assignment getValueAssignment_2() { return cValueAssignment_2; }
 
-		//Value
-		public RuleCall getValueValueParserRuleCall_2_0() { return cValueValueParserRuleCall_2_0; }
+		//UMLValue
+		public RuleCall getValueUMLValueParserRuleCall_2_0() { return cValueUMLValueParserRuleCall_2_0; }
 	}
 
-	public class ValueElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Value");
+	public class UMLValueElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "UMLValue");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cSimpleValueParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cObjectValueParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cUMLSimpleValueParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cUMLObjectValueParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
-		//Value:
-		//	SimpleValue | ObjectValue;
+		//UMLValue:
+		//	UMLSimpleValue | UMLObjectValue;
 		public ParserRule getRule() { return rule; }
 
-		//SimpleValue | ObjectValue
+		//UMLSimpleValue | UMLObjectValue
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//SimpleValue
-		public RuleCall getSimpleValueParserRuleCall_0() { return cSimpleValueParserRuleCall_0; }
+		//UMLSimpleValue
+		public RuleCall getUMLSimpleValueParserRuleCall_0() { return cUMLSimpleValueParserRuleCall_0; }
 
-		//ObjectValue
-		public RuleCall getObjectValueParserRuleCall_1() { return cObjectValueParserRuleCall_1; }
+		//UMLObjectValue
+		public RuleCall getUMLObjectValueParserRuleCall_1() { return cUMLObjectValueParserRuleCall_1; }
 	}
 
-	public class SimpleValueElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "SimpleValue");
+	public class UMLSimpleValueElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "UMLSimpleValue");
 		private final Assignment cValueAssignment = (Assignment)rule.eContents().get(1);
 		private final RuleCall cValueXLiteralParserRuleCall_0 = (RuleCall)cValueAssignment.eContents().get(0);
 		
-		//SimpleValue:
+		//UMLSimpleValue:
 		//	value=XLiteral;
 		public ParserRule getRule() { return rule; }
 
@@ -319,44 +319,44 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getValueXLiteralParserRuleCall_0() { return cValueXLiteralParserRuleCall_0; }
 	}
 
-	public class ObjectValueElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ObjectValue");
+	public class UMLObjectValueElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "UMLObjectValue");
 		private final Assignment cValueAssignment = (Assignment)rule.eContents().get(1);
-		private final CrossReference cValueObjectSpecificationCrossReference_0 = (CrossReference)cValueAssignment.eContents().get(0);
-		private final RuleCall cValueObjectSpecificationQualifiedNameParserRuleCall_0_1 = (RuleCall)cValueObjectSpecificationCrossReference_0.eContents().get(1);
+		private final CrossReference cValueUMLObjectSpecificationCrossReference_0 = (CrossReference)cValueAssignment.eContents().get(0);
+		private final RuleCall cValueUMLObjectSpecificationQualifiedNameParserRuleCall_0_1 = (RuleCall)cValueUMLObjectSpecificationCrossReference_0.eContents().get(1);
 		
-		//ObjectValue:
-		//	value=[ObjectSpecification|QualifiedName];
+		//UMLObjectValue:
+		//	value=[UMLObjectSpecification|QualifiedName];
 		public ParserRule getRule() { return rule; }
 
-		//value=[ObjectSpecification|QualifiedName]
+		//value=[UMLObjectSpecification|QualifiedName]
 		public Assignment getValueAssignment() { return cValueAssignment; }
 
-		//[ObjectSpecification|QualifiedName]
-		public CrossReference getValueObjectSpecificationCrossReference_0() { return cValueObjectSpecificationCrossReference_0; }
+		//[UMLObjectSpecification|QualifiedName]
+		public CrossReference getValueUMLObjectSpecificationCrossReference_0() { return cValueUMLObjectSpecificationCrossReference_0; }
 
 		//QualifiedName
-		public RuleCall getValueObjectSpecificationQualifiedNameParserRuleCall_0_1() { return cValueObjectSpecificationQualifiedNameParserRuleCall_0_1; }
+		public RuleCall getValueUMLObjectSpecificationQualifiedNameParserRuleCall_0_1() { return cValueUMLObjectSpecificationQualifiedNameParserRuleCall_0_1; }
 	}
 
-	public class ScenarioElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Scenario");
+	public class UMLScenarioElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "UMLScenario");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cScenarioKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
 		private final Keyword cLeftSquareBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Assignment cObjectsAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cObjectsObjectSpecificationParserRuleCall_3_0 = (RuleCall)cObjectsAssignment_3.eContents().get(0);
+		private final RuleCall cObjectsUMLObjectSpecificationParserRuleCall_3_0 = (RuleCall)cObjectsAssignment_3.eContents().get(0);
 		private final Assignment cLinksAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final RuleCall cLinksLinkParserRuleCall_4_0 = (RuleCall)cLinksAssignment_4.eContents().get(0);
+		private final RuleCall cLinksUMLLinkParserRuleCall_4_0 = (RuleCall)cLinksAssignment_4.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
-		//Scenario:
-		//	"scenario" name=ID "[" objects+=ObjectSpecification* links+=Link* "]";
+		//UMLScenario:
+		//	"scenario" name=ID "[" objects+=UMLObjectSpecification* links+=UMLLink* "]";
 		public ParserRule getRule() { return rule; }
 
-		//"scenario" name=ID "[" objects+=ObjectSpecification* links+=Link* "]"
+		//"scenario" name=ID "[" objects+=UMLObjectSpecification* links+=UMLLink* "]"
 		public Group getGroup() { return cGroup; }
 
 		//"scenario"
@@ -371,24 +371,24 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_2() { return cLeftSquareBracketKeyword_2; }
 
-		//objects+=ObjectSpecification*
+		//objects+=UMLObjectSpecification*
 		public Assignment getObjectsAssignment_3() { return cObjectsAssignment_3; }
 
-		//ObjectSpecification
-		public RuleCall getObjectsObjectSpecificationParserRuleCall_3_0() { return cObjectsObjectSpecificationParserRuleCall_3_0; }
+		//UMLObjectSpecification
+		public RuleCall getObjectsUMLObjectSpecificationParserRuleCall_3_0() { return cObjectsUMLObjectSpecificationParserRuleCall_3_0; }
 
-		//links+=Link*
+		//links+=UMLLink*
 		public Assignment getLinksAssignment_4() { return cLinksAssignment_4; }
 
-		//Link
-		public RuleCall getLinksLinkParserRuleCall_4_0() { return cLinksLinkParserRuleCall_4_0; }
+		//UMLLink
+		public RuleCall getLinksUMLLinkParserRuleCall_4_0() { return cLinksUMLLinkParserRuleCall_4_0; }
 
 		//"]"
 		public Keyword getRightSquareBracketKeyword_5() { return cRightSquareBracketKeyword_5; }
 	}
 
-	public class ObjectSpecificationElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ObjectSpecification");
+	public class UMLObjectSpecificationElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "UMLObjectSpecification");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cObjectKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
@@ -399,14 +399,14 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cTypeClassQualifiedNameParserRuleCall_3_0_1 = (RuleCall)cTypeClassCrossReference_3_0.eContents().get(1);
 		private final Keyword cLeftCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		private final Assignment cAttributesAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final RuleCall cAttributesAttributeParserRuleCall_5_0 = (RuleCall)cAttributesAssignment_5.eContents().get(0);
+		private final RuleCall cAttributesUMLAttributeParserRuleCall_5_0 = (RuleCall)cAttributesAssignment_5.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
-		//ObjectSpecification:
-		//	"object" name=ID ":" type=[uml::Class|QualifiedName] "{" attributes+=Attribute* "}";
+		//UMLObjectSpecification:
+		//	"object" name=ID ":" type=[uml::Class|QualifiedName] "{" attributes+=UMLAttribute* "}";
 		public ParserRule getRule() { return rule; }
 
-		//"object" name=ID ":" type=[uml::Class|QualifiedName] "{" attributes+=Attribute* "}"
+		//"object" name=ID ":" type=[uml::Class|QualifiedName] "{" attributes+=UMLAttribute* "}"
 		public Group getGroup() { return cGroup; }
 
 		//"object"
@@ -433,32 +433,32 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		//"{"
 		public Keyword getLeftCurlyBracketKeyword_4() { return cLeftCurlyBracketKeyword_4; }
 
-		//attributes+=Attribute*
+		//attributes+=UMLAttribute*
 		public Assignment getAttributesAssignment_5() { return cAttributesAssignment_5; }
 
-		//Attribute
-		public RuleCall getAttributesAttributeParserRuleCall_5_0() { return cAttributesAttributeParserRuleCall_5_0; }
+		//UMLAttribute
+		public RuleCall getAttributesUMLAttributeParserRuleCall_5_0() { return cAttributesUMLAttributeParserRuleCall_5_0; }
 
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_6() { return cRightCurlyBracketKeyword_6; }
 	}
 
-	public class AttributeElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Attribute");
+	public class UMLAttributeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "UMLAttribute");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cAttAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final CrossReference cAttPropertyCrossReference_0_0 = (CrossReference)cAttAssignment_0.eContents().get(0);
 		private final RuleCall cAttPropertyQualifiedNameParserRuleCall_0_0_1 = (RuleCall)cAttPropertyCrossReference_0_0.eContents().get(1);
 		private final Keyword cEqualsSignKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cValueAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cValueValueParserRuleCall_2_0 = (RuleCall)cValueAssignment_2.eContents().get(0);
+		private final RuleCall cValueUMLValueParserRuleCall_2_0 = (RuleCall)cValueAssignment_2.eContents().get(0);
 		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
-		//Attribute:
-		//	att=[uml::Property|QualifiedName] "=" value=Value ";";
+		//UMLAttribute:
+		//	att=[uml::Property|QualifiedName] "=" value=UMLValue ";";
 		public ParserRule getRule() { return rule; }
 
-		//att=[uml::Property|QualifiedName] "=" value=Value ";"
+		//att=[uml::Property|QualifiedName] "=" value=UMLValue ";"
 		public Group getGroup() { return cGroup; }
 
 		//att=[uml::Property|QualifiedName]
@@ -473,18 +473,18 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		//"="
 		public Keyword getEqualsSignKeyword_1() { return cEqualsSignKeyword_1; }
 
-		//value=Value
+		//value=UMLValue
 		public Assignment getValueAssignment_2() { return cValueAssignment_2; }
 
-		//Value
-		public RuleCall getValueValueParserRuleCall_2_0() { return cValueValueParserRuleCall_2_0; }
+		//UMLValue
+		public RuleCall getValueUMLValueParserRuleCall_2_0() { return cValueUMLValueParserRuleCall_2_0; }
 
 		//";"
 		public Keyword getSemicolonKeyword_3() { return cSemicolonKeyword_3; }
 	}
 
-	public class LinkElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Link");
+	public class UMLLinkElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "UMLLink");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cLinkKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cAssocAssignment_1 = (Assignment)cGroup.eContents().get(1);
@@ -497,8 +497,8 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cSourcePropertyPropertyQualifiedNameParserRuleCall_4_0_1 = (RuleCall)cSourcePropertyPropertyCrossReference_4_0.eContents().get(1);
 		private final Keyword cEqualsSignKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		private final Assignment cSourceValueAssignment_6 = (Assignment)cGroup.eContents().get(6);
-		private final CrossReference cSourceValueObjectSpecificationCrossReference_6_0 = (CrossReference)cSourceValueAssignment_6.eContents().get(0);
-		private final RuleCall cSourceValueObjectSpecificationQualifiedNameParserRuleCall_6_0_1 = (RuleCall)cSourceValueObjectSpecificationCrossReference_6_0.eContents().get(1);
+		private final CrossReference cSourceValueUMLObjectSpecificationCrossReference_6_0 = (CrossReference)cSourceValueAssignment_6.eContents().get(0);
+		private final RuleCall cSourceValueUMLObjectSpecificationQualifiedNameParserRuleCall_6_0_1 = (RuleCall)cSourceValueUMLObjectSpecificationCrossReference_6_0.eContents().get(1);
 		private final Keyword cSemicolonKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		private final Keyword cTargetKeyword_8 = (Keyword)cGroup.eContents().get(8);
 		private final Assignment cTargetPropertyAssignment_9 = (Assignment)cGroup.eContents().get(9);
@@ -506,20 +506,20 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cTargetPropertyPropertyQualifiedNameParserRuleCall_9_0_1 = (RuleCall)cTargetPropertyPropertyCrossReference_9_0.eContents().get(1);
 		private final Keyword cEqualsSignKeyword_10 = (Keyword)cGroup.eContents().get(10);
 		private final Assignment cTargetValueAssignment_11 = (Assignment)cGroup.eContents().get(11);
-		private final CrossReference cTargetValueObjectSpecificationCrossReference_11_0 = (CrossReference)cTargetValueAssignment_11.eContents().get(0);
-		private final RuleCall cTargetValueObjectSpecificationQualifiedNameParserRuleCall_11_0_1 = (RuleCall)cTargetValueObjectSpecificationCrossReference_11_0.eContents().get(1);
+		private final CrossReference cTargetValueUMLObjectSpecificationCrossReference_11_0 = (CrossReference)cTargetValueAssignment_11.eContents().get(0);
+		private final RuleCall cTargetValueUMLObjectSpecificationQualifiedNameParserRuleCall_11_0_1 = (RuleCall)cTargetValueUMLObjectSpecificationCrossReference_11_0.eContents().get(1);
 		private final Keyword cSemicolonKeyword_12 = (Keyword)cGroup.eContents().get(12);
 		private final Keyword cRightCurlyBracketKeyword_13 = (Keyword)cGroup.eContents().get(13);
 		
-		//Link:
+		//UMLLink:
 		//	"link" assoc=[uml::Association|QualifiedName] "{" "source" sourceProperty=[uml::Property|QualifiedName] "="
-		//	sourceValue=[ObjectSpecification|QualifiedName] ";" "target" targetProperty=[uml::Property|QualifiedName] "="
-		//	targetValue=[ObjectSpecification|QualifiedName] ";" "}";
+		//	sourceValue=[UMLObjectSpecification|QualifiedName] ";" "target" targetProperty=[uml::Property|QualifiedName] "="
+		//	targetValue=[UMLObjectSpecification|QualifiedName] ";" "}";
 		public ParserRule getRule() { return rule; }
 
 		//"link" assoc=[uml::Association|QualifiedName] "{" "source" sourceProperty=[uml::Property|QualifiedName] "="
-		//sourceValue=[ObjectSpecification|QualifiedName] ";" "target" targetProperty=[uml::Property|QualifiedName] "="
-		//targetValue=[ObjectSpecification|QualifiedName] ";" "}"
+		//sourceValue=[UMLObjectSpecification|QualifiedName] ";" "target" targetProperty=[uml::Property|QualifiedName] "="
+		//targetValue=[UMLObjectSpecification|QualifiedName] ";" "}"
 		public Group getGroup() { return cGroup; }
 
 		//"link"
@@ -552,14 +552,14 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		//"="
 		public Keyword getEqualsSignKeyword_5() { return cEqualsSignKeyword_5; }
 
-		//sourceValue=[ObjectSpecification|QualifiedName]
+		//sourceValue=[UMLObjectSpecification|QualifiedName]
 		public Assignment getSourceValueAssignment_6() { return cSourceValueAssignment_6; }
 
-		//[ObjectSpecification|QualifiedName]
-		public CrossReference getSourceValueObjectSpecificationCrossReference_6_0() { return cSourceValueObjectSpecificationCrossReference_6_0; }
+		//[UMLObjectSpecification|QualifiedName]
+		public CrossReference getSourceValueUMLObjectSpecificationCrossReference_6_0() { return cSourceValueUMLObjectSpecificationCrossReference_6_0; }
 
 		//QualifiedName
-		public RuleCall getSourceValueObjectSpecificationQualifiedNameParserRuleCall_6_0_1() { return cSourceValueObjectSpecificationQualifiedNameParserRuleCall_6_0_1; }
+		public RuleCall getSourceValueUMLObjectSpecificationQualifiedNameParserRuleCall_6_0_1() { return cSourceValueUMLObjectSpecificationQualifiedNameParserRuleCall_6_0_1; }
 
 		//";"
 		public Keyword getSemicolonKeyword_7() { return cSemicolonKeyword_7; }
@@ -579,14 +579,14 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		//"="
 		public Keyword getEqualsSignKeyword_10() { return cEqualsSignKeyword_10; }
 
-		//targetValue=[ObjectSpecification|QualifiedName]
+		//targetValue=[UMLObjectSpecification|QualifiedName]
 		public Assignment getTargetValueAssignment_11() { return cTargetValueAssignment_11; }
 
-		//[ObjectSpecification|QualifiedName]
-		public CrossReference getTargetValueObjectSpecificationCrossReference_11_0() { return cTargetValueObjectSpecificationCrossReference_11_0; }
+		//[UMLObjectSpecification|QualifiedName]
+		public CrossReference getTargetValueUMLObjectSpecificationCrossReference_11_0() { return cTargetValueUMLObjectSpecificationCrossReference_11_0; }
 
 		//QualifiedName
-		public RuleCall getTargetValueObjectSpecificationQualifiedNameParserRuleCall_11_0_1() { return cTargetValueObjectSpecificationQualifiedNameParserRuleCall_11_0_1; }
+		public RuleCall getTargetValueUMLObjectSpecificationQualifiedNameParserRuleCall_11_0_1() { return cTargetValueUMLObjectSpecificationQualifiedNameParserRuleCall_11_0_1; }
 
 		//";"
 		public Keyword getSemicolonKeyword_12() { return cSemicolonKeyword_12; }
@@ -595,133 +595,133 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getRightCurlyBracketKeyword_13() { return cRightCurlyBracketKeyword_13; }
 	}
 
-	public class AssertionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Assertion");
+	public class UMLAssertionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "UMLAssertion");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cOrderAssertionParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cStateAssertionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final RuleCall cFinallyStateAssertionParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cUMLOrderAssertionParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cUMLStateAssertionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cUMLFinallyStateAssertionParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		
-		//Assertion:
-		//	OrderAssertion | StateAssertion | FinallyStateAssertion;
+		//UMLAssertion:
+		//	UMLOrderAssertion | UMLStateAssertion | UMLFinallyStateAssertion;
 		public ParserRule getRule() { return rule; }
 
-		//OrderAssertion | StateAssertion | FinallyStateAssertion
+		//UMLOrderAssertion | UMLStateAssertion | UMLFinallyStateAssertion
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//OrderAssertion
-		public RuleCall getOrderAssertionParserRuleCall_0() { return cOrderAssertionParserRuleCall_0; }
+		//UMLOrderAssertion
+		public RuleCall getUMLOrderAssertionParserRuleCall_0() { return cUMLOrderAssertionParserRuleCall_0; }
 
-		//StateAssertion
-		public RuleCall getStateAssertionParserRuleCall_1() { return cStateAssertionParserRuleCall_1; }
+		//UMLStateAssertion
+		public RuleCall getUMLStateAssertionParserRuleCall_1() { return cUMLStateAssertionParserRuleCall_1; }
 
-		//FinallyStateAssertion
-		public RuleCall getFinallyStateAssertionParserRuleCall_2() { return cFinallyStateAssertionParserRuleCall_2; }
+		//UMLFinallyStateAssertion
+		public RuleCall getUMLFinallyStateAssertionParserRuleCall_2() { return cUMLFinallyStateAssertionParserRuleCall_2; }
 	}
 
-	public class StateAssertionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "StateAssertion");
+	public class UMLStateAssertionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "UMLStateAssertion");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cAssertStateKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cQuantifierAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cQuantifierTemporalQuantifierEnumRuleCall_1_0 = (RuleCall)cQuantifierAssignment_1.eContents().get(0);
+		private final RuleCall cQuantifierUMLTemporalQuantifierEnumRuleCall_1_0 = (RuleCall)cQuantifierAssignment_1.eContents().get(0);
 		private final Assignment cOperatorAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cOperatorTemporalOperatorEnumRuleCall_2_0 = (RuleCall)cOperatorAssignment_2.eContents().get(0);
+		private final RuleCall cOperatorUMLTemporalOperatorEnumRuleCall_2_0 = (RuleCall)cOperatorAssignment_2.eContents().get(0);
 		private final Assignment cReferencePointAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cReferencePointReferencePointParserRuleCall_3_0 = (RuleCall)cReferencePointAssignment_3.eContents().get(0);
+		private final RuleCall cReferencePointUMLReferencePointParserRuleCall_3_0 = (RuleCall)cReferencePointAssignment_3.eContents().get(0);
 		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
 		private final Keyword cUntilKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
 		private final Assignment cUntilPointAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
-		private final RuleCall cUntilPointReferencePointParserRuleCall_4_1_0 = (RuleCall)cUntilPointAssignment_4_1.eContents().get(0);
+		private final RuleCall cUntilPointUMLReferencePointParserRuleCall_4_1_0 = (RuleCall)cUntilPointAssignment_4_1.eContents().get(0);
 		private final Keyword cLeftCurlyBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		private final Assignment cChecksAssignment_6 = (Assignment)cGroup.eContents().get(6);
-		private final RuleCall cChecksCheckParserRuleCall_6_0 = (RuleCall)cChecksAssignment_6.eContents().get(0);
+		private final RuleCall cChecksUMLCheckParserRuleCall_6_0 = (RuleCall)cChecksAssignment_6.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		
-		//StateAssertion:
-		//	"assertState" quantifier=TemporalQuantifier operator=TemporalOperator referencePoint=ReferencePoint ("until"
-		//	untilPoint=ReferencePoint)? "{" checks+=Check* "}";
+		//UMLStateAssertion:
+		//	"assertState" quantifier=UMLTemporalQuantifier operator=UMLTemporalOperator referencePoint=UMLReferencePoint ("until"
+		//	untilPoint=UMLReferencePoint)? "{" checks+=UMLCheck* "}";
 		public ParserRule getRule() { return rule; }
 
-		//"assertState" quantifier=TemporalQuantifier operator=TemporalOperator referencePoint=ReferencePoint ("until"
-		//untilPoint=ReferencePoint)? "{" checks+=Check* "}"
+		//"assertState" quantifier=UMLTemporalQuantifier operator=UMLTemporalOperator referencePoint=UMLReferencePoint ("until"
+		//untilPoint=UMLReferencePoint)? "{" checks+=UMLCheck* "}"
 		public Group getGroup() { return cGroup; }
 
 		//"assertState"
 		public Keyword getAssertStateKeyword_0() { return cAssertStateKeyword_0; }
 
-		//quantifier=TemporalQuantifier
+		//quantifier=UMLTemporalQuantifier
 		public Assignment getQuantifierAssignment_1() { return cQuantifierAssignment_1; }
 
-		//TemporalQuantifier
-		public RuleCall getQuantifierTemporalQuantifierEnumRuleCall_1_0() { return cQuantifierTemporalQuantifierEnumRuleCall_1_0; }
+		//UMLTemporalQuantifier
+		public RuleCall getQuantifierUMLTemporalQuantifierEnumRuleCall_1_0() { return cQuantifierUMLTemporalQuantifierEnumRuleCall_1_0; }
 
-		//operator=TemporalOperator
+		//operator=UMLTemporalOperator
 		public Assignment getOperatorAssignment_2() { return cOperatorAssignment_2; }
 
-		//TemporalOperator
-		public RuleCall getOperatorTemporalOperatorEnumRuleCall_2_0() { return cOperatorTemporalOperatorEnumRuleCall_2_0; }
+		//UMLTemporalOperator
+		public RuleCall getOperatorUMLTemporalOperatorEnumRuleCall_2_0() { return cOperatorUMLTemporalOperatorEnumRuleCall_2_0; }
 
-		//referencePoint=ReferencePoint
+		//referencePoint=UMLReferencePoint
 		public Assignment getReferencePointAssignment_3() { return cReferencePointAssignment_3; }
 
-		//ReferencePoint
-		public RuleCall getReferencePointReferencePointParserRuleCall_3_0() { return cReferencePointReferencePointParserRuleCall_3_0; }
+		//UMLReferencePoint
+		public RuleCall getReferencePointUMLReferencePointParserRuleCall_3_0() { return cReferencePointUMLReferencePointParserRuleCall_3_0; }
 
-		//("until" untilPoint=ReferencePoint)?
+		//("until" untilPoint=UMLReferencePoint)?
 		public Group getGroup_4() { return cGroup_4; }
 
 		//"until"
 		public Keyword getUntilKeyword_4_0() { return cUntilKeyword_4_0; }
 
-		//untilPoint=ReferencePoint
+		//untilPoint=UMLReferencePoint
 		public Assignment getUntilPointAssignment_4_1() { return cUntilPointAssignment_4_1; }
 
-		//ReferencePoint
-		public RuleCall getUntilPointReferencePointParserRuleCall_4_1_0() { return cUntilPointReferencePointParserRuleCall_4_1_0; }
+		//UMLReferencePoint
+		public RuleCall getUntilPointUMLReferencePointParserRuleCall_4_1_0() { return cUntilPointUMLReferencePointParserRuleCall_4_1_0; }
 
 		//"{"
 		public Keyword getLeftCurlyBracketKeyword_5() { return cLeftCurlyBracketKeyword_5; }
 
-		//checks+=Check*
+		//checks+=UMLCheck*
 		public Assignment getChecksAssignment_6() { return cChecksAssignment_6; }
 
-		//Check
-		public RuleCall getChecksCheckParserRuleCall_6_0() { return cChecksCheckParserRuleCall_6_0; }
+		//UMLCheck
+		public RuleCall getChecksUMLCheckParserRuleCall_6_0() { return cChecksUMLCheckParserRuleCall_6_0; }
 
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_7() { return cRightCurlyBracketKeyword_7; }
 	}
 
-	public class ReferencePointElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ReferencePoint");
+	public class UMLReferencePointElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "UMLReferencePoint");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cActionReferencePointParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cConstraintReferencePointParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cUMLActionReferencePointParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cUMLConstraintReferencePointParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
-		//ReferencePoint:
-		//	ActionReferencePoint | ConstraintReferencePoint;
+		//UMLReferencePoint:
+		//	UMLActionReferencePoint | UMLConstraintReferencePoint;
 		public ParserRule getRule() { return rule; }
 
-		//ActionReferencePoint | ConstraintReferencePoint
+		//UMLActionReferencePoint | UMLConstraintReferencePoint
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//ActionReferencePoint
-		public RuleCall getActionReferencePointParserRuleCall_0() { return cActionReferencePointParserRuleCall_0; }
+		//UMLActionReferencePoint
+		public RuleCall getUMLActionReferencePointParserRuleCall_0() { return cUMLActionReferencePointParserRuleCall_0; }
 
-		//ConstraintReferencePoint
-		public RuleCall getConstraintReferencePointParserRuleCall_1() { return cConstraintReferencePointParserRuleCall_1; }
+		//UMLConstraintReferencePoint
+		public RuleCall getUMLConstraintReferencePointParserRuleCall_1() { return cUMLConstraintReferencePointParserRuleCall_1; }
 	}
 
-	public class ActionReferencePointElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ActionReferencePoint");
+	public class UMLActionReferencePointElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "UMLActionReferencePoint");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cActionKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cActionAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final CrossReference cActionActionCrossReference_1_0 = (CrossReference)cActionAssignment_1.eContents().get(0);
 		private final RuleCall cActionActionQualifiedNameParserRuleCall_1_0_1 = (RuleCall)cActionActionCrossReference_1_0.eContents().get(1);
 		
-		//ActionReferencePoint:
+		//UMLActionReferencePoint:
 		//	"action" action=[uml::Action|QualifiedName];
 		public ParserRule getRule() { return rule; }
 
@@ -741,14 +741,14 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getActionActionQualifiedNameParserRuleCall_1_0_1() { return cActionActionQualifiedNameParserRuleCall_1_0_1; }
 	}
 
-	public class ConstraintReferencePointElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ConstraintReferencePoint");
+	public class UMLConstraintReferencePointElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "UMLConstraintReferencePoint");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cConstraintKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cConstraintNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cConstraintNameXStringLiteralParserRuleCall_1_0 = (RuleCall)cConstraintNameAssignment_1.eContents().get(0);
 		
-		//ConstraintReferencePoint:
+		//UMLConstraintReferencePoint:
 		//	"constraint" constraintName=XStringLiteral;
 		public ParserRule getRule() { return rule; }
 
@@ -765,21 +765,21 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getConstraintNameXStringLiteralParserRuleCall_1_0() { return cConstraintNameXStringLiteralParserRuleCall_1_0; }
 	}
 
-	public class FinallyStateAssertionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "FinallyStateAssertion");
+	public class UMLFinallyStateAssertionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "UMLFinallyStateAssertion");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cFinallyKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Keyword cLeftCurlyBracketKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Action cFinallyStateAssertionAction_2 = (Action)cGroup.eContents().get(2);
 		private final Assignment cChecksAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cChecksCheckParserRuleCall_3_0 = (RuleCall)cChecksAssignment_3.eContents().get(0);
+		private final RuleCall cChecksUMLCheckParserRuleCall_3_0 = (RuleCall)cChecksAssignment_3.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
-		//FinallyStateAssertion:
-		//	"finally" "{" {FinallyStateAssertion} checks+=Check* "}";
+		//UMLFinallyStateAssertion:
+		//	"finally" "{" {FinallyStateAssertion} checks+=UMLCheck* "}";
 		public ParserRule getRule() { return rule; }
 
-		//"finally" "{" {FinallyStateAssertion} checks+=Check* "}"
+		//"finally" "{" {FinallyStateAssertion} checks+=UMLCheck* "}"
 		public Group getGroup() { return cGroup; }
 
 		//"finally"
@@ -791,38 +791,38 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		//{FinallyStateAssertion}
 		public Action getFinallyStateAssertionAction_2() { return cFinallyStateAssertionAction_2; }
 
-		//checks+=Check*
+		//checks+=UMLCheck*
 		public Assignment getChecksAssignment_3() { return cChecksAssignment_3; }
 
-		//Check
-		public RuleCall getChecksCheckParserRuleCall_3_0() { return cChecksCheckParserRuleCall_3_0; }
+		//UMLCheck
+		public RuleCall getChecksUMLCheckParserRuleCall_3_0() { return cChecksUMLCheckParserRuleCall_3_0; }
 
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_4() { return cRightCurlyBracketKeyword_4; }
 	}
 
-	public class CheckElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Check");
+	public class UMLCheckElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "UMLCheck");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cConstraintCheckParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cStateExpressionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cUMLConstraintCheckParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cUMLStateExpressionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
-		//Check:
-		//	ConstraintCheck | StateExpression;
+		//UMLCheck:
+		//	UMLConstraintCheck | UMLStateExpression;
 		public ParserRule getRule() { return rule; }
 
-		//ConstraintCheck | StateExpression
+		//UMLConstraintCheck | UMLStateExpression
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//ConstraintCheck
-		public RuleCall getConstraintCheckParserRuleCall_0() { return cConstraintCheckParserRuleCall_0; }
+		//UMLConstraintCheck
+		public RuleCall getUMLConstraintCheckParserRuleCall_0() { return cUMLConstraintCheckParserRuleCall_0; }
 
-		//StateExpression
-		public RuleCall getStateExpressionParserRuleCall_1() { return cStateExpressionParserRuleCall_1; }
+		//UMLStateExpression
+		public RuleCall getUMLStateExpressionParserRuleCall_1() { return cUMLStateExpressionParserRuleCall_1; }
 	}
 
-	public class ConstraintCheckElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ConstraintCheck");
+	public class UMLConstraintCheckElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "UMLConstraintCheck");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cCheckKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cConstraintNamesAssignment_1 = (Assignment)cGroup.eContents().get(1);
@@ -838,7 +838,7 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cObjectObjectNodeQualifiedNameParserRuleCall_3_1_0_1 = (RuleCall)cObjectObjectNodeCrossReference_3_1_0.eContents().get(1);
 		private final Keyword cSemicolonKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
-		//ConstraintCheck:
+		//UMLConstraintCheck:
 		//	"check" constraintNames+=XStringLiteral ("," constraintNames+=XStringLiteral)* ("on"
 		//	object=[uml::ObjectNode|QualifiedName])? ";";
 		public ParserRule getRule() { return rule; }
@@ -887,43 +887,43 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getSemicolonKeyword_4() { return cSemicolonKeyword_4; }
 	}
 
-	public class StateExpressionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "StateExpression");
+	public class UMLStateExpressionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "UMLStateExpression");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cObjectStateExpressionParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cPropertyStateExpressionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cUMLObjectStateExpressionParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cUMLPropertyStateExpressionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
-		//StateExpression:
-		//	ObjectStateExpression | PropertyStateExpression;
+		//UMLStateExpression:
+		//	UMLObjectStateExpression | UMLPropertyStateExpression;
 		public ParserRule getRule() { return rule; }
 
-		//ObjectStateExpression | PropertyStateExpression
+		//UMLObjectStateExpression | UMLPropertyStateExpression
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//ObjectStateExpression
-		public RuleCall getObjectStateExpressionParserRuleCall_0() { return cObjectStateExpressionParserRuleCall_0; }
+		//UMLObjectStateExpression
+		public RuleCall getUMLObjectStateExpressionParserRuleCall_0() { return cUMLObjectStateExpressionParserRuleCall_0; }
 
-		//PropertyStateExpression
-		public RuleCall getPropertyStateExpressionParserRuleCall_1() { return cPropertyStateExpressionParserRuleCall_1; }
+		//UMLPropertyStateExpression
+		public RuleCall getUMLPropertyStateExpressionParserRuleCall_1() { return cUMLPropertyStateExpressionParserRuleCall_1; }
 	}
 
-	public class ObjectStateExpressionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ObjectStateExpression");
+	public class UMLObjectStateExpressionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "UMLObjectStateExpression");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cPinAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final CrossReference cPinObjectNodeCrossReference_0_0 = (CrossReference)cPinAssignment_0.eContents().get(0);
 		private final RuleCall cPinObjectNodeQualifiedNameParserRuleCall_0_0_1 = (RuleCall)cPinObjectNodeCrossReference_0_0.eContents().get(1);
 		private final Assignment cOperatorAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cOperatorArithmeticOperatorEnumRuleCall_1_0 = (RuleCall)cOperatorAssignment_1.eContents().get(0);
+		private final RuleCall cOperatorUMLArithmeticOperatorEnumRuleCall_1_0 = (RuleCall)cOperatorAssignment_1.eContents().get(0);
 		private final Assignment cValueAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cValueValueParserRuleCall_2_0 = (RuleCall)cValueAssignment_2.eContents().get(0);
+		private final RuleCall cValueUMLValueParserRuleCall_2_0 = (RuleCall)cValueAssignment_2.eContents().get(0);
 		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
-		//ObjectStateExpression:
-		//	pin=[uml::ObjectNode|QualifiedName] operator=ArithmeticOperator value=Value ";";
+		//UMLObjectStateExpression:
+		//	pin=[uml::ObjectNode|QualifiedName] operator=UMLArithmeticOperator value=UMLValue ";";
 		public ParserRule getRule() { return rule; }
 
-		//pin=[uml::ObjectNode|QualifiedName] operator=ArithmeticOperator value=Value ";"
+		//pin=[uml::ObjectNode|QualifiedName] operator=UMLArithmeticOperator value=UMLValue ";"
 		public Group getGroup() { return cGroup; }
 
 		//pin=[uml::ObjectNode|QualifiedName]
@@ -935,24 +935,24 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		//QualifiedName
 		public RuleCall getPinObjectNodeQualifiedNameParserRuleCall_0_0_1() { return cPinObjectNodeQualifiedNameParserRuleCall_0_0_1; }
 
-		//operator=ArithmeticOperator
+		//operator=UMLArithmeticOperator
 		public Assignment getOperatorAssignment_1() { return cOperatorAssignment_1; }
 
-		//ArithmeticOperator
-		public RuleCall getOperatorArithmeticOperatorEnumRuleCall_1_0() { return cOperatorArithmeticOperatorEnumRuleCall_1_0; }
+		//UMLArithmeticOperator
+		public RuleCall getOperatorUMLArithmeticOperatorEnumRuleCall_1_0() { return cOperatorUMLArithmeticOperatorEnumRuleCall_1_0; }
 
-		//value=Value
+		//value=UMLValue
 		public Assignment getValueAssignment_2() { return cValueAssignment_2; }
 
-		//Value
-		public RuleCall getValueValueParserRuleCall_2_0() { return cValueValueParserRuleCall_2_0; }
+		//UMLValue
+		public RuleCall getValueUMLValueParserRuleCall_2_0() { return cValueUMLValueParserRuleCall_2_0; }
 
 		//";"
 		public Keyword getSemicolonKeyword_3() { return cSemicolonKeyword_3; }
 	}
 
-	public class PropertyStateExpressionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PropertyStateExpression");
+	public class UMLPropertyStateExpressionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "UMLPropertyStateExpression");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cPinAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final CrossReference cPinObjectNodeCrossReference_0_0 = (CrossReference)cPinAssignment_0.eContents().get(0);
@@ -962,18 +962,18 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		private final CrossReference cPropertyPropertyCrossReference_2_0 = (CrossReference)cPropertyAssignment_2.eContents().get(0);
 		private final RuleCall cPropertyPropertyQualifiedNameParserRuleCall_2_0_1 = (RuleCall)cPropertyPropertyCrossReference_2_0.eContents().get(1);
 		private final Assignment cOperatorAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cOperatorArithmeticOperatorEnumRuleCall_3_0 = (RuleCall)cOperatorAssignment_3.eContents().get(0);
+		private final RuleCall cOperatorUMLArithmeticOperatorEnumRuleCall_3_0 = (RuleCall)cOperatorAssignment_3.eContents().get(0);
 		private final Assignment cValueAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final RuleCall cValueValueParserRuleCall_4_0 = (RuleCall)cValueAssignment_4.eContents().get(0);
+		private final RuleCall cValueUMLValueParserRuleCall_4_0 = (RuleCall)cValueAssignment_4.eContents().get(0);
 		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
-		//PropertyStateExpression:
-		//	pin=[uml::ObjectNode|QualifiedName] "::" property=[uml::Property|QualifiedName] operator=ArithmeticOperator
-		//	value=Value ";";
+		//UMLPropertyStateExpression:
+		//	pin=[uml::ObjectNode|QualifiedName] "::" property=[uml::Property|QualifiedName] operator=UMLArithmeticOperator
+		//	value=UMLValue ";";
 		public ParserRule getRule() { return rule; }
 
-		//pin=[uml::ObjectNode|QualifiedName] "::" property=[uml::Property|QualifiedName] operator=ArithmeticOperator value=Value
-		//";"
+		//pin=[uml::ObjectNode|QualifiedName] "::" property=[uml::Property|QualifiedName] operator=UMLArithmeticOperator
+		//value=UMLValue ";"
 		public Group getGroup() { return cGroup; }
 
 		//pin=[uml::ObjectNode|QualifiedName]
@@ -997,88 +997,88 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		//QualifiedName
 		public RuleCall getPropertyPropertyQualifiedNameParserRuleCall_2_0_1() { return cPropertyPropertyQualifiedNameParserRuleCall_2_0_1; }
 
-		//operator=ArithmeticOperator
+		//operator=UMLArithmeticOperator
 		public Assignment getOperatorAssignment_3() { return cOperatorAssignment_3; }
 
-		//ArithmeticOperator
-		public RuleCall getOperatorArithmeticOperatorEnumRuleCall_3_0() { return cOperatorArithmeticOperatorEnumRuleCall_3_0; }
+		//UMLArithmeticOperator
+		public RuleCall getOperatorUMLArithmeticOperatorEnumRuleCall_3_0() { return cOperatorUMLArithmeticOperatorEnumRuleCall_3_0; }
 
-		//value=Value
+		//value=UMLValue
 		public Assignment getValueAssignment_4() { return cValueAssignment_4; }
 
-		//Value
-		public RuleCall getValueValueParserRuleCall_4_0() { return cValueValueParserRuleCall_4_0; }
+		//UMLValue
+		public RuleCall getValueUMLValueParserRuleCall_4_0() { return cValueUMLValueParserRuleCall_4_0; }
 
 		//";"
 		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
 	}
 
-	public class OrderAssertionElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "OrderAssertion");
+	public class UMLOrderAssertionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "UMLOrderAssertion");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cAssertOrderKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cOrderAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cOrderNodeOrderParserRuleCall_1_0 = (RuleCall)cOrderAssignment_1.eContents().get(0);
+		private final RuleCall cOrderUMLNodeOrderParserRuleCall_1_0 = (RuleCall)cOrderAssignment_1.eContents().get(0);
 		private final Keyword cSemicolonKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		
-		//OrderAssertion:
-		//	"assertOrder" order=NodeOrder ";";
+		//UMLOrderAssertion:
+		//	"assertOrder" order=UMLNodeOrder ";";
 		public ParserRule getRule() { return rule; }
 
-		//"assertOrder" order=NodeOrder ";"
+		//"assertOrder" order=UMLNodeOrder ";"
 		public Group getGroup() { return cGroup; }
 
 		//"assertOrder"
 		public Keyword getAssertOrderKeyword_0() { return cAssertOrderKeyword_0; }
 
-		//order=NodeOrder
+		//order=UMLNodeOrder
 		public Assignment getOrderAssignment_1() { return cOrderAssignment_1; }
 
-		//NodeOrder
-		public RuleCall getOrderNodeOrderParserRuleCall_1_0() { return cOrderNodeOrderParserRuleCall_1_0; }
+		//UMLNodeOrder
+		public RuleCall getOrderUMLNodeOrderParserRuleCall_1_0() { return cOrderUMLNodeOrderParserRuleCall_1_0; }
 
 		//";"
 		public Keyword getSemicolonKeyword_2() { return cSemicolonKeyword_2; }
 	}
 
-	public class NodeOrderElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "NodeOrder");
+	public class UMLNodeOrderElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "UMLNodeOrder");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cNodesAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cNodesNodeSpecificationParserRuleCall_0_0 = (RuleCall)cNodesAssignment_0.eContents().get(0);
+		private final RuleCall cNodesUMLNodeSpecificationParserRuleCall_0_0 = (RuleCall)cNodesAssignment_0.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Keyword cCommaKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
 		private final Assignment cNodesAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
-		private final RuleCall cNodesNodeSpecificationParserRuleCall_1_1_0 = (RuleCall)cNodesAssignment_1_1.eContents().get(0);
+		private final RuleCall cNodesUMLNodeSpecificationParserRuleCall_1_1_0 = (RuleCall)cNodesAssignment_1_1.eContents().get(0);
 		
-		//NodeOrder:
-		//	nodes+=NodeSpecification ("," nodes+=NodeSpecification)*;
+		//UMLNodeOrder:
+		//	nodes+=UMLNodeSpecification ("," nodes+=UMLNodeSpecification)*;
 		public ParserRule getRule() { return rule; }
 
-		//nodes+=NodeSpecification ("," nodes+=NodeSpecification)*
+		//nodes+=UMLNodeSpecification ("," nodes+=UMLNodeSpecification)*
 		public Group getGroup() { return cGroup; }
 
-		//nodes+=NodeSpecification
+		//nodes+=UMLNodeSpecification
 		public Assignment getNodesAssignment_0() { return cNodesAssignment_0; }
 
-		//NodeSpecification
-		public RuleCall getNodesNodeSpecificationParserRuleCall_0_0() { return cNodesNodeSpecificationParserRuleCall_0_0; }
+		//UMLNodeSpecification
+		public RuleCall getNodesUMLNodeSpecificationParserRuleCall_0_0() { return cNodesUMLNodeSpecificationParserRuleCall_0_0; }
 
-		//("," nodes+=NodeSpecification)*
+		//("," nodes+=UMLNodeSpecification)*
 		public Group getGroup_1() { return cGroup_1; }
 
 		//","
 		public Keyword getCommaKeyword_1_0() { return cCommaKeyword_1_0; }
 
-		//nodes+=NodeSpecification
+		//nodes+=UMLNodeSpecification
 		public Assignment getNodesAssignment_1_1() { return cNodesAssignment_1_1; }
 
-		//NodeSpecification
-		public RuleCall getNodesNodeSpecificationParserRuleCall_1_1_0() { return cNodesNodeSpecificationParserRuleCall_1_1_0; }
+		//UMLNodeSpecification
+		public RuleCall getNodesUMLNodeSpecificationParserRuleCall_1_1_0() { return cNodesUMLNodeSpecificationParserRuleCall_1_1_0; }
 	}
 
-	public class NodeSpecificationElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "NodeSpecification");
+	public class UMLNodeSpecificationElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "UMLNodeSpecification");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
 		private final Assignment cNodeAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
@@ -1091,22 +1091,23 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_0_2 = (Group)cGroup_0.eContents().get(2);
 		private final Keyword cLeftParenthesisKeyword_0_2_0 = (Keyword)cGroup_0_2.eContents().get(0);
 		private final Assignment cSubOrderAssignment_0_2_1 = (Assignment)cGroup_0_2.eContents().get(1);
-		private final RuleCall cSubOrderNodeOrderParserRuleCall_0_2_1_0 = (RuleCall)cSubOrderAssignment_0_2_1.eContents().get(0);
+		private final RuleCall cSubOrderUMLNodeOrderParserRuleCall_0_2_1_0 = (RuleCall)cSubOrderAssignment_0_2_1.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_0_2_2 = (Keyword)cGroup_0_2.eContents().get(2);
 		private final Assignment cJokerAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
 		private final Keyword cJokerAsteriskKeyword_1_0 = (Keyword)cJokerAssignment_1.eContents().get(0);
 		private final Assignment cJokerAssignment_2 = (Assignment)cAlternatives.eContents().get(2);
 		private final Keyword cJoker_Keyword_2_0 = (Keyword)cJokerAssignment_2.eContents().get(0);
 		
-		//NodeSpecification:
-		//	node=[uml::ActivityNode|QualifiedName] (":" size=XNumberLiteral)? ("(" subOrder=NodeOrder ")")? | joker="*" |
+		//UMLNodeSpecification:
+		//	node=[uml::ActivityNode|QualifiedName] (":" size=XNumberLiteral)? ("(" subOrder=UMLNodeOrder ")")? | joker="*" |
 		//	joker="_";
 		public ParserRule getRule() { return rule; }
 
-		//node=[uml::ActivityNode|QualifiedName] (":" size=XNumberLiteral)? ("(" subOrder=NodeOrder ")")? | joker="*" | joker="_"
+		//node=[uml::ActivityNode|QualifiedName] (":" size=XNumberLiteral)? ("(" subOrder=UMLNodeOrder ")")? | joker="*" |
+		//joker="_"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//node=[uml::ActivityNode|QualifiedName] (":" size=XNumberLiteral)? ("(" subOrder=NodeOrder ")")?
+		//node=[uml::ActivityNode|QualifiedName] (":" size=XNumberLiteral)? ("(" subOrder=UMLNodeOrder ")")?
 		public Group getGroup_0() { return cGroup_0; }
 
 		//node=[uml::ActivityNode|QualifiedName]
@@ -1130,17 +1131,17 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		//XNumberLiteral
 		public RuleCall getSizeXNumberLiteralParserRuleCall_0_1_1_0() { return cSizeXNumberLiteralParserRuleCall_0_1_1_0; }
 
-		//("(" subOrder=NodeOrder ")")?
+		//("(" subOrder=UMLNodeOrder ")")?
 		public Group getGroup_0_2() { return cGroup_0_2; }
 
 		//"("
 		public Keyword getLeftParenthesisKeyword_0_2_0() { return cLeftParenthesisKeyword_0_2_0; }
 
-		//subOrder=NodeOrder
+		//subOrder=UMLNodeOrder
 		public Assignment getSubOrderAssignment_0_2_1() { return cSubOrderAssignment_0_2_1; }
 
-		//NodeOrder
-		public RuleCall getSubOrderNodeOrderParserRuleCall_0_2_1_0() { return cSubOrderNodeOrderParserRuleCall_0_2_1_0; }
+		//UMLNodeOrder
+		public RuleCall getSubOrderUMLNodeOrderParserRuleCall_0_2_1_0() { return cSubOrderUMLNodeOrderParserRuleCall_0_2_1_0; }
 
 		//")"
 		public Keyword getRightParenthesisKeyword_0_2_2() { return cRightParenthesisKeyword_0_2_2; }
@@ -1159,8 +1160,8 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	
-	public class ArithmeticOperatorElements extends AbstractEnumRuleElementFinder {
-		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "ArithmeticOperator");
+	public class UMLArithmeticOperatorElements extends AbstractEnumRuleElementFinder {
+		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "UMLArithmeticOperator");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final EnumLiteralDeclaration cEqualEnumLiteralDeclaration_0 = (EnumLiteralDeclaration)cAlternatives.eContents().get(0);
 		private final Keyword cEqualEqualsSignKeyword_0_0 = (Keyword)cEqualEnumLiteralDeclaration_0.eContents().get(0);
@@ -1179,7 +1180,7 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		private final EnumLiteralDeclaration cExcludesEnumLiteralDeclaration_7 = (EnumLiteralDeclaration)cAlternatives.eContents().get(7);
 		private final Keyword cExcludesExcludesKeyword_7_0 = (Keyword)cExcludesEnumLiteralDeclaration_7.eContents().get(0);
 		
-		//enum ArithmeticOperator:
+		//enum UMLArithmeticOperator:
 		//	equal="=" | not_equal="!=" | greater=">" | smaller="<" | greater_equal=">=" | smaller_equal="<=" | includes |
 		//	excludes;
 		public EnumRule getRule() { return rule; }
@@ -1236,15 +1237,15 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getExcludesExcludesKeyword_7_0() { return cExcludesExcludesKeyword_7_0; }
 	}
 
-	public class TemporalOperatorElements extends AbstractEnumRuleElementFinder {
-		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "TemporalOperator");
+	public class UMLTemporalOperatorElements extends AbstractEnumRuleElementFinder {
+		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "UMLTemporalOperator");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final EnumLiteralDeclaration cAfterEnumLiteralDeclaration_0 = (EnumLiteralDeclaration)cAlternatives.eContents().get(0);
 		private final Keyword cAfterAfterKeyword_0_0 = (Keyword)cAfterEnumLiteralDeclaration_0.eContents().get(0);
 		private final EnumLiteralDeclaration cUntilEnumLiteralDeclaration_1 = (EnumLiteralDeclaration)cAlternatives.eContents().get(1);
 		private final Keyword cUntilUntilKeyword_1_0 = (Keyword)cUntilEnumLiteralDeclaration_1.eContents().get(0);
 		
-		//enum TemporalOperator:
+		//enum UMLTemporalOperator:
 		//	after | until;
 		public EnumRule getRule() { return rule; }
 
@@ -1264,8 +1265,8 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getUntilUntilKeyword_1_0() { return cUntilUntilKeyword_1_0; }
 	}
 
-	public class TemporalQuantifierElements extends AbstractEnumRuleElementFinder {
-		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "TemporalQuantifier");
+	public class UMLTemporalQuantifierElements extends AbstractEnumRuleElementFinder {
+		private final EnumRule rule = (EnumRule) GrammarUtil.findRuleForName(getGrammar(), "UMLTemporalQuantifier");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final EnumLiteralDeclaration cAlwaysEnumLiteralDeclaration_0 = (EnumLiteralDeclaration)cAlternatives.eContents().get(0);
 		private final Keyword cAlwaysAlwaysKeyword_0_0 = (Keyword)cAlwaysEnumLiteralDeclaration_0.eContents().get(0);
@@ -1276,7 +1277,7 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		private final EnumLiteralDeclaration cImmediatelyEnumLiteralDeclaration_3 = (EnumLiteralDeclaration)cAlternatives.eContents().get(3);
 		private final Keyword cImmediatelyImmediatelyKeyword_3_0 = (Keyword)cImmediatelyEnumLiteralDeclaration_3.eContents().get(0);
 		
-		//enum TemporalQuantifier:
+		//enum UMLTemporalQuantifier:
 		//	always | sometimes | eventually | immediately;
 		public EnumRule getRule() { return rule; }
 
@@ -1308,34 +1309,34 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getImmediatelyImmediatelyKeyword_3_0() { return cImmediatelyImmediatelyKeyword_3_0; }
 	}
 	
-	private TestSuiteElements pTestSuite;
+	private UMLTestSuiteElements pUMLTestSuite;
 	private ImportElements pImport;
-	private TestCaseElements pTestCase;
-	private ActivityInputElements pActivityInput;
-	private ValueElements pValue;
-	private SimpleValueElements pSimpleValue;
-	private ObjectValueElements pObjectValue;
-	private ScenarioElements pScenario;
-	private ObjectSpecificationElements pObjectSpecification;
-	private AttributeElements pAttribute;
-	private LinkElements pLink;
-	private AssertionElements pAssertion;
-	private StateAssertionElements pStateAssertion;
-	private ReferencePointElements pReferencePoint;
-	private ActionReferencePointElements pActionReferencePoint;
-	private ConstraintReferencePointElements pConstraintReferencePoint;
-	private FinallyStateAssertionElements pFinallyStateAssertion;
-	private CheckElements pCheck;
-	private ConstraintCheckElements pConstraintCheck;
-	private StateExpressionElements pStateExpression;
-	private ObjectStateExpressionElements pObjectStateExpression;
-	private PropertyStateExpressionElements pPropertyStateExpression;
-	private OrderAssertionElements pOrderAssertion;
-	private NodeOrderElements pNodeOrder;
-	private NodeSpecificationElements pNodeSpecification;
-	private ArithmeticOperatorElements unknownRuleArithmeticOperator;
-	private TemporalOperatorElements unknownRuleTemporalOperator;
-	private TemporalQuantifierElements unknownRuleTemporalQuantifier;
+	private UMLTestCaseElements pUMLTestCase;
+	private UMLActivityInputElements pUMLActivityInput;
+	private UMLValueElements pUMLValue;
+	private UMLSimpleValueElements pUMLSimpleValue;
+	private UMLObjectValueElements pUMLObjectValue;
+	private UMLScenarioElements pUMLScenario;
+	private UMLObjectSpecificationElements pUMLObjectSpecification;
+	private UMLAttributeElements pUMLAttribute;
+	private UMLLinkElements pUMLLink;
+	private UMLAssertionElements pUMLAssertion;
+	private UMLStateAssertionElements pUMLStateAssertion;
+	private UMLReferencePointElements pUMLReferencePoint;
+	private UMLActionReferencePointElements pUMLActionReferencePoint;
+	private UMLConstraintReferencePointElements pUMLConstraintReferencePoint;
+	private UMLFinallyStateAssertionElements pUMLFinallyStateAssertion;
+	private UMLCheckElements pUMLCheck;
+	private UMLConstraintCheckElements pUMLConstraintCheck;
+	private UMLStateExpressionElements pUMLStateExpression;
+	private UMLObjectStateExpressionElements pUMLObjectStateExpression;
+	private UMLPropertyStateExpressionElements pUMLPropertyStateExpression;
+	private UMLOrderAssertionElements pUMLOrderAssertion;
+	private UMLNodeOrderElements pUMLNodeOrder;
+	private UMLNodeSpecificationElements pUMLNodeSpecification;
+	private UMLArithmeticOperatorElements unknownRuleUMLArithmeticOperator;
+	private UMLTemporalOperatorElements unknownRuleUMLTemporalOperator;
+	private UMLTemporalQuantifierElements unknownRuleUMLTemporalQuantifier;
 	
 	private final Grammar grammar;
 
@@ -1375,14 +1376,14 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	
-	//TestSuite:
-	//	imports+=Import* scenarios+=Scenario* tests+=TestCase*;
-	public TestSuiteElements getTestSuiteAccess() {
-		return (pTestSuite != null) ? pTestSuite : (pTestSuite = new TestSuiteElements());
+	//UMLTestSuite:
+	//	imports+=Import* scenarios+=UMLScenario* tests+=UMLTestCase*;
+	public UMLTestSuiteElements getUMLTestSuiteAccess() {
+		return (pUMLTestSuite != null) ? pUMLTestSuite : (pUMLTestSuite = new UMLTestSuiteElements());
 	}
 	
-	public ParserRule getTestSuiteRule() {
-		return getTestSuiteAccess().getRule();
+	public ParserRule getUMLTestSuiteRule() {
+		return getUMLTestSuiteAccess().getRule();
 	}
 
 	//Import:
@@ -1395,273 +1396,273 @@ public class TestLangGrammarAccess extends AbstractGrammarElementFinder {
 		return getImportAccess().getRule();
 	}
 
-	//TestCase:
-	//	"test" name=ID "activity" activityUnderTest=[uml::Activity|QualifiedName] ("(" inputs+=ActivityInput (","
-	//	inputs+=ActivityInput)* ")")? ("on" contextObject=[ObjectSpecification|QualifiedName])? "{" ("initialize" "["
-	//	initScenarios+=[Scenario] ("," initScenarios+=[Scenario])* "]" ";")? assertions+=Assertion* "}";
-	public TestCaseElements getTestCaseAccess() {
-		return (pTestCase != null) ? pTestCase : (pTestCase = new TestCaseElements());
+	//UMLTestCase:
+	//	"test" name=ID "activity" activityUnderTest=[uml::Activity|QualifiedName] ("(" inputs+=UMLActivityInput (","
+	//	inputs+=UMLActivityInput)* ")")? ("on" contextObject=[UMLObjectSpecification|QualifiedName])? "{" ("initialize" "["
+	//	initScenarios+=[UMLScenario] ("," initScenarios+=[UMLScenario])* "]" ";")? assertions+=UMLAssertion* "}";
+	public UMLTestCaseElements getUMLTestCaseAccess() {
+		return (pUMLTestCase != null) ? pUMLTestCase : (pUMLTestCase = new UMLTestCaseElements());
 	}
 	
-	public ParserRule getTestCaseRule() {
-		return getTestCaseAccess().getRule();
+	public ParserRule getUMLTestCaseRule() {
+		return getUMLTestCaseAccess().getRule();
 	}
 
-	//ActivityInput:
-	//	parameter=[uml::ActivityParameterNode|QualifiedName] "=" value=Value;
-	public ActivityInputElements getActivityInputAccess() {
-		return (pActivityInput != null) ? pActivityInput : (pActivityInput = new ActivityInputElements());
+	//UMLActivityInput:
+	//	parameter=[uml::ActivityParameterNode|QualifiedName] "=" value=UMLValue;
+	public UMLActivityInputElements getUMLActivityInputAccess() {
+		return (pUMLActivityInput != null) ? pUMLActivityInput : (pUMLActivityInput = new UMLActivityInputElements());
 	}
 	
-	public ParserRule getActivityInputRule() {
-		return getActivityInputAccess().getRule();
+	public ParserRule getUMLActivityInputRule() {
+		return getUMLActivityInputAccess().getRule();
 	}
 
-	//Value:
-	//	SimpleValue | ObjectValue;
-	public ValueElements getValueAccess() {
-		return (pValue != null) ? pValue : (pValue = new ValueElements());
+	//UMLValue:
+	//	UMLSimpleValue | UMLObjectValue;
+	public UMLValueElements getUMLValueAccess() {
+		return (pUMLValue != null) ? pUMLValue : (pUMLValue = new UMLValueElements());
 	}
 	
-	public ParserRule getValueRule() {
-		return getValueAccess().getRule();
+	public ParserRule getUMLValueRule() {
+		return getUMLValueAccess().getRule();
 	}
 
-	//SimpleValue:
+	//UMLSimpleValue:
 	//	value=XLiteral;
-	public SimpleValueElements getSimpleValueAccess() {
-		return (pSimpleValue != null) ? pSimpleValue : (pSimpleValue = new SimpleValueElements());
+	public UMLSimpleValueElements getUMLSimpleValueAccess() {
+		return (pUMLSimpleValue != null) ? pUMLSimpleValue : (pUMLSimpleValue = new UMLSimpleValueElements());
 	}
 	
-	public ParserRule getSimpleValueRule() {
-		return getSimpleValueAccess().getRule();
+	public ParserRule getUMLSimpleValueRule() {
+		return getUMLSimpleValueAccess().getRule();
 	}
 
-	//ObjectValue:
-	//	value=[ObjectSpecification|QualifiedName];
-	public ObjectValueElements getObjectValueAccess() {
-		return (pObjectValue != null) ? pObjectValue : (pObjectValue = new ObjectValueElements());
+	//UMLObjectValue:
+	//	value=[UMLObjectSpecification|QualifiedName];
+	public UMLObjectValueElements getUMLObjectValueAccess() {
+		return (pUMLObjectValue != null) ? pUMLObjectValue : (pUMLObjectValue = new UMLObjectValueElements());
 	}
 	
-	public ParserRule getObjectValueRule() {
-		return getObjectValueAccess().getRule();
+	public ParserRule getUMLObjectValueRule() {
+		return getUMLObjectValueAccess().getRule();
 	}
 
-	//Scenario:
-	//	"scenario" name=ID "[" objects+=ObjectSpecification* links+=Link* "]";
-	public ScenarioElements getScenarioAccess() {
-		return (pScenario != null) ? pScenario : (pScenario = new ScenarioElements());
+	//UMLScenario:
+	//	"scenario" name=ID "[" objects+=UMLObjectSpecification* links+=UMLLink* "]";
+	public UMLScenarioElements getUMLScenarioAccess() {
+		return (pUMLScenario != null) ? pUMLScenario : (pUMLScenario = new UMLScenarioElements());
 	}
 	
-	public ParserRule getScenarioRule() {
-		return getScenarioAccess().getRule();
+	public ParserRule getUMLScenarioRule() {
+		return getUMLScenarioAccess().getRule();
 	}
 
-	//ObjectSpecification:
-	//	"object" name=ID ":" type=[uml::Class|QualifiedName] "{" attributes+=Attribute* "}";
-	public ObjectSpecificationElements getObjectSpecificationAccess() {
-		return (pObjectSpecification != null) ? pObjectSpecification : (pObjectSpecification = new ObjectSpecificationElements());
+	//UMLObjectSpecification:
+	//	"object" name=ID ":" type=[uml::Class|QualifiedName] "{" attributes+=UMLAttribute* "}";
+	public UMLObjectSpecificationElements getUMLObjectSpecificationAccess() {
+		return (pUMLObjectSpecification != null) ? pUMLObjectSpecification : (pUMLObjectSpecification = new UMLObjectSpecificationElements());
 	}
 	
-	public ParserRule getObjectSpecificationRule() {
-		return getObjectSpecificationAccess().getRule();
+	public ParserRule getUMLObjectSpecificationRule() {
+		return getUMLObjectSpecificationAccess().getRule();
 	}
 
-	//Attribute:
-	//	att=[uml::Property|QualifiedName] "=" value=Value ";";
-	public AttributeElements getAttributeAccess() {
-		return (pAttribute != null) ? pAttribute : (pAttribute = new AttributeElements());
+	//UMLAttribute:
+	//	att=[uml::Property|QualifiedName] "=" value=UMLValue ";";
+	public UMLAttributeElements getUMLAttributeAccess() {
+		return (pUMLAttribute != null) ? pUMLAttribute : (pUMLAttribute = new UMLAttributeElements());
 	}
 	
-	public ParserRule getAttributeRule() {
-		return getAttributeAccess().getRule();
+	public ParserRule getUMLAttributeRule() {
+		return getUMLAttributeAccess().getRule();
 	}
 
-	//Link:
+	//UMLLink:
 	//	"link" assoc=[uml::Association|QualifiedName] "{" "source" sourceProperty=[uml::Property|QualifiedName] "="
-	//	sourceValue=[ObjectSpecification|QualifiedName] ";" "target" targetProperty=[uml::Property|QualifiedName] "="
-	//	targetValue=[ObjectSpecification|QualifiedName] ";" "}";
-	public LinkElements getLinkAccess() {
-		return (pLink != null) ? pLink : (pLink = new LinkElements());
+	//	sourceValue=[UMLObjectSpecification|QualifiedName] ";" "target" targetProperty=[uml::Property|QualifiedName] "="
+	//	targetValue=[UMLObjectSpecification|QualifiedName] ";" "}";
+	public UMLLinkElements getUMLLinkAccess() {
+		return (pUMLLink != null) ? pUMLLink : (pUMLLink = new UMLLinkElements());
 	}
 	
-	public ParserRule getLinkRule() {
-		return getLinkAccess().getRule();
+	public ParserRule getUMLLinkRule() {
+		return getUMLLinkAccess().getRule();
 	}
 
-	//Assertion:
-	//	OrderAssertion | StateAssertion | FinallyStateAssertion;
-	public AssertionElements getAssertionAccess() {
-		return (pAssertion != null) ? pAssertion : (pAssertion = new AssertionElements());
+	//UMLAssertion:
+	//	UMLOrderAssertion | UMLStateAssertion | UMLFinallyStateAssertion;
+	public UMLAssertionElements getUMLAssertionAccess() {
+		return (pUMLAssertion != null) ? pUMLAssertion : (pUMLAssertion = new UMLAssertionElements());
 	}
 	
-	public ParserRule getAssertionRule() {
-		return getAssertionAccess().getRule();
+	public ParserRule getUMLAssertionRule() {
+		return getUMLAssertionAccess().getRule();
 	}
 
-	//StateAssertion:
-	//	"assertState" quantifier=TemporalQuantifier operator=TemporalOperator referencePoint=ReferencePoint ("until"
-	//	untilPoint=ReferencePoint)? "{" checks+=Check* "}";
-	public StateAssertionElements getStateAssertionAccess() {
-		return (pStateAssertion != null) ? pStateAssertion : (pStateAssertion = new StateAssertionElements());
+	//UMLStateAssertion:
+	//	"assertState" quantifier=UMLTemporalQuantifier operator=UMLTemporalOperator referencePoint=UMLReferencePoint ("until"
+	//	untilPoint=UMLReferencePoint)? "{" checks+=UMLCheck* "}";
+	public UMLStateAssertionElements getUMLStateAssertionAccess() {
+		return (pUMLStateAssertion != null) ? pUMLStateAssertion : (pUMLStateAssertion = new UMLStateAssertionElements());
 	}
 	
-	public ParserRule getStateAssertionRule() {
-		return getStateAssertionAccess().getRule();
+	public ParserRule getUMLStateAssertionRule() {
+		return getUMLStateAssertionAccess().getRule();
 	}
 
-	//ReferencePoint:
-	//	ActionReferencePoint | ConstraintReferencePoint;
-	public ReferencePointElements getReferencePointAccess() {
-		return (pReferencePoint != null) ? pReferencePoint : (pReferencePoint = new ReferencePointElements());
+	//UMLReferencePoint:
+	//	UMLActionReferencePoint | UMLConstraintReferencePoint;
+	public UMLReferencePointElements getUMLReferencePointAccess() {
+		return (pUMLReferencePoint != null) ? pUMLReferencePoint : (pUMLReferencePoint = new UMLReferencePointElements());
 	}
 	
-	public ParserRule getReferencePointRule() {
-		return getReferencePointAccess().getRule();
+	public ParserRule getUMLReferencePointRule() {
+		return getUMLReferencePointAccess().getRule();
 	}
 
-	//ActionReferencePoint:
+	//UMLActionReferencePoint:
 	//	"action" action=[uml::Action|QualifiedName];
-	public ActionReferencePointElements getActionReferencePointAccess() {
-		return (pActionReferencePoint != null) ? pActionReferencePoint : (pActionReferencePoint = new ActionReferencePointElements());
+	public UMLActionReferencePointElements getUMLActionReferencePointAccess() {
+		return (pUMLActionReferencePoint != null) ? pUMLActionReferencePoint : (pUMLActionReferencePoint = new UMLActionReferencePointElements());
 	}
 	
-	public ParserRule getActionReferencePointRule() {
-		return getActionReferencePointAccess().getRule();
+	public ParserRule getUMLActionReferencePointRule() {
+		return getUMLActionReferencePointAccess().getRule();
 	}
 
-	//ConstraintReferencePoint:
+	//UMLConstraintReferencePoint:
 	//	"constraint" constraintName=XStringLiteral;
-	public ConstraintReferencePointElements getConstraintReferencePointAccess() {
-		return (pConstraintReferencePoint != null) ? pConstraintReferencePoint : (pConstraintReferencePoint = new ConstraintReferencePointElements());
+	public UMLConstraintReferencePointElements getUMLConstraintReferencePointAccess() {
+		return (pUMLConstraintReferencePoint != null) ? pUMLConstraintReferencePoint : (pUMLConstraintReferencePoint = new UMLConstraintReferencePointElements());
 	}
 	
-	public ParserRule getConstraintReferencePointRule() {
-		return getConstraintReferencePointAccess().getRule();
+	public ParserRule getUMLConstraintReferencePointRule() {
+		return getUMLConstraintReferencePointAccess().getRule();
 	}
 
-	//FinallyStateAssertion:
-	//	"finally" "{" {FinallyStateAssertion} checks+=Check* "}";
-	public FinallyStateAssertionElements getFinallyStateAssertionAccess() {
-		return (pFinallyStateAssertion != null) ? pFinallyStateAssertion : (pFinallyStateAssertion = new FinallyStateAssertionElements());
+	//UMLFinallyStateAssertion:
+	//	"finally" "{" {FinallyStateAssertion} checks+=UMLCheck* "}";
+	public UMLFinallyStateAssertionElements getUMLFinallyStateAssertionAccess() {
+		return (pUMLFinallyStateAssertion != null) ? pUMLFinallyStateAssertion : (pUMLFinallyStateAssertion = new UMLFinallyStateAssertionElements());
 	}
 	
-	public ParserRule getFinallyStateAssertionRule() {
-		return getFinallyStateAssertionAccess().getRule();
+	public ParserRule getUMLFinallyStateAssertionRule() {
+		return getUMLFinallyStateAssertionAccess().getRule();
 	}
 
-	//Check:
-	//	ConstraintCheck | StateExpression;
-	public CheckElements getCheckAccess() {
-		return (pCheck != null) ? pCheck : (pCheck = new CheckElements());
+	//UMLCheck:
+	//	UMLConstraintCheck | UMLStateExpression;
+	public UMLCheckElements getUMLCheckAccess() {
+		return (pUMLCheck != null) ? pUMLCheck : (pUMLCheck = new UMLCheckElements());
 	}
 	
-	public ParserRule getCheckRule() {
-		return getCheckAccess().getRule();
+	public ParserRule getUMLCheckRule() {
+		return getUMLCheckAccess().getRule();
 	}
 
-	//ConstraintCheck:
+	//UMLConstraintCheck:
 	//	"check" constraintNames+=XStringLiteral ("," constraintNames+=XStringLiteral)* ("on"
 	//	object=[uml::ObjectNode|QualifiedName])? ";";
-	public ConstraintCheckElements getConstraintCheckAccess() {
-		return (pConstraintCheck != null) ? pConstraintCheck : (pConstraintCheck = new ConstraintCheckElements());
+	public UMLConstraintCheckElements getUMLConstraintCheckAccess() {
+		return (pUMLConstraintCheck != null) ? pUMLConstraintCheck : (pUMLConstraintCheck = new UMLConstraintCheckElements());
 	}
 	
-	public ParserRule getConstraintCheckRule() {
-		return getConstraintCheckAccess().getRule();
+	public ParserRule getUMLConstraintCheckRule() {
+		return getUMLConstraintCheckAccess().getRule();
 	}
 
-	//StateExpression:
-	//	ObjectStateExpression | PropertyStateExpression;
-	public StateExpressionElements getStateExpressionAccess() {
-		return (pStateExpression != null) ? pStateExpression : (pStateExpression = new StateExpressionElements());
+	//UMLStateExpression:
+	//	UMLObjectStateExpression | UMLPropertyStateExpression;
+	public UMLStateExpressionElements getUMLStateExpressionAccess() {
+		return (pUMLStateExpression != null) ? pUMLStateExpression : (pUMLStateExpression = new UMLStateExpressionElements());
 	}
 	
-	public ParserRule getStateExpressionRule() {
-		return getStateExpressionAccess().getRule();
+	public ParserRule getUMLStateExpressionRule() {
+		return getUMLStateExpressionAccess().getRule();
 	}
 
-	//ObjectStateExpression:
-	//	pin=[uml::ObjectNode|QualifiedName] operator=ArithmeticOperator value=Value ";";
-	public ObjectStateExpressionElements getObjectStateExpressionAccess() {
-		return (pObjectStateExpression != null) ? pObjectStateExpression : (pObjectStateExpression = new ObjectStateExpressionElements());
+	//UMLObjectStateExpression:
+	//	pin=[uml::ObjectNode|QualifiedName] operator=UMLArithmeticOperator value=UMLValue ";";
+	public UMLObjectStateExpressionElements getUMLObjectStateExpressionAccess() {
+		return (pUMLObjectStateExpression != null) ? pUMLObjectStateExpression : (pUMLObjectStateExpression = new UMLObjectStateExpressionElements());
 	}
 	
-	public ParserRule getObjectStateExpressionRule() {
-		return getObjectStateExpressionAccess().getRule();
+	public ParserRule getUMLObjectStateExpressionRule() {
+		return getUMLObjectStateExpressionAccess().getRule();
 	}
 
-	//PropertyStateExpression:
-	//	pin=[uml::ObjectNode|QualifiedName] "::" property=[uml::Property|QualifiedName] operator=ArithmeticOperator
-	//	value=Value ";";
-	public PropertyStateExpressionElements getPropertyStateExpressionAccess() {
-		return (pPropertyStateExpression != null) ? pPropertyStateExpression : (pPropertyStateExpression = new PropertyStateExpressionElements());
+	//UMLPropertyStateExpression:
+	//	pin=[uml::ObjectNode|QualifiedName] "::" property=[uml::Property|QualifiedName] operator=UMLArithmeticOperator
+	//	value=UMLValue ";";
+	public UMLPropertyStateExpressionElements getUMLPropertyStateExpressionAccess() {
+		return (pUMLPropertyStateExpression != null) ? pUMLPropertyStateExpression : (pUMLPropertyStateExpression = new UMLPropertyStateExpressionElements());
 	}
 	
-	public ParserRule getPropertyStateExpressionRule() {
-		return getPropertyStateExpressionAccess().getRule();
+	public ParserRule getUMLPropertyStateExpressionRule() {
+		return getUMLPropertyStateExpressionAccess().getRule();
 	}
 
-	//OrderAssertion:
-	//	"assertOrder" order=NodeOrder ";";
-	public OrderAssertionElements getOrderAssertionAccess() {
-		return (pOrderAssertion != null) ? pOrderAssertion : (pOrderAssertion = new OrderAssertionElements());
+	//UMLOrderAssertion:
+	//	"assertOrder" order=UMLNodeOrder ";";
+	public UMLOrderAssertionElements getUMLOrderAssertionAccess() {
+		return (pUMLOrderAssertion != null) ? pUMLOrderAssertion : (pUMLOrderAssertion = new UMLOrderAssertionElements());
 	}
 	
-	public ParserRule getOrderAssertionRule() {
-		return getOrderAssertionAccess().getRule();
+	public ParserRule getUMLOrderAssertionRule() {
+		return getUMLOrderAssertionAccess().getRule();
 	}
 
-	//NodeOrder:
-	//	nodes+=NodeSpecification ("," nodes+=NodeSpecification)*;
-	public NodeOrderElements getNodeOrderAccess() {
-		return (pNodeOrder != null) ? pNodeOrder : (pNodeOrder = new NodeOrderElements());
+	//UMLNodeOrder:
+	//	nodes+=UMLNodeSpecification ("," nodes+=UMLNodeSpecification)*;
+	public UMLNodeOrderElements getUMLNodeOrderAccess() {
+		return (pUMLNodeOrder != null) ? pUMLNodeOrder : (pUMLNodeOrder = new UMLNodeOrderElements());
 	}
 	
-	public ParserRule getNodeOrderRule() {
-		return getNodeOrderAccess().getRule();
+	public ParserRule getUMLNodeOrderRule() {
+		return getUMLNodeOrderAccess().getRule();
 	}
 
-	//NodeSpecification:
-	//	node=[uml::ActivityNode|QualifiedName] (":" size=XNumberLiteral)? ("(" subOrder=NodeOrder ")")? | joker="*" |
+	//UMLNodeSpecification:
+	//	node=[uml::ActivityNode|QualifiedName] (":" size=XNumberLiteral)? ("(" subOrder=UMLNodeOrder ")")? | joker="*" |
 	//	joker="_";
-	public NodeSpecificationElements getNodeSpecificationAccess() {
-		return (pNodeSpecification != null) ? pNodeSpecification : (pNodeSpecification = new NodeSpecificationElements());
+	public UMLNodeSpecificationElements getUMLNodeSpecificationAccess() {
+		return (pUMLNodeSpecification != null) ? pUMLNodeSpecification : (pUMLNodeSpecification = new UMLNodeSpecificationElements());
 	}
 	
-	public ParserRule getNodeSpecificationRule() {
-		return getNodeSpecificationAccess().getRule();
+	public ParserRule getUMLNodeSpecificationRule() {
+		return getUMLNodeSpecificationAccess().getRule();
 	}
 
-	//enum ArithmeticOperator:
+	//enum UMLArithmeticOperator:
 	//	equal="=" | not_equal="!=" | greater=">" | smaller="<" | greater_equal=">=" | smaller_equal="<=" | includes |
 	//	excludes;
-	public ArithmeticOperatorElements getArithmeticOperatorAccess() {
-		return (unknownRuleArithmeticOperator != null) ? unknownRuleArithmeticOperator : (unknownRuleArithmeticOperator = new ArithmeticOperatorElements());
+	public UMLArithmeticOperatorElements getUMLArithmeticOperatorAccess() {
+		return (unknownRuleUMLArithmeticOperator != null) ? unknownRuleUMLArithmeticOperator : (unknownRuleUMLArithmeticOperator = new UMLArithmeticOperatorElements());
 	}
 	
-	public EnumRule getArithmeticOperatorRule() {
-		return getArithmeticOperatorAccess().getRule();
+	public EnumRule getUMLArithmeticOperatorRule() {
+		return getUMLArithmeticOperatorAccess().getRule();
 	}
 
-	//enum TemporalOperator:
+	//enum UMLTemporalOperator:
 	//	after | until;
-	public TemporalOperatorElements getTemporalOperatorAccess() {
-		return (unknownRuleTemporalOperator != null) ? unknownRuleTemporalOperator : (unknownRuleTemporalOperator = new TemporalOperatorElements());
+	public UMLTemporalOperatorElements getUMLTemporalOperatorAccess() {
+		return (unknownRuleUMLTemporalOperator != null) ? unknownRuleUMLTemporalOperator : (unknownRuleUMLTemporalOperator = new UMLTemporalOperatorElements());
 	}
 	
-	public EnumRule getTemporalOperatorRule() {
-		return getTemporalOperatorAccess().getRule();
+	public EnumRule getUMLTemporalOperatorRule() {
+		return getUMLTemporalOperatorAccess().getRule();
 	}
 
-	//enum TemporalQuantifier:
+	//enum UMLTemporalQuantifier:
 	//	always | sometimes | eventually | immediately;
-	public TemporalQuantifierElements getTemporalQuantifierAccess() {
-		return (unknownRuleTemporalQuantifier != null) ? unknownRuleTemporalQuantifier : (unknownRuleTemporalQuantifier = new TemporalQuantifierElements());
+	public UMLTemporalQuantifierElements getUMLTemporalQuantifierAccess() {
+		return (unknownRuleUMLTemporalQuantifier != null) ? unknownRuleUMLTemporalQuantifier : (unknownRuleUMLTemporalQuantifier = new UMLTemporalQuantifierElements());
 	}
 	
-	public EnumRule getTemporalQuantifierRule() {
-		return getTemporalQuantifierAccess().getRule();
+	public EnumRule getUMLTemporalQuantifierRule() {
+		return getUMLTemporalQuantifierAccess().getRule();
 	}
 
 	//XExpression:

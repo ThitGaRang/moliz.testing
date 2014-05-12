@@ -25,7 +25,7 @@ public class TestLangParser extends org.eclipse.xtext.parser.antlr.AbstractAntlr
 	
 	@Override 
 	protected String getDefaultRuleName() {
-		return "TestSuite";
+		return "UMLTestSuite";
 	}
 	
 	public TestLangGrammarAccess getGrammarAccess() {
