@@ -402,13 +402,13 @@ public class StateAssertionValidator {
 				if (pin instanceof InputPin) {
 					for (Input input : execution.getInputs()) {
 						if (input.getInputPin().name.equals(pin.name))
-							source = (ValueInstance) ((ValueSnapshot) input.getInputValues().get(0).getInputValueSnapshot()).eContainer();
+							source = (ValueInstance) ((ValueSnapshot) input.getInputValues().get(0).getValueSnapshot()).eContainer();
 					}
 				}
 				if (pin instanceof OutputPin) {
 					for (Output output : execution.getOutputs()) {
 						if (output.getOutputPin().name.equals(pin.name))
-							source = (ValueInstance) ((ValueSnapshot) output.getOutputValues().get(0).getOutputValueSnapshot()).eContainer();
+							source = (ValueInstance) ((ValueSnapshot) output.getOutputValues().get(0).getValueSnapshot()).eContainer();
 					}
 				}
 			}

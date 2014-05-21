@@ -96,7 +96,7 @@ public class TraceUtil {
 				for (Output output : ((ActionExecution) nodeExecution).getOutputs()) {
 					if (output.getOutputPin().name.equals(node.name)) {
 						if (output.getOutputValues().size() > 0)
-							instance = (ValueInstance) output.getOutputValues().get(0).getOutputValueSnapshot().eContainer();
+							instance = (ValueInstance) output.getOutputValues().get(0).getValueSnapshot().eContainer();
 					}
 				}
 			}
@@ -115,7 +115,7 @@ public class TraceUtil {
 				for (Input input : ((ActionExecution) nodeExecution).getInputs()) {
 					if (input.getInputPin().name.equals(node.name)) {
 						if (input.getInputValues().size() > 0)
-							instance = (ValueInstance) input.getInputValues().get(0).getInputValueSnapshot().eContainer();
+							instance = (ValueInstance) input.getInputValues().get(0).getValueSnapshot().eContainer();
 					}
 				}
 			}

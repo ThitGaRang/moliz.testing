@@ -103,7 +103,7 @@ public class SequenceGenerator {
 			if (nodeExecution.getNode() instanceof ReadSelfAction || nodeExecution.getNode() instanceof CreateObjectAction) {
 				State state = createNewState(sequence, nodeExecution);
 				for (Output output : ((ActionExecution) nodeExecution).getOutputs()) {
-					ValueSnapshot snapshot = output.getOutputValues().get(0).getOutputValueSnapshot();
+					ValueSnapshot snapshot = output.getOutputValues().get(0).getValueSnapshot();
 					ValueInstance instance = (ValueInstance) snapshot.eContainer();
 					Object original = getLastVersion(sequence, instance);
 					if (original != null) {
@@ -117,7 +117,7 @@ public class SequenceGenerator {
 			if (nodeExecution.getNode() instanceof DestroyObjectAction) {
 				State state = createNewState(sequence, nodeExecution);
 				for (Input input : ((ActionExecution) nodeExecution).getInputs()) {
-					ValueSnapshot snapshot = input.getInputValues().get(0).getInputValueSnapshot();
+					ValueSnapshot snapshot = input.getInputValues().get(0).getValueSnapshot();
 					Object object = mapper.map((Object_) snapshot.getValue());
 					state.getObjects().remove(object);
 				}
@@ -129,7 +129,7 @@ public class SequenceGenerator {
 
 				if (property.association == null) {// attribute
 					for (Output output : ((ActionExecution) nodeExecution).getOutputs()) {
-						ValueSnapshot snapshot = output.getOutputValues().get(0).getOutputValueSnapshot();
+						ValueSnapshot snapshot = output.getOutputValues().get(0).getValueSnapshot();
 						ValueInstance instance = (ValueInstance) snapshot.eContainer();
 						Object original = getLastVersion(sequence, instance);
 						if (original != null) {
