@@ -135,13 +135,13 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 						if (featureValue.getValues().size() > 0) {
 							result = AbstractModelInstance.adaptInvocationResult(featureValue.getValues().get(0), property.getType(), myFactory);
 						} else {
-							if(property instanceof AssociationProperty){
+							if (property instanceof AssociationProperty) {
 								result = new FUMLModelInstanceObject(null, property.getType(), property.getType(), myFactory);
-							}else{
+							} else {
 								result = AbstractModelInstance.adaptInvocationResult(null, property.getType(), myFactory);
-							}							
+							}
 						}
-						
+
 						return result;
 					}
 				}
@@ -225,13 +225,15 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 							}
 						}
 					}
-				} else if (dslObject instanceof IntegerValue || dslObject instanceof Integer) {
+				} else if (dslObject instanceof IntegerValue || dslObject instanceof Integer || dslObject instanceof Long) {
 					Long longAnalog = null;
 
 					if (dslObject instanceof IntegerValue) {
 						longAnalog = Long.parseLong(String.valueOf(((IntegerValue) dslObject).getValue()));
-					} else {
+					} else if (dslObject instanceof Integer) {
 						longAnalog = Long.parseLong(String.valueOf((Integer) dslObject));
+					} else if (dslObject instanceof Long) {
+						longAnalog = (Long) dslObject;
 					}
 
 					if (!(argumentValues[0] instanceof Long || argumentValues[0] instanceof Integer)) {
@@ -249,6 +251,14 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 							adapteeResult = (longAnalog.longValue() >= ((Long) argumentValues[0]).longValue());
 						} else if (operation.getName().equals("<=")) {
 							adapteeResult = (longAnalog.longValue() <= ((Long) argumentValues[0]).longValue());
+						} else if (operation.getName().equals("+")) {
+							adapteeResult = (longAnalog.longValue() + ((Long) argumentValues[0]).longValue());
+						} else if (operation.getName().equals("-")) {
+							adapteeResult = (longAnalog.longValue() - ((Long) argumentValues[0]).longValue());
+						} else if (operation.getName().equals("*")) {
+							adapteeResult = (longAnalog.longValue() * ((Long) argumentValues[0]).longValue());
+						}else if(operation.getName().equals("/")){
+							adapteeResult = (longAnalog.longValue() / ((Long) argumentValues[0]).longValue());
 						}
 					}
 				} else if (dslObject instanceof BooleanValue || dslObject instanceof Boolean) {

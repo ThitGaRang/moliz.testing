@@ -177,7 +177,7 @@ public class FUMLModelInstanceTypeUtil {
 			qualifiedTypeNameSeparated.add("Boolean");
 		}
 
-		if (object instanceof IntegerValue || object instanceof Integer) {
+		if (object instanceof IntegerValue || object instanceof Integer || object instanceof Long) {
 			qualifiedTypeNameSeparated = new ArrayList<String>();
 			qualifiedTypeNameSeparated.add("Integer");
 		}
