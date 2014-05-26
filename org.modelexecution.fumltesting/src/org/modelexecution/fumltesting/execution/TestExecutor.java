@@ -93,6 +93,8 @@ public class TestExecutor {
 	private String umlModelPath = "../org.modelexecution.fumltesting.examples/model/webstore/webstore.uml";
 	private String primitivesPath = "../../moliz/org.modelexecution.fumldebug.standardlibrary/library/uml_library.uml";
 	private String oclPath = "../org.modelexecution.fumltesting.examples/model/webstore/webstore.ocl";
+	
+	private String selectedTest = "primitiveBehaviors.fumltest";
 
 	private AssertionPrinter assertionPrinter;
 
@@ -177,7 +179,7 @@ public class TestExecutor {
 		File folder = new File(testsPath);
 		File[] files = folder.listFiles();
 		for (File file : files) {
-			if (file.isFile() && file.getName().endsWith("primitiveBehaviors.fumltest")) {
+			if (file.isFile() && file.getName().endsWith(selectedTest)) {
 				String testLocation = testsPath + "/" + file.getName();
 				try {
 					setup(testLocation);
