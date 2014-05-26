@@ -83,10 +83,16 @@ public class TestExecutor {
 	private StateAssertionValidator stateAssertionValidator;
 
 	private XtextResourceSet resourceSet;
-	private Resource resource;
+	private Resource testResource;
 	private Resource umlResource;
+	private Resource primitiviesResource;
 	private NamedElement umlModel;
 	private TestConverter testConverter;
+
+	private String testsPath = "../org.modelexecution.fumltesting.examples/model/webstore/tests";
+	private String umlModelPath = "../org.modelexecution.fumltesting.examples/model/webstore/webstore.uml";
+	private String primitivesPath = "../../moliz/org.modelexecution.fumldebug.standardlibrary/library/uml_library.uml";
+	private String oclPath = "../org.modelexecution.fumltesting.examples/model/webstore/webstore.ocl";
 
 	private AssertionPrinter assertionPrinter;
 
@@ -100,27 +106,33 @@ public class TestExecutor {
 		Injector injector = new TestLangStandaloneSetup().createInjectorAndDoEMFRegistration();
 		resourceSet = injector.getInstance(XtextResourceSet.class);
 		resourceSet.addLoadOption(XtextResource.OPTION_RESOLVE_ALL, Boolean.TRUE);
-		resource = resourceSet.getResource(URI.createFileURI(new File(testLocation).getAbsolutePath()), true);
 
-		resource.load(null);
-		if (resource != null) {
+		testResource = resourceSet.getResource(URI.createFileURI(new File(testLocation).getAbsolutePath()), true);
+		testResource.load(null);
+
+		if (testResource != null) {
 			resourceSet.getPackageRegistry().put(UMLPackage.eNS_URI, UMLPackage.eINSTANCE);
 			resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(UMLResource.FILE_EXTENSION, UMLResource.Factory.INSTANCE);
-			umlResource = resourceSet.getResource(
-					URI.createFileURI(new File("../org.modelexecution.fumltesting.examples/model/webstore/webstore.uml").getAbsolutePath()), true);
+
+			primitiviesResource = resourceSet.getResource(URI.createFileURI(new File(primitivesPath).getAbsolutePath()), true);
+			primitiviesResource.load(null);
+
+			umlResource = resourceSet.getResource(URI.createFileURI(new File(umlModelPath).getAbsolutePath()), true);
 			umlResource.load(null);
 
-			resource.getContents().addAll(umlResource.getContents());
+			umlResource.getContents().addAll(primitiviesResource.getContents());
+			testResource.getContents().addAll(umlResource.getContents());
+
 			EcoreUtil.resolveAll(resourceSet);
 
-			for (EObject model : resource.getContents()) {
-				if (model instanceof NamedElement) {
+			for (EObject model : testResource.getContents()) {
+				if (model instanceof Model) {
 					umlModel = (NamedElement) model;
 					break;
 				}
 			}
 
-			for (EObject testSuite : resource.getContents()) {
+			for (EObject testSuite : testResource.getContents()) {
 				if (testSuite instanceof UMLTestSuite) {
 					suite = (UMLTestSuite) testSuite;
 					break;
@@ -156,17 +168,17 @@ public class TestExecutor {
 			}
 			oclExecutor.setModel(modelPackage);
 		}
-		oclExecutor.loadConstraints(new File("../org.modelexecution.fumltesting.examples/model/webstore/webstore.ocl"));
+		oclExecutor.loadConstraints(new File(oclPath));
 	}
 
 	/** Main method of the testing framework. */
 	@Test
 	public void test() {
-		File folder = new File("../org.modelexecution.fumltesting.examples/model/webstore/tests");
+		File folder = new File(testsPath);
 		File[] files = folder.listFiles();
 		for (File file : files) {
 			if (file.isFile() && file.getName().endsWith("newProduct.fumltest")) {
-				String testLocation = "../org.modelexecution.fumltesting.examples/model/webstore/tests/" + file.getName();
+				String testLocation = testsPath + file.getName();
 				try {
 					setup(testLocation);
 				} catch (ParseException e) {

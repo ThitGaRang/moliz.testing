@@ -1,0 +1,35 @@
+import webstore.primitiveBehaviors.*
+
+//arithmetic operations
+test additionTest activity AddActivity(valueX=3, valueY=2){
+	finally {result = 5;}
+}
+
+test subtractionTest activity SubtractActivity(valueX=3, valueY=2){
+	finally {result = 1;}
+}
+
+test multiplicationTest activity MultiplyActivity(valueX=3, valueY=2){
+	finally {result = 6;}
+}
+
+test divisionTest activity DivideActivity(valueX=3, valueY=2){
+	finally {result = 1.5;}
+}
+
+//logical operations
+test greaterTest activity GreaterActivity(valueX=3, valueY=2){
+	finally {result = true;}
+}
+
+test lessTest activity LessActivity(valueX=3, valueY=2){
+	finally {result = false;}
+}
+
+test greaterOrEqualsTest activity GreaterOrEqualsActivity(valueX=3, valueY=2){
+	finally {result = true;}
+}
+
+test lessOrEqualsTest activity LessOrEqualsActivity(valueX=3, valueY=2){
+	finally {result = false;}
+}

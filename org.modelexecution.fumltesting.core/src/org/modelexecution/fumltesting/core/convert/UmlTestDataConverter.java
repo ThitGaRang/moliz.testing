@@ -10,6 +10,7 @@ import java.util.HashMap;
 
 import org.modelexecution.fumldebug.core.ExecutionContext;
 import org.modelexecution.fumltesting.core.testlang.Attribute;
+import org.modelexecution.fumltesting.core.testlang.DoubleValue;
 import org.modelexecution.fumltesting.core.testlang.ObjectSpecification;
 import org.modelexecution.fumltesting.core.testlang.ObjectValue;
 import org.modelexecution.fumltesting.core.testlang.Scenario;
@@ -50,6 +51,9 @@ public class UmlTestDataConverter {
 			return getFumlValue(theValue);
 		} else if (value instanceof org.modelexecution.fumltesting.core.testlang.IntegerValue) {
 			Integer theValue = ((org.modelexecution.fumltesting.core.testlang.IntegerValue) value).getValue();
+			return getFumlValue(theValue);
+		} else if (value instanceof DoubleValue) {
+			Double theValue = ((DoubleValue) value).getValue();
 			return getFumlValue(theValue);
 		} else if (value instanceof org.modelexecution.fumltesting.core.testlang.BooleanValue) {
 			Boolean theValue = ((org.modelexecution.fumltesting.core.testlang.BooleanValue) value).getValue();
@@ -147,6 +151,12 @@ public class UmlTestDataConverter {
 			fumlValue.type = locus.factory.getBuiltInType("Integer");
 			fumlValue.value = (Integer) value;
 			fumlValue.specify();
+			return fumlValue;
+		}
+		if (value instanceof Double) {
+			IntegerValue fumlValue = new IntegerValue();
+			fumlValue.type = locus.factory.getBuiltInType("Integer");
+			fumlValue.value = (int) Math.round(((Double) value));
 			return fumlValue;
 		}
 		return null;

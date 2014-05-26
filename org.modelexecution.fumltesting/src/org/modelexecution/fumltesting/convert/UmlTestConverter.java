@@ -23,6 +23,7 @@ import org.modelexecution.fumltesting.core.testlang.BooleanValue;
 import org.modelexecution.fumltesting.core.testlang.Check;
 import org.modelexecution.fumltesting.core.testlang.ConstraintCheck;
 import org.modelexecution.fumltesting.core.testlang.ConstraintReferencePoint;
+import org.modelexecution.fumltesting.core.testlang.DoubleValue;
 import org.modelexecution.fumltesting.core.testlang.FinallyStateAssertion;
 import org.modelexecution.fumltesting.core.testlang.IntegerValue;
 import org.modelexecution.fumltesting.core.testlang.Link;
@@ -179,9 +180,16 @@ public class UmlTestConverter implements TestConverter {
 			stringValue.setValue(((XStringLiteral) umlSimpleValue.getValue()).getValue());
 			return stringValue;
 		} else if (umlSimpleValue.getValue() instanceof XNumberLiteral) {
-			IntegerValue integerValue = new IntegerValue();
-			integerValue.setValue(Integer.parseInt(((XNumberLiteral) umlSimpleValue.getValue()).getValue()));
-			return integerValue;
+			String value = ((XNumberLiteral) umlSimpleValue.getValue()).getValue();
+			if (value.contains(".")) {
+				DoubleValue doubleValue = new DoubleValue();
+				doubleValue.setValue(Double.parseDouble(value));
+				return doubleValue;
+			} else {
+				IntegerValue integerValue = new IntegerValue();
+				integerValue.setValue(Integer.parseInt(value));
+				return integerValue;
+			}
 		} else if (umlSimpleValue.getValue() instanceof XBooleanLiteral) {
 			BooleanValue booleanValue = new BooleanValue();
 			booleanValue.setValue(((XBooleanLiteral) umlSimpleValue.getValue()).isIsTrue());
