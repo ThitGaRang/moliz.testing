@@ -177,8 +177,8 @@ public class TestExecutor {
 		File folder = new File(testsPath);
 		File[] files = folder.listFiles();
 		for (File file : files) {
-			if (file.isFile() && file.getName().endsWith("newProduct.fumltest")) {
-				String testLocation = testsPath + file.getName();
+			if (file.isFile() && file.getName().endsWith("primitiveBehaviors.fumltest")) {
+				String testLocation = testsPath + "/" + file.getName();
 				try {
 					setup(testLocation);
 				} catch (ParseException e) {

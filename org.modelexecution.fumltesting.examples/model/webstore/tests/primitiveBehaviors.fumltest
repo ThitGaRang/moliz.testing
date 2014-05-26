@@ -1,35 +1,35 @@
 import webstore.primitiveBehaviors.*
 
-//arithmetic operations
-test additionTest activity AddActivity(valueX=3, valueY=2){
-	finally {result = 5;}
+// arithmetic operations
+test additionTest activity AddActivity(AddActivity.valueX=3, AddActivity.valueY=2){
+	finally {AddActivity.result = 5;}
 }
 
-test subtractionTest activity SubtractActivity(valueX=3, valueY=2){
-	finally {result = 1;}
+test subtractionTest activity SubtractActivity(SubtractActivity.valueX=3, SubtractActivity.valueY=2){
+	finally {SubtractActivity.result = 1;}
 }
 
-test multiplicationTest activity MultiplyActivity(valueX=3, valueY=2){
-	finally {result = 6;}
+test multiplicationTest activity MultiplyActivity(MultiplyActivity.valueX=3, MultiplyActivity.valueY=2){
+	finally {MultiplyActivity.result = 6;}
 }
 
-test divisionTest activity DivideActivity(valueX=3, valueY=2){
-	finally {result = 1.5;}
+//test divisionTest activity DivideActivity(DivideActivity.valueX=3, DivideActivity.valueY=2){
+//	finally {DivideActivity.result = 1.5;}
+//}
+
+// logical operations
+test greaterTest activity GreaterActivity(GreaterActivity.valueX=3, GreaterActivity.valueY=2){
+	finally {GreaterActivity.result = true;}
 }
 
-//logical operations
-test greaterTest activity GreaterActivity(valueX=3, valueY=2){
-	finally {result = true;}
+test lessTest activity LessActivity(LessActivity.valueX=3, LessActivity.valueY=2){
+	finally {LessActivity.result = false;}
 }
 
-test lessTest activity LessActivity(valueX=3, valueY=2){
-	finally {result = false;}
+test greaterOrEqualsTest activity GreaterOrEqualsActivity(GreaterOrEqualsActivity.valueX=3, GreaterOrEqualsActivity.valueY=2){
+	finally {GreaterOrEqualsActivity.result = true;}
 }
 
-test greaterOrEqualsTest activity GreaterOrEqualsActivity(valueX=3, valueY=2){
-	finally {result = true;}
-}
-
-test lessOrEqualsTest activity LessOrEqualsActivity(valueX=3, valueY=2){
-	finally {result = false;}
+test lessOrEqualsTest activity LessOrEqualsActivity(GreaterOrEqualsActivity.valueX=3, GreaterOrEqualsActivity.valueY=2){
+	finally {GreaterOrEqualsActivity.result = false;}
 }

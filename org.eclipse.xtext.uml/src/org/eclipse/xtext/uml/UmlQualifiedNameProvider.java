@@ -41,7 +41,7 @@ public class UmlQualifiedNameProvider extends XbaseQualifiedNameProvider {
 	}
 
 	protected QualifiedName qualifiedName(ActivityParameterNode node) {
-		return QualifiedName.create(node.getName());
+		return QualifiedName.create(node.getActivity().getName(), node.getName());
 	}
 
 	protected QualifiedName qualifiedName(Pin node) {

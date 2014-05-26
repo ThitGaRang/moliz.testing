@@ -19,6 +19,6 @@ test totalItemCost activity ItemTotalCostActivity on TestData.itemTD{
 	assertOrder ItemTotalCostActivity.init, ItemTotalCostActivity.context, *, ItemTotalCostActivity.multiply, ItemTotalCostActivity.final;
 	
 	finally {
-		totalCost = 1250;
+		ItemTotalCostActivity.totalCost = 1250;
 	}
 }

@@ -17,7 +17,6 @@ import org.modelexecution.fuml.Semantics.Classes.Kernel.StringValue;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
-import org.modelexecution.fumldebug.core.trace.tracemodel.InitialNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Input;
 import org.modelexecution.fumldebug.core.trace.tracemodel.InputParameterSetting;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Output;
@@ -77,29 +76,34 @@ public class SequenceGenerator {
 				break;
 			}
 		}
-		if (initial != null)
-			completeSequence(initial, sequence);
+		if (initial != null) {
+			createInitialState(initial, sequence);
+			if (initial.getChronologicalSuccessor() != null) {
+				completeSequence(initial.getChronologicalSuccessor(), sequence);
+			}
+		}
 		return sequence;
 	}
 
-	private void completeSequence(ActivityNodeExecution nodeExecution, Sequence sequence) {
-		if (nodeExecution instanceof ActionExecution || nodeExecution instanceof InitialNodeExecution) {
-			if (nodeExecution instanceof InitialNodeExecution) {
-				State state = createNewState(sequence, nodeExecution);
-				for (InputParameterSetting inputParameterSetting : nodeExecution.getActivityExecution().getActivityInputs()) {
-					ValueSnapshot snapshot = inputParameterSetting.getParameterValues().get(0).getValueSnapshot();
-					if (snapshot.getValue() instanceof Object_) {
-						ValueInstance instance = (ValueInstance) snapshot.eContainer();
-						Object original = getLastVersion(sequence, instance);
-						if (original != null) {
-							state.getObjects().remove(original);
-						}
-						Object newObject = mapper.map((Object_) snapshot.getValue());
-						state.getObjects().add(newObject);
-						state.addSnapshotMapping(instance, newObject);
-					}
+	private void createInitialState(ActivityNodeExecution nodeExecution, Sequence sequence) {
+		State state = createNewState(sequence, nodeExecution);
+		for (InputParameterSetting inputParameterSetting : nodeExecution.getActivityExecution().getActivityInputs()) {
+			ValueSnapshot snapshot = inputParameterSetting.getParameterValues().get(0).getValueSnapshot();
+			if (snapshot.getValue() instanceof Object_) {
+				ValueInstance instance = (ValueInstance) snapshot.eContainer();
+				Object original = getLastVersion(sequence, instance);
+				if (original != null) {
+					state.getObjects().remove(original);
 				}
+				Object newObject = mapper.map((Object_) snapshot.getValue());
+				state.getObjects().add(newObject);
+				state.addSnapshotMapping(instance, newObject);
 			}
+		}
+	}
+
+	private void completeSequence(ActivityNodeExecution nodeExecution, Sequence sequence) {
+		if (nodeExecution instanceof ActionExecution) {
 			if (nodeExecution.getNode() instanceof ReadSelfAction || nodeExecution.getNode() instanceof CreateObjectAction) {
 				State state = createNewState(sequence, nodeExecution);
 				for (Output output : ((ActionExecution) nodeExecution).getOutputs()) {

@@ -210,10 +210,12 @@ public class ResultsWriter {
 									writer.print(((IntegerValue) value).getValue());
 								}
 							}
+							writer.println();
 						}
 					}
 				}
 			}
+			writer.println("**********************************************************");
 		}
 		writer.close();
 	}
