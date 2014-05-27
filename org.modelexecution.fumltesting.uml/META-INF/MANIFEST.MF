@@ -1,0 +1,45 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: org.modelexecution.fumltesting.uml
+Bundle-Vendor: My Company
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: org.modelexecution.fumltesting.uml; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle: org.eclipse.xtext;visibility:=reexport,
+ org.eclipse.xtext.xbase;resolution:=optional;visibility:=reexport,
+ org.eclipse.xtext.generator;resolution:=optional,
+ org.apache.commons.logging;bundle-version="1.0.4";resolution:=optional,
+ org.eclipse.emf.codegen.ecore;resolution:=optional,
+ org.eclipse.emf.mwe.utils;resolution:=optional,
+ org.eclipse.emf.mwe2.launch;resolution:=optional,
+ org.eclipse.xtext.util,
+ org.eclipse.emf.ecore,
+ org.eclipse.emf.common,
+ org.antlr.runtime,
+ org.eclipse.xtext.common.types,
+ org.eclipse.uml2.codegen.ecore;bundle-version="1.7.0",
+ org.eclipse.xtext.xbase.lib,
+ org.modelexecution.fuml.convert;bundle-version="1.0.0",
+ org.eclipse.uml2.uml;bundle-version="4.0.0",
+ org.modelexecution.fumldebug;bundle-version="1.0.0",
+ org.modelexecution.fumltesting.uml.xtext;bundle-version="1.0.0",
+ org.modelexecution.fuml;bundle-version="1.0.0",
+ tudresden.ocl20.pivot.facade;bundle-version="3.2.0",
+ org.modelexecution.fumltesting.ocl;bundle-version="1.0.0",
+ org.modelexecution.fumltesting.core;bundle-version="1.0.0",
+ org.junit;bundle-version="4.11.0"
+Import-Package: org.apache.log4j,
+ org.eclipse.xtext.xbase.lib
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Export-Package: org.modelexecution.fumltesting.uml,
+ org.modelexecution.fumltesting.uml.services,
+ org.modelexecution.fumltesting.uml.umlTestLang,
+ org.modelexecution.fumltesting.uml.umlTestLang.impl,
+ org.modelexecution.fumltesting.uml.umlTestLang.util,
+ org.modelexecution.fumltesting.uml.serializer,
+ org.modelexecution.fumltesting.uml.parser.antlr,
+ org.modelexecution.fumltesting.uml.parser.antlr.internal,
+ org.modelexecution.fumltesting.uml.validation,
+ org.modelexecution.fumltesting.uml.formatting,
+ org.modelexecution.fumltesting.uml.jvmmodel
+

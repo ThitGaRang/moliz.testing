@@ -1,0 +1,24 @@
+import webstore.structure.*
+import webstore.behavior.*
+
+scenario TestData[
+	object productTD: Product{
+		available = true;
+		code = 12345;
+		name = "testDataProduct";
+	}
+	object itemTD: Item{
+		number = 12345;
+		quantity = 5;
+		unitCost = 250;
+	}
+	link item_product{source item=itemTD; target product=productTD;}
+]
+
+test totalItemCost activity ItemTotalCostActivity on TestData.itemTD{
+	assertOrder ItemTotalCostActivity.init, ItemTotalCostActivity.context, *, ItemTotalCostActivity.multiply, ItemTotalCostActivity.final;
+	
+	finally {
+		ItemTotalCostActivity.totalCost = 1250;
+	}
+}

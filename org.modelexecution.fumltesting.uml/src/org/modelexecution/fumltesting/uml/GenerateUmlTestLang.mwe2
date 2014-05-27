@@ -1,0 +1,117 @@
+module org.modelexecution.fumltesting.uml.GenerateUmlTestLang
+
+import org.eclipse.emf.mwe.utils.*
+import org.eclipse.xtext.generator.*
+import org.eclipse.xtext.ui.generator.*
+
+var grammarURI = "classpath:/org/modelexecution/fumltesting/uml/UmlTestLang.xtext"
+var fileExtensions = "umltest"
+var projectName = "org.modelexecution.fumltesting.uml"
+var runtimeProject = "../${projectName}"
+var generateXtendStub = true
+var encoding = "UTF-8"
+
+Workflow {
+	bean = StandaloneSetup {
+		scanClassPath = true
+		platformUri = "${runtimeProject}/.."
+		registerGeneratedEPackage = "org.eclipse.xtext.xbase.XbasePackage"
+		registerGenModelFile = "platform:/resource/org.eclipse.xtext.xbase/model/Xbase.genmodel"
+		uriMap = {
+			from = "platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel"
+			to = "platform:/resource/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel"
+		}
+		uriMap = {
+			from = "platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel"
+			to = "platform:/resource/org.eclipse.emf.ecore/model/Ecore.genmodel"
+		}
+		uriMap = {
+			from = "platform:/plugin/org.eclipse.uml2.codegen.ecore/model/GenModel.genmodel"
+			to = "platform:/resource/org.eclipse.uml2.codegen.ecore/model/GenModel.genmodel"
+		}
+		uriMap = {
+			from = "platform:/plugin/org.eclipse.uml2.uml/model/UML.genmodel"
+			to = "platform:/resource/org.eclipse.uml2.uml/model/UML.genmodel"
+		}
+		uriMap = {
+			from = "platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore"
+			to = "platform:/resource/org.eclipse.emf.codegen.ecore/model/GenModel.ecore"
+		}
+		uriMap = {
+			from = "platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore"
+			to = "platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore"
+		}
+		uriMap = {
+			from = "platform:/plugin/org.eclipse.uml2.codegen.ecore/model/GenModel.ecore"
+			to = "platform:/resource/org.eclipse.uml2.codegen.ecore/model/GenModel.ecore"
+		}
+		uriMap = {
+			from = "platform:/plugin/org.eclipse.uml2.uml/model/UML.ecore"
+			to = "platform:/resource/org.eclipse.uml2.uml/model/UML.ecore"
+		}
+		uriMap = {
+			from = "platform:/plugin/org.eclipse.uml2.types/model/Types.genmodel"
+			to = "platform:/resource/org.eclipse.uml2.types/model/Types.genmodel"
+		}
+		uriMap = {
+			from = "platform:/plugin/org.eclipse.uml2.types/model/Types.ecore"
+			to = "platform:/resource/org.eclipse.uml2.types/model/Types.ecore"
+		}
+		registerGeneratedEPackage = "org.eclipse.uml2.types.TypesPackage"
+		registerGeneratedEPackage = "org.eclipse.emf.ecore.EcorePackage"
+		registerGeneratedEPackage = "org.eclipse.uml2.uml.UMLPackage"
+		registerGeneratedEPackage = "org.eclipse.emf.codegen.ecore.genmodel.GenModelPackage"
+		registerGeneratedEPackage = "org.eclipse.uml2.codegen.ecore.genmodel.GenModelPackage"
+		registerGenModelFile = "platform:/resource/org.eclipse.emf.ecore/model/Ecore.genmodel"
+		registerGenModelFile = "platform:/resource/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel"
+		registerGenModelFile = "platform:/resource/org.eclipse.uml2.uml/model/UML.genmodel"
+		registerGenModelFile = "platform:/resource/org.eclipse.uml2.codegen.ecore/model/GenModel.genmodel"
+	}
+	component = DirectoryCleaner {
+		directory = "${runtimeProject}/src-gen"
+	}
+	component = DirectoryCleaner {
+		directory = "${runtimeProject}/model"
+	}
+	component = DirectoryCleaner {
+		directory = "${runtimeProject}.ui/src-gen"
+	}
+	component = DirectoryCleaner {
+		directory = "${runtimeProject}.tests/src-gen"
+	}
+	component = Generator {
+		pathRtProject = runtimeProject
+		pathUiProject = "${runtimeProject}.ui"
+		pathTestProject = "${runtimeProject}.tests"
+		projectNameRt = projectName
+		projectNameUi = "${projectName}.ui"
+		encoding = encoding
+		language = auto-inject {
+			uri = grammarURI
+
+			fragment = grammarAccess.GrammarAccessFragment auto-inject {}
+			fragment = ecore.EMFGeneratorFragment auto-inject {}
+			fragment = serializer.SerializerFragment auto-inject { generateStub = false }
+			fragment = resourceFactory.ResourceFactoryFragment auto-inject {}
+			fragment = parser.antlr.XtextAntlrGeneratorFragment auto-inject {}
+			fragment = validation.JavaValidatorFragment auto-inject {}
+			fragment = scoping.ImportNamespacesScopingFragment auto-inject { generateStub = false }
+			fragment = exporting.QualifiedNamesFragment auto-inject {}
+			fragment = builder.BuilderIntegrationFragment auto-inject {}
+			fragment = generator.GeneratorFragment auto-inject {}
+			fragment = formatting.FormatterFragment auto-inject {}
+			fragment = labeling.LabelProviderFragment auto-inject {}
+			fragment = outline.OutlineTreeProviderFragment auto-inject {}
+			fragment = outline.QuickOutlineFragment auto-inject {}
+			fragment = quickfix.QuickfixProviderFragment auto-inject {}
+			fragment = contentAssist.ContentAssistFragment auto-inject {}
+			fragment = parser.antlr.XtextAntlrUiGeneratorFragment auto-inject {}
+			fragment = junit.Junit4Fragment auto-inject {}
+			fragment = refactoring.RefactorElementNameFragment auto-inject {}
+			fragment = types.TypesGeneratorFragment auto-inject {}
+			fragment = xbase.XbaseGeneratorFragment auto-inject {}
+			fragment = templates.CodetemplatesGeneratorFragment auto-inject {}
+			fragment = compare.CompareFragment auto-inject {}
+		}
+	}
+}
