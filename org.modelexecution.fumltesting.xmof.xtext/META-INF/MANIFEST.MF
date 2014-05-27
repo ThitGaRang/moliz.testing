@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Xmof
+Bundle-SymbolicName: org.modelexecution.fumltesting.xmof.xtext
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Require-Bundle: org.eclipse.xtext;bundle-version="2.5.0"
+Export-Package: org.modelexecution.fumltesting.xmof.xtext

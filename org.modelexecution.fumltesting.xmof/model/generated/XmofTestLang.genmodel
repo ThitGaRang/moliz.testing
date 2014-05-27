@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.modelexecution.fumltesting.xmof/src-gen" editDirectory="/org.modelexecution.fumltesting.xmof.edit/src"
+    editorDirectory="/org.modelexecution.fumltesting.xmof.editor/src" modelPluginID="org.modelexecution.fumltesting.xmof"
+    forceOverwrite="true" modelName="XmofTestLang" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    complianceLevel="5.0" copyrightFields="false" editPluginID="org.modelexecution.fumltesting.xmof.edit"
+    editorPluginID="org.modelexecution.fumltesting.xmof.editor" runtimeVersion="2.9"
+    usedGenPackages="../../../org.eclipse.xtext.xbase/model/Xbase.genmodel#//xbase ../../../org.modelexecution.xmof/model/xmof.genmodel#//xmof/Syntax/Actions/BasicActions ../../../org.modelexecution.xmof/model/xmof.genmodel#//xmof/Syntax/Activities/IntermediateActivities">
+  <genPackages prefix="XmofTestLang" basePackage="org.modelexecution.fumltesting.xmof"
+      disposableProviderFactory="true" fileExtensions="xmoftest" ecorePackage="XmofTestLang.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="XmofTestLang.ecore#//XMOFArithmeticOperator">
+      <genEnumLiterals ecoreEnumLiteral="XmofTestLang.ecore#//XMOFArithmeticOperator/equal"/>
+      <genEnumLiterals ecoreEnumLiteral="XmofTestLang.ecore#//XMOFArithmeticOperator/not_equal"/>
+      <genEnumLiterals ecoreEnumLiteral="XmofTestLang.ecore#//XMOFArithmeticOperator/greater"/>
+      <genEnumLiterals ecoreEnumLiteral="XmofTestLang.ecore#//XMOFArithmeticOperator/smaller"/>
+      <genEnumLiterals ecoreEnumLiteral="XmofTestLang.ecore#//XMOFArithmeticOperator/greater_equal"/>
+      <genEnumLiterals ecoreEnumLiteral="XmofTestLang.ecore#//XMOFArithmeticOperator/smaller_equal"/>
+      <genEnumLiterals ecoreEnumLiteral="XmofTestLang.ecore#//XMOFArithmeticOperator/includes"/>
+      <genEnumLiterals ecoreEnumLiteral="XmofTestLang.ecore#//XMOFArithmeticOperator/excludes"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="XmofTestLang.ecore#//XMOFTemporalOperator">
+      <genEnumLiterals ecoreEnumLiteral="XmofTestLang.ecore#//XMOFTemporalOperator/after"/>
+      <genEnumLiterals ecoreEnumLiteral="XmofTestLang.ecore#//XMOFTemporalOperator/until"/>
+    </genEnums>
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="XmofTestLang.ecore#//XMOFTemporalQuantifier">
+      <genEnumLiterals ecoreEnumLiteral="XmofTestLang.ecore#//XMOFTemporalQuantifier/always"/>
+      <genEnumLiterals ecoreEnumLiteral="XmofTestLang.ecore#//XMOFTemporalQuantifier/sometimes"/>
+      <genEnumLiterals ecoreEnumLiteral="XmofTestLang.ecore#//XMOFTemporalQuantifier/eventually"/>
+      <genEnumLiterals ecoreEnumLiteral="XmofTestLang.ecore#//XMOFTemporalQuantifier/immediately"/>
+    </genEnums>
+    <genClasses ecoreClass="XmofTestLang.ecore#//XMOFTestSuite">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XmofTestLang.ecore#//XMOFTestSuite/imports"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XmofTestLang.ecore#//XMOFTestSuite/scenarios"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XmofTestLang.ecore#//XMOFTestSuite/tests"/>
+    </genClasses>
+    <genClasses ecoreClass="XmofTestLang.ecore#//Import">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XmofTestLang.ecore#//Import/importedNamespace"/>
+    </genClasses>
+    <genClasses ecoreClass="XmofTestLang.ecore#//XMOFTestCase">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XmofTestLang.ecore#//XMOFTestCase/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference XmofTestLang.ecore#//XMOFTestCase/activityUnderTest"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XmofTestLang.ecore#//XMOFTestCase/inputs"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference XmofTestLang.ecore#//XMOFTestCase/contextObject"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference XmofTestLang.ecore#//XMOFTestCase/initScenarios"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XmofTestLang.ecore#//XMOFTestCase/assertions"/>
+    </genClasses>
+    <genClasses ecoreClass="XmofTestLang.ecore#//XMOFActivityInput">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference XmofTestLang.ecore#//XMOFActivityInput/parameter"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XmofTestLang.ecore#//XMOFActivityInput/value"/>
+    </genClasses>
+    <genClasses ecoreClass="XmofTestLang.ecore#//XMOFValue"/>
+    <genClasses ecoreClass="XmofTestLang.ecore#//XMOFSimpleValue">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XmofTestLang.ecore#//XMOFSimpleValue/value"/>
+    </genClasses>
+    <genClasses ecoreClass="XmofTestLang.ecore#//XMOFObjectValue">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference XmofTestLang.ecore#//XMOFObjectValue/value"/>
+    </genClasses>
+    <genClasses ecoreClass="XmofTestLang.ecore#//XMOFScenario">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XmofTestLang.ecore#//XMOFScenario/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XmofTestLang.ecore#//XMOFScenario/objects"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XmofTestLang.ecore#//XMOFScenario/links"/>
+    </genClasses>
+    <genClasses ecoreClass="XmofTestLang.ecore#//XMOFObjectSpecification">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XmofTestLang.ecore#//XMOFObjectSpecification/name"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference XmofTestLang.ecore#//XMOFObjectSpecification/type"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XmofTestLang.ecore#//XMOFObjectSpecification/attributes"/>
+    </genClasses>
+    <genClasses ecoreClass="XmofTestLang.ecore#//XMOFAttribute">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference XmofTestLang.ecore#//XMOFAttribute/att"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XmofTestLang.ecore#//XMOFAttribute/value"/>
+    </genClasses>
+    <genClasses ecoreClass="XmofTestLang.ecore#//XMOFLink">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference XmofTestLang.ecore#//XMOFLink/assoc"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference XmofTestLang.ecore#//XMOFLink/sourceProperty"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference XmofTestLang.ecore#//XMOFLink/sourceValue"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference XmofTestLang.ecore#//XMOFLink/targetProperty"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference XmofTestLang.ecore#//XMOFLink/targetValue"/>
+    </genClasses>
+    <genClasses ecoreClass="XmofTestLang.ecore#//XMOFAssertion"/>
+    <genClasses ecoreClass="XmofTestLang.ecore#//XMOFStateAssertion">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XmofTestLang.ecore#//XMOFStateAssertion/quantifier"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XmofTestLang.ecore#//XMOFStateAssertion/operator"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XmofTestLang.ecore#//XMOFStateAssertion/referencePoint"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XmofTestLang.ecore#//XMOFStateAssertion/untilPoint"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XmofTestLang.ecore#//XMOFStateAssertion/checks"/>
+    </genClasses>
+    <genClasses ecoreClass="XmofTestLang.ecore#//XMOFReferencePoint"/>
+    <genClasses ecoreClass="XmofTestLang.ecore#//XMOFActionReferencePoint">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference XmofTestLang.ecore#//XMOFActionReferencePoint/action"/>
+    </genClasses>
+    <genClasses ecoreClass="XmofTestLang.ecore#//XMOFConstraintReferencePoint">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XmofTestLang.ecore#//XMOFConstraintReferencePoint/constraintName"/>
+    </genClasses>
+    <genClasses ecoreClass="XmofTestLang.ecore#//XMOFFinallyStateAssertion"/>
+    <genClasses ecoreClass="XmofTestLang.ecore#//XMOFCheck"/>
+    <genClasses ecoreClass="XmofTestLang.ecore#//XMOFConstraintCheck">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XmofTestLang.ecore#//XMOFConstraintCheck/constraintNames"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference XmofTestLang.ecore#//XMOFConstraintCheck/object"/>
+    </genClasses>
+    <genClasses ecoreClass="XmofTestLang.ecore#//XMOFStateExpression">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference XmofTestLang.ecore#//XMOFStateExpression/pin"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XmofTestLang.ecore#//XMOFStateExpression/operator"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XmofTestLang.ecore#//XMOFStateExpression/value"/>
+    </genClasses>
+    <genClasses ecoreClass="XmofTestLang.ecore#//XMOFObjectStateExpression"/>
+    <genClasses ecoreClass="XmofTestLang.ecore#//XMOFPropertyStateExpression">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference XmofTestLang.ecore#//XMOFPropertyStateExpression/property"/>
+    </genClasses>
+    <genClasses ecoreClass="XmofTestLang.ecore#//XMOFOrderAssertion">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XmofTestLang.ecore#//XMOFOrderAssertion/order"/>
+    </genClasses>
+    <genClasses ecoreClass="XmofTestLang.ecore#//XMOFNodeOrder">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XmofTestLang.ecore#//XMOFNodeOrder/nodes"/>
+    </genClasses>
+    <genClasses ecoreClass="XmofTestLang.ecore#//XMOFNodeSpecification">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference XmofTestLang.ecore#//XMOFNodeSpecification/node"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XmofTestLang.ecore#//XMOFNodeSpecification/size"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XmofTestLang.ecore#//XMOFNodeSpecification/subOrder"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute XmofTestLang.ecore#//XMOFNodeSpecification/joker"/>
+    </genClasses>
+    <genClasses ecoreClass="XmofTestLang.ecore#//FinallyStateAssertion">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference XmofTestLang.ecore#//FinallyStateAssertion/checks"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
