@@ -330,7 +330,10 @@ public class StateAssertionValidator {
 			System.out.println("Operator <, >, <=, and => not allowed!");
 			return false;
 		}
-		Object_ fumlTarget = (Object_) testDataConverter.getFUMLElement(expression.getValue());
+		Object_ fumlTarget = null;
+		if (expression.getValue() instanceof ObjectValue) {
+			fumlTarget = testDataConverter.getFumlObject((ObjectValue) expression.getValue());
+		}
 
 		if (expression instanceof ObjectStateExpression) {
 			return processStateExpression((ObjectStateExpression) expression, fumlTarget);

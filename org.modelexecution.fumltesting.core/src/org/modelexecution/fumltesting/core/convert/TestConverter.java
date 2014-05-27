@@ -6,6 +6,12 @@
  */
 package org.modelexecution.fumltesting.core.convert;
 
+import org.modelexecution.fumltesting.core.testlang.Check;
+import org.modelexecution.fumltesting.core.testlang.Link;
+import org.modelexecution.fumltesting.core.testlang.NodeOrder;
+import org.modelexecution.fumltesting.core.testlang.ReferencePoint;
+import org.modelexecution.fumltesting.core.testlang.Scenario;
+import org.modelexecution.fumltesting.core.testlang.TestCase;
 import org.modelexecution.fumltesting.core.testlang.TestSuite;
 
 /**
@@ -14,8 +20,23 @@ import org.modelexecution.fumltesting.core.testlang.TestSuite;
  */
 public interface TestConverter {
 
-	public abstract ModelConverter getModelConverter();
+	public ModelConverter getModelConverter();
 
-	public abstract TestSuite convertSuite(Object suite);
+	public TestSuite convertSuite(Object suite);
 
+	public Scenario convertScenario(Object aScenario);
+
+	public TestCase convertTestCase(Object aTestCase);
+
+	public Object convertValue(Object aValue);
+
+	public Link convertLink(Object aLink);
+
+	public Object convertAssertion(Object anAssertion);
+
+	public NodeOrder convertNodeOrder(Object aNodeOrder);
+
+	public Check convertCheck(Object aCheck);
+
+	public ReferencePoint convertReferencePoint(Object umlReferencePoint);
 }

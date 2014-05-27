@@ -18,6 +18,7 @@ import org.modelexecution.fumltesting.core.convert.TestConverter;
 import org.modelexecution.fumltesting.core.testlang.ActionReferencePoint;
 import org.modelexecution.fumltesting.core.testlang.ActivityInput;
 import org.modelexecution.fumltesting.core.testlang.ArithmeticOperator;
+import org.modelexecution.fumltesting.core.testlang.Assertion;
 import org.modelexecution.fumltesting.core.testlang.Attribute;
 import org.modelexecution.fumltesting.core.testlang.BooleanValue;
 import org.modelexecution.fumltesting.core.testlang.Check;
@@ -61,7 +62,6 @@ import org.modelexecution.fumltesting.uml.umlTestLang.UMLObjectStateExpression;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLObjectValue;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLOrderAssertion;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLPropertyStateExpression;
-import org.modelexecution.fumltesting.uml.umlTestLang.UMLReferencePoint;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLScenario;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLSimpleValue;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLStateAssertion;
@@ -108,12 +108,15 @@ public class UmlTestConverter implements TestConverter {
 		return suite;
 	}
 
-	private Scenario convertScenario(UMLScenario umlScenario) {
+	@Override
+	public Scenario convertScenario(Object aScenario) {
 		Scenario scenario = new Scenario();
+		UMLScenario umlScenario = (UMLScenario) aScenario;
+
 		scenario.setName(umlScenario.getName());
 
 		for (UMLObjectSpecification umlObjectSpecification : umlScenario.getObjects()) {
-			ObjectSpecification objectSpecification = convertValue(umlObjectSpecification);
+			ObjectSpecification objectSpecification = (ObjectSpecification) convertValue(umlObjectSpecification);
 			objectSpecification.setContainer(scenario);
 			scenario.addObject(objectSpecification);
 		}
@@ -127,24 +130,28 @@ public class UmlTestConverter implements TestConverter {
 		return scenario;
 	}
 
-	private TestCase convertTestCase(UMLTestCase umlTestCase) {
+	@Override
+	public TestCase convertTestCase(Object aTestCase) {
 		TestCase testCase = new TestCase();
+		UMLTestCase umlTestCase = (UMLTestCase) aTestCase;
+
 		Activity activityUT = modelConverter.convertActivity(umlTestCase.getActivityUnderTest());
 
 		testCase.setName(umlTestCase.getName());
 		testCase.setActivityUnderTest(activityUT);
 
 		if (umlTestCase.getContextObject() != null) {
-			testCase.setContextObject(convertValue(umlTestCase.getContextObject()));
+			testCase.setContextObject((ObjectSpecification) convertValue(umlTestCase.getContextObject()));
 		}
 
 		for (UMLActivityInput umlActivityInput : umlTestCase.getInputs()) {
 			ActivityInput activityInput = new ActivityInput();
 			activityInput.setParameter(modelConverter.convertActivityParameterNode(umlActivityInput.getParameter()));
 			if (umlActivityInput.getValue() instanceof UMLSimpleValue) {
-				activityInput.setValue(convertValue((UMLSimpleValue) umlActivityInput.getValue()));
+				activityInput.setValue((Value) convertValue((UMLSimpleValue) umlActivityInput.getValue()));
 			} else if (umlActivityInput.getValue() instanceof UMLObjectValue) {
-				ObjectValue objectValue = new ObjectValue(convertValue(((UMLObjectValue) umlActivityInput.getValue()).getValue()));
+				ObjectValue objectValue = new ObjectValue(
+						(ObjectSpecification) convertValue(((UMLObjectValue) umlActivityInput.getValue()).getValue()));
 				activityInput.setValue(objectValue);
 			}
 			testCase.addInput(activityInput);
@@ -152,17 +159,17 @@ public class UmlTestConverter implements TestConverter {
 
 		for (UMLAssertion umlAssertion : umlTestCase.getAssertions()) {
 			if (umlAssertion instanceof UMLOrderAssertion) {
-				OrderAssertion assertion = convertAssertion((UMLOrderAssertion) umlAssertion);
+				OrderAssertion assertion = (OrderAssertion) convertAssertion(umlAssertion);
 				assertion.setContainer(testCase);
 				testCase.addAssertion(assertion);
 			}
 			if (umlAssertion instanceof UMLStateAssertion) {
-				StateAssertion assertion = convertAssertion((UMLStateAssertion) umlAssertion);
+				StateAssertion assertion = (StateAssertion) convertAssertion(umlAssertion);
 				assertion.setContainer(testCase);
 				testCase.addAssertion(assertion);
 			}
 			if (umlAssertion instanceof UMLFinallyStateAssertion) {
-				FinallyStateAssertion assertion = convertAssertion((org.modelexecution.fumltesting.uml.umlTestLang.FinallyStateAssertion) umlAssertion);
+				FinallyStateAssertion assertion = (FinallyStateAssertion) convertAssertion(umlAssertion);
 				assertion.setContainer(testCase);
 				testCase.addAssertion(assertion);
 			}
@@ -171,82 +178,139 @@ public class UmlTestConverter implements TestConverter {
 		return testCase;
 	}
 
-	private Value convertValue(UMLSimpleValue umlSimpleValue) {
-		if (umlSimpleValue.getValue() instanceof XNullLiteral) {
-			return new NullValue();
-		}
-		if (umlSimpleValue.getValue() instanceof XStringLiteral) {
-			StringValue stringValue = new StringValue();
-			stringValue.setValue(((XStringLiteral) umlSimpleValue.getValue()).getValue());
-			return stringValue;
-		} else if (umlSimpleValue.getValue() instanceof XNumberLiteral) {
-			String value = ((XNumberLiteral) umlSimpleValue.getValue()).getValue();
-			if (value.contains(".")) {
-				DoubleValue doubleValue = new DoubleValue();
-				doubleValue.setValue(Double.parseDouble(value));
-				return doubleValue;
-			} else {
-				IntegerValue integerValue = new IntegerValue();
-				integerValue.setValue(Integer.parseInt(value));
-				return integerValue;
+	@Override
+	public Object convertValue(Object aValue) {
+		if (aValue instanceof UMLSimpleValue) {
+			UMLSimpleValue umlSimpleValue = (UMLSimpleValue) aValue;
+
+			if (umlSimpleValue.getValue() instanceof XNullLiteral) {
+				return new NullValue();
 			}
-		} else if (umlSimpleValue.getValue() instanceof XBooleanLiteral) {
-			BooleanValue booleanValue = new BooleanValue();
-			booleanValue.setValue(((XBooleanLiteral) umlSimpleValue.getValue()).isIsTrue());
-			return booleanValue;
+			if (umlSimpleValue.getValue() instanceof XStringLiteral) {
+				StringValue stringValue = new StringValue();
+				stringValue.setValue(((XStringLiteral) umlSimpleValue.getValue()).getValue());
+				return stringValue;
+			} else if (umlSimpleValue.getValue() instanceof XNumberLiteral) {
+				String value = ((XNumberLiteral) umlSimpleValue.getValue()).getValue();
+				if (value.contains(".")) {
+					DoubleValue doubleValue = new DoubleValue();
+					doubleValue.setValue(Double.parseDouble(value));
+					return doubleValue;
+				} else {
+					IntegerValue integerValue = new IntegerValue();
+					integerValue.setValue(Integer.parseInt(value));
+					return integerValue;
+				}
+			} else if (umlSimpleValue.getValue() instanceof XBooleanLiteral) {
+				BooleanValue booleanValue = new BooleanValue();
+				booleanValue.setValue(((XBooleanLiteral) umlSimpleValue.getValue()).isIsTrue());
+				return booleanValue;
+			}
+		} else if (aValue instanceof UMLObjectSpecification) {
+			UMLObjectSpecification umlObjectSpecification = (UMLObjectSpecification) aValue;
+
+			for (UMLObjectSpecification key : mappedObjects.keySet()) {
+				if (key == umlObjectSpecification)
+					return mappedObjects.get(key);
+			}
+			ObjectSpecification objectSpecification = new ObjectSpecification(null);
+
+			objectSpecification.setName(umlObjectSpecification.getName());
+			objectSpecification.setType(modelConverter.convertClass(umlObjectSpecification.getType()));
+
+			for (UMLAttribute umlAttribute : umlObjectSpecification.getAttributes()) {
+				Attribute attribute = new Attribute();
+				attribute.setProperty(modelConverter.convertProperty(umlAttribute.getAtt()));
+				if (umlAttribute.getValue() instanceof UMLObjectValue) {
+					ObjectSpecification value = (ObjectSpecification) convertValue(((UMLObjectValue) umlAttribute.getValue()).getValue());
+					attribute.setValue(new ObjectValue(value));
+				} else if (umlAttribute.getValue() instanceof UMLSimpleValue) {
+					attribute.setValue((Value) convertValue((UMLSimpleValue) umlAttribute.getValue()));
+				}
+
+				objectSpecification.addAttribute(attribute);
+			}
+
+			mappedObjects.put(umlObjectSpecification, objectSpecification);
+			return objectSpecification;
 		}
 		return null;
 	}
 
-	private ObjectSpecification convertValue(UMLObjectSpecification umlObjectSpecification) {
-		for (UMLObjectSpecification key : mappedObjects.keySet()) {
-			if (key == umlObjectSpecification)
-				return mappedObjects.get(key);
-		}
-		ObjectSpecification objectSpecification = new ObjectSpecification(null);
-
-		objectSpecification.setName(umlObjectSpecification.getName());
-		objectSpecification.setType(modelConverter.convertClass(umlObjectSpecification.getType()));
-
-		for (UMLAttribute umlAttribute : umlObjectSpecification.getAttributes()) {
-			Attribute attribute = new Attribute();
-			attribute.setProperty(modelConverter.convertProperty(umlAttribute.getAtt()));
-			if (umlAttribute.getValue() instanceof UMLObjectValue) {
-				ObjectSpecification value = convertValue(((UMLObjectValue) umlAttribute.getValue()).getValue());
-				attribute.setValue(new ObjectValue(value));
-			} else if (umlAttribute.getValue() instanceof UMLSimpleValue) {
-				attribute.setValue(convertValue((UMLSimpleValue) umlAttribute.getValue()));
-			}
-
-			objectSpecification.addAttribute(attribute);
-		}
-
-		mappedObjects.put(umlObjectSpecification, objectSpecification);
-		return objectSpecification;
-	}
-
-	private Link convertLink(UMLLink umlLink) {
+	@Override
+	public Link convertLink(Object aLink) {
 		Link link = new Link();
+		UMLLink umlLink = (UMLLink) aLink;
 
 		link.setAssociation(modelConverter.convertAssociation(umlLink.getAssoc()));
 
 		link.setSourceProperty(modelConverter.convertProperty(umlLink.getSourceProperty()));
-		link.setSourceValue(convertValue(umlLink.getSourceValue()));
+		link.setSourceValue((ObjectSpecification) convertValue(umlLink.getSourceValue()));
 
 		link.setTargetProperty(modelConverter.convertProperty(umlLink.getTargetProperty()));
-		link.setTargetValue(convertValue(umlLink.getTargetValue()));
+		link.setTargetValue((ObjectSpecification) convertValue(umlLink.getTargetValue()));
 
 		return link;
 	}
 
-	private OrderAssertion convertAssertion(UMLOrderAssertion umlOrderAssertion) {
-		OrderAssertion orderAssertion = new OrderAssertion();
-		orderAssertion.setOrder(convertNodeOrder(umlOrderAssertion.getOrder()));
-		return orderAssertion;
+	@Override
+	public Assertion convertAssertion(Object anAssertion) {
+		if (anAssertion instanceof UMLOrderAssertion) {
+			OrderAssertion orderAssertion = new OrderAssertion();
+			UMLOrderAssertion umlOrderAssertion = (UMLOrderAssertion) anAssertion;
+			orderAssertion.setOrder(convertNodeOrder(umlOrderAssertion.getOrder()));
+			return orderAssertion;
+		} else if (anAssertion instanceof UMLStateAssertion) {
+			StateAssertion stateAssertion = new StateAssertion();
+			UMLStateAssertion umlStateAssertion = (UMLStateAssertion) anAssertion;
+
+			switch (umlStateAssertion.getOperator()) {
+			case AFTER:
+				stateAssertion.setOperator(TemporalOperator.AFTER);
+				break;
+			case UNTIL:
+				stateAssertion.setOperator(TemporalOperator.UNTIL);
+				break;
+			}
+
+			switch (umlStateAssertion.getQuantifier()) {
+			case ALWAYS:
+				stateAssertion.setQuantifier(TemporalQuantifier.ALWAYS);
+				break;
+			case EVENTUALLY:
+				stateAssertion.setQuantifier(TemporalQuantifier.EVENTUALLY);
+				break;
+			case IMMEDIATELY:
+				stateAssertion.setQuantifier(TemporalQuantifier.IMMEDIATELY);
+				break;
+			case SOMETIMES:
+				stateAssertion.setQuantifier(TemporalQuantifier.SOMETIMES);
+				break;
+			}
+
+			stateAssertion.setReferencePoint(convertReferencePoint(umlStateAssertion.getReferencePoint()));
+			stateAssertion.setUntilPoint(convertReferencePoint(umlStateAssertion.getUntilPoint()));
+
+			for (UMLCheck umlCheck : umlStateAssertion.getChecks()) {
+				stateAssertion.addCheck(convertCheck(umlCheck));
+			}
+
+			return stateAssertion;
+		} else if (anAssertion instanceof org.modelexecution.fumltesting.uml.umlTestLang.FinallyStateAssertion) {
+			FinallyStateAssertion finallyStateAssertion = new FinallyStateAssertion();
+			org.modelexecution.fumltesting.uml.umlTestLang.FinallyStateAssertion umlFinallyStateAssertion = (org.modelexecution.fumltesting.uml.umlTestLang.FinallyStateAssertion) anAssertion;
+			for (UMLCheck umlCheck : umlFinallyStateAssertion.getChecks()) {
+				finallyStateAssertion.addCheck(convertCheck(umlCheck));
+			}
+			return finallyStateAssertion;
+		}
+		return null;
 	}
 
-	private NodeOrder convertNodeOrder(UMLNodeOrder umlNodeOrder) {
+	@Override
+	public NodeOrder convertNodeOrder(Object aNodeOrder) {
 		NodeOrder nodeOrder = new NodeOrder();
+		UMLNodeOrder umlNodeOrder = (UMLNodeOrder) aNodeOrder;
 		for (UMLNodeSpecification umlNodeSpecification : umlNodeOrder.getNodes()) {
 			NodeSpecification nodeSpecification = new NodeSpecification();
 			nodeSpecification.setJoker(umlNodeSpecification.getJoker());
@@ -260,53 +324,11 @@ public class UmlTestConverter implements TestConverter {
 		return nodeOrder;
 	}
 
-	private StateAssertion convertAssertion(UMLStateAssertion umlStateAssertion) {
-		StateAssertion stateAssertion = new StateAssertion();
-
-		switch (umlStateAssertion.getOperator()) {
-		case AFTER:
-			stateAssertion.setOperator(TemporalOperator.AFTER);
-			break;
-		case UNTIL:
-			stateAssertion.setOperator(TemporalOperator.UNTIL);
-			break;
-		}
-
-		switch (umlStateAssertion.getQuantifier()) {
-		case ALWAYS:
-			stateAssertion.setQuantifier(TemporalQuantifier.ALWAYS);
-			break;
-		case EVENTUALLY:
-			stateAssertion.setQuantifier(TemporalQuantifier.EVENTUALLY);
-			break;
-		case IMMEDIATELY:
-			stateAssertion.setQuantifier(TemporalQuantifier.IMMEDIATELY);
-			break;
-		case SOMETIMES:
-			stateAssertion.setQuantifier(TemporalQuantifier.SOMETIMES);
-			break;
-		}
-
-		stateAssertion.setReferencePoint(convertReferencePoint(umlStateAssertion.getReferencePoint()));
-		stateAssertion.setUntilPoint(convertReferencePoint(umlStateAssertion.getUntilPoint()));
-
-		for (UMLCheck umlCheck : umlStateAssertion.getChecks()) {
-			stateAssertion.addCheck(convertCheck(umlCheck));
-		}
-
-		return stateAssertion;
-	}
-
-	private FinallyStateAssertion convertAssertion(org.modelexecution.fumltesting.uml.umlTestLang.FinallyStateAssertion umlFinallyStateAssertion) {
-		FinallyStateAssertion finallyStateAssertion = new FinallyStateAssertion();
-		for (UMLCheck umlCheck : umlFinallyStateAssertion.getChecks()) {
-			finallyStateAssertion.addCheck(convertCheck(umlCheck));
-		}
-		return finallyStateAssertion;
-	}
-
-	private Check convertCheck(UMLCheck umlCheck) {
+	@Override
+	public Check convertCheck(Object aCheck) {
 		Check check = null;
+		UMLCheck umlCheck = (UMLCheck) aCheck;
+
 		if (umlCheck instanceof UMLStateExpression) {
 			if (umlCheck instanceof UMLObjectStateExpression) {
 				check = new ObjectStateExpression();
@@ -317,9 +339,10 @@ public class UmlTestConverter implements TestConverter {
 			((StateExpression) check).setPin(modelConverter.convertPin(((UMLStateExpression) umlCheck).getPin()));
 
 			if (((UMLStateExpression) umlCheck).getValue() instanceof UMLSimpleValue) {
-				((StateExpression) check).setValue(convertValue((UMLSimpleValue) ((UMLStateExpression) umlCheck).getValue()));
+				((StateExpression) check).setValue((Value) convertValue((UMLSimpleValue) ((UMLStateExpression) umlCheck).getValue()));
 			} else if (((UMLStateExpression) umlCheck).getValue() instanceof UMLObjectValue) {
-				ObjectSpecification objectSpecification = convertValue(((UMLObjectValue) ((UMLStateExpression) umlCheck).getValue()).getValue());
+				ObjectSpecification objectSpecification = (ObjectSpecification) convertValue(((UMLObjectValue) ((UMLStateExpression) umlCheck)
+						.getValue()).getValue());
 				((StateExpression) check).setValue(new ObjectValue(objectSpecification));
 			}
 
@@ -360,7 +383,8 @@ public class UmlTestConverter implements TestConverter {
 		return check;
 	}
 
-	private ReferencePoint convertReferencePoint(UMLReferencePoint umlReferencePoint) {
+	@Override
+	public ReferencePoint convertReferencePoint(Object umlReferencePoint) {
 		ReferencePoint referencePoint = null;
 		if (umlReferencePoint instanceof UMLActionReferencePoint) {
 			referencePoint = new ActionReferencePoint();

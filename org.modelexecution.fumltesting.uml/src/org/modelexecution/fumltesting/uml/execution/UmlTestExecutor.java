@@ -201,7 +201,7 @@ public class UmlTestExecutor {
 			assertionPrinter.print(testCase);
 			Activity activity = testCase.getActivityUnderTest();
 
-			testDataConverter.cleanUp();
+			testDataConverter.cleanUpAndInit(convertedSuite);
 
 			boolean requiresContext = false;
 			for (ActivityNode node : activity.node) {
@@ -214,14 +214,19 @@ public class UmlTestExecutor {
 			HashMap<ActivityParameterNode, Object> inputValues = new HashMap<ActivityParameterNode, Object>();
 			for (ActivityInput input : testCase.getAllInputs()) {
 				ActivityParameterNode parameter = input.getParameter();
-				Object value = testDataConverter.getFUMLElement(input.getValue());
+				Object value = null;
+				if (input.getValue() instanceof ObjectValue) {
+					value = testDataConverter.getFumlObject((ObjectValue) input.getValue());
+				} else {
+					value = testDataConverter.getFumlValue(input.getValue());
+				}
 				inputValues.put(parameter, value);
 			}
 
 			if (testCase.getContextObject() != null) {
 				ObjectValue contextValue = new ObjectValue(null);
 				contextValue.setValue(testCase.getContextObject());
-				Object_ contextObject = (Object_) testDataConverter.getFUMLElement(contextValue);
+				Object_ contextObject = (Object_) testDataConverter.getFumlObject(contextValue);
 				mainActivityExecutionID = executor.executeActivity(activity, inputValues, contextObject);
 			} else {
 				if (requiresContext) {
