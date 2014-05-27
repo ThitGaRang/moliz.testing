@@ -29,7 +29,6 @@ import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Type;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.Scopes;
-import org.eclipse.xtext.uml.UmlQualifiedNameProvider;
 import org.eclipse.xtext.xbase.scoping.XbaseScopeProvider;
 import org.modelexecution.fumltesting.testLang.UMLActionReferencePoint;
 import org.modelexecution.fumltesting.testLang.UMLAttribute;
@@ -43,6 +42,7 @@ import org.modelexecution.fumltesting.testLang.UMLScenario;
 import org.modelexecution.fumltesting.testLang.UMLStateAssertion;
 import org.modelexecution.fumltesting.testLang.UMLTestCase;
 import org.modelexecution.fumltesting.testLang.UMLTestSuite;
+import org.modelexecution.fumltesting.xtext.UmlQualifiedNameProvider;
 
 /**
  * Utility class for scoping in TestLang editor.

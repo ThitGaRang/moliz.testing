@@ -18,7 +18,7 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.Output;
 import org.modelexecution.fumldebug.core.trace.tracemodel.OutputParameterSetting;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot;
-import org.modelexecution.fumltesting.core.convert.UmlTestDataConverter;
+import org.modelexecution.fumltesting.core.convert.TestDataConverter;
 import org.modelexecution.fumltesting.core.exceptions.ActionNotExecutedException;
 import org.modelexecution.fumltesting.core.exceptions.ConstraintNotFoundException;
 import org.modelexecution.fumltesting.core.execution.OclExecutor;
@@ -68,7 +68,7 @@ import fUML.Syntax.Classes.Kernel.Property;
  * 
  */
 public class StateAssertionValidator {
-	private UmlTestDataConverter testDataConverter;
+	private TestDataConverter testDataConverter;
 	private TraceUtil traceUtil;
 	private SnapshotUtil snapshotUtil;
 	private List<ValueSnapshot> relevantSnapshots;
@@ -78,7 +78,7 @@ public class StateAssertionValidator {
 
 	private AssertionPrinter assertionPrinter;
 
-	public StateAssertionValidator(TraceUtil traceUtil, UmlTestDataConverter testDataConverter) {
+	public StateAssertionValidator(TraceUtil traceUtil, TestDataConverter testDataConverter) {
 		this.testDataConverter = testDataConverter;
 		this.traceUtil = traceUtil;
 		snapshotUtil = new SnapshotUtil(traceUtil);

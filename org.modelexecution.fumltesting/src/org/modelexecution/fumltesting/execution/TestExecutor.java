@@ -22,7 +22,6 @@ import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.resource.UMLResource;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
-import org.eclipse.xtext.uml.UmlSupport;
 import org.junit.Test;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.KernelFactory;
 import org.modelexecution.fumltesting.TestLangStandaloneSetup;
@@ -32,7 +31,7 @@ import org.modelexecution.fumltesting.core.assertions.OrderAssertionValidator;
 import org.modelexecution.fumltesting.core.assertions.StateAssertionValidator;
 import org.modelexecution.fumltesting.core.convert.FumlConverter;
 import org.modelexecution.fumltesting.core.convert.TestConverter;
-import org.modelexecution.fumltesting.core.convert.UmlTestDataConverter;
+import org.modelexecution.fumltesting.core.convert.TestDataConverter;
 import org.modelexecution.fumltesting.core.execution.ActivityExecutor;
 import org.modelexecution.fumltesting.core.execution.OclExecutor;
 import org.modelexecution.fumltesting.core.execution.ResultsWriter;
@@ -49,6 +48,7 @@ import org.modelexecution.fumltesting.core.testlang.TestCase;
 import org.modelexecution.fumltesting.core.testlang.TestSuite;
 import org.modelexecution.fumltesting.core.trace.TraceUtil;
 import org.modelexecution.fumltesting.testLang.UMLTestSuite;
+import org.modelexecution.fumltesting.xtext.UmlSupport;
 
 import tudresden.ocl20.pivot.parser.ParseException;
 
@@ -76,7 +76,7 @@ public class TestExecutor {
 	private ActivityExecutor executor;
 	private FumlConverter fumlConverter;
 	private OclExecutor oclExecutor;
-	private UmlTestDataConverter testDataConverter;
+	private TestDataConverter testDataConverter;
 	private TraceUtil traceUtil;
 
 	private OrderAssertionValidator orderAssertionValidator;
@@ -94,14 +94,14 @@ public class TestExecutor {
 	private String primitivesPath = "../../moliz/org.modelexecution.fumldebug.standardlibrary/library/uml_library.uml";
 	private String oclPath = "../org.modelexecution.fumltesting.examples/model/webstore/webstore.ocl";
 	
-	private String selectedTest = "primitiveBehaviors.fumltest";
+	private String selectedTest = "newProduct.fumltest";
 
 	private AssertionPrinter assertionPrinter;
 
 	private void setup(String testLocation) throws Exception {
 		fumlConverter = new FumlConverter();
 		executor = new ActivityExecutor();
-		testDataConverter = new UmlTestDataConverter();
+		testDataConverter = new TestDataConverter();
 		assertionPrinter = new AssertionPrinter();
 
 		new UmlSupport().registerServices(true);

@@ -4,19 +4,15 @@
  * available under the terms of the Eclipse Public License v1.0 which accompanies 
  * this distribution, and is available at http://www.eclipse.org/legal/epl-v10.html 
  */
-package org.eclipse.xtext.uml;
+package org.modelexecution.fumltesting.xtext;
 
-import org.eclipse.xtext.resource.generic.AbstractGenericResourceSupport;
-import com.google.inject.Module;
+import org.eclipse.xtext.resource.impl.DefaultResourceDescriptionStrategy;
 
 /**
  * 
  * @author Stefan Mijatov
  * 
  */
-public class UmlSupport extends AbstractGenericResourceSupport {
-	@Override
-	protected Module createGuiceModule() {
-		return new UmlRuntimeModule();
-	}
+public class UmlResourceDescriptionStrategy extends DefaultResourceDescriptionStrategy {
+
 }

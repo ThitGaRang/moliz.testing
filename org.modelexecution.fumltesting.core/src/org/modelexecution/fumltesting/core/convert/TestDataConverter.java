@@ -35,7 +35,7 @@ import fUML.Syntax.Classes.Kernel.Property;
  * @author Stefan Mijatov
  * 
  */
-public class UmlTestDataConverter {
+public class TestDataConverter {
 
 	private Locus locus = ExecutionContext.getInstance().getLocus();
 	private HashMap<Object, Object> fumlElements = new HashMap<Object, Object>();
