@@ -162,7 +162,7 @@ public class StateAssertionValidator {
 		return result;
 	}
 
-	public StateAssertionResult check(org.modelexecution.fumltesting.core.testlang.FinallyStateAssertion assertion) {
+	public StateAssertionResult check(org.modelexecution.fumltesting.core.testlang.FinallyStateAssertion assertion) throws ActionNotExecutedException{
 		System.out.println("Finally state assertion validation..");
 		StateAssertion stateAssertion = new StateAssertion();
 

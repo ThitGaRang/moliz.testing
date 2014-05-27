@@ -30,6 +30,6 @@ test greaterOrEqualsTest activity GreaterOrEqualsActivity(GreaterOrEqualsActivit
 	finally {GreaterOrEqualsActivity.result = true;}
 }
 
-test lessOrEqualsTest activity LessOrEqualsActivity(GreaterOrEqualsActivity.valueX=3, GreaterOrEqualsActivity.valueY=2){
-	finally {GreaterOrEqualsActivity.result = false;}
+test lessOrEqualsTest activity LessOrEqualsActivity(LessOrEqualsActivity.valueX=3, LessOrEqualsActivity.valueY=2){
+	finally {LessOrEqualsActivity.result = false;}
 }

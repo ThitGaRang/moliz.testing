@@ -216,8 +216,10 @@ public class TraceUtil {
 		return untilActionExecution;
 	}
 
-	public fUML.Syntax.Activities.IntermediateActivities.ActivityNode getLastExecutedAction() {
+	public fUML.Syntax.Activities.IntermediateActivities.ActivityNode getLastExecutedAction() throws ActionNotExecutedException {
 		ActivityNodeExecution lastNodeExecution = trace.getLastActivityNodeExecution();
+		if (lastNodeExecution == null)
+			throw new ActionNotExecutedException("No action has been executed within the Activity!");
 		ActivityNodeExecution lastActionExecution = lastAction(lastNodeExecution);
 		return lastActionExecution.getNode();
 	}
@@ -297,12 +299,11 @@ public class TraceUtil {
 		}
 	}
 
-	private ActivityNodeExecution lastAction(ActivityNodeExecution lastNode) {
+	private ActivityNodeExecution lastAction(ActivityNodeExecution lastNode) throws ActionNotExecutedException {
 		if (lastNode.getNode() instanceof fUML.Syntax.Actions.BasicActions.Action)
 			return lastNode;
 		if (lastNode.getChronologicalPredecessor() == null) {
-			System.out.println("No action in the trace found!");
-			return null;
+			throw new ActionNotExecutedException("No action has been executed within the Activity!");
 		}
 		return lastAction(lastNode.getChronologicalPredecessor());
 	}

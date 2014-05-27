@@ -30,10 +30,12 @@ import org.modelexecution.fumltesting.core.assertions.StateAssertionValidator;
 import org.modelexecution.fumltesting.core.convert.FumlConverter;
 import org.modelexecution.fumltesting.core.convert.TestConverter;
 import org.modelexecution.fumltesting.core.convert.TestDataConverter;
+import org.modelexecution.fumltesting.core.exceptions.ActionNotExecutedException;
 import org.modelexecution.fumltesting.core.execution.ActivityExecutor;
 import org.modelexecution.fumltesting.core.execution.OclExecutor;
 import org.modelexecution.fumltesting.core.execution.ResultsWriter;
 import org.modelexecution.fumltesting.core.results.AssertionResult;
+import org.modelexecution.fumltesting.core.results.StateAssertionResult;
 import org.modelexecution.fumltesting.core.results.TestCaseResult;
 import org.modelexecution.fumltesting.core.results.TestSuiteResult;
 import org.modelexecution.fumltesting.core.testlang.ActivityInput;
@@ -260,7 +262,13 @@ public class UmlTestExecutor {
 					else
 						System.out.println("Assertion failed!");
 				} else if (assertion instanceof FinallyStateAssertion) {
-					result = stateAssertionValidator.check((FinallyStateAssertion) assertion);
+					try {
+						result = stateAssertionValidator.check((FinallyStateAssertion) assertion);
+					} catch (ActionNotExecutedException e) {
+						result = new StateAssertionResult(assertion);
+						result.setError(e.getMessage());
+						System.out.println(e.getMessage());
+					}
 				} else if (assertion instanceof StateAssertion) {
 					result = stateAssertionValidator.check((StateAssertion) assertion);
 				}

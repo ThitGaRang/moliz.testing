@@ -72,12 +72,12 @@ public class TestDataConverter {
 		for (Scenario scenario : suite.getAllScenarios()) {
 			for (ObjectSpecification object : scenario.getAllObjects()) {
 				ObjectValue objectValue = new ObjectValue(object);
-				fumlElements.put(object, getFUMLElement(objectValue));
+				fumlElements.put(object, convertObject(objectValue));
 			}
 		}
 	}
 
-	private Object_ getFUMLElement(ObjectValue value) {
+	private Object_ convertObject(ObjectValue value) {
 		if (fumlElements.containsKey(value))
 			return fumlElements.get(value);
 
@@ -134,7 +134,7 @@ public class TestDataConverter {
 				targetValue.feature = targetPropertyFuml;
 				ObjectValue objectValueTarget = new ObjectValue(null);
 				objectValueTarget.setValue(link.getTargetValue());
-				Object_ targetObject_ = (Object_) getFUMLElement(objectValueTarget);
+				Object_ targetObject_ = (Object_) convertObject(objectValueTarget);
 				Reference targetReference = new Reference();
 				targetReference.referent = targetObject_;
 				targetValue.values.add(targetReference);
