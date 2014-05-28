@@ -32,6 +32,7 @@ import org.eclipse.xtext.scoping.Scopes;
 import org.eclipse.xtext.xbase.scoping.XbaseScopeProvider;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLActionReferencePoint;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLAttribute;
+import org.modelexecution.fumltesting.uml.umlTestLang.UMLFinallyStateAssertion;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLLink;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLNodeOrder;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLNodeSpecification;
@@ -54,7 +55,7 @@ public class UmlTestLangScopeProvider extends XbaseScopeProvider {
 	public IScope getScope(EObject context, EReference reference) {
 
 		/** STATE ASSERTION PIN SCOPE */
-		if (context instanceof UMLStateAssertion && reference.getName().equals("pin")) {
+		if ((context instanceof UMLStateAssertion || context instanceof UMLFinallyStateAssertion) && reference.getName().equals("pin")) {
 			Activity activity = (Activity) ((UMLTestCase) context.eContainer()).getActivityUnderTest();
 			List<ObjectNode> nodes = new ArrayList<ObjectNode>();
 			for (ActivityNode node : activity.getNodes()) {
