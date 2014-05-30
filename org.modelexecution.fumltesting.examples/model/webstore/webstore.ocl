@@ -8,13 +8,14 @@ inv NumberOfProducts: Product.allInstances()->size() = 1
 
 inv ProductName: name = 'testProduct'
 inv ProductCode: code = 12345
-inv ProductAvailable: available = true
+inv ProductAvailable: available = not false
 
 inv ProductNameNotSet: name = null
 inv ProductCodeNotSet: code = null
 inv ProductAvailableNotSet: available = null
 
-inv Strange: ((name.size() * 2) - 2 ) / 20 = 1 --testing arithmetic operators in combination with size operation of String type
+inv Strange: ((name.size() * 2) - 2 ) / 20 = 1
+inv ProductNameForAll: Product.allInstances()->forAll(p:Product|p.name='testProduct')
 
 context Item
 

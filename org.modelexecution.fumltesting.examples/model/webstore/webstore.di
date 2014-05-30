@@ -65,6 +65,9 @@
         <children>
           <emfPageIdentifier href="webstore.notation#_uEXaUM7NEeOsIp-CXE5V2Q"/>
         </children>
+        <children>
+          <emfPageIdentifier href="webstore.notation#_oAuDoOGWEeOF2o7skBj1xg"/>
+        </children>
       </children>
     </windows>
   </sashModel>

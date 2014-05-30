@@ -51,17 +51,15 @@ public class SequenceGenerator {
 		this.trace = trace;
 		this.sequenceTrace = SequenceFactory.eINSTANCE.createSequenceTrace();
 		for (ActivityExecution activityExecution : trace.getActivityExecutions()) {
-			Sequence sequence = createSequence(activityExecution);
 			boolean alreadyAdded = false;
-			for (Sequence theSequence : this.sequenceTrace.getSequences()) {
-				if (theSequence.getActivityExecution().getActivity() == sequence.getActivityExecution().getActivity()) {
+			for (Sequence sequence : sequenceTrace.getSequences()) {
+				if (sequence.getActivityExecution() == activityExecution)
 					alreadyAdded = true;
-					break;
-				}
 			}
-			if (alreadyAdded == false) {
-				this.sequenceTrace.getSequences().add(sequence);
+			if (alreadyAdded) {
+				break;
 			}
+			createSequence(activityExecution);
 		}
 		return this.sequenceTrace;
 	}
@@ -69,6 +67,7 @@ public class SequenceGenerator {
 	private Sequence createSequence(ActivityExecution activityExecution) {
 		Sequence sequence = SequenceFactory.eINSTANCE.createSequence();
 		sequence.setActivityExecution(activityExecution);
+		sequenceTrace.getSequences().add(sequence);
 		ActivityNodeExecution initial = null;
 		for (ActivityNodeExecution nodeExecution : activityExecution.getNodeExecutions()) {
 			if (nodeExecution.getLogicalPredecessor().size() == 0) {
@@ -244,16 +243,28 @@ public class SequenceGenerator {
 				}
 				if (calledActionSequence != null) {
 					State lastStateOfCalled = calledActionSequence.lastState();
-					State state = SequenceFactory.eINSTANCE.createState();
-					state.setNodeExecution(nodeExecution);
+					State state = createNewState(sequence, nodeExecution);
 					state.getObjects().addAll(lastStateOfCalled.getObjects());
 					state.getLinks().addAll(lastStateOfCalled.getLinks());
-					sequence.addState(state);
 				}
 			}
 		}
-		if (nodeExecution.getChronologicalSuccessor() != null)
-			completeSequence(nodeExecution.getChronologicalSuccessor(), sequence);
+		if (nodeExecution.getChronologicalSuccessor() != null) {
+			ActivityNodeExecution successor = getNextChronologicalSuccessorAtSameLevel(nodeExecution, sequence.getActivityExecution());
+			if (successor != null)
+				completeSequence(successor, sequence);
+		}
+	}
+
+	private ActivityNodeExecution getNextChronologicalSuccessorAtSameLevel(ActivityNodeExecution nodeExecution, ActivityExecution activityExecution) {
+		if (nodeExecution.getChronologicalSuccessor() != null) {
+			if (nodeExecution.getChronologicalSuccessor().getActivityExecution() == activityExecution) {
+				return nodeExecution.getChronologicalSuccessor();
+			} else {
+				return getNextChronologicalSuccessorAtSameLevel(nodeExecution.getChronologicalSuccessor(), activityExecution);
+			}
+		}
+		return null;
 	}
 
 	private State createNewState(Sequence sequence, ActivityNodeExecution creatorNode) {

@@ -13,9 +13,9 @@ test multiplicationTest activity MultiplyActivity(MultiplyActivity.valueX=3, Mul
 	finally {MultiplyActivity.result = 6;}
 }
 
-//test divisionTest activity DivideActivity(DivideActivity.valueX=3, DivideActivity.valueY=2){
-//	finally {DivideActivity.result = 1.5;}
-//}
+test divisionTest activity DivideActivity(DivideActivity.valueX=3, DivideActivity.valueY=2){
+	finally {DivideActivity.result = 1.5;}
+}
 
 // logical operations
 test greaterTest activity GreaterActivity(GreaterActivity.valueX=3, GreaterActivity.valueY=2){

@@ -2405,7 +2405,7 @@
         <layoutConstraint xmi:type="notation:Location" xmi:id="_u_yQ4eZfEeO23ISryXoHsw" x="-20" y="-60"/>
       </children>
       <children xmi:type="notation:DecorationNode" xmi:id="_u_yQ4uZfEeO23ISryXoHsw" type="6007">
-        <layoutConstraint xmi:type="notation:Location" xmi:id="_u_yQ4-ZfEeO23ISryXoHsw" y="-20"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_u_yQ4-ZfEeO23ISryXoHsw" x="-6" y="-41"/>
       </children>
       <children xmi:type="notation:DecorationNode" xmi:id="_u_yQ5OZfEeO23ISryXoHsw" visible="false" type="6008">
         <layoutConstraint xmi:type="notation:Location" xmi:id="_u_yQ5eZfEeO23ISryXoHsw" y="20"/>
