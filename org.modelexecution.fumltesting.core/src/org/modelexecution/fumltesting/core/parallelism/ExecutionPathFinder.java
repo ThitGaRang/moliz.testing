@@ -125,14 +125,9 @@ public class ExecutionPathFinder {
 
 	/** Checks if the path was already added to the generated paths. */
 	private boolean pathAlreadyAdded(LinkedList<ExecutionGraphNode> path) {
-		outer: for (LinkedList<ExecutionGraphNode> aPath : paths) {
-			if (aPath.size() == path.size()) {
-				for (int i = 0; i < aPath.size(); i++) {
-					if (aPath.get(i).getData().getNode() != path.get(i).getData().getNode())
-						continue outer;
-				}
+		for (LinkedList<ExecutionGraphNode> aPath : paths) {
+			if (aPath.equals(path))
 				return true;
-			}
 		}
 		return false;
 	}

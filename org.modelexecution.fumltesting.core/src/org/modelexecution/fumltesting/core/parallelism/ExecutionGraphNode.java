@@ -58,4 +58,14 @@ public class ExecutionGraphNode {
 		}
 		return false;
 	}
+
+	@Override
+	public boolean equals(Object node) {
+		if (node instanceof ExecutionGraphNode) {
+			ExecutionGraphNode aNode = (ExecutionGraphNode) node;
+			return getData().equals(aNode.getData());
+		} else {
+			return false;
+		}
+	}
 }
