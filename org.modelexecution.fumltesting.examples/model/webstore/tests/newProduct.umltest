@@ -17,46 +17,46 @@ test newProductTest activity NewProductActivity(NewProductActivity.name="testPro
 	}
 	assertState eventually after action NewProductActivity.createProduct{
 		NewProductActivity.product != null;
-		NewProductActivity.product::available = true;
-		NewProductActivity.product::name = "testProduct";
-		NewProductActivity.product::code = 12345;
+		NewProductActivity.product::Product.available = true;
+		NewProductActivity.product::Product.name = "testProduct";
+		NewProductActivity.product::Product.code = 12345;
 		
 		check 'ProductCreated', 'NumberOfProducts', 'ProductAvailable', 'ProductName', 'ProductCode';
 	}
 	assertState eventually after constraint 'ProductCreated'{
 		NewProductActivity.product != null;
-		NewProductActivity.product::available = true;
-		NewProductActivity.product::name = "testProduct";
-		NewProductActivity.product::code = 12345;
+		NewProductActivity.product::Product.available = true;
+		NewProductActivity.product::Product.name = "testProduct";
+		NewProductActivity.product::Product.code = 12345;
 		
 		check 'ProductCreated', 'NumberOfProducts', 'ProductAvailable', 'ProductName', 'ProductCode';
 	}
 	assertState immediately after action NewProductActivity.createProduct{
 		NewProductActivity.product != null;
-		NewProductActivity.product::available = null;
-		NewProductActivity.product::name=null;
-		NewProductActivity.product::code=null;
+		NewProductActivity.product::Product.available = null;
+		NewProductActivity.product::Product.name=null;
+		NewProductActivity.product::Product.code=null;
 		
 		check 'NumberOfProducts', 'ProductAvailableNotSet', 'ProductNameNotSet', 'ProductCodeNotSet';
 	}
 	assertState immediately after constraint 'ProductCreated'{
 		NewProductActivity.product != null;
-		NewProductActivity.product::available = null;
-		NewProductActivity.product::name=null;
-		NewProductActivity.product::code=null;
+		NewProductActivity.product::Product.available = null;
+		NewProductActivity.product::Product.name=null;
+		NewProductActivity.product::Product.code=null;
 		
 		check 'NumberOfProducts', 'ProductAvailableNotSet', 'ProductNameNotSet', 'ProductCodeNotSet';
 	}
 	assertState sometimes after action NewProductActivity.createProduct{
 		NewProductActivity.product != null;
 		
-		NewProductActivity.product::available = null;
-		NewProductActivity.product::name=null;
-		NewProductActivity.product::code=null;
+		NewProductActivity.product::Product.available = null;
+		NewProductActivity.product::Product.name=null;
+		NewProductActivity.product::Product.code=null;
 		
-		NewProductActivity.product::available = true;
-		NewProductActivity.product::name = "testProduct";
-		NewProductActivity.product::code = 12345;
+		NewProductActivity.product::Product.available = true;
+		NewProductActivity.product::Product.name = "testProduct";
+		NewProductActivity.product::Product.code = 12345;
 		
 		check 'ProductCreated', 'NumberOfProducts';
 		check 'ProductAvailableNotSet', 'ProductNameNotSet', 'ProductCodeNotSet';
@@ -65,13 +65,13 @@ test newProductTest activity NewProductActivity(NewProductActivity.name="testPro
 	assertState sometimes after constraint 'ProductCreated'{
 		NewProductActivity.product != null;
 		
-		NewProductActivity.product::available = null;
-		NewProductActivity.product::name=null;
-		NewProductActivity.product::code=null;
+		NewProductActivity.product::Product.available = null;
+		NewProductActivity.product::Product.name=null;
+		NewProductActivity.product::Product.code=null;
 		
-		NewProductActivity.product::available = true;
-		NewProductActivity.product::name = "testProduct";
-		NewProductActivity.product::code = 12345;
+		NewProductActivity.product::Product.available = true;
+		NewProductActivity.product::Product.name = "testProduct";
+		NewProductActivity.product::Product.code = 12345;
 		
 		check 'ProductCreated', 'NumberOfProducts';
 		check 'ProductAvailableNotSet', 'ProductNameNotSet', 'ProductCodeNotSet';
@@ -107,56 +107,56 @@ test newProductTest activity NewProductActivity(NewProductActivity.name="testPro
 	//action: setAvailable operator: after
 	assertState always after action NewProductActivity.setAvailable{
 		NewProductActivity.product != null;
-		NewProductActivity.product::available = true;
+		NewProductActivity.product::Product.available = true;
 		
 		check 'ProductCreated', 'NumberOfProducts', 'ProductAvailable';
 	}
 	assertState always after constraint 'ProductAvailable'{
 		NewProductActivity.product != null;
-		NewProductActivity.product::available = true;
+		NewProductActivity.product::Product.available = true;
 		
 		check 'ProductCreated', 'NumberOfProducts', 'ProductAvailable';
 	}
 	assertState eventually after action NewProductActivity.setAvailable{
 		NewProductActivity.product != null;
-		NewProductActivity.product::available = true;
-		NewProductActivity.product::name = "testProduct";
-		NewProductActivity.product::code = 12345;
+		NewProductActivity.product::Product.available = true;
+		NewProductActivity.product::Product.name = "testProduct";
+		NewProductActivity.product::Product.code = 12345;
 		
 		check 'ProductCreated', 'NumberOfProducts', 'ProductAvailable', 'ProductName', 'ProductCode';
 	}
 	assertState eventually after constraint 'ProductAvailable'{
 		NewProductActivity.product != null;
-		NewProductActivity.product::available = true;
-		NewProductActivity.product::name = "testProduct";
-		NewProductActivity.product::code = 12345;
+		NewProductActivity.product::Product.available = true;
+		NewProductActivity.product::Product.name = "testProduct";
+		NewProductActivity.product::Product.code = 12345;
 		
 		check 'ProductCreated', 'NumberOfProducts', 'ProductAvailable', 'ProductName', 'ProductCode';
 	}
 	assertState immediately after action NewProductActivity.setAvailable{
 		NewProductActivity.product != null;
-		NewProductActivity.product::available = true;
-		NewProductActivity.product::name = null;
-		NewProductActivity.product::code = null;
+		NewProductActivity.product::Product.available = true;
+		NewProductActivity.product::Product.name = null;
+		NewProductActivity.product::Product.code = null;
 		
 		check 'ProductCreated', 'NumberOfProducts', 'ProductAvailable', 'ProductNameNotSet', 'ProductCodeNotSet';
 	}
 	assertState immediately after constraint 'ProductAvailable'{
 		NewProductActivity.product != null;
-		NewProductActivity.product::available = true;
-		NewProductActivity.product::name = null;
-		NewProductActivity.product::code = null;
+		NewProductActivity.product::Product.available = true;
+		NewProductActivity.product::Product.name = null;
+		NewProductActivity.product::Product.code = null;
 		
 		check 'ProductCreated', 'NumberOfProducts', 'ProductAvailable', 'ProductNameNotSet', 'ProductCodeNotSet';
 	}
 	assertState sometimes after action NewProductActivity.setAvailable{
 		NewProductActivity.product != null;
-		NewProductActivity.product::available = true;
-		NewProductActivity.product::name = null;
-		NewProductActivity.product::code = null;
+		NewProductActivity.product::Product.available = true;
+		NewProductActivity.product::Product.name = null;
+		NewProductActivity.product::Product.code = null;
 		
-		NewProductActivity.product::name = "testProduct";
-		NewProductActivity.product::code = 12345;
+		NewProductActivity.product::Product.name = "testProduct";
+		NewProductActivity.product::Product.code = 12345;
 		
 		check 'ProductCreated', 'NumberOfProducts';
 		check 'ProductNameNotSet', 'ProductCodeNotSet';		
@@ -164,12 +164,12 @@ test newProductTest activity NewProductActivity(NewProductActivity.name="testPro
 	}
 	assertState sometimes after constraint 'ProductAvailable'{
 		NewProductActivity.product != null;
-		NewProductActivity.product::available = true;
-		NewProductActivity.product::name = null;
-		NewProductActivity.product::code = null;
+		NewProductActivity.product::Product.available = true;
+		NewProductActivity.product::Product.name = null;
+		NewProductActivity.product::Product.code = null;
 		
-		NewProductActivity.product::name = "testProduct";
-		NewProductActivity.product::code = 12345;
+		NewProductActivity.product::Product.name = "testProduct";
+		NewProductActivity.product::Product.code = 12345;
 		
 		check 'ProductCreated', 'NumberOfProducts';
 		check 'ProductNameNotSet', 'ProductCodeNotSet';		
@@ -178,84 +178,84 @@ test newProductTest activity NewProductActivity(NewProductActivity.name="testPro
 	
 	//action: setAvailable operator: until
 	assertState always until action NewProductActivity.setAvailable{
-		NewProductActivity.product::available = null;
-		NewProductActivity.product::name = null;
-		NewProductActivity.product::code = null;
+		NewProductActivity.product::Product.available = null;
+		NewProductActivity.product::Product.name = null;
+		NewProductActivity.product::Product.code = null;
 		
 		check 'ProductAvailableNotSet', 'ProductNameNotSet', 'ProductCodeNotSet';
 	}
 	assertState always until constraint 'ProductAvailable'{
-		NewProductActivity.product::available = null;
-		NewProductActivity.product::name = null;
-		NewProductActivity.product::code = null;
+		NewProductActivity.product::Product.available = null;
+		NewProductActivity.product::Product.name = null;
+		NewProductActivity.product::Product.code = null;
 		
 		check 'ProductAvailableNotSet', 'ProductNameNotSet', 'ProductCodeNotSet';
 	}
 	assertState always after action NewProductActivity.createProduct until action NewProductActivity.setAvailable{
-		NewProductActivity.product::available = null;
-		NewProductActivity.product::name = null;
-		NewProductActivity.product::code = null;
+		NewProductActivity.product::Product.available = null;
+		NewProductActivity.product::Product.name = null;
+		NewProductActivity.product::Product.code = null;
 		
 		check 'ProductAvailableNotSet', 'ProductNameNotSet', 'ProductCodeNotSet';
 	}
 	assertState always after action NewProductActivity.createProduct until constraint 'ProductAvailable'{
-		NewProductActivity.product::available = null;
-		NewProductActivity.product::name = null;
-		NewProductActivity.product::code = null;
+		NewProductActivity.product::Product.available = null;
+		NewProductActivity.product::Product.name = null;
+		NewProductActivity.product::Product.code = null;
 		
 		check 'ProductAvailableNotSet', 'ProductNameNotSet', 'ProductCodeNotSet';
 	}
 	assertState always after constraint 'ProductCreated' until action NewProductActivity.setAvailable{
-		NewProductActivity.product::available = null;
-		NewProductActivity.product::name = null;
-		NewProductActivity.product::code = null;
+		NewProductActivity.product::Product.available = null;
+		NewProductActivity.product::Product.name = null;
+		NewProductActivity.product::Product.code = null;
 		
 		check 'ProductAvailableNotSet', 'ProductNameNotSet', 'ProductCodeNotSet';
 	}
 	assertState always after constraint 'ProductCreated' until constraint 'ProductAvailable'{
-		NewProductActivity.product::available = null;
-		NewProductActivity.product::name = null;
-		NewProductActivity.product::code = null;
+		NewProductActivity.product::Product.available = null;
+		NewProductActivity.product::Product.name = null;
+		NewProductActivity.product::Product.code = null;
 		
 		check 'ProductAvailableNotSet', 'ProductNameNotSet', 'ProductCodeNotSet';
 	}
 	assertState eventually until action NewProductActivity.setAvailable{
 		NewProductActivity.product != null;
-		NewProductActivity.product::available = null;
-		NewProductActivity.product::name = null;
-		NewProductActivity.product::code = null;
+		NewProductActivity.product::Product.available = null;
+		NewProductActivity.product::Product.name = null;
+		NewProductActivity.product::Product.code = null;
 		
 		check 'ProductCreated', 'NumberOfProducts', 'ProductAvailableNotSet', 'ProductNameNotSet', 'ProductCodeNotSet';
 	}
 	assertState eventually until constraint 'ProductAvailable'{
 		NewProductActivity.product != null;
-		NewProductActivity.product::available = null;
-		NewProductActivity.product::name = null;
-		NewProductActivity.product::code = null;
+		NewProductActivity.product::Product.available = null;
+		NewProductActivity.product::Product.name = null;
+		NewProductActivity.product::Product.code = null;
 		
 		check 'ProductCreated', 'NumberOfProducts', 'ProductAvailableNotSet', 'ProductNameNotSet', 'ProductCodeNotSet';
 	}
 	assertState immediately until action NewProductActivity.setAvailable{
 		NewProductActivity.product != null;
-		NewProductActivity.product::available = null;
-		NewProductActivity.product::name = null;
-		NewProductActivity.product::code = null;
+		NewProductActivity.product::Product.available = null;
+		NewProductActivity.product::Product.name = null;
+		NewProductActivity.product::Product.code = null;
 		
 		check 'ProductCreated', 'NumberOfProducts', 'ProductAvailableNotSet', 'ProductNameNotSet', 'ProductCodeNotSet';
 	}
 	assertState immediately until constraint 'ProductAvailable'{
 		NewProductActivity.product != null;
-		NewProductActivity.product::available = null;
-		NewProductActivity.product::name = null;
-		NewProductActivity.product::code = null;
+		NewProductActivity.product::Product.available = null;
+		NewProductActivity.product::Product.name = null;
+		NewProductActivity.product::Product.code = null;
 		
 		check 'ProductCreated', 'NumberOfProducts', 'ProductAvailableNotSet', 'ProductNameNotSet', 'ProductCodeNotSet';
 	}
 	assertState sometimes until action NewProductActivity.setAvailable{
 		NewProductActivity.product != null;
-		NewProductActivity.product::available = null;
-		NewProductActivity.product::name = null;
-		NewProductActivity.product::code = null;
+		NewProductActivity.product::Product.available = null;
+		NewProductActivity.product::Product.name = null;
+		NewProductActivity.product::Product.code = null;
 		
 		NewProductActivity.product = null;
 		
@@ -263,9 +263,9 @@ test newProductTest activity NewProductActivity(NewProductActivity.name="testPro
 	}
 	assertState sometimes until constraint 'ProductAvailable'{
 		NewProductActivity.product != null;
-		NewProductActivity.product::available = null;
-		NewProductActivity.product::name = null;
-		NewProductActivity.product::code = null;
+		NewProductActivity.product::Product.available = null;
+		NewProductActivity.product::Product.name = null;
+		NewProductActivity.product::Product.code = null;
 		
 		NewProductActivity.product = null;
 		
@@ -275,68 +275,68 @@ test newProductTest activity NewProductActivity(NewProductActivity.name="testPro
 	//action: setName operator: after
 	assertState always after action NewProductActivity.setName{
 		NewProductActivity.product != null;
-		NewProductActivity.product::available = true;
-		NewProductActivity.product::name = "testProduct";
+		NewProductActivity.product::Product.available = true;
+		NewProductActivity.product::Product.name = "testProduct";
 		
 		check 'ProductCreated', 'NumberOfProducts', 'ProductAvailable', 'ProductName';
 	}
 	assertState always after constraint 'ProductName'{
 		NewProductActivity.product != null;
-		NewProductActivity.product::available = true;
-		NewProductActivity.product::name = "testProduct";
+		NewProductActivity.product::Product.available = true;
+		NewProductActivity.product::Product.name = "testProduct";
 		
 		check 'ProductCreated', 'NumberOfProducts', 'ProductAvailable', 'ProductName';
 	}
 	assertState eventually after action NewProductActivity.setName{
 		NewProductActivity.product != null;
-		NewProductActivity.product::available = true;
-		NewProductActivity.product::name = "testProduct";
-		NewProductActivity.product::code = 12345;
+		NewProductActivity.product::Product.available = true;
+		NewProductActivity.product::Product.name = "testProduct";
+		NewProductActivity.product::Product.code = 12345;
 		
 		check 'ProductCreated', 'NumberOfProducts', 'ProductAvailable', 'ProductName', 'ProductCode';
 	}
 	assertState eventually after constraint 'ProductName'{
 		NewProductActivity.product != null;
-		NewProductActivity.product::available = true;
-		NewProductActivity.product::name = "testProduct";
-		NewProductActivity.product::code = 12345;
+		NewProductActivity.product::Product.available = true;
+		NewProductActivity.product::Product.name = "testProduct";
+		NewProductActivity.product::Product.code = 12345;
 		
 		check 'ProductCreated', 'NumberOfProducts', 'ProductAvailable', 'ProductName', 'ProductCode';
 	}
 	assertState immediately after action NewProductActivity.setName{
 		NewProductActivity.product != null;
-		NewProductActivity.product::available = true;
-		NewProductActivity.product::name = "testProduct";
-		NewProductActivity.product::code = null;
+		NewProductActivity.product::Product.available = true;
+		NewProductActivity.product::Product.name = "testProduct";
+		NewProductActivity.product::Product.code = null;
 		
 		check 'ProductCreated', 'NumberOfProducts', 'ProductAvailable', 'ProductName', 'ProductCodeNotSet';
 	}
 	assertState immediately after constraint 'ProductName'{
 		NewProductActivity.product != null;
-		NewProductActivity.product::available = true;
-		NewProductActivity.product::name = "testProduct";
-		NewProductActivity.product::code = null;
+		NewProductActivity.product::Product.available = true;
+		NewProductActivity.product::Product.name = "testProduct";
+		NewProductActivity.product::Product.code = null;
 		
 		check 'ProductCreated', 'NumberOfProducts', 'ProductAvailable', 'ProductName', 'ProductCodeNotSet';
 	}
 	assertState sometimes after action NewProductActivity.setName{
 		NewProductActivity.product != null;
-		NewProductActivity.product::available = true;
-		NewProductActivity.product::name = "testProduct";
-		NewProductActivity.product::code = 12345;
+		NewProductActivity.product::Product.available = true;
+		NewProductActivity.product::Product.name = "testProduct";
+		NewProductActivity.product::Product.code = 12345;
 		
-		NewProductActivity.product::code = null;
+		NewProductActivity.product::Product.code = null;
 		
 		check 'ProductCreated', 'NumberOfProducts', 'ProductAvailable', 'ProductName', 'ProductCodeNotSet';
 		check 'ProductCode';
 	}
 	assertState sometimes after constraint 'ProductName'{
 		NewProductActivity.product != null;
-		NewProductActivity.product::available = true;
-		NewProductActivity.product::name = "testProduct";
-		NewProductActivity.product::code = 12345;
+		NewProductActivity.product::Product.available = true;
+		NewProductActivity.product::Product.name = "testProduct";
+		NewProductActivity.product::Product.code = 12345;
 		
-		NewProductActivity.product::code = null;
+		NewProductActivity.product::Product.code = null;
 		
 		check 'ProductCreated', 'NumberOfProducts', 'ProductAvailable', 'ProductName', 'ProductCodeNotSet';
 		check 'ProductCode';
@@ -344,93 +344,93 @@ test newProductTest activity NewProductActivity(NewProductActivity.name="testPro
 	
 	//action: setName operator: until
 	assertState always until action NewProductActivity.setName{
-		NewProductActivity.product::name = null;
-		NewProductActivity.product::code = null;
+		NewProductActivity.product::Product.name = null;
+		NewProductActivity.product::Product.code = null;
 		
 		check 'ProductNameNotSet', 'ProductCodeNotSet';
 	}
 	assertState always until constraint 'ProductName'{
-		NewProductActivity.product::name = null;
-		NewProductActivity.product::code = null;
+		NewProductActivity.product::Product.name = null;
+		NewProductActivity.product::Product.code = null;
 		
 		check 'ProductNameNotSet', 'ProductCodeNotSet';
 	}
 	assertState always after action NewProductActivity.createProduct until action NewProductActivity.setName{
-		NewProductActivity.product::name = null;
-		NewProductActivity.product::code = null;
+		NewProductActivity.product::Product.name = null;
+		NewProductActivity.product::Product.code = null;
 		
 		check 'ProductNameNotSet', 'ProductCodeNotSet';
 	}
 	assertState always after constraint 'ProductCreated' until action NewProductActivity.setName{
-		NewProductActivity.product::name = null;
-		NewProductActivity.product::code = null;
+		NewProductActivity.product::Product.name = null;
+		NewProductActivity.product::Product.code = null;
 		
 		check 'ProductNameNotSet', 'ProductCodeNotSet';
 	}
 	assertState always after action NewProductActivity.createProduct until constraint 'ProductName'{
-		NewProductActivity.product::name = null;
-		NewProductActivity.product::code = null;
+		NewProductActivity.product::Product.name = null;
+		NewProductActivity.product::Product.code = null;
 		
 		check 'ProductNameNotSet', 'ProductCodeNotSet';
 	}
 	assertState always after constraint 'ProductCreated' until constraint 'ProductName'{
-		NewProductActivity.product::name = null;
-		NewProductActivity.product::code = null;
+		NewProductActivity.product::Product.name = null;
+		NewProductActivity.product::Product.code = null;
 		
 		check 'ProductNameNotSet', 'ProductCodeNotSet';
 	}
 	assertState eventually until action NewProductActivity.setName{
 		NewProductActivity.product != null;
-		NewProductActivity.product::available = true;
-		NewProductActivity.product::name = null;
-		NewProductActivity.product::code = null;
+		NewProductActivity.product::Product.available = true;
+		NewProductActivity.product::Product.name = null;
+		NewProductActivity.product::Product.code = null;
 		
 		check 'ProductCreated', 'NumberOfProducts', 'ProductAvailable', 'ProductNameNotSet', 'ProductCodeNotSet';
 	}
 	assertState eventually until constraint 'ProductName'{
 		NewProductActivity.product != null;
-		NewProductActivity.product::available = true;
-		NewProductActivity.product::name = null;
-		NewProductActivity.product::code = null;
+		NewProductActivity.product::Product.available = true;
+		NewProductActivity.product::Product.name = null;
+		NewProductActivity.product::Product.code = null;
 		
 		check 'ProductCreated', 'NumberOfProducts', 'ProductAvailable', 'ProductNameNotSet', 'ProductCodeNotSet';
 	}
 	assertState immediately until action NewProductActivity.setName{
 		NewProductActivity.product != null;
-		NewProductActivity.product::available = true;
-		NewProductActivity.product::name = null;
-		NewProductActivity.product::code = null;
+		NewProductActivity.product::Product.available = true;
+		NewProductActivity.product::Product.name = null;
+		NewProductActivity.product::Product.code = null;
 		
 		check 'ProductCreated', 'NumberOfProducts', 'ProductAvailable', 'ProductNameNotSet', 'ProductCodeNotSet';
 	}
 	assertState immediately until constraint 'ProductName'{
 		NewProductActivity.product != null;
-		NewProductActivity.product::available = true;
-		NewProductActivity.product::name = null;
-		NewProductActivity.product::code = null;
+		NewProductActivity.product::Product.available = true;
+		NewProductActivity.product::Product.name = null;
+		NewProductActivity.product::Product.code = null;
 		
 		check 'ProductCreated', 'NumberOfProducts', 'ProductAvailable', 'ProductNameNotSet', 'ProductCodeNotSet';
 	}
 	assertState sometimes until action NewProductActivity.setName{
 		NewProductActivity.product != null;
-		NewProductActivity.product::available = true;
-		NewProductActivity.product::name = null;
-		NewProductActivity.product::code = null;
+		NewProductActivity.product::Product.available = true;
+		NewProductActivity.product::Product.name = null;
+		NewProductActivity.product::Product.code = null;
 		
 		NewProductActivity.product = null;
-		NewProductActivity.product::available = null;
+		NewProductActivity.product::Product.available = null;
 		
 		check 'ProductCreated', 'NumberOfProducts', 'ProductAvailable', 'ProductNameNotSet', 'ProductCodeNotSet';
 		check 'ProductAvailableNotSet';
 	}
 	assertState sometimes until constraint 'ProductName'{
 		NewProductActivity.product != null;
-		NewProductActivity.product::available = true;
-		NewProductActivity.product::name = null;
-		NewProductActivity.product::code = null;
+		NewProductActivity.product::Product.available = true;
+		NewProductActivity.product::Product.name = null;
+		NewProductActivity.product::Product.code = null;
 		
 		NewProductActivity.product = null;
-		NewProductActivity.product::available = null;
+		NewProductActivity.product::Product.available = null;
 		
 		check 'ProductCreated', 'NumberOfProducts', 'ProductAvailable', 'ProductNameNotSet', 'ProductCodeNotSet';
 		check 'ProductAvailableNotSet';
@@ -439,148 +439,148 @@ test newProductTest activity NewProductActivity(NewProductActivity.name="testPro
 	//action: setCode operator: after
 	assertState always after action NewProductActivity.setCode{
 		NewProductActivity.product != null;
-		NewProductActivity.product::available = true;
-		NewProductActivity.product::name = "testProduct";
-		NewProductActivity.product::code = 12345;
+		NewProductActivity.product::Product.available = true;
+		NewProductActivity.product::Product.name = "testProduct";
+		NewProductActivity.product::Product.code = 12345;
 		
 		check 'ProductCreated', 'NumberOfProducts', 'ProductAvailable', 'ProductName', 'ProductCode';
 	}
 	assertState always after constraint 'ProductCode'{
 		NewProductActivity.product != null;
-		NewProductActivity.product::available = true;
-		NewProductActivity.product::name = "testProduct";
-		NewProductActivity.product::code = 12345;
+		NewProductActivity.product::Product.available = true;
+		NewProductActivity.product::Product.name = "testProduct";
+		NewProductActivity.product::Product.code = 12345;
 		
 		check 'ProductCreated', 'NumberOfProducts', 'ProductAvailable', 'ProductName', 'ProductCode';
 	}
 	assertState eventually after action NewProductActivity.setCode{
 		NewProductActivity.product != null;
-		NewProductActivity.product::available = true;
-		NewProductActivity.product::name = "testProduct";
-		NewProductActivity.product::code = 12345;
+		NewProductActivity.product::Product.available = true;
+		NewProductActivity.product::Product.name = "testProduct";
+		NewProductActivity.product::Product.code = 12345;
 		
 		check 'ProductCreated', 'NumberOfProducts', 'ProductAvailable', 'ProductName', 'ProductCode';
 	}
 	assertState eventually after constraint 'ProductCode'{
 		NewProductActivity.product != null;
-		NewProductActivity.product::available = true;
-		NewProductActivity.product::name = "testProduct";
-		NewProductActivity.product::code = 12345;
+		NewProductActivity.product::Product.available = true;
+		NewProductActivity.product::Product.name = "testProduct";
+		NewProductActivity.product::Product.code = 12345;
 		
 		check 'ProductCreated', 'NumberOfProducts', 'ProductAvailable', 'ProductName', 'ProductCode';
 	}
 	assertState immediately after action NewProductActivity.setCode{
 		NewProductActivity.product != null;
-		NewProductActivity.product::available = true;
-		NewProductActivity.product::name = "testProduct";
-		NewProductActivity.product::code = 12345;
+		NewProductActivity.product::Product.available = true;
+		NewProductActivity.product::Product.name = "testProduct";
+		NewProductActivity.product::Product.code = 12345;
 		
 		check 'ProductCreated', 'NumberOfProducts', 'ProductAvailable', 'ProductName', 'ProductCode';
 	}
 	assertState immediately after constraint 'ProductCode'{
 		NewProductActivity.product != null;
-		NewProductActivity.product::available = true;
-		NewProductActivity.product::name = "testProduct";
-		NewProductActivity.product::code = 12345;
+		NewProductActivity.product::Product.available = true;
+		NewProductActivity.product::Product.name = "testProduct";
+		NewProductActivity.product::Product.code = 12345;
 		
 		check 'ProductCreated', 'NumberOfProducts', 'ProductAvailable', 'ProductName', 'ProductCode';
 	}
 	assertState sometimes after action NewProductActivity.setCode{
 		NewProductActivity.product != null;
-		NewProductActivity.product::available = true;
-		NewProductActivity.product::name = "testProduct";
-		NewProductActivity.product::code = 12345;
+		NewProductActivity.product::Product.available = true;
+		NewProductActivity.product::Product.name = "testProduct";
+		NewProductActivity.product::Product.code = 12345;
 		
 		check 'ProductCreated', 'NumberOfProducts', 'ProductAvailable', 'ProductName', 'ProductCode';
 	}
 	assertState sometimes after constraint 'ProductCode'{
 		NewProductActivity.product != null;
-		NewProductActivity.product::available = true;
-		NewProductActivity.product::name = "testProduct";
-		NewProductActivity.product::code = 12345;
+		NewProductActivity.product::Product.available = true;
+		NewProductActivity.product::Product.name = "testProduct";
+		NewProductActivity.product::Product.code = 12345;
 		
 		check 'ProductCreated', 'NumberOfProducts', 'ProductAvailable', 'ProductName', 'ProductCode';
 	}
 	
 	//action: setCode operator: until
 	assertState always until action NewProductActivity.setCode{
-		NewProductActivity.product::code = null;
+		NewProductActivity.product::Product.code = null;
 		check 'ProductCodeNotSet';
 	}
 	assertState always until constraint 'ProductCode'{
-		NewProductActivity.product::code = null;
+		NewProductActivity.product::Product.code = null;
 		check 'ProductCodeNotSet';
 	}
 	assertState always after action NewProductActivity.createProduct until action NewProductActivity.setCode{
-		NewProductActivity.product::code = null;
+		NewProductActivity.product::Product.code = null;
 		check 'ProductCodeNotSet';
 	}
 	assertState always after constraint 'ProductCreated' until action NewProductActivity.setCode{
-		NewProductActivity.product::code = null;
+		NewProductActivity.product::Product.code = null;
 		check 'ProductCodeNotSet';
 	}
 	assertState always after action NewProductActivity.createProduct until constraint 'ProductCode'{
-		NewProductActivity.product::code = null;
+		NewProductActivity.product::Product.code = null;
 		check 'ProductCodeNotSet';
 	}
 	assertState always after constraint 'ProductCreated' until constraint 'ProductCode'{
-		NewProductActivity.product::code = null;
+		NewProductActivity.product::Product.code = null;
 		check 'ProductCodeNotSet';
 	}
 	assertState eventually until action NewProductActivity.setCode{
 		NewProductActivity.product != null;
-		NewProductActivity.product::available = true;
-		NewProductActivity.product::name = "testProduct";
-		NewProductActivity.product::code = null;
+		NewProductActivity.product::Product.available = true;
+		NewProductActivity.product::Product.name = "testProduct";
+		NewProductActivity.product::Product.code = null;
 		
 		check 'ProductCreated', 'NumberOfProducts', 'ProductAvailable', 'ProductName', 'ProductCodeNotSet';
 	}
 	assertState eventually until constraint 'ProductCode'{
 		NewProductActivity.product != null;
-		NewProductActivity.product::available = true;
-		NewProductActivity.product::name = "testProduct";
-		NewProductActivity.product::code = null;
+		NewProductActivity.product::Product.available = true;
+		NewProductActivity.product::Product.name = "testProduct";
+		NewProductActivity.product::Product.code = null;
 		
 		check 'ProductCreated', 'NumberOfProducts', 'ProductAvailable', 'ProductName', 'ProductCodeNotSet';
 	}
 	assertState immediately until action NewProductActivity.setCode{
 		NewProductActivity.product != null;
-		NewProductActivity.product::available = true;
-		NewProductActivity.product::name = "testProduct";
-		NewProductActivity.product::code = null;
+		NewProductActivity.product::Product.available = true;
+		NewProductActivity.product::Product.name = "testProduct";
+		NewProductActivity.product::Product.code = null;
 		
 		check 'ProductCreated', 'NumberOfProducts', 'ProductAvailable', 'ProductName', 'ProductCodeNotSet';
 	}
 	assertState immediately until constraint 'ProductCode'{
 		NewProductActivity.product != null;
-		NewProductActivity.product::available = true;
-		NewProductActivity.product::name = "testProduct";
-		NewProductActivity.product::code = null;
+		NewProductActivity.product::Product.available = true;
+		NewProductActivity.product::Product.name = "testProduct";
+		NewProductActivity.product::Product.code = null;
 		
 		check 'ProductCreated', 'NumberOfProducts', 'ProductAvailable', 'ProductName', 'ProductCodeNotSet';
 	}
 	assertState sometimes until action NewProductActivity.setCode{
 		NewProductActivity.product != null;
-		NewProductActivity.product::available = true;
-		NewProductActivity.product::name = "testProduct";
-		NewProductActivity.product::code = null;
+		NewProductActivity.product::Product.available = true;
+		NewProductActivity.product::Product.name = "testProduct";
+		NewProductActivity.product::Product.code = null;
 		
 		NewProductActivity.product = null;
-		NewProductActivity.product::available = null;
-		NewProductActivity.product::name = null;
+		NewProductActivity.product::Product.available = null;
+		NewProductActivity.product::Product.name = null;
 		
 		check 'ProductCreated', 'NumberOfProducts', 'ProductAvailable', 'ProductName', 'ProductCodeNotSet';
 		check 'ProductAvailableNotSet', 'ProductNameNotSet';
 	}
 	assertState sometimes until constraint 'ProductCode'{
 		NewProductActivity.product != null;
-		NewProductActivity.product::available = true;
-		NewProductActivity.product::name = "testProduct";
-		NewProductActivity.product::code = null;
+		NewProductActivity.product::Product.available = true;
+		NewProductActivity.product::Product.name = "testProduct";
+		NewProductActivity.product::Product.code = null;
 		
 		NewProductActivity.product = null;
-		NewProductActivity.product::available = null;
-		NewProductActivity.product::name = null;
+		NewProductActivity.product::Product.available = null;
+		NewProductActivity.product::Product.name = null;
 		
 		check 'ProductCreated', 'NumberOfProducts', 'ProductAvailable', 'ProductName', 'ProductCodeNotSet';
 		check 'ProductAvailableNotSet', 'ProductNameNotSet';
@@ -588,9 +588,9 @@ test newProductTest activity NewProductActivity(NewProductActivity.name="testPro
 	
 	finally{
 		NewProductActivity.product != null;
-		NewProductActivity.product::available = true;
-		NewProductActivity.product::name = "testProduct";
-		NewProductActivity.product::code = 12345;		
+		NewProductActivity.product::Product.available = true;
+		NewProductActivity.product::Product.name = "testProduct";
+		NewProductActivity.product::Product.code = 12345;		
 		
 		check 'ProductCreated', 'NumberOfProducts', 'ProductAvailable', 'ProductName', 'ProductCode';
 	}

@@ -3,9 +3,9 @@ import webstore.behavior.*
 
 scenario TestData[
 	object productTD: Product{
-		name = "testDataProduct";
-		available = true;
-		code = 7;
+		Product.name = "testDataProduct";
+		Product.available = true;
+		Product.code = 7;
 	}
 ]
 
@@ -24,62 +24,62 @@ test newItemTest activity NewItemActivity(NewItemActivity.product=TestData.produ
 	}
 	assertState eventually after action NewItemActivity.createItem{
 		NewItemActivity.item!=null;		
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::quantity=5;
-		NewItemActivity.item::unitCost=250;		
-		NewItemActivity.item::product = TestData.productTD;		
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.quantity=5;
+		NewItemActivity.item::Item.unitCost=250;		
+		NewItemActivity.item::item_product.product = TestData.productTD;		
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCost', 'ItemQuantity';
 	}
 	assertState eventually after constraint 'ItemCreated'{
 		NewItemActivity.item!=null;		
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::quantity=5;
-		NewItemActivity.item::unitCost=250;		
-		NewItemActivity.item::product = TestData.productTD;		
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.quantity=5;
+		NewItemActivity.item::Item.unitCost=250;		
+		NewItemActivity.item::item_product.product = TestData.productTD;		
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCost', 'ItemQuantity';
 	}
 	assertState immediately after action NewItemActivity.createItem{
 		NewItemActivity.item!=null;		
-		NewItemActivity.item::number=null;
-		NewItemActivity.item::quantity=null;
-		NewItemActivity.item::unitCost=null;
-		NewItemActivity.item::product = null;
+		NewItemActivity.item::Item.number=null;
+		NewItemActivity.item::Item.quantity=null;
+		NewItemActivity.item::Item.unitCost=null;
+		NewItemActivity.item::item_product.product = null;
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumberNotSet', 'ItemUnitCostNotSet', 'ItemQuantityNotSet';
 	}
 	assertState immediately after constraint 'ItemCreated'{
 		NewItemActivity.item!=null;		
-		NewItemActivity.item::number=null;
-		NewItemActivity.item::quantity=null;
-		NewItemActivity.item::unitCost=null;
-		NewItemActivity.item::product = null;
+		NewItemActivity.item::Item.number=null;
+		NewItemActivity.item::Item.quantity=null;
+		NewItemActivity.item::Item.unitCost=null;
+		NewItemActivity.item::item_product.product = null;
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumberNotSet', 'ItemUnitCostNotSet', 'ItemQuantityNotSet';
 	}
 	assertState sometimes after action NewItemActivity.createItem{
 		NewItemActivity.item!=null;		
-		NewItemActivity.item::number=null;
-		NewItemActivity.item::quantity=null;
-		NewItemActivity.item::unitCost=null;		
-		NewItemActivity.item::product = null;		
+		NewItemActivity.item::Item.number=null;
+		NewItemActivity.item::Item.quantity=null;
+		NewItemActivity.item::Item.unitCost=null;		
+		NewItemActivity.item::item_product.product = null;		
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumberNotSet', 'ItemUnitCostNotSet', 'ItemQuantityNotSet';
 		
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::quantity=5;
-		NewItemActivity.item::unitCost=250;		
-		NewItemActivity.item::product = TestData.productTD;		
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.quantity=5;
+		NewItemActivity.item::Item.unitCost=250;		
+		NewItemActivity.item::item_product.product = TestData.productTD;		
 		check 'ItemNumber', 'ItemUnitCost', 'ItemQuantity';
 	}
 	assertState sometimes after constraint 'ItemCreated'{
 		NewItemActivity.item!=null;		
-		NewItemActivity.item::number=null;
-		NewItemActivity.item::quantity=null;
-		NewItemActivity.item::unitCost=null;		
-		NewItemActivity.item::product = null;		
+		NewItemActivity.item::Item.number=null;
+		NewItemActivity.item::Item.quantity=null;
+		NewItemActivity.item::Item.unitCost=null;		
+		NewItemActivity.item::item_product.product = null;		
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumberNotSet', 'ItemUnitCostNotSet', 'ItemQuantityNotSet';
 		
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::quantity=5;
-		NewItemActivity.item::unitCost=250;		
-		NewItemActivity.item::product = TestData.productTD;		
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.quantity=5;
+		NewItemActivity.item::Item.unitCost=250;		
+		NewItemActivity.item::item_product.product = TestData.productTD;		
 		check 'ItemNumber', 'ItemUnitCost', 'ItemQuantity';
 	}
 	
@@ -112,638 +112,638 @@ test newItemTest activity NewItemActivity(NewItemActivity.product=TestData.produ
 	//action: setNumber operator: after
 	assertState always after action NewItemActivity.setNumber{
 		NewItemActivity.item!=null;		
-		NewItemActivity.item::number = 12345;
+		NewItemActivity.item::Item.number = 12345;
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumber';
 	}
 	assertState always after constraint 'ItemNumber'{
 		NewItemActivity.item!=null;		
-		NewItemActivity.item::number = 12345;
+		NewItemActivity.item::Item.number = 12345;
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumber';
 	}
 	assertState eventually after action NewItemActivity.setNumber{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::quantity=5;
-		NewItemActivity.item::unitCost=250;
-		NewItemActivity.item::product = TestData.productTD;		
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.quantity=5;
+		NewItemActivity.item::Item.unitCost=250;
+		NewItemActivity.item::item_product.product = TestData.productTD;		
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCost', 'ItemQuantity';
 	}
 	assertState eventually after constraint 'ItemNumber'{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::quantity=5;
-		NewItemActivity.item::unitCost=250;
-		NewItemActivity.item::product = TestData.productTD;		
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.quantity=5;
+		NewItemActivity.item::Item.unitCost=250;
+		NewItemActivity.item::item_product.product = TestData.productTD;		
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCost', 'ItemQuantity';
 	}
 	assertState immediately after action NewItemActivity.setNumber{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
+		NewItemActivity.item::Item.number=12345;
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumber';
 	}
 	assertState immediately after constraint 'ItemNumber'{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
+		NewItemActivity.item::Item.number=12345;
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumber';
 	}
 	assertState sometimes after action NewItemActivity.setNumber{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::quantity=null;
-		NewItemActivity.item::unitCost=null;
-		NewItemActivity.item::product=null;
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.quantity=null;
+		NewItemActivity.item::Item.unitCost=null;
+		NewItemActivity.item::item_product.product=null;
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCostNotSet', 'ItemQuantityNotSet';
 		
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::quantity=5;
-		NewItemActivity.item::unitCost=250;		
-		NewItemActivity.item::product = TestData.productTD;		
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.quantity=5;
+		NewItemActivity.item::Item.unitCost=250;		
+		NewItemActivity.item::item_product.product = TestData.productTD;		
 		check 'ItemUnitCost', 'ItemQuantity'; 
 	}
 	assertState sometimes after constraint 'ItemNumber'{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::quantity=null;
-		NewItemActivity.item::unitCost=null;
-		NewItemActivity.item::product=null;
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.quantity=null;
+		NewItemActivity.item::Item.unitCost=null;
+		NewItemActivity.item::item_product.product=null;
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCostNotSet', 'ItemQuantityNotSet';
 		
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::quantity=5;
-		NewItemActivity.item::unitCost=250;		
-		NewItemActivity.item::product = TestData.productTD;		
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.quantity=5;
+		NewItemActivity.item::Item.unitCost=250;		
+		NewItemActivity.item::item_product.product = TestData.productTD;		
 		check 'ItemUnitCost', 'ItemQuantity'; 
 	}
 	
 	//action: setNumber operator: until
 	assertState always until action NewItemActivity.setNumber{
-		NewItemActivity.item::number=null;
-		NewItemActivity.item::quantity=null;
-		NewItemActivity.item::unitCost=null;
-		NewItemActivity.item::product=null;
+		NewItemActivity.item::Item.number=null;
+		NewItemActivity.item::Item.quantity=null;
+		NewItemActivity.item::Item.unitCost=null;
+		NewItemActivity.item::item_product.product=null;
 		check 'ItemNumberNotSet', 'ItemUnitCostNotSet', 'ItemQuantityNotSet';
 	}
 	assertState always until constraint 'ItemNumber'{
-		NewItemActivity.item::number=null;
-		NewItemActivity.item::quantity=null;
-		NewItemActivity.item::unitCost=null;
-		NewItemActivity.item::product=null;
+		NewItemActivity.item::Item.number=null;
+		NewItemActivity.item::Item.quantity=null;
+		NewItemActivity.item::Item.unitCost=null;
+		NewItemActivity.item::item_product.product=null;
 		check 'ItemNumberNotSet', 'ItemUnitCostNotSet', 'ItemQuantityNotSet';
 	}
 	assertState always after action NewItemActivity.createItem until action NewItemActivity.setNumber{
-		NewItemActivity.item::number=null;
-		NewItemActivity.item::quantity=null;
-		NewItemActivity.item::unitCost=null;
-		NewItemActivity.item::product=null;
+		NewItemActivity.item::Item.number=null;
+		NewItemActivity.item::Item.quantity=null;
+		NewItemActivity.item::Item.unitCost=null;
+		NewItemActivity.item::item_product.product=null;
 		check 'ItemNumberNotSet', 'ItemUnitCostNotSet', 'ItemQuantityNotSet';
 	}
 	assertState always after action NewItemActivity.createItem until constraint 'ItemNumber'{
-		NewItemActivity.item::number=null;
-		NewItemActivity.item::quantity=null;
-		NewItemActivity.item::unitCost=null;
-		NewItemActivity.item::product=null;
+		NewItemActivity.item::Item.number=null;
+		NewItemActivity.item::Item.quantity=null;
+		NewItemActivity.item::Item.unitCost=null;
+		NewItemActivity.item::item_product.product=null;
 		check 'ItemNumberNotSet', 'ItemUnitCostNotSet', 'ItemQuantityNotSet';
 	}
 	assertState always after constraint 'ItemCreated' until action NewItemActivity.setNumber{
-		NewItemActivity.item::number=null;
-		NewItemActivity.item::quantity=null;
-		NewItemActivity.item::unitCost=null;
-		NewItemActivity.item::product=null;
+		NewItemActivity.item::Item.number=null;
+		NewItemActivity.item::Item.quantity=null;
+		NewItemActivity.item::Item.unitCost=null;
+		NewItemActivity.item::item_product.product=null;
 		check 'ItemNumberNotSet', 'ItemUnitCostNotSet', 'ItemQuantityNotSet';
 	}
 	assertState always after constraint 'ItemCreated' until constraint 'ItemNumber'{
-		NewItemActivity.item::number=null;
-		NewItemActivity.item::quantity=null;
-		NewItemActivity.item::unitCost=null;
-		NewItemActivity.item::product=null;
+		NewItemActivity.item::Item.number=null;
+		NewItemActivity.item::Item.quantity=null;
+		NewItemActivity.item::Item.unitCost=null;
+		NewItemActivity.item::item_product.product=null;
 		check 'ItemNumberNotSet', 'ItemUnitCostNotSet', 'ItemQuantityNotSet';
 	}
 	assertState eventually until action NewItemActivity.setNumber{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=null;
-		NewItemActivity.item::quantity=null;
-		NewItemActivity.item::unitCost=null;
-		NewItemActivity.item::product=null;		
+		NewItemActivity.item::Item.number=null;
+		NewItemActivity.item::Item.quantity=null;
+		NewItemActivity.item::Item.unitCost=null;
+		NewItemActivity.item::item_product.product=null;		
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumberNotSet', 'ItemUnitCostNotSet', 'ItemQuantityNotSet';
 	}
 	assertState eventually until constraint 'ItemNumber'{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=null;
-		NewItemActivity.item::quantity=null;
-		NewItemActivity.item::unitCost=null;
-		NewItemActivity.item::product=null;		
+		NewItemActivity.item::Item.number=null;
+		NewItemActivity.item::Item.quantity=null;
+		NewItemActivity.item::Item.unitCost=null;
+		NewItemActivity.item::item_product.product=null;		
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumberNotSet', 'ItemUnitCostNotSet', 'ItemQuantityNotSet';
 	}
 	assertState immediately until action NewItemActivity.setNumber{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=null;
-		NewItemActivity.item::quantity=null;
-		NewItemActivity.item::unitCost=null;
-		NewItemActivity.item::product=null;		
+		NewItemActivity.item::Item.number=null;
+		NewItemActivity.item::Item.quantity=null;
+		NewItemActivity.item::Item.unitCost=null;
+		NewItemActivity.item::item_product.product=null;		
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumberNotSet', 'ItemUnitCostNotSet', 'ItemQuantityNotSet';
 	}
 	assertState immediately until constraint 'ItemNumber'{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=null;
-		NewItemActivity.item::quantity=null;
-		NewItemActivity.item::unitCost=null;
-		NewItemActivity.item::product=null;		
+		NewItemActivity.item::Item.number=null;
+		NewItemActivity.item::Item.quantity=null;
+		NewItemActivity.item::Item.unitCost=null;
+		NewItemActivity.item::item_product.product=null;		
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumberNotSet', 'ItemUnitCostNotSet', 'ItemQuantityNotSet';
 	}
 	assertState sometimes until action NewItemActivity.setNumber{
 		NewItemActivity.item=null;
 		
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=null;
-		NewItemActivity.item::quantity=null;
-		NewItemActivity.item::unitCost=null;
-		NewItemActivity.item::product=null;		
+		NewItemActivity.item::Item.number=null;
+		NewItemActivity.item::Item.quantity=null;
+		NewItemActivity.item::Item.unitCost=null;
+		NewItemActivity.item::item_product.product=null;		
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumberNotSet', 'ItemUnitCostNotSet', 'ItemQuantityNotSet';
 	}
 	assertState sometimes until constraint 'ItemNumber'{
 		NewItemActivity.item=null;
 		
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=null;
-		NewItemActivity.item::quantity=null;
-		NewItemActivity.item::unitCost=null;
-		NewItemActivity.item::product=null;		
+		NewItemActivity.item::Item.number=null;
+		NewItemActivity.item::Item.quantity=null;
+		NewItemActivity.item::Item.unitCost=null;
+		NewItemActivity.item::item_product.product=null;		
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumberNotSet', 'ItemUnitCostNotSet', 'ItemQuantityNotSet';
 	}
 	
 	//action: setUnitCost operator: after
 	assertState always after action NewItemActivity.setUnitCost{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::unitCost=250;
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.unitCost=250;
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCost';
 	}
 	assertState always after constraint 'ItemUnitCost'{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::unitCost=250;
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.unitCost=250;
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCost';
 	}
 	assertState eventually after action NewItemActivity.setUnitCost{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::quantity=5;
-		NewItemActivity.item::unitCost=250;
-		NewItemActivity.item::product=TestData.productTD;
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.quantity=5;
+		NewItemActivity.item::Item.unitCost=250;
+		NewItemActivity.item::item_product.product=TestData.productTD;
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCost', 'ItemQuantity'; 
 		check 'ItemProductNotSet';
 	}
 	assertState eventually after constraint 'ItemUnitCost'{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::quantity=5;
-		NewItemActivity.item::unitCost=250;
-		NewItemActivity.item::product=TestData.productTD;
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.quantity=5;
+		NewItemActivity.item::Item.unitCost=250;
+		NewItemActivity.item::item_product.product=TestData.productTD;
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCost', 'ItemQuantity'; 
 		check 'ItemProductNotSet';
 	}
 	assertState immediately after action NewItemActivity.setUnitCost{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::unitCost=250;
-		NewItemActivity.item::quantity=null;
-		NewItemActivity.item::product=null;
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.unitCost=250;
+		NewItemActivity.item::Item.quantity=null;
+		NewItemActivity.item::item_product.product=null;
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCost', 'ItemQuantityNotSet';
 		check 'ItemProductNotSet';
 	}
 	assertState immediately after constraint 'ItemUnitCost'{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::unitCost=250;
-		NewItemActivity.item::quantity=null;
-		NewItemActivity.item::product=null;
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.unitCost=250;
+		NewItemActivity.item::Item.quantity=null;
+		NewItemActivity.item::item_product.product=null;
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCost', 'ItemQuantityNotSet';
 		check 'ItemProductNotSet';
 	}
 	assertState sometimes after action NewItemActivity.setUnitCost{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::unitCost=250;
-		NewItemActivity.item::quantity=null;
-		NewItemActivity.item::product=null;
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.unitCost=250;
+		NewItemActivity.item::Item.quantity=null;
+		NewItemActivity.item::item_product.product=null;
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCost', 'ItemQuantityNotSet';
 		
-		NewItemActivity.item::product=TestData.productTD;
+		NewItemActivity.item::item_product.product=TestData.productTD;
 		check 'ItemProduct';
 	}
 	assertState sometimes after constraint 'ItemUnitCost'{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::unitCost=250;
-		NewItemActivity.item::quantity=null;
-		NewItemActivity.item::product=null;
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.unitCost=250;
+		NewItemActivity.item::Item.quantity=null;
+		NewItemActivity.item::item_product.product=null;
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCost', 'ItemQuantityNotSet';
 		
-		NewItemActivity.item::product=TestData.productTD;
+		NewItemActivity.item::item_product.product=TestData.productTD;
 		check 'ItemProduct';
 	}
 	
 	//action: setUnitCost operator: until
 	assertState always until action NewItemActivity.setUnitCost{
-		NewItemActivity.item::unitCost=null;
-		NewItemActivity.item::quantity=null;
-		NewItemActivity.item::product=null;		
+		NewItemActivity.item::Item.unitCost=null;
+		NewItemActivity.item::Item.quantity=null;
+		NewItemActivity.item::item_product.product=null;		
 		check 'ItemProductNotSet', 'ItemUnitCostNotSet', 'ItemQuantityNotSet';
 	}
 	assertState always until constraint 'ItemUnitCost'{
-		NewItemActivity.item::unitCost=null;
-		NewItemActivity.item::quantity=null;
-		NewItemActivity.item::product=null;		
+		NewItemActivity.item::Item.unitCost=null;
+		NewItemActivity.item::Item.quantity=null;
+		NewItemActivity.item::item_product.product=null;		
 		check 'ItemProductNotSet', 'ItemUnitCostNotSet', 'ItemQuantityNotSet';
 	}
 	assertState always after action NewItemActivity.createItem until action NewItemActivity.setUnitCost{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::unitCost=null;
-		NewItemActivity.item::quantity=null;
-		NewItemActivity.item::product=null;
+		NewItemActivity.item::Item.unitCost=null;
+		NewItemActivity.item::Item.quantity=null;
+		NewItemActivity.item::item_product.product=null;
 		check 'ItemCreated', 'NumberOfItems', 'ItemProductNotSet', 'ItemUnitCostNotSet', 'ItemQuantityNotSet';
 	}
 	assertState always after action NewItemActivity.createItem until action NewItemActivity.setUnitCost{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::unitCost=null;
-		NewItemActivity.item::quantity=null;
-		NewItemActivity.item::product=null;
+		NewItemActivity.item::Item.unitCost=null;
+		NewItemActivity.item::Item.quantity=null;
+		NewItemActivity.item::item_product.product=null;
 		check 'ItemCreated', 'NumberOfItems', 'ItemProductNotSet', 'ItemUnitCostNotSet', 'ItemQuantityNotSet';
 	}
 	assertState eventually until action NewItemActivity.setUnitCost{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::unitCost=null;
-		NewItemActivity.item::quantity=null;
-		NewItemActivity.item::product=null;
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.unitCost=null;
+		NewItemActivity.item::Item.quantity=null;
+		NewItemActivity.item::item_product.product=null;
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemProductNotSet', 'ItemUnitCostNotSet', 'ItemQuantityNotSet';
 	}
 	assertState eventually until constraint 'ItemUnitCost'{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::unitCost=null;
-		NewItemActivity.item::quantity=null;
-		NewItemActivity.item::product=null;
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.unitCost=null;
+		NewItemActivity.item::Item.quantity=null;
+		NewItemActivity.item::item_product.product=null;
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemProductNotSet', 'ItemUnitCostNotSet', 'ItemQuantityNotSet';
 	}
 	assertState immediately until action NewItemActivity.setUnitCost{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::unitCost=null;
-		NewItemActivity.item::quantity=null;
-		NewItemActivity.item::product=null;
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.unitCost=null;
+		NewItemActivity.item::Item.quantity=null;
+		NewItemActivity.item::item_product.product=null;
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemProductNotSet', 'ItemUnitCostNotSet', 'ItemQuantityNotSet';
 	}
 	assertState immediately until constraint 'ItemUnitCost'{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::unitCost=null;
-		NewItemActivity.item::quantity=null;
-		NewItemActivity.item::product=null;
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.unitCost=null;
+		NewItemActivity.item::Item.quantity=null;
+		NewItemActivity.item::item_product.product=null;
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemProductNotSet', 'ItemUnitCostNotSet', 'ItemQuantityNotSet';
 	}
 	assertState sometimes until action NewItemActivity.setUnitCost{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::unitCost=null;
-		NewItemActivity.item::quantity=null;
-		NewItemActivity.item::product=null;
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.unitCost=null;
+		NewItemActivity.item::Item.quantity=null;
+		NewItemActivity.item::item_product.product=null;
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemProductNotSet', 'ItemUnitCostNotSet', 'ItemQuantityNotSet';
 		
 		NewItemActivity.item=null;
-		NewItemActivity.item::number=null;
+		NewItemActivity.item::Item.number=null;
 		check 'ItemNumberNotSet';
 	}
 	assertState sometimes until constraint 'ItemUnitCost'{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::unitCost=null;
-		NewItemActivity.item::quantity=null;
-		NewItemActivity.item::product=null;
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.unitCost=null;
+		NewItemActivity.item::Item.quantity=null;
+		NewItemActivity.item::item_product.product=null;
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemProductNotSet', 'ItemUnitCostNotSet', 'ItemQuantityNotSet';
 		
 		NewItemActivity.item=null;
-		NewItemActivity.item::number=null;
+		NewItemActivity.item::Item.number=null;
 		check 'ItemNumberNotSet';
 	}
 	//action: setQuantity operator: after
 	assertState always after action NewItemActivity.setQuantity{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::unitCost=250;
-		NewItemActivity.item::quantity=5;
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.unitCost=250;
+		NewItemActivity.item::Item.quantity=5;
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCost', 'ItemQuantity';
 	}
 	assertState always after constraint 'ItemQuantity'{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::unitCost=250;
-		NewItemActivity.item::quantity=5;
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.unitCost=250;
+		NewItemActivity.item::Item.quantity=5;
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCost', 'ItemQuantity';
 	}
 	assertState eventually after action NewItemActivity.setQuantity{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::unitCost=250;
-		NewItemActivity.item::quantity=5;
-		NewItemActivity.item::product=TestData.productTD;
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.unitCost=250;
+		NewItemActivity.item::Item.quantity=5;
+		NewItemActivity.item::item_product.product=TestData.productTD;
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCost', 'ItemQuantity', 'ItemProduct';
 	}
 	assertState eventually after constraint 'ItemQuantity'{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::unitCost=250;
-		NewItemActivity.item::quantity=5;
-		NewItemActivity.item::product=TestData.productTD;
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.unitCost=250;
+		NewItemActivity.item::Item.quantity=5;
+		NewItemActivity.item::item_product.product=TestData.productTD;
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCost', 'ItemQuantity', 'ItemProduct';
 	}
 	assertState immediately after action NewItemActivity.setQuantity{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::unitCost=250;
-		NewItemActivity.item::quantity=5;
-		NewItemActivity.item::product=null;
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.unitCost=250;
+		NewItemActivity.item::Item.quantity=5;
+		NewItemActivity.item::item_product.product=null;
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCost', 'ItemQuantity', 'ItemProductNotSet';
 	}
 	assertState immediately after constraint 'ItemQuantity'{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::unitCost=250;
-		NewItemActivity.item::quantity=5;
-		NewItemActivity.item::product=null;
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.unitCost=250;
+		NewItemActivity.item::Item.quantity=5;
+		NewItemActivity.item::item_product.product=null;
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCost', 'ItemQuantity', 'ItemProductNotSet';
 	}
 	assertState sometimes after action NewItemActivity.setQuantity{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::unitCost=250;
-		NewItemActivity.item::quantity=5;
-		NewItemActivity.item::product=null;
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.unitCost=250;
+		NewItemActivity.item::Item.quantity=5;
+		NewItemActivity.item::item_product.product=null;
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCost', 'ItemQuantity', 'ItemProductNotSet';
 		
-		NewItemActivity.item::product=TestData.productTD;
+		NewItemActivity.item::item_product.product=TestData.productTD;
 		check 'ItemProduct';
 	}
 	assertState sometimes after constraint 'ItemQuantity'{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::unitCost=250;
-		NewItemActivity.item::quantity=5;
-		NewItemActivity.item::product=null;
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.unitCost=250;
+		NewItemActivity.item::Item.quantity=5;
+		NewItemActivity.item::item_product.product=null;
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCost', 'ItemQuantity', 'ItemProductNotSet';
 		
-		NewItemActivity.item::product=TestData.productTD;
+		NewItemActivity.item::item_product.product=TestData.productTD;
 		check 'ItemProduct';
 	}
 	//action: setQuantity operator: until
 	assertState always until action NewItemActivity.setQuantity{
-		NewItemActivity.item::quantity=null;
-		NewItemActivity.item::product=null;
+		NewItemActivity.item::Item.quantity=null;
+		NewItemActivity.item::item_product.product=null;
 		check 'ItemQuantityNotSet', 'ItemProductNotSet';
 	}
 	assertState always until constraint 'ItemQuantity'{
-		NewItemActivity.item::quantity=null;
-		NewItemActivity.item::product=null;
+		NewItemActivity.item::Item.quantity=null;
+		NewItemActivity.item::item_product.product=null;
 		check 'ItemQuantityNotSet', 'ItemProductNotSet';
 	}
 	assertState always after action NewItemActivity.createItem until action NewItemActivity.setQuantity{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::quantity=null;
-		NewItemActivity.item::product=null;
+		NewItemActivity.item::Item.quantity=null;
+		NewItemActivity.item::item_product.product=null;
 		check 'ItemCreated', 'ItemQuantityNotSet', 'ItemProductNotSet';
 	}
 	assertState always after action NewItemActivity.createItem until constraint 'ItemQuantity'{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::quantity=null;
-		NewItemActivity.item::product=null;
+		NewItemActivity.item::Item.quantity=null;
+		NewItemActivity.item::item_product.product=null;
 		check 'ItemCreated', 'ItemQuantityNotSet', 'ItemProductNotSet';
 	}
 	assertState always after constraint 'ItemCreated' until action NewItemActivity.setQuantity{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::quantity=null;
-		NewItemActivity.item::product=null;
+		NewItemActivity.item::Item.quantity=null;
+		NewItemActivity.item::item_product.product=null;
 		check 'ItemCreated', 'ItemQuantityNotSet', 'ItemProductNotSet';
 	}
 	assertState always after constraint 'ItemCreated' until constraint 'ItemQuantity'{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::quantity=null;
-		NewItemActivity.item::product=null;
+		NewItemActivity.item::Item.quantity=null;
+		NewItemActivity.item::item_product.product=null;
 		check 'ItemCreated', 'ItemQuantityNotSet', 'ItemProductNotSet';
 	}
 	assertState eventually until action NewItemActivity.setQuantity{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::unitCost=250;
-		NewItemActivity.item::quantity=null;
-		NewItemActivity.item::product=null;
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.unitCost=250;
+		NewItemActivity.item::Item.quantity=null;
+		NewItemActivity.item::item_product.product=null;
 		check 'ItemCreated', 'ItemNumber', 'ItemUnitCost', 'ItemQuantityNotSet', 'ItemProductNotSet';
 	}
 	assertState eventually until constraint 'ItemQuantity'{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::unitCost=250;
-		NewItemActivity.item::quantity=null;
-		NewItemActivity.item::product=null;
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.unitCost=250;
+		NewItemActivity.item::Item.quantity=null;
+		NewItemActivity.item::item_product.product=null;
 		check 'ItemCreated', 'ItemNumber', 'ItemUnitCost', 'ItemQuantityNotSet', 'ItemProductNotSet';
 	}
 	assertState immediately until action NewItemActivity.setQuantity{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::unitCost=250;
-		NewItemActivity.item::quantity=null;
-		NewItemActivity.item::product=null;
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.unitCost=250;
+		NewItemActivity.item::Item.quantity=null;
+		NewItemActivity.item::item_product.product=null;
 		check 'ItemCreated', 'ItemNumber', 'ItemUnitCost', 'ItemQuantityNotSet', 'ItemProductNotSet';
 	}
 	assertState immediately until constraint 'ItemQuantity'{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::unitCost=250;
-		NewItemActivity.item::quantity=null;
-		NewItemActivity.item::product=null;
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.unitCost=250;
+		NewItemActivity.item::Item.quantity=null;
+		NewItemActivity.item::item_product.product=null;
 		check 'ItemCreated', 'ItemNumber', 'ItemUnitCost', 'ItemQuantityNotSet', 'ItemProductNotSet';
 	}
 	assertState sometimes until action NewItemActivity.setQuantity{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::unitCost=250;
-		NewItemActivity.item::quantity=null;
-		NewItemActivity.item::product=null;
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.unitCost=250;
+		NewItemActivity.item::Item.quantity=null;
+		NewItemActivity.item::item_product.product=null;
 		check 'ItemCreated', 'ItemNumber', 'ItemUnitCost', 'ItemQuantityNotSet', 'ItemProductNotSet';
 		
 		NewItemActivity.item=null;
-		NewItemActivity.item::number=null;
-		NewItemActivity.item::unitCost=null;
+		NewItemActivity.item::Item.number=null;
+		NewItemActivity.item::Item.unitCost=null;
 		check 'ItemNumberNotSet', 'ItemUnitCostNotSet';
 	}
 	assertState sometimes until constraint 'ItemQuantity'{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::unitCost=250;
-		NewItemActivity.item::quantity=null;
-		NewItemActivity.item::product=null;
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.unitCost=250;
+		NewItemActivity.item::Item.quantity=null;
+		NewItemActivity.item::item_product.product=null;
 		check 'ItemCreated', 'ItemNumber', 'ItemUnitCost', 'ItemQuantityNotSet', 'ItemProductNotSet';
 		
 		NewItemActivity.item=null;
-		NewItemActivity.item::number=null;
-		NewItemActivity.item::unitCost=null;
+		NewItemActivity.item::Item.number=null;
+		NewItemActivity.item::Item.unitCost=null;
 		check 'ItemNumberNotSet', 'ItemUnitCostNotSet';
 	}
 	//action: setProduct operator: after
 	assertState always after action NewItemActivity.setProduct{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::unitCost=250;
-		NewItemActivity.item::quantity=5;
-		NewItemActivity.item::product=TestData.productTD;
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.unitCost=250;
+		NewItemActivity.item::Item.quantity=5;
+		NewItemActivity.item::item_product.product=TestData.productTD;
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCost', 'ItemQuantity', 'ItemProduct';
 	}
 	assertState always after constraint 'ItemProduct'{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::unitCost=250;
-		NewItemActivity.item::quantity=5;
-		NewItemActivity.item::product=TestData.productTD;
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.unitCost=250;
+		NewItemActivity.item::Item.quantity=5;
+		NewItemActivity.item::item_product.product=TestData.productTD;
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCost', 'ItemQuantity', 'ItemProduct';
 	}
 	assertState eventually after action NewItemActivity.setProduct{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::unitCost=250;
-		NewItemActivity.item::quantity=5;
-		NewItemActivity.item::product=TestData.productTD;
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.unitCost=250;
+		NewItemActivity.item::Item.quantity=5;
+		NewItemActivity.item::item_product.product=TestData.productTD;
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCost', 'ItemQuantity', 'ItemProduct';
 	}
 	assertState eventually after constraint 'ItemProduct'{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::unitCost=250;
-		NewItemActivity.item::quantity=5;
-		NewItemActivity.item::product=TestData.productTD;
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.unitCost=250;
+		NewItemActivity.item::Item.quantity=5;
+		NewItemActivity.item::item_product.product=TestData.productTD;
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCost', 'ItemQuantity', 'ItemProduct';
 	}
 	assertState immediately after action NewItemActivity.setProduct{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::unitCost=250;
-		NewItemActivity.item::quantity=5;
-		NewItemActivity.item::product=TestData.productTD;
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.unitCost=250;
+		NewItemActivity.item::Item.quantity=5;
+		NewItemActivity.item::item_product.product=TestData.productTD;
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCost', 'ItemQuantity', 'ItemProduct';
 	}
 	assertState immediately after constraint 'ItemProduct'{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::unitCost=250;
-		NewItemActivity.item::quantity=5;
-		NewItemActivity.item::product=TestData.productTD;
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.unitCost=250;
+		NewItemActivity.item::Item.quantity=5;
+		NewItemActivity.item::item_product.product=TestData.productTD;
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCost', 'ItemQuantity', 'ItemProduct';
 	}
 	assertState sometimes after action NewItemActivity.setProduct{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::unitCost=250;
-		NewItemActivity.item::quantity=5;
-		NewItemActivity.item::product=TestData.productTD;
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.unitCost=250;
+		NewItemActivity.item::Item.quantity=5;
+		NewItemActivity.item::item_product.product=TestData.productTD;
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCost', 'ItemQuantity', 'ItemProduct';
 	}
 	assertState sometimes after constraint 'ItemProduct'{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::unitCost=250;
-		NewItemActivity.item::quantity=5;
-		NewItemActivity.item::product=TestData.productTD;
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.unitCost=250;
+		NewItemActivity.item::Item.quantity=5;
+		NewItemActivity.item::item_product.product=TestData.productTD;
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCost', 'ItemQuantity', 'ItemProduct';
 	}
 	//action: setProduct operator: until
 	assertState always until action NewItemActivity.setProduct{
-		NewItemActivity.item::product=null;
+		NewItemActivity.item::item_product.product=null;
 		check 'ItemProductNotSet';
 	}
 	assertState always until constraint 'ItemProduct'{
-		NewItemActivity.item::product=null;
+		NewItemActivity.item::item_product.product=null;
 		check 'ItemProductNotSet';
 	}
 	assertState always after action NewItemActivity.createItem until action NewItemActivity.setProduct{
-		NewItemActivity.item::product=null;
+		NewItemActivity.item::item_product.product=null;
 		check 'ItemProductNotSet';
 	}
 	assertState always after constraint 'ItemCreated' until action NewItemActivity.setProduct{
-		NewItemActivity.item::product=null;
+		NewItemActivity.item::item_product.product=null;
 		check 'ItemProductNotSet';
 	}
 	assertState always after action NewItemActivity.createItem until constraint 'ItemProduct'{
-		NewItemActivity.item::product=null;
+		NewItemActivity.item::item_product.product=null;
 		check 'ItemProductNotSet';
 	}
 	assertState always after constraint 'ItemCreated' until constraint 'ItemProduct'{
-		NewItemActivity.item::product=null;
+		NewItemActivity.item::item_product.product=null;
 		check 'ItemProductNotSet';
 	}
 	assertState eventually until action NewItemActivity.setProduct{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::unitCost=250;
-		NewItemActivity.item::quantity=5;
-		NewItemActivity.item::product=null;
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.unitCost=250;
+		NewItemActivity.item::Item.quantity=5;
+		NewItemActivity.item::item_product.product=null;
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCost', 'ItemQuantity', 'ItemProductNotSet';
 	}
 	assertState eventually until constraint 'ItemProduct'{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::unitCost=250;
-		NewItemActivity.item::quantity=5;
-		NewItemActivity.item::product=null;
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.unitCost=250;
+		NewItemActivity.item::Item.quantity=5;
+		NewItemActivity.item::item_product.product=null;
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCost', 'ItemQuantity', 'ItemProductNotSet';
 	}
 	assertState immediately until action NewItemActivity.setProduct{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::unitCost=250;
-		NewItemActivity.item::quantity=5;
-		NewItemActivity.item::product=null;
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.unitCost=250;
+		NewItemActivity.item::Item.quantity=5;
+		NewItemActivity.item::item_product.product=null;
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCost', 'ItemQuantity', 'ItemProductNotSet';
 	}
 	assertState immediately until constraint 'ItemProduct'{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::unitCost=250;
-		NewItemActivity.item::quantity=5;
-		NewItemActivity.item::product=null;
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.unitCost=250;
+		NewItemActivity.item::Item.quantity=5;
+		NewItemActivity.item::item_product.product=null;
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCost', 'ItemQuantity', 'ItemProductNotSet';
 	}
 	assertState sometimes until action NewItemActivity.setProduct{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::unitCost=250;
-		NewItemActivity.item::quantity=5;
-		NewItemActivity.item::product=null;
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.unitCost=250;
+		NewItemActivity.item::Item.quantity=5;
+		NewItemActivity.item::item_product.product=null;
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCost', 'ItemQuantity', 'ItemProductNotSet';
 		
 		NewItemActivity.item=null;
-		NewItemActivity.item::number=null;
-		NewItemActivity.item::unitCost=null;
-		NewItemActivity.item::quantity=null;
+		NewItemActivity.item::Item.number=null;
+		NewItemActivity.item::Item.unitCost=null;
+		NewItemActivity.item::Item.quantity=null;
 		check 'ItemNumberNotSet', 'ItemUnitCostNotSet', 'ItemQuantityNotSet';
 	}
 	assertState sometimes until constraint 'ItemProduct'{
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::unitCost=250;
-		NewItemActivity.item::quantity=5;
-		NewItemActivity.item::product=null;
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.unitCost=250;
+		NewItemActivity.item::Item.quantity=5;
+		NewItemActivity.item::item_product.product=null;
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCost', 'ItemQuantity', 'ItemProductNotSet';
 		
 		NewItemActivity.item=null;
-		NewItemActivity.item::number=null;
-		NewItemActivity.item::unitCost=null;
-		NewItemActivity.item::quantity=null;
+		NewItemActivity.item::Item.number=null;
+		NewItemActivity.item::Item.unitCost=null;
+		NewItemActivity.item::Item.quantity=null;
 		check 'ItemNumberNotSet', 'ItemUnitCostNotSet', 'ItemQuantityNotSet';
 	}	
 	finally {
 		NewItemActivity.item!=null;
-		NewItemActivity.item::number=12345;
-		NewItemActivity.item::unitCost=250;
-		NewItemActivity.item::quantity=5;
-		NewItemActivity.item::product=TestData.productTD;
+		NewItemActivity.item::Item.number=12345;
+		NewItemActivity.item::Item.unitCost=250;
+		NewItemActivity.item::Item.quantity=5;
+		NewItemActivity.item::item_product.product=TestData.productTD;
 		check 'ItemCreated', 'NumberOfItems', 'ItemNumber', 'ItemUnitCost', 'ItemQuantity', 'ItemProduct';
 	}
 }
