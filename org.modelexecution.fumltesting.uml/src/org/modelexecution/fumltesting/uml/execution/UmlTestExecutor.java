@@ -93,7 +93,7 @@ public class UmlTestExecutor {
 	private String primitivesPath = "../../moliz/org.modelexecution.fumldebug.standardlibrary/library/uml_library.uml";
 	private String oclPath = "../org.modelexecution.fumltesting.examples/model/webstore/webstore.ocl";
 
-	private String testEndsWith = "newProduct.umltest";
+	private String testEndsWith = "addCartItem.umltest";
 
 	private AssertionPrinter assertionPrinter;
 

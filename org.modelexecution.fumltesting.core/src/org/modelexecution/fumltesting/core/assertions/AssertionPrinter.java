@@ -15,7 +15,6 @@ import org.modelexecution.fumltesting.core.testlang.ConstraintReferencePoint;
 import org.modelexecution.fumltesting.core.testlang.IntegerValue;
 import org.modelexecution.fumltesting.core.testlang.NodeSpecification;
 import org.modelexecution.fumltesting.core.testlang.NullValue;
-import org.modelexecution.fumltesting.core.testlang.ObjectSpecification;
 import org.modelexecution.fumltesting.core.testlang.ObjectStateExpression;
 import org.modelexecution.fumltesting.core.testlang.ObjectValue;
 import org.modelexecution.fumltesting.core.testlang.PropertyStateExpression;
@@ -55,13 +54,12 @@ public class AssertionPrinter {
 				valueStr = String.valueOf(((BooleanValue) expression.getValue()).getValue());
 			} else if (expression.getValue() instanceof StringValue) {
 				valueStr = ((StringValue) expression.getValue()).getValue();
-			} else {
-				valueStr = expression.getValue().toString();
+			} else if (expression.getValue() instanceof NullValue) {
+				valueStr = "null";
+			} else if (expression.getValue() instanceof ObjectValue) {
+				valueStr = ((ObjectValue) expression.getValue()).getValue().getName();
 			}
 			System.out.println(pin.name + " " + expression.getOperator() + " " + valueStr);
-			if (expression.getValue() instanceof ObjectValue) {
-				System.out.println(pin.name + " " + expression.getOperator() + " " + ((ObjectValue) expression.getValue()).getValue().getName());
-			}
 			if (result)
 				System.out.println("Assertion success!");
 			else
@@ -86,12 +84,6 @@ public class AssertionPrinter {
 				valueStr = ((ObjectValue) expression.getValue()).getValue().getName();
 			}
 			System.out.println(pin.name + " -> " + property.name + " " + expression.getOperator() + " " + valueStr);
-
-			if (expression.getValue() instanceof ObjectValue) {
-				ObjectSpecification object = ((ObjectValue) expression.getValue()).getValue();
-				valueStr = object.getName();
-				System.out.println(pin.name + " -> " + property.name + " " + expression.getOperator() + " " + valueStr);
-			}
 			if (result)
 				System.out.println("Assertion success!");
 			else

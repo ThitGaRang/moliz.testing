@@ -7,6 +7,7 @@
 package org.modelexecution.fumltesting.xtext;
 
 import org.eclipse.uml2.uml.Action;
+import org.eclipse.uml2.uml.Activity;
 import org.eclipse.uml2.uml.ActivityFinalNode;
 import org.eclipse.uml2.uml.ActivityParameterNode;
 import org.eclipse.uml2.uml.InitialNode;
@@ -25,19 +26,23 @@ import org.eclipse.xtext.xbase.scoping.XbaseQualifiedNameProvider;
 @SuppressWarnings("restriction")
 public class UmlQualifiedNameProvider extends XbaseQualifiedNameProvider {
 	protected QualifiedName qualifiedName(Property property) {
-		return QualifiedName.create(property.getName());
+		NamedElement owner = (NamedElement) property.getOwner();
+		return QualifiedName.create(owner.getName(), property.getName());
 	}
 
 	protected QualifiedName qualifiedName(Action action) {
-		return QualifiedName.create(((NamedElement) action.eContainer()).getName(), action.getName());
+		NamedElement owner = (NamedElement) action.getOwner();
+		return QualifiedName.create(owner.getName(), action.getName());
 	}
 
 	protected QualifiedName qualifiedName(InitialNode node) {
-		return QualifiedName.create(((NamedElement) node.eContainer()).getName(), node.getName());
+		NamedElement owner = (NamedElement) node.getOwner();
+		return QualifiedName.create(owner.getName(), node.getName());
 	}
 
 	protected QualifiedName qualifiedName(ActivityFinalNode node) {
-		return QualifiedName.create(((NamedElement) node.eContainer()).getName(), node.getName());
+		NamedElement owner = (NamedElement) node.getOwner();
+		return QualifiedName.create(owner.getName(), node.getName());
 	}
 
 	protected QualifiedName qualifiedName(ActivityParameterNode node) {
@@ -45,10 +50,13 @@ public class UmlQualifiedNameProvider extends XbaseQualifiedNameProvider {
 	}
 
 	protected QualifiedName qualifiedName(Pin node) {
-		return QualifiedName.create(((NamedElement) node.eContainer()).getName(), node.getName());
+		Activity activity = (Activity) node.eContainer().eContainer();
+		Action action = (Action) node.eContainer();
+		return QualifiedName.create(activity.getName(), action.getName(), node.getName());
 	}
 
 	protected QualifiedName qualifiedName(ObjectNode node) {
-		return QualifiedName.create(((NamedElement) node.eContainer()).getName(), node.getName());
+		NamedElement owner = (NamedElement) node.getOwner();
+		return QualifiedName.create(owner.getName(), node.getName());
 	}
 }

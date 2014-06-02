@@ -162,7 +162,7 @@ public class StateAssertionValidator {
 		return result;
 	}
 
-	public StateAssertionResult check(org.modelexecution.fumltesting.core.testlang.FinallyStateAssertion assertion) throws ActionNotExecutedException{
+	public StateAssertionResult check(org.modelexecution.fumltesting.core.testlang.FinallyStateAssertion assertion) throws ActionNotExecutedException {
 		System.out.println("Finally state assertion validation..");
 		StateAssertion stateAssertion = new StateAssertion();
 
@@ -443,10 +443,13 @@ public class StateAssertionValidator {
 				boolean sourceContained = false;
 				if (link.type == property.association) {
 					for (FeatureValue value : link.getFeatureValues()) {
-						Reference reference = (Reference) value.values.get(0);
+						Object_ referencedObject = ((Reference) value.values.get(0)).referent;
 						for (ValueSnapshot snapshot : source.getSnapshots()) {
-							if (snapshot.getValue() == reference.referent)
+							if (snapshot.getValue() == referencedObject)
 								sourceContained = true;
+						}
+						if (source.getRuntimeValue() == referencedObject) {
+							sourceContained = true;
 						}
 					}
 				}
@@ -455,7 +458,7 @@ public class StateAssertionValidator {
 				case AFTER:
 					if (linkValueInstance.getDestroyer() != null && !traceUtil.isAfter(linkValueInstance.getDestroyer(), referenceActionExecution))
 						isRelevantLink = false;
-					if (linkValueInstance.getCreator() == untilActionExecution) {
+					if (linkValueInstance.getCreator() == untilActionExecution && untilActionExecution != null) {
 						isRelevantLink = false;
 					} else if (untilActionExecution != null && traceUtil.isAfter(linkValueInstance.getCreator(), untilActionExecution))
 						isRelevantLink = false;
@@ -480,28 +483,63 @@ public class StateAssertionValidator {
 				if (propertyExpression.getOperator() == ArithmeticOperator.EXCLUDES)
 					results.add(true);
 			} else {
-				for (ValueInstance link : links) {
-					Link theLink = (Link) link.getRuntimeValue();
-					for (FeatureValue featureValue : theLink.featureValues) {
-						if (featureValue.feature.name.equals(property.name)) {
-							Object_ realValue = ((Reference) featureValue.values.get(0)).referent;
-							for (FeatureValue targetValue : fumlTarget.featureValues) {
-								for (FeatureValue checkedFeature : realValue.featureValues) {
-									if (targetValue.feature.name.equals(checkedFeature.feature.name)) {
-										if (expression.getOperator() == ArithmeticOperator.EQUAL
-												|| expression.getOperator() == ArithmeticOperator.INCLUDES) {
-											boolean result = compare(targetValue, checkedFeature);
-											results.add(result);
-										}
-										if (expression.getOperator() == ArithmeticOperator.NOT_EQUAL
-												|| expression.getOperator() == ArithmeticOperator.EXCLUDES) {
-											boolean result = !compare(targetValue, checkedFeature);
-											results.add(result);
+				if (expression.getOperator() == ArithmeticOperator.EQUAL || expression.getOperator() == ArithmeticOperator.NOT_EQUAL) {
+					for (ValueInstance link : links) {
+						Link theLink = (Link) link.getRuntimeValue();
+
+						for (FeatureValue featureValue : theLink.featureValues) {
+							if (featureValue.feature.name.equals(property.name)) {
+								Object_ realValue = ((Reference) featureValue.values.get(0)).referent;
+								for (FeatureValue targetValue : fumlTarget.featureValues) {
+									for (FeatureValue checkedFeature : realValue.featureValues) {
+										if (targetValue.feature.name.equals(checkedFeature.feature.name)) {
+											if (expression.getOperator() == ArithmeticOperator.EQUAL) {
+												boolean result = compare(targetValue, checkedFeature);
+												results.add(result);
+											}
+											if (expression.getOperator() == ArithmeticOperator.NOT_EQUAL) {
+												boolean result = !compare(targetValue, checkedFeature);
+												results.add(result);
+											}
 										}
 									}
 								}
 							}
 						}
+					}
+				} else if (expression.getOperator() == ArithmeticOperator.INCLUDES || expression.getOperator() == ArithmeticOperator.EXCLUDES) {
+					outter: for (ValueInstance link : links) {
+						Link theLink = (Link) link.getRuntimeValue();
+						ArrayList<Boolean> resultsSingleObject = new ArrayList<Boolean>();
+
+						for (FeatureValue featureValue : theLink.featureValues) {
+							if (featureValue.feature.name.equals(property.name)) {
+								Object_ realValue = ((Reference) featureValue.values.get(0)).referent;
+								for (FeatureValue targetValue : fumlTarget.featureValues) {
+									for (FeatureValue checkedFeature : realValue.featureValues) {
+										if (targetValue.feature.name.equals(checkedFeature.feature.name)) {
+											boolean result = compare(targetValue, checkedFeature);
+											resultsSingleObject.add(result);
+										}
+									}
+								}
+								if (resultsSingleObject.contains(false)) {
+									continue outter;
+								} else {
+									if (expression.getOperator() == ArithmeticOperator.INCLUDES)
+										results.add(true);
+									if (expression.getOperator() == ArithmeticOperator.EXCLUDES)
+										results.add(false);
+									break outter;
+								}
+							}
+						}
+					}
+					if (results.size() == 0) {
+						if (expression.getOperator() == ArithmeticOperator.INCLUDES)
+							results.add(false);
+						if (expression.getOperator() == ArithmeticOperator.EXCLUDES)
+							results.add(true);
 					}
 				}
 			}
