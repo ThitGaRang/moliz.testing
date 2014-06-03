@@ -24,6 +24,7 @@ import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.InitialNode;
 import org.eclipse.uml2.uml.ObjectNode;
 import org.eclipse.uml2.uml.Package;
+import org.eclipse.uml2.uml.ParameterDirectionKind;
 import org.eclipse.uml2.uml.PrimitiveType;
 import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Type;
@@ -89,7 +90,8 @@ public class UmlTestLangScopeProvider extends XbaseScopeProvider {
 			ArrayList<ActivityNode> nodes = new ArrayList<ActivityNode>();
 			Activity activity = (Activity) ((UMLTestCase) context).getActivityUnderTest();
 			for (ActivityNode node : activity.getNodes()) {
-				if (node.getOwner().equals(activity) && node instanceof ActivityParameterNode)
+				if (node.getOwner().equals(activity) && node instanceof ActivityParameterNode
+						&& ((ActivityParameterNode) node).getParameter().getDirection() == ParameterDirectionKind.IN_LITERAL)
 					nodes.add(node);
 			}
 			return Scopes.scopeFor(nodes, new UmlQualifiedNameProvider(), IScope.NULLSCOPE);
