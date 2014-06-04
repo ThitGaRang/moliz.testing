@@ -9,11 +9,11 @@ package org.modelexecution.fumltesting.ocl.internal.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import tudresden.ocl20.pivot.essentialocl.EssentialOclPlugin;
-import tudresden.ocl20.pivot.pivotmodel.Operation;
-import tudresden.ocl20.pivot.pivotmodel.Parameter;
-import tudresden.ocl20.pivot.pivotmodel.Type;
-import tudresden.ocl20.pivot.pivotmodel.base.AbstractOperation;
+import org.dresdenocl.essentialocl.EssentialOclPlugin;
+import org.dresdenocl.pivotmodel.Operation;
+import org.dresdenocl.pivotmodel.Parameter;
+import org.dresdenocl.pivotmodel.Type;
+import org.dresdenocl.pivotmodel.base.AbstractOperation;
 
 /**
  * 

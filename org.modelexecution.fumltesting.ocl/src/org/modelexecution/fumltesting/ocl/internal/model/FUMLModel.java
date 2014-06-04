@@ -6,18 +6,17 @@
  */
 package org.modelexecution.fumltesting.ocl.internal.model;
 
+import org.dresdenocl.model.IModel;
+import org.dresdenocl.model.ModelAccessException;
+import org.dresdenocl.model.base.AbstractModel;
+import org.dresdenocl.modelbus.ModelBusPlugin;
+import org.dresdenocl.pivotmodel.Namespace;
+import org.dresdenocl.pivotmodel.PivotModelFactory;
+import org.dresdenocl.pivotmodel.Type;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Element;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Package;
 import org.modelexecution.fumltesting.ocl.internal.FUMLMetamodelPlugin;
-
-import tudresden.ocl20.pivot.model.IModel;
-import tudresden.ocl20.pivot.model.ModelAccessException;
-import tudresden.ocl20.pivot.model.base.AbstractModel;
-import tudresden.ocl20.pivot.modelbus.ModelBusPlugin;
-import tudresden.ocl20.pivot.pivotmodel.Namespace;
-import tudresden.ocl20.pivot.pivotmodel.PivotModelFactory;
-import tudresden.ocl20.pivot.pivotmodel.Type;
 
 /**
  * 
@@ -70,8 +69,7 @@ public class FUMLModel extends AbstractModel implements IModel {
 			} else if (element instanceof Package) {
 				for (Package fumlPackage : ((Package) element).getNestedPackage()) {
 					Namespace adaptedNamespace = factory.createNamespace(fumlPackage, rootNamespace);
-					if (adaptedNamespace != null && !rootNamespace.equals(adaptedNamespace)
-							&& !rootNamespace.getNestedNamespace().contains(adaptedNamespace)) {
+					if (adaptedNamespace != null && !rootNamespace.equals(adaptedNamespace) && !rootNamespace.getNestedNamespace().contains(adaptedNamespace)) {
 						rootNamespace.addNestedNamespace(adaptedNamespace);
 					}
 				}

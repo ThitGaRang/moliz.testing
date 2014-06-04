@@ -2,13 +2,12 @@ package org.modelexecution.fumltesting.ocl.internal.provider;
 
 import java.net.URL;
 
+import org.dresdenocl.model.IModel;
+import org.dresdenocl.model.ModelAccessException;
+import org.dresdenocl.modelinstance.IModelInstance;
+import org.dresdenocl.modelinstance.IModelInstanceProvider;
+import org.dresdenocl.modelinstance.base.AbstractModelInstanceProvider;
 import org.modelexecution.fumltesting.ocl.internal.modelinstance.FUMLModelInstance;
-
-import tudresden.ocl20.pivot.model.IModel;
-import tudresden.ocl20.pivot.model.ModelAccessException;
-import tudresden.ocl20.pivot.modelinstance.IModelInstance;
-import tudresden.ocl20.pivot.modelinstance.IModelInstanceProvider;
-import tudresden.ocl20.pivot.modelinstance.base.AbstractModelInstanceProvider;
 
 /**
  * 

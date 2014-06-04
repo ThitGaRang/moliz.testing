@@ -6,9 +6,9 @@
  */
 package org.modelexecution.fumltesting.ocl.internal.model;
 
-import tudresden.ocl20.pivot.pivotmodel.Enumeration;
-import tudresden.ocl20.pivot.pivotmodel.EnumerationLiteral;
-import tudresden.ocl20.pivot.pivotmodel.base.AbstractEnumerationLiteral;
+import org.dresdenocl.pivotmodel.Enumeration;
+import org.dresdenocl.pivotmodel.EnumerationLiteral;
+import org.dresdenocl.pivotmodel.base.AbstractEnumerationLiteral;
 
 /**
  * 

@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
+import org.dresdenocl.parser.ParseException;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -52,8 +53,6 @@ import org.modelexecution.fumltesting.uml.convert.UmlTestConverter;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLTestSuite;
 import org.modelexecution.fumltesting.xtext.UmlSupport;
 
-import tudresden.ocl20.pivot.parser.ParseException;
-
 import com.google.inject.Injector;
 
 import fUML.Semantics.Classes.Kernel.Object_;
@@ -93,7 +92,7 @@ public class UmlTestExecutor {
 	private String primitivesPath = "../../moliz/org.modelexecution.fumldebug.standardlibrary/library/uml_library.uml";
 	private String oclPath = "../org.modelexecution.fumltesting.examples/model/webstore/webstore.ocl";
 
-	private String testEndsWith = "umltest";
+	private String testEndsWith = ".umltest";
 
 	private AssertionPrinter assertionPrinter;
 

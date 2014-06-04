@@ -5,7 +5,7 @@
     forceOverwrite="true" modelName="XmofTestLang" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     complianceLevel="5.0" copyrightFields="false" editPluginID="org.modelexecution.fumltesting.xmof.edit"
     editorPluginID="org.modelexecution.fumltesting.xmof.editor" runtimeVersion="2.9"
-    usedGenPackages="../../../org.eclipse.xtext.xbase/model/Xbase.genmodel#//xbase ../../../org.modelexecution.xmof/model/xmof.genmodel#//xmof/Syntax/Actions/BasicActions ../../../org.modelexecution.xmof/model/xmof.genmodel#//xmof/Syntax/Activities/IntermediateActivities">
+    usedGenPackages="platform:/resource/org.eclipse.xtext.xbase/model/Xbase.genmodel#//xbase platform:/resource/org.modelexecution.xmof/model/xmof.genmodel#//xmof/Syntax/Actions/BasicActions platform:/resource/org.modelexecution.xmof/model/xmof.genmodel#//xmof/Syntax/Activities/IntermediateActivities">
   <genPackages prefix="XmofTestLang" basePackage="org.modelexecution.fumltesting.xmof"
       disposableProviderFactory="true" fileExtensions="xmoftest" ecorePackage="XmofTestLang.ecore#/">
     <genEnums typeSafeEnumCompatible="false" ecoreEnum="XmofTestLang.ecore#//XMOFArithmeticOperator">

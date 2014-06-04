@@ -11,12 +11,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.dresdenocl.pivotmodel.Namespace;
+import org.dresdenocl.pivotmodel.Type;
+import org.dresdenocl.pivotmodel.base.AbstractNamespace;
 import org.eclipse.emf.common.util.BasicEList;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Package;
-
-import tudresden.ocl20.pivot.pivotmodel.Namespace;
-import tudresden.ocl20.pivot.pivotmodel.Type;
-import tudresden.ocl20.pivot.pivotmodel.base.AbstractNamespace;
 
 /**
  * 

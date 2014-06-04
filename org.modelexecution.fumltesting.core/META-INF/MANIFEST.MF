@@ -8,8 +8,8 @@ Require-Bundle: org.eclipse.xtext.xbase;bundle-version="2.5.0",
  org.modelexecution.fumldebug;bundle-version="1.0.0",
  org.modelexecution.fuml;bundle-version="1.0.0",
  org.modelexecution.fuml.convert;bundle-version="1.0.0",
- tudresden.ocl20.pivot.facade;bundle-version="3.2.0",
- org.modelexecution.fumltesting.ocl;bundle-version="1.0.0"
+ org.modelexecution.fumltesting.ocl;bundle-version="1.0.0",
+ org.dresdenocl.facade;bundle-version="3.3.0"
 Export-Package: org.modelexecution.fumltesting.core.assertions,
  org.modelexecution.fumltesting.core.convert,
  org.modelexecution.fumltesting.core.exceptions,

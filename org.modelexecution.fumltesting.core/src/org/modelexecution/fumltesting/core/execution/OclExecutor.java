@@ -11,6 +11,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.dresdenocl.essentialocl.standardlibrary.OclAny;
+import org.dresdenocl.essentialocl.standardlibrary.OclBoolean;
+import org.dresdenocl.essentialocl.standardlibrary.OclModelInstanceObject;
+import org.dresdenocl.facade.Ocl2ForEclipseFacade;
+import org.dresdenocl.interpreter.IInterpretationResult;
+import org.dresdenocl.interpreter.IOclInterpreter;
+import org.dresdenocl.interpreter.OclInterpreterPlugin;
+import org.dresdenocl.model.metamodel.IMetamodel;
+import org.dresdenocl.modelinstance.IModelInstance;
+import org.dresdenocl.modelinstancetype.exception.TypeNotFoundInModelException;
+import org.dresdenocl.modelinstancetype.types.IModelInstanceObject;
+import org.dresdenocl.parser.ParseException;
+import org.dresdenocl.pivotmodel.ConstrainableElement;
+import org.dresdenocl.pivotmodel.Constraint;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Package;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 import org.modelexecution.fumltesting.core.exceptions.ConstraintNotFoundException;
@@ -18,22 +32,6 @@ import org.modelexecution.fumltesting.core.sequence.State;
 import org.modelexecution.fumltesting.ocl.internal.model.FUMLClass;
 import org.modelexecution.fumltesting.ocl.internal.provider.FUMLModelInstanceProvider;
 import org.modelexecution.fumltesting.ocl.internal.provider.FUMLModelProvider;
-
-import tudresden.ocl20.pivot.essentialocl.standardlibrary.OclAny;
-import tudresden.ocl20.pivot.essentialocl.standardlibrary.OclBoolean;
-import tudresden.ocl20.pivot.essentialocl.standardlibrary.OclModelInstanceObject;
-import tudresden.ocl20.pivot.facade.Ocl2ForEclipseFacade;
-import tudresden.ocl20.pivot.interpreter.IInterpretationResult;
-import tudresden.ocl20.pivot.interpreter.IOclInterpreter;
-import tudresden.ocl20.pivot.interpreter.OclInterpreterPlugin;
-import tudresden.ocl20.pivot.model.metamodel.IMetamodel;
-import tudresden.ocl20.pivot.modelinstance.IModelInstance;
-import tudresden.ocl20.pivot.modelinstancetype.exception.TypeNotFoundInModelException;
-import tudresden.ocl20.pivot.modelinstancetype.types.IModelInstanceObject;
-import tudresden.ocl20.pivot.parser.ParseException;
-import tudresden.ocl20.pivot.pivotmodel.ConstrainableElement;
-import tudresden.ocl20.pivot.pivotmodel.Constraint;
-
 import org.modelexecution.fuml.Semantics.Classes.Kernel.Link;
 import org.modelexecution.fuml.Semantics.Classes.Kernel.Object;
 

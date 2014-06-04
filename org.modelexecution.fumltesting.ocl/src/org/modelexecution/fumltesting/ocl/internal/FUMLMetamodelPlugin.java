@@ -7,12 +7,9 @@
 package org.modelexecution.fumltesting.ocl.internal;
 
 import org.apache.log4j.Logger;
-
+import org.dresdenocl.logging.LoggingPlugin;
 import org.eclipse.core.runtime.Plugin;
-
 import org.osgi.framework.BundleContext;
-
-import tudresden.ocl20.logging.LoggingPlugin;
 
 /**
  * 

@@ -9,8 +9,8 @@ package org.modelexecution.fumltesting.ocl.internal.model;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.dresdenocl.pivotmodel.AssociationProperty;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Property;
-import tudresden.ocl20.pivot.pivotmodel.AssociationProperty;
 
 /**
  * 

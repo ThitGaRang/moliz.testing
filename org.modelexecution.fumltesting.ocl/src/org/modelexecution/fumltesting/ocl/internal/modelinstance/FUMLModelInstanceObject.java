@@ -19,6 +19,29 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.dresdenocl.modelinstance.base.AbstractModelInstance;
+import org.dresdenocl.modelinstancetype.exception.AsTypeCastException;
+import org.dresdenocl.modelinstancetype.exception.CopyForAtPreException;
+import org.dresdenocl.modelinstancetype.exception.OperationAccessException;
+import org.dresdenocl.modelinstancetype.exception.OperationNotFoundException;
+import org.dresdenocl.modelinstancetype.exception.PropertyAccessException;
+import org.dresdenocl.modelinstancetype.exception.PropertyNotFoundException;
+import org.dresdenocl.modelinstancetype.exception.TypeNotFoundInModelException;
+import org.dresdenocl.modelinstancetype.types.IModelInstanceBoolean;
+import org.dresdenocl.modelinstancetype.types.IModelInstanceCollection;
+import org.dresdenocl.modelinstancetype.types.IModelInstanceElement;
+import org.dresdenocl.modelinstancetype.types.IModelInstanceEnumerationLiteral;
+import org.dresdenocl.modelinstancetype.types.IModelInstanceInteger;
+import org.dresdenocl.modelinstancetype.types.IModelInstanceObject;
+import org.dresdenocl.modelinstancetype.types.IModelInstancePrimitiveType;
+import org.dresdenocl.modelinstancetype.types.IModelInstanceReal;
+import org.dresdenocl.modelinstancetype.types.IModelInstanceString;
+import org.dresdenocl.modelinstancetype.types.base.AbstractModelInstanceObject;
+import org.dresdenocl.pivotmodel.AssociationProperty;
+import org.dresdenocl.pivotmodel.Operation;
+import org.dresdenocl.pivotmodel.Parameter;
+import org.dresdenocl.pivotmodel.Property;
+import org.dresdenocl.pivotmodel.Type;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.osgi.util.NLS;
@@ -29,30 +52,6 @@ import org.modelexecution.fuml.Semantics.Classes.Kernel.KernelFactory;
 import org.modelexecution.fuml.Semantics.Classes.Kernel.StringValue;
 import org.modelexecution.fumltesting.ocl.internal.model.FUMLAssociationProperty;
 import org.modelexecution.fumltesting.ocl.internal.util.FUMLModelInstanceTypeUtil;
-
-import tudresden.ocl20.pivot.modelinstance.base.AbstractModelInstance;
-import tudresden.ocl20.pivot.modelinstancetype.exception.AsTypeCastException;
-import tudresden.ocl20.pivot.modelinstancetype.exception.CopyForAtPreException;
-import tudresden.ocl20.pivot.modelinstancetype.exception.OperationAccessException;
-import tudresden.ocl20.pivot.modelinstancetype.exception.OperationNotFoundException;
-import tudresden.ocl20.pivot.modelinstancetype.exception.PropertyAccessException;
-import tudresden.ocl20.pivot.modelinstancetype.exception.PropertyNotFoundException;
-import tudresden.ocl20.pivot.modelinstancetype.exception.TypeNotFoundInModelException;
-import tudresden.ocl20.pivot.modelinstancetype.types.IModelInstanceBoolean;
-import tudresden.ocl20.pivot.modelinstancetype.types.IModelInstanceCollection;
-import tudresden.ocl20.pivot.modelinstancetype.types.IModelInstanceElement;
-import tudresden.ocl20.pivot.modelinstancetype.types.IModelInstanceEnumerationLiteral;
-import tudresden.ocl20.pivot.modelinstancetype.types.IModelInstanceInteger;
-import tudresden.ocl20.pivot.modelinstancetype.types.IModelInstanceObject;
-import tudresden.ocl20.pivot.modelinstancetype.types.IModelInstancePrimitiveType;
-import tudresden.ocl20.pivot.modelinstancetype.types.IModelInstanceReal;
-import tudresden.ocl20.pivot.modelinstancetype.types.IModelInstanceString;
-import tudresden.ocl20.pivot.modelinstancetype.types.base.AbstractModelInstanceObject;
-import tudresden.ocl20.pivot.pivotmodel.AssociationProperty;
-import tudresden.ocl20.pivot.pivotmodel.Operation;
-import tudresden.ocl20.pivot.pivotmodel.Parameter;
-import tudresden.ocl20.pivot.pivotmodel.Property;
-import tudresden.ocl20.pivot.pivotmodel.Type;
 
 /**
  * 
@@ -147,8 +146,7 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 				}
 			}
 		}
-		throw new PropertyNotFoundException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_PropertyNotFoundInModelInstanceElement,
-				property));
+		throw new PropertyNotFoundException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_PropertyNotFoundInModelInstanceElement, property));
 	}
 
 	public IModelInstanceElement invokeOperation(Operation operation, List<IModelInstanceElement> args) throws OperationNotFoundException,
@@ -257,7 +255,7 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 							adapteeResult = (longAnalog.longValue() - ((Long) argumentValues[0]).longValue());
 						} else if (operation.getName().equals("*")) {
 							adapteeResult = (longAnalog.longValue() * ((Long) argumentValues[0]).longValue());
-						}else if(operation.getName().equals("/")){
+						} else if (operation.getName().equals("/")) {
 							adapteeResult = (longAnalog.longValue() / ((Long) argumentValues[0]).longValue());
 						}
 					}
@@ -295,8 +293,7 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 							+ "' could not be adapted to any model type.", e);
 				}
 			} catch (IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
-				throw new OperationAccessException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_OperationAccessFailed, operation),
-						e);
+				throw new OperationAccessException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_OperationAccessFailed, operation), e);
 			}
 		}
 		return result;
@@ -331,8 +328,7 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 			adaptedResult = (Object) cloneMethod.invoke(dslObject);
 			result = new FUMLModelInstanceObject(adaptedResult, myAdaptedClass, myType, getOriginalType(), myFactory);
 		} catch (SecurityException | NoSuchMethodException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
-			throw new CopyForAtPreException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_CannotCopyForAtPre, getName(),
-					e.getMessage()), e);
+			throw new CopyForAtPreException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_CannotCopyForAtPre, getName(), e.getMessage()), e);
 		}
 		return result;
 	}
@@ -357,8 +353,8 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 			result = new FUMLModelInstanceObject(copiedAdaptedObject, myAdaptedClass, myType, getOriginalType(), myFactory);
 		} catch (SecurityException | NoSuchMethodException | IllegalAccessException | IllegalArgumentException | InstantiationException
 				| InvocationTargetException e) {
-			throw new CopyForAtPreException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_CannotCopyForAtPre, this.getName(),
-					e.getMessage()), e);
+			throw new CopyForAtPreException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_CannotCopyForAtPre, this.getName(), e.getMessage()),
+					e);
 		}
 		return result;
 	}
@@ -570,8 +566,8 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 								"The enumeration literal could not be adapted to any constant of the given Enum class."));
 					}
 				} else {
-					throw new IllegalArgumentException(NLS.bind(modelInstanceEnumerationLiteral.getLiteral().getQualifiedName(), "The found class "
-							+ enumClass + " is not an Enum."));
+					throw new IllegalArgumentException(NLS.bind(modelInstanceEnumerationLiteral.getLiteral().getQualifiedName(), "The found class " + enumClass
+							+ " is not an Enum."));
 				}
 			} catch (ClassNotFoundException e) {
 				throw new IllegalArgumentException(NLS.bind(modelInstanceEnumerationLiteral.getLiteral().getQualifiedName(), e.getMessage()), e);

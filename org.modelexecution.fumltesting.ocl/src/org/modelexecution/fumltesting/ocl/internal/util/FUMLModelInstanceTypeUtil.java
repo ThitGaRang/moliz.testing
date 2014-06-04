@@ -20,20 +20,19 @@ import java.util.Map;
 import java.util.Set;
 import java.util.WeakHashMap;
 
+import org.dresdenocl.model.IModel;
+import org.dresdenocl.model.ModelAccessException;
+import org.dresdenocl.model.ModelConstants;
+import org.dresdenocl.modelinstancetype.exception.TypeNotFoundInModelException;
+import org.dresdenocl.modelinstancetype.types.ComplexType;
+import org.dresdenocl.pivotmodel.PrimitiveType;
+import org.dresdenocl.pivotmodel.PrimitiveTypeKind;
+import org.dresdenocl.pivotmodel.Type;
 import org.eclipse.osgi.util.NLS;
 import org.modelexecution.fuml.Semantics.Classes.Kernel.BooleanValue;
 import org.modelexecution.fuml.Semantics.Classes.Kernel.IntegerValue;
 import org.modelexecution.fuml.Semantics.Classes.Kernel.StringValue;
 import org.modelexecution.fumltesting.ocl.internal.modelinstance.FUMLModelInstanceTypeMessages;
-
-import tudresden.ocl20.pivot.model.IModel;
-import tudresden.ocl20.pivot.model.ModelAccessException;
-import tudresden.ocl20.pivot.model.ModelConstants;
-import tudresden.ocl20.pivot.modelinstancetype.exception.TypeNotFoundInModelException;
-import tudresden.ocl20.pivot.modelinstancetype.types.ComplexType;
-import tudresden.ocl20.pivot.pivotmodel.PrimitiveType;
-import tudresden.ocl20.pivot.pivotmodel.PrimitiveTypeKind;
-import tudresden.ocl20.pivot.pivotmodel.Type;
 
 /**
  * 
@@ -42,8 +41,8 @@ import tudresden.ocl20.pivot.pivotmodel.Type;
  */
 public class FUMLModelInstanceTypeUtil {
 	private static final Class<?> BOOLEAN_CLASSES[] = new Class<?>[] { boolean.class, Boolean.class };
-	private static final Class<?> INTEGER_CLASSES[] = new Class<?>[] { BigDecimal.class, BigInteger.class, byte.class, Byte.class, int.class,
-			Integer.class, long.class, Long.class, short.class, Short.class };
+	private static final Class<?> INTEGER_CLASSES[] = new Class<?>[] { BigDecimal.class, BigInteger.class, byte.class, Byte.class, int.class, Integer.class,
+			long.class, Long.class, short.class, Short.class };
 	private static final Class<?> REAL_CLASSES[] = new Class<?>[] { double.class, Double.class, float.class, Float.class };
 	private static final Class<?> STRING_CLASSES[] = new Class<?>[] { char.class, Character.class, String.class };
 	private static Map<Type, Class<?>> cachedClasses = new WeakHashMap<Type, Class<?>>();
@@ -149,8 +148,7 @@ public class FUMLModelInstanceTypeUtil {
 				result = null;
 			}
 			if (result == null) {
-				throw new TypeNotFoundInModelException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceFactory_TypeNotFoundInModel,
-						qualifiedTypeName));
+				throw new TypeNotFoundInModelException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceFactory_TypeNotFoundInModel, qualifiedTypeName));
 			}
 			this.cachedTypes.put(qualifiedTypeName, result);
 		}
@@ -269,8 +267,7 @@ public class FUMLModelInstanceTypeUtil {
 		return result;
 	}
 
-	private static Class<?> findSuperClassConformingToName(Class<?> baseClass, Class<?> currentClass, String canonicalName,
-			Set<Class<?>> alreadyCheckedClasses) {
+	private static Class<?> findSuperClassConformingToName(Class<?> baseClass, Class<?> currentClass, String canonicalName, Set<Class<?>> alreadyCheckedClasses) {
 		Class<?> result = null;
 		if (currentClass.getCanonicalName().matches(".*" + canonicalName.replaceAll("\\.", ".*") + ".*") && currentClass.isAssignableFrom(baseClass)) {
 			result = currentClass;
@@ -303,8 +300,7 @@ public class FUMLModelInstanceTypeUtil {
 			}
 		}
 		if (result.size() == 0) {
-			throw new TypeNotFoundInModelException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceFactory_TypeNotFoundInModel,
-					qualifiedTypeName));
+			throw new TypeNotFoundInModelException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceFactory_TypeNotFoundInModel, qualifiedTypeName));
 		}
 		return result;
 	}

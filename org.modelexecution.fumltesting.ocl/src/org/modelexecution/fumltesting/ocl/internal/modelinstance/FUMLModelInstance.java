@@ -8,20 +8,19 @@ package org.modelexecution.fumltesting.ocl.internal.modelinstance;
 
 import java.util.List;
 
+import org.dresdenocl.model.IModel;
+import org.dresdenocl.modelinstance.IModelInstance;
+import org.dresdenocl.modelinstance.base.AbstractModelInstance;
+import org.dresdenocl.modelinstancetype.exception.OperationAccessException;
+import org.dresdenocl.modelinstancetype.exception.OperationNotFoundException;
+import org.dresdenocl.modelinstancetype.exception.PropertyAccessException;
+import org.dresdenocl.modelinstancetype.exception.PropertyNotFoundException;
+import org.dresdenocl.modelinstancetype.exception.TypeNotFoundInModelException;
+import org.dresdenocl.modelinstancetype.types.IModelInstanceElement;
+import org.dresdenocl.modelinstancetype.types.IModelInstanceObject;
+import org.dresdenocl.pivotmodel.Operation;
+import org.dresdenocl.pivotmodel.Property;
 import org.modelexecution.fuml.Semantics.Classes.Kernel.Link;
-
-import tudresden.ocl20.pivot.model.IModel;
-import tudresden.ocl20.pivot.modelinstance.IModelInstance;
-import tudresden.ocl20.pivot.modelinstance.base.AbstractModelInstance;
-import tudresden.ocl20.pivot.modelinstancetype.exception.OperationAccessException;
-import tudresden.ocl20.pivot.modelinstancetype.exception.OperationNotFoundException;
-import tudresden.ocl20.pivot.modelinstancetype.exception.PropertyAccessException;
-import tudresden.ocl20.pivot.modelinstancetype.exception.PropertyNotFoundException;
-import tudresden.ocl20.pivot.modelinstancetype.exception.TypeNotFoundInModelException;
-import tudresden.ocl20.pivot.modelinstancetype.types.IModelInstanceElement;
-import tudresden.ocl20.pivot.modelinstancetype.types.IModelInstanceObject;
-import tudresden.ocl20.pivot.pivotmodel.Operation;
-import tudresden.ocl20.pivot.pivotmodel.Property;
 
 /**
  * 

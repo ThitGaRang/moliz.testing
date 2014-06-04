@@ -6,12 +6,11 @@
  */
 package org.modelexecution.fumltesting.ocl.internal.model;
 
+import org.dresdenocl.pivotmodel.Parameter;
+import org.dresdenocl.pivotmodel.ParameterDirectionKind;
+import org.dresdenocl.pivotmodel.Type;
+import org.dresdenocl.pivotmodel.base.AbstractParameter;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Operation;
-
-import tudresden.ocl20.pivot.pivotmodel.Parameter;
-import tudresden.ocl20.pivot.pivotmodel.ParameterDirectionKind;
-import tudresden.ocl20.pivot.pivotmodel.Type;
-import tudresden.ocl20.pivot.pivotmodel.base.AbstractParameter;
 
 /**
  * 
@@ -33,7 +32,7 @@ public class FUMLVoidReturnParameter extends AbstractParameter implements Parame
 	}
 
 	@Override
-	public tudresden.ocl20.pivot.pivotmodel.Operation getOperation() {
+	public org.dresdenocl.pivotmodel.Operation getOperation() {
 		return factory.createOperation(dslOperation);
 	}
 

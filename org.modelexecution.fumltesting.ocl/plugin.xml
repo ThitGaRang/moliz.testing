@@ -2,7 +2,7 @@
 <?eclipse version="3.3"?>
 <plugin>
     <extension
-    		point="tudresden.ocl20.pivot.modelbus.metamodels">
+    		point="org.dresdenocl.modelbus.metamodels">
       <metamodel
             id = "tudresden.ocl20.pivot.metamodels.fuml"
             modelProvider = "org.modelexecution.fumltesting.ocl.internal.provider.FUMLModelProvider"

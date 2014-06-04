@@ -9,14 +9,13 @@ package org.modelexecution.fumltesting.ocl.internal.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.dresdenocl.pivotmodel.Namespace;
+import org.dresdenocl.pivotmodel.Operation;
+import org.dresdenocl.pivotmodel.Property;
+import org.dresdenocl.pivotmodel.Type;
+import org.dresdenocl.pivotmodel.base.AbstractType;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.NamedElement;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.PrimitiveType;
-
-import tudresden.ocl20.pivot.pivotmodel.Namespace;
-import tudresden.ocl20.pivot.pivotmodel.Operation;
-import tudresden.ocl20.pivot.pivotmodel.Property;
-import tudresden.ocl20.pivot.pivotmodel.Type;
-import tudresden.ocl20.pivot.pivotmodel.base.AbstractType;
 
 /**
  * 
@@ -43,7 +42,7 @@ public class FUMLTypePrimitiveType extends AbstractType implements Type {
 	}
 
 	@Override
-	protected List<tudresden.ocl20.pivot.pivotmodel.Property> getOwnedPropertyImpl() {
+	protected List<Property> getOwnedPropertyImpl() {
 		List<Property> result = new ArrayList<Property>();
 		for (org.modelexecution.fuml.Syntax.Classes.Kernel.Property property : dslPrimitiveType.getOwnedAttribute()) {
 			result.add(factory.createProperty(property));

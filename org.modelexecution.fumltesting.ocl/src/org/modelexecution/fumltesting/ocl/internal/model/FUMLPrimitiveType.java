@@ -9,12 +9,11 @@ package org.modelexecution.fumltesting.ocl.internal.model;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
+import org.dresdenocl.pivotmodel.Namespace;
+import org.dresdenocl.pivotmodel.PrimitiveType;
+import org.dresdenocl.pivotmodel.PrimitiveTypeKind;
+import org.dresdenocl.pivotmodel.base.AbstractPrimitiveType;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Type;
-
-import tudresden.ocl20.pivot.pivotmodel.Namespace;
-import tudresden.ocl20.pivot.pivotmodel.PrimitiveType;
-import tudresden.ocl20.pivot.pivotmodel.PrimitiveTypeKind;
-import tudresden.ocl20.pivot.pivotmodel.base.AbstractPrimitiveType;
 
 /**
  * 
@@ -22,15 +21,14 @@ import tudresden.ocl20.pivot.pivotmodel.base.AbstractPrimitiveType;
  * 
  */
 public class FUMLPrimitiveType extends AbstractPrimitiveType implements PrimitiveType {
-	private static String booleanKindNames[] = new String[] { "Boolean", boolean.class.getCanonicalName(), Boolean.class.getCanonicalName(),
-			"EBoolean", "EBooleanObject" };
-	private static String integerKindNames[] = new String[] { "Integer", "UnlimitedNatural", byte.class.getCanonicalName(),
-			Byte.class.getCanonicalName(), short.class.getCanonicalName(), Short.class.getCanonicalName(), int.class.getCanonicalName(),
-			Integer.class.getCanonicalName(), long.class.getCanonicalName(), Long.class.getCanonicalName(), BigInteger.class.getCanonicalName(),
-			BigDecimal.class.getCanonicalName(), "EByte", "EByteObject", "EShort", "EShortObject", "EInt", "EIntegerObject", "ELong", "ELongObject",
-			"EBigInteger", "EBigDecimal" };
-	private static String realKindNames[] = new String[] { float.class.getCanonicalName(), Float.class.getCanonicalName(),
-			double.class.getCanonicalName(), Double.class.getCanonicalName(), "EFloat", "EFloatObject", "EDouble", "EDoubleObject" };
+	private static String booleanKindNames[] = new String[] { "Boolean", boolean.class.getCanonicalName(), Boolean.class.getCanonicalName(), "EBoolean",
+			"EBooleanObject" };
+	private static String integerKindNames[] = new String[] { "Integer", "UnlimitedNatural", byte.class.getCanonicalName(), Byte.class.getCanonicalName(),
+			short.class.getCanonicalName(), Short.class.getCanonicalName(), int.class.getCanonicalName(), Integer.class.getCanonicalName(),
+			long.class.getCanonicalName(), Long.class.getCanonicalName(), BigInteger.class.getCanonicalName(), BigDecimal.class.getCanonicalName(), "EByte",
+			"EByteObject", "EShort", "EShortObject", "EInt", "EIntegerObject", "ELong", "ELongObject", "EBigInteger", "EBigDecimal" };
+	private static String realKindNames[] = new String[] { float.class.getCanonicalName(), Float.class.getCanonicalName(), double.class.getCanonicalName(),
+			Double.class.getCanonicalName(), "EFloat", "EFloatObject", "EDouble", "EDoubleObject" };
 	private static String stringKindNames[] = new String[] { "String", char.class.getCanonicalName(), Character.class.getCanonicalName(),
 			String.class.getCanonicalName(), "EChar", "ECharacter", "EString" };
 

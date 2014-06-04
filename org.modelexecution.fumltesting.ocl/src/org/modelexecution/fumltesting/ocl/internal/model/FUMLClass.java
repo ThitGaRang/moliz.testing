@@ -9,13 +9,12 @@ package org.modelexecution.fumltesting.ocl.internal.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.dresdenocl.pivotmodel.Namespace;
+import org.dresdenocl.pivotmodel.Operation;
+import org.dresdenocl.pivotmodel.Property;
+import org.dresdenocl.pivotmodel.Type;
+import org.dresdenocl.pivotmodel.base.AbstractType;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Class;
-
-import tudresden.ocl20.pivot.pivotmodel.Namespace;
-import tudresden.ocl20.pivot.pivotmodel.Operation;
-import tudresden.ocl20.pivot.pivotmodel.Property;
-import tudresden.ocl20.pivot.pivotmodel.Type;
-import tudresden.ocl20.pivot.pivotmodel.base.AbstractType;
 
 /**
  * 

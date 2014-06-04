@@ -9,10 +9,10 @@ package org.modelexecution.fumltesting.ocl.internal.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import tudresden.ocl20.pivot.pivotmodel.Enumeration;
-import tudresden.ocl20.pivot.pivotmodel.EnumerationLiteral;
-import tudresden.ocl20.pivot.pivotmodel.Namespace;
-import tudresden.ocl20.pivot.pivotmodel.base.AbstractEnumeration;
+import org.dresdenocl.pivotmodel.Enumeration;
+import org.dresdenocl.pivotmodel.EnumerationLiteral;
+import org.dresdenocl.pivotmodel.Namespace;
+import org.dresdenocl.pivotmodel.base.AbstractEnumeration;
 
 /**
  * 

@@ -15,7 +15,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="XMOFTestCase">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="activityUnderTest" eType="ecore:EClass ../../../org.modelexecution.xmof/model/xmof.ecore#//Syntax/Activities/IntermediateActivities/Activity"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="activityUnderTest" eType="ecore:EClass platform:/resource/org.modelexecution.xmof/model/xmof.ecore#//Syntax/Activities/IntermediateActivities/Activity"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="inputs" upperBound="-1"
         eType="#//XMOFActivityInput" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="contextObject" eType="#//XMOFObjectSpecification"/>
@@ -25,13 +25,13 @@
         eType="#//XMOFAssertion" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="XMOFActivityInput">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="parameter" eType="ecore:EClass ../../../org.modelexecution.xmof/model/xmof.ecore#//Syntax/Activities/IntermediateActivities/ActivityParameterNode"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameter" eType="ecore:EClass platform:/resource/org.modelexecution.xmof/model/xmof.ecore#//Syntax/Activities/IntermediateActivities/ActivityParameterNode"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//XMOFValue"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="XMOFValue"/>
   <eClassifiers xsi:type="ecore:EClass" name="XMOFSimpleValue" eSuperTypes="#//XMOFValue">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="ecore:EClass ../../../org.eclipse.xtext.xbase/model/Xbase.ecore#//XExpression"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="ecore:EClass platform:/resource/org.eclipse.xtext.xbase/model/Xbase.ecore#//XExpression"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="XMOFObjectValue" eSuperTypes="#//XMOFValue">
@@ -75,22 +75,22 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="XMOFReferencePoint"/>
   <eClassifiers xsi:type="ecore:EClass" name="XMOFActionReferencePoint" eSuperTypes="#//XMOFReferencePoint">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="action" eType="ecore:EClass ../../../org.modelexecution.xmof/model/xmof.ecore#//Syntax/Actions/BasicActions/Action"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="action" eType="ecore:EClass platform:/resource/org.modelexecution.xmof/model/xmof.ecore#//Syntax/Actions/BasicActions/Action"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="XMOFConstraintReferencePoint" eSuperTypes="#//XMOFReferencePoint">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="constraintName" eType="ecore:EClass ../../../org.eclipse.xtext.xbase/model/Xbase.ecore#//XExpression"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constraintName" eType="ecore:EClass platform:/resource/org.eclipse.xtext.xbase/model/Xbase.ecore#//XExpression"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="XMOFFinallyStateAssertion" eSuperTypes="#//XMOFAssertion"/>
   <eClassifiers xsi:type="ecore:EClass" name="XMOFCheck"/>
   <eClassifiers xsi:type="ecore:EClass" name="XMOFConstraintCheck" eSuperTypes="#//XMOFCheck">
     <eStructuralFeatures xsi:type="ecore:EReference" name="constraintNames" upperBound="-1"
-        eType="ecore:EClass ../../../org.eclipse.xtext.xbase/model/Xbase.ecore#//XExpression"
+        eType="ecore:EClass platform:/resource/org.eclipse.xtext.xbase/model/Xbase.ecore#//XExpression"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="object" eType="ecore:EClass ../../../org.modelexecution.xmof/model/xmof.ecore#//Syntax/Activities/IntermediateActivities/ObjectNode"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="object" eType="ecore:EClass platform:/resource/org.modelexecution.xmof/model/xmof.ecore#//Syntax/Activities/IntermediateActivities/ObjectNode"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="XMOFStateExpression" eSuperTypes="#//XMOFCheck">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="pin" eType="ecore:EClass ../../../org.modelexecution.xmof/model/xmof.ecore#//Syntax/Activities/IntermediateActivities/ObjectNode"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="pin" eType="ecore:EClass platform:/resource/org.modelexecution.xmof/model/xmof.ecore#//Syntax/Activities/IntermediateActivities/ObjectNode"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="operator" eType="#//XMOFArithmeticOperator"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//XMOFValue"
         containment="true"/>
@@ -108,8 +108,8 @@
         eType="#//XMOFNodeSpecification" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="XMOFNodeSpecification">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="node" eType="ecore:EClass ../../../org.modelexecution.xmof/model/xmof.ecore#//Syntax/Activities/IntermediateActivities/ActivityNode"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="size" eType="ecore:EClass ../../../org.eclipse.xtext.xbase/model/Xbase.ecore#//XExpression"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="node" eType="ecore:EClass platform:/resource/org.modelexecution.xmof/model/xmof.ecore#//Syntax/Activities/IntermediateActivities/ActivityNode"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="size" eType="ecore:EClass platform:/resource/org.eclipse.xtext.xbase/model/Xbase.ecore#//XExpression"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="subOrder" eType="#//XMOFNodeOrder"
         containment="true"/>
