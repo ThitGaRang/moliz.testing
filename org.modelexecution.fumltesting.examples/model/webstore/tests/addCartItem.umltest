@@ -3,14 +3,19 @@ import webstore.behavior.*
 
 scenario TestData[
 	object cartTD: Cart{}
+	
 	object itemTD: Item{}
+	object itemToBeCreatedTD: Item{Item.number=12345; Item.unitCost=250; Item.quantity=1;}
+	
 	object productTD: Product{Product.code=1234; Product.name="testProduct"; Product.available=true;}
+	
 	link cart_item {source cart_item.cart=cartTD; target cart_item.items=itemTD;}
 ]
 
 test addItemSuccess activity AddCartItemActivity(AddCartItemActivity.product=TestData.productTD, AddCartItemActivity.quantity=1) on TestData.cartTD{
 	assertOrder *, AddCartItemActivity.successMessage, *, AddCartItemActivity.final;
 	finally {
+		AddCartItemActivity.context.^object::cart_item.items includes TestData.itemToBeCreatedTD;
 		AddCartItemActivity.context.^object::cart_item.items includes TestData.itemTD;
 		AddCartItemActivity.message="Item was added to Cart.";
 	}
@@ -19,6 +24,7 @@ test addItemSuccess activity AddCartItemActivity(AddCartItemActivity.product=Tes
 test addItemFail activity AddCartItemActivity(AddCartItemActivity.product=TestData.productTD, AddCartItemActivity.quantity=0) on TestData.cartTD{
 	assertOrder *, AddCartItemActivity.failMessage, *, AddCartItemActivity.final;
 	finally {
+		AddCartItemActivity.context.^object::cart_item.items excludes TestData.itemToBeCreatedTD;
 		AddCartItemActivity.context.^object::cart_item.items includes TestData.itemTD;
 		AddCartItemActivity.message="Quantity must be greater than zero. Item was not added to Cart.";
 	}

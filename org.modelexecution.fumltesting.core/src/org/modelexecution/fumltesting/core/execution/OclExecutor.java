@@ -22,6 +22,7 @@ import org.dresdenocl.model.metamodel.IMetamodel;
 import org.dresdenocl.modelinstance.IModelInstance;
 import org.dresdenocl.modelinstancetype.exception.TypeNotFoundInModelException;
 import org.dresdenocl.modelinstancetype.types.IModelInstanceObject;
+import org.dresdenocl.modelinstancetype.types.base.JavaModelInstanceBoolean;
 import org.dresdenocl.parser.ParseException;
 import org.dresdenocl.pivotmodel.ConstrainableElement;
 import org.dresdenocl.pivotmodel.Constraint;
@@ -161,6 +162,8 @@ public class OclExecutor {
 		if (resultValue instanceof OclModelInstanceObject) {
 			if (((OclModelInstanceObject) resultValue).getModelInstanceObject().getObject() instanceof Boolean) {
 				return (Boolean) ((OclModelInstanceObject) resultValue).getModelInstanceObject().getObject();
+			} else if (((OclModelInstanceObject) resultValue).getModelInstanceObject().getObject() instanceof JavaModelInstanceBoolean) {
+				return ((JavaModelInstanceBoolean) ((OclModelInstanceObject) resultValue).getModelInstanceObject().getObject()).getBoolean();
 			}
 		}
 		return false;

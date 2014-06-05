@@ -25,6 +25,10 @@ import org.dresdenocl.model.ModelAccessException;
 import org.dresdenocl.model.ModelConstants;
 import org.dresdenocl.modelinstancetype.exception.TypeNotFoundInModelException;
 import org.dresdenocl.modelinstancetype.types.ComplexType;
+import org.dresdenocl.modelinstancetype.types.base.JavaModelInstanceBoolean;
+import org.dresdenocl.modelinstancetype.types.base.JavaModelInstanceInteger;
+import org.dresdenocl.modelinstancetype.types.base.JavaModelInstanceReal;
+import org.dresdenocl.modelinstancetype.types.base.JavaModelInstanceString;
 import org.dresdenocl.pivotmodel.PrimitiveType;
 import org.dresdenocl.pivotmodel.PrimitiveTypeKind;
 import org.dresdenocl.pivotmodel.Type;
@@ -40,11 +44,11 @@ import org.modelexecution.fumltesting.ocl.internal.modelinstance.FUMLModelInstan
  * 
  */
 public class FUMLModelInstanceTypeUtil {
-	private static final Class<?> BOOLEAN_CLASSES[] = new Class<?>[] { boolean.class, Boolean.class };
+	private static final Class<?> BOOLEAN_CLASSES[] = new Class<?>[] { boolean.class, Boolean.class, JavaModelInstanceBoolean.class };
 	private static final Class<?> INTEGER_CLASSES[] = new Class<?>[] { BigDecimal.class, BigInteger.class, byte.class, Byte.class, int.class, Integer.class,
-			long.class, Long.class, short.class, Short.class };
-	private static final Class<?> REAL_CLASSES[] = new Class<?>[] { double.class, Double.class, float.class, Float.class };
-	private static final Class<?> STRING_CLASSES[] = new Class<?>[] { char.class, Character.class, String.class };
+			long.class, Long.class, short.class, Short.class, JavaModelInstanceInteger.class };
+	private static final Class<?> REAL_CLASSES[] = new Class<?>[] { double.class, Double.class, float.class, Float.class, JavaModelInstanceReal.class };
+	private static final Class<?> STRING_CLASSES[] = new Class<?>[] { char.class, Character.class, String.class, JavaModelInstanceString.class };
 	private static Map<Type, Class<?>> cachedClasses = new WeakHashMap<Type, Class<?>>();
 	private Map<List<String>, Type> cachedTypes = new WeakHashMap<List<String>, Type>();
 	private IModel model;
@@ -165,17 +169,17 @@ public class FUMLModelInstanceTypeUtil {
 			qualifiedTypeNameSeparated = new ArrayList<String>(Arrays.asList(qualifiedTypeName.split("::")));
 		}
 
-		if (object instanceof StringValue || object instanceof String) {
+		if (object instanceof StringValue || object instanceof String || object instanceof JavaModelInstanceString) {
 			qualifiedTypeNameSeparated = new ArrayList<String>();
 			qualifiedTypeNameSeparated.add("String");
 		}
 
-		if (object instanceof BooleanValue || object instanceof Boolean) {
+		if (object instanceof BooleanValue || object instanceof Boolean || object instanceof JavaModelInstanceBoolean) {
 			qualifiedTypeNameSeparated = new ArrayList<String>();
 			qualifiedTypeNameSeparated.add("Boolean");
 		}
 
-		if (object instanceof IntegerValue || object instanceof Integer || object instanceof Long) {
+		if (object instanceof IntegerValue || object instanceof Integer || object instanceof Long || object instanceof JavaModelInstanceInteger) {
 			qualifiedTypeNameSeparated = new ArrayList<String>();
 			qualifiedTypeNameSeparated.add("Integer");
 		}

@@ -96,29 +96,29 @@ public class FUMLModelInstanceFactory extends BasisJavaModelInstanceFactory impl
 						}
 					}
 				}
-			}
-		} else {
-			if (adapted instanceof org.modelexecution.fuml.Semantics.Classes.Kernel.Object) {
-				org.modelexecution.fuml.Semantics.Classes.Kernel.Object object = (org.modelexecution.fuml.Semantics.Classes.Kernel.Object) adapted;
-				try {
-					Type modelInstanceElementType = dslTypeUtil.findTypeOfObjectInModel(object);
-					if (modelInstanceElementType.conformsTo(type) || type.getQualifiedName().equals("ecore::EObject")) {
-						result = createFUMLModelInstanceObject(object, type, modelInstanceElementType);
-						this.myCachedAdaptedObjects.put(object, result);
-					} else {
+			} else {
+				if (adapted instanceof org.modelexecution.fuml.Semantics.Classes.Kernel.Object) {
+					org.modelexecution.fuml.Semantics.Classes.Kernel.Object object = (org.modelexecution.fuml.Semantics.Classes.Kernel.Object) adapted;
+					try {
+						Type modelInstanceElementType = dslTypeUtil.findTypeOfObjectInModel(object);
+						if (modelInstanceElementType.conformsTo(type) || type.getQualifiedName().equals("ecore::EObject")) {
+							result = createFUMLModelInstanceObject(object, type, modelInstanceElementType);
+							this.myCachedAdaptedObjects.put(object, result);
+						} else {
+							throw new IllegalArgumentException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceFactory_CannotAdaptToType, adapted, type));
+						}
+					} catch (TypeNotFoundInModelException e) {
 						throw new IllegalArgumentException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceFactory_CannotAdaptToType, adapted, type));
 					}
-				} catch (TypeNotFoundInModelException e) {
-					throw new IllegalArgumentException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceFactory_CannotAdaptToType, adapted, type));
-				}
-			} else {
-				if (adapted == null) {
-					result = new FUMLModelInstanceObject(null, type, type, this);
-				}
-
-				/* Else the throw an exception. */
-				else {
-					throw new IllegalArgumentException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceFactory_CannotAdaptToType, adapted, type));
+				} else {
+					if (adapted == null) {
+						result = new FUMLModelInstanceObject(null, type, type, this);
+					}
+	
+					/* Else the throw an exception. */
+					else {
+						throw new IllegalArgumentException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceFactory_CannotAdaptToType, adapted, type));
+					}
 				}
 			}
 		}

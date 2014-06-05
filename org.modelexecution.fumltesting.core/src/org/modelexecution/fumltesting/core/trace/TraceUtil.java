@@ -22,6 +22,7 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 import org.modelexecution.fumltesting.core.exceptions.ActionNotExecutedException;
 import org.modelexecution.fumltesting.core.exceptions.ConstraintNotFoundException;
+import org.modelexecution.fumltesting.core.exceptions.ConstraintStateNotFoundException;
 import org.modelexecution.fumltesting.core.execution.OclExecutor;
 import org.modelexecution.fumltesting.core.parallelism.ExecutionPathFinder;
 import org.modelexecution.fumltesting.core.sequence.Sequence;
@@ -131,7 +132,7 @@ public class TraceUtil {
 		return instance;
 	}
 
-	public List<State> getStates(Object stateAssertion) throws ConstraintNotFoundException, ActionNotExecutedException {
+	public List<State> getStates(Object stateAssertion) throws ConstraintNotFoundException, ActionNotExecutedException, ConstraintStateNotFoundException {
 		StateAssertion assertion = (StateAssertion) stateAssertion;
 		ActivityNodeExecution referredActionExecution = getReferenceActionExecution(assertion);
 		ActivityNodeExecution untilActionExecution = getUntilActionExecution(assertion);
@@ -166,7 +167,8 @@ public class TraceUtil {
 		return states;
 	}
 
-	public ActivityNodeExecution getReferenceActionExecution(StateAssertion assertion) throws ConstraintNotFoundException, ActionNotExecutedException {
+	public ActivityNodeExecution getReferenceActionExecution(StateAssertion assertion) throws ConstraintNotFoundException, ActionNotExecutedException,
+			ConstraintStateNotFoundException {
 		ActivityNodeExecution referenceActionExecution = null;
 		Activity activityUnderTest = assertion.getContainer().getActivityUnderTest();
 
@@ -186,11 +188,14 @@ public class TraceUtil {
 					}
 				}
 			}
+			if (referenceActionExecution == null)
+				throw new ConstraintStateNotFoundException("State satisfying constraint " + constraintRefPoint + " not found!");
 		}
 		return referenceActionExecution;
 	}
 
-	public ActivityNodeExecution getUntilActionExecution(StateAssertion assertion) throws ConstraintNotFoundException, ActionNotExecutedException {
+	public ActivityNodeExecution getUntilActionExecution(StateAssertion assertion) throws ConstraintNotFoundException, ActionNotExecutedException,
+			ConstraintStateNotFoundException {
 		ActivityNodeExecution untilActionExecution = null;
 		Activity activityUnderTest = assertion.getContainer().getActivityUnderTest();
 
@@ -212,6 +217,8 @@ public class TraceUtil {
 					}
 				}
 			}
+			if (untilActionExecution == null)
+				throw new ConstraintStateNotFoundException("State satisfying constraint " + constraintUntilPoint + " not found!");
 		}
 		return untilActionExecution;
 	}

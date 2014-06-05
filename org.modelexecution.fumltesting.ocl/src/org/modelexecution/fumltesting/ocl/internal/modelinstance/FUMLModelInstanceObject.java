@@ -37,6 +37,7 @@ import org.dresdenocl.modelinstancetype.types.IModelInstancePrimitiveType;
 import org.dresdenocl.modelinstancetype.types.IModelInstanceReal;
 import org.dresdenocl.modelinstancetype.types.IModelInstanceString;
 import org.dresdenocl.modelinstancetype.types.base.AbstractModelInstanceObject;
+import org.dresdenocl.modelinstancetype.types.base.BasisJavaModelInstanceFactory;
 import org.dresdenocl.pivotmodel.AssociationProperty;
 import org.dresdenocl.pivotmodel.Operation;
 import org.dresdenocl.pivotmodel.Parameter;
@@ -203,15 +204,16 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 					}
 
 					if (operation.getName().equals("=")) {
-						adapteeResult = stringValue.equals(argumentValues[0]);
+						adapteeResult = BasisJavaModelInstanceFactory.createModelInstanceBoolean(stringValue.equals(argumentValues[0]));
 					} else if (operation.getName().equals("<>")) {
-						adapteeResult = !stringValue.equals(argumentValues[0]);
+						adapteeResult = BasisJavaModelInstanceFactory.createModelInstanceBoolean(!stringValue.equals(argumentValues[0]));
 					} else if (operation.getName().equals("size")) {
 						for (Method aMethod : String.class.getMethods()) {
 							if (aMethod.getName().equals("length")) {
 								operationMethod = aMethod;
 								operationMethod.setAccessible(true);
-								adapteeResult = operationMethod.invoke(stringValue, argumentValues);
+								adapteeResult = BasisJavaModelInstanceFactory.createModelInstanceInteger((Long) operationMethod.invoke(stringValue,
+										argumentValues));
 							}
 						}
 					} else if (operation.getName().equals("concat")) {
@@ -219,7 +221,8 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 							if (aMethod.getName().equals("concat")) {
 								operationMethod = aMethod;
 								operationMethod.setAccessible(true);
-								adapteeResult = operationMethod.invoke(stringValue, argumentValues);
+								adapteeResult = BasisJavaModelInstanceFactory.createModelInstanceString((String) operationMethod.invoke(stringValue,
+										argumentValues));
 							}
 						}
 					}
@@ -235,28 +238,38 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 					}
 
 					if (!(argumentValues[0] instanceof Long || argumentValues[0] instanceof Integer)) {
-						adapteeResult = false;
+						adapteeResult = BasisJavaModelInstanceFactory.createModelInstanceBoolean(false);
 					} else {
 						if (operation.getName().equals("=")) {
-							adapteeResult = (longAnalog.longValue() == ((Long) argumentValues[0]).longValue());
+							boolean theResult = (longAnalog.longValue() == ((Long) argumentValues[0]).longValue());
+							adapteeResult = BasisJavaModelInstanceFactory.createModelInstanceBoolean(theResult);
 						} else if (operation.getName().equals("<>")) {
-							adapteeResult = (longAnalog.longValue() != ((Long) argumentValues[0]).longValue());
+							boolean theResult = (longAnalog.longValue() != ((Long) argumentValues[0]).longValue());
+							adapteeResult = BasisJavaModelInstanceFactory.createModelInstanceBoolean(theResult);
 						} else if (operation.getName().equals(">")) {
-							adapteeResult = (longAnalog.longValue() > ((Long) argumentValues[0]).longValue());
+							boolean theResult = (longAnalog.longValue() > ((Long) argumentValues[0]).longValue());
+							adapteeResult = BasisJavaModelInstanceFactory.createModelInstanceBoolean(theResult);
 						} else if (operation.getName().equals("<")) {
-							adapteeResult = (longAnalog.longValue() < ((Long) argumentValues[0]).longValue());
+							boolean theResult = (longAnalog.longValue() < ((Long) argumentValues[0]).longValue());
+							adapteeResult = BasisJavaModelInstanceFactory.createModelInstanceBoolean(theResult);
 						} else if (operation.getName().equals(">=")) {
-							adapteeResult = (longAnalog.longValue() >= ((Long) argumentValues[0]).longValue());
+							boolean theResult = (longAnalog.longValue() >= ((Long) argumentValues[0]).longValue());
+							adapteeResult = BasisJavaModelInstanceFactory.createModelInstanceBoolean(theResult);
 						} else if (operation.getName().equals("<=")) {
-							adapteeResult = (longAnalog.longValue() <= ((Long) argumentValues[0]).longValue());
+							boolean theResult = (longAnalog.longValue() <= ((Long) argumentValues[0]).longValue());
+							adapteeResult = BasisJavaModelInstanceFactory.createModelInstanceBoolean(theResult);
 						} else if (operation.getName().equals("+")) {
-							adapteeResult = (longAnalog.longValue() + ((Long) argumentValues[0]).longValue());
+							Long theResult = (longAnalog.longValue() + ((Long) argumentValues[0]).longValue());
+							adapteeResult = BasisJavaModelInstanceFactory.createModelInstanceInteger(theResult);
 						} else if (operation.getName().equals("-")) {
-							adapteeResult = (longAnalog.longValue() - ((Long) argumentValues[0]).longValue());
+							Long theResult = (longAnalog.longValue() - ((Long) argumentValues[0]).longValue());
+							adapteeResult = BasisJavaModelInstanceFactory.createModelInstanceInteger(theResult);
 						} else if (operation.getName().equals("*")) {
-							adapteeResult = (longAnalog.longValue() * ((Long) argumentValues[0]).longValue());
+							Long theResult = (longAnalog.longValue() * ((Long) argumentValues[0]).longValue());
+							adapteeResult = BasisJavaModelInstanceFactory.createModelInstanceInteger(theResult);
 						} else if (operation.getName().equals("/")) {
-							adapteeResult = (longAnalog.longValue() / ((Long) argumentValues[0]).longValue());
+							Long theResult = (longAnalog.longValue() / ((Long) argumentValues[0]).longValue());
+							adapteeResult = BasisJavaModelInstanceFactory.createModelInstanceInteger(theResult);
 						}
 					}
 				} else if (dslObject instanceof BooleanValue || dslObject instanceof Boolean) {
@@ -269,16 +282,20 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 					}
 
 					if (!(argumentValues[0] instanceof Boolean)) {
-						adapteeResult = false;
+						adapteeResult = BasisJavaModelInstanceFactory.createModelInstanceBoolean(false);
 					} else {
 						if (operation.getName().equals("and")) {
-							adapteeResult = (booleanValue && (Boolean) argumentValues[0]);
+							boolean theResult = (booleanValue && (Boolean) argumentValues[0]);
+							adapteeResult = BasisJavaModelInstanceFactory.createModelInstanceBoolean(theResult);
 						} else if (operation.getName().equals("or")) {
-							adapteeResult = (booleanValue || (Boolean) argumentValues[0]);
+							boolean theResult = (booleanValue || (Boolean) argumentValues[0]);
+							adapteeResult = BasisJavaModelInstanceFactory.createModelInstanceBoolean(theResult);
 						} else if (operation.getName().equals("=")) {
-							adapteeResult = (booleanValue == (Boolean) argumentValues[0]);
+							boolean theResult = (booleanValue == (Boolean) argumentValues[0]);
+							adapteeResult = BasisJavaModelInstanceFactory.createModelInstanceBoolean(theResult);
 						} else if (operation.getName().equals("<>")) {
-							adapteeResult = (booleanValue != (Boolean) argumentValues[0]);
+							boolean theResult = (booleanValue != (Boolean) argumentValues[0]);
+							adapteeResult = BasisJavaModelInstanceFactory.createModelInstanceBoolean(theResult);
 						}
 					}
 				}
@@ -286,7 +303,7 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 				/* Adapt the result to the expected result type. */
 
 				try {
-					Type adapteeType = myFactory.getTypeUtil().findTypeOfObjectInModel((Object) adapteeResult);
+					Type adapteeType = myFactory.getTypeUtil().findTypeOfObjectInModel(adapteeResult);
 					result = AbstractModelInstance.adaptInvocationResult(adapteeResult, adapteeType, this.myFactory);
 				} catch (TypeNotFoundInModelException e) {
 					throw new OperationAccessException("Result of invocation of Operation '" + operation.getName()

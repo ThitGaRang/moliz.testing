@@ -21,6 +21,7 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot;
 import org.modelexecution.fumltesting.core.convert.TestDataConverter;
 import org.modelexecution.fumltesting.core.exceptions.ActionNotExecutedException;
 import org.modelexecution.fumltesting.core.exceptions.ConstraintNotFoundException;
+import org.modelexecution.fumltesting.core.exceptions.ConstraintStateNotFoundException;
 import org.modelexecution.fumltesting.core.execution.OclExecutor;
 import org.modelexecution.fumltesting.core.results.ConstraintResult;
 import org.modelexecution.fumltesting.core.results.StateAssertionResult;
@@ -94,7 +95,7 @@ public class StateAssertionValidator {
 			referenceActionExecution = traceUtil.getReferenceActionExecution(assertion);
 			untilActionExecution = traceUtil.getUntilActionExecution(assertion);
 			states = traceUtil.getStates(assertion);
-		} catch (ConstraintNotFoundException | ActionNotExecutedException e) {
+		} catch (ConstraintNotFoundException | ActionNotExecutedException | ConstraintStateNotFoundException e) {
 			System.out.println(e.getMessage());
 			result.setError(e.getMessage());
 			return result;
@@ -587,8 +588,8 @@ public class StateAssertionValidator {
 					if (links.size() > 0) {
 						for (ValueInstance linkInstance : links) {
 							if (traceUtil.isAfter(linkInstance.getCreator(), referenceActionExecution)
-									|| (linkInstance.getDestroyer() != null && untilActionExecution != null && !traceUtil.isAfter(
-											linkInstance.getDestroyer(), untilActionExecution)))
+									|| (linkInstance.getDestroyer() != null && untilActionExecution != null && !traceUtil.isAfter(linkInstance.getDestroyer(),
+											untilActionExecution)))
 								results.add(true);
 							else {
 								results.add(false);
