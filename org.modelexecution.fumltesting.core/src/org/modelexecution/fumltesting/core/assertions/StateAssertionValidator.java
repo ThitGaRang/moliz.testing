@@ -442,12 +442,15 @@ public class StateAssertionValidator {
 			for (ValueInstance linkValueInstance : traceUtil.getAllLinks()) {
 				Link link = (Link) linkValueInstance.getRuntimeValue();
 				boolean sourceContained = false;
+				boolean targetContained = false;
 				if (link.type == property.association) {
 					for (FeatureValue value : link.getFeatureValues()) {
 						Object_ referencedObject = ((Reference) value.values.get(0)).referent;
 						for (ValueSnapshot snapshot : source.getSnapshots()) {
 							if (snapshot.getValue() == referencedObject)
 								sourceContained = true;
+							if (fumlTarget == referencedObject)
+								targetContained = true;
 						}
 						if (source.getRuntimeValue() == referencedObject) {
 							sourceContained = true;
@@ -471,7 +474,7 @@ public class StateAssertionValidator {
 						isRelevantLink = false;
 					break;
 				}
-				if (sourceContained && isRelevantLink) {
+				if (sourceContained && targetContained && isRelevantLink) {
 					links.add(linkValueInstance);
 				}
 			}

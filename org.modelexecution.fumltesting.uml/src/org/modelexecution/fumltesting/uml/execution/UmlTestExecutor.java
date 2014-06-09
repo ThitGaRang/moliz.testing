@@ -92,15 +92,39 @@ public class UmlTestExecutor {
 	private String primitivesPath = "../../moliz/org.modelexecution.fumldebug.standardlibrary/library/uml_library.uml";
 	private String oclPath = "../org.modelexecution.fumltesting.examples/model/banking_new/banking.ocl";
 
-	private String testEndsWith = ".umltest";
+	private String testEndsWithFilter = "behavior.umltest";
 
 	private AssertionPrinter assertionPrinter;
 
-	private void setup(String testLocation) throws Exception {
+	/** Main method of the testing framework. */
+	@Test
+	public void runTests() {
+		File folder = new File(testsPath);
+		File[] files = folder.listFiles();
+		for (File testFile : files) {
+			if (testFile.isFile() && testFile.getName().endsWith(testEndsWithFilter)) {
+				try {
+					loadAndSetupAllTestResources(testFile);
+				} catch (ParseException e) {
+					System.out.println("Problem with loading OCL file!");
+					e.printStackTrace();
+					return;
+				} catch (Exception e) {
+					e.printStackTrace();
+					return;
+				}
+				testSuiteEvaluation(testFile);
+			}
+		}
+	}
+
+	private void loadAndSetupAllTestResources(File testFile) throws Exception {
 		fumlConverter = new FumlConverter();
 		executor = new ActivityExecutor();
 		testDataConverter = new TestDataConverter();
 		assertionPrinter = new AssertionPrinter();
+
+		String testLocation = testsPath + "/" + testFile.getName();
 
 		new UmlSupport().registerServices(true);
 		Injector injector = new UmlTestLangStandaloneSetup().createInjectorAndDoEMFRegistration();
@@ -171,33 +195,11 @@ public class UmlTestExecutor {
 		oclExecutor.loadConstraints(new File(oclPath));
 	}
 
-	/** Main method of the testing framework. */
-	@Test
-	public void test() {
-		File folder = new File(testsPath);
-		File[] files = folder.listFiles();
-		for (File file : files) {
-			if (file.isFile() && file.getName().endsWith(testEndsWith)) {
-				String testLocation = testsPath + "/" + file.getName();
-				try {
-					setup(testLocation);
-				} catch (ParseException e) {
-					System.out.println("Problem with loading OCL file!");
-					e.printStackTrace();
-					return;
-				} catch (Exception e) {
-					e.printStackTrace();
-					return;
-				}
-				testsEvaluation(file.getName().replace(".fumltest", ""));
-			}
-		}
-	}
-
-	private void testsEvaluation(String testName) {
+	private void testSuiteEvaluation(File testFile) {
 		TestSuiteResult suiteResult = new TestSuiteResult();
 		SimpleDateFormat currentTime = new SimpleDateFormat("dd.MM.yy_HH.mm.ss");
-		String testResultsFile = "results/testresults_" + testName + "_" + currentTime.format(new Date()) + ".txt";
+		String testFileNameWithoutExtension = testFile.getName().replace(".fumltest", "");
+		String testResultsFile = "results/testresults_" + testFileNameWithoutExtension + "_" + currentTime.format(new Date()) + ".txt";
 		for (TestCase testCase : convertedSuite.getAllTestCases()) {
 			assertionPrinter.print(testCase);
 			Activity activity = testCase.getActivityUnderTest();
