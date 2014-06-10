@@ -1,7 +1,3 @@
 package structure
 
-context Account
-inv accountBeforeReduction: number = 101 and balance = 1000
-inv accountAfterReduction: number = 101 and balance = 800
-
 endpackage

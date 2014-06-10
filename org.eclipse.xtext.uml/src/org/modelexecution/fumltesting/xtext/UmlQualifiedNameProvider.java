@@ -10,6 +10,7 @@ import org.eclipse.uml2.uml.Action;
 import org.eclipse.uml2.uml.Activity;
 import org.eclipse.uml2.uml.ActivityFinalNode;
 import org.eclipse.uml2.uml.ActivityParameterNode;
+import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.InitialNode;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.ObjectNode;
@@ -58,5 +59,10 @@ public class UmlQualifiedNameProvider extends XbaseQualifiedNameProvider {
 	protected QualifiedName qualifiedName(ObjectNode node) {
 		NamedElement owner = (NamedElement) node.getOwner();
 		return QualifiedName.create(owner.getName(), node.getName());
+	}
+
+	protected QualifiedName qualifiedName(Activity activity) {
+		Class owner = (Class) activity.getOwner();
+		return QualifiedName.create(owner.getName(), activity.getName());
 	}
 }

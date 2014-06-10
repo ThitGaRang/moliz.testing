@@ -161,7 +161,7 @@ public class ResultsWriter {
 					}
 					writer.println();
 					if (assertionResult.hasError()) {
-						writer.print("\tError occurred: " + assertionResult.getError());
+						writer.println("\tError occurred: " + assertionResult.getError());
 					}
 					if (stateAssertionResult.numberOfConstraintsChecked() > 0) {
 						writer.println("\tConstraints checked: " + stateAssertionResult.numberOfConstraintsChecked());
