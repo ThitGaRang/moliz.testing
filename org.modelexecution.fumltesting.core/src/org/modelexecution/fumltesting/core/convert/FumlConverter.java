@@ -19,6 +19,7 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.PrimitiveType;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.StructuralFeature;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.Type;
 import org.modelexecution.fuml.Syntax.Classes.Kernel.VisibilityKind;
+import org.modelexecution.fumldebug.core.ExecutionContext;
 
 import fUML.Semantics.Classes.Kernel.BooleanValue;
 import fUML.Semantics.Classes.Kernel.FeatureValue;
@@ -280,6 +281,30 @@ public class FumlConverter {
 			}
 			object.getFeatureValues().add(mappedFeatureValue);
 		}
+
+//		for (fUML.Semantics.Classes.Kernel.Value value : ExecutionContext.getInstance().getLocus().extensionalValues) {
+//			if (value instanceof fUML.Semantics.Classes.Kernel.Link) {
+//				fUML.Semantics.Classes.Kernel.Link link = (fUML.Semantics.Classes.Kernel.Link) value;
+//				FeatureValue sourceFeatureValue = null;
+//				FeatureValue targetFeatureValue = null;
+//				for (FeatureValue featureValue : link.featureValues) {
+//					boolean isNavigable = link.type.navigableOwnedEnd.contains(featureValue.feature);
+//					if (isNavigable)
+//						targetFeatureValue = featureValue;
+//					else
+//						sourceFeatureValue = featureValue;
+//				}
+//				if (((Reference) sourceFeatureValue.values.get(0)).referent.equals(object_)) {
+//					org.modelexecution.fuml.Semantics.Classes.Kernel.FeatureValue newFeatureValueFromLink = getSemanticsFactory().createFeatureValue();
+//					newFeatureValueFromLink.setFeature(map(targetFeatureValue.feature));
+//					for (fUML.Semantics.Classes.Kernel.Value targetValue : targetFeatureValue.values) {
+//						newFeatureValueFromLink.getValues().add(map(targetValue));
+//					}
+//					object.getFeatureValues().add(newFeatureValueFromLink);
+//				}
+//			}
+//		}
+
 		mappedObjects.put(object_, object);
 
 		return object;

@@ -3,8 +3,7 @@ import banking.structure.*
 scenario BankingTestData[
 	object accountTD: Account{
 		Account.balance = 0;
-	}
-	
+	}	
 	object cardTD: Card{
 		Card.pin = 1985;
 	}
@@ -12,14 +11,14 @@ scenario BankingTestData[
 	
 	link atm_card {source atm_card.atm = atmTD; target atm_card.card = cardTD;}
 	link card_account {source card_account.card = cardTD; target card_account.account = accountTD;}
-]
+] 
 
 test insertCardTest activity ATM.InsertCard(InsertCard.card = BankingTestData.cardTD) on BankingTestData.atmTD{
 	assertOrder InsertCard.init, InsertCard.context, InsertCard.insertCard;
-	assertState always until action InsertCard.insertCard{
+	assertState always until action InsertCard.insertCard {
 		InsertCard.context.result::atm_card.card = null;
 	}
-	assertState always after action InsertCard.insertCard{
+	assertState always after action InsertCard.insertCard {
 		InsertCard.context.result::atm_card.card = BankingTestData.cardTD;
 	}
 }
@@ -29,28 +28,56 @@ test removeCardTest activity ATM.RemoveCard on BankingTestData.atmTD{
 	assertState always until action RemoveCard.removeCard{
 		RemoveCard.context.result::atm_card.card = BankingTestData.cardTD;
 	}
-	assertState always after action RemoveCard.removeCard{
+	assertState always after action RemoveCard.removeCard {
 		RemoveCard.context.result::atm_card.card = null;
 	}
 }
 
 test validatePinTrueTest activity Card.ValidatePin(ValidatePin.pin = 1985) on BankingTestData.cardTD{
 	assertOrder ValidatePin.init, ValidatePin.context, ValidatePin.readPin, ValidatePin.equals;
-	assertState always after action ValidatePin.equals{
-		ValidatePin.result = true;
+	assertState always after action ValidatePin.equals {
+		ValidatePin.success = true;
 	}
 }
 
 test validatePinFalseTest activity Card.ValidatePin(ValidatePin.pin = 1980) on BankingTestData.cardTD{
 	assertOrder ValidatePin.init, ValidatePin.context, ValidatePin.readPin, ValidatePin.equals;
-	assertState always after action ValidatePin.equals{
-		ValidatePin.result = false;
+	assertState always after action ValidatePin.equals {
+		ValidatePin.success = false;
 	}
 }
 
-test makeDepositTest activity Account.MakeDeposit(MakeDeposit.amount = 200) on BankingTestData.accountTD{
+test makeDepositAccountTest activity Account.MakeDeposit(MakeDeposit.amount = 200) on BankingTestData.accountTD{
 	assertOrder *, MakeDeposit.setNewBalance;
 	assertState always after action MakeDeposit.setNewBalance{
 		MakeDeposit.context.result::Account.balance = 200;
 	}	
+}
+
+test makeWithdrawalAccountTest activity Account.MakeWithdrawal(MakeWithdrawal.amount = 0) on BankingTestData.accountTD{
+	assertOrder *, MakeWithdrawal.successTrue;
+	finally {
+		MakeWithdrawal.context.result::Account.balance = 0;
+	}
+}
+
+test makeWithdrawalAccountFailTest activity Account.MakeWithdrawal(MakeWithdrawal.amount = 100) on BankingTestData.accountTD{
+	assertOrder *, MakeWithdrawal.successFalse;
+	finally {
+		MakeWithdrawal.context.result::Account.balance = 0;
+	}
+}
+
+test makeDepositATMTest activity ATM.Deposit(Deposit.pin = 1985, Deposit.amount = 100) on BankingTestData.atmTD{
+	assertOrder *, Deposit.successTrue;
+	finally {
+		Deposit.readAccount.result::Account.balance = 100;
+	}
+}
+
+test makeWithdrawalATMTest activity ATM.Withdraw(Withdraw.pin = 1985, Withdraw.amount = 100) on BankingTestData.atmTD{
+	assertOrder *, Withdraw.call_makeWithdrawal;
+	finally {
+		Withdraw.success = false;
+	}
 }

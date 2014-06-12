@@ -231,6 +231,15 @@ public class TraceUtil {
 		return lastActionExecution.getNode();
 	}
 
+	public fUML.Syntax.Activities.IntermediateActivities.ActivityNode getLastExecutedNodeOfActivity(String activityName) throws ActionNotExecutedException {
+		for (ActivityExecution activityExecution : trace.getActivityExecutions()) {
+			if (activityExecution.getActivity().name.equals(activityName)) {
+				return activityExecution.getLastExecutedNode().getNode();
+			}
+		}
+		throw new ActionNotExecutedException("No Action has been executed within the Activity");
+	}
+
 	public int getActivityExecutionID(String name) {
 		int id = -1;
 		for (ActivityExecution execution : trace.getActivityExecutions()) {
