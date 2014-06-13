@@ -35,12 +35,6 @@
       <emfPageIdentifier href="banking.notation#_48pl0O22EeOM5cfuTGdJGg"/>
     </availablePage>
     <availablePage>
-      <emfPageIdentifier href="banking.notation#_PBu8cPC-EeOjn9ENJkZYjg"/>
-    </availablePage>
-    <availablePage>
-      <emfPageIdentifier href="banking.notation#_u2bLMPDAEeOjn9ENJkZYjg"/>
-    </availablePage>
-    <availablePage>
       <emfPageIdentifier href="banking.notation#_0y8iEPDCEeOjn9ENJkZYjg"/>
     </availablePage>
     <availablePage>
@@ -54,6 +48,12 @@
     </availablePage>
     <availablePage>
       <emfPageIdentifier href="banking.notation#_Ai0R8PIVEeOTq-1EUtWWNQ"/>
+    </availablePage>
+    <availablePage>
+      <emfPageIdentifier href="banking.notation#_WCr4gPL0EeO3eNFe961kVQ"/>
+    </availablePage>
+    <availablePage>
+      <emfPageIdentifier href="banking.notation#_cMPpAPL6EeO3eNFe961kVQ"/>
     </availablePage>
   </pageList>
   <sashModel currentSelection="//@sashModel/@windows.0/@children.0">
@@ -70,6 +70,12 @@
         </children>
         <children>
           <emfPageIdentifier href="banking.notation#_Ai0R8PIVEeOTq-1EUtWWNQ"/>
+        </children>
+        <children>
+          <emfPageIdentifier href="banking.notation#_WCr4gPL0EeO3eNFe961kVQ"/>
+        </children>
+        <children>
+          <emfPageIdentifier href="banking.notation#_cMPpAPL6EeO3eNFe961kVQ"/>
         </children>
       </children>
     </windows>

@@ -9,29 +9,8 @@ scenario BankingTestData[
 	}
 	object atmTD: ATM{}
 	
-	link atm_card {source atm_card.atm = atmTD; target atm_card.card = cardTD;}
 	link card_account {source card_account.card = cardTD; target card_account.account = accountTD;}
-] 
-
-test insertCardTest activity ATM.InsertCard(InsertCard.card = BankingTestData.cardTD) on BankingTestData.atmTD{
-	assertOrder InsertCard.init, InsertCard.context, InsertCard.insertCard;
-	assertState always until action InsertCard.insertCard {
-		InsertCard.context.result::atm_card.card = null;
-	}
-	assertState always after action InsertCard.insertCard {
-		InsertCard.context.result::atm_card.card = BankingTestData.cardTD;
-	}
-}
-
-test removeCardTest activity ATM.RemoveCard on BankingTestData.atmTD{
-	assertOrder RemoveCard.init, RemoveCard.context, RemoveCard.readCard, RemoveCard.removeCard;
-	assertState always until action RemoveCard.removeCard{
-		RemoveCard.context.result::atm_card.card = BankingTestData.cardTD;
-	}
-	assertState always after action RemoveCard.removeCard {
-		RemoveCard.context.result::atm_card.card = null;
-	}
-}
+]
 
 test validatePinTrueTest activity Card.ValidatePin(ValidatePin.pin = 1985) on BankingTestData.cardTD{
 	assertOrder ValidatePin.init, ValidatePin.context, ValidatePin.readPin, ValidatePin.equals;
@@ -68,16 +47,33 @@ test makeWithdrawalAccountFailTest activity Account.MakeWithdrawal(MakeWithdrawa
 	}
 }
 
-test makeDepositATMTest activity ATM.Deposit(Deposit.pin = 1985, Deposit.amount = 100) on BankingTestData.atmTD{
-	assertOrder *, Deposit.successTrue;
+test startTransactionTest activity ATM.StartTransaction on BankingTestData.atmTD{
+	assertOrder StartTransaction.init, StartTransaction.context, 
+		StartTransaction.createTransaction, StartTransaction.setCurrentTransaction;
 	finally {
-		Deposit.readAccount.result::Account.balance = 100;
+		StartTransaction.setCurrentTransaction.result != null;
 	}
 }
 
-test makeWithdrawalATMTest activity ATM.Withdraw(Withdraw.pin = 1985, Withdraw.amount = 100) on BankingTestData.atmTD{
-	assertOrder *, Withdraw.call_makeWithdrawal;
+test endTransactionTest activity ATM.EndTransaction on BankingTestData.atmTD{
+	assertOrder EndTransaction.init, EndTransaction.context, EndTransaction.readCurrentTransaction;
 	finally {
+		EndTransaction.context.result::atmCurrentTransaction.currentTransaction = null;
+	}
+}
+
+test makeDepositATMTest activity ATM.Deposit(Deposit.pin = 1985, Deposit.card = BankingTestData.cardTD, Deposit.amount = 100) on BankingTestData.atmTD{
+	assertOrder *, Deposit.call_endTransactionTrue;
+	finally {
+		Deposit.readAccount.result::Account.balance = 100;
+		Deposit.success = true;
+	}
+}
+
+test makeWithdrawalATMTest activity ATM.Withdraw(Withdraw.pin = 1985, Withdraw.card = BankingTestData.cardTD, Withdraw.amount = 100) on BankingTestData.atmTD{
+	assertOrder *, Withdraw.call_endTransaction;
+	finally {
+		Withdraw.readAccount.result::Account.balance = 0;
 		Withdraw.success = false;
 	}
 }
