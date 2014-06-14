@@ -1,0 +1,28 @@
+import banking.structure.*
+
+scenario BankingTestData[
+	object accountTD: Account{
+		Account.balance = 0;
+	}	
+	object cardTD: Card{
+		Card.pin = 1985;
+	}
+	object atmTD: ATM{}
+	
+	link card_account {source card_account.card = cardTD; target card_account.account = accountTD;}
+]
+
+test validatePinTrueTest activity Card.ValidatePin(ValidatePin.pin = 1985) on BankingTestData.cardTD{
+	assertOrder ValidatePin.init, ValidatePin.context, ValidatePin.readPin, ValidatePin.equals;
+	assertState always after action ValidatePin.equals {
+		ValidatePin.success = true;
+	}
+}
+
+test makeDepositATMTest activity ATM.Deposit(Deposit.pin = 1985, Deposit.card = BankingTestData.cardTD, Deposit.amount = 100) on BankingTestData.atmTD{
+	assertOrder *, Deposit.call_validatePin, *, Deposit.call_makeDeposit, *;
+	finally {
+		Deposit.readAccount.result::Account.balance = 100;
+		Deposit.success = true;
+	}
+}
