@@ -87,10 +87,10 @@ public class UmlTestExecutor {
 	private NamedElement umlModel;
 	private TestConverter testConverter;
 
-	private String testsPath = "../org.modelexecution.fumltesting.examples/model/banking_new_incorrect/tests";
-	private String umlModelPath = "../org.modelexecution.fumltesting.examples/model/banking_new_incorrect/banking.uml";
+	private String testsPath = "../org.modelexecution.fumltesting.examples/model/banking_new/tests";
+	private String umlModelPath = "../org.modelexecution.fumltesting.examples/model/banking_new/banking.uml";
 	private String primitivesPath = "../../moliz/org.modelexecution.fumldebug.standardlibrary/library/uml_library.uml";
-	private String oclPath = "../org.modelexecution.fumltesting.examples/model/banking_new_incorrect/banking.ocl";
+	private String oclPath = "../org.modelexecution.fumltesting.examples/model/banking_new/banking.ocl";
 
 	private String testEndsWithFilter = "behavior.umltest";
 

@@ -32,17 +32,20 @@ public class UmlTestLangJavaValidator extends AbstractUmlTestLangJavaValidator {
 
 	@Check
 	public void checkUseOfJokers(UMLOrderAssertion assertion) {
-		boolean subsequentStarUsed = false;
+		boolean subsequentJokerUsed = false;
 		for (UMLNodeSpecification nodeSpecification : assertion.getOrder().getNodes()) {
-			if (nodeSpecification.getJoker() != null && nodeSpecification.getJoker().equals("*")) {
-				int nextNodeIndex = assertion.getOrder().getNodes().indexOf(nodeSpecification) + 1;
-				if (assertion.getOrder().getNodes().size() > nextNodeIndex
-						&& assertion.getOrder().getNodes().get(nextNodeIndex).getJoker().equals("*"))
-					subsequentStarUsed = true;
+			if (isStar(nodeSpecification) || isUnderscore(nodeSpecification)) {
+				if (assertion.getOrder().getNodes().size() > assertion.getOrder().getNodes().indexOf(nodeSpecification) + 1) {
+					int nextNodeIndex = assertion.getOrder().getNodes().indexOf(nodeSpecification) + 1;
+					UMLNodeSpecification nextNode = assertion.getOrder().getNodes().get(nextNodeIndex);
+					if (isStar(nextNode) || isUnderscore(nextNode))
+						subsequentJokerUsed = true;
+				}
 			}
+
 		}
-		if (subsequentStarUsed)
-			error("Use of subsequent STAR is not allowed!", UmlTestLangPackage.Literals.UML_ORDER_ASSERTION__ORDER);
+		if (subsequentJokerUsed)
+			error("Use of subsequent jokers is not allowed!", UmlTestLangPackage.Literals.UML_ORDER_ASSERTION__ORDER);
 	}
 
 	@Check
@@ -59,5 +62,17 @@ public class UmlTestLangJavaValidator extends AbstractUmlTestLangJavaValidator {
 				error("Operator " + expression.getOperator().name() + " without declaring a property is not allowed!",
 						UmlTestLangPackage.Literals.UML_STATE_EXPRESSION__OPERATOR);
 		}
+	}
+
+	private boolean isStar(UMLNodeSpecification nodeSpecification) {
+		if (nodeSpecification.getJoker() != null && nodeSpecification.getJoker().equals("*"))
+			return true;
+		return false;
+	}
+
+	private boolean isUnderscore(UMLNodeSpecification nodeSpecification) {
+		if (nodeSpecification.getJoker() != null && nodeSpecification.getJoker().equals("_"))
+			return true;
+		return false;
 	}
 }
