@@ -524,7 +524,7 @@
       <ownedOperation xmi:type="uml:Operation" xmi:id="_z6WMIPLxEeO3eNFe961kVQ" name="endTransaction" method="_akpZEPL6EeO3eNFe961kVQ"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_EotcwO2VEeOmmYzDIlRbrw" name="Card" classifierBehavior="_zr6okPDCEeOjn9ENJkZYjg">
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_NRWtkO2VEeOmmYzDIlRbrw" name="ID" visibility="public" isUnique="false">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_NRWtkO2VEeOmmYzDIlRbrw" name="number" visibility="public" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_PrcKYO2VEeOmmYzDIlRbrw" value="1"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_PrcKYe2VEeOmmYzDIlRbrw" value="1"/>
@@ -624,7 +624,7 @@
       </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_RS4pUO2VEeOmmYzDIlRbrw" name="Account" classifierBehavior="_HNEpIPDFEeOjn9ENJkZYjg">
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_X4MlcPLwEeO3eNFe961kVQ" name="ID" visibility="public" isUnique="false">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_X4MlcPLwEeO3eNFe961kVQ" name="number" visibility="public" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ZMZ_UPLwEeO3eNFe961kVQ" value="1"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ZMamYPLwEeO3eNFe961kVQ" value="1"/>
@@ -1005,7 +1005,7 @@
       </ownedEnd>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_KdY-oPCqEeOjfYeEHUkMsA" name="Record" isAbstract="true">
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_NrrfkPCqEeOjfYeEHUkMsA" name="ID" visibility="public" isUnique="false">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_NrrfkPCqEeOjfYeEHUkMsA" name="number" visibility="public" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_SkHOIPCqEeOjfYeEHUkMsA" value="1"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_SkH1MPCqEeOjfYeEHUkMsA" value="1"/>
@@ -1039,7 +1039,7 @@
       <generalization xmi:type="uml:Generalization" xmi:id="_DQO-8PCrEeOjfYeEHUkMsA" general="_KdY-oPCqEeOjfYeEHUkMsA"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_pIiQYPLmEeO3eNFe961kVQ" name="Transaction">
-      <ownedAttribute xmi:type="uml:Property" xmi:id="_tq0IwPLmEeO3eNFe961kVQ" name="ID" visibility="public" isUnique="false">
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_tq0IwPLmEeO3eNFe961kVQ" name="number" visibility="public" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_3Z75cPLmEeO3eNFe961kVQ" value="1"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_3Z8ggPLmEeO3eNFe961kVQ" value="1"/>
@@ -1128,7 +1128,7 @@
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_wmioIvLoEeO3eNFe961kVQ" value="1"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_wmioI_LoEeO3eNFe961kVQ" value="1"/>
       </ownedEnd>
-      <ownedEnd xmi:type="uml:Property" xmi:id="_wmhaAPLoEeO3eNFe961kVQ" name="transactions" type="_pIiQYPLmEeO3eNFe961kVQ" aggregation="composite" association="_wmioIPLoEeO3eNFe961kVQ">
+      <ownedEnd xmi:type="uml:Property" xmi:id="_wmhaAPLoEeO3eNFe961kVQ" name="completedTransactions" type="_pIiQYPLmEeO3eNFe961kVQ" aggregation="composite" association="_wmioIPLoEeO3eNFe961kVQ">
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_wmhaAfLoEeO3eNFe961kVQ"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_wmhaAvLoEeO3eNFe961kVQ" value="*"/>
       </ownedEnd>
