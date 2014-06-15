@@ -26,9 +26,9 @@ import org.modelexecution.fumltesting.core.exceptions.ConstraintStateNotFoundExc
 import org.modelexecution.fumltesting.core.execution.OclExecutor;
 import org.modelexecution.fumltesting.core.parallelism.ExecutionPathFinder;
 import org.modelexecution.fumltesting.core.sequence.Sequence;
+import org.modelexecution.fumltesting.core.sequence.SequenceGenerator;
 import org.modelexecution.fumltesting.core.sequence.SequenceTrace;
 import org.modelexecution.fumltesting.core.sequence.State;
-import org.modelexecution.fumltesting.core.sequence.SequenceGenerator;
 import org.modelexecution.fumltesting.core.testlang.ActionReferencePoint;
 import org.modelexecution.fumltesting.core.testlang.ConstraintReferencePoint;
 import org.modelexecution.fumltesting.core.testlang.StateAssertion;
@@ -231,10 +231,20 @@ public class TraceUtil {
 		return lastActionExecution.getNode();
 	}
 
-	public fUML.Syntax.Activities.IntermediateActivities.ActivityNode getLastExecutedNodeOfActivity(String activityName) throws ActionNotExecutedException {
+	public fUML.Syntax.Activities.IntermediateActivities.ActivityNode getLastExecutedActionOfActivity(String activityName) throws ActionNotExecutedException {
 		for (ActivityExecution activityExecution : trace.getActivityExecutions()) {
 			if (activityExecution.getActivity().name.equals(activityName)) {
-				return activityExecution.getLastExecutedNode().getNode();
+				ActivityNodeExecution lastNode = activityExecution.getLastExecutedNode();
+
+				while (true) {
+					if (lastNode.getNode() instanceof Action)
+						return lastNode.getNode();
+					else {
+						lastNode = lastNode.getChronologicalPredecessor();
+						if (lastNode == null)
+							return null;
+					}
+				}
 			}
 		}
 		throw new ActionNotExecutedException("No Action has been executed within the Activity");

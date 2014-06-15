@@ -15,7 +15,7 @@ inv ProductCodeNotSet: code = null
 inv ProductAvailableNotSet: available = null
 
 inv Strange: ((name.size() * 2) - 2 ) / 20 = 1
-inv ProductNameForAll: Product.allInstances()->forAll(p:Product|p.name='testProduct')
+inv ProductNameForAll: Product.allInstances()->forAll(name='testProduct')
 
 context Item
 

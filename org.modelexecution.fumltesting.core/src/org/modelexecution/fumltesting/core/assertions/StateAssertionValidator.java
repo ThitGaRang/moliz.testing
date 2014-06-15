@@ -172,7 +172,7 @@ public class StateAssertionValidator {
 
 		ActionReferencePoint point = new ActionReferencePoint();
 		String activityName = assertion.getContainer().getActivityUnderTest().name;
-		point.setAction((Action) traceUtil.getLastExecutedNodeOfActivity(activityName));
+		point.setAction((Action) traceUtil.getLastExecutedActionOfActivity(activityName));
 		stateAssertion.setReferencePoint(point);
 
 		for (Check check : assertion.getAllChecks()) {
