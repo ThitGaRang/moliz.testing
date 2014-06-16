@@ -152,9 +152,6 @@ public class OrderAssertionValidator {
 					return false;
 			}
 		} else if (nodeOrder.size() > 2) {
-			if (executedNodes.size() < nodeOrder.size()) {
-				return false;
-			}
 			for (int step = 0; step < nodeOrder.size(); step++) {
 				// checking window of three subsequent node specifications
 				NodeSpecification firstNode = nodeOrder.get(step);
@@ -228,16 +225,16 @@ public class OrderAssertionValidator {
 				// case: node, node, *
 				if (isNode(firstNode) && isNode(secondNode) && isStar(thirdNode)) {
 					if (nodeBeforeWindowExists && nodeAfterWindowExists) {
-						if (nodeIndexFirst == 0 || nodeIndexFirst + 1 != nodeIndexSecond || nodeIndexSecond == executedNodes.size() - 1)
+						if (nodeIndexFirst == 0 || nodeIndexFirst + 1 != nodeIndexSecond)
 							return false;
 					} else if (!nodeBeforeWindowExists && !nodeAfterWindowExists) {
-						if (nodeIndexFirst != 0 || nodeIndexSecond != 1 || nodeIndexSecond == executedNodes.size() - 1)
+						if (nodeIndexFirst != 0 || nodeIndexSecond != 1)
 							return false;
 					} else if (!nodeBeforeWindowExists && nodeAfterWindowExists) {
-						if (nodeIndexFirst != 0 || nodeIndexFirst + 1 != nodeIndexSecond || nodeIndexSecond == executedNodes.size() - 1)
+						if (nodeIndexFirst != 0 || nodeIndexFirst + 1 != nodeIndexSecond)
 							return false;
 					} else if (nodeBeforeWindowExists && !nodeAfterWindowExists) {
-						if (nodeIndexFirst == 0 || nodeIndexFirst + 1 != nodeIndexSecond || nodeIndexSecond != executedNodes.size() - 1)
+						if (nodeIndexFirst == 0 || nodeIndexFirst + 1 != nodeIndexSecond)
 							return false;
 					}
 				}
@@ -263,10 +260,10 @@ public class OrderAssertionValidator {
 						if (nodeIndexSecond == 0 || nodeIndexSecond + 1 != nodeIndexThird || nodeIndexThird == executedNodes.size() - 1)
 							return false;
 					} else if (!nodeBeforeWindowExists && !nodeAfterWindowExists) {
-						if (nodeIndexSecond == 0 || nodeIndexSecond + 1 != nodeIndexThird || nodeIndexThird != executedNodes.size() - 1)
+						if (nodeIndexSecond + 1 != nodeIndexThird || nodeIndexThird != executedNodes.size() - 1)
 							return false;
 					} else if (!nodeBeforeWindowExists && nodeAfterWindowExists) {
-						if (nodeIndexSecond == 0 || nodeIndexSecond + 1 != nodeIndexThird || nodeIndexThird == executedNodes.size() - 1)
+						if (nodeIndexSecond + 1 != nodeIndexThird || nodeIndexThird == executedNodes.size() - 1)
 							return false;
 					} else if (nodeBeforeWindowExists && !nodeAfterWindowExists) {
 						if (nodeIndexSecond == 0 || nodeIndexSecond + 1 != nodeIndexThird || nodeIndexThird != executedNodes.size() - 1)
@@ -292,16 +289,16 @@ public class OrderAssertionValidator {
 				// case: node, *, node
 				if (isNode(firstNode) && isStar(secondNode) && isNode(thirdNode)) {
 					if (nodeBeforeWindowExists && nodeAfterWindowExists) {
-						if (nodeIndexFirst == 0 || nodeIndexFirst >= nodeIndexThird || nodeIndexThird == executedNodes.size() - 1)
+						if (nodeIndexFirst == 0 || nodeIndexFirst > nodeIndexThird || nodeIndexThird == executedNodes.size() - 1)
 							return false;
 					} else if (!nodeBeforeWindowExists && !nodeAfterWindowExists) {
-						if (nodeIndexFirst != 0 || nodeIndexFirst >= nodeIndexThird || nodeIndexThird != executedNodes.size() - 1)
+						if (nodeIndexFirst != 0 || nodeIndexFirst > nodeIndexThird || nodeIndexThird != executedNodes.size() - 1)
 							return false;
 					} else if (!nodeBeforeWindowExists && nodeAfterWindowExists) {
-						if (nodeIndexFirst != 0 || nodeIndexFirst >= nodeIndexThird || nodeIndexThird == executedNodes.size() - 1)
+						if (nodeIndexFirst != 0 || nodeIndexFirst > nodeIndexThird || nodeIndexThird == executedNodes.size() - 1)
 							return false;
 					} else if (nodeBeforeWindowExists && !nodeAfterWindowExists) {
-						if (nodeIndexFirst == 0 || nodeIndexFirst >= nodeIndexThird || nodeIndexThird != executedNodes.size() - 1)
+						if (nodeIndexFirst == 0 || nodeIndexFirst > nodeIndexThird || nodeIndexThird != executedNodes.size() - 1)
 							return false;
 					}
 				}

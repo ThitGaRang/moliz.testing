@@ -448,12 +448,12 @@ public class StateAssertionValidator {
 					for (FeatureValue value : link.getFeatureValues()) {
 						Object_ referencedObject = ((Reference) value.values.get(0)).referent;
 						for (ValueSnapshot snapshot : source.getSnapshots()) {
-							if (snapshot.getValue() == referencedObject)
+							if (snapshot.getValue().equals(referencedObject))
 								sourceContained = true;
-							if (fumlTarget == referencedObject)
+							if (fumlTarget != null && fumlTarget.equals(referencedObject))
 								targetContained = true;
 						}
-						if (source.getRuntimeValue() == referencedObject) {
+						if (source.getRuntimeValue().equals(referencedObject)) {
 							sourceContained = true;
 						}
 					}
