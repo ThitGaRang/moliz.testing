@@ -10,7 +10,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.dresdenocl.pivotmodel.AssociationProperty;
-import org.modelexecution.fuml.Syntax.Classes.Kernel.Property;
+
+import fUML.Syntax.Classes.Kernel.Property;
 
 /**
  * 
@@ -68,6 +69,6 @@ public class FUMLAssociationProperty extends FUMLProperty implements Association
 	}
 
 	public boolean isNavigable() {
-		return dslProperty.getAssociation().getNavigableOwnedEnd().contains(dslProperty);
+		return dslProperty.association.navigableOwnedEnd.contains(dslProperty);
 	}
 }

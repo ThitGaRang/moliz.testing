@@ -6,43 +6,109 @@
  */
 package org.modelexecution.fumltesting.core.sequence;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Set;
 
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
-import org.modelexecution.fuml.Semantics.Classes.Kernel.Link;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
+
+import fUML.Semantics.Classes.Kernel.FeatureValue;
+import fUML.Semantics.Classes.Kernel.Link;
+import fUML.Semantics.Classes.Kernel.Object_;
+import fUML.Semantics.Classes.Kernel.Reference;
+import fUML.Semantics.Classes.Kernel.Value;
+
 /**
  * 
  * @author Stefan Mijatov
- *
+ * 
  */
-public interface State extends EObject {
+public class State {
 
-	org.modelexecution.fuml.Semantics.Classes.Kernel.Object getStateSnapshot(ValueInstance instance);
+	private ActivityNodeExecution stateCreator;
+	private HashMap<ValueInstance, Object_> objectSnapshotMappings = new HashMap<ValueInstance, Object_>();
+	private HashMap<ValueInstance, Link> linkSnapshotMappings = new HashMap<ValueInstance, Link>();
+	private State successor;
+	private State predecessor;
 
-	ValueInstance getInstance(org.modelexecution.fuml.Semantics.Classes.Kernel.Object snapshot);
+	public State(ActivityNodeExecution stateCreator) {
+		this.stateCreator = stateCreator;
+	}
 
-	void addSnapshotMapping(ValueInstance instance, org.modelexecution.fuml.Semantics.Classes.Kernel.Object snapshot);
+	public State getSuccessor() {
+		return successor;
+	}
 
-	Set<ValueInstance> getValueInstances();
+	public void setSuccessor(State successor) {
+		this.successor = successor;
+	}
 
-	void copySnapshotMappings(State anotherState);
+	public State getPredecessor() {
+		return predecessor;
+	}
 
-	EList<org.modelexecution.fuml.Semantics.Classes.Kernel.Object> getObjects();
+	public void setPredecessor(State predecessor) {
+		this.predecessor = predecessor;
+	}
 
-	EList<Link> getLinks();
+	public ActivityNodeExecution getStateCreator() {
+		return stateCreator;
+	}
 
-	State getSuccessor();
+	public Set<ValueInstance> getStateObjectInstances() {
+		return Collections.unmodifiableSet(objectSnapshotMappings.keySet());
+	}
 
-	void setSuccessor(State value);
+	public Set<ValueInstance> getStateLinkInstances() {
+		return Collections.unmodifiableSet(linkSnapshotMappings.keySet());
+	}
 
-	State getPredecessor();
+	public Object_ getStateObjectSnapshot(ValueInstance instance) {
+		for (ValueInstance key : objectSnapshotMappings.keySet()) {
+			if (key == instance)
+				return objectSnapshotMappings.get(key);
+		}
+		return null;
+	}
 
-	void setPredecessor(State value);
+	public Link getStateLinkSnapshot(ValueInstance instance) {
+		for (ValueInstance key : linkSnapshotMappings.keySet()) {
+			if (key == instance)
+				return linkSnapshotMappings.get(key);
+		}
+		return null;
+	}
 
-	ActivityNodeExecution getNodeExecution();
+	public void addStateObjectSnapshot(Object_ object, ValueInstance instance) {
+		objectSnapshotMappings.put(instance, object);
+	}
 
-	void setNodeExecution(ActivityNodeExecution value);
+	public void addStateLinkSnapshot(Link link, ValueInstance instance) {
+		linkSnapshotMappings.put(instance, link);
+	}
+
+	public void removeStateObjectSnapshot(ValueInstance instance) {
+		Object_ removedObject = getStateObjectSnapshot(instance);
+		objectSnapshotMappings.remove(instance);
+		for (ValueInstance linkInstance : linkSnapshotMappings.keySet()) {
+			Link link = getStateLinkSnapshot(linkInstance);
+			boolean sourceContained = false;
+			FeatureValue sourceFeatureValue = null;
+			for (FeatureValue featureValue : link.featureValues) {
+				if (!link.type.navigableOwnedEnd.contains(featureValue.feature))
+					sourceFeatureValue = featureValue;
+			}
+			if (sourceFeatureValue != null) {
+				for (Value linkEndValue : sourceFeatureValue.values) {
+					Reference reference = (Reference) linkEndValue;
+					if(reference.referent == removedObject)
+						sourceContained = true;
+				}
+			}
+			if(sourceContained){
+				linkSnapshotMappings.remove(instance);
+			}
+		}
+	}
 }

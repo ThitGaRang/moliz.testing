@@ -6,16 +6,18 @@
  */
 package org.modelexecution.fumltesting.ocl.internal.model;
 
+import java.util.List;
+
 import org.dresdenocl.essentialocl.EssentialOclPlugin;
 import org.dresdenocl.pivotmodel.Property;
 import org.dresdenocl.pivotmodel.Type;
 import org.dresdenocl.pivotmodel.base.AbstractProperty;
-import org.eclipse.emf.common.util.EList;
-import org.modelexecution.fuml.Syntax.Classes.Kernel.Association;
-import org.modelexecution.fuml.Syntax.Classes.Kernel.Class;
-import org.modelexecution.fuml.Syntax.Classes.Kernel.Element;
-import org.modelexecution.fuml.Syntax.Classes.Kernel.PrimitiveType;
-import org.modelexecution.fuml.Syntax.Classes.Kernel.TypedElement;
+
+import fUML.Syntax.Classes.Kernel.Association;
+import fUML.Syntax.Classes.Kernel.Class_;
+import fUML.Syntax.Classes.Kernel.Element;
+import fUML.Syntax.Classes.Kernel.PrimitiveType;
+import fUML.Syntax.Classes.Kernel.TypedElement;
 
 /**
  * 
@@ -24,38 +26,38 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.TypedElement;
  */
 public class FUMLProperty extends AbstractProperty implements Property {
 
-	protected org.modelexecution.fuml.Syntax.Classes.Kernel.Property dslProperty;
+	protected fUML.Syntax.Classes.Kernel.Property dslProperty;
 	protected FUMLAdapterFactory factory;
 
-	public FUMLProperty(org.modelexecution.fuml.Syntax.Classes.Kernel.Property dslProperty, FUMLAdapterFactory factory) {
+	public FUMLProperty(fUML.Syntax.Classes.Kernel.Property dslProperty, FUMLAdapterFactory factory) {
 		this.dslProperty = dslProperty;
 		this.factory = factory;
 	}
 
 	@Override
 	public String getName() {
-		return dslProperty.getName();
+		return dslProperty.name;
 	}
 
 	@Override
 	public Type getOwningType() {
 		Type result = null;
-		Element owner = dslProperty.getOwner();
+		Element owner = dslProperty.owner;
 		if (owner instanceof PrimitiveType) {
 			PrimitiveType primitiveType = (PrimitiveType) owner;
 			result = factory.createPrimitiveType(primitiveType);
 		} else if (owner instanceof TypedElement) {
 			TypedElement typedElement = (TypedElement) owner;
-			result = factory.createType(typedElement.getType());
-		} else if (owner instanceof Class) {
-			Class clazz = (Class) owner;
+			result = factory.createType(typedElement.type);
+		} else if (owner instanceof Class_) {
+			Class_ clazz = (Class_) owner;
 			result = factory.createClass(clazz);
 		} else if (owner instanceof Association) {
 			Association association = (Association) owner;
-			EList<org.modelexecution.fuml.Syntax.Classes.Kernel.Property> associationEnds = association.getOwnedEnd();
-			for (org.modelexecution.fuml.Syntax.Classes.Kernel.Property end : associationEnds) {
+			List<fUML.Syntax.Classes.Kernel.Property> associationEnds = association.ownedEnd;
+			for (fUML.Syntax.Classes.Kernel.Property end : associationEnds) {
 				if (!end.equals(dslProperty)) {
-					result = factory.createType(end.getType());
+					result = factory.createType(end.typedElement.type);
 					setOwningType(result);
 					break;
 				}
@@ -67,16 +69,16 @@ public class FUMLProperty extends AbstractProperty implements Property {
 	@Override
 	public Type getType() {
 		Type result = null;
-		Type elementType = factory.createType(dslProperty.getType());
-		if (dslProperty.getUpper() > 1) {
-			if (dslProperty.isOrdered()) {
-				if (dslProperty.isUnique()) {
+		Type elementType = factory.createType(dslProperty.typedElement.type);
+		if (dslProperty.multiplicityElement.upper.naturalValue > 1) {
+			if (dslProperty.multiplicityElement.isOrdered) {
+				if (dslProperty.multiplicityElement.isUnique) {
 					result = EssentialOclPlugin.getOclLibraryProvider().getOclLibrary().getOrderedSetType(elementType);
 				} else {
 					result = EssentialOclPlugin.getOclLibraryProvider().getOclLibrary().getSequenceType(elementType);
 				}
 			} else {
-				if (dslProperty.isUnique()) {
+				if (dslProperty.multiplicityElement.isUnique) {
 					result = EssentialOclPlugin.getOclLibraryProvider().getOclLibrary().getSetType(elementType);
 				} else {
 					result = EssentialOclPlugin.getOclLibraryProvider().getOclLibrary().getBagType(elementType);
@@ -89,22 +91,22 @@ public class FUMLProperty extends AbstractProperty implements Property {
 	}
 
 	public boolean isMultiple() {
-		return dslProperty.getUpper() > 1;
+		return dslProperty.multiplicityElement.upper.naturalValue > 1;
 	}
 
 	public boolean isOrdered() {
-		return dslProperty.isOrdered();
+		return dslProperty.multiplicityElement.isOrdered;
 	}
 
 	public boolean isUnique() {
-		return dslProperty.isUnique();
+		return dslProperty.multiplicityElement.isUnique;
 	}
 
 	public boolean isStatic() {
-		return dslProperty.isStatic();
+		return dslProperty.isStatic;
 	}
 
-	public org.modelexecution.fuml.Syntax.Classes.Kernel.Property getDslProperty() {
+	public fUML.Syntax.Classes.Kernel.Property getDslProperty() {
 		return dslProperty;
 	}
 }

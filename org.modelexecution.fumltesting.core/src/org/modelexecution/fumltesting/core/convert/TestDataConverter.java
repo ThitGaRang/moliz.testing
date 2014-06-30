@@ -39,10 +39,10 @@ import fUML.Syntax.Classes.Kernel.Property;
 public class TestDataConverter {
 
 	private Locus locus = ExecutionContext.getInstance().getLocus();
-	private HashMap<Object, Object_> fumlElements = new HashMap<Object, Object_>();
+	private HashMap<ObjectSpecification, Object_> objects = new HashMap<ObjectSpecification, Object_>();
 
 	public Object_ getFumlObject(ObjectValue objectValue) {
-		return fumlElements.get(objectValue.getValue());
+		return objects.get(objectValue.getValue());
 	}
 
 	public fUML.Semantics.Classes.Kernel.Value getFumlValue(Value value) {
@@ -63,7 +63,7 @@ public class TestDataConverter {
 	}
 
 	public void cleanUpAndInit(TestSuite suite) {
-		fumlElements = new HashMap<Object, Object_>();
+		objects = new HashMap<ObjectSpecification, Object_>();
 		locus.extensionalValues.removeAll(locus.extensionalValues);
 		convertScenarios(suite);
 	}
@@ -72,14 +72,14 @@ public class TestDataConverter {
 		for (Scenario scenario : suite.getAllScenarios()) {
 			for (ObjectSpecification object : scenario.getAllObjects()) {
 				ObjectValue objectValue = new ObjectValue(object);
-				fumlElements.put(object, convertObject(objectValue));
+				convertObject(objectValue);
 			}
 		}
 	}
 
 	private Object_ convertObject(ObjectValue value) {
-		if (fumlElements.containsKey(value))
-			return fumlElements.get(value);
+		if (objects.containsKey(value.getValue()))
+			return objects.get(value);
 
 		ObjectSpecification object = ((ObjectValue) value).getValue();
 		Scenario testData = object.getContainer();
@@ -145,6 +145,7 @@ public class TestDataConverter {
 				fumlLink.addTo(locus);
 			}
 		}
+		objects.put(object, object_);
 		return object_;
 	}
 

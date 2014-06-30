@@ -10,10 +10,11 @@ import org.dresdenocl.essentialocl.EssentialOclPlugin;
 import org.dresdenocl.pivotmodel.Property;
 import org.dresdenocl.pivotmodel.Type;
 import org.dresdenocl.pivotmodel.base.AbstractProperty;
-import org.modelexecution.fuml.Syntax.Classes.Kernel.Association;
-import org.modelexecution.fuml.Syntax.Classes.Kernel.Class;
-import org.modelexecution.fuml.Syntax.Classes.Kernel.Element;
-import org.modelexecution.fuml.Syntax.Classes.Kernel.TypedElement;
+
+import fUML.Syntax.Classes.Kernel.Association;
+import fUML.Syntax.Classes.Kernel.Class_;
+import fUML.Syntax.Classes.Kernel.Element;
+import fUML.Syntax.Classes.Kernel.TypedElement;
 
 /**
  * 
@@ -31,22 +32,22 @@ public class FUMLAssociation extends AbstractProperty implements Property {
 
 	@Override
 	public String getName() {
-		return dslAssociation.getName();
+		return dslAssociation.name;
 	}
 
 	@Override
 	public Type getType() {
 		Type result = null;
-		Type elementType = factory.createType(dslAssociation.getEndType().get(0));
-		if (dslAssociation.getMemberEnd().get(0).getUpper() > 0) {
-			if (dslAssociation.getMemberEnd().get(0).isOrdered()) {
-				if (dslAssociation.getMemberEnd().get(0).isUnique()) {
+		Type elementType = factory.createType(dslAssociation.endType.get(0));
+		if (dslAssociation.memberEnd.get(0).multiplicityElement.upper.naturalValue > 0) {
+			if (dslAssociation.memberEnd.get(0).multiplicityElement.isOrdered) {
+				if (dslAssociation.memberEnd.get(0).multiplicityElement.isUnique) {
 					result = EssentialOclPlugin.getOclLibraryProvider().getOclLibrary().getOrderedSetType(elementType);
 				} else {
 					result = EssentialOclPlugin.getOclLibraryProvider().getOclLibrary().getSequenceType(elementType);
 				}
 			} else {
-				if (dslAssociation.getMemberEnd().get(0).isUnique()) {
+				if (dslAssociation.memberEnd.get(0).multiplicityElement.isUnique) {
 					result = EssentialOclPlugin.getOclLibraryProvider().getOclLibrary().getSetType(elementType);
 				} else {
 					result = EssentialOclPlugin.getOclLibraryProvider().getOclLibrary().getBagType(elementType);
@@ -61,12 +62,12 @@ public class FUMLAssociation extends AbstractProperty implements Property {
 	@Override
 	public Type getOwningType() {
 		Type result = null;
-		Element owner = dslAssociation.getOwner();
+		Element owner = dslAssociation.owner;
 		if (owner instanceof TypedElement) {
 			TypedElement typedElement = (TypedElement) owner;
-			result = factory.createType(typedElement.getType());
-		} else if (owner instanceof Class) {
-			Class clazz = (Class) owner;
+			result = factory.createType(typedElement.type);
+		} else if (owner instanceof Class_) {
+			Class_ clazz = (Class_) owner;
 			result = factory.createClass(clazz);
 		}
 		return result;

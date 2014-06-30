@@ -14,10 +14,11 @@ import org.dresdenocl.pivotmodel.Operation;
 import org.dresdenocl.pivotmodel.Property;
 import org.dresdenocl.pivotmodel.Type;
 import org.dresdenocl.pivotmodel.base.AbstractType;
-import org.modelexecution.fuml.Syntax.Classes.Kernel.Classifier;
-import org.modelexecution.fuml.Syntax.Classes.Kernel.DataType;
-import org.modelexecution.fuml.Syntax.Classes.Kernel.Element;
-import org.modelexecution.fuml.Syntax.Classes.Kernel.NamedElement;
+
+import fUML.Syntax.Classes.Kernel.Classifier;
+import fUML.Syntax.Classes.Kernel.DataType;
+import fUML.Syntax.Classes.Kernel.Element;
+import fUML.Syntax.Classes.Kernel.NamedElement;
 
 /**
  * 
@@ -35,18 +36,18 @@ public class FUMLDataType extends AbstractType implements Type {
 
 	@Override
 	public String getName() {
-		return dslDataType.getName();
+		return dslDataType.name;
 	}
 
 	@Override
 	public Namespace getNamespace() {
-		return factory.createNamespace(dslDataType.getPackage());
+		return factory.createNamespace(dslDataType.package_);
 	}
 
 	@Override
 	protected List<Property> getOwnedPropertyImpl() {
 		List<Property> result = new ArrayList<Property>();
-		for (org.modelexecution.fuml.Syntax.Classes.Kernel.Property property : dslDataType.getOwnedAttribute()) {
+		for (fUML.Syntax.Classes.Kernel.Property property : dslDataType.ownedAttribute) {
 			result.add(factory.createProperty(property));
 		}
 		return result;
@@ -55,9 +56,9 @@ public class FUMLDataType extends AbstractType implements Type {
 	@Override
 	protected List<Operation> getOwnedOperationImpl() {
 		List<Operation> result = new ArrayList<Operation>();
-		for (Element element : dslDataType.getOwnedElement()) {
-			if (element instanceof org.modelexecution.fuml.Syntax.Classes.Kernel.Operation)
-				result.add(factory.createOperation((org.modelexecution.fuml.Syntax.Classes.Kernel.Operation) element));
+		for (Element element : dslDataType.ownedElement) {
+			if (element instanceof fUML.Syntax.Classes.Kernel.Operation)
+				result.add(factory.createOperation((fUML.Syntax.Classes.Kernel.Operation) element));
 		}
 		return result;
 	}
@@ -65,7 +66,7 @@ public class FUMLDataType extends AbstractType implements Type {
 	@Override
 	protected List<Type> getSuperTypeImpl() {
 		List<Type> result = new ArrayList<Type>();
-		for (NamedElement inheritedElement : dslDataType.getInheritedMember()) {
+		for (NamedElement inheritedElement : dslDataType.inheritedMember) {
 			if (inheritedElement instanceof Classifier)
 				result.add(factory.createType((Classifier) inheritedElement));
 		}

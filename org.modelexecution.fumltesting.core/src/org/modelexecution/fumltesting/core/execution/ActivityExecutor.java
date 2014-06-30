@@ -16,6 +16,7 @@ import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 import org.modelexecution.fumldebug.core.event.ActivityExitEvent;
 import org.modelexecution.fumldebug.core.event.ActivityNodeExitEvent;
 import org.modelexecution.fumldebug.core.event.Event;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.Reference;
@@ -52,6 +53,10 @@ public class ActivityExecutor implements ExecutionEventListener {
 
 		executeActivity(activity);
 		return mainActivityID;
+	}
+
+	public ActivityExecution getActivityExecution(int executionID) {
+		return ExecutionContext.getInstance().getTrace(executionID).getActivityExecutionByID(executionID);
 	}
 
 	private void loadInputs(Activity fumlActivity, HashMap<ActivityParameterNode, Object> inputValues) {

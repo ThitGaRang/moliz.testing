@@ -46,13 +46,14 @@ import org.dresdenocl.pivotmodel.Type;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.osgi.util.NLS;
-import org.modelexecution.fuml.Semantics.Classes.Kernel.BooleanValue;
-import org.modelexecution.fuml.Semantics.Classes.Kernel.FeatureValue;
-import org.modelexecution.fuml.Semantics.Classes.Kernel.IntegerValue;
-import org.modelexecution.fuml.Semantics.Classes.Kernel.KernelFactory;
-import org.modelexecution.fuml.Semantics.Classes.Kernel.StringValue;
 import org.modelexecution.fumltesting.ocl.internal.model.FUMLAssociationProperty;
 import org.modelexecution.fumltesting.ocl.internal.util.FUMLModelInstanceTypeUtil;
+
+import fUML.Semantics.Classes.Kernel.BooleanValue;
+import fUML.Semantics.Classes.Kernel.FeatureValue;
+import fUML.Semantics.Classes.Kernel.IntegerValue;
+import fUML.Semantics.Classes.Kernel.Object_;
+import fUML.Semantics.Classes.Kernel.StringValue;
 
 /**
  * 
@@ -127,13 +128,13 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 		if (dslObject == null) {
 			return myFactory.createModelInstanceElement(null, property.getType());
 		} else {
-			if (dslObject instanceof org.modelexecution.fuml.Semantics.Classes.Kernel.Object) {
-				org.modelexecution.fuml.Semantics.Classes.Kernel.Object object = (org.modelexecution.fuml.Semantics.Classes.Kernel.Object) dslObject;
+			if (dslObject instanceof Object_) {
+				Object_ object = (Object_) dslObject;
 				for (FeatureValue featureValue : object.getFeatureValues()) {
-					if (featureValue.getFeature().getName().equals(property.getName())) {
+					if (featureValue.feature.name.equals(property.getName())) {
 						IModelInstanceElement result = null;
-						if (featureValue.getValues().size() > 0) {
-							result = AbstractModelInstance.adaptInvocationResult(featureValue.getValues().get(0), property.getType(), myFactory);
+						if (featureValue.values.size() > 0) {
+							result = AbstractModelInstance.adaptInvocationResult(featureValue.values.get(0), property.getType(), myFactory);
 						} else {
 							if (property instanceof AssociationProperty) {
 								result = new FUMLModelInstanceObject(null, property.getType(), property.getType(), myFactory);
@@ -141,10 +142,10 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 								result = AbstractModelInstance.adaptInvocationResult(null, property.getType(), myFactory);
 							}
 						}
-
 						return result;
 					}
 				}
+				
 			}
 		}
 		throw new PropertyNotFoundException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_PropertyNotFoundInModelInstanceElement, property));
@@ -198,7 +199,7 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 					String stringValue = null;
 
 					if (dslObject instanceof StringValue) {
-						stringValue = ((StringValue) dslObject).getValue();
+						stringValue = ((StringValue) dslObject).value;
 					} else if (dslObject instanceof String) {
 						stringValue = (String) dslObject;
 					} else {
@@ -258,7 +259,7 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 					Long longAnalog = null;
 
 					if (dslObject instanceof IntegerValue) {
-						longAnalog = Long.parseLong(String.valueOf(((IntegerValue) dslObject).getValue()));
+						longAnalog = Long.parseLong(String.valueOf(((IntegerValue) dslObject).value));
 					} else if (dslObject instanceof Integer) {
 						longAnalog = Long.parseLong(String.valueOf((Integer) dslObject));
 					} else if (dslObject instanceof Long) {
@@ -356,7 +357,7 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 					Boolean booleanValue = null;
 
 					if (dslObject instanceof BooleanValue) {
-						booleanValue = ((BooleanValue) dslObject).isValue();
+						booleanValue = ((BooleanValue) dslObject).value;
 					} else if (dslObject instanceof Boolean) {
 						booleanValue = (Boolean) dslObject;
 					} else {
@@ -795,21 +796,21 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 	}
 
 	private void adaptEmptyProperties(Object object, Type type) {
-		if (object instanceof org.modelexecution.fuml.Semantics.Classes.Kernel.Object) {
-			org.modelexecution.fuml.Semantics.Classes.Kernel.Object dslObject = (org.modelexecution.fuml.Semantics.Classes.Kernel.Object) object;
+		if (object instanceof Object_) {
+			Object_ dslObject = (Object_) object;
 			for (Property property : type.getOwnedProperty()) {
 				if (property instanceof FUMLAssociationProperty) {
 					boolean propertyExists = false;
 					for (FeatureValue featureValue : dslObject.getFeatureValues()) {
-						if (featureValue.getFeature().getName().equals(property.getName())) {
+						if (featureValue.feature.name.equals(property.getName())) {
 							propertyExists = true;
 							break;
 						}
 					}
 					if (!propertyExists) {
-						FeatureValue featureValue = KernelFactory.eINSTANCE.createFeatureValue();
-						featureValue.setFeature(((FUMLAssociationProperty) property).getDslProperty());
-						((org.modelexecution.fuml.Semantics.Classes.Kernel.Object) object).getFeatureValues().add(featureValue);
+						FeatureValue featureValue = new FeatureValue();
+						featureValue.feature = ((FUMLAssociationProperty) property).getDslProperty();
+						((Object_) object).getFeatureValues().add(featureValue);
 					}
 				}
 			}

@@ -19,37 +19,37 @@ import org.dresdenocl.pivotmodel.base.AbstractParameter;
  * 
  */
 public class FUMLParameter extends AbstractParameter implements Parameter {
-	private org.modelexecution.fuml.Syntax.Classes.Kernel.Parameter dslParameter;
+	private fUML.Syntax.Classes.Kernel.Parameter dslParameter;
 	private FUMLAdapterFactory factory;
 
-	public FUMLParameter(org.modelexecution.fuml.Syntax.Classes.Kernel.Parameter dslParameter, FUMLAdapterFactory factory) {
+	public FUMLParameter(fUML.Syntax.Classes.Kernel.Parameter dslParameter, FUMLAdapterFactory factory) {
 		this.dslParameter = dslParameter;
 		this.factory = factory;
 	}
 
 	@Override
 	public String getName() {
-		return dslParameter.getName();
+		return dslParameter.name;
 	}
 
 	@Override
 	public Operation getOperation() {
-		return factory.createOperation((org.modelexecution.fuml.Syntax.Classes.Kernel.Operation) dslParameter.getOwner());
+		return factory.createOperation((fUML.Syntax.Classes.Kernel.Operation) dslParameter.owner);
 	}
 
 	@Override
 	public Type getType() {
 		Type result = null;
-		Type elementType = factory.createType(dslParameter.getType());
-		if (dslParameter.getUpper() > 1) {
-			if (dslParameter.isOrdered()) {
-				if (dslParameter.isUnique()) {
+		Type elementType = factory.createType(dslParameter.type);
+		if (dslParameter.multiplicityElement.upper.naturalValue > 1) {
+			if (dslParameter.multiplicityElement.isOrdered) {
+				if (dslParameter.multiplicityElement.isUnique) {
 					result = EssentialOclPlugin.getOclLibraryProvider().getOclLibrary().getOrderedSetType(elementType);
 				} else {
 					result = EssentialOclPlugin.getOclLibraryProvider().getOclLibrary().getSequenceType(elementType);
 				}
 			} else {
-				if (dslParameter.isUnique()) {
+				if (dslParameter.multiplicityElement.isUnique) {
 					result = EssentialOclPlugin.getOclLibraryProvider().getOclLibrary().getSetType(elementType);
 				} else {
 					result = EssentialOclPlugin.getOclLibraryProvider().getOclLibrary().getBagType(elementType);
@@ -62,28 +62,28 @@ public class FUMLParameter extends AbstractParameter implements Parameter {
 	}
 
 	public ParameterDirectionKind getKind() {
-		org.modelexecution.fuml.Syntax.Classes.Kernel.ParameterDirectionKind dslKind = dslParameter.getDirection();
-		if (dslKind.getValue() == org.modelexecution.fuml.Syntax.Classes.Kernel.ParameterDirectionKind.IN_VALUE) {
+		fUML.Syntax.Classes.Kernel.ParameterDirectionKind dslKind = dslParameter.direction;
+		if (dslKind == fUML.Syntax.Classes.Kernel.ParameterDirectionKind.in) {
 			kind = ParameterDirectionKind.IN;
-		} else if (dslKind.getValue() == org.modelexecution.fuml.Syntax.Classes.Kernel.ParameterDirectionKind.OUT_VALUE) {
+		} else if (dslKind == fUML.Syntax.Classes.Kernel.ParameterDirectionKind.out) {
 			kind = ParameterDirectionKind.OUT;
-		} else if (dslKind.getValue() == org.modelexecution.fuml.Syntax.Classes.Kernel.ParameterDirectionKind.INOUT_VALUE) {
+		} else if (dslKind == fUML.Syntax.Classes.Kernel.ParameterDirectionKind.inout) {
 			kind = ParameterDirectionKind.INOUT;
-		} else if (dslKind.getValue() == org.modelexecution.fuml.Syntax.Classes.Kernel.ParameterDirectionKind.RETURN_VALUE) {
+		} else if (dslKind == fUML.Syntax.Classes.Kernel.ParameterDirectionKind.return_) {
 			kind = ParameterDirectionKind.RETURN;
 		}
 		return kind;
 	}
 
 	public boolean isMultiple() {
-		return dslParameter.getUpper() > 1;
+		return dslParameter.multiplicityElement.upper.naturalValue > 1;
 	}
 
 	public boolean isOrdered() {
-		return dslParameter.isOrdered();
+		return dslParameter.multiplicityElement.isOrdered;
 	}
 
 	public boolean isUnique() {
-		return dslParameter.isUnique();
+		return dslParameter.multiplicityElement.isUnique;
 	}
 }

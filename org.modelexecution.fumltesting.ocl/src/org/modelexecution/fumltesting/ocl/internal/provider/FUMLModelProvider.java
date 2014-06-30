@@ -18,7 +18,7 @@ public class FUMLModelProvider extends AbstractModelProvider implements IModelPr
 	private FUMLModel model;
 
 	/** Initializes the model from fUML package. */
-	public void initModel(org.modelexecution.fuml.Syntax.Classes.Kernel.Package rootPackage) {
+	public void initModel(fUML.Syntax.Classes.Kernel.Package rootPackage) {
 		model = new FUMLModel(rootPackage);
 	}
 

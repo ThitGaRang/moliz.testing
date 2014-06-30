@@ -10,7 +10,8 @@ import org.dresdenocl.pivotmodel.Parameter;
 import org.dresdenocl.pivotmodel.ParameterDirectionKind;
 import org.dresdenocl.pivotmodel.Type;
 import org.dresdenocl.pivotmodel.base.AbstractParameter;
-import org.modelexecution.fuml.Syntax.Classes.Kernel.Operation;
+
+import fUML.Syntax.Classes.Kernel.Operation;
 
 /**
  * 

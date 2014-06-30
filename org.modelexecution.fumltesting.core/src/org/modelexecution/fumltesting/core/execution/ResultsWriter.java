@@ -39,7 +39,6 @@ import org.modelexecution.fumltesting.core.testlang.StringValue;
 import org.modelexecution.fumltesting.core.testlang.Value;
 
 import fUML.Syntax.Actions.BasicActions.Action;
-import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityFinalNode;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
@@ -71,7 +70,7 @@ public class ResultsWriter {
 
 		for (TestCaseResult testCaseResult : suiteResult.getTestCaseResults()) {
 			writer.println("TestCase: " + testCaseResult.getTestCaseName());
-			writer.println("Activity: " + ((Activity) testCaseResult.getActivityUnderTest()).name);
+			writer.println("Activity: " + (testCaseResult.getActivityUnderTest().getActivity()).name);
 			if (testCaseResult.getActivityContextObject() != null) {
 				writer.println("Activity context object: " + ((ObjectSpecification) testCaseResult.getActivityContextObject()).getName());
 			}
@@ -102,7 +101,7 @@ public class ResultsWriter {
 			for (AssertionResult assertionResult : testCaseResult.getAssertionResults()) {
 				if (assertionResult instanceof OrderAssertionResult) {
 					OrderAssertionResult orderAssertionResult = (OrderAssertionResult) assertionResult;
-					printSpecification(((NodeOrder) orderAssertionResult.getNodeOrderSpecification()).getAllNodes());
+					printSpecification(orderAssertionResult.getOrderSpecification());
 					writer.println("\tNumber of paths checked: " + orderAssertionResult.numberOfPathsChecked());
 					writer.println("\tNumber of invalid paths: " + orderAssertionResult.getFailedPathCheckResults().size());
 					writer.println();
@@ -122,7 +121,7 @@ public class ResultsWriter {
 					for (OrderAssertionResult subResult : orderAssertionResult.getSubOrderResults()) {
 						writer.println("\t\tSub-order checked..");
 						writer.print("\t");
-						printSpecification(((NodeOrder) subResult.getNodeOrderSpecification()).getAllNodes());
+						printSpecification(((NodeOrder) subResult.getOrderSpecification()).getAllNodes());
 						writer.println("\t\tNumber of paths checked: " + subResult.numberOfPathsChecked());
 						writer.println("\t\tNumber of invalid paths: " + subResult.getFailedPathCheckResults().size());
 						writer.println();
@@ -167,9 +166,9 @@ public class ResultsWriter {
 						writer.println("\tConstraints checked: " + stateAssertionResult.numberOfConstraintsChecked());
 						writer.println("\tConstraints failed: " + stateAssertionResult.getFailedConstraints().size());
 						for (ConstraintResult constraintResult : stateAssertionResult.getFailedConstraints()) {
-							writer.print("\t\tConstraint: " + constraintResult.getConstraint() + " State(s): ");
+							writer.print("\t\tConstraint: " + constraintResult.getConstraintName() + " State(s): ");
 							for (int count = 0; count < constraintResult.getFailedStates().size(); count++) {
-								writer.print(constraintResult.getFailedStates().get(count).getNodeExecution().getNode().name);
+								writer.print(constraintResult.getFailedStates().get(count).getStateCreator().getNode().name);
 								if (count < constraintResult.getFailedStates().size() - 1)
 									writer.print(", ");
 							}
@@ -193,8 +192,7 @@ public class ResultsWriter {
 							}
 							if (result.getStateExpression() instanceof ObjectStateExpression) {
 								ObjectNode pin = ((ObjectStateExpression) result.getStateExpression()).getPin();
-								writer.print("\t\tExpression: " + pin.name + " " + ((StateExpression) result.getStateExpression()).getOperator()
-										+ " ");
+								writer.print("\t\tExpression: " + pin.name + " " + ((StateExpression) result.getStateExpression()).getOperator() + " ");
 							}
 							Value value = ((StateExpression) result.getStateExpression()).getValue();
 							if (value instanceof ObjectValue) {
@@ -243,8 +241,7 @@ public class ResultsWriter {
 	private void printPath(List<ActivityNodeExecution> executions) {
 		for (int i = 0; i < executions.size(); i++) {
 			ActivityNodeExecution execution = executions.get(i);
-			if (execution.getNode() instanceof Action || execution.getNode() instanceof InitialNode
-					|| execution.getNode() instanceof ActivityFinalNode) {
+			if (execution.getNode() instanceof Action || execution.getNode() instanceof InitialNode || execution.getNode() instanceof ActivityFinalNode) {
 				if (i == executions.size() - 1)
 					writer.print(execution.getNode().name);
 				else

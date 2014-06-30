@@ -7,6 +7,9 @@
 package org.modelexecution.fumltesting.core.results;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import org.modelexecution.fumltesting.core.testlang.NodeSpecification;
 
 /**
  * 
@@ -15,18 +18,18 @@ import java.util.ArrayList;
  */
 public class OrderAssertionResult extends AssertionResult {
 
-	private Object nodeOrderSpecification;
+	private List<NodeSpecification> orderSpecification;
 	private ArrayList<PathCheckResult> pathCheckResults;
 	private ArrayList<OrderAssertionResult> subOrderAssertionResults;
 
-	public OrderAssertionResult(Object nodeOrderSpecification) {
-		this.nodeOrderSpecification = nodeOrderSpecification;
+	public OrderAssertionResult(List<NodeSpecification> orderSpecification) {
+		this.orderSpecification = orderSpecification;
 		pathCheckResults = new ArrayList<PathCheckResult>();
 		subOrderAssertionResults = new ArrayList<OrderAssertionResult>();
 	}
 
-	public Object getNodeOrderSpecification() {
-		return nodeOrderSpecification;
+	public List<NodeSpecification> getOrderSpecification() {
+		return orderSpecification;
 	}
 
 	public void addPathCheckResult(PathCheckResult result) {

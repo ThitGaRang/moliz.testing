@@ -6,21 +6,23 @@
  */
 package org.modelexecution.fumltesting.core.results;
 
+import org.modelexecution.fumltesting.core.testlang.Assertion;
+
 /**
  * 
  * @author Stefan Mijatov
  * 
  */
 public abstract class AssertionResult {
-	private Object assertion;
+	private Assertion assertion;
 	private String error;
 	private boolean hasError = false;
 
-	public void setAssertion(Object assertion) {
+	public void setAssertion(Assertion assertion) {
 		this.assertion = assertion;
 	}
 
-	public Object getAssertion() {
+	public Assertion getAssertion() {
 		return assertion;
 	}
 

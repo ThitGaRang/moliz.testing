@@ -6,28 +6,68 @@
  */
 package org.modelexecution.fumltesting.core.sequence;
 
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
+
+import fUML.Semantics.Classes.Kernel.Link;
+import fUML.Semantics.Classes.Kernel.Object_;
+
 /**
  * 
  * @author Stefan Mijatov
- *
+ * 
  */
-public interface Sequence extends EObject {
-	EList<State> getStates();
+public class Sequence {
+	private LinkedList<State> states;
+	private State lastState;
+	private ActivityExecution activityExecution;
 
-	ActivityExecution getActivityExecution();
+	public Sequence(ActivityExecution activityExecution) {
+		this.activityExecution = activityExecution;
+		this.states = new LinkedList<State>();
+	}
 
-	void setActivityExecution(ActivityExecution value);
+	public ActivityExecution getActivityExecution() {
+		return activityExecution;
+	}
 
-	void addState(State state);
+	public State createNewState(ActivityNodeExecution stateCreator) {
+		State state = new State(stateCreator);
+		if (lastState != null) {
+			for (ValueInstance instance : lastState.getStateObjectInstances()) {
+				Object_ object = lastState.getStateObjectSnapshot(instance);
+				state.addStateObjectSnapshot(object, instance);
+			}
+			for(ValueInstance instance: lastState.getStateLinkInstances()){
+				Link link = lastState.getStateLinkSnapshot(instance);
+				state.addStateLinkSnapshot(link, instance);
+			}
+			lastState.setSuccessor(state);
+			state.setPredecessor(lastState);
+		}
+		states.add(state);
+		lastState = state;
+		return state;
+	}
 
-	State lastState();
+	public List<State> getStates() {
+		return Collections.unmodifiableList(states);
+	}
 
-	State firstState();
+	public State getState(ActivityNodeExecution stateCreator) {
+		for (State state : states) {
+			if (state.getStateCreator() == stateCreator)
+				return state;
+		}
+		return null;
+	}
 
-	boolean hasCreatedState(ActivityNodeExecution nodeExecution);
-
+	public State lastState() {
+		return lastState;
+	}
 }

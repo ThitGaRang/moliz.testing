@@ -8,6 +8,8 @@ package org.modelexecution.fumltesting.core.results;
 
 import java.util.ArrayList;
 
+import org.modelexecution.fumltesting.core.testlang.Assertion;
+
 /**
  * @author Stefan Mijatov
  * 
@@ -16,7 +18,7 @@ public class StateAssertionResult extends AssertionResult {
 	private ArrayList<StateExpressionResult> expressionResults = new ArrayList<StateExpressionResult>();
 	private ArrayList<ConstraintResult> constraintResults = new ArrayList<ConstraintResult>();
 
-	public StateAssertionResult(Object assertion) {
+	public StateAssertionResult(Assertion assertion) {
 		setAssertion(assertion);
 	}
 

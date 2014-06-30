@@ -20,28 +20,28 @@ import org.dresdenocl.pivotmodel.base.AbstractEnumeration;
  * 
  */
 public class FUMLEnumeration extends AbstractEnumeration implements Enumeration {
-	private org.modelexecution.fuml.Syntax.Classes.Kernel.Enumeration dslEnumeration;
+	private fUML.Syntax.Classes.Kernel.Enumeration dslEnumeration;
 	private FUMLAdapterFactory factory;
 
-	public FUMLEnumeration(org.modelexecution.fuml.Syntax.Classes.Kernel.Enumeration dslEnumeration, FUMLAdapterFactory factory) {
+	public FUMLEnumeration(fUML.Syntax.Classes.Kernel.Enumeration dslEnumeration, FUMLAdapterFactory factory) {
 		this.dslEnumeration = dslEnumeration;
 		this.factory = factory;
 	}
 
 	@Override
 	public String getName() {
-		return dslEnumeration.getName();
+		return dslEnumeration.name;
 	}
 
 	@Override
 	public Namespace getNamespace() {
-		return factory.createNamespace(dslEnumeration.getPackage());
+		return factory.createNamespace(dslEnumeration.package_);
 	}
 
 	@Override
 	public List<EnumerationLiteral> getOwnedLiteral() {
 		List<EnumerationLiteral> result = new ArrayList<EnumerationLiteral>();
-		for (org.modelexecution.fuml.Syntax.Classes.Kernel.EnumerationLiteral enumerationLiteral : dslEnumeration.getOwnedLiteral()) {
+		for (fUML.Syntax.Classes.Kernel.EnumerationLiteral enumerationLiteral : dslEnumeration.ownedLiteral) {
 			result.add(factory.createEnumerationLiteral(enumerationLiteral));
 		}
 		return result;

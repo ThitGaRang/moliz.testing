@@ -6,14 +6,6 @@
  */
 package org.modelexecution.fumltesting.core.sequence;
 
-import java.util.ArrayList;
-
-import org.modelexecution.fuml.Semantics.Classes.Kernel.BooleanValue;
-import org.modelexecution.fuml.Semantics.Classes.Kernel.FeatureValue;
-import org.modelexecution.fuml.Semantics.Classes.Kernel.IntegerValue;
-import org.modelexecution.fuml.Semantics.Classes.Kernel.KernelFactory;
-import org.modelexecution.fuml.Semantics.Classes.Kernel.Object;
-import org.modelexecution.fuml.Semantics.Classes.Kernel.StringValue;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
@@ -23,17 +15,18 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.Output;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot;
-import org.modelexecution.fumltesting.core.convert.FumlConverter;
+import org.modelexecution.fumltesting.core.exceptions.SequenceGeneratorException;
 
+import fUML.Semantics.Classes.Kernel.FeatureValue;
 import fUML.Semantics.Classes.Kernel.Link;
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.Reference;
 import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Syntax.Actions.BasicActions.CallBehaviorAction;
+import fUML.Syntax.Actions.BasicActions.CallOperationAction;
 import fUML.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction;
 import fUML.Syntax.Actions.IntermediateActions.CreateObjectAction;
 import fUML.Syntax.Actions.IntermediateActions.DestroyObjectAction;
-import fUML.Syntax.Actions.IntermediateActions.ReadSelfAction;
 import fUML.Syntax.Classes.Kernel.Property;
 
 /**
@@ -45,11 +38,10 @@ import fUML.Syntax.Classes.Kernel.Property;
 public class SequenceGenerator {
 	private Trace trace;
 	private SequenceTrace sequenceTrace;
-	private FumlConverter mapper = new FumlConverter();
 
-	public SequenceTrace generateTrace(Trace trace) {
+	public SequenceTrace generateTrace(Trace trace) throws SequenceGeneratorException {
 		this.trace = trace;
-		this.sequenceTrace = SequenceFactory.eINSTANCE.createSequenceTrace();
+		this.sequenceTrace = new SequenceTrace();
 		for (ActivityExecution activityExecution : trace.getActivityExecutions()) {
 			boolean alreadyAdded = false;
 			for (Sequence sequence : sequenceTrace.getSequences()) {
@@ -64,9 +56,8 @@ public class SequenceGenerator {
 		return this.sequenceTrace;
 	}
 
-	private Sequence createSequence(ActivityExecution activityExecution) {
-		Sequence sequence = SequenceFactory.eINSTANCE.createSequence();
-		sequence.setActivityExecution(activityExecution);
+	private Sequence createSequence(ActivityExecution activityExecution) throws SequenceGeneratorException {
+		Sequence sequence = new Sequence(activityExecution);
 		sequenceTrace.getSequences().add(sequence);
 		ActivityNodeExecution initial = null;
 		for (ActivityNodeExecution nodeExecution : activityExecution.getNodeExecutions()) {
@@ -85,167 +76,144 @@ public class SequenceGenerator {
 	}
 
 	private void createInitialState(ActivityNodeExecution nodeExecution, Sequence sequence) {
-		State state = createNewState(sequence, nodeExecution);
+		State state = sequence.createNewState(nodeExecution);
+
+		ValueSnapshot contextSnapshot = nodeExecution.getActivityExecution().getContextValueSnapshot();
+		if (contextSnapshot != null) {
+			if (contextSnapshot.getRuntimeValue() instanceof Object_) {
+				ValueInstance instance = (ValueInstance) contextSnapshot.eContainer();
+				Object_ object = (Object_) instance.getOriginal().getRuntimeValue();
+				state.addStateObjectSnapshot(object, instance);
+				addLinksAndLinkedObjects(object, state);
+			}
+		}
+
 		for (InputParameterSetting inputParameterSetting : nodeExecution.getActivityExecution().getActivityInputs()) {
 			ValueSnapshot snapshot = inputParameterSetting.getParameterValues().get(0).getValueSnapshot();
 			if (snapshot.getValue() instanceof Object_) {
 				ValueInstance instance = (ValueInstance) snapshot.eContainer();
-				Object original = getLastVersion(sequence, instance);
-				if (original != null) {
-					state.getObjects().remove(original);
-				}
-				Object newObject = mapper.map((Object_) snapshot.getValue());
-				state.getObjects().add(newObject);
-				state.addSnapshotMapping(instance, newObject);
+				Object_ object = (Object_) instance.getOriginal().getRuntimeValue();
+				state.addStateObjectSnapshot(object, instance);
+				addLinksAndLinkedObjects(object, state);
 			}
 		}
 	}
 
-	private void completeSequence(ActivityNodeExecution nodeExecution, Sequence sequence) {
+	private void completeSequence(ActivityNodeExecution nodeExecution, Sequence sequence) throws SequenceGeneratorException {
 		if (nodeExecution instanceof ActionExecution) {
-			if (nodeExecution.getNode() instanceof ReadSelfAction || nodeExecution.getNode() instanceof CreateObjectAction) {
-				State state = createNewState(sequence, nodeExecution);
+			if (nodeExecution.getNode() instanceof CreateObjectAction) {
+				State state = sequence.createNewState(nodeExecution);
 				for (Output output : ((ActionExecution) nodeExecution).getOutputs()) {
 					ValueSnapshot snapshot = output.getOutputValues().get(0).getValueSnapshot();
 					ValueInstance instance = (ValueInstance) snapshot.eContainer();
-					Object original = getLastVersion(sequence, instance);
-					if (original != null) {
-						state.getObjects().remove(original);
-					}
-					Object newObject = mapper.map((Object_) snapshot.getValue());
-					state.getObjects().add(newObject);
-					state.addSnapshotMapping(instance, newObject);
+					Object_ object = (Object_) snapshot.getValue();
+					state.addStateObjectSnapshot(object, instance);
 				}
-			}
-			if (nodeExecution.getNode() instanceof DestroyObjectAction) {
-				State state = createNewState(sequence, nodeExecution);
+			} else if (nodeExecution.getNode() instanceof DestroyObjectAction) {
+				State state = sequence.createNewState(nodeExecution);
 				for (Input input : ((ActionExecution) nodeExecution).getInputs()) {
 					ValueSnapshot snapshot = input.getInputValues().get(0).getValueSnapshot();
-					Object object = mapper.map((Object_) snapshot.getValue());
-					state.getObjects().remove(object);
+					ValueInstance instance = (ValueInstance) snapshot.eContainer();
+					state.removeStateObjectSnapshot(instance);
 				}
-				// TODO handle links from this object, or to this object..
-			}
-			if (nodeExecution.getNode() instanceof AddStructuralFeatureValueAction) {
-				State state = createNewState(sequence, nodeExecution);
+			} else if (nodeExecution.getNode() instanceof AddStructuralFeatureValueAction) {
+				State state = sequence.createNewState(nodeExecution);
+				AddStructuralFeatureValueAction node = (AddStructuralFeatureValueAction) nodeExecution.getNode();
 				Property property = (Property) ((AddStructuralFeatureValueAction) nodeExecution.getNode()).structuralFeature;
 
-				if (property.association == null) {// attribute
-					for (Output output : ((ActionExecution) nodeExecution).getOutputs()) {
-						ValueSnapshot snapshot = output.getOutputValues().get(0).getValueSnapshot();
-						ValueInstance instance = (ValueInstance) snapshot.eContainer();
-						Object original = getLastVersion(sequence, instance);
-						if (original != null) {
-							state.getObjects().remove(original);
-						}
-						Object newObject = mapper.map((Object_) snapshot.getValue());
-						state.getObjects().add(newObject);
-						state.addSnapshotMapping(instance, newObject);
-					}
-				} else {// link
-					for (ValueInstance link : ((Trace) nodeExecution.getActivityExecution().eContainer()).getValueInstances()) {
-						if (link.getCreator() == nodeExecution) {
-							for (fUML.Semantics.Classes.Kernel.FeatureValue featureValue : ((Link) link.getRuntimeValue()).featureValues) {
-								fUML.Semantics.Classes.Kernel.FeatureValue newFeatureValue = new fUML.Semantics.Classes.Kernel.FeatureValue();
-								newFeatureValue.feature = featureValue.feature;
-								newFeatureValue.position = featureValue.position;
-								outter: for (Object object : state.getObjects()) {
-									Object_ original = mapper.mappedFrom(object);
+				ValueSnapshot objectSnapshot = null;
+				ValueInstance objectInstance = null;
 
-									ArrayList<ValueInstance> allValueInstances = new ArrayList<>();
-									allValueInstances.addAll(trace.getValueInstances());
-									allValueInstances.addAll(trace.getInitialLocusValueInstances());
+				ValueSnapshot valueSnapshot = null;
+				ValueInstance valueInstance = null;
 
-									for (ValueInstance instance : allValueInstances) {
-										boolean snapshotContained = false;
-										for (ValueSnapshot snapshot : instance.getSnapshots()) {
-											if (snapshot.getValue() == original)
-												snapshotContained = true;
-										}
-										if (snapshotContained) {
-											Object_ runtimeValue = (Object_) instance.getRuntimeValue();
-											for (Value referenceValue : featureValue.values) {
-												if (((Reference) referenceValue).referent == runtimeValue) {
-													((Reference) referenceValue).referent = original;
-													break outter;
-												}
-											}
-										}
-									}
-								}
-							}
-							org.modelexecution.fuml.Semantics.Classes.Kernel.Link mappedLink = mapper.map((Link) link.getRuntimeValue());
-
-							for (org.modelexecution.fuml.Syntax.Classes.Kernel.Property target : mappedLink.getType().getNavigableOwnedEnd()) {
-								for (org.modelexecution.fuml.Syntax.Classes.Kernel.Property source : mappedLink.getType().getOwnedEnd()) {
-									if (target != source) {
-										Object sourceObject = null;
-										FeatureValue targetFeatureValue = null;
-										for (FeatureValue featureValue : mappedLink.getFeatureValues()) {
-											if (featureValue.getFeature() == source) {
-												sourceObject = (Object) featureValue.getValues().get(0);
-											}
-											if (featureValue.getFeature() == target) {
-												targetFeatureValue = featureValue;
-											}
-										}
-
-										Object original = getLastVersion(sequence, state.getInstance(sourceObject));
-										if (original != null) {
-											state.getObjects().remove(original);
-										}
-										Object newObject = KernelFactory.eINSTANCE.createObject();
-										newObject.getTypes().addAll(original.getTypes());
-										for (FeatureValue featureValue : original.getFeatureValues()) {
-											FeatureValue newFeatureValue = KernelFactory.eINSTANCE.createFeatureValue();
-											newFeatureValue.setFeature(featureValue.getFeature());
-											newFeatureValue.setPosition(featureValue.getPosition());
-											for (org.modelexecution.fuml.Semantics.Classes.Kernel.Value oldValue : featureValue.getValues()) {
-												org.modelexecution.fuml.Semantics.Classes.Kernel.Value newValue = null;
-												if (oldValue instanceof StringValue) {
-													newValue = KernelFactory.eINSTANCE.createStringValue();
-													((StringValue) newValue).setValue(((StringValue) oldValue).getValue());
-													((StringValue) newValue).setType(((StringValue) oldValue).getType());
-												}
-												if (oldValue instanceof BooleanValue) {
-													newValue = KernelFactory.eINSTANCE.createBooleanValue();
-													((BooleanValue) newValue).setValue(((BooleanValue) oldValue).isValue());
-													((BooleanValue) newValue).setType(((BooleanValue) oldValue).getType());
-												}
-												if (oldValue instanceof IntegerValue) {
-													newValue = KernelFactory.eINSTANCE.createIntegerValue();
-													((IntegerValue) newValue).setValue(((IntegerValue) oldValue).getValue());
-													((IntegerValue) newValue).setType(((IntegerValue) oldValue).getType());
-												}
-												newFeatureValue.getValues().add(newValue);
-											}
-											newObject.getFeatureValues().add(newFeatureValue);
-										}
-
-										newObject.getFeatureValues().add(targetFeatureValue);
-										state.getObjects().add(newObject);
-										state.addSnapshotMapping(state.getInstance(sourceObject), newObject);
-									}
-								}
-							}
-						}
+				for (Input input : ((ActionExecution) nodeExecution).getInputs()) {
+					if (input.getInputPin() == node.value) {
+						valueSnapshot = input.getInputValues().get(0).getValueSnapshot();
+						if (valueSnapshot != null)
+							valueInstance = valueSnapshot.getValueInstance();
 					}
 				}
-			}
-			if (nodeExecution.getNode() instanceof CallBehaviorAction) {
+
+				for (Output output : ((ActionExecution) nodeExecution).getOutputs()) {
+					if (output.getOutputPin() == node.result) {
+						objectSnapshot = output.getOutputValues().get(0).getValueSnapshot();
+						objectInstance = (ValueInstance) objectSnapshot.eContainer();
+					}
+				}
+
+				if (property.association == null) {// attribute
+					Object_ object = (Object_) objectSnapshot.getValue();
+					state.addStateObjectSnapshot(object, objectInstance);
+				} else {// link
+					boolean linkFoundAndProcessed = false;
+					for (ValueInstance link : ((Trace) nodeExecution.getActivityExecution().eContainer()).getValueInstances()) {
+						if (link.getCreator() == nodeExecution) {
+							Link linkValue = (Link) link.getRuntimeValue();
+
+							Property firstEnd = linkValue.type.ownedEnd.get(0);
+							Property secondEnd = linkValue.type.ownedEnd.get(1);
+
+							FeatureValue firstFeatureValue = null;
+							FeatureValue secondFeatureValue = null;
+							Object_ theFirstEndObject = null;
+							Object_ theSecondEndObject = null;
+
+							for (FeatureValue featureValue : linkValue.featureValues) {
+								if (featureValue.feature == firstEnd) {
+									firstFeatureValue = featureValue;
+								}
+								if (featureValue.feature == secondEnd) {
+									secondFeatureValue = featureValue;
+								}
+							}
+							if (firstFeatureValue != null && secondFeatureValue != null) {
+								for (Value firstEndObject : firstFeatureValue.values) {
+									theFirstEndObject = ((Reference) firstEndObject).referent;
+									break;
+								}
+								for (Value secondEndObject : secondFeatureValue.values) {
+									theSecondEndObject = ((Reference) secondEndObject).referent;
+									break;
+								}
+							} else {
+								throw new SequenceGeneratorException("Features values of the association " + linkValue.type.name + " not found!");
+							}
+
+							state.addStateObjectSnapshot(theFirstEndObject, objectInstance);
+							state.addStateObjectSnapshot(theSecondEndObject, valueInstance);
+
+							state.addStateLinkSnapshot(linkValue, link);
+
+							linkFoundAndProcessed = true;
+						}
+					}
+					if (!linkFoundAndProcessed)
+						throw new SequenceGeneratorException("Link after execution of action " + nodeExecution.getNode().name + " not found!");
+				}
+			} else if (nodeExecution.getNode() instanceof CallBehaviorAction || nodeExecution.getNode() instanceof CallOperationAction) {
 				Trace trace = (Trace) nodeExecution.getActivityExecution().eContainer();
 				Sequence calledActionSequence = null;
 				for (ActivityExecution execution : trace.getActivityExecutions()) {
-					if (execution.getActivity() == ((CallBehaviorAction) nodeExecution.getNode()).behavior) {
+					if (nodeExecution.getNode() instanceof CallBehaviorAction
+							&& execution.getActivity() == ((CallBehaviorAction) nodeExecution.getNode()).behavior) {
+						calledActionSequence = createSequence(execution);
+						break;
+					}
+					if (nodeExecution.getNode() instanceof CallOperationAction
+							&& execution.getActivity() == ((CallOperationAction) nodeExecution.getNode()).operation.method.get(0)) {
 						calledActionSequence = createSequence(execution);
 						break;
 					}
 				}
 				if (calledActionSequence != null) {
 					State lastStateOfCalled = calledActionSequence.lastState();
-					State state = createNewState(sequence, nodeExecution);
-					state.getObjects().addAll(lastStateOfCalled.getObjects());
-					state.getLinks().addAll(lastStateOfCalled.getLinks());
+					State state = sequence.createNewState(nodeExecution);
+
+					for (ValueInstance instance : lastStateOfCalled.getStateObjectInstances()) {
+						Object_ object = lastStateOfCalled.getStateObjectSnapshot(instance);
+						state.addStateObjectSnapshot(object, instance);
+					}
 				}
 			}
 		}
@@ -266,22 +234,38 @@ public class SequenceGenerator {
 		}
 		return null;
 	}
-
-	private State createNewState(Sequence sequence, ActivityNodeExecution creatorNode) {
-		State state = SequenceFactory.eINSTANCE.createState();
-		state.setNodeExecution(creatorNode);
-		// add links and objects from last state
-		State lastState = sequence.lastState();
-		if (lastState != null) {
-			state.getObjects().addAll(lastState.getObjects());
-			state.getLinks().addAll(lastState.getLinks());
-			state.copySnapshotMappings(lastState);
+	
+	private void addLinksAndLinkedObjects(Object_ object, State state){
+		for (ValueInstance locusInstance : trace.getInitialLocusValueInstances()) {
+			if (locusInstance.getRuntimeValue() != null && locusInstance.getRuntimeValue() instanceof Link) {
+				Link locusLink = (Link) locusInstance.getRuntimeValue();
+				FeatureValue linkSource = null;
+				FeatureValue linkTarget = null;
+				for (FeatureValue featureValue : locusLink.featureValues) {
+					if (locusLink.type.navigableOwnedEnd.contains(featureValue.feature))
+						linkTarget = featureValue;
+					else
+						linkSource = featureValue;
+				}
+				for (Value reference : linkSource.values) {
+					Reference theReference = (Reference) reference;
+					if (theReference.referent == object) {
+						Object_ targetValue = ((Reference) linkTarget.values.get(0)).referent;
+						ValueInstance targetInstance = null;
+						for (ValueInstance locusTargetInstance : trace.getValueInstances()) {
+							if (locusTargetInstance.getRuntimeValue() == targetValue) {
+								targetInstance = locusTargetInstance;
+								break;
+							}
+						}
+						if (targetInstance != null) {
+							state.addStateObjectSnapshot(targetValue, targetInstance);
+							state.addStateLinkSnapshot(locusLink, locusInstance);
+							break;
+						}
+					}
+				}
+			}
 		}
-		sequence.addState(state);
-		return state;
-	}
-
-	private Object getLastVersion(Sequence sequence, ValueInstance instance) {
-		return sequence.lastState().getStateSnapshot(instance);
 	}
 }

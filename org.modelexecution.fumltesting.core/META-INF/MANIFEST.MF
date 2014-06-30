@@ -6,7 +6,6 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Require-Bundle: org.eclipse.xtext.xbase;bundle-version="2.5.0",
  org.modelexecution.fumldebug;bundle-version="1.0.0",
- org.modelexecution.fuml;bundle-version="1.0.0",
  org.modelexecution.fuml.convert;bundle-version="1.0.0",
  org.modelexecution.fumltesting.ocl;bundle-version="1.0.0",
  org.dresdenocl.facade;bundle-version="3.3.0"

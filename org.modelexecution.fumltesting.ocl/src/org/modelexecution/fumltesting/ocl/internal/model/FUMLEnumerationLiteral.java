@@ -16,21 +16,21 @@ import org.dresdenocl.pivotmodel.base.AbstractEnumerationLiteral;
  * 
  */
 public class FUMLEnumerationLiteral extends AbstractEnumerationLiteral implements EnumerationLiteral {
-	private org.modelexecution.fuml.Syntax.Classes.Kernel.EnumerationLiteral dslEnumerationLiteral;
+	private fUML.Syntax.Classes.Kernel.EnumerationLiteral dslEnumerationLiteral;
 	private FUMLAdapterFactory factory;
 
-	public FUMLEnumerationLiteral(org.modelexecution.fuml.Syntax.Classes.Kernel.EnumerationLiteral dslEnumerationLiteral, FUMLAdapterFactory factory) {
+	public FUMLEnumerationLiteral(fUML.Syntax.Classes.Kernel.EnumerationLiteral dslEnumerationLiteral, FUMLAdapterFactory factory) {
 		this.dslEnumerationLiteral = dslEnumerationLiteral;
 		this.factory = factory;
 	}
 
 	@Override
 	public String getName() {
-		return dslEnumerationLiteral.getName();
+		return dslEnumerationLiteral.name;
 	}
 
 	@Override
 	public Enumeration getEnumeration() {
-		return factory.createEnumeration(dslEnumerationLiteral.getEnumeration());
+		return factory.createEnumeration(dslEnumerationLiteral.enumeration);
 	}
 }

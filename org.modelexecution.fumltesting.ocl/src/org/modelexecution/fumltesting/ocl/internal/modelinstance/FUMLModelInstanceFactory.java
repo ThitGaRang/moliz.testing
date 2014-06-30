@@ -22,8 +22,11 @@ import org.dresdenocl.pivotmodel.EnumerationLiteral;
 import org.dresdenocl.pivotmodel.PrimitiveType;
 import org.dresdenocl.pivotmodel.Type;
 import org.eclipse.osgi.util.NLS;
-import org.modelexecution.fuml.Syntax.Classes.Kernel.Enumeration;
 import org.modelexecution.fumltesting.ocl.internal.util.FUMLModelInstanceTypeUtil;
+
+import fUML.Semantics.Classes.Kernel.Link;
+import fUML.Semantics.Classes.Kernel.Object_;
+import fUML.Syntax.Classes.Kernel.Enumeration;
 
 /**
  * 
@@ -31,8 +34,7 @@ import org.modelexecution.fumltesting.ocl.internal.util.FUMLModelInstanceTypeUti
  * 
  */
 public class FUMLModelInstanceFactory extends BasisJavaModelInstanceFactory implements IModelInstanceFactory {
-	private Map<org.modelexecution.fuml.Semantics.Classes.Kernel.Object, IModelInstanceElement> myCachedAdaptedObjects 
-		= new WeakHashMap<org.modelexecution.fuml.Semantics.Classes.Kernel.Object, IModelInstanceElement>();
+	private Map<Object, IModelInstanceElement> myCachedAdaptedObjects = new WeakHashMap<Object, IModelInstanceElement>();
 	private IModel dslModel;
 	private FUMLModelInstanceTypeUtil dslTypeUtil;
 
@@ -46,13 +48,21 @@ public class FUMLModelInstanceFactory extends BasisJavaModelInstanceFactory impl
 		if (result == null) {
 			if (adapted instanceof Enumeration) {
 				result = createFUMLModelInstanceEnumerationLiteral((Enumeration) adapted);
-			} else if (adapted instanceof org.modelexecution.fuml.Semantics.Classes.Kernel.Object) {
-				org.modelexecution.fuml.Semantics.Classes.Kernel.Object object = (org.modelexecution.fuml.Semantics.Classes.Kernel.Object) adapted;
+			} else if (adapted instanceof Object_) {
+				Object_ object = (Object_) adapted;
 				if (myCachedAdaptedObjects.containsKey(object)) {
 					result = myCachedAdaptedObjects.get(object);
 				} else {
 					result = createFUMLModelInstanceObject(object);
 					myCachedAdaptedObjects.put(object, result);
+				}
+			} else if (adapted instanceof Link) {
+				Link link = (Link) adapted;
+				if (myCachedAdaptedObjects.containsKey(link)) {
+					result = myCachedAdaptedObjects.get(link);
+				} else {
+					result = createFUMLModelInstanceObject(link);
+					myCachedAdaptedObjects.put(link, result);
 				}
 			} else {
 				throw new TypeNotFoundInModelException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceFactory_AdapteeIsNoEObjectInstance, adapted));
@@ -97,15 +107,30 @@ public class FUMLModelInstanceFactory extends BasisJavaModelInstanceFactory impl
 					}
 				}
 			} else {
-				if (adapted instanceof org.modelexecution.fuml.Semantics.Classes.Kernel.Object) {
-					org.modelexecution.fuml.Semantics.Classes.Kernel.Object object = (org.modelexecution.fuml.Semantics.Classes.Kernel.Object) adapted;
+				if (adapted instanceof Object_) {
+					Object_ object = (Object_) adapted;
 					try {
 						Type modelInstanceElementType = dslTypeUtil.findTypeOfObjectInModel(object);
 						if (modelInstanceElementType.conformsTo(type) || type.getQualifiedName().equals("ecore::EObject")) {
 							result = createFUMLModelInstanceObject(object, type, modelInstanceElementType);
 							this.myCachedAdaptedObjects.put(object, result);
 						} else {
-							throw new IllegalArgumentException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceFactory_CannotAdaptToType, adapted, type));
+							throw new IllegalArgumentException(
+									NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceFactory_CannotAdaptToType, adapted, type));
+						}
+					} catch (TypeNotFoundInModelException e) {
+						throw new IllegalArgumentException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceFactory_CannotAdaptToType, adapted, type));
+					}
+				} else if (adapted instanceof Link) {
+					try {
+						Link link = (Link) adapted;
+						Type modelInstanceElementType = dslTypeUtil.findTypeOfObjectInModel(link);
+						if (modelInstanceElementType.conformsTo(type) || type.getQualifiedName().equals("ecore::EObject")) {
+							result = createFUMLModelInstanceObject(link, type, modelInstanceElementType);
+							this.myCachedAdaptedObjects.put(link, result);
+						} else {
+							throw new IllegalArgumentException(
+									NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceFactory_CannotAdaptToType, adapted, type));
 						}
 					} catch (TypeNotFoundInModelException e) {
 						throw new IllegalArgumentException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceFactory_CannotAdaptToType, adapted, type));
@@ -114,7 +139,7 @@ public class FUMLModelInstanceFactory extends BasisJavaModelInstanceFactory impl
 					if (adapted == null) {
 						result = new FUMLModelInstanceObject(null, type, type, this);
 					}
-	
+
 					/* Else the throw an exception. */
 					else {
 						throw new IllegalArgumentException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceFactory_CannotAdaptToType, adapted, type));
@@ -144,7 +169,7 @@ public class FUMLModelInstanceFactory extends BasisJavaModelInstanceFactory impl
 		IModelInstanceEnumerationLiteral result = null;
 		Type type = null;
 		try {
-			ArrayList<String> qualifiedName = new ArrayList<String>(Arrays.asList(enumeration.getQualifiedName().split("::")));
+			ArrayList<String> qualifiedName = new ArrayList<String>(Arrays.asList(enumeration.qualifiedName.split(".")));
 			type = dslTypeUtil.findTypeOfClassInModel(qualifiedName);
 		} catch (TypeNotFoundInModelException e) {
 			e.printStackTrace();

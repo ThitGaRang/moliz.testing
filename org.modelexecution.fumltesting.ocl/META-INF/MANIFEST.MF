@@ -8,9 +8,10 @@ Bundle-Vendor: TU Dresden, Software Technology Group
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore,
  org.apache.commons.lang,
- org.modelexecution.fuml;bundle-version="1.0.0",
  org.dresdenocl.modelbus;bundle-version="3.3.0",
- org.dresdenocl.standardlibrary.java;bundle-version="3.3.0"
+ org.dresdenocl.standardlibrary.java;bundle-version="3.3.0",
+ org.modelexecution.fumldebug;bundle-version="1.0.0",
+ org.modelexecution.fumldebug.core;bundle-version="1.0.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.modelexecution.fumltesting.ocl.internal,

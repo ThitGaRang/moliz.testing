@@ -33,10 +33,13 @@ import org.dresdenocl.pivotmodel.PrimitiveType;
 import org.dresdenocl.pivotmodel.PrimitiveTypeKind;
 import org.dresdenocl.pivotmodel.Type;
 import org.eclipse.osgi.util.NLS;
-import org.modelexecution.fuml.Semantics.Classes.Kernel.BooleanValue;
-import org.modelexecution.fuml.Semantics.Classes.Kernel.IntegerValue;
-import org.modelexecution.fuml.Semantics.Classes.Kernel.StringValue;
 import org.modelexecution.fumltesting.ocl.internal.modelinstance.FUMLModelInstanceTypeMessages;
+
+import fUML.Semantics.Classes.Kernel.BooleanValue;
+import fUML.Semantics.Classes.Kernel.IntegerValue;
+import fUML.Semantics.Classes.Kernel.Link;
+import fUML.Semantics.Classes.Kernel.Object_;
+import fUML.Semantics.Classes.Kernel.StringValue;
 
 /**
  * 
@@ -164,22 +167,19 @@ public class FUMLModelInstanceTypeUtil {
 		Set<Type> resultSet;
 		ArrayList<String> qualifiedTypeNameSeparated = null;
 
-		if (object instanceof org.modelexecution.fuml.Semantics.Classes.Kernel.Object) {
-			String qualifiedTypeName = ((org.modelexecution.fuml.Semantics.Classes.Kernel.Object) object).getTypes().get(0).getQualifiedName();
+		if (object instanceof Object_) {
+			String qualifiedTypeName = ((Object_) object).getTypes().get(0).qualifiedName;
 			qualifiedTypeNameSeparated = new ArrayList<String>(Arrays.asList(qualifiedTypeName.split("::")));
-		}
-
-		if (object instanceof StringValue || object instanceof String || object instanceof JavaModelInstanceString) {
+		} else if (object instanceof Link) {
+			String qualifiedTypeName = ((Link) object).getTypes().get(0).qualifiedName;
+			qualifiedTypeNameSeparated = new ArrayList<String>(Arrays.asList(qualifiedTypeName.split("::")));
+		} else if (object instanceof StringValue || object instanceof String || object instanceof JavaModelInstanceString) {
 			qualifiedTypeNameSeparated = new ArrayList<String>();
 			qualifiedTypeNameSeparated.add("String");
-		}
-
-		if (object instanceof BooleanValue || object instanceof Boolean || object instanceof JavaModelInstanceBoolean) {
+		} else if (object instanceof BooleanValue || object instanceof Boolean || object instanceof JavaModelInstanceBoolean) {
 			qualifiedTypeNameSeparated = new ArrayList<String>();
 			qualifiedTypeNameSeparated.add("Boolean");
-		}
-
-		if (object instanceof IntegerValue || object instanceof Integer || object instanceof Long || object instanceof JavaModelInstanceInteger) {
+		} else if (object instanceof IntegerValue || object instanceof Integer || object instanceof Long || object instanceof JavaModelInstanceInteger) {
 			qualifiedTypeNameSeparated = new ArrayList<String>();
 			qualifiedTypeNameSeparated.add("Integer");
 		}
@@ -188,7 +188,7 @@ public class FUMLModelInstanceTypeUtil {
 		if (result == null) {
 			resultSet = findTypesOfClassInModel(qualifiedTypeNameSeparated);
 			try {
-				Type objectType = this.model.findType(Arrays.asList(new String[] { "Object" }));
+				Type objectType = this.model.findType(Arrays.asList(new String[] { "Object", "Link" }));
 				if (resultSet.size() > 1 && objectType != null && resultSet.contains(objectType)) {
 					resultSet.remove(objectType);
 				}

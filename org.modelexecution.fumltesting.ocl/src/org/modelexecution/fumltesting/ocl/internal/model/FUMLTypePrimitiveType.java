@@ -14,8 +14,9 @@ import org.dresdenocl.pivotmodel.Operation;
 import org.dresdenocl.pivotmodel.Property;
 import org.dresdenocl.pivotmodel.Type;
 import org.dresdenocl.pivotmodel.base.AbstractType;
-import org.modelexecution.fuml.Syntax.Classes.Kernel.NamedElement;
-import org.modelexecution.fuml.Syntax.Classes.Kernel.PrimitiveType;
+
+import fUML.Syntax.Classes.Kernel.NamedElement;
+import fUML.Syntax.Classes.Kernel.PrimitiveType;
 
 /**
  * 
@@ -33,18 +34,18 @@ public class FUMLTypePrimitiveType extends AbstractType implements Type {
 
 	@Override
 	public String getName() {
-		return dslPrimitiveType.getName();
+		return dslPrimitiveType.name;
 	}
 
 	@Override
 	public Namespace getNamespace() {
-		return factory.createNamespace(dslPrimitiveType.getPackage());
+		return factory.createNamespace(dslPrimitiveType.package_);
 	}
 
 	@Override
 	protected List<Property> getOwnedPropertyImpl() {
 		List<Property> result = new ArrayList<Property>();
-		for (org.modelexecution.fuml.Syntax.Classes.Kernel.Property property : dslPrimitiveType.getOwnedAttribute()) {
+		for (fUML.Syntax.Classes.Kernel.Property property : dslPrimitiveType.ownedAttribute) {
 			result.add(factory.createProperty(property));
 		}
 		return result;
@@ -53,9 +54,9 @@ public class FUMLTypePrimitiveType extends AbstractType implements Type {
 	@Override
 	protected List<Operation> getOwnedOperationImpl() {
 		List<Operation> result = new ArrayList<Operation>();
-		for (NamedElement operation : dslPrimitiveType.getOwnedMember()) {
-			if (operation instanceof org.modelexecution.fuml.Syntax.Classes.Kernel.Operation) {
-				result.add(factory.createOperation((org.modelexecution.fuml.Syntax.Classes.Kernel.Operation) operation));
+		for (NamedElement operation : dslPrimitiveType.ownedMember) {
+			if (operation instanceof fUML.Syntax.Classes.Kernel.Operation) {
+				result.add(factory.createOperation((fUML.Syntax.Classes.Kernel.Operation) operation));
 			}
 		}
 		return result;

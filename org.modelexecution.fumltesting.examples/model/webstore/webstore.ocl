@@ -23,6 +23,8 @@ inv ItemNotCreated: Item.allInstances()->size() = 0
 inv ItemCreated: Item.allInstances()->size() > 0
 inv NumberOfItems: Item.allInstances()->size() = 1
 
+inv NumberOfItemsWithExisting: Item.allInstances()->size() = 2
+
 inv ItemNumber: number = 12345
 inv ItemUnitCost: unitCost = 250
 inv ItemQuantity: quantity = 5

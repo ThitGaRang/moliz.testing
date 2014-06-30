@@ -23,11 +23,11 @@ import org.dresdenocl.pivotmodel.Parameter;
 import org.dresdenocl.pivotmodel.PrimitiveTypeKind;
 import org.dresdenocl.pivotmodel.Property;
 import org.dresdenocl.pivotmodel.Type;
-import org.modelexecution.fuml.Syntax.Classes.Kernel.Association;
-import org.modelexecution.fuml.Syntax.Classes.Kernel.Class;
-import org.modelexecution.fuml.Syntax.Classes.Kernel.DataType;
-import org.modelexecution.fuml.Syntax.Classes.Kernel.Package;
-import org.modelexecution.fuml.Syntax.Classes.Kernel.PrimitiveType;
+
+import fUML.Syntax.Classes.Kernel.Association;
+import fUML.Syntax.Classes.Kernel.Class_;
+import fUML.Syntax.Classes.Kernel.DataType;
+import fUML.Syntax.Classes.Kernel.PrimitiveType;
 
 /**
  * 
@@ -36,59 +36,59 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.PrimitiveType;
  */
 public class FUMLAdapterFactory {
 
-	private Map<org.modelexecution.fuml.Syntax.Classes.Kernel.NamedElement, NamedElement> adapters;
+	private Map<fUML.Syntax.Classes.Kernel.NamedElement, NamedElement> adapters;
 	private Namespace rootNamespace;
 	private Map<String, FUMLPackage> adaptedNamespaces = new HashMap<String, FUMLPackage>();
-	private Map<org.modelexecution.fuml.Syntax.Classes.Kernel.Operation, Parameter> adaptedVoidReturnParameters;
+	private Map<fUML.Syntax.Classes.Kernel.Operation, Parameter> adaptedVoidReturnParameters;
 
 	public FUMLAdapterFactory(Namespace rootNamespace) {
-		adapters = new WeakHashMap<org.modelexecution.fuml.Syntax.Classes.Kernel.NamedElement, NamedElement>();
-		adaptedVoidReturnParameters = new HashMap<org.modelexecution.fuml.Syntax.Classes.Kernel.Operation, Parameter>();
+		adapters = new WeakHashMap<fUML.Syntax.Classes.Kernel.NamedElement, NamedElement>();
+		adaptedVoidReturnParameters = new HashMap<fUML.Syntax.Classes.Kernel.Operation, Parameter>();
 		this.rootNamespace = rootNamespace;
 	}
 
-	public Namespace createNamespace(Package rootPackage) {
+	public Namespace createNamespace(fUML.Syntax.Classes.Kernel.Package rootPackage) {
 		return createNamespace(rootPackage, null);
 	}
 
-	public Namespace createNamespace(Package dslPackage, Namespace nestingNamespace) {
+	public Namespace createNamespace(fUML.Syntax.Classes.Kernel.Package dslPackage, Namespace nestingNamespace) {
 		Namespace result = null;
-		if (dslPackage == null || !(dslPackage instanceof Package)) {
+		if (dslPackage == null || !(dslPackage instanceof fUML.Syntax.Classes.Kernel.Package)) {
 			result = this.rootNamespace;
 		} else {
 			FUMLPackage fumlPackage = null;
-			if (adaptedNamespaces.containsKey(dslPackage.getQualifiedName())) {
-				fumlPackage = adaptedNamespaces.get(dslPackage.getQualifiedName());
+			if (adaptedNamespaces.containsKey(dslPackage.qualifiedName)) {
+				fumlPackage = adaptedNamespaces.get(dslPackage.qualifiedName);
 				fumlPackage.mergePackage(dslPackage);
 			} else {
 				fumlPackage = new FUMLPackage(dslPackage, nestingNamespace, this);
-				adaptedNamespaces.put(dslPackage.getQualifiedName(), fumlPackage);
+				adaptedNamespaces.put(dslPackage.qualifiedName, fumlPackage);
 			}
 			result = fumlPackage;
 		}
 		return result;
 	}
 
-	public Type createType(org.modelexecution.fuml.Syntax.Classes.Kernel.Type dslType) {
+	public Type createType(fUML.Syntax.Classes.Kernel.Type dslType) {
 		Type result = null;
 		if (adapters.get(dslType) != null) {
 			return (Type) adapters.get(dslType);
 		}
 		if (dslType == null) {
 			result = EssentialOclPlugin.getOclLibraryProvider().getOclLibrary().getOclVoid();
-		} else if (dslType instanceof Class) {
-			result = createClass((Class) dslType);
+		} else if (dslType instanceof Class_) {
+			result = createClass((Class_) dslType);
 		} else if (dslType instanceof PrimitiveType) {
 			if (!FUMLPrimitiveType.getKind(dslType).equals(PrimitiveTypeKind.UNKNOWN)) {
 				result = createPrimitiveType((PrimitiveType) dslType);
 			}
-		} else if (dslType instanceof org.modelexecution.fuml.Syntax.Classes.Kernel.Enumeration) {
-			result = createEnumeration((org.modelexecution.fuml.Syntax.Classes.Kernel.Enumeration) dslType);
+		} else if (dslType instanceof fUML.Syntax.Classes.Kernel.Enumeration) {
+			result = createEnumeration((fUML.Syntax.Classes.Kernel.Enumeration) dslType);
 		} else if (dslType instanceof DataType) {
 			result = createDataType((DataType) dslType);
 		} else if (dslType instanceof Association) {
 			Association association = (Association) dslType;
-			List<org.modelexecution.fuml.Syntax.Classes.Kernel.Property> allEnds = association.getOwnedEnd();
+			List<fUML.Syntax.Classes.Kernel.Property> allEnds = association.ownedEnd;
 			addNavigableAssociationEnds(allEnds);
 		} else {
 			throw new IllegalArgumentException("Unknown type: " + dslType);
@@ -97,7 +97,7 @@ public class FUMLAdapterFactory {
 		return result;
 	}
 
-	public Enumeration createEnumeration(org.modelexecution.fuml.Syntax.Classes.Kernel.Enumeration dslEnumeration) {
+	public Enumeration createEnumeration(fUML.Syntax.Classes.Kernel.Enumeration dslEnumeration) {
 		if (dslEnumeration == null) {
 			return null;
 		}
@@ -109,7 +109,7 @@ public class FUMLAdapterFactory {
 		return enumeration;
 	}
 
-	public EnumerationLiteral createEnumerationLiteral(org.modelexecution.fuml.Syntax.Classes.Kernel.EnumerationLiteral dslEnumerationLiteral) {
+	public EnumerationLiteral createEnumerationLiteral(fUML.Syntax.Classes.Kernel.EnumerationLiteral dslEnumerationLiteral) {
 		if (dslEnumerationLiteral == null) {
 			return null;
 		}
@@ -121,7 +121,7 @@ public class FUMLAdapterFactory {
 		return literal;
 	}
 
-	public Property createProperty(org.modelexecution.fuml.Syntax.Classes.Kernel.Property dslProperty) {
+	public Property createProperty(fUML.Syntax.Classes.Kernel.Property dslProperty) {
 		if (dslProperty == null) {
 			return null;
 		}
@@ -145,7 +145,7 @@ public class FUMLAdapterFactory {
 		return property;
 	}
 
-	public AssociationProperty createAssociationProperty(org.modelexecution.fuml.Syntax.Classes.Kernel.Property dslProperty) {
+	public AssociationProperty createAssociationProperty(fUML.Syntax.Classes.Kernel.Property dslProperty) {
 		if (dslProperty == null) {
 			return null;
 		}
@@ -157,7 +157,7 @@ public class FUMLAdapterFactory {
 		return property;
 	}
 
-	public Operation createOperation(org.modelexecution.fuml.Syntax.Classes.Kernel.Operation dslOperation) {
+	public Operation createOperation(fUML.Syntax.Classes.Kernel.Operation dslOperation) {
 		if (dslOperation == null) {
 			return null;
 		}
@@ -169,7 +169,7 @@ public class FUMLAdapterFactory {
 		return operation;
 	}
 
-	public Parameter createParameter(org.modelexecution.fuml.Syntax.Classes.Kernel.Parameter dslParameter) {
+	public Parameter createParameter(fUML.Syntax.Classes.Kernel.Parameter dslParameter) {
 		if (dslParameter == null) {
 			return null;
 		}
@@ -181,7 +181,7 @@ public class FUMLAdapterFactory {
 		return parameter;
 	}
 
-	public Parameter createVoidReturnParameter(org.modelexecution.fuml.Syntax.Classes.Kernel.Operation dslOperation) {
+	public Parameter createVoidReturnParameter(fUML.Syntax.Classes.Kernel.Operation dslOperation) {
 		Parameter result = null;
 		if (dslOperation != null) {
 			result = adaptedVoidReturnParameters.get(dslOperation);
@@ -199,13 +199,13 @@ public class FUMLAdapterFactory {
 			return result;
 		} else if (dslPrimitiveType == null) {
 			result = EssentialOclPlugin.getOclLibraryProvider().getOclLibrary().getOclVoid();
-		} else if (dslPrimitiveType.getName().equals("String")) {
+		} else if (dslPrimitiveType.name.equals("String")) {
 			result = EssentialOclPlugin.getOclLibraryProvider().getOclLibrary().getOclString();
-		} else if (dslPrimitiveType.getName().equals("UnlimitedNatural")) {
+		} else if (dslPrimitiveType.name.equals("UnlimitedNatural")) {
 			result = EssentialOclPlugin.getOclLibraryProvider().getOclLibrary().getOclReal();
-		} else if (dslPrimitiveType.getName().equals("Integer")) {
+		} else if (dslPrimitiveType.name.equals("Integer")) {
 			result = EssentialOclPlugin.getOclLibraryProvider().getOclLibrary().getOclInteger();
-		} else if (dslPrimitiveType.getName().equals("Boolean")) {
+		} else if (dslPrimitiveType.name.equals("Boolean")) {
 			result = EssentialOclPlugin.getOclLibraryProvider().getOclLibrary().getOclBoolean();
 		} else {
 			throw new IllegalArgumentException("Unknown type: " + dslPrimitiveType);
@@ -216,7 +216,7 @@ public class FUMLAdapterFactory {
 		return result;
 	}
 
-	public Type createType(Class dslClass) {
+	public Type createType(Class_ dslClass) {
 		if (dslClass == null) {
 			return null;
 		}
@@ -252,23 +252,23 @@ public class FUMLAdapterFactory {
 		return type;
 	}
 
-	public Type createDataType(org.modelexecution.fuml.Syntax.Classes.Kernel.DataType dslDataType) {
+	public Type createDataType(DataType dslDataType) {
 		Type dataType = null;
 		if (dslDataType == null) {
 			return null;
 		}
-		if (dslDataType instanceof org.modelexecution.fuml.Syntax.Classes.Kernel.PrimitiveType) {
-			dataType = createPrimitiveType((org.modelexecution.fuml.Syntax.Classes.Kernel.PrimitiveType) dataType);
+		if (dslDataType instanceof PrimitiveType) {
+			dataType = createPrimitiveType((PrimitiveType) dataType);
 		}
-		if (dslDataType instanceof org.modelexecution.fuml.Syntax.Classes.Kernel.Enumeration) {
-			dataType = createEnumeration((org.modelexecution.fuml.Syntax.Classes.Kernel.Enumeration) dataType);
+		if (dslDataType instanceof fUML.Syntax.Classes.Kernel.Enumeration) {
+			dataType = createEnumeration((fUML.Syntax.Classes.Kernel.Enumeration) dataType);
 		} else {
 			throw new IllegalArgumentException("Unknown type: " + dataType);
 		}
 		return dataType;
 	}
 
-	public Type createClass(org.modelexecution.fuml.Syntax.Classes.Kernel.Class dslClass) {
+	public Type createClass(Class_ dslClass) {
 		if (dslClass == null) {
 			return null;
 		}
@@ -280,23 +280,23 @@ public class FUMLAdapterFactory {
 		return type;
 	}
 
-	private void addNavigableAssociationEnds(List<org.modelexecution.fuml.Syntax.Classes.Kernel.Property> properties) {
+	private void addNavigableAssociationEnds(List<fUML.Syntax.Classes.Kernel.Property> properties) {
 		List<AssociationProperty> adaptedAssociationProperties = new LinkedList<AssociationProperty>();
 		boolean allArentNavigable = true;
 		int size = 0;
-		for (org.modelexecution.fuml.Syntax.Classes.Kernel.Property property : properties) {
-			boolean isNavigable = property.getAssociation().getNavigableOwnedEnd().contains(property);
+		for (fUML.Syntax.Classes.Kernel.Property property : properties) {
+			boolean isNavigable = property.association.navigableOwnedEnd.contains(property);
 			allArentNavigable &= !isNavigable;
 			if (isNavigable)
 				++size;
 		}
 		if (allArentNavigable) {
-			for (org.modelexecution.fuml.Syntax.Classes.Kernel.Property property : properties) {
+			for (fUML.Syntax.Classes.Kernel.Property property : properties) {
 				adaptedAssociationProperties.addAll(addAllOtherAssociationEnds(property, properties, true));
 			}
 		} else {
-			for (org.modelexecution.fuml.Syntax.Classes.Kernel.Property property : properties) {
-				boolean isNavigable = property.getAssociation().getNavigableOwnedEnd().contains(property);
+			for (fUML.Syntax.Classes.Kernel.Property property : properties) {
+				boolean isNavigable = property.association.navigableOwnedEnd.contains(property);
 				if (isNavigable) {
 					adaptedAssociationProperties.addAll(addAllOtherAssociationEnds(property, properties, (size > 1)));
 				}
@@ -304,8 +304,8 @@ public class FUMLAdapterFactory {
 		}
 	}
 
-	private List<AssociationProperty> addAllOtherAssociationEnds(org.modelexecution.fuml.Syntax.Classes.Kernel.Property property,
-			List<org.modelexecution.fuml.Syntax.Classes.Kernel.Property> allProperties, boolean association) {
+	private List<AssociationProperty> addAllOtherAssociationEnds(fUML.Syntax.Classes.Kernel.Property property,
+			List<fUML.Syntax.Classes.Kernel.Property> allProperties, boolean association) {
 		List<AssociationProperty> result = new LinkedList<AssociationProperty>();
 		Property adaptedProperty;
 		if (association) {
@@ -314,10 +314,10 @@ public class FUMLAdapterFactory {
 		} else {
 			adaptedProperty = createProperty(property);
 		}
-		for (org.modelexecution.fuml.Syntax.Classes.Kernel.Property theProperty : property.getAssociation().getNavigableOwnedEnd()) {
-			for (org.modelexecution.fuml.Syntax.Classes.Kernel.Property oposite : property.getAssociation().getOwnedEnd()) {
-				if (!oposite.getName().equals(theProperty.getName())) {
-					FUMLClass newOwner = (FUMLClass) adapters.get(oposite.getType());
+		for (fUML.Syntax.Classes.Kernel.Property theProperty : property.association.navigableOwnedEnd) {
+			for (fUML.Syntax.Classes.Kernel.Property oposite : property.association.ownedEnd) {
+				if (!oposite.name.equals(theProperty.name)) {
+					FUMLClass newOwner = (FUMLClass) adapters.get(oposite.typedElement.type);
 					boolean alreadyAdded = false;
 					for (Property addedProperty : newOwner.getOwnedProperty()) {
 						if (addedProperty.getName().equals(adaptedProperty.getName()))

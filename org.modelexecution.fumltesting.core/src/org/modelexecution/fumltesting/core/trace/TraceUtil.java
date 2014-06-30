@@ -23,6 +23,7 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 import org.modelexecution.fumltesting.core.exceptions.ActionNotExecutedException;
 import org.modelexecution.fumltesting.core.exceptions.ConstraintNotFoundException;
 import org.modelexecution.fumltesting.core.exceptions.ConstraintStateNotFoundException;
+import org.modelexecution.fumltesting.core.exceptions.SequenceGeneratorException;
 import org.modelexecution.fumltesting.core.execution.OclExecutor;
 import org.modelexecution.fumltesting.core.parallelism.ExecutionPathFinder;
 import org.modelexecution.fumltesting.core.sequence.Sequence;
@@ -64,7 +65,12 @@ public class TraceUtil {
 		getListOfAllExecutedNodes(activityExecutionID);
 
 		sequenceGenerator = new SequenceGenerator();
-		sTrace = sequenceGenerator.generateTrace(trace);
+
+		try {
+			sTrace = sequenceGenerator.generateTrace(trace);
+		} catch (SequenceGeneratorException e) {
+			e.printStackTrace();
+		}
 
 		pathFinder = new ExecutionPathFinder();
 		pathFinder.init(trace.getActivityExecutionByID(activityExecutionID));
@@ -142,11 +148,11 @@ public class TraceUtil {
 			if (sequence.getActivityExecution() == referredActionExecution.getActivityExecution()) {
 				referredActionExecution = findLastCreator(referredActionExecution, sequence);
 				for (State state : sequence.getStates()) {
-					if (state.getNodeExecution() == referredActionExecution) {
+					if (state.getStateCreator() == referredActionExecution) {
 						switch (assertion.getOperator()) {
 						case AFTER:
 							while (state != null) {
-								if (untilActionExecution != null && untilActionExecution == state.getNodeExecution()) {
+								if (untilActionExecution != null && untilActionExecution == state.getStateCreator()) {
 									break;
 								}
 								states.add(state);
@@ -182,7 +188,7 @@ public class TraceUtil {
 					for (State state : sequence.getStates()) {
 						boolean result = OclExecutor.getInstance().checkConstraint(constraintRefPoint, null, state);
 						if (result) {
-							referenceActionExecution = state.getNodeExecution();
+							referenceActionExecution = state.getStateCreator();
 							break;
 						}
 					}
@@ -207,11 +213,11 @@ public class TraceUtil {
 			for (Sequence sequence : sTrace.getSequences()) {
 				if (sequence.getActivityExecution().getActivity() == activityUnderTest) {
 					for (State state : sequence.getStates()) {
-						if (isAfter(getReferenceActionExecution(assertion), state.getNodeExecution()))
+						if (isAfter(getReferenceActionExecution(assertion), state.getStateCreator()))
 							continue;
 						boolean result = OclExecutor.getInstance().checkConstraint(constraintUntilPoint, null, state);
 						if (result) {
-							untilActionExecution = state.getNodeExecution();
+							untilActionExecution = state.getStateCreator();
 							break;
 						}
 					}
@@ -335,7 +341,7 @@ public class TraceUtil {
 	}
 
 	private ActivityNodeExecution findLastCreator(ActivityNodeExecution nodeExecution, Sequence sequence) {
-		if (sequence.hasCreatedState(nodeExecution))
+		if (sequence.getState(nodeExecution) != null)
 			return nodeExecution;
 		else
 			return findLastCreator(nodeExecution.getChronologicalPredecessor(), sequence);

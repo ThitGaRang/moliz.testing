@@ -41,7 +41,7 @@ public class OrderAssertionValidator {
 	}
 
 	public OrderAssertionResult checkOrder(OrderAssertion assertion) {
-		OrderAssertionResult result = new OrderAssertionResult(((OrderAssertion) assertion).getOrder());
+		OrderAssertionResult result = new OrderAssertionResult(((OrderAssertion) assertion).getOrder().getAllNodes());
 		result.setAssertion(assertion);
 
 		List<NodeSpecification> nodeOrder = assertion.getOrder().getAllNodes();
@@ -75,7 +75,7 @@ public class OrderAssertionValidator {
 				System.out.println("Checking sub-order: ");
 				assertionPrinter.printOrderSpecification(nodeSpecification.getSubOrder().getAllNodes());
 
-				OrderAssertionResult subOrderResult = new OrderAssertionResult(nodeSpecification.getSubOrder());
+				OrderAssertionResult subOrderResult = new OrderAssertionResult(nodeSpecification.getSubOrder().getAllNodes());
 				subOrderResult.setAssertion(assertion);
 
 				TraceUtil subTraceUtil = new TraceUtil(activityExecutionID);

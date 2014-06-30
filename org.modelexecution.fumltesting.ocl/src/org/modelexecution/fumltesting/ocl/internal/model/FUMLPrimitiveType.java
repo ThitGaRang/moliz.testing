@@ -13,7 +13,8 @@ import org.dresdenocl.pivotmodel.Namespace;
 import org.dresdenocl.pivotmodel.PrimitiveType;
 import org.dresdenocl.pivotmodel.PrimitiveTypeKind;
 import org.dresdenocl.pivotmodel.base.AbstractPrimitiveType;
-import org.modelexecution.fuml.Syntax.Classes.Kernel.Type;
+
+import fUML.Syntax.Classes.Kernel.Type;
 
 /**
  * 
@@ -32,32 +33,32 @@ public class FUMLPrimitiveType extends AbstractPrimitiveType implements Primitiv
 	private static String stringKindNames[] = new String[] { "String", char.class.getCanonicalName(), Character.class.getCanonicalName(),
 			String.class.getCanonicalName(), "EChar", "ECharacter", "EString" };
 
-	private org.modelexecution.fuml.Syntax.Classes.Kernel.PrimitiveType dslPrimitiveType;
+	private fUML.Syntax.Classes.Kernel.PrimitiveType dslPrimitiveType;
 	private FUMLAdapterFactory factory;
 
-	public FUMLPrimitiveType(org.modelexecution.fuml.Syntax.Classes.Kernel.PrimitiveType dslPrimitiveType, FUMLAdapterFactory factory) {
+	public FUMLPrimitiveType(fUML.Syntax.Classes.Kernel.PrimitiveType dslPrimitiveType, FUMLAdapterFactory factory) {
 		this.dslPrimitiveType = dslPrimitiveType;
 		this.factory = factory;
 	}
 
 	public static PrimitiveTypeKind getKind(Type type) {
 		for (String name : booleanKindNames) {
-			if (name.equals(type.getName())) {
+			if (name.equals(type.name)) {
 				return PrimitiveTypeKind.BOOLEAN;
 			}
 		}
 		for (String name : integerKindNames) {
-			if (name.equals(type.getName())) {
+			if (name.equals(type.name)) {
 				return PrimitiveTypeKind.INTEGER;
 			}
 		}
 		for (String name : realKindNames) {
-			if (name.equals(type.getName())) {
+			if (name.equals(type.name)) {
 				return PrimitiveTypeKind.REAL;
 			}
 		}
 		for (String name : stringKindNames) {
-			if (name.equals(type.getName())) {
+			if (name.equals(type.name)) {
 				return PrimitiveTypeKind.STRING;
 			}
 		}
@@ -71,7 +72,7 @@ public class FUMLPrimitiveType extends AbstractPrimitiveType implements Primitiv
 
 	@Override
 	public String getName() {
-		String result = dslPrimitiveType.getName();
+		String result = dslPrimitiveType.name;
 		if (result == null) {
 			result = getKind().getName();
 		}
@@ -80,6 +81,6 @@ public class FUMLPrimitiveType extends AbstractPrimitiveType implements Primitiv
 
 	@Override
 	public Namespace getNamespace() {
-		return factory.createNamespace(dslPrimitiveType.getPackage());
+		return factory.createNamespace(dslPrimitiveType.package_);
 	}
 }

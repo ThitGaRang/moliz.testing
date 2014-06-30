@@ -24,11 +24,9 @@ import org.eclipse.uml2.uml.resource.UMLResource;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.junit.Test;
-import org.modelexecution.fuml.Syntax.Classes.Kernel.KernelFactory;
 import org.modelexecution.fumltesting.core.assertions.AssertionPrinter;
 import org.modelexecution.fumltesting.core.assertions.OrderAssertionValidator;
 import org.modelexecution.fumltesting.core.assertions.StateAssertionValidator;
-import org.modelexecution.fumltesting.core.convert.FumlConverter;
 import org.modelexecution.fumltesting.core.convert.TestConverter;
 import org.modelexecution.fumltesting.core.convert.TestDataConverter;
 import org.modelexecution.fumltesting.core.exceptions.ActionNotExecutedException;
@@ -60,6 +58,7 @@ import fUML.Syntax.Actions.IntermediateActions.ReadSelfAction;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
+import fUML.Syntax.Classes.Kernel.Class_;
 import fUML.Syntax.Classes.Kernel.Package;
 
 /**
@@ -72,7 +71,6 @@ public class UmlTestExecutor {
 	private TestSuite convertedSuite;
 
 	private ActivityExecutor executor;
-	private FumlConverter fumlConverter;
 	private OclExecutor oclExecutor;
 	private TestDataConverter testDataConverter;
 	private TraceUtil traceUtil;
@@ -87,12 +85,12 @@ public class UmlTestExecutor {
 	private NamedElement umlModel;
 	private TestConverter testConverter;
 
-	private String testsPath = "../org.modelexecution.fumltesting.examples/model/banking_new/tests";
-	private String umlModelPath = "../org.modelexecution.fumltesting.examples/model/banking_new/banking.uml";
+	private String testsPath = "../org.modelexecution.fumltesting.examples/model/webstore/tests";
+	private String umlModelPath = "../org.modelexecution.fumltesting.examples/model/webstore/webstore.uml";
 	private String primitivesPath = "../../moliz/org.modelexecution.fumldebug.standardlibrary/library/uml_library.uml";
-	private String oclPath = "../org.modelexecution.fumltesting.examples/model/banking_new/banking.ocl";
+	private String oclPath = "../org.modelexecution.fumltesting.examples/model/webstore/webstore.ocl";
 
-	private String testEndsWithFilter = "behavior.umltest";
+	private String testEndsWithFilter = "addCartItem.umltest";
 
 	private AssertionPrinter assertionPrinter;
 
@@ -119,7 +117,6 @@ public class UmlTestExecutor {
 	}
 
 	private void loadAndSetupAllTestResources(File testFile) throws Exception {
-		fumlConverter = new FumlConverter();
 		executor = new ActivityExecutor();
 		testDataConverter = new TestDataConverter();
 		assertionPrinter = new AssertionPrinter();
@@ -173,24 +170,17 @@ public class UmlTestExecutor {
 			System.out.println("Metamodel adaptation: " + oclExecutor.getMetamodel().getName());
 			System.out.println("Model adaptation: " + umlModel.getName());
 
-			org.modelexecution.fuml.Syntax.Classes.Kernel.Package modelPackage = KernelFactory.eINSTANCE.createPackage();
-			modelPackage.setName(umlModel.getName());
-			modelPackage.setQualifiedName(umlModel.getQualifiedName());
-
-			if (umlModel.getNamespace() != null) {
-				modelPackage.getNamespace().setName(umlModel.getNamespace().getName());
-				modelPackage.getNamespace().setQualifiedName(umlModel.getNamespace().getQualifiedName());
-			}
+			Package fumlPackage = new Package();
+			fumlPackage.name = umlModel.getName();
+			fumlPackage.qualifiedName = umlModel.getQualifiedName();
 
 			for (org.eclipse.uml2.uml.Package umlPackage : ((Model) umlModel).getNestedPackages()) {
-				Package fumlPackage = testConverter.getModelConverter().convertPackage(umlPackage);
-				if (fumlPackage != null) {
-					org.modelexecution.fuml.Syntax.Classes.Kernel.Package mappedPackage = fumlConverter.mapAndWire(fumlPackage);
-					modelPackage.getNestedPackage().add(mappedPackage);
-					mappedPackage.setOwner(modelPackage);
-				}
+				Package nestedPackage = testConverter.getModelConverter().convertPackage(umlPackage);
+				fumlPackage.addPackagedElement(nestedPackage);
 			}
-			oclExecutor.setModel(modelPackage);
+			if (fumlPackage != null) {
+				oclExecutor.setModel(fumlPackage);
+			}
 		}
 		oclExecutor.loadConstraints(new File(oclPath));
 	}
@@ -207,9 +197,11 @@ public class UmlTestExecutor {
 			testDataConverter.cleanUpAndInit(convertedSuite);
 
 			boolean requiresContext = false;
+			Class_ contextType = null;
 			for (ActivityNode node : activity.node) {
 				if (node instanceof ReadSelfAction) {
 					requiresContext = true;
+					contextType = (Class_) ((ReadSelfAction) node).output.get(0).typedElement.type;
 					break;
 				}
 			}
@@ -227,6 +219,11 @@ public class UmlTestExecutor {
 			}
 
 			if (testCase.getContextObject() != null) {
+				if (contextType != testCase.getContextObject().getType()) {
+					System.out.println("Object of wrong type declared as context! Please use the proper one.");
+					assertionPrinter.printStartEnd();
+					continue;
+				}
 				ObjectValue contextValue = new ObjectValue(null);
 				contextValue.setValue(testCase.getContextObject());
 				Object_ contextObject = (Object_) testDataConverter.getFumlObject(contextValue);
@@ -236,7 +233,7 @@ public class UmlTestExecutor {
 					System.out.println("CONTEXT for activity NOT defined. Please correct the test declaration.");
 					System.out.println("Test execution failed.");
 					assertionPrinter.printStartEnd();
-					break;
+					continue;
 				}
 				mainActivityExecutionID = executor.executeActivity(activity, inputValues, null);
 			}
@@ -245,7 +242,7 @@ public class UmlTestExecutor {
 			orderAssertionValidator = new OrderAssertionValidator(traceUtil);
 			stateAssertionValidator = new StateAssertionValidator(traceUtil, testDataConverter);
 
-			TestCaseResult testCaseResult = new TestCaseResult(testCase.getName(), activity);
+			TestCaseResult testCaseResult = new TestCaseResult(testCase.getName(), executor.getActivityExecution(mainActivityExecutionID));
 			testCaseResult.setActivityContextObject(testCase.getContextObject());
 
 			for (ActivityInput activityInput : testCase.getAllInputs()) {

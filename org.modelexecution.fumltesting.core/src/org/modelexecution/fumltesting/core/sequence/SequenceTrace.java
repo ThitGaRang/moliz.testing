@@ -6,14 +6,21 @@
  */
 package org.modelexecution.fumltesting.core.sequence;
 
-import org.eclipse.emf.common.util.EList;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.eclipse.emf.ecore.EObject;
 /**
  * 
  * @author Stefan Mijatov
- *
+ * 
  */
-public interface SequenceTrace extends EObject {
-	EList<Sequence> getSequences();
+public class SequenceTrace {
+	private List<Sequence> sequences;
+
+	public List<Sequence> getSequences() {
+		if (sequences == null) {
+			sequences = new ArrayList<Sequence>();
+		}
+		return sequences;
+	}
 }

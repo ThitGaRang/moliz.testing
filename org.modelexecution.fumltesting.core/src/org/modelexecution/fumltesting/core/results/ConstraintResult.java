@@ -10,29 +10,24 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.modelexecution.fumltesting.core.sequence.State;
+import org.modelexecution.fumltesting.core.testlang.StateAssertion;
 
 /**
  * @author Stefan Mijatov
  * 
  */
 public class ConstraintResult {
-	private String constraint;
-	private Object assertion;
+	private String constraintName;
 	private HashMap<State, Boolean> stateResults;
 	private boolean validationResult;
 
-	public ConstraintResult(String constraint, Object assertion) {
-		this.constraint = constraint;
-		this.assertion = assertion;
+	public ConstraintResult(String constraintName, StateAssertion assertion) {
+		this.constraintName = constraintName;
 		this.stateResults = new HashMap<State, Boolean>();
 	}
 
-	public String getConstraint() {
-		return constraint;
-	}
-
-	public Object getAssertion() {
-		return assertion;
+	public String getConstraintName() {
+		return constraintName;
 	}
 
 	public void setValidationResult(boolean validationResult) {

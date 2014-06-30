@@ -15,7 +15,6 @@ import org.dresdenocl.pivotmodel.Namespace;
 import org.dresdenocl.pivotmodel.Type;
 import org.dresdenocl.pivotmodel.base.AbstractNamespace;
 import org.eclipse.emf.common.util.BasicEList;
-import org.modelexecution.fuml.Syntax.Classes.Kernel.Package;
 
 /**
  * 
@@ -24,10 +23,10 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.Package;
  */
 public class FUMLPackage extends AbstractNamespace implements Namespace {
 	private FUMLAdapterFactory factory;
-	private Set<Package> mergedPackages = new HashSet<Package>();
+	private Set<fUML.Syntax.Classes.Kernel.Package> mergedPackages = new HashSet<fUML.Syntax.Classes.Kernel.Package>();
 	private Namespace nestingNamespace;
 
-	public FUMLPackage(Package dslPackage, Namespace nestingNamespace, FUMLAdapterFactory factory) {
+	public FUMLPackage(fUML.Syntax.Classes.Kernel.Package dslPackage, Namespace nestingNamespace, FUMLAdapterFactory factory) {
 		mergedPackages.add(dslPackage);
 		this.nestingNamespace = nestingNamespace;
 		this.factory = factory;
@@ -35,7 +34,7 @@ public class FUMLPackage extends AbstractNamespace implements Namespace {
 
 	@Override
 	public String getName() {
-		return mergedPackages.iterator().next().getName();
+		return mergedPackages.iterator().next().name;
 	}
 
 	@Override
@@ -46,8 +45,8 @@ public class FUMLPackage extends AbstractNamespace implements Namespace {
 	@Override
 	public List<Type> getOwnedType() {
 		List<Type> result = new BasicEList<Type>();
-		for (Package mergedPackage : mergedPackages) {
-			for (org.modelexecution.fuml.Syntax.Classes.Kernel.Type containedType : mergedPackage.getOwnedType()) {
+		for (fUML.Syntax.Classes.Kernel.Package mergedPackage : mergedPackages) {
+			for (fUML.Syntax.Classes.Kernel.Type containedType : mergedPackage.ownedType) {
 				Type type = factory.createType(containedType);
 				if (type != null) {
 					result.add(type);
@@ -60,21 +59,21 @@ public class FUMLPackage extends AbstractNamespace implements Namespace {
 	@Override
 	protected List<Namespace> getNestedNamespaceImpl() {
 		List<Namespace> result = new ArrayList<Namespace>();
-		for (Package mergedPackage : mergedPackages) {
-			for (Package nestedDslNamespace : mergedPackage.getNestedPackage()) {
+		for (fUML.Syntax.Classes.Kernel.Package mergedPackage : mergedPackages) {
+			for (fUML.Syntax.Classes.Kernel.Package nestedDslNamespace : mergedPackage.nestedPackage) {
 				result.add(factory.createNamespace(nestedDslNamespace, this));
 			}
 		}
 		return result;
 	}
 
-	protected void mergePackage(Package fumlPackage) {
+	protected void mergePackage(fUML.Syntax.Classes.Kernel.Package fumlPackage) {
 		if (!mergedPackages.contains(fumlPackage)) {
-			if (mergedPackages.iterator().next().getQualifiedName().equals(fumlPackage.getQualifiedName())) {
+			if (mergedPackages.iterator().next().qualifiedName.equals(fumlPackage.qualifiedName)) {
 				mergedPackages.add(fumlPackage);
 			} else {
-				throw new IllegalArgumentException("Cannot merge package " + fumlPackage.getQualifiedName() + " to package "
-						+ mergedPackages.iterator().next().getQualifiedName() + ".");
+				throw new IllegalArgumentException("Cannot merge package " + fumlPackage.qualifiedName + " to package "
+						+ mergedPackages.iterator().next().qualifiedName + ".");
 			}
 		}
 	}

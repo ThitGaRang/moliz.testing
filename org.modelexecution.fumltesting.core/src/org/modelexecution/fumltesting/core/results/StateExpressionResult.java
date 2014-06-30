@@ -6,16 +6,18 @@
  */
 package org.modelexecution.fumltesting.core.results;
 
+import org.modelexecution.fumltesting.core.testlang.StateExpression;
+
 /**
  * @author Stefan Mijatov
  * 
  */
 public class StateExpressionResult {
-	private Object expression;
+	private StateExpression expression;
 	private boolean validationResult;
 	private String error;
 
-	public StateExpressionResult(Object expression) {
+	public StateExpressionResult(StateExpression expression) {
 		this.expression = expression;
 	}
 
@@ -27,7 +29,7 @@ public class StateExpressionResult {
 		return validationResult;
 	}
 
-	public Object getStateExpression() {
+	public StateExpression getStateExpression() {
 		return expression;
 	}
 

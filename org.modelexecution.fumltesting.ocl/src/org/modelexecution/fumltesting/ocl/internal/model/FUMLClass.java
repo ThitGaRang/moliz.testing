@@ -14,7 +14,8 @@ import org.dresdenocl.pivotmodel.Operation;
 import org.dresdenocl.pivotmodel.Property;
 import org.dresdenocl.pivotmodel.Type;
 import org.dresdenocl.pivotmodel.base.AbstractType;
-import org.modelexecution.fuml.Syntax.Classes.Kernel.Class;
+
+import fUML.Syntax.Classes.Kernel.Class_;
 
 /**
  * 
@@ -22,28 +23,28 @@ import org.modelexecution.fuml.Syntax.Classes.Kernel.Class;
  * 
  */
 public class FUMLClass extends AbstractType implements Type {
-	private Class dslClass;
+	private Class_ dslClass;
 	private FUMLAdapterFactory factory;
 
-	public FUMLClass(Class dslClass, FUMLAdapterFactory factory) {
+	public FUMLClass(Class_ dslClass, FUMLAdapterFactory factory) {
 		this.dslClass = dslClass;
 		this.factory = factory;
 	}
 
 	@Override
 	public String getName() {
-		return dslClass.getName();
+		return dslClass.name;
 	}
 
 	@Override
 	public Namespace getNamespace() {
-		return factory.createNamespace(dslClass.getPackage());
+		return factory.createNamespace(dslClass.package_);
 	}
 
 	@Override
 	protected List<Property> getOwnedPropertyImpl() {
 		List<Property> result = new ArrayList<Property>();
-		for (org.modelexecution.fuml.Syntax.Classes.Kernel.Property property : dslClass.getOwnedAttribute()) {
+		for (fUML.Syntax.Classes.Kernel.Property property : dslClass.ownedAttribute) {
 			result.add(factory.createProperty(property));
 		}
 		return result;
@@ -52,7 +53,7 @@ public class FUMLClass extends AbstractType implements Type {
 	@Override
 	protected List<Operation> getOwnedOperationImpl() {
 		List<Operation> result = new ArrayList<Operation>();
-		for (org.modelexecution.fuml.Syntax.Classes.Kernel.Operation operation : dslClass.getOwnedOperation()) {
+		for (fUML.Syntax.Classes.Kernel.Operation operation : dslClass.ownedOperation) {
 			result.add(factory.createOperation(operation));
 		}
 		return result;
@@ -61,7 +62,7 @@ public class FUMLClass extends AbstractType implements Type {
 	@Override
 	protected List<Type> getSuperTypeImpl() {
 		List<Type> result = new ArrayList<Type>();
-		for (Class clazz : dslClass.getSuperClass()) {
+		for (Class_ clazz : dslClass.superClass) {
 			result.add(factory.createType(clazz));
 		}
 		return result;

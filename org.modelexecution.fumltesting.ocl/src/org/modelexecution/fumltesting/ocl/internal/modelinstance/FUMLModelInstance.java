@@ -20,7 +20,6 @@ import org.dresdenocl.modelinstancetype.types.IModelInstanceElement;
 import org.dresdenocl.modelinstancetype.types.IModelInstanceObject;
 import org.dresdenocl.pivotmodel.Operation;
 import org.dresdenocl.pivotmodel.Property;
-import org.modelexecution.fuml.Semantics.Classes.Kernel.Link;
 
 /**
  * 
@@ -67,8 +66,6 @@ public class FUMLModelInstance extends AbstractModelInstance implements IModelIn
 	private IModelInstanceElement adaptObject(Object object) throws TypeNotFoundInModelException {
 		IModelInstanceElement result = myModelInstanceFactory.createModelInstanceElement(object);
 		if (result == null) {
-			if (object instanceof Link)
-				return result;
 			throw new TypeNotFoundInModelException(FUMLModelInstanceTypeMessages.FUMLModelInstance_ObjectDoesNoMatchToModel);
 		}
 		if (result instanceof IModelInstanceObject) {
