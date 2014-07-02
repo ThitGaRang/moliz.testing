@@ -55,7 +55,7 @@ public class SequenceGenerator {
 		}
 		return this.sequenceTrace;
 	}
-
+	
 	private Sequence createSequence(ActivityExecution activityExecution) throws SequenceGeneratorException {
 		Sequence sequence = new Sequence(activityExecution);
 		sequenceTrace.getSequences().add(sequence);
@@ -84,7 +84,7 @@ public class SequenceGenerator {
 				ValueInstance instance = (ValueInstance) contextSnapshot.eContainer();
 				Object_ object = (Object_) instance.getOriginal().getRuntimeValue();
 				state.addStateObjectSnapshot(object, instance);
-				addLinksAndLinkedObjects(object, state);
+				addLinks(object, state);
 			}
 		}
 
@@ -94,7 +94,7 @@ public class SequenceGenerator {
 				ValueInstance instance = (ValueInstance) snapshot.eContainer();
 				Object_ object = (Object_) instance.getOriginal().getRuntimeValue();
 				state.addStateObjectSnapshot(object, instance);
-				addLinksAndLinkedObjects(object, state);
+				addLinks(object, state);
 			}
 		}
 	}
@@ -235,7 +235,7 @@ public class SequenceGenerator {
 		return null;
 	}
 	
-	private void addLinksAndLinkedObjects(Object_ object, State state){
+	private void addLinks(Object_ object, State state){
 		for (ValueInstance locusInstance : trace.getInitialLocusValueInstances()) {
 			if (locusInstance.getRuntimeValue() != null && locusInstance.getRuntimeValue() instanceof Link) {
 				Link locusLink = (Link) locusInstance.getRuntimeValue();
@@ -259,7 +259,6 @@ public class SequenceGenerator {
 							}
 						}
 						if (targetInstance != null) {
-							state.addStateObjectSnapshot(targetValue, targetInstance);
 							state.addStateLinkSnapshot(locusLink, locusInstance);
 							break;
 						}

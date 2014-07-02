@@ -80,6 +80,42 @@ public class State {
 		return null;
 	}
 
+	public Object_ getTargetObjectSnapshot(Link link) {
+		if (!linkSnapshotMappings.containsValue(link))
+			return null;
+		FeatureValue targetFeatureValue = null;
+		for (ValueInstance instance : stateCreator.getActivityExecution().getTrace().getValueInstances()) {
+			for (FeatureValue featureValue : link.featureValues) {
+				if (link.type.navigableOwnedEnd.contains(featureValue.feature)) {
+					targetFeatureValue = featureValue;
+					break;
+				}
+			}
+			if (instance.getRuntimeValue() == ((Reference) targetFeatureValue.values.get(0)).referent) {
+				return getStateObjectSnapshot(instance);
+			}
+		}
+		return null;
+	}
+
+	public Object_ getSourceObjectSnapshot(Link link) {
+		if (!linkSnapshotMappings.containsValue(link))
+			return null;
+		FeatureValue sourceFeatureValue = null;
+		for (ValueInstance instance : stateCreator.getActivityExecution().getTrace().getValueInstances()) {
+			for (FeatureValue featureValue : link.featureValues) {
+				if (!link.type.navigableOwnedEnd.contains(featureValue.feature)) {
+					sourceFeatureValue = featureValue;
+					break;
+				}
+			}
+			if (instance.getRuntimeValue() == ((Reference) sourceFeatureValue.values.get(0)).referent) {
+				return getStateObjectSnapshot(instance);
+			}
+		}
+		return null;
+	}
+
 	public void addStateObjectSnapshot(Object_ object, ValueInstance instance) {
 		objectSnapshotMappings.put(instance, object);
 	}
@@ -96,17 +132,21 @@ public class State {
 			boolean sourceContained = false;
 			FeatureValue sourceFeatureValue = null;
 			for (FeatureValue featureValue : link.featureValues) {
-				if (!link.type.navigableOwnedEnd.contains(featureValue.feature))
+				if (!link.type.navigableOwnedEnd.contains(featureValue.feature)) {
 					sourceFeatureValue = featureValue;
+					break;
+				}
 			}
 			if (sourceFeatureValue != null) {
 				for (Value linkEndValue : sourceFeatureValue.values) {
 					Reference reference = (Reference) linkEndValue;
-					if(reference.referent == removedObject)
+					if (reference.referent == removedObject) {
 						sourceContained = true;
+						break;
+					}
 				}
 			}
-			if(sourceContained){
+			if (sourceContained) {
 				linkSnapshotMappings.remove(instance);
 			}
 		}

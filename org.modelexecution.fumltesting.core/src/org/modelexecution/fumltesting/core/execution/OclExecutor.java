@@ -38,7 +38,6 @@ import org.modelexecution.fumltesting.ocl.internal.provider.FUMLModelProvider;
 import fUML.Semantics.Classes.Kernel.FeatureValue;
 import fUML.Semantics.Classes.Kernel.Link;
 import fUML.Semantics.Classes.Kernel.Object_;
-import fUML.Semantics.Classes.Kernel.Reference;
 
 /**
  * Utility class for interpreting and evaluating OCL constraints.
@@ -95,20 +94,17 @@ public class OclExecutor {
 				}
 				for (ValueInstance instance : state.getStateLinkInstances()) {
 					Link link = state.getStateLinkSnapshot(instance);
-					FeatureValue sourceFeatureValue = null;
 					FeatureValue targetFeatureValue = null;
 					for (FeatureValue featureValue : link.featureValues) {
 						if (link.type.navigableOwnedEnd.contains(featureValue.feature)) {
 							targetFeatureValue = featureValue;
-						} else {
-							sourceFeatureValue = featureValue;
 						}
 					}
 					for (IModelInstanceObject object : modelInstance.getAllModelInstanceObjects()) {
 						FUMLModelInstanceObject fumlObject = (FUMLModelInstanceObject) object;
 						Object_ objectValue = (Object_) fumlObject.getObject();
-						Object_ sourceValueOfTheLink = ((Reference) sourceFeatureValue.values.get(0)).referent;
-						Object_ targetValueOfTheLink = ((Reference) targetFeatureValue.values.get(0)).referent;
+						Object_ sourceValueOfTheLink = state.getSourceObjectSnapshot(link);
+						Object_ targetValueOfTheLink = state.getTargetObjectSnapshot(link);
 						if (objectValue == sourceValueOfTheLink) {
 							for (Property property : fumlObject.getType().getOwnedProperty()) {
 								if (property.getName().equals(targetFeatureValue.feature.name)) {
