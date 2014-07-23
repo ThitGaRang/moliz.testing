@@ -111,7 +111,11 @@ public class OclExecutor {
 									boolean featureExists = false;
 									for (FeatureValue featureValue : objectValue.featureValues) {
 										if (featureValue.feature == targetFeatureValue.feature) {
-											featureValue.values.add(targetValueOfTheLink);
+											if (featureValue.feature.multiplicityElement.upper.naturalValue == 1) {
+												featureValue.values.clear();
+											}
+											if (!featureValue.values.contains(targetValueOfTheLink))
+												featureValue.values.add(targetValueOfTheLink);
 											featureExists = true;
 											break;
 										}
@@ -152,9 +156,6 @@ public class OclExecutor {
 		if (constraint == null)
 			throw new ConstraintNotFoundException("Constraint " + constraintName + " not found!");
 		else {
-			// TODO continue implementing constraint checking
-			System.out.println("Checking constraint..\n" + constraint.getSpecification().getBody().trim());
-
 			oclInterpreter = OclInterpreterPlugin.createInterpreter(modelInstance);
 			ConstrainableElement constrainedElement = constraint.getConstrainedElement().get(0);
 			if (constrainedElement instanceof FUMLClass) {
@@ -195,7 +196,6 @@ public class OclExecutor {
 			if (resultBoolean.getInvalidReason() != null && resultBoolean.getInvalidReason() instanceof PropertyNotFoundException) {
 				if (constraint.getSpecification().getBody().trim().endsWith(" = null"))
 					return true;
-				System.out.println("Property not found for constraint: " + constraint.getName());
 				return false;
 			}
 			return resultBoolean.isTrue();

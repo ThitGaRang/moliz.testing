@@ -10,7 +10,9 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumltesting.core.results.ActivityInput;
@@ -52,21 +54,25 @@ import fUML.Syntax.Classes.Kernel.Property;
  * 
  */
 public class ResultsWriter {
-	private String fileName;
+	private HashMap<String, String> testsThatDidNotRun;
 	private TestSuiteResult suiteResult;
 	private PrintWriter writer;
+	private final String marking = "******************************************************************************************";
 
-	public ResultsWriter(String fileName, TestSuiteResult suiteResult) {
-		this.fileName = fileName;
+	public ResultsWriter(String fileName, TestSuiteResult suiteResult, HashMap<String, String> testsThatDidNotRun) throws FileNotFoundException {
 		this.suiteResult = suiteResult;
+		this.testsThatDidNotRun = testsThatDidNotRun;
+		writer = new PrintWriter(fileName);
 	}
 
-	public void writeResults() throws FileNotFoundException {
-		writer = new PrintWriter(fileName);
-
+	public void writeResults() {
 		SimpleDateFormat currentTime = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 		writer.println("Test Suite Run: " + currentTime.format(new Date()));
 		writer.println();
+
+		if (testsThatDidNotRun.size() > 0) {
+			writeTestsThatDidNotRun();
+		}
 
 		for (TestCaseResult testCaseResult : suiteResult.getTestCaseResults()) {
 			writer.println("TestCase: " + testCaseResult.getTestCaseName());
@@ -213,9 +219,18 @@ public class ResultsWriter {
 					}
 				}
 			}
-			writer.println("**********************************************************");
+			writer.println(marking);
 		}
 		writer.close();
+	}
+
+	private void writeTestsThatDidNotRun() {
+		writer.println("These tests did not run: \n");
+		for (Entry<String, String> entry : testsThatDidNotRun.entrySet()) {
+			writer.println("Test name: \t" + entry.getKey());
+			writer.println("Cause: \t" + entry.getValue());
+			writer.println(marking);
+		}
 	}
 
 	private void printSpecification(List<NodeSpecification> nodeOrder) {

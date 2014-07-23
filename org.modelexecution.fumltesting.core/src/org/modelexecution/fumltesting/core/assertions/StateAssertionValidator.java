@@ -22,6 +22,7 @@ import org.modelexecution.fumltesting.core.convert.TestDataConverter;
 import org.modelexecution.fumltesting.core.exceptions.ActionNotExecutedException;
 import org.modelexecution.fumltesting.core.exceptions.ConstraintNotFoundException;
 import org.modelexecution.fumltesting.core.exceptions.ConstraintStateNotFoundException;
+import org.modelexecution.fumltesting.core.exceptions.ExpectedLinkValueException;
 import org.modelexecution.fumltesting.core.execution.OclExecutor;
 import org.modelexecution.fumltesting.core.results.ConstraintResult;
 import org.modelexecution.fumltesting.core.results.StateAssertionResult;
@@ -77,17 +78,13 @@ public class StateAssertionValidator {
 	private ActivityNodeExecution referenceActionExecution;
 	private ActivityNodeExecution untilActionExecution;
 
-	private AssertionPrinter assertionPrinter;
-
 	public StateAssertionValidator(TraceUtil traceUtil, TestDataConverter testDataConverter) {
 		this.testDataConverter = testDataConverter;
 		this.traceUtil = traceUtil;
 		snapshotUtil = new SnapshotUtil(traceUtil);
-		assertionPrinter = new AssertionPrinter();
 	}
 
 	public StateAssertionResult check(StateAssertion assertion) {
-		assertionPrinter.printStateAssertion(assertion);
 		StateAssertionResult result = new StateAssertionResult(assertion);
 		List<State> states = new ArrayList<State>();
 
@@ -95,14 +92,12 @@ public class StateAssertionValidator {
 			referenceActionExecution = traceUtil.getReferenceActionExecution(assertion);
 			untilActionExecution = traceUtil.getUntilActionExecution(assertion);
 			states = traceUtil.getStates(assertion);
-		} catch (ConstraintNotFoundException | ActionNotExecutedException | ConstraintStateNotFoundException e) {
-			System.out.println(e.getMessage());
+		} catch (ActionNotExecutedException | ConstraintNotFoundException | ConstraintStateNotFoundException e) {
 			result.setError(e.getMessage());
 			return result;
 		}
 
 		if (states.size() == 0) {
-			System.out.println("There are no states for a given constraint.");
 			result.setError("There are no states for a given constraint.");
 			return result;
 		}
@@ -119,7 +114,6 @@ public class StateAssertionValidator {
 								ObjectNode objectNode = ((ConstraintCheck) check).getObject();
 								context = traceUtil.getValueInstance(objectNode, nodeExecution);
 							} catch (ActionNotExecutedException e) {
-								System.out.println(e.getMessage());
 								result.setError(e.getMessage());
 								return result;
 							}
@@ -130,7 +124,6 @@ public class StateAssertionValidator {
 							try {
 								constraintResultInSingleState = OclExecutor.getInstance().checkConstraint(constraintName, context, state);
 							} catch (ConstraintNotFoundException e) {
-								System.out.println(e.getMessage());
 								result.setError(e.getMessage());
 								constraintResult.setValidationResult(false);
 								return result;
@@ -142,12 +135,6 @@ public class StateAssertionValidator {
 						results.removeAll(results);
 						constraintResult.setValidationResult(overallResult);
 						result.addConstraintResult(constraintResult);
-
-						if (overallResult == false) {
-							System.out.println("Constraint " + constraintName + " validation failed!");
-						} else {
-							System.out.println("Constraint validation success.");
-						}
 					}
 				}
 			}
@@ -159,12 +146,10 @@ public class StateAssertionValidator {
 			}
 		}
 
-		assertionPrinter.printStartEnd();
 		return result;
 	}
 
 	public StateAssertionResult check(org.modelexecution.fumltesting.core.testlang.FinallyStateAssertion assertion) throws ActionNotExecutedException {
-		System.out.println("Finally state assertion validation..");
 		StateAssertion stateAssertion = new StateAssertion();
 
 		stateAssertion.setQuantifier(TemporalQuantifier.ALWAYS);
@@ -199,15 +184,12 @@ public class StateAssertionValidator {
 				} else {
 					result.setValidationResult(processValue(expression));
 				}
-				assertionPrinter.print(expression, result.getValidationResult());
 				return result;
 			} else {
 				result.setValidationResult(processObject(expression));
-				assertionPrinter.print(expression, result.getValidationResult());
 				return result;
 			}
-		} catch (ActionNotExecutedException e) {
-			System.out.println(e.getMessage());
+		} catch (ActionNotExecutedException | ExpectedLinkValueException e) {
 			result.setError(e.getMessage());
 			return result;
 		}
@@ -304,9 +286,8 @@ public class StateAssertionValidator {
 				}
 				if (simpleValue instanceof NullValue) {
 					if (expression.getOperator() == ArithmeticOperator.EQUAL)
-						if (relevantSnapshots.size() != 0) {// at the beginning
-															// everything
-							// was equal to null
+						if (relevantSnapshots.size() != 0) {
+							// at the beginning everything was equal to null
 							if (expression.getContainer().getQuantifier() == TemporalQuantifier.SOMETIMES
 									&& expression.getContainer().getOperator() == TemporalOperator.UNTIL)
 								results.add(true);
@@ -327,11 +308,7 @@ public class StateAssertionValidator {
 		return compileResult(results, (expression.getContainer()).getQuantifier());
 	}
 
-	private boolean processObject(StateExpression expression) throws ActionNotExecutedException {
-		if (!(expression.getOperator() instanceof ArithmeticOperator)) {
-			System.out.println("Operator <, >, <=, and => not allowed!");
-			return false;
-		}
+	private boolean processObject(StateExpression expression) throws ActionNotExecutedException, ExpectedLinkValueException {
 		Object_ fumlTarget = null;
 		if (expression.getValue() instanceof ObjectValue) {
 			fumlTarget = testDataConverter.getFumlObject((ObjectValue) expression.getValue());
@@ -387,7 +364,8 @@ public class StateAssertionValidator {
 		return compileResult(results, expression.getContainer().getQuantifier());
 	}
 
-	private boolean processStateExpression(PropertyStateExpression expression, Object_ fumlTarget) throws ActionNotExecutedException {
+	private boolean processStateExpression(PropertyStateExpression expression, Object_ fumlTarget) throws ActionNotExecutedException,
+			ExpectedLinkValueException {
 		ArrayList<Boolean> results = new ArrayList<Boolean>();
 		List<ValueInstance> links = new ArrayList<ValueInstance>();
 
@@ -435,9 +413,7 @@ public class StateAssertionValidator {
 			}
 
 			if (!(propertyExpression.getValue() instanceof ObjectValue) && !(propertyExpression.getValue() instanceof NullValue)) {
-				// this is the case where we might compare null to a link
-				System.out.println("For links only null is allowed!");
-				return false;
+				throw new ExpectedLinkValueException("For links only null is allowed!");
 			}
 
 			for (ValueInstance linkValueInstance : traceUtil.getAllLinks()) {
@@ -620,7 +596,6 @@ public class StateAssertionValidator {
 	 */
 	private boolean compare(FeatureValue targetFeatureValue, FeatureValue featureValue) {
 		if (targetFeatureValue.values.size() != featureValue.values.size()) {
-			System.out.println("Feature " + targetFeatureValue.feature.name + " of compared objects contain different values!");
 			return false;
 		}
 		Property property = (Property) targetFeatureValue.feature;
@@ -634,7 +609,6 @@ public class StateAssertionValidator {
 					if (targetValue.equals(value))
 						return true;
 					else {
-						System.out.println("Expected: " + targetValue + " Real value: " + value);
 						return false;
 					}
 				}
@@ -644,7 +618,6 @@ public class StateAssertionValidator {
 					if (targetValue.value == value.value)
 						return true;
 					else {
-						System.out.println("Expected: " + targetValue.value + " Real value: " + value.value);
 						return false;
 					}
 				}
@@ -661,7 +634,6 @@ public class StateAssertionValidator {
 					if (targetValue.value.naturalValue == value.value.naturalValue)
 						return true;
 					else {
-						System.out.println("Expected: " + targetValue.value.naturalValue + " Real value: " + value.value.naturalValue);
 						return false;
 					}
 				}
@@ -671,7 +643,6 @@ public class StateAssertionValidator {
 					if (targetValue.value == value.value)
 						return true;
 					else {
-						System.out.println("Expected: " + targetValue.value + " Real value: " + value.value);
 						return false;
 					}
 				}
@@ -685,7 +656,6 @@ public class StateAssertionValidator {
 
 	/** Comparison of simple values: String, Boolean, Double */
 	private boolean compareValues(ArithmeticOperator operator, Object value, Object target) {
-		System.out.println("Expected value: " + target + " Real value: " + value);
 		if (value instanceof String || value instanceof Boolean) {
 			if (operator == ArithmeticOperator.EQUAL)
 				if (!value.equals(target))

@@ -33,11 +33,9 @@ import fUML.Syntax.Activities.IntermediateActivities.InitialNode;
 public class OrderAssertionValidator {
 
 	private TraceUtil traceUtil;
-	private AssertionPrinter assertionPrinter;
 
 	public OrderAssertionValidator(TraceUtil traceUtil) {
 		this.traceUtil = traceUtil;
-		this.assertionPrinter = new AssertionPrinter();
 	}
 
 	public OrderAssertionResult checkOrder(OrderAssertion assertion) {
@@ -46,9 +44,6 @@ public class OrderAssertionValidator {
 
 		List<NodeSpecification> nodeOrder = assertion.getOrder().getAllNodes();
 		Activity main = assertion.getContainer().getActivityUnderTest();
-
-		assertionPrinter.printOrderSpecification(nodeOrder);
-		System.out.println("Checking order assertion against " + traceUtil.getAllPaths().size() + " generated paths..");
 
 		for (ArrayList<ActivityNodeExecution> path : traceUtil.getAllPaths()) {
 			PathCheckResult pathCheckResult = new PathCheckResult(path);
@@ -72,14 +67,11 @@ public class OrderAssertionValidator {
 				}
 
 				int activityExecutionID = traceUtil.getActivityExecutionID(parent.name);
-				System.out.println("Checking sub-order: ");
-				assertionPrinter.printOrderSpecification(nodeSpecification.getSubOrder().getAllNodes());
 
 				OrderAssertionResult subOrderResult = new OrderAssertionResult(nodeSpecification.getSubOrder().getAllNodes());
 				subOrderResult.setAssertion(assertion);
 
 				TraceUtil subTraceUtil = new TraceUtil(activityExecutionID);
-				System.out.println("Checking sub-order assertion against " + subTraceUtil.getAllPaths().size() + " generated paths..");
 
 				for (ArrayList<ActivityNodeExecution> path : subTraceUtil.getAllPaths()) {
 					PathCheckResult pathCheckResult = new PathCheckResult(path);

@@ -24,7 +24,6 @@ import org.eclipse.uml2.uml.resource.UMLResource;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.junit.Test;
-import org.modelexecution.fumltesting.core.assertions.AssertionPrinter;
 import org.modelexecution.fumltesting.core.assertions.OrderAssertionValidator;
 import org.modelexecution.fumltesting.core.assertions.StateAssertionValidator;
 import org.modelexecution.fumltesting.core.convert.TestConverter;
@@ -92,8 +91,6 @@ public class UmlTestExecutor {
 
 	private String testEndsWithFilter = "behavior.umltest";
 
-	private AssertionPrinter assertionPrinter;
-
 	/** Main method of the testing framework. */
 	@Test
 	public void runTests() {
@@ -119,7 +116,6 @@ public class UmlTestExecutor {
 	private void loadAndSetupAllTestResources(File testFile) throws Exception {
 		executor = new ActivityExecutor();
 		testDataConverter = new TestDataConverter();
-		assertionPrinter = new AssertionPrinter();
 
 		String testLocation = testsPath + "/" + testFile.getName();
 
@@ -190,8 +186,8 @@ public class UmlTestExecutor {
 		SimpleDateFormat currentTime = new SimpleDateFormat("dd.MM.yy_HH.mm.ss");
 		String testFileNameWithoutExtension = testFile.getName().replace(".fumltest", "");
 		String testResultsFile = "results/testresults_" + testFileNameWithoutExtension + "_" + currentTime.format(new Date()) + ".txt";
+		HashMap<String, String> testsThatDidNotRun = new HashMap<String, String>();
 		for (TestCase testCase : convertedSuite.getAllTestCases()) {
-			assertionPrinter.print(testCase);
 			Activity activity = testCase.getActivityUnderTest();
 
 			testDataConverter.cleanUpAndInit(convertedSuite);
@@ -220,8 +216,7 @@ public class UmlTestExecutor {
 
 			if (testCase.getContextObject() != null) {
 				if (contextType != testCase.getContextObject().getType()) {
-					System.out.println("Object of wrong type declared as context! Please use the proper one.");
-					assertionPrinter.printStartEnd();
+					testsThatDidNotRun.put(testCase.getName(), "Object of wrong type declared as context! Please use the proper one.");
 					continue;
 				}
 				ObjectValue contextValue = new ObjectValue(null);
@@ -230,9 +225,7 @@ public class UmlTestExecutor {
 				mainActivityExecutionID = executor.executeActivity(activity, inputValues, contextObject);
 			} else {
 				if (requiresContext) {
-					System.out.println("CONTEXT for activity NOT defined. Please correct the test declaration.");
-					System.out.println("Test execution failed.");
-					assertionPrinter.printStartEnd();
+					testsThatDidNotRun.put(testCase.getName(), "CONTEXT for activity NOT defined. Please correct the test declaration.");
 					continue;
 				}
 				mainActivityExecutionID = executor.executeActivity(activity, inputValues, null);
@@ -255,33 +248,23 @@ public class UmlTestExecutor {
 				AssertionResult result = null;
 				if (assertion instanceof OrderAssertion) {
 					result = orderAssertionValidator.checkOrder((OrderAssertion) assertion);
-					if (result.getAssertionValidationResult())
-						System.out.println("Assertion success!");
-					else
-						System.out.println("Assertion failed!");
 				} else if (assertion instanceof FinallyStateAssertion) {
 					try {
 						result = stateAssertionValidator.check((FinallyStateAssertion) assertion);
 					} catch (ActionNotExecutedException e) {
 						result = new StateAssertionResult(assertion);
 						result.setError(e.getMessage());
-						System.out.println(e.getMessage());
 					}
 				} else if (assertion instanceof StateAssertion) {
 					result = stateAssertionValidator.check((StateAssertion) assertion);
 				}
 				testCaseResult.addAssertionResult(result);
 			}
-
 			suiteResult.addTestCaseResult(testCaseResult);
-
-			System.out.println("End of test.");
-			assertionPrinter.printStartEnd();
 		}
 
-		ResultsWriter writer = new ResultsWriter(testResultsFile, suiteResult);
-
 		try {
+			ResultsWriter writer = new ResultsWriter(testResultsFile, suiteResult, testsThatDidNotRun);
 			writer.writeResults();
 		} catch (FileNotFoundException e) {
 			System.out.println("Could not write to file " + testResultsFile);

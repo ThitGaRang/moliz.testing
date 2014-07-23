@@ -91,7 +91,7 @@ public class State {
 					break;
 				}
 			}
-			if (instance.getRuntimeValue() == ((Reference) targetFeatureValue.values.get(0)).referent) {
+			if (instance.getRuntimeValue().equals(((Reference) targetFeatureValue.values.get(0)).referent)) {
 				return getStateObjectSnapshot(instance);
 			}
 		}
@@ -109,7 +109,7 @@ public class State {
 					break;
 				}
 			}
-			if (instance.getRuntimeValue() == ((Reference) sourceFeatureValue.values.get(0)).referent) {
+			if (instance.getRuntimeValue().equals(((Reference) sourceFeatureValue.values.get(0)).referent)) {
 				return getStateObjectSnapshot(instance);
 			}
 		}
@@ -122,6 +122,10 @@ public class State {
 
 	public void addStateLinkSnapshot(Link link, ValueInstance instance) {
 		linkSnapshotMappings.put(instance, link);
+	}
+
+	public void removeStateLinkSnapshot(ValueInstance instance) {
+		linkSnapshotMappings.remove(instance);
 	}
 
 	public void removeStateObjectSnapshot(ValueInstance instance) {

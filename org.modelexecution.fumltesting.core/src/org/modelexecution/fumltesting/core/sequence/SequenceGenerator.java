@@ -6,6 +6,8 @@
  */
 package org.modelexecution.fumltesting.core.sequence;
 
+import java.util.ArrayList;
+
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
@@ -55,7 +57,7 @@ public class SequenceGenerator {
 		}
 		return this.sequenceTrace;
 	}
-	
+
 	private Sequence createSequence(ActivityExecution activityExecution) throws SequenceGeneratorException {
 		Sequence sequence = new Sequence(activityExecution);
 		sequenceTrace.getSequences().add(sequence);
@@ -80,11 +82,11 @@ public class SequenceGenerator {
 
 		ValueSnapshot contextSnapshot = nodeExecution.getActivityExecution().getContextValueSnapshot();
 		if (contextSnapshot != null) {
-			if (contextSnapshot.getRuntimeValue() instanceof Object_) {
+			if (contextSnapshot.getValue() instanceof Object_) {
 				ValueInstance instance = (ValueInstance) contextSnapshot.eContainer();
-				Object_ object = (Object_) instance.getOriginal().getRuntimeValue();
+				Object_ object = (Object_) instance.getOriginal().getValue();
 				state.addStateObjectSnapshot(object, instance);
-				addLinks(object, state);
+				addLinksOfInitialObject(object, state);
 			}
 		}
 
@@ -92,9 +94,9 @@ public class SequenceGenerator {
 			ValueSnapshot snapshot = inputParameterSetting.getParameterValues().get(0).getValueSnapshot();
 			if (snapshot.getValue() instanceof Object_) {
 				ValueInstance instance = (ValueInstance) snapshot.eContainer();
-				Object_ object = (Object_) instance.getOriginal().getRuntimeValue();
+				Object_ object = (Object_) instance.getOriginal().getValue();
 				state.addStateObjectSnapshot(object, instance);
-				addLinks(object, state);
+				addLinksOfInitialObject(object, state);
 			}
 		}
 	}
@@ -124,17 +126,6 @@ public class SequenceGenerator {
 				ValueSnapshot objectSnapshot = null;
 				ValueInstance objectInstance = null;
 
-				ValueSnapshot valueSnapshot = null;
-				ValueInstance valueInstance = null;
-
-				for (Input input : ((ActionExecution) nodeExecution).getInputs()) {
-					if (input.getInputPin() == node.value) {
-						valueSnapshot = input.getInputValues().get(0).getValueSnapshot();
-						if (valueSnapshot != null)
-							valueInstance = valueSnapshot.getValueInstance();
-					}
-				}
-
 				for (Output output : ((ActionExecution) nodeExecution).getOutputs()) {
 					if (output.getOutputPin() == node.result) {
 						objectSnapshot = output.getOutputValues().get(0).getValueSnapshot();
@@ -147,44 +138,10 @@ public class SequenceGenerator {
 					state.addStateObjectSnapshot(object, objectInstance);
 				} else {// link
 					boolean linkFoundAndProcessed = false;
-					for (ValueInstance link : ((Trace) nodeExecution.getActivityExecution().eContainer()).getValueInstances()) {
+					for (ValueInstance link : trace.getValueInstances()) {
 						if (link.getCreator() == nodeExecution) {
 							Link linkValue = (Link) link.getRuntimeValue();
-
-							Property firstEnd = linkValue.type.ownedEnd.get(0);
-							Property secondEnd = linkValue.type.ownedEnd.get(1);
-
-							FeatureValue firstFeatureValue = null;
-							FeatureValue secondFeatureValue = null;
-							Object_ theFirstEndObject = null;
-							Object_ theSecondEndObject = null;
-
-							for (FeatureValue featureValue : linkValue.featureValues) {
-								if (featureValue.feature == firstEnd) {
-									firstFeatureValue = featureValue;
-								}
-								if (featureValue.feature == secondEnd) {
-									secondFeatureValue = featureValue;
-								}
-							}
-							if (firstFeatureValue != null && secondFeatureValue != null) {
-								for (Value firstEndObject : firstFeatureValue.values) {
-									theFirstEndObject = ((Reference) firstEndObject).referent;
-									break;
-								}
-								for (Value secondEndObject : secondFeatureValue.values) {
-									theSecondEndObject = ((Reference) secondEndObject).referent;
-									break;
-								}
-							} else {
-								throw new SequenceGeneratorException("Features values of the association " + linkValue.type.name + " not found!");
-							}
-
-							state.addStateObjectSnapshot(theFirstEndObject, objectInstance);
-							state.addStateObjectSnapshot(theSecondEndObject, valueInstance);
-
 							state.addStateLinkSnapshot(linkValue, link);
-
 							linkFoundAndProcessed = true;
 						}
 					}
@@ -192,7 +149,6 @@ public class SequenceGenerator {
 						throw new SequenceGeneratorException("Link after execution of action " + nodeExecution.getNode().name + " not found!");
 				}
 			} else if (nodeExecution.getNode() instanceof CallBehaviorAction || nodeExecution.getNode() instanceof CallOperationAction) {
-				Trace trace = (Trace) nodeExecution.getActivityExecution().eContainer();
 				Sequence calledActionSequence = null;
 				for (ActivityExecution execution : trace.getActivityExecutions()) {
 					if (nodeExecution.getNode() instanceof CallBehaviorAction
@@ -210,9 +166,37 @@ public class SequenceGenerator {
 					State lastStateOfCalled = calledActionSequence.lastState();
 					State state = sequence.createNewState(nodeExecution);
 
+					ArrayList<ValueInstance> objectsToRemove = new ArrayList<ValueInstance>();
+					ArrayList<ValueInstance> linksToRemove = new ArrayList<ValueInstance>();
+
+					for (ValueInstance instance : state.getStateObjectInstances()) {
+						if (instance.getDestroyer() != null
+								&& calledActionSequence.getActivityExecution().getNodeExecutions().contains(instance.getDestroyer())) {
+							objectsToRemove.add(instance);
+						}
+					}
+					for (ValueInstance instance : state.getStateLinkInstances()) {
+						if (instance.getDestroyer() != null
+								&& calledActionSequence.getActivityExecution().getNodeExecutions().contains(instance.getDestroyer())) {
+							linksToRemove.add(instance);
+						}
+					}
+					for (ValueInstance instanceToRemove : objectsToRemove) {
+						state.removeStateObjectSnapshot(instanceToRemove);
+					}
+					for (ValueInstance instanceToRemove : linksToRemove) {
+						state.removeStateLinkSnapshot(instanceToRemove);
+					}
+
 					for (ValueInstance instance : lastStateOfCalled.getStateObjectInstances()) {
 						Object_ object = lastStateOfCalled.getStateObjectSnapshot(instance);
-						state.addStateObjectSnapshot(object, instance);
+						if (object != null)
+							state.addStateObjectSnapshot(object, instance);
+					}
+					for (ValueInstance instance : lastStateOfCalled.getStateLinkInstances()) {
+						Link link = lastStateOfCalled.getStateLinkSnapshot(instance);
+						if (link != null)
+							state.addStateLinkSnapshot(link, instance);
 					}
 				}
 			}
@@ -234,34 +218,27 @@ public class SequenceGenerator {
 		}
 		return null;
 	}
-	
-	private void addLinks(Object_ object, State state){
+
+	private void addLinksOfInitialObject(Object_ object, State state) {
 		for (ValueInstance locusInstance : trace.getInitialLocusValueInstances()) {
 			if (locusInstance.getRuntimeValue() != null && locusInstance.getRuntimeValue() instanceof Link) {
 				Link locusLink = (Link) locusInstance.getRuntimeValue();
 				FeatureValue linkSource = null;
 				FeatureValue linkTarget = null;
 				for (FeatureValue featureValue : locusLink.featureValues) {
-					if (locusLink.type.navigableOwnedEnd.contains(featureValue.feature))
-						linkTarget = featureValue;
-					else
+					if (!locusLink.type.navigableOwnedEnd.contains(featureValue.feature))
 						linkSource = featureValue;
+					else
+						linkTarget = featureValue;
 				}
 				for (Value reference : linkSource.values) {
-					Reference theReference = (Reference) reference;
-					if (theReference.referent == object) {
+					Reference theSourceReference = (Reference) reference;
+					if (object.equals(theSourceReference.referent)) {
 						Object_ targetValue = ((Reference) linkTarget.values.get(0)).referent;
-						ValueInstance targetInstance = null;
-						for (ValueInstance locusTargetInstance : trace.getValueInstances()) {
-							if (locusTargetInstance.getRuntimeValue() == targetValue) {
-								targetInstance = locusTargetInstance;
-								break;
-							}
-						}
-						if (targetInstance != null) {
-							state.addStateLinkSnapshot(locusLink, locusInstance);
-							break;
-						}
+						ValueInstance targetInstance = trace.getValueInstance(targetValue);
+						state.addStateObjectSnapshot((Object_) targetInstance.getOriginal().getValue(), targetInstance);
+						state.addStateLinkSnapshot(locusLink, locusInstance);
+						addLinksOfInitialObject((Object_) targetInstance.getRuntimeValue(), state);
 					}
 				}
 			}

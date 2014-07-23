@@ -24,7 +24,6 @@ import org.dresdenocl.pivotmodel.Type;
 import org.eclipse.osgi.util.NLS;
 import org.modelexecution.fumltesting.ocl.internal.util.FUMLModelInstanceTypeUtil;
 
-import fUML.Semantics.Classes.Kernel.Link;
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Syntax.Classes.Kernel.Enumeration;
 
@@ -55,14 +54,6 @@ public class FUMLModelInstanceFactory extends BasisJavaModelInstanceFactory impl
 				} else {
 					result = createFUMLModelInstanceObject(object);
 					myCachedAdaptedObjects.put(object, result);
-				}
-			} else if (adapted instanceof Link) {
-				Link link = (Link) adapted;
-				if (myCachedAdaptedObjects.containsKey(link)) {
-					result = myCachedAdaptedObjects.get(link);
-				} else {
-					result = createFUMLModelInstanceObject(link);
-					myCachedAdaptedObjects.put(link, result);
 				}
 			} else {
 				throw new TypeNotFoundInModelException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceFactory_AdapteeIsNoEObjectInstance, adapted));
@@ -114,20 +105,6 @@ public class FUMLModelInstanceFactory extends BasisJavaModelInstanceFactory impl
 						if (modelInstanceElementType.conformsTo(type) || type.getQualifiedName().equals("ecore::EObject")) {
 							result = createFUMLModelInstanceObject(object, type, modelInstanceElementType);
 							this.myCachedAdaptedObjects.put(object, result);
-						} else {
-							throw new IllegalArgumentException(
-									NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceFactory_CannotAdaptToType, adapted, type));
-						}
-					} catch (TypeNotFoundInModelException e) {
-						throw new IllegalArgumentException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceFactory_CannotAdaptToType, adapted, type));
-					}
-				} else if (adapted instanceof Link) {
-					try {
-						Link link = (Link) adapted;
-						Type modelInstanceElementType = dslTypeUtil.findTypeOfObjectInModel(link);
-						if (modelInstanceElementType.conformsTo(type) || type.getQualifiedName().equals("ecore::EObject")) {
-							result = createFUMLModelInstanceObject(link, type, modelInstanceElementType);
-							this.myCachedAdaptedObjects.put(link, result);
 						} else {
 							throw new IllegalArgumentException(
 									NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceFactory_CannotAdaptToType, adapted, type));

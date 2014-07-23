@@ -41,6 +41,12 @@ public class TestDataConverter {
 	private Locus locus = ExecutionContext.getInstance().getLocus();
 	private HashMap<ObjectSpecification, Object_> objects = new HashMap<ObjectSpecification, Object_>();
 
+	public void cleanUpAndInit(TestSuite suite) {
+		objects = new HashMap<ObjectSpecification, Object_>();
+		locus.extensionalValues.removeAll(locus.extensionalValues);
+		convertScenarios(suite);
+	}
+
 	public Object_ getFumlObject(ObjectValue objectValue) {
 		return objects.get(objectValue.getValue());
 	}
@@ -48,24 +54,18 @@ public class TestDataConverter {
 	public fUML.Semantics.Classes.Kernel.Value getFumlValue(Value value) {
 		if (value instanceof org.modelexecution.fumltesting.core.testlang.StringValue) {
 			String theValue = ((org.modelexecution.fumltesting.core.testlang.StringValue) value).getValue();
-			return getFumlValue(theValue);
+			return convertValue(theValue);
 		} else if (value instanceof org.modelexecution.fumltesting.core.testlang.IntegerValue) {
 			Integer theValue = ((org.modelexecution.fumltesting.core.testlang.IntegerValue) value).getValue();
-			return getFumlValue(theValue);
+			return convertValue(theValue);
 		} else if (value instanceof DoubleValue) {
 			Double theValue = ((DoubleValue) value).getValue();
-			return getFumlValue(theValue);
+			return convertValue(theValue);
 		} else if (value instanceof org.modelexecution.fumltesting.core.testlang.BooleanValue) {
 			Boolean theValue = ((org.modelexecution.fumltesting.core.testlang.BooleanValue) value).getValue();
-			return getFumlValue(theValue);
+			return convertValue(theValue);
 		}
 		return null;
-	}
-
-	public void cleanUpAndInit(TestSuite suite) {
-		objects = new HashMap<ObjectSpecification, Object_>();
-		locus.extensionalValues.removeAll(locus.extensionalValues);
-		convertScenarios(suite);
 	}
 
 	private void convertScenarios(TestSuite suite) {
@@ -79,7 +79,7 @@ public class TestDataConverter {
 
 	private Object_ convertObject(ObjectValue value) {
 		if (objects.containsKey(value.getValue()))
-			return objects.get(value);
+			return objects.get(value.getValue());
 
 		ObjectSpecification object = ((ObjectValue) value).getValue();
 		Scenario testData = object.getContainer();
@@ -149,7 +149,7 @@ public class TestDataConverter {
 		return object_;
 	}
 
-	private fUML.Semantics.Classes.Kernel.Value getFumlValue(Object value) {
+	private fUML.Semantics.Classes.Kernel.Value convertValue(Object value) {
 		if (value instanceof String) {
 			StringValue fumlValue = new StringValue();
 			fumlValue.type = locus.factory.getBuiltInType("String");
