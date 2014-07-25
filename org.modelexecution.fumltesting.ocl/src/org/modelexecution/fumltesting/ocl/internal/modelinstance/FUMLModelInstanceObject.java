@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -63,6 +64,7 @@ import fUML.Semantics.Classes.Kernel.StringValue;
  */
 public class FUMLModelInstanceObject extends AbstractModelInstanceObject implements IModelInstanceObject {
 	private Object dslObject;
+	private ArrayList<FeatureValue> associationProperties;
 	private Class<?> myAdaptedClass;
 	private FUMLModelInstanceFactory myFactory;
 
@@ -70,6 +72,7 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 		super(type, originalType);
 		dslObject = object;
 		myFactory = factory;
+		associationProperties = new ArrayList<FeatureValue>();
 		if (object != null)
 			adaptEmptyProperties(object, type);
 	}
@@ -80,6 +83,15 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 		myAdaptedClass = typeClass;
 		myType = type;
 		myFactory = factory;
+		associationProperties = new ArrayList<FeatureValue>();
+	}
+
+	public void addAssociationProperty(FeatureValue property) {
+		associationProperties.add(property);
+	}
+
+	public List<FeatureValue> getAssociationProperties() {
+		return Collections.unmodifiableList(associationProperties);
 	}
 
 	public IModelInstanceElement asType(Type type) throws AsTypeCastException {
@@ -131,30 +143,43 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 		} else {
 			if (dslObject instanceof Object_) {
 				Object_ object = (Object_) dslObject;
-				for (FeatureValue featureValue : object.getFeatureValues()) {
-					if (featureValue.feature.name.equals(property.getName())) {
-						IModelInstanceElement result = null;
-						if (featureValue.values.size() == 1) {
-							result = AbstractModelInstance.adaptInvocationResult(featureValue.values.get(0), property.getType(), myFactory);
-						} else if (featureValue.values.size() > 1) {
-							ArrayList<IModelInstanceElement> adaptedElements = new ArrayList<IModelInstanceElement>();
-							for (Object element : featureValue.values) {
-								adaptedElements.add(AbstractModelInstance.adaptInvocationResult(element, property.getType(), myFactory));
-							}
-							result = myFactory.createModelInstanceCollection(adaptedElements, true, false, property.getType());
-						} else {
-							if (property instanceof AssociationProperty) {
-								result = new FUMLModelInstanceObject(null, property.getType(), property.getType(), myFactory);
-							} else {
-								result = AbstractModelInstance.adaptInvocationResult(null, property.getType(), myFactory);
-							}
-						}
+				IModelInstanceElement result = null;
+				
+				ArrayList<FeatureValue> allFeatureValues = new ArrayList<FeatureValue>();
+				allFeatureValues.addAll(object.getFeatureValues());
+				allFeatureValues.addAll(associationProperties);
+
+				for (FeatureValue featureValue : allFeatureValues) {
+					result = getProperty(featureValue, property);
+					if (result != null)
 						return result;
-					}
 				}
 			}
 		}
 		throw new PropertyNotFoundException(NLS.bind(FUMLModelInstanceTypeMessages.FUMLModelInstanceObject_PropertyNotFoundInModelInstanceElement, property));
+	}
+
+	private IModelInstanceElement getProperty(FeatureValue featureValue, Property property) {
+		if (featureValue.feature.name.equals(property.getName())) {
+			IModelInstanceElement result = null;
+			if (featureValue.values.size() == 1) {
+				result = AbstractModelInstance.adaptInvocationResult(featureValue.values.get(0), property.getType(), myFactory);
+			} else if (featureValue.values.size() > 1) {
+				ArrayList<IModelInstanceElement> adaptedElements = new ArrayList<IModelInstanceElement>();
+				for (Object element : featureValue.values) {
+					adaptedElements.add(AbstractModelInstance.adaptInvocationResult(element, property.getType(), myFactory));
+				}
+				result = myFactory.createModelInstanceCollection(adaptedElements, true, false, property.getType());
+			} else {
+				if (property instanceof AssociationProperty) {
+					result = new FUMLModelInstanceObject(null, property.getType(), property.getType(), myFactory);
+				} else {
+					result = AbstractModelInstance.adaptInvocationResult(null, property.getType(), myFactory);
+				}
+			}
+			return result;
+		}
+		return null;
 	}
 
 	public IModelInstanceElement invokeOperation(Operation operation, List<IModelInstanceElement> args) throws OperationNotFoundException,

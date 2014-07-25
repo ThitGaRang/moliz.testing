@@ -132,7 +132,7 @@ public class StateAssertionValidator {
 							constraintResult.putStateResult(state, constraintResultInSingleState);
 						}
 						boolean overallResult = compileResult(results, assertion.getQuantifier());
-						results.removeAll(results);
+						results.clear();
 						constraintResult.setValidationResult(overallResult);
 						result.addConstraintResult(constraintResult);
 					}

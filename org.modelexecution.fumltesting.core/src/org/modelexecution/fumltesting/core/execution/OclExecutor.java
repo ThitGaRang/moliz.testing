@@ -109,7 +109,7 @@ public class OclExecutor {
 							for (Property property : fumlObject.getType().getOwnedProperty()) {
 								if (property.getName().equals(targetFeatureValue.feature.name)) {
 									boolean featureExists = false;
-									for (FeatureValue featureValue : objectValue.featureValues) {
+									for (FeatureValue featureValue : fumlObject.getAssociationProperties()) {
 										if (featureValue.feature == targetFeatureValue.feature) {
 											if (featureValue.feature.multiplicityElement.upper.naturalValue == 1) {
 												featureValue.values.clear();
@@ -125,7 +125,7 @@ public class OclExecutor {
 										newFeatureValue.feature = targetFeatureValue.feature;
 										newFeatureValue.position = targetFeatureValue.position;
 										newFeatureValue.values.add(targetValueOfTheLink);
-										objectValue.featureValues.add(newFeatureValue);
+										fumlObject.addAssociationProperty(newFeatureValue);
 										break;
 									}
 								}
