@@ -84,12 +84,16 @@ public class UmlTestExecutor {
 	private NamedElement umlModel;
 	private TestConverter testConverter;
 
-	private String testsPath = "../org.modelexecution.fumltesting.examples/model/banking_new/tests";
-	private String umlModelPath = "../org.modelexecution.fumltesting.examples/model/banking_new/banking.uml";
+	// banking_new:banking, webstore:webstore
+	private String modelFolder = "banking_new";
+	private String modelName = "banking";
+	
+	private String testsPath = "../org.modelexecution.fumltesting.examples/model/" + modelFolder + "/tests";
+	private String umlModelPath = "../org.modelexecution.fumltesting.examples/model/" + modelFolder + "/" + modelName + ".uml";
 	private String primitivesPath = "../../moliz/org.modelexecution.fumldebug.standardlibrary/library/uml_library.uml";
-	private String oclPath = "../org.modelexecution.fumltesting.examples/model/banking_new/banking.ocl";
+	private String oclPath = "../org.modelexecution.fumltesting.examples/model/" + modelFolder + "/" + modelName + ".ocl";
 
-	private String testEndsWithFilter = "behavior.umltest";
+	private String testEndsWithFilter = ".umltest";
 
 	/** Main method of the testing framework. */
 	@Test

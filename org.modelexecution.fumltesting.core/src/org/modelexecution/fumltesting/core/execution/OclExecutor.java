@@ -53,7 +53,7 @@ public class OclExecutor {
 	private FUMLModelProvider modelProvider;
 	private FUMLModelInstanceProvider modelInstanceProvider = new FUMLModelInstanceProvider();
 
-	private List<Constraint> constraints;
+	private HashMap<String, Constraint> constraints;
 	private IOclInterpreter oclInterpreter;
 	private HashMap<State, IModelInstance> adaptedStates = new HashMap<State, IModelInstance>();
 
@@ -77,7 +77,11 @@ public class OclExecutor {
 	}
 
 	public void loadConstraints(File oclFile) throws ParseException {
-		constraints = Ocl2ForEclipseFacade.parseConstraints(oclFile, modelProvider.getModel(), false);
+		constraints = new HashMap<String, Constraint>();
+		List<Constraint> constraintList = Ocl2ForEclipseFacade.parseConstraints(oclFile, modelProvider.getModel(), false);
+		for (Constraint constraint : constraintList) {
+			constraints.put(constraint.getName(), constraint);
+		}
 	}
 
 	public boolean checkConstraint(String constraintName, ValueInstance contextObject, State state) throws ConstraintNotFoundException {
@@ -146,13 +150,8 @@ public class OclExecutor {
 	private boolean evaluateConstraint(String constraintName, Object contextObject) throws ConstraintNotFoundException {
 		Constraint constraint = null;
 		boolean result = false;
+		constraint = constraints.get(constraintName);
 
-		for (Constraint aConstraint : constraints) {
-			if (aConstraint.getName().equals(constraintName)) {
-				constraint = aConstraint;
-				break;
-			}
-		}
 		if (constraint == null)
 			throw new ConstraintNotFoundException("Constraint " + constraintName + " not found!");
 		else {

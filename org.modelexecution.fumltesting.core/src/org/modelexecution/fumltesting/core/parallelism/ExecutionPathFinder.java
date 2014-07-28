@@ -12,8 +12,6 @@ import java.util.LinkedList;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 
-import fUML.Syntax.Activities.IntermediateActivities.FinalNode;
-
 /**
  * Utility class for generating all possible paths in the execution graph.
  * 
@@ -24,9 +22,8 @@ public class ExecutionPathFinder {
 	private ExecutionGraph graph;
 	private ExecutionGraphNode startNode;
 	private ExecutionGraphNode endNode;
-	private ArrayList<LinkedList<ExecutionGraphNode>> paths = new ArrayList<LinkedList<ExecutionGraphNode>>();
+	private ArrayList<ExecutionPath> paths = new ArrayList<ExecutionPath>();
 
-	/** Initializes the execution graph, start and end node. */
 	public void init(ActivityExecution execution) {
 		for (ActivityNodeExecution nodeExecution : execution.getNodeExecutions()) {
 			if (nodeExecution.getLogicalPredecessor().size() == 0) {
@@ -44,37 +41,14 @@ public class ExecutionPathFinder {
 		}
 	}
 
-	/** Returns a list of all activity node execution paths. */
 	public ArrayList<ArrayList<ActivityNodeExecution>> getAllPaths() {
 		ArrayList<ArrayList<ActivityNodeExecution>> paths = new ArrayList<ArrayList<ActivityNodeExecution>>();
-		for (LinkedList<ExecutionGraphNode> path : this.paths) {
-			ArrayList<ActivityNodeExecution> simplePath = new ArrayList<ActivityNodeExecution>();
-			for (ExecutionGraphNode node : path) {
-				simplePath.add(node.getData());
-			}
-			paths.add(simplePath);
+		for (ExecutionPath path : this.paths) {
+			paths.add(path.getPath());
 		}
 		return paths;
 	}
 
-	/** Prints all the paths to the console. */
-	public void printPaths() {
-		System.out.println("Number of executions found: " + paths.size());
-		int numberOfPath = 0;
-		for (LinkedList<ExecutionGraphNode> path : paths) {
-			numberOfPath++;
-			System.out.print(numberOfPath + ":");
-			for (int i = 0; i < path.size(); i++) {
-				if (i == path.size() - 1)
-					System.out.print(path.get(i).getData().getNode().name);
-				else
-					System.out.print(path.get(i).getData().getNode().name + ", ");
-			}
-			System.out.println();
-		}
-	}
-
-	/** Breadth first search to find all paths. */
 	private void generatePaths(ExecutionGraph graph, LinkedList<ExecutionGraphNode> visited) {
 		LinkedList<ExecutionGraphNode> nodes = new LinkedList<ExecutionGraphNode>(visited.getLast().getSuccessors());
 
@@ -100,35 +74,9 @@ public class ExecutionPathFinder {
 		}
 	}
 
-	/** Adds a new path to the paths list. */
 	private void addNewPath(LinkedList<ExecutionGraphNode> nodes) {
-		LinkedList<ExecutionGraphNode> path = new LinkedList<ExecutionGraphNode>();
-		path.addAll(nodes);
-
-		for (ExecutionGraphNode node : nodes) {
-			if (node.getData().getNode() instanceof FinalNode) {
-				int nextIndex = nodes.indexOf(node) + 1;
-				if (nextIndex < nodes.size()) {
-					if (nodes.get(nextIndex).getData().getActivityExecution() == node.getData().getActivityExecution()) {
-						for (int i = nextIndex; i < nodes.size(); i++) {
-							if (!path.isEmpty())
-								path.removeLast();
-						}
-					}
-				}
-			}
-		}
-
-		if (!path.isEmpty() && !pathAlreadyAdded(path))
-			paths.add(path);
-	}
-
-	/** Checks if the path was already added to the generated paths. */
-	private boolean pathAlreadyAdded(LinkedList<ExecutionGraphNode> path) {
-		for (LinkedList<ExecutionGraphNode> aPath : paths) {
-			if (aPath.equals(path))
-				return true;
-		}
-		return false;
+		ExecutionPath newPath = new ExecutionPath(nodes);
+		if (!newPath.isEmpty() && !paths.contains(newPath))
+			paths.add(newPath);
 	}
 }
