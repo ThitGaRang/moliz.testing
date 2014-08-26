@@ -41,6 +41,7 @@ import org.modelexecution.fumltesting.core.testlang.StringValue;
 import org.modelexecution.fumltesting.core.testlang.Value;
 
 import fUML.Syntax.Actions.BasicActions.Action;
+import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityFinalNode;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
@@ -190,15 +191,26 @@ public class ResultsWriter {
 						writer.println("\tState expressions failed: " + ((StateAssertionResult) assertionResult).getFailedStateExpressions().size());
 
 						for (StateExpressionResult result : ((StateAssertionResult) assertionResult).getFailedStateExpressions()) {
+							String pinQualifiedName = "";
 							if (result.getStateExpression() instanceof PropertyStateExpression) {
 								ObjectNode pin = ((PropertyStateExpression) result.getStateExpression()).getPin();
+								if(pin.owner instanceof Activity){
+									pinQualifiedName = ((Activity)pin.owner).name + "." + pin.name;
+								}else if(pin.owner instanceof Action){
+									pinQualifiedName = ((Action)pin.owner).activity.name + "." + ((Action)pin.owner).name + "." + pin.name;
+								}
 								Property property = ((PropertyStateExpression) result.getStateExpression()).getProperty();
-								writer.print("\t\tExpression: " + pin.name + "::" + property.name + " "
+								writer.print("\t\tExpression: " + pinQualifiedName + "." + pin.name + "::" + property.name + " "
 										+ ((StateExpression) result.getStateExpression()).getOperator() + " ");
 							}
 							if (result.getStateExpression() instanceof ObjectStateExpression) {
 								ObjectNode pin = ((ObjectStateExpression) result.getStateExpression()).getPin();
-								writer.print("\t\tExpression: " + pin.name + " " + ((StateExpression) result.getStateExpression()).getOperator() + " ");
+								if(pin.owner instanceof Activity){
+									pinQualifiedName = ((Activity)pin.owner).name + "." + pin.name;
+								}else if(pin.owner instanceof Action){
+									pinQualifiedName = ((Action)pin.owner).activity.name + "." + ((Action)pin.owner).name + "." + pin.name;
+								}
+								writer.print("\t\tExpression: " + pinQualifiedName + " " + ((StateExpression) result.getStateExpression()).getOperator() + " ");
 							}
 							Value value = ((StateExpression) result.getStateExpression()).getValue();
 							if (value instanceof ObjectValue) {
@@ -214,7 +226,7 @@ public class ResultsWriter {
 									writer.print(((IntegerValue) value).getValue());
 								}
 							}
-							writer.println();
+							writer.println(" / Actual was: " + result.getActual());
 						}
 					}
 				}

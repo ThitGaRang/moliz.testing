@@ -74,26 +74,25 @@ public class ExecutionGraph {
 		for (ActivityNodeExecution aNodeExecution : freeNodes) {
 			if (aNodeExecution != nodeExecution) {
 				allSuccessors.add(aNodeExecution);
-				ArrayList<ActivityNodeExecution> successorsOfANode = new ArrayList<ActivityNodeExecution>(getAllLogicalSuccessors(aNodeExecution,
-						new ArrayList<ActivityNodeExecution>()));
-				successorsOfANode.removeAll(getAllLogicalSuccessors(node.getData(), new ArrayList<ActivityNodeExecution>()));
+				List<ActivityNodeExecution> successorsOfANode = getAllLogicalSuccessors(aNodeExecution, new ArrayList<ActivityNodeExecution>());
+				successorsOfANode.removeAll(allLogicalSuccessors);
 				successorsOfANode.remove(node.getData());
 				allSuccessors.addAll(successorsOfANode);
 			}
 		}
 
-		for (ActivityNodeExecution successor : nodeExecution.getLogicalSuccessor()) {
-			allSuccessors.add(successor);
-			for (ActivityNodeExecution predecessor : getAllLogicalPredecessors(nodeExecution, new ArrayList<ActivityNodeExecution>())) {
-				for (ActivityNodeExecution successorOfPredecessor : getAllLogicalSuccessors(predecessor, new ArrayList<ActivityNodeExecution>())) {
-					if (successorOfPredecessor != nodeExecution && !allLogicalSuccessors.contains(successorOfPredecessor)
-							&& !allLogicalPredecessors.contains(successorOfPredecessor)) {
-						if (!allSuccessors.contains(successorOfPredecessor))
-							allSuccessors.add(successorOfPredecessor);
-					}
+		allSuccessors.addAll(nodeExecution.getLogicalSuccessor());
+
+		for (ActivityNodeExecution predecessor : allLogicalPredecessors) {
+			for (ActivityNodeExecution successorOfPredecessor : getAllLogicalSuccessors(predecessor, new ArrayList<ActivityNodeExecution>())) {
+				if (successorOfPredecessor != nodeExecution && !allLogicalSuccessors.contains(successorOfPredecessor)
+						&& !allLogicalPredecessors.contains(successorOfPredecessor)) {
+					if (!allSuccessors.contains(successorOfPredecessor))
+						allSuccessors.add(successorOfPredecessor);
 				}
 			}
 		}
+
 		return allSuccessors;
 	}
 
@@ -115,8 +114,7 @@ public class ExecutionGraph {
 	 * Returns all logical predecessors, and logical predecessors of the
 	 * predecessors of the node.
 	 */
-	private List<ActivityNodeExecution> getAllLogicalPredecessors(ActivityNodeExecution nodeExecution,
-			List<ActivityNodeExecution> allLogicalPredecessors) {
+	private List<ActivityNodeExecution> getAllLogicalPredecessors(ActivityNodeExecution nodeExecution, List<ActivityNodeExecution> allLogicalPredecessors) {
 		for (ActivityNodeExecution predecessor : nodeExecution.getLogicalPredecessor()) {
 			if (!allLogicalPredecessors.contains(predecessor))
 				allLogicalPredecessors.add(predecessor);

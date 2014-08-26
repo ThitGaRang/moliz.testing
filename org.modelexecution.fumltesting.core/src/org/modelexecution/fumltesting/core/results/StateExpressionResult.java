@@ -16,7 +16,9 @@ public class StateExpressionResult {
 	private StateExpression expression;
 	private boolean validationResult;
 	private String error;
-
+	private Object expected;
+	private Object actual;
+	
 	public StateExpressionResult(StateExpression expression) {
 		this.expression = expression;
 	}
@@ -39,5 +41,21 @@ public class StateExpressionResult {
 
 	public String getError() {
 		return error;
+	}
+
+	public Object getExpected() {
+		return expected;
+	}
+
+	public void setExpected(Object expected) {
+		this.expected = expected;
+	}
+
+	public Object getActual() {
+		return actual;
+	}
+
+	public void setActual(Object actual) {
+		this.actual = actual;
 	}
 }

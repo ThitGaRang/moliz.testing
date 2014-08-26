@@ -78,6 +78,8 @@ public class StateAssertionValidator {
 	private ActivityNodeExecution referenceActionExecution;
 	private ActivityNodeExecution untilActionExecution;
 
+	private String actualValueAsserted;
+
 	public StateAssertionValidator(TraceUtil traceUtil, TestDataConverter testDataConverter) {
 		this.testDataConverter = testDataConverter;
 		this.traceUtil = traceUtil;
@@ -173,6 +175,17 @@ public class StateAssertionValidator {
 
 	private StateExpressionResult checkExpression(StateExpression expression) {
 		StateExpressionResult result = new StateExpressionResult(expression);
+		String expected = "";
+		if (expression.getValue() instanceof org.modelexecution.fumltesting.core.testlang.StringValue) {
+			expected = ((org.modelexecution.fumltesting.core.testlang.StringValue) expression.getValue()).getValue();
+		} else if (expression.getValue() instanceof org.modelexecution.fumltesting.core.testlang.IntegerValue) {
+			expected = ((org.modelexecution.fumltesting.core.testlang.IntegerValue) expression.getValue()).getValue().toString();
+		} else if (expression.getValue() instanceof org.modelexecution.fumltesting.core.testlang.BooleanValue) {
+			expected = ((org.modelexecution.fumltesting.core.testlang.BooleanValue) expression.getValue()).getValue().toString();
+		} else if (expression.getValue() instanceof ObjectValue) {
+			expected = ((ObjectValue) expression.getValue()).getValue().getName();
+		}
+		result.setExpected(expected);
 		try {
 			relevantSnapshots = snapshotUtil.getRelevantSnapshots(expression, referenceActionExecution, untilActionExecution);
 
@@ -184,15 +197,14 @@ public class StateAssertionValidator {
 				} else {
 					result.setValidationResult(processValue(expression));
 				}
-				return result;
 			} else {
 				result.setValidationResult(processObject(expression));
-				return result;
 			}
 		} catch (ActionNotExecutedException | ExpectedLinkValueException e) {
 			result.setError(e.getMessage());
-			return result;
 		}
+		result.setActual(actualValueAsserted);
+		return result;
 	}
 
 	private boolean processValue(StateExpression expression) {
@@ -220,6 +232,7 @@ public class StateAssertionValidator {
 								String value = ((StringValue) featureValue.values.get(0)).value;
 								boolean result = compareValues(expression.getOperator(), value, target);
 								results.add(result);
+								actualValueAsserted = value;
 								break;
 							}
 							if (simpleValue instanceof org.modelexecution.fumltesting.core.testlang.BooleanValue) {
@@ -227,6 +240,7 @@ public class StateAssertionValidator {
 								Boolean value = ((BooleanValue) featureValue.values.get(0)).value;
 								boolean result = compareValues(expression.getOperator(), value, target);
 								results.add(result);
+								actualValueAsserted = value.toString();
 								break;
 							}
 							if (simpleValue instanceof org.modelexecution.fumltesting.core.testlang.IntegerValue) {
@@ -238,10 +252,12 @@ public class StateAssertionValidator {
 									value = Double.valueOf(((UnlimitedNaturalValue) featureValue.values.get(0)).value.naturalValue);
 								boolean result = compareValues(expression.getOperator(), value, target);
 								results.add(result);
+								actualValueAsserted = value.toString();
 								break;
 							}
 						} else {
 							if (simpleValue instanceof NullValue) {
+								actualValueAsserted = "NULL";
 								if (expression.getOperator() == ArithmeticOperator.EQUAL)
 									if (featureValue.values.size() != 0) {
 										results.add(false);
@@ -267,12 +283,14 @@ public class StateAssertionValidator {
 					String value = ((StringValue) snapshot.getValue()).value;
 					boolean result = compareValues(expression.getOperator(), value, target);
 					results.add(result);
+					actualValueAsserted = value;
 				}
 				if (simpleValue instanceof org.modelexecution.fumltesting.core.testlang.BooleanValue) {
 					Boolean target = ((org.modelexecution.fumltesting.core.testlang.BooleanValue) simpleValue).getValue();
 					Boolean value = ((BooleanValue) snapshot.getValue()).value;
 					boolean result = compareValues(expression.getOperator(), value, target);
 					results.add(result);
+					actualValueAsserted = value.toString();
 				}
 				if (simpleValue instanceof org.modelexecution.fumltesting.core.testlang.IntegerValue) {
 					Double target = Double.valueOf(((org.modelexecution.fumltesting.core.testlang.IntegerValue) simpleValue).getValue());
@@ -283,6 +301,7 @@ public class StateAssertionValidator {
 						value = Double.valueOf(((UnlimitedNaturalValue) snapshot.getValue()).value.naturalValue);
 					boolean result = compareValues(expression.getOperator(), value, target);
 					results.add(result);
+					actualValueAsserted = value.toString();
 				}
 				if (simpleValue instanceof NullValue) {
 					if (expression.getOperator() == ArithmeticOperator.EQUAL)
@@ -291,14 +310,17 @@ public class StateAssertionValidator {
 							if (expression.getContainer().getQuantifier() == TemporalQuantifier.SOMETIMES
 									&& expression.getContainer().getOperator() == TemporalOperator.UNTIL)
 								results.add(true);
-							else
+							else {
 								results.add(false);
+								actualValueAsserted = "NOT NULL";
+							}
 						} else {
 							results.add(true);
 						}
 					if (expression.getOperator() == ArithmeticOperator.NOT_EQUAL)
 						if (relevantSnapshots.size() == 0) {
 							results.add(false);
+							actualValueAsserted = "NOT NULL";
 						} else {
 							results.add(true);
 						}
