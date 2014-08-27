@@ -35,9 +35,9 @@ public class ExecutionGraph {
 
 	/** Takes a node and generates executions from it till the last node. */
 	private ExecutionGraphNode generateExecutionGraphNode(ExecutionGraphNode node) {
-		List<ActivityNodeExecution> allPossibleSuccessors = getAllPossibleSuccessors(node, new ArrayList<ActivityNodeExecution>());
+		List<ActivityNodeExecution> allPotentialSuccessors = getAllPotentialSuccessors(node);
 
-		for (ActivityNodeExecution successor : allPossibleSuccessors) {
+		for (ActivityNodeExecution successor : allPotentialSuccessors) {
 			boolean canAdd = canAddSuccessor(node, successor);
 			if (canAdd) {
 				ExecutionGraphNode nodeSuccessor = new ExecutionGraphNode(successor);
@@ -52,76 +52,78 @@ public class ExecutionGraph {
 
 	/** Checks if successor can be added to the node. */
 	private boolean canAddSuccessor(ExecutionGraphNode node, ActivityNodeExecution successor) {
+		if (node.getData().getNode() instanceof FinalNode) {
+			return false;
+		}
+		if (!successor.isExecuted() || node.getData() == successor || node.containsSuccessor(successor) || node.containsPredecessor(successor))
+			return false;
 		for (ActivityNodeExecution predecessor : successor.getLogicalPredecessor()) {
-			if (successor.isExecuted() && !node.containsPredecessor(predecessor) && node.getData() != predecessor && node.getData() != successor
-					&& !node.containsPredecessor(successor) && !(node.getData().getNode() instanceof FinalNode)) {
+			if (!node.containsPredecessor(predecessor) && node.getData() != predecessor) {
 				return false;
 			}
-			if (node.containsSuccessor(successor))
-				return false;
 		}
 		return true;
 	}
 
 	/** Returns all logical and all possible non-logical successors of the node. */
-	private List<ActivityNodeExecution> getAllPossibleSuccessors(ExecutionGraphNode node, List<ActivityNodeExecution> allSuccessors) {
+	private List<ActivityNodeExecution> getAllPotentialSuccessors(ExecutionGraphNode node) {
+		List<ActivityNodeExecution> allPotentialSuccessors = new ArrayList<ActivityNodeExecution>();
 		ActivityNodeExecution nodeExecution = node.getData();
 
-		List<ActivityNodeExecution> allLogicalSuccessors = getAllLogicalSuccessors(nodeExecution, new ArrayList<ActivityNodeExecution>());
-		List<ActivityNodeExecution> allLogicalPredecessors = getAllLogicalPredecessors(nodeExecution, new ArrayList<ActivityNodeExecution>());
+		List<ActivityNodeExecution> descendants = getDescendants(nodeExecution, new ArrayList<ActivityNodeExecution>());
+		List<ActivityNodeExecution> ancestors = getAncestors(nodeExecution, new ArrayList<ActivityNodeExecution>());
 
-		List<ActivityNodeExecution> freeNodes = getAllFreeNodes(nodeExecution.getActivityExecution());
-		for (ActivityNodeExecution aNodeExecution : freeNodes) {
+		List<ActivityNodeExecution> startNodes = getStartNodes(nodeExecution.getActivityExecution());
+		for (ActivityNodeExecution aNodeExecution : startNodes) {
 			if (aNodeExecution != nodeExecution) {
-				allSuccessors.add(aNodeExecution);
-				List<ActivityNodeExecution> successorsOfANode = getAllLogicalSuccessors(aNodeExecution, new ArrayList<ActivityNodeExecution>());
-				successorsOfANode.removeAll(allLogicalSuccessors);
-				successorsOfANode.remove(node.getData());
-				allSuccessors.addAll(successorsOfANode);
+				allPotentialSuccessors.add(aNodeExecution);
+				List<ActivityNodeExecution> descendantsOfANode = getDescendants(aNodeExecution, new ArrayList<ActivityNodeExecution>());
+				descendantsOfANode.removeAll(descendants);
+				descendantsOfANode.remove(node.getData());
+				allPotentialSuccessors.addAll(descendantsOfANode);
 			}
 		}
 
-		allSuccessors.addAll(nodeExecution.getLogicalSuccessor());
+		allPotentialSuccessors.addAll(nodeExecution.getLogicalSuccessor());
 
-		for (ActivityNodeExecution predecessor : allLogicalPredecessors) {
-			for (ActivityNodeExecution successorOfPredecessor : getAllLogicalSuccessors(predecessor, new ArrayList<ActivityNodeExecution>())) {
-				if (successorOfPredecessor != nodeExecution && !allLogicalSuccessors.contains(successorOfPredecessor)
-						&& !allLogicalPredecessors.contains(successorOfPredecessor)) {
-					if (!allSuccessors.contains(successorOfPredecessor))
-						allSuccessors.add(successorOfPredecessor);
+		for (ActivityNodeExecution ancestor : ancestors) {
+			for (ActivityNodeExecution descendantOfAncestor : getDescendants(ancestor, new ArrayList<ActivityNodeExecution>())) {
+				if (descendantOfAncestor != nodeExecution && !ancestors.contains(descendantOfAncestor)) {
+					if (!allPotentialSuccessors.contains(descendantOfAncestor))
+						allPotentialSuccessors.add(descendantOfAncestor);
 				}
 			}
 		}
 
-		return allSuccessors;
+		return allPotentialSuccessors;
 	}
 
 	/**
 	 * Returns all logical successors, and logical successors of the successors
-	 * of the node.
+	 * of the node, and so on.
 	 */
-	private List<ActivityNodeExecution> getAllLogicalSuccessors(ActivityNodeExecution nodeExecution, List<ActivityNodeExecution> allLogicalSuccessors) {
+	private List<ActivityNodeExecution> getDescendants(ActivityNodeExecution nodeExecution, List<ActivityNodeExecution> descendants) {
 		for (ActivityNodeExecution successor : nodeExecution.getLogicalSuccessor()) {
-			if (!allLogicalSuccessors.contains(successor))
-				allLogicalSuccessors.add(successor);
+			if (!descendants.contains(successor))
+				descendants.add(successor);
 			if (successor.getLogicalSuccessor().size() > 0)
-				getAllLogicalSuccessors(successor, allLogicalSuccessors);
+				getDescendants(successor, descendants);
 		}
-		return allLogicalSuccessors;
+		return descendants;
 	}
 
 	/**
 	 * Returns all logical predecessors, and logical predecessors of the
-	 * predecessors of the node.
+	 * predecessors of the node, and so on.
 	 */
-	private List<ActivityNodeExecution> getAllLogicalPredecessors(ActivityNodeExecution nodeExecution, List<ActivityNodeExecution> allLogicalPredecessors) {
+	private List<ActivityNodeExecution> getAncestors(ActivityNodeExecution nodeExecution, List<ActivityNodeExecution> ancestors) {
 		for (ActivityNodeExecution predecessor : nodeExecution.getLogicalPredecessor()) {
-			if (!allLogicalPredecessors.contains(predecessor))
-				allLogicalPredecessors.add(predecessor);
+			if (!ancestors.contains(predecessor))
+				ancestors.add(predecessor);
 			if (predecessor.getLogicalPredecessor().size() > 0)
-				getAllLogicalPredecessors(predecessor, allLogicalPredecessors);
+				getAncestors(predecessor, ancestors);
 		}
-		return allLogicalPredecessors;
+		return ancestors;
 	}
 
 	/** Returns all nodes without the successors. */
@@ -147,12 +149,12 @@ public class ExecutionGraph {
 		}
 	}
 
-	private ArrayList<ActivityNodeExecution> getAllFreeNodes(ActivityExecution activityExecution) {
-		ArrayList<ActivityNodeExecution> freeNodes = new ArrayList<ActivityNodeExecution>();
+	private ArrayList<ActivityNodeExecution> getStartNodes(ActivityExecution activityExecution) {
+		ArrayList<ActivityNodeExecution> startNodes = new ArrayList<ActivityNodeExecution>();
 		for (ActivityNodeExecution nodeExecution : activityExecution.getNodeExecutions()) {
 			if (nodeExecution.isExecuted() && nodeExecution.getLogicalPredecessor().size() == 0)
-				freeNodes.add(nodeExecution);
+				startNodes.add(nodeExecution);
 		}
-		return freeNodes;
+		return startNodes;
 	}
 }
