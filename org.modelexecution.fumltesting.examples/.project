@@ -62,5 +62,14 @@
 				<arguments>1.0-name-matches-false-false-*</arguments>
 			</matcher>
 		</filter>
+		<filter>
+			<id>1409235169755</id>
+			<name>model/webstore</name>
+			<type>30</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-*</arguments>
+			</matcher>
+		</filter>
 	</filteredResources>
 </projectDescription>

@@ -22,6 +22,7 @@ public class ExecutionPathFinder {
 	private ExecutionGraph graph;
 	private ExecutionGraphNode startNode;
 	private ExecutionGraphNode endNode;
+	private LinkedList<ExecutionGraphNode> visited;
 	private ArrayList<ExecutionPath> paths = new ArrayList<ExecutionPath>();
 
 	public void init(ActivityExecution execution) {
@@ -33,9 +34,9 @@ public class ExecutionPathFinder {
 				startNode = graph.getRoot();
 				for (ExecutionGraphNode theEndNode : graph.getEndNodes()) {
 					endNode = theEndNode;
-					LinkedList<ExecutionGraphNode> visited = new LinkedList<ExecutionGraphNode>();
+					visited = new LinkedList<ExecutionGraphNode>();
 					visited.add(startNode);
-					generatePaths(graph, visited);
+					generatePaths(graph);
 				}
 			}
 		}
@@ -49,7 +50,7 @@ public class ExecutionPathFinder {
 		return paths;
 	}
 
-	private void generatePaths(ExecutionGraph graph, LinkedList<ExecutionGraphNode> visited) {
+	private void generatePaths(ExecutionGraph graph) {
 		LinkedList<ExecutionGraphNode> nodes = new LinkedList<ExecutionGraphNode>(visited.getLast().getSuccessors());
 
 		Outer: for (ExecutionGraphNode node : nodes) {
@@ -69,7 +70,7 @@ public class ExecutionPathFinder {
 				continue Outer;
 			}
 			visited.addLast(node);
-			generatePaths(graph, visited);
+			generatePaths(graph);
 			visited.removeLast();
 		}
 	}
