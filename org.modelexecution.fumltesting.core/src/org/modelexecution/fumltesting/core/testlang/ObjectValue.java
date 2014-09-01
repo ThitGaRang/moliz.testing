@@ -24,4 +24,8 @@ public class ObjectValue implements Value {
 	public void setValue(ObjectSpecification value) {
 		this.value = value;
 	}
+
+	public boolean isNegative() {
+		return false;
+	}
 }

@@ -495,25 +495,40 @@ ruleUMLSimpleValue returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
+((
 (
+		lv_negative_0_0=	'-' 
+    {
+        newLeafNode(lv_negative_0_0, grammarAccess.getUMLSimpleValueAccess().getNegativeHyphenMinusKeyword_0_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getUMLSimpleValueRule());
+	        }
+       		setWithLastConsumed($current, "negative", true, "-");
+	    }
+
+)
+)?(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getUMLSimpleValueAccess().getValueXLiteralParserRuleCall_0()); 
+	        newCompositeNode(grammarAccess.getUMLSimpleValueAccess().getValueXLiteralParserRuleCall_1_0()); 
 	    }
-		lv_value_0_0=ruleXLiteral		{
+		lv_value_1_0=ruleXLiteral		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getUMLSimpleValueRule());
 	        }
        		set(
        			$current, 
        			"value",
-        		lv_value_0_0, 
+        		lv_value_1_0, 
         		"XLiteral");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)
+))
 ;
 
 

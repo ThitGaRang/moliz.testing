@@ -50,6 +50,7 @@
     </genClasses>
     <genClasses ecoreClass="UmlTestLang.ecore#//UMLValue"/>
     <genClasses ecoreClass="UmlTestLang.ecore#//UMLSimpleValue">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UmlTestLang.ecore#//UMLSimpleValue/negative"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UmlTestLang.ecore#//UMLSimpleValue/value"/>
     </genClasses>
     <genClasses ecoreClass="UmlTestLang.ecore#//UMLObjectValue">

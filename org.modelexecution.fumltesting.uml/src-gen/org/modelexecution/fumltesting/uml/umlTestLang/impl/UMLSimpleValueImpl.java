@@ -22,6 +22,7 @@ import org.modelexecution.fumltesting.uml.umlTestLang.UmlTestLangPackage;
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.modelexecution.fumltesting.uml.umlTestLang.impl.UMLSimpleValueImpl#isNegative <em>Negative</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.uml.umlTestLang.impl.UMLSimpleValueImpl#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
@@ -30,6 +31,26 @@ import org.modelexecution.fumltesting.uml.umlTestLang.UmlTestLangPackage;
  */
 public class UMLSimpleValueImpl extends UMLValueImpl implements UMLSimpleValue
 {
+  /**
+   * The default value of the '{@link #isNegative() <em>Negative</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isNegative()
+   * @generated
+   * @ordered
+   */
+  protected static final boolean NEGATIVE_EDEFAULT = false;
+
+  /**
+   * The cached value of the '{@link #isNegative() <em>Negative</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isNegative()
+   * @generated
+   * @ordered
+   */
+  protected boolean negative = NEGATIVE_EDEFAULT;
+
   /**
    * The cached value of the '{@link #getValue() <em>Value</em>}' containment reference.
    * <!-- begin-user-doc -->
@@ -59,6 +80,29 @@ public class UMLSimpleValueImpl extends UMLValueImpl implements UMLSimpleValue
   protected EClass eStaticClass()
   {
     return UmlTestLangPackage.Literals.UML_SIMPLE_VALUE;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public boolean isNegative()
+  {
+    return negative;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setNegative(boolean newNegative)
+  {
+    boolean oldNegative = negative;
+    negative = newNegative;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, UmlTestLangPackage.UML_SIMPLE_VALUE__NEGATIVE, oldNegative, negative));
   }
 
   /**
@@ -135,6 +179,8 @@ public class UMLSimpleValueImpl extends UMLValueImpl implements UMLSimpleValue
   {
     switch (featureID)
     {
+      case UmlTestLangPackage.UML_SIMPLE_VALUE__NEGATIVE:
+        return isNegative();
       case UmlTestLangPackage.UML_SIMPLE_VALUE__VALUE:
         return getValue();
     }
@@ -151,6 +197,9 @@ public class UMLSimpleValueImpl extends UMLValueImpl implements UMLSimpleValue
   {
     switch (featureID)
     {
+      case UmlTestLangPackage.UML_SIMPLE_VALUE__NEGATIVE:
+        setNegative((Boolean)newValue);
+        return;
       case UmlTestLangPackage.UML_SIMPLE_VALUE__VALUE:
         setValue((XExpression)newValue);
         return;
@@ -168,6 +217,9 @@ public class UMLSimpleValueImpl extends UMLValueImpl implements UMLSimpleValue
   {
     switch (featureID)
     {
+      case UmlTestLangPackage.UML_SIMPLE_VALUE__NEGATIVE:
+        setNegative(NEGATIVE_EDEFAULT);
+        return;
       case UmlTestLangPackage.UML_SIMPLE_VALUE__VALUE:
         setValue((XExpression)null);
         return;
@@ -185,10 +237,29 @@ public class UMLSimpleValueImpl extends UMLValueImpl implements UMLSimpleValue
   {
     switch (featureID)
     {
+      case UmlTestLangPackage.UML_SIMPLE_VALUE__NEGATIVE:
+        return negative != NEGATIVE_EDEFAULT;
       case UmlTestLangPackage.UML_SIMPLE_VALUE__VALUE:
         return value != null;
     }
     return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
+
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (negative: ");
+    result.append(negative);
+    result.append(')');
+    return result.toString();
   }
 
 } //UMLSimpleValueImpl

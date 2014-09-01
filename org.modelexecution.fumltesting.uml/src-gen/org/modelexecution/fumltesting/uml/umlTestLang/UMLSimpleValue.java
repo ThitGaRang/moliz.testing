@@ -12,6 +12,7 @@ import org.eclipse.xtext.xbase.XExpression;
  * <p>
  * The following features are supported:
  * <ul>
+ *   <li>{@link org.modelexecution.fumltesting.uml.umlTestLang.UMLSimpleValue#isNegative <em>Negative</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.uml.umlTestLang.UMLSimpleValue#getValue <em>Value</em>}</li>
  * </ul>
  * </p>
@@ -22,6 +23,32 @@ import org.eclipse.xtext.xbase.XExpression;
  */
 public interface UMLSimpleValue extends UMLValue
 {
+  /**
+   * Returns the value of the '<em><b>Negative</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Negative</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Negative</em>' attribute.
+   * @see #setNegative(boolean)
+   * @see org.modelexecution.fumltesting.uml.umlTestLang.UmlTestLangPackage#getUMLSimpleValue_Negative()
+   * @model
+   * @generated
+   */
+  boolean isNegative();
+
+  /**
+   * Sets the value of the '{@link org.modelexecution.fumltesting.uml.umlTestLang.UMLSimpleValue#isNegative <em>Negative</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Negative</em>' attribute.
+   * @see #isNegative()
+   * @generated
+   */
+  void setNegative(boolean value);
+
   /**
    * Returns the value of the '<em><b>Value</b></em>' containment reference.
    * <!-- begin-user-doc -->

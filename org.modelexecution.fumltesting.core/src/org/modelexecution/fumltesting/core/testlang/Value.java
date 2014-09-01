@@ -11,5 +11,5 @@ package org.modelexecution.fumltesting.core.testlang;
  * 
  */
 public interface Value {
-
+	public boolean isNegative();
 }

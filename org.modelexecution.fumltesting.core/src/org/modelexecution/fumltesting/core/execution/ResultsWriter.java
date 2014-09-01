@@ -194,21 +194,21 @@ public class ResultsWriter {
 							String pinQualifiedName = "";
 							if (result.getStateExpression() instanceof PropertyStateExpression) {
 								ObjectNode pin = ((PropertyStateExpression) result.getStateExpression()).getPin();
-								if(pin.owner instanceof Activity){
-									pinQualifiedName = ((Activity)pin.owner).name + "." + pin.name;
-								}else if(pin.owner instanceof Action){
-									pinQualifiedName = ((Action)pin.owner).activity.name + "." + ((Action)pin.owner).name + "." + pin.name;
+								if (pin.owner instanceof Activity) {
+									pinQualifiedName = ((Activity) pin.owner).name + "." + pin.name;
+								} else if (pin.owner instanceof Action) {
+									pinQualifiedName = ((Action) pin.owner).activity.name + "." + ((Action) pin.owner).name + "." + pin.name;
 								}
 								Property property = ((PropertyStateExpression) result.getStateExpression()).getProperty();
-								writer.print("\t\tExpression: " + pinQualifiedName + "." + pin.name + "::" + property.name + " "
+								writer.print("\t\tExpression: " + pinQualifiedName + "::" + property.name + " "
 										+ ((StateExpression) result.getStateExpression()).getOperator() + " ");
 							}
 							if (result.getStateExpression() instanceof ObjectStateExpression) {
 								ObjectNode pin = ((ObjectStateExpression) result.getStateExpression()).getPin();
-								if(pin.owner instanceof Activity){
-									pinQualifiedName = ((Activity)pin.owner).name + "." + pin.name;
-								}else if(pin.owner instanceof Action){
-									pinQualifiedName = ((Action)pin.owner).activity.name + "." + ((Action)pin.owner).name + "." + pin.name;
+								if (pin.owner instanceof Activity) {
+									pinQualifiedName = ((Activity) pin.owner).name + "." + pin.name;
+								} else if (pin.owner instanceof Action) {
+									pinQualifiedName = ((Action) pin.owner).activity.name + "." + ((Action) pin.owner).name + "." + pin.name;
 								}
 								writer.print("\t\tExpression: " + pinQualifiedName + " " + ((StateExpression) result.getStateExpression()).getOperator() + " ");
 							}

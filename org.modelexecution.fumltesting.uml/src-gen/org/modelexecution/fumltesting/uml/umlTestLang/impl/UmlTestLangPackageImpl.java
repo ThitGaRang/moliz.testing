@@ -510,9 +510,19 @@ public class UmlTestLangPackageImpl extends EPackageImpl implements UmlTestLangP
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getUMLSimpleValue_Negative()
+  {
+    return (EAttribute)umlSimpleValueEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EReference getUMLSimpleValue_Value()
   {
-    return (EReference)umlSimpleValueEClass.getEStructuralFeatures().get(0);
+    return (EReference)umlSimpleValueEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -1138,6 +1148,7 @@ public class UmlTestLangPackageImpl extends EPackageImpl implements UmlTestLangP
     umlValueEClass = createEClass(UML_VALUE);
 
     umlSimpleValueEClass = createEClass(UML_SIMPLE_VALUE);
+    createEAttribute(umlSimpleValueEClass, UML_SIMPLE_VALUE__NEGATIVE);
     createEReference(umlSimpleValueEClass, UML_SIMPLE_VALUE__VALUE);
 
     umlObjectValueEClass = createEClass(UML_OBJECT_VALUE);
@@ -1291,6 +1302,7 @@ public class UmlTestLangPackageImpl extends EPackageImpl implements UmlTestLangP
     initEClass(umlValueEClass, UMLValue.class, "UMLValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(umlSimpleValueEClass, UMLSimpleValue.class, "UMLSimpleValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getUMLSimpleValue_Negative(), theEcorePackage.getEBoolean(), "negative", null, 0, 1, UMLSimpleValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getUMLSimpleValue_Value(), theXbasePackage.getXExpression(), null, "value", null, 0, 1, UMLSimpleValue.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(umlObjectValueEClass, UMLObjectValue.class, "UMLObjectValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

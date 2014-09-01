@@ -20,4 +20,11 @@ public class DoubleValue implements Value {
 	public void setValue(Double value) {
 		this.value = value;
 	}
+
+	public boolean isNegative() {
+		if (value >= 0)
+			return false;
+		else
+			return true;
+	}
 }

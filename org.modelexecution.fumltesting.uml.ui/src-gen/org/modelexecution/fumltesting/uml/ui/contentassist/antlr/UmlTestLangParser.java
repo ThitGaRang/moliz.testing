@@ -94,6 +94,7 @@ public class UmlTestLangParser extends AbstractContentAssistParser {
 					put(grammarAccess.getUMLTestCaseAccess().getGroup_7(), "rule__UMLTestCase__Group_7__0");
 					put(grammarAccess.getUMLTestCaseAccess().getGroup_7_3(), "rule__UMLTestCase__Group_7_3__0");
 					put(grammarAccess.getUMLActivityInputAccess().getGroup(), "rule__UMLActivityInput__Group__0");
+					put(grammarAccess.getUMLSimpleValueAccess().getGroup(), "rule__UMLSimpleValue__Group__0");
 					put(grammarAccess.getUMLScenarioAccess().getGroup(), "rule__UMLScenario__Group__0");
 					put(grammarAccess.getUMLObjectSpecificationAccess().getGroup(), "rule__UMLObjectSpecification__Group__0");
 					put(grammarAccess.getUMLAttributeAccess().getGroup(), "rule__UMLAttribute__Group__0");
@@ -299,7 +300,8 @@ public class UmlTestLangParser extends AbstractContentAssistParser {
 					put(grammarAccess.getUMLTestCaseAccess().getAssertionsAssignment_8(), "rule__UMLTestCase__AssertionsAssignment_8");
 					put(grammarAccess.getUMLActivityInputAccess().getParameterAssignment_0(), "rule__UMLActivityInput__ParameterAssignment_0");
 					put(grammarAccess.getUMLActivityInputAccess().getValueAssignment_2(), "rule__UMLActivityInput__ValueAssignment_2");
-					put(grammarAccess.getUMLSimpleValueAccess().getValueAssignment(), "rule__UMLSimpleValue__ValueAssignment");
+					put(grammarAccess.getUMLSimpleValueAccess().getNegativeAssignment_0(), "rule__UMLSimpleValue__NegativeAssignment_0");
+					put(grammarAccess.getUMLSimpleValueAccess().getValueAssignment_1(), "rule__UMLSimpleValue__ValueAssignment_1");
 					put(grammarAccess.getUMLObjectValueAccess().getValueAssignment(), "rule__UMLObjectValue__ValueAssignment");
 					put(grammarAccess.getUMLScenarioAccess().getNameAssignment_1(), "rule__UMLScenario__NameAssignment_1");
 					put(grammarAccess.getUMLScenarioAccess().getObjectsAssignment_3(), "rule__UMLScenario__ObjectsAssignment_3");

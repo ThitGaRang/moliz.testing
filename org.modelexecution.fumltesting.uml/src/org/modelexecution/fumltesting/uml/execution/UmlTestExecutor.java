@@ -84,9 +84,9 @@ public class UmlTestExecutor {
 	private NamedElement umlModel;
 	private TestConverter testConverter;
 
-	// banking_new:banking, webstore:webstore
-	private String modelFolder = "banking_new";
-	private String modelName = "banking";
+	// banking_new:banking, webstore:webstore, petstore:petstore
+	private String modelFolder = "petstore";
+	private String modelName = "petstore";
 	
 	private String testsPath = "../org.modelexecution.fumltesting.examples/model/" + modelFolder + "/tests";
 	private String umlModelPath = "../org.modelexecution.fumltesting.examples/model/" + modelFolder + "/" + modelName + ".uml";

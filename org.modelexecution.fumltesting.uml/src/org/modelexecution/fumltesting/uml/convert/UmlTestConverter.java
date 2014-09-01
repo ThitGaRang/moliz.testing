@@ -150,8 +150,7 @@ public class UmlTestConverter implements TestConverter {
 			if (umlActivityInput.getValue() instanceof UMLSimpleValue) {
 				activityInput.setValue((Value) convertValue((UMLSimpleValue) umlActivityInput.getValue()));
 			} else if (umlActivityInput.getValue() instanceof UMLObjectValue) {
-				ObjectValue objectValue = new ObjectValue(
-						(ObjectSpecification) convertValue(((UMLObjectValue) umlActivityInput.getValue()).getValue()));
+				ObjectValue objectValue = new ObjectValue((ObjectSpecification) convertValue(((UMLObjectValue) umlActivityInput.getValue()).getValue()));
 				activityInput.setValue(objectValue);
 			}
 			testCase.addInput(activityInput);
@@ -194,11 +193,17 @@ public class UmlTestConverter implements TestConverter {
 				String value = ((XNumberLiteral) umlSimpleValue.getValue()).getValue();
 				if (value.contains(".")) {
 					DoubleValue doubleValue = new DoubleValue();
-					doubleValue.setValue(Double.parseDouble(value));
+					double convertedValue = Double.parseDouble(value);
+					if (umlSimpleValue.isNegative())
+						convertedValue = (-convertedValue);
+					doubleValue.setValue(convertedValue);
 					return doubleValue;
 				} else {
 					IntegerValue integerValue = new IntegerValue();
-					integerValue.setValue(Integer.parseInt(value));
+					int convertedValue = Integer.parseInt(value);
+					if (umlSimpleValue.isNegative())
+						convertedValue = (-convertedValue);
+					integerValue.setValue(convertedValue);
 					return integerValue;
 				}
 			} else if (umlSimpleValue.getValue() instanceof XBooleanLiteral) {
@@ -341,8 +346,8 @@ public class UmlTestConverter implements TestConverter {
 			if (((UMLStateExpression) umlCheck).getValue() instanceof UMLSimpleValue) {
 				((StateExpression) check).setValue((Value) convertValue((UMLSimpleValue) ((UMLStateExpression) umlCheck).getValue()));
 			} else if (((UMLStateExpression) umlCheck).getValue() instanceof UMLObjectValue) {
-				ObjectSpecification objectSpecification = (ObjectSpecification) convertValue(((UMLObjectValue) ((UMLStateExpression) umlCheck)
-						.getValue()).getValue());
+				ObjectSpecification objectSpecification = (ObjectSpecification) convertValue(((UMLObjectValue) ((UMLStateExpression) umlCheck).getValue())
+						.getValue());
 				((StateExpression) check).setValue(new ObjectValue(objectSpecification));
 			}
 
@@ -388,8 +393,7 @@ public class UmlTestConverter implements TestConverter {
 		ReferencePoint referencePoint = null;
 		if (umlReferencePoint instanceof UMLActionReferencePoint) {
 			referencePoint = new ActionReferencePoint();
-			((ActionReferencePoint) referencePoint)
-					.setAction(modelConverter.convertAction(((UMLActionReferencePoint) umlReferencePoint).getAction()));
+			((ActionReferencePoint) referencePoint).setAction(modelConverter.convertAction(((UMLActionReferencePoint) umlReferencePoint).getAction()));
 		}
 		if (umlReferencePoint instanceof UMLConstraintReferencePoint) {
 			referencePoint = new ConstraintReferencePoint();

@@ -305,18 +305,30 @@ public class UmlTestLangGrammarAccess extends AbstractGrammarElementFinder {
 
 	public class UMLSimpleValueElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "UMLSimpleValue");
-		private final Assignment cValueAssignment = (Assignment)rule.eContents().get(1);
-		private final RuleCall cValueXLiteralParserRuleCall_0 = (RuleCall)cValueAssignment.eContents().get(0);
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cNegativeAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final Keyword cNegativeHyphenMinusKeyword_0_0 = (Keyword)cNegativeAssignment_0.eContents().get(0);
+		private final Assignment cValueAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cValueXLiteralParserRuleCall_1_0 = (RuleCall)cValueAssignment_1.eContents().get(0);
 		
 		//UMLSimpleValue:
-		//	value=XLiteral;
+		//	negative?="-"? value=XLiteral;
 		public ParserRule getRule() { return rule; }
 
+		//negative?="-"? value=XLiteral
+		public Group getGroup() { return cGroup; }
+
+		//negative?="-"?
+		public Assignment getNegativeAssignment_0() { return cNegativeAssignment_0; }
+
+		//"-"
+		public Keyword getNegativeHyphenMinusKeyword_0_0() { return cNegativeHyphenMinusKeyword_0_0; }
+
 		//value=XLiteral
-		public Assignment getValueAssignment() { return cValueAssignment; }
+		public Assignment getValueAssignment_1() { return cValueAssignment_1; }
 
 		//XLiteral
-		public RuleCall getValueXLiteralParserRuleCall_0() { return cValueXLiteralParserRuleCall_0; }
+		public RuleCall getValueXLiteralParserRuleCall_1_0() { return cValueXLiteralParserRuleCall_1_0; }
 	}
 
 	public class UMLObjectValueElements extends AbstractParserRuleElementFinder {
@@ -1429,7 +1441,7 @@ public class UmlTestLangGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//UMLSimpleValue:
-	//	value=XLiteral;
+	//	negative?="-"? value=XLiteral;
 	public UMLSimpleValueElements getUMLSimpleValueAccess() {
 		return (pUMLSimpleValue != null) ? pUMLSimpleValue : (pUMLSimpleValue = new UMLSimpleValueElements());
 	}

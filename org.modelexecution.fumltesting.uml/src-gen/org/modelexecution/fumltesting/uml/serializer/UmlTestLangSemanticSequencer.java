@@ -1571,17 +1571,10 @@ public class UmlTestLangSemanticSequencer extends XbaseSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     value=XLiteral
+	 *     (negative?='-'? value=XLiteral)
 	 */
 	protected void sequence_UMLSimpleValue(EObject context, UMLSimpleValue semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, UmlTestLangPackage.Literals.UML_SIMPLE_VALUE__VALUE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, UmlTestLangPackage.Literals.UML_SIMPLE_VALUE__VALUE));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getUMLSimpleValueAccess().getValueXLiteralParserRuleCall_0(), semanticObject.getValue());
-		feeder.finish();
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	

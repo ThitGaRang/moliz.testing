@@ -1,0 +1,13 @@
+import petstore.data.*
+import petstore.logic.*
+
+scenario TestData[
+	object acTD: ApplicationController{ ApplicationController.lastSessionId = -2; }
+]
+
+test createSessionIDTest activity ApplicationController.CreateSessionID on TestData.acTD{
+	finally{
+		CreateSessionID.sessionId = -1;
+		CreateSessionID.self.result::ApplicationController.lastSessionId = -1;
+	}
+}

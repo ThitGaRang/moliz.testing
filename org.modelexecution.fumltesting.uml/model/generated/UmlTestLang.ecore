@@ -31,6 +31,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UMLValue"/>
   <eClassifiers xsi:type="ecore:EClass" name="UMLSimpleValue" eSuperTypes="#//UMLValue">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="negative" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="ecore:EClass platform:/resource/org.eclipse.xtext.xbase/model/Xbase.ecore#//XExpression"
         containment="true"/>
   </eClassifiers>

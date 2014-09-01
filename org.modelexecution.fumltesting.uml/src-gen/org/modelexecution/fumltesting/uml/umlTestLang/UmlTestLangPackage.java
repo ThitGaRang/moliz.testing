@@ -271,13 +271,22 @@ public interface UmlTestLangPackage extends EPackage
   int UML_SIMPLE_VALUE = 5;
 
   /**
+   * The feature id for the '<em><b>Negative</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int UML_SIMPLE_VALUE__NEGATIVE = UML_VALUE_FEATURE_COUNT + 0;
+
+  /**
    * The feature id for the '<em><b>Value</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int UML_SIMPLE_VALUE__VALUE = UML_VALUE_FEATURE_COUNT + 0;
+  int UML_SIMPLE_VALUE__VALUE = UML_VALUE_FEATURE_COUNT + 1;
 
   /**
    * The number of structural features of the '<em>UML Simple Value</em>' class.
@@ -286,7 +295,7 @@ public interface UmlTestLangPackage extends EPackage
    * @generated
    * @ordered
    */
-  int UML_SIMPLE_VALUE_FEATURE_COUNT = UML_VALUE_FEATURE_COUNT + 1;
+  int UML_SIMPLE_VALUE_FEATURE_COUNT = UML_VALUE_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link org.modelexecution.fumltesting.uml.umlTestLang.impl.UMLObjectValueImpl <em>UML Object Value</em>}' class.
@@ -1252,6 +1261,17 @@ public interface UmlTestLangPackage extends EPackage
   EClass getUMLSimpleValue();
 
   /**
+   * Returns the meta object for the attribute '{@link org.modelexecution.fumltesting.uml.umlTestLang.UMLSimpleValue#isNegative <em>Negative</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Negative</em>'.
+   * @see org.modelexecution.fumltesting.uml.umlTestLang.UMLSimpleValue#isNegative()
+   * @see #getUMLSimpleValue()
+   * @generated
+   */
+  EAttribute getUMLSimpleValue_Negative();
+
+  /**
    * Returns the meta object for the containment reference '{@link org.modelexecution.fumltesting.uml.umlTestLang.UMLSimpleValue#getValue <em>Value</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2044,6 +2064,14 @@ public interface UmlTestLangPackage extends EPackage
      * @generated
      */
     EClass UML_SIMPLE_VALUE = eINSTANCE.getUMLSimpleValue();
+
+    /**
+     * The meta object literal for the '<em><b>Negative</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute UML_SIMPLE_VALUE__NEGATIVE = eINSTANCE.getUMLSimpleValue_Negative();
 
     /**
      * The meta object literal for the '<em><b>Value</b></em>' containment reference feature.

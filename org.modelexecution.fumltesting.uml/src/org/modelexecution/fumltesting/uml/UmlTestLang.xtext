@@ -24,7 +24,7 @@ UMLValue:
 	UMLSimpleValue | UMLObjectValue;
 
 UMLSimpleValue:
-	value=XLiteral;
+	(negative?='-')? value=XLiteral;
 
 UMLObjectValue:
 	value=[UMLObjectSpecification|QualifiedName];

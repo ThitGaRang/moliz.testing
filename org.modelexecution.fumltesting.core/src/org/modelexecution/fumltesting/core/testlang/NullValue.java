@@ -8,8 +8,10 @@ package org.modelexecution.fumltesting.core.testlang;
 
 /**
  * @author Stefan Mijatov
- *
+ * 
  */
-public class NullValue implements Value{
-
+public class NullValue implements Value {
+	public boolean isNegative() {
+		return false;
+	}
 }

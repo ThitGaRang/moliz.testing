@@ -20,4 +20,8 @@ public class BooleanValue implements Value {
 	public void setValue(Boolean value) {
 		this.value = value;
 	}
+
+	public boolean isNegative() {
+		return false;
+	}
 }

@@ -10,7 +10,7 @@ package org.modelexecution.fumltesting.core.testlang;
  * @author Stefan Mijatov
  * 
  */
-public class StringValue implements Value{
+public class StringValue implements Value {
 	private String value;
 
 	public String getValue() {
@@ -19,5 +19,9 @@ public class StringValue implements Value{
 
 	public void setValue(String value) {
 		this.value = value;
+	}
+
+	public boolean isNegative() {
+		return false;
 	}
 }
