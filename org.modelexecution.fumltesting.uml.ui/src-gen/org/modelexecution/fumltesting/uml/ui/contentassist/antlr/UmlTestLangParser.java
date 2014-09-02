@@ -287,7 +287,7 @@ public class UmlTestLangParser extends AbstractContentAssistParser {
 					put(grammarAccess.getXImportDeclarationAccess().getGroup_1_0(), "rule__XImportDeclaration__Group_1_0__0");
 					put(grammarAccess.getQualifiedNameInStaticImportAccess().getGroup(), "rule__QualifiedNameInStaticImport__Group__0");
 					put(grammarAccess.getUMLTestSuiteAccess().getImportsAssignment_0(), "rule__UMLTestSuite__ImportsAssignment_0");
-					put(grammarAccess.getUMLTestSuiteAccess().getScenariosAssignment_1(), "rule__UMLTestSuite__ScenariosAssignment_1");
+					put(grammarAccess.getUMLTestSuiteAccess().getScenarioAssignment_1(), "rule__UMLTestSuite__ScenarioAssignment_1");
 					put(grammarAccess.getUMLTestSuiteAccess().getTestsAssignment_2(), "rule__UMLTestSuite__TestsAssignment_2");
 					put(grammarAccess.getImportAccess().getImportedNamespaceAssignment_1(), "rule__Import__ImportedNamespaceAssignment_1");
 					put(grammarAccess.getUMLTestCaseAccess().getNameAssignment_1(), "rule__UMLTestCase__NameAssignment_1");

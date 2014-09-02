@@ -2,12 +2,26 @@ import petstore.data.*
 import petstore.logic.*
 
 scenario TestData[
-	object acTD: ApplicationController{ ApplicationController.lastSessionId = -2; }
+	object applicationControllerTD: ApplicationController{ ApplicationController.lastSessionId = -1; }
+	object customerTD: Customer{
+		Customer.firstname='user'; 
+		Customer.lastname='userLastName';
+		Customer.email='user@test.com';
+		Customer.login='user';
+		Customer.password='password';
+	}
 ]
 
-test createSessionIDTest activity ApplicationController.CreateSessionID on TestData.acTD{
+test createSessionIDTest activity ApplicationController.CreateSessionID on TestData.applicationControllerTD{
 	finally{
-		CreateSessionID.sessionId = -1;
-		CreateSessionID.self.result::ApplicationController.lastSessionId = -1;
+		CreateSessionID.sessionId = 0;
+		CreateSessionID.self.result::ApplicationController.lastSessionId = 0;
+	}
+}
+
+test createSessionTest activity ApplicationController.CreateSession(CreateSession.customer=TestData.customerTD) on TestData.applicationControllerTD{
+	finally{
+		CreateSession.sessionId = 0;
+		check 'sessionAdded', 'customerInfo', 'customerInSession';
 	}
 }

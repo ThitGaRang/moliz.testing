@@ -24,16 +24,16 @@ public class UmlTestLangGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cImportsAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final RuleCall cImportsImportParserRuleCall_0_0 = (RuleCall)cImportsAssignment_0.eContents().get(0);
-		private final Assignment cScenariosAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cScenariosUMLScenarioParserRuleCall_1_0 = (RuleCall)cScenariosAssignment_1.eContents().get(0);
+		private final Assignment cScenarioAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cScenarioUMLScenarioParserRuleCall_1_0 = (RuleCall)cScenarioAssignment_1.eContents().get(0);
 		private final Assignment cTestsAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cTestsUMLTestCaseParserRuleCall_2_0 = (RuleCall)cTestsAssignment_2.eContents().get(0);
 		
 		//UMLTestSuite:
-		//	imports+=Import* scenarios+=UMLScenario* tests+=UMLTestCase*;
+		//	imports+=Import* scenario=UMLScenario? tests+=UMLTestCase*;
 		public ParserRule getRule() { return rule; }
 
-		//imports+=Import* scenarios+=UMLScenario* tests+=UMLTestCase*
+		//imports+=Import* scenario=UMLScenario? tests+=UMLTestCase*
 		public Group getGroup() { return cGroup; }
 
 		//imports+=Import*
@@ -42,11 +42,11 @@ public class UmlTestLangGrammarAccess extends AbstractGrammarElementFinder {
 		//Import
 		public RuleCall getImportsImportParserRuleCall_0_0() { return cImportsImportParserRuleCall_0_0; }
 
-		//scenarios+=UMLScenario*
-		public Assignment getScenariosAssignment_1() { return cScenariosAssignment_1; }
+		//scenario=UMLScenario?
+		public Assignment getScenarioAssignment_1() { return cScenarioAssignment_1; }
 
 		//UMLScenario
-		public RuleCall getScenariosUMLScenarioParserRuleCall_1_0() { return cScenariosUMLScenarioParserRuleCall_1_0; }
+		public RuleCall getScenarioUMLScenarioParserRuleCall_1_0() { return cScenarioUMLScenarioParserRuleCall_1_0; }
 
 		//tests+=UMLTestCase*
 		public Assignment getTestsAssignment_2() { return cTestsAssignment_2; }
@@ -1389,7 +1389,7 @@ public class UmlTestLangGrammarAccess extends AbstractGrammarElementFinder {
 
 	
 	//UMLTestSuite:
-	//	imports+=Import* scenarios+=UMLScenario* tests+=UMLTestCase*;
+	//	imports+=Import* scenario=UMLScenario? tests+=UMLTestCase*;
 	public UMLTestSuiteElements getUMLTestSuiteAccess() {
 		return (pUMLTestSuite != null) ? pUMLTestSuite : (pUMLTestSuite = new UMLTestSuiteElements());
 	}

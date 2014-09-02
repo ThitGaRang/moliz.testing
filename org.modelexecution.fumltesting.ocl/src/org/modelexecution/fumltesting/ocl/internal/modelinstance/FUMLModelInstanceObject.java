@@ -21,6 +21,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.dresdenocl.essentialocl.standardlibrary.OclBoolean;
+import org.dresdenocl.essentialocl.standardlibrary.OclInteger;
+import org.dresdenocl.essentialocl.standardlibrary.OclString;
 import org.dresdenocl.modelinstance.base.AbstractModelInstance;
 import org.dresdenocl.modelinstancetype.exception.AsTypeCastException;
 import org.dresdenocl.modelinstancetype.exception.CopyForAtPreException;
@@ -39,12 +42,12 @@ import org.dresdenocl.modelinstancetype.types.IModelInstancePrimitiveType;
 import org.dresdenocl.modelinstancetype.types.IModelInstanceReal;
 import org.dresdenocl.modelinstancetype.types.IModelInstanceString;
 import org.dresdenocl.modelinstancetype.types.base.AbstractModelInstanceObject;
-import org.dresdenocl.modelinstancetype.types.base.BasisJavaModelInstanceFactory;
 import org.dresdenocl.pivotmodel.AssociationProperty;
 import org.dresdenocl.pivotmodel.Operation;
 import org.dresdenocl.pivotmodel.Parameter;
 import org.dresdenocl.pivotmodel.Property;
 import org.dresdenocl.pivotmodel.Type;
+import org.dresdenocl.standardlibrary.java.JavaStandardlibraryPlugin;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.osgi.util.NLS;
@@ -144,7 +147,7 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 			if (dslObject instanceof Object_) {
 				Object_ object = (Object_) dslObject;
 				IModelInstanceElement result = null;
-				
+
 				ArrayList<FeatureValue> allFeatureValues = new ArrayList<FeatureValue>();
 				allFeatureValues.addAll(object.getFeatureValues());
 				allFeatureValues.addAll(associationProperties);
@@ -226,30 +229,33 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 					operationMethod.setAccessible(true);
 				}
 
-				if (dslObject instanceof StringValue || dslObject instanceof String || dslObject instanceof IModelInstanceString) {
+				if (dslObject instanceof StringValue || dslObject instanceof String || dslObject instanceof IModelInstanceString
+						|| dslObject instanceof OclString) {
 					String stringValue = null;
 
 					if (dslObject instanceof StringValue) {
 						stringValue = ((StringValue) dslObject).value;
 					} else if (dslObject instanceof String) {
 						stringValue = (String) dslObject;
-					} else {
+					} else if (dslObject instanceof IModelInstanceString) {
 						stringValue = ((IModelInstanceString) dslObject).getString();
+					} else {
+						stringValue = ((OclString) dslObject).toString();
 					}
 
 					if (operation.getName().equals("=")) {
 						if (argumentValues[0] instanceof StringValue || argumentValues[0] instanceof String) {
-							adapteeResult = BasisJavaModelInstanceFactory.createModelInstanceBoolean(stringValue.equals(argumentValues[0]));
+							adapteeResult = JavaStandardlibraryPlugin.getStandardLibraryFactory().createOclBoolean(stringValue.equals(argumentValues[0]));
 						} else if (argumentValues[0] instanceof IModelInstanceString) {
-							adapteeResult = BasisJavaModelInstanceFactory.createModelInstanceBoolean(stringValue
-									.equals(((IModelInstanceString) argumentValues[0]).getString()));
+							adapteeResult = JavaStandardlibraryPlugin.getStandardLibraryFactory().createOclBoolean(
+									stringValue.equals(((IModelInstanceString) argumentValues[0]).getString()));
 						}
 					} else if (operation.getName().equals("<>")) {
 						if (argumentValues[0] instanceof StringValue || argumentValues[0] instanceof String) {
-							adapteeResult = BasisJavaModelInstanceFactory.createModelInstanceBoolean(!stringValue.equals(argumentValues[0]));
+							adapteeResult = JavaStandardlibraryPlugin.getStandardLibraryFactory().createOclBoolean(!stringValue.equals(argumentValues[0]));
 						} else if (argumentValues[0] instanceof IModelInstanceString) {
-							adapteeResult = BasisJavaModelInstanceFactory.createModelInstanceBoolean(!stringValue
-									.equals(((IModelInstanceString) argumentValues[0]).getString()));
+							adapteeResult = JavaStandardlibraryPlugin.getStandardLibraryFactory().createOclBoolean(
+									!stringValue.equals(((IModelInstanceString) argumentValues[0]).getString()));
 						}
 					} else if (operation.getName().equals("size")) {
 						for (Method aMethod : String.class.getMethods()) {
@@ -257,13 +263,13 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 								operationMethod = aMethod;
 								operationMethod.setAccessible(true);
 								if (argumentValues[0] instanceof StringValue || argumentValues[0] instanceof String) {
-									adapteeResult = BasisJavaModelInstanceFactory.createModelInstanceInteger((Long) operationMethod.invoke(stringValue,
-											argumentValues));
+									adapteeResult = JavaStandardlibraryPlugin.getStandardLibraryFactory().createOclInteger(
+											(Long) operationMethod.invoke(stringValue, argumentValues));
 								} else if (argumentValues[0] instanceof IModelInstanceString) {
 									Object[] argumentsToPass = new Object[1];
 									argumentsToPass[0] = ((IModelInstanceString) argumentValues[0]).getString();
-									adapteeResult = BasisJavaModelInstanceFactory.createModelInstanceInteger((Long) operationMethod.invoke(stringValue,
-											argumentsToPass));
+									adapteeResult = JavaStandardlibraryPlugin.getStandardLibraryFactory().createOclInteger(
+											(Long) operationMethod.invoke(stringValue, argumentsToPass));
 								}
 
 							}
@@ -274,19 +280,19 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 								operationMethod = aMethod;
 								operationMethod.setAccessible(true);
 								if (argumentValues[0] instanceof StringValue || argumentValues[0] instanceof String) {
-									adapteeResult = BasisJavaModelInstanceFactory.createModelInstanceString((String) operationMethod.invoke(stringValue,
-											argumentValues));
+									adapteeResult = JavaStandardlibraryPlugin.getStandardLibraryFactory().createOclString(
+											(String) operationMethod.invoke(stringValue, argumentValues));
 								} else if (argumentValues[0] instanceof IModelInstanceString) {
 									Object[] argumentsToPass = new Object[1];
 									argumentsToPass[0] = ((IModelInstanceString) argumentValues[0]).getString();
-									adapteeResult = BasisJavaModelInstanceFactory.createModelInstanceString((String) operationMethod.invoke(stringValue,
-											argumentsToPass));
+									adapteeResult = JavaStandardlibraryPlugin.getStandardLibraryFactory().createOclString(
+											(String) operationMethod.invoke(stringValue, argumentsToPass));
 								}
 							}
 						}
 					}
 				} else if (dslObject instanceof IntegerValue || dslObject instanceof Integer || dslObject instanceof Long
-						|| dslObject instanceof IModelInstanceInteger) {
+						|| dslObject instanceof IModelInstanceInteger || dslObject instanceof OclInteger) {
 					Long longAnalog = null;
 
 					if (dslObject instanceof IntegerValue) {
@@ -295,12 +301,14 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 						longAnalog = Long.parseLong(String.valueOf((Integer) dslObject));
 					} else if (dslObject instanceof Long) {
 						longAnalog = (Long) dslObject;
-					} else {
+					} else if (dslObject instanceof IModelInstanceInteger) {
 						longAnalog = ((IModelInstanceInteger) dslObject).getLong();
+					} else {
+						longAnalog = ((OclInteger) dslObject).getModelInstanceInteger().getLong();
 					}
 
 					if (!(argumentValues[0] instanceof Long || argumentValues[0] instanceof Integer || argumentValues[0] instanceof IModelInstanceInteger || argumentValues[0] instanceof IntegerValue)) {
-						adapteeResult = BasisJavaModelInstanceFactory.createModelInstanceBoolean(false);
+						adapteeResult = JavaStandardlibraryPlugin.getStandardLibraryFactory().createOclBoolean(false);
 					} else {
 						Object theResult = null;
 						if (operation.getName().equals("=")) {
@@ -311,7 +319,7 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 							} else if (argumentValues[0] instanceof IntegerValue) {
 								theResult = (longAnalog.longValue() == ((IntegerValue) argumentValues[0]).value);
 							}
-							adapteeResult = BasisJavaModelInstanceFactory.createModelInstanceBoolean((boolean) theResult);
+							adapteeResult = JavaStandardlibraryPlugin.getStandardLibraryFactory().createOclBoolean((boolean) theResult);
 						} else if (operation.getName().equals("<>")) {
 							if (argumentValues[0] instanceof Long || argumentValues[0] instanceof Integer) {
 								theResult = (longAnalog.longValue() != ((Long) argumentValues[0]).longValue());
@@ -320,7 +328,7 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 							} else if (argumentValues[0] instanceof IntegerValue) {
 								theResult = (longAnalog.longValue() != ((IntegerValue) argumentValues[0]).value);
 							}
-							adapteeResult = BasisJavaModelInstanceFactory.createModelInstanceBoolean((boolean) theResult);
+							adapteeResult = JavaStandardlibraryPlugin.getStandardLibraryFactory().createOclBoolean((boolean) theResult);
 						} else if (operation.getName().equals(">")) {
 							if (argumentValues[0] instanceof Long || argumentValues[0] instanceof Integer) {
 								theResult = (longAnalog.longValue() > ((Long) argumentValues[0]).longValue());
@@ -329,7 +337,7 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 							} else if (argumentValues[0] instanceof IntegerValue) {
 								theResult = (longAnalog.longValue() > ((IntegerValue) argumentValues[0]).value);
 							}
-							adapteeResult = BasisJavaModelInstanceFactory.createModelInstanceBoolean((boolean) theResult);
+							adapteeResult = JavaStandardlibraryPlugin.getStandardLibraryFactory().createOclBoolean((boolean) theResult);
 						} else if (operation.getName().equals("<")) {
 							if (argumentValues[0] instanceof Long || argumentValues[0] instanceof Integer) {
 								theResult = (longAnalog.longValue() < ((Long) argumentValues[0]).longValue());
@@ -338,7 +346,7 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 							} else if (argumentValues[0] instanceof IntegerValue) {
 								theResult = (longAnalog.longValue() < ((IntegerValue) argumentValues[0]).value);
 							}
-							adapteeResult = BasisJavaModelInstanceFactory.createModelInstanceBoolean((boolean) theResult);
+							adapteeResult = JavaStandardlibraryPlugin.getStandardLibraryFactory().createOclBoolean((boolean) theResult);
 						} else if (operation.getName().equals(">=")) {
 							if (argumentValues[0] instanceof Long || argumentValues[0] instanceof Integer) {
 								theResult = (longAnalog.longValue() >= ((Long) argumentValues[0]).longValue());
@@ -347,7 +355,7 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 							} else if (argumentValues[0] instanceof IntegerValue) {
 								theResult = (longAnalog.longValue() >= ((IntegerValue) argumentValues[0]).value);
 							}
-							adapteeResult = BasisJavaModelInstanceFactory.createModelInstanceBoolean((boolean) theResult);
+							adapteeResult = JavaStandardlibraryPlugin.getStandardLibraryFactory().createOclBoolean((boolean) theResult);
 						} else if (operation.getName().equals("<=")) {
 							if (argumentValues[0] instanceof Long || argumentValues[0] instanceof Integer) {
 								theResult = (longAnalog.longValue() <= ((Long) argumentValues[0]).longValue());
@@ -356,7 +364,7 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 							} else if (argumentValues[0] instanceof IntegerValue) {
 								theResult = (longAnalog.longValue() <= ((IntegerValue) argumentValues[0]).value);
 							}
-							adapteeResult = BasisJavaModelInstanceFactory.createModelInstanceBoolean((boolean) theResult);
+							adapteeResult = JavaStandardlibraryPlugin.getStandardLibraryFactory().createOclBoolean((boolean) theResult);
 						} else if (operation.getName().equals("+")) {
 							if (argumentValues[0] instanceof Long || argumentValues[0] instanceof Integer) {
 								theResult = (longAnalog.longValue() + ((Long) argumentValues[0]).longValue());
@@ -365,7 +373,7 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 							} else if (argumentValues[0] instanceof IntegerValue) {
 								theResult = (longAnalog.longValue() + ((IntegerValue) argumentValues[0]).value);
 							}
-							adapteeResult = BasisJavaModelInstanceFactory.createModelInstanceInteger((Long) theResult);
+							adapteeResult = JavaStandardlibraryPlugin.getStandardLibraryFactory().createOclInteger((Long) theResult);
 						} else if (operation.getName().equals("-")) {
 							if (argumentValues[0] instanceof Long || argumentValues[0] instanceof Integer) {
 								theResult = (longAnalog.longValue() - ((Long) argumentValues[0]).longValue());
@@ -374,7 +382,7 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 							} else if (argumentValues[0] instanceof IntegerValue) {
 								theResult = (longAnalog.longValue() - ((IntegerValue) argumentValues[0]).value);
 							}
-							adapteeResult = BasisJavaModelInstanceFactory.createModelInstanceInteger((Long) theResult);
+							adapteeResult = JavaStandardlibraryPlugin.getStandardLibraryFactory().createOclInteger((Long) theResult);
 						} else if (operation.getName().equals("*")) {
 							if (argumentValues[0] instanceof Long || argumentValues[0] instanceof Integer) {
 								theResult = (longAnalog.longValue() * ((Long) argumentValues[0]).longValue());
@@ -383,7 +391,7 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 							} else if (argumentValues[0] instanceof IntegerValue) {
 								theResult = (longAnalog.longValue() * ((IntegerValue) argumentValues[0]).value);
 							}
-							adapteeResult = BasisJavaModelInstanceFactory.createModelInstanceInteger((Long) theResult);
+							adapteeResult = JavaStandardlibraryPlugin.getStandardLibraryFactory().createOclInteger((Long) theResult);
 						} else if (operation.getName().equals("/")) {
 							if (argumentValues[0] instanceof Long || argumentValues[0] instanceof Integer) {
 								theResult = (longAnalog.longValue() / ((Long) argumentValues[0]).longValue());
@@ -392,54 +400,69 @@ public class FUMLModelInstanceObject extends AbstractModelInstanceObject impleme
 							} else if (argumentValues[0] instanceof IntegerValue) {
 								theResult = (longAnalog.longValue() / ((IntegerValue) argumentValues[0]).value);
 							}
-							adapteeResult = BasisJavaModelInstanceFactory.createModelInstanceInteger((Long) theResult);
+							adapteeResult = JavaStandardlibraryPlugin.getStandardLibraryFactory().createOclInteger((Long) theResult);
 						}
 					}
-				} else if (dslObject instanceof BooleanValue || dslObject instanceof Boolean || dslObject instanceof IModelInstanceBoolean) {
+				} else if (dslObject instanceof BooleanValue || dslObject instanceof Boolean || dslObject instanceof IModelInstanceBoolean
+						|| dslObject instanceof OclBoolean) {
 					Boolean booleanValue = null;
 
 					if (dslObject instanceof BooleanValue) {
 						booleanValue = ((BooleanValue) dslObject).value;
 					} else if (dslObject instanceof Boolean) {
 						booleanValue = (Boolean) dslObject;
-					} else {
+					} else if (dslObject instanceof IModelInstanceBoolean) {
 						booleanValue = ((IModelInstanceBoolean) dslObject).getBoolean();
+					} else {
+						booleanValue = ((OclBoolean) dslObject).isTrue();
 					}
 
-					if (!(argumentValues[0] instanceof Boolean || argumentValues[0] instanceof IModelInstanceBoolean)) {
-						adapteeResult = BasisJavaModelInstanceFactory.createModelInstanceBoolean(false);
+					if (!(argumentValues[0] instanceof Boolean || argumentValues[0] instanceof IModelInstanceBoolean || argumentValues[0] instanceof OclBoolean)) {
+						adapteeResult = JavaStandardlibraryPlugin.getStandardLibraryFactory().createOclBoolean(false);
 					} else {
 						if (operation.getName().equals("and")) {
 							if (argumentValues[0] instanceof Boolean) {
 								boolean theResult = (booleanValue && (Boolean) argumentValues[0]);
-								adapteeResult = BasisJavaModelInstanceFactory.createModelInstanceBoolean(theResult);
+								adapteeResult = JavaStandardlibraryPlugin.getStandardLibraryFactory().createOclBoolean(theResult);
 							} else if (argumentValues[0] instanceof IModelInstanceBoolean) {
 								boolean theResult = (booleanValue && ((IModelInstanceBoolean) argumentValues[0]).getBoolean());
-								adapteeResult = BasisJavaModelInstanceFactory.createModelInstanceBoolean(theResult);
+								adapteeResult = JavaStandardlibraryPlugin.getStandardLibraryFactory().createOclBoolean(theResult);
+							} else if (argumentValues[0] instanceof OclBoolean) {
+								boolean theResult = (booleanValue && ((OclBoolean) argumentValues[0]).isTrue());
+								adapteeResult = JavaStandardlibraryPlugin.getStandardLibraryFactory().createOclBoolean(theResult);
 							}
 						} else if (operation.getName().equals("or")) {
 							if (argumentValues[0] instanceof Boolean) {
 								boolean theResult = (booleanValue || (Boolean) argumentValues[0]);
-								adapteeResult = BasisJavaModelInstanceFactory.createModelInstanceBoolean(theResult);
+								adapteeResult = JavaStandardlibraryPlugin.getStandardLibraryFactory().createOclBoolean(theResult);
 							} else if (argumentValues[0] instanceof IModelInstanceBoolean) {
 								boolean theResult = (booleanValue || ((IModelInstanceBoolean) argumentValues[0]).getBoolean());
-								adapteeResult = BasisJavaModelInstanceFactory.createModelInstanceBoolean(theResult);
+								adapteeResult = JavaStandardlibraryPlugin.getStandardLibraryFactory().createOclBoolean(theResult);
+							} else if (argumentValues[0] instanceof OclBoolean) {
+								boolean theResult = (booleanValue || ((OclBoolean) argumentValues[0]).isTrue());
+								adapteeResult = JavaStandardlibraryPlugin.getStandardLibraryFactory().createOclBoolean(theResult);
 							}
 						} else if (operation.getName().equals("=")) {
 							if (argumentValues[0] instanceof Boolean) {
 								boolean theResult = (booleanValue == (Boolean) argumentValues[0]);
-								adapteeResult = BasisJavaModelInstanceFactory.createModelInstanceBoolean(theResult);
+								adapteeResult = JavaStandardlibraryPlugin.getStandardLibraryFactory().createOclBoolean(theResult);
 							} else if (argumentValues[0] instanceof IModelInstanceBoolean) {
 								boolean theResult = (booleanValue == ((IModelInstanceBoolean) argumentValues[0]).getBoolean());
-								adapteeResult = BasisJavaModelInstanceFactory.createModelInstanceBoolean(theResult);
+								adapteeResult = JavaStandardlibraryPlugin.getStandardLibraryFactory().createOclBoolean(theResult);
+							} else if (argumentValues[0] instanceof OclBoolean) {
+								boolean theResult = (booleanValue == ((OclBoolean) argumentValues[0]).isTrue());
+								adapteeResult = JavaStandardlibraryPlugin.getStandardLibraryFactory().createOclBoolean(theResult);
 							}
 						} else if (operation.getName().equals("<>")) {
 							if (argumentValues[0] instanceof Boolean) {
 								boolean theResult = (booleanValue != (Boolean) argumentValues[0]);
-								adapteeResult = BasisJavaModelInstanceFactory.createModelInstanceBoolean(theResult);
+								adapteeResult = JavaStandardlibraryPlugin.getStandardLibraryFactory().createOclBoolean(theResult);
 							} else if (argumentValues[0] instanceof IModelInstanceBoolean) {
 								boolean theResult = (booleanValue != ((IModelInstanceBoolean) argumentValues[0]).getBoolean());
-								adapteeResult = BasisJavaModelInstanceFactory.createModelInstanceBoolean(theResult);
+								adapteeResult = JavaStandardlibraryPlugin.getStandardLibraryFactory().createOclBoolean(theResult);
+							} else if (argumentValues[0] instanceof OclBoolean) {
+								boolean theResult = (booleanValue != ((OclBoolean) argumentValues[0]).isTrue());
+								adapteeResult = JavaStandardlibraryPlugin.getStandardLibraryFactory().createOclBoolean(theResult);
 							}
 						}
 					}

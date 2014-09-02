@@ -1,0 +1,32 @@
+import petstore.data.*
+import petstore.logic.*
+
+scenario TestData[
+	object entityManagerTD: EntityManager{}
+	object customerServiceTD: CustomerService{}
+	
+	object customerTD: Customer{
+		Customer.firstname='user'; 
+		Customer.lastname='userLastName';
+		Customer.email='user@test.com';
+		Customer.login='user';
+		Customer.password='password';
+	}
+	
+	object itemTD: Item{
+		Item.name = 'item';
+		Item.unitCost = 10;
+		Item.description = 'An item used for testing.';
+	}
+	
+	link customerService_entityManager { 
+		source customerService_entityManager.customerService=TestData.customerServiceTD; 
+		target customerService_entityManager.entityManager=TestData.entityManagerTD;
+	}
+]
+
+test loginTest activity CustomerService.Login(Login.login='user', Login.password='password') on TestData.customerServiceTD{
+	finally{
+		Login.customer != null;
+	}
+}

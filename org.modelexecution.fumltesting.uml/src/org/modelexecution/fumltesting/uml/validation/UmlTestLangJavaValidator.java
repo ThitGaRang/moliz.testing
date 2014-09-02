@@ -6,13 +6,10 @@ package org.modelexecution.fumltesting.uml.validation;
 import java.util.HashSet;
 
 import org.eclipse.xtext.validation.Check;
-import org.modelexecution.fumltesting.uml.umlTestLang.UMLArithmeticOperator;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLNodeSpecification;
-import org.modelexecution.fumltesting.uml.umlTestLang.UMLObjectStateExpression;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLOrderAssertion;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLScenario;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLStateAssertion;
-import org.modelexecution.fumltesting.uml.umlTestLang.UMLStateExpression;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLTemporalOperator;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLTestCase;
 import org.modelexecution.fumltesting.uml.umlTestLang.UmlTestLangPackage;
@@ -53,15 +50,6 @@ public class UmlTestLangJavaValidator extends AbstractUmlTestLangJavaValidator {
 		HashSet<UMLScenario> set = new HashSet<UMLScenario>(testCase.getInitScenarios());
 		if (testCase.getInitScenarios().size() > set.size())
 			error("Test scenario declared more than once!", UmlTestLangPackage.Literals.UML_TEST_CASE__INIT_SCENARIOS);
-	}
-
-	@Check
-	public void checkStateExpression(UMLStateExpression expression) {
-		if (expression instanceof UMLObjectStateExpression) {
-			if (expression.getOperator() == UMLArithmeticOperator.INCLUDES || expression.getOperator() == UMLArithmeticOperator.EXCLUDES)
-				error("Operator " + expression.getOperator().name() + " without declaring a property is not allowed!",
-						UmlTestLangPackage.Literals.UML_STATE_EXPRESSION__OPERATOR);
-		}
 	}
 
 	private boolean isStar(UMLNodeSpecification nodeSpecification) {

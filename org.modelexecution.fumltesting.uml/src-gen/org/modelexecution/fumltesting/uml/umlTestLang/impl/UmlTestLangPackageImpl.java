@@ -350,7 +350,7 @@ public class UmlTestLangPackageImpl extends EPackageImpl implements UmlTestLangP
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getUMLTestSuite_Scenarios()
+  public EReference getUMLTestSuite_Scenario()
   {
     return (EReference)umlTestSuiteEClass.getEStructuralFeatures().get(1);
   }
@@ -1127,7 +1127,7 @@ public class UmlTestLangPackageImpl extends EPackageImpl implements UmlTestLangP
     // Create classes and their features
     umlTestSuiteEClass = createEClass(UML_TEST_SUITE);
     createEReference(umlTestSuiteEClass, UML_TEST_SUITE__IMPORTS);
-    createEReference(umlTestSuiteEClass, UML_TEST_SUITE__SCENARIOS);
+    createEReference(umlTestSuiteEClass, UML_TEST_SUITE__SCENARIO);
     createEReference(umlTestSuiteEClass, UML_TEST_SUITE__TESTS);
 
     importEClass = createEClass(IMPORT);
@@ -1281,7 +1281,7 @@ public class UmlTestLangPackageImpl extends EPackageImpl implements UmlTestLangP
     // Initialize classes and features; add operations and parameters
     initEClass(umlTestSuiteEClass, UMLTestSuite.class, "UMLTestSuite", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getUMLTestSuite_Imports(), this.getImport(), null, "imports", null, 0, -1, UMLTestSuite.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getUMLTestSuite_Scenarios(), this.getUMLScenario(), null, "scenarios", null, 0, -1, UMLTestSuite.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getUMLTestSuite_Scenario(), this.getUMLScenario(), null, "scenario", null, 0, 1, UMLTestSuite.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getUMLTestSuite_Tests(), this.getUMLTestCase(), null, "tests", null, 0, -1, UMLTestSuite.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(importEClass, Import.class, "Import", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

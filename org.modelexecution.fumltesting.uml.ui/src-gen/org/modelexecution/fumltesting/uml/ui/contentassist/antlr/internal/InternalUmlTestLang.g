@@ -4435,9 +4435,9 @@ rule__UMLTestSuite__Group__1__Impl
     }
 :
 (
-{ before(grammarAccess.getUMLTestSuiteAccess().getScenariosAssignment_1()); }
-(rule__UMLTestSuite__ScenariosAssignment_1)*
-{ after(grammarAccess.getUMLTestSuiteAccess().getScenariosAssignment_1()); }
+{ before(grammarAccess.getUMLTestSuiteAccess().getScenarioAssignment_1()); }
+(rule__UMLTestSuite__ScenarioAssignment_1)?
+{ after(grammarAccess.getUMLTestSuiteAccess().getScenarioAssignment_1()); }
 )
 
 ;
@@ -21146,14 +21146,14 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__UMLTestSuite__ScenariosAssignment_1
+rule__UMLTestSuite__ScenarioAssignment_1
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getUMLTestSuiteAccess().getScenariosUMLScenarioParserRuleCall_1_0()); }
-	ruleUMLScenario{ after(grammarAccess.getUMLTestSuiteAccess().getScenariosUMLScenarioParserRuleCall_1_0()); }
+{ before(grammarAccess.getUMLTestSuiteAccess().getScenarioUMLScenarioParserRuleCall_1_0()); }
+	ruleUMLScenario{ after(grammarAccess.getUMLTestSuiteAccess().getScenarioUMLScenarioParserRuleCall_1_0()); }
 )
 
 ;

@@ -23,7 +23,7 @@ import fUML.Syntax.Classes.Kernel.Type;
  */
 public class FUMLPrimitiveType extends AbstractPrimitiveType implements PrimitiveType {
 	private static String booleanKindNames[] = new String[] { "Boolean", boolean.class.getCanonicalName(), Boolean.class.getCanonicalName(), "EBoolean",
-			"EBooleanObject" };
+			"EBooleanObject", "OclBoolean" };
 	private static String integerKindNames[] = new String[] { "Integer", "UnlimitedNatural", byte.class.getCanonicalName(), Byte.class.getCanonicalName(),
 			short.class.getCanonicalName(), Short.class.getCanonicalName(), int.class.getCanonicalName(), Integer.class.getCanonicalName(),
 			long.class.getCanonicalName(), Long.class.getCanonicalName(), BigInteger.class.getCanonicalName(), BigDecimal.class.getCanonicalName(), "EByte",

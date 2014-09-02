@@ -99,22 +99,22 @@ ruleUMLTestSuite returns [EObject current=null]
 )*(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getUMLTestSuiteAccess().getScenariosUMLScenarioParserRuleCall_1_0()); 
+	        newCompositeNode(grammarAccess.getUMLTestSuiteAccess().getScenarioUMLScenarioParserRuleCall_1_0()); 
 	    }
-		lv_scenarios_1_0=ruleUMLScenario		{
+		lv_scenario_1_0=ruleUMLScenario		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getUMLTestSuiteRule());
 	        }
-       		add(
+       		set(
        			$current, 
-       			"scenarios",
-        		lv_scenarios_1_0, 
+       			"scenario",
+        		lv_scenario_1_0, 
         		"UMLScenario");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)*(
+)?(
 (
 		{ 
 	        newCompositeNode(grammarAccess.getUMLTestSuiteAccess().getTestsUMLTestCaseParserRuleCall_2_0()); 

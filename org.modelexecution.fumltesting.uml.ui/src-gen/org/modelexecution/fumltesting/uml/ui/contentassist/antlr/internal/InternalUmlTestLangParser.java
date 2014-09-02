@@ -10420,11 +10420,11 @@ public class InternalUmlTestLangParser extends AbstractInternalContentAssistPars
             if ( (LA14_0==26) ) {
                 int LA14_1 = input.LA(2);
 
-                if ( (LA14_1==EOF||(LA14_1>=RULE_ID && LA14_1<=RULE_STRING)||LA14_1==27||(LA14_1>=34 && LA14_1<=35)||LA14_1==40||(LA14_1>=46 && LA14_1<=51)||LA14_1==63||LA14_1==65||LA14_1==69||(LA14_1>=87 && LA14_1<=88)||LA14_1==90||(LA14_1>=93 && LA14_1<=102)||LA14_1==110) ) {
-                    alt14=2;
-                }
-                else if ( (LA14_1==26) ) {
+                if ( (LA14_1==26) ) {
                     alt14=1;
+                }
+                else if ( (LA14_1==EOF||(LA14_1>=RULE_ID && LA14_1<=RULE_STRING)||LA14_1==27||(LA14_1>=34 && LA14_1<=35)||LA14_1==40||(LA14_1>=46 && LA14_1<=51)||LA14_1==63||LA14_1==65||LA14_1==69||(LA14_1>=87 && LA14_1<=88)||LA14_1==90||(LA14_1>=93 && LA14_1<=102)||LA14_1==110) ) {
+                    alt14=2;
                 }
                 else {
                     if (state.backtracking>0) {state.failed=true; return ;}
@@ -14730,52 +14730,45 @@ public class InternalUmlTestLangParser extends AbstractInternalContentAssistPars
 
 
     // $ANTLR start "rule__UMLTestSuite__Group__1__Impl"
-    // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:4432:1: rule__UMLTestSuite__Group__1__Impl : ( ( rule__UMLTestSuite__ScenariosAssignment_1 )* ) ;
+    // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:4432:1: rule__UMLTestSuite__Group__1__Impl : ( ( rule__UMLTestSuite__ScenarioAssignment_1 )? ) ;
     public final void rule__UMLTestSuite__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:4436:1: ( ( ( rule__UMLTestSuite__ScenariosAssignment_1 )* ) )
-            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:4437:1: ( ( rule__UMLTestSuite__ScenariosAssignment_1 )* )
+            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:4436:1: ( ( ( rule__UMLTestSuite__ScenarioAssignment_1 )? ) )
+            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:4437:1: ( ( rule__UMLTestSuite__ScenarioAssignment_1 )? )
             {
-            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:4437:1: ( ( rule__UMLTestSuite__ScenariosAssignment_1 )* )
-            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:4438:1: ( rule__UMLTestSuite__ScenariosAssignment_1 )*
+            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:4437:1: ( ( rule__UMLTestSuite__ScenarioAssignment_1 )? )
+            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:4438:1: ( rule__UMLTestSuite__ScenarioAssignment_1 )?
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getUMLTestSuiteAccess().getScenariosAssignment_1()); 
+               before(grammarAccess.getUMLTestSuiteAccess().getScenarioAssignment_1()); 
             }
-            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:4439:1: ( rule__UMLTestSuite__ScenariosAssignment_1 )*
-            loop51:
-            do {
-                int alt51=2;
-                int LA51_0 = input.LA(1);
+            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:4439:1: ( rule__UMLTestSuite__ScenarioAssignment_1 )?
+            int alt51=2;
+            int LA51_0 = input.LA(1);
 
-                if ( (LA51_0==72) ) {
-                    alt51=1;
-                }
+            if ( (LA51_0==72) ) {
+                alt51=1;
+            }
+            switch (alt51) {
+                case 1 :
+                    // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:4439:2: rule__UMLTestSuite__ScenarioAssignment_1
+                    {
+                    pushFollow(FOLLOW_rule__UMLTestSuite__ScenarioAssignment_1_in_rule__UMLTestSuite__Group__1__Impl9735);
+                    rule__UMLTestSuite__ScenarioAssignment_1();
 
+                    state._fsp--;
+                    if (state.failed) return ;
 
-                switch (alt51) {
-            	case 1 :
-            	    // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:4439:2: rule__UMLTestSuite__ScenariosAssignment_1
-            	    {
-            	    pushFollow(FOLLOW_rule__UMLTestSuite__ScenariosAssignment_1_in_rule__UMLTestSuite__Group__1__Impl9735);
-            	    rule__UMLTestSuite__ScenariosAssignment_1();
+                    }
+                    break;
 
-            	    state._fsp--;
-            	    if (state.failed) return ;
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop51;
-                }
-            } while (true);
+            }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getUMLTestSuiteAccess().getScenariosAssignment_1()); 
+               after(grammarAccess.getUMLTestSuiteAccess().getScenarioAssignment_1()); 
             }
 
             }
@@ -60271,9 +60264,9 @@ public class InternalUmlTestLangParser extends AbstractInternalContentAssistPars
     // $ANTLR end "rule__UMLTestSuite__ImportsAssignment_0"
 
 
-    // $ANTLR start "rule__UMLTestSuite__ScenariosAssignment_1"
-    // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:21149:1: rule__UMLTestSuite__ScenariosAssignment_1 : ( ruleUMLScenario ) ;
-    public final void rule__UMLTestSuite__ScenariosAssignment_1() throws RecognitionException {
+    // $ANTLR start "rule__UMLTestSuite__ScenarioAssignment_1"
+    // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:21149:1: rule__UMLTestSuite__ScenarioAssignment_1 : ( ruleUMLScenario ) ;
+    public final void rule__UMLTestSuite__ScenarioAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -60285,15 +60278,15 @@ public class InternalUmlTestLangParser extends AbstractInternalContentAssistPars
             // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:21155:1: ruleUMLScenario
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getUMLTestSuiteAccess().getScenariosUMLScenarioParserRuleCall_1_0()); 
+               before(grammarAccess.getUMLTestSuiteAccess().getScenarioUMLScenarioParserRuleCall_1_0()); 
             }
-            pushFollow(FOLLOW_ruleUMLScenario_in_rule__UMLTestSuite__ScenariosAssignment_142576);
+            pushFollow(FOLLOW_ruleUMLScenario_in_rule__UMLTestSuite__ScenarioAssignment_142576);
             ruleUMLScenario();
 
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getUMLTestSuiteAccess().getScenariosUMLScenarioParserRuleCall_1_0()); 
+               after(grammarAccess.getUMLTestSuiteAccess().getScenarioUMLScenarioParserRuleCall_1_0()); 
             }
 
             }
@@ -60313,7 +60306,7 @@ public class InternalUmlTestLangParser extends AbstractInternalContentAssistPars
         }
         return ;
     }
-    // $ANTLR end "rule__UMLTestSuite__ScenariosAssignment_1"
+    // $ANTLR end "rule__UMLTestSuite__ScenarioAssignment_1"
 
 
     // $ANTLR start "rule__UMLTestSuite__TestsAssignment_2"
@@ -70488,18 +70481,18 @@ public class InternalUmlTestLangParser extends AbstractInternalContentAssistPars
     static final String DFA6_maxS =
         "\1\4\1\123\1\4\2\uffff\1\123";
     static final String DFA6_acceptS =
-        "\3\uffff\1\2\1\1\1\uffff";
+        "\3\uffff\1\1\1\2\1\uffff";
     static final String DFA6_specialS =
         "\6\uffff}>";
     static final String[] DFA6_transitionS = {
             "\1\1",
-            "\1\4\10\uffff\1\4\2\uffff\3\4\17\uffff\1\2\10\uffff\3\4\34"+
-            "\uffff\1\3",
+            "\1\3\10\uffff\1\3\2\uffff\3\3\17\uffff\1\2\10\uffff\3\3\34"+
+            "\uffff\1\4",
             "\1\5",
             "",
             "",
-            "\1\4\10\uffff\1\4\2\uffff\3\4\17\uffff\1\2\10\uffff\3\4\34"+
-            "\uffff\1\3"
+            "\1\3\10\uffff\1\3\2\uffff\3\3\17\uffff\1\2\10\uffff\3\3\34"+
+            "\uffff\1\4"
     };
 
     static final short[] DFA6_eot = DFA.unpackEncodedString(DFA6_eotS);
@@ -71326,7 +71319,7 @@ public class InternalUmlTestLangParser extends AbstractInternalContentAssistPars
     static final String DFA71_acceptS =
         "\10\uffff\1\2\1\1";
     static final String DFA71_specialS =
-        "\1\uffff\1\0\1\2\1\1\1\3\1\6\1\4\1\5\2\uffff}>";
+        "\1\uffff\1\4\1\6\1\5\1\1\1\0\1\3\1\2\2\uffff}>";
     static final String[] DFA71_transitionS = {
             "\5\10\5\uffff\2\10\1\1\1\2\1\3\1\4\1\5\5\10\1\7\1\6\30\10\13"+
             "\uffff\4\10\2\uffff\3\10\2\uffff\1\10\6\uffff\1\10\1\uffff\1"+
@@ -71379,10 +71372,10 @@ public class InternalUmlTestLangParser extends AbstractInternalContentAssistPars
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA71_1 = input.LA(1);
+                        int LA71_5 = input.LA(1);
 
                          
-                        int index71_1 = input.index();
+                        int index71_5 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred124_InternalUmlTestLang()) ) {s = 9;}
@@ -71390,40 +71383,10 @@ public class InternalUmlTestLangParser extends AbstractInternalContentAssistPars
                         else if ( (true) ) {s = 8;}
 
                          
-                        input.seek(index71_1);
+                        input.seek(index71_5);
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
-                        int LA71_3 = input.LA(1);
-
-                         
-                        int index71_3 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred124_InternalUmlTestLang()) ) {s = 9;}
-
-                        else if ( (true) ) {s = 8;}
-
-                         
-                        input.seek(index71_3);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 2 : 
-                        int LA71_2 = input.LA(1);
-
-                         
-                        int index71_2 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred124_InternalUmlTestLang()) ) {s = 9;}
-
-                        else if ( (true) ) {s = 8;}
-
-                         
-                        input.seek(index71_2);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 3 : 
                         int LA71_4 = input.LA(1);
 
                          
@@ -71438,22 +71401,7 @@ public class InternalUmlTestLangParser extends AbstractInternalContentAssistPars
                         input.seek(index71_4);
                         if ( s>=0 ) return s;
                         break;
-                    case 4 : 
-                        int LA71_6 = input.LA(1);
-
-                         
-                        int index71_6 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred124_InternalUmlTestLang()) ) {s = 9;}
-
-                        else if ( (true) ) {s = 8;}
-
-                         
-                        input.seek(index71_6);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 5 : 
+                    case 2 : 
                         int LA71_7 = input.LA(1);
 
                          
@@ -71468,11 +71416,11 @@ public class InternalUmlTestLangParser extends AbstractInternalContentAssistPars
                         input.seek(index71_7);
                         if ( s>=0 ) return s;
                         break;
-                    case 6 : 
-                        int LA71_5 = input.LA(1);
+                    case 3 : 
+                        int LA71_6 = input.LA(1);
 
                          
-                        int index71_5 = input.index();
+                        int index71_6 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred124_InternalUmlTestLang()) ) {s = 9;}
@@ -71480,7 +71428,52 @@ public class InternalUmlTestLangParser extends AbstractInternalContentAssistPars
                         else if ( (true) ) {s = 8;}
 
                          
-                        input.seek(index71_5);
+                        input.seek(index71_6);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 4 : 
+                        int LA71_1 = input.LA(1);
+
+                         
+                        int index71_1 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred124_InternalUmlTestLang()) ) {s = 9;}
+
+                        else if ( (true) ) {s = 8;}
+
+                         
+                        input.seek(index71_1);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 5 : 
+                        int LA71_3 = input.LA(1);
+
+                         
+                        int index71_3 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred124_InternalUmlTestLang()) ) {s = 9;}
+
+                        else if ( (true) ) {s = 8;}
+
+                         
+                        input.seek(index71_3);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 6 : 
+                        int LA71_2 = input.LA(1);
+
+                         
+                        int index71_2 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred124_InternalUmlTestLang()) ) {s = 9;}
+
+                        else if ( (true) ) {s = 8;}
+
+                         
+                        input.seek(index71_2);
                         if ( s>=0 ) return s;
                         break;
             }
@@ -71502,7 +71495,7 @@ public class InternalUmlTestLangParser extends AbstractInternalContentAssistPars
     static final String DFA77_acceptS =
         "\1\uffff\1\2\10\uffff\1\1";
     static final String DFA77_specialS =
-        "\2\uffff\1\5\1\0\1\2\1\4\1\7\1\3\1\6\1\1\1\uffff}>";
+        "\2\uffff\1\3\1\2\1\4\1\1\1\5\1\7\1\0\1\6\1\uffff}>";
     static final String[] DFA77_transitionS = {
             "\5\1\5\uffff\14\1\1\3\1\2\1\4\1\5\1\6\1\7\1\10\1\11\22\1\13"+
             "\uffff\4\1\2\uffff\3\1\2\uffff\1\1\6\uffff\1\1\1\uffff\1\1\1"+
@@ -71556,96 +71549,6 @@ public class InternalUmlTestLangParser extends AbstractInternalContentAssistPars
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA77_3 = input.LA(1);
-
-                         
-                        int index77_3 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred130_InternalUmlTestLang()) ) {s = 10;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index77_3);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 1 : 
-                        int LA77_9 = input.LA(1);
-
-                         
-                        int index77_9 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred130_InternalUmlTestLang()) ) {s = 10;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index77_9);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 2 : 
-                        int LA77_4 = input.LA(1);
-
-                         
-                        int index77_4 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred130_InternalUmlTestLang()) ) {s = 10;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index77_4);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 3 : 
-                        int LA77_7 = input.LA(1);
-
-                         
-                        int index77_7 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred130_InternalUmlTestLang()) ) {s = 10;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index77_7);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 4 : 
-                        int LA77_5 = input.LA(1);
-
-                         
-                        int index77_5 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred130_InternalUmlTestLang()) ) {s = 10;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index77_5);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 5 : 
-                        int LA77_2 = input.LA(1);
-
-                         
-                        int index77_2 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred130_InternalUmlTestLang()) ) {s = 10;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index77_2);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 6 : 
                         int LA77_8 = input.LA(1);
 
                          
@@ -71660,7 +71563,67 @@ public class InternalUmlTestLangParser extends AbstractInternalContentAssistPars
                         input.seek(index77_8);
                         if ( s>=0 ) return s;
                         break;
-                    case 7 : 
+                    case 1 : 
+                        int LA77_5 = input.LA(1);
+
+                         
+                        int index77_5 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred130_InternalUmlTestLang()) ) {s = 10;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index77_5);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 2 : 
+                        int LA77_3 = input.LA(1);
+
+                         
+                        int index77_3 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred130_InternalUmlTestLang()) ) {s = 10;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index77_3);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 3 : 
+                        int LA77_2 = input.LA(1);
+
+                         
+                        int index77_2 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred130_InternalUmlTestLang()) ) {s = 10;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index77_2);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 4 : 
+                        int LA77_4 = input.LA(1);
+
+                         
+                        int index77_4 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred130_InternalUmlTestLang()) ) {s = 10;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index77_4);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 5 : 
                         int LA77_6 = input.LA(1);
 
                          
@@ -71673,6 +71636,36 @@ public class InternalUmlTestLangParser extends AbstractInternalContentAssistPars
 
                          
                         input.seek(index77_6);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 6 : 
+                        int LA77_9 = input.LA(1);
+
+                         
+                        int index77_9 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred130_InternalUmlTestLang()) ) {s = 10;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index77_9);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 7 : 
+                        int LA77_7 = input.LA(1);
+
+                         
+                        int index77_7 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred130_InternalUmlTestLang()) ) {s = 10;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index77_7);
                         if ( s>=0 ) return s;
                         break;
             }
@@ -74250,7 +74243,7 @@ public class InternalUmlTestLangParser extends AbstractInternalContentAssistPars
     public static final BitSet FOLLOW_rule__UMLTestSuite__ImportsAssignment_0_in_rule__UMLTestSuite__Group__0__Impl9674 = new BitSet(new long[]{0x0001000000000002L});
     public static final BitSet FOLLOW_rule__UMLTestSuite__Group__1__Impl_in_rule__UMLTestSuite__Group__19705 = new BitSet(new long[]{0x2000000000000000L,0x0000000000000100L});
     public static final BitSet FOLLOW_rule__UMLTestSuite__Group__2_in_rule__UMLTestSuite__Group__19708 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__UMLTestSuite__ScenariosAssignment_1_in_rule__UMLTestSuite__Group__1__Impl9735 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000100L});
+    public static final BitSet FOLLOW_rule__UMLTestSuite__ScenarioAssignment_1_in_rule__UMLTestSuite__Group__1__Impl9735 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__UMLTestSuite__Group__2__Impl_in_rule__UMLTestSuite__Group__29766 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__UMLTestSuite__TestsAssignment_2_in_rule__UMLTestSuite__Group__2__Impl9793 = new BitSet(new long[]{0x2000000000000002L});
     public static final BitSet FOLLOW_rule__Import__Group__0__Impl_in_rule__Import__Group__09830 = new BitSet(new long[]{0x0000000000000010L});
@@ -75602,7 +75595,7 @@ public class InternalUmlTestLangParser extends AbstractInternalContentAssistPars
     public static final BitSet FOLLOW_rule__QualifiedNameInStaticImport__Group__1__Impl_in_rule__QualifiedNameInStaticImport__Group__142477 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_43_in_rule__QualifiedNameInStaticImport__Group__1__Impl42505 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleImport_in_rule__UMLTestSuite__ImportsAssignment_042545 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleUMLScenario_in_rule__UMLTestSuite__ScenariosAssignment_142576 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleUMLScenario_in_rule__UMLTestSuite__ScenarioAssignment_142576 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleUMLTestCase_in_rule__UMLTestSuite__TestsAssignment_242607 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleQualifiedNameWithWildcard_in_rule__Import__ImportedNamespaceAssignment_142638 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_ID_in_rule__UMLTestCase__NameAssignment_142669 = new BitSet(new long[]{0x0000000000000002L});

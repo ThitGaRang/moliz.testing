@@ -1,0 +1,36 @@
+import petstore.data.*
+import petstore.logic.*
+
+scenario TestData[
+	object entityManagerTD: EntityManager{}
+	object customerTD: Customer{
+		Customer.firstname='user'; 
+		Customer.lastname='userLastName';
+		Customer.email='user@test.com';
+		Customer.login='user';
+		Customer.password='password';
+	}
+	object itemTD: Item{
+		Item.name = 'item';
+		Item.unitCost = 10;
+		Item.description = 'An item used for testing.';
+	}
+]
+
+test findCustomerTest activity EntityManager.FindCustomer(FindCustomer.login='user', FindCustomer.password='password') on TestData.entityManagerTD{
+	finally{
+		FindCustomer.customer != null;
+	}
+}
+
+test checkCredentialsTest activity EntityManager.CheckCredentials(CheckCredentials.customer=TestData.customerTD, CheckCredentials.login='user', CheckCredentials.password='password'){
+	finally{
+		CheckCredentials.corresponds = true;
+	}
+}
+
+test findAllItemsTest activity EntityManager.FindAllItems{
+	finally{
+		FindAllItems.items includes TestData.itemTD;
+	}
+}

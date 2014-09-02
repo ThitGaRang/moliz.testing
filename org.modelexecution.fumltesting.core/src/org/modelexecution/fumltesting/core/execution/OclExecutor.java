@@ -204,6 +204,8 @@ public class OclExecutor {
 				return (Boolean) ((OclModelInstanceObject) resultValue).getModelInstanceObject().getObject();
 			} else if (((OclModelInstanceObject) resultValue).getModelInstanceObject().getObject() instanceof JavaModelInstanceBoolean) {
 				return ((JavaModelInstanceBoolean) ((OclModelInstanceObject) resultValue).getModelInstanceObject().getObject()).getBoolean();
+			} else if (((OclModelInstanceObject) resultValue).getModelInstanceObject().getObject() instanceof OclBoolean) {
+				return ((OclBoolean) ((OclModelInstanceObject) resultValue).getModelInstanceObject().getObject()).isTrue();
 			}
 		}
 		return false;

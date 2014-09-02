@@ -54,6 +54,7 @@ import com.google.inject.Injector;
 
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Syntax.Actions.IntermediateActions.ReadSelfAction;
+import fUML.Syntax.Activities.ExtraStructuredActivities.ExpansionRegion;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
@@ -87,7 +88,7 @@ public class UmlTestExecutor {
 	// banking_new:banking, webstore:webstore, petstore:petstore
 	private String modelFolder = "petstore";
 	private String modelName = "petstore";
-	
+
 	private String testsPath = "../org.modelexecution.fumltesting.examples/model/" + modelFolder + "/tests";
 	private String umlModelPath = "../org.modelexecution.fumltesting.examples/model/" + modelFolder + "/" + modelName + ".uml";
 	private String primitivesPath = "../../moliz/org.modelexecution.fumldebug.standardlibrary/library/uml_library.uml";
@@ -203,6 +204,16 @@ public class UmlTestExecutor {
 					requiresContext = true;
 					contextType = (Class_) ((ReadSelfAction) node).output.get(0).typedElement.type;
 					break;
+				}
+				if (node instanceof ExpansionRegion) {
+					ExpansionRegion expansionRegion = (ExpansionRegion) node;
+					for (ActivityNode innerNode : expansionRegion.node) {
+						if (innerNode instanceof ReadSelfAction) {
+							requiresContext = true;
+							contextType = (Class_) ((ReadSelfAction) innerNode).output.get(0).typedElement.type;
+							break;
+						}
+					}
 				}
 			}
 

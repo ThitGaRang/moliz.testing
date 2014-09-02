@@ -1,0 +1,29 @@
+import petstore.data.*
+import petstore.logic.*
+
+scenario TestData[
+	object entityManagerTD: EntityManager{}
+	object catalogServiceTD: CatalogService{}
+	
+	object customerTD: Customer{
+		Customer.firstname='user'; 
+		Customer.lastname='userLastName';
+		Customer.email='user@test.com';
+		Customer.login='user';
+		Customer.password='password';
+	}
+	
+	object itemTD: Item{
+		Item.name = 'item';
+		Item.unitCost = 10;
+		Item.description = 'An item used for testing.';
+	}
+	
+	link catalogService_entityManager{ source catalogService_entityManager.catalogService=catalogServiceTD; target catalogService_entityManager.entityManager=entityManagerTD; }
+]
+
+test findItemTest activity CatalogService.FindItem(FindItem.name='item') on TestData.catalogServiceTD{
+	finally{
+		FindItem.item != null;
+	}
+}

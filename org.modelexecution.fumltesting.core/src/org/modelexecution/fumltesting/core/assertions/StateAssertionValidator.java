@@ -349,6 +349,7 @@ public class StateAssertionValidator {
 	private boolean processStateExpression(ObjectStateExpression expression, Object_ fumlTarget) {
 		boolean sameType = false;
 		ArrayList<Boolean> results = new ArrayList<Boolean>();
+		ArrayList<Boolean> resultListCheck = new ArrayList<Boolean>();
 		for (ValueSnapshot snapshot : relevantSnapshots) {
 			Object_ object_ = (Object_) snapshot.getValue();
 
@@ -365,12 +366,21 @@ public class StateAssertionValidator {
 
 			// compare each feature
 			for (FeatureValue featureValue : object_.featureValues) {
-				if (expression.getOperator() == ArithmeticOperator.EQUAL) {
+				if (expression.getOperator() == ArithmeticOperator.EQUAL || expression.getOperator() == ArithmeticOperator.INCLUDES
+						|| expression.getOperator() == ArithmeticOperator.EXCLUDES) {
 					for (FeatureValue targetFeatureValue : fumlTarget.featureValues) {
 						if (targetFeatureValue.feature.name.equals(featureValue.feature.name)) {
 							boolean result = compare(targetFeatureValue, featureValue);
 							results.add(result);
 						}
+					}
+					if (expression.getOperator() == ArithmeticOperator.INCLUDES) {
+						if (!results.contains(false))
+							resultListCheck.add(true);
+					}
+					if (expression.getOperator() == ArithmeticOperator.EXCLUDES) {
+						if (!results.contains(false))
+							resultListCheck.add(false);
 					}
 				}
 				if (expression.getOperator() == ArithmeticOperator.NOT_EQUAL) {
@@ -382,6 +392,17 @@ public class StateAssertionValidator {
 					}
 				}
 			}
+		}
+		if (expression.getOperator() == ArithmeticOperator.INCLUDES) {
+			if (resultListCheck.size() == 0)
+				return false;
+			else
+				return true;
+		} else if (expression.getOperator() == ArithmeticOperator.EXCLUDES) {
+			if (resultListCheck.size() == 0)
+				return true;
+			else
+				return false;
 		}
 		return compileResult(results, expression.getContainer().getQuantifier());
 	}

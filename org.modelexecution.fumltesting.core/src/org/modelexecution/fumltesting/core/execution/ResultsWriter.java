@@ -226,7 +226,10 @@ public class ResultsWriter {
 									writer.print(((IntegerValue) value).getValue());
 								}
 							}
-							writer.println(" / Actual was: " + result.getActual());
+							if (result.getActual() != null)
+								writer.println(" / Actual was: " + result.getActual());
+							else
+								writer.println();
 						}
 					}
 				}

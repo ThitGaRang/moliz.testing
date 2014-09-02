@@ -213,13 +213,13 @@ public class InternalUmlTestLangParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleUMLTestSuite"
-    // ../org.modelexecution.fumltesting.uml/src-gen/org/modelexecution/fumltesting/uml/parser/antlr/internal/InternalUmlTestLang.g:77:1: ruleUMLTestSuite returns [EObject current=null] : ( ( (lv_imports_0_0= ruleImport ) )* ( (lv_scenarios_1_0= ruleUMLScenario ) )* ( (lv_tests_2_0= ruleUMLTestCase ) )* ) ;
+    // ../org.modelexecution.fumltesting.uml/src-gen/org/modelexecution/fumltesting/uml/parser/antlr/internal/InternalUmlTestLang.g:77:1: ruleUMLTestSuite returns [EObject current=null] : ( ( (lv_imports_0_0= ruleImport ) )* ( (lv_scenario_1_0= ruleUMLScenario ) )? ( (lv_tests_2_0= ruleUMLTestCase ) )* ) ;
     public final EObject ruleUMLTestSuite() throws RecognitionException {
         EObject current = null;
 
         EObject lv_imports_0_0 = null;
 
-        EObject lv_scenarios_1_0 = null;
+        EObject lv_scenario_1_0 = null;
 
         EObject lv_tests_2_0 = null;
 
@@ -227,11 +227,11 @@ public class InternalUmlTestLangParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.modelexecution.fumltesting.uml/src-gen/org/modelexecution/fumltesting/uml/parser/antlr/internal/InternalUmlTestLang.g:80:28: ( ( ( (lv_imports_0_0= ruleImport ) )* ( (lv_scenarios_1_0= ruleUMLScenario ) )* ( (lv_tests_2_0= ruleUMLTestCase ) )* ) )
-            // ../org.modelexecution.fumltesting.uml/src-gen/org/modelexecution/fumltesting/uml/parser/antlr/internal/InternalUmlTestLang.g:81:1: ( ( (lv_imports_0_0= ruleImport ) )* ( (lv_scenarios_1_0= ruleUMLScenario ) )* ( (lv_tests_2_0= ruleUMLTestCase ) )* )
+            // ../org.modelexecution.fumltesting.uml/src-gen/org/modelexecution/fumltesting/uml/parser/antlr/internal/InternalUmlTestLang.g:80:28: ( ( ( (lv_imports_0_0= ruleImport ) )* ( (lv_scenario_1_0= ruleUMLScenario ) )? ( (lv_tests_2_0= ruleUMLTestCase ) )* ) )
+            // ../org.modelexecution.fumltesting.uml/src-gen/org/modelexecution/fumltesting/uml/parser/antlr/internal/InternalUmlTestLang.g:81:1: ( ( (lv_imports_0_0= ruleImport ) )* ( (lv_scenario_1_0= ruleUMLScenario ) )? ( (lv_tests_2_0= ruleUMLTestCase ) )* )
             {
-            // ../org.modelexecution.fumltesting.uml/src-gen/org/modelexecution/fumltesting/uml/parser/antlr/internal/InternalUmlTestLang.g:81:1: ( ( (lv_imports_0_0= ruleImport ) )* ( (lv_scenarios_1_0= ruleUMLScenario ) )* ( (lv_tests_2_0= ruleUMLTestCase ) )* )
-            // ../org.modelexecution.fumltesting.uml/src-gen/org/modelexecution/fumltesting/uml/parser/antlr/internal/InternalUmlTestLang.g:81:2: ( (lv_imports_0_0= ruleImport ) )* ( (lv_scenarios_1_0= ruleUMLScenario ) )* ( (lv_tests_2_0= ruleUMLTestCase ) )*
+            // ../org.modelexecution.fumltesting.uml/src-gen/org/modelexecution/fumltesting/uml/parser/antlr/internal/InternalUmlTestLang.g:81:1: ( ( (lv_imports_0_0= ruleImport ) )* ( (lv_scenario_1_0= ruleUMLScenario ) )? ( (lv_tests_2_0= ruleUMLTestCase ) )* )
+            // ../org.modelexecution.fumltesting.uml/src-gen/org/modelexecution/fumltesting/uml/parser/antlr/internal/InternalUmlTestLang.g:81:2: ( (lv_imports_0_0= ruleImport ) )* ( (lv_scenario_1_0= ruleUMLScenario ) )? ( (lv_tests_2_0= ruleUMLTestCase ) )*
             {
             // ../org.modelexecution.fumltesting.uml/src-gen/org/modelexecution/fumltesting/uml/parser/antlr/internal/InternalUmlTestLang.g:81:2: ( (lv_imports_0_0= ruleImport ) )*
             loop1:
@@ -286,58 +286,51 @@ public class InternalUmlTestLangParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-            // ../org.modelexecution.fumltesting.uml/src-gen/org/modelexecution/fumltesting/uml/parser/antlr/internal/InternalUmlTestLang.g:99:3: ( (lv_scenarios_1_0= ruleUMLScenario ) )*
-            loop2:
-            do {
-                int alt2=2;
-                int LA2_0 = input.LA(1);
+            // ../org.modelexecution.fumltesting.uml/src-gen/org/modelexecution/fumltesting/uml/parser/antlr/internal/InternalUmlTestLang.g:99:3: ( (lv_scenario_1_0= ruleUMLScenario ) )?
+            int alt2=2;
+            int LA2_0 = input.LA(1);
 
-                if ( (LA2_0==28) ) {
-                    alt2=1;
-                }
+            if ( (LA2_0==28) ) {
+                alt2=1;
+            }
+            switch (alt2) {
+                case 1 :
+                    // ../org.modelexecution.fumltesting.uml/src-gen/org/modelexecution/fumltesting/uml/parser/antlr/internal/InternalUmlTestLang.g:100:1: (lv_scenario_1_0= ruleUMLScenario )
+                    {
+                    // ../org.modelexecution.fumltesting.uml/src-gen/org/modelexecution/fumltesting/uml/parser/antlr/internal/InternalUmlTestLang.g:100:1: (lv_scenario_1_0= ruleUMLScenario )
+                    // ../org.modelexecution.fumltesting.uml/src-gen/org/modelexecution/fumltesting/uml/parser/antlr/internal/InternalUmlTestLang.g:101:3: lv_scenario_1_0= ruleUMLScenario
+                    {
+                    if ( state.backtracking==0 ) {
+                       
+                      	        newCompositeNode(grammarAccess.getUMLTestSuiteAccess().getScenarioUMLScenarioParserRuleCall_1_0()); 
+                      	    
+                    }
+                    pushFollow(FOLLOW_ruleUMLScenario_in_ruleUMLTestSuite153);
+                    lv_scenario_1_0=ruleUMLScenario();
 
+                    state._fsp--;
+                    if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
 
-                switch (alt2) {
-            	case 1 :
-            	    // ../org.modelexecution.fumltesting.uml/src-gen/org/modelexecution/fumltesting/uml/parser/antlr/internal/InternalUmlTestLang.g:100:1: (lv_scenarios_1_0= ruleUMLScenario )
-            	    {
-            	    // ../org.modelexecution.fumltesting.uml/src-gen/org/modelexecution/fumltesting/uml/parser/antlr/internal/InternalUmlTestLang.g:100:1: (lv_scenarios_1_0= ruleUMLScenario )
-            	    // ../org.modelexecution.fumltesting.uml/src-gen/org/modelexecution/fumltesting/uml/parser/antlr/internal/InternalUmlTestLang.g:101:3: lv_scenarios_1_0= ruleUMLScenario
-            	    {
-            	    if ( state.backtracking==0 ) {
-            	       
-            	      	        newCompositeNode(grammarAccess.getUMLTestSuiteAccess().getScenariosUMLScenarioParserRuleCall_1_0()); 
-            	      	    
-            	    }
-            	    pushFollow(FOLLOW_ruleUMLScenario_in_ruleUMLTestSuite153);
-            	    lv_scenarios_1_0=ruleUMLScenario();
+                      	        if (current==null) {
+                      	            current = createModelElementForParent(grammarAccess.getUMLTestSuiteRule());
+                      	        }
+                             		set(
+                             			current, 
+                             			"scenario",
+                              		lv_scenario_1_0, 
+                              		"UMLScenario");
+                      	        afterParserOrEnumRuleCall();
+                      	    
+                    }
 
-            	    state._fsp--;
-            	    if (state.failed) return current;
-            	    if ( state.backtracking==0 ) {
-
-            	      	        if (current==null) {
-            	      	            current = createModelElementForParent(grammarAccess.getUMLTestSuiteRule());
-            	      	        }
-            	             		add(
-            	             			current, 
-            	             			"scenarios",
-            	              		lv_scenarios_1_0, 
-            	              		"UMLScenario");
-            	      	        afterParserOrEnumRuleCall();
-            	      	    
-            	    }
-
-            	    }
+                    }
 
 
-            	    }
-            	    break;
+                    }
+                    break;
 
-            	default :
-            	    break loop2;
-                }
-            } while (true);
+            }
 
             // ../org.modelexecution.fumltesting.uml/src-gen/org/modelexecution/fumltesting/uml/parser/antlr/internal/InternalUmlTestLang.g:117:3: ( (lv_tests_2_0= ruleUMLTestCase ) )*
             loop3:
@@ -5363,11 +5356,11 @@ public class InternalUmlTestLangParser extends AbstractInternalAntlrParser {
                 {
                 int LA29_1 = input.LA(2);
 
-                if ( (LA29_1==EOF||(LA29_1>=RULE_ID && LA29_1<=RULE_DECIMAL)||LA29_1==13||(LA29_1>=16 && LA29_1<=18)||LA29_1==20||(LA29_1>=22 && LA29_1<=25)||LA29_1==27||LA29_1==30||LA29_1==38||LA29_1==40||LA29_1==42||(LA29_1>=44 && LA29_1<=75)||(LA29_1>=77 && LA29_1<=100)) ) {
-                    alt29=2;
-                }
-                else if ( (LA29_1==26) ) {
+                if ( (LA29_1==26) ) {
                     alt29=1;
+                }
+                else if ( (LA29_1==EOF||(LA29_1>=RULE_ID && LA29_1<=RULE_DECIMAL)||LA29_1==13||(LA29_1>=16 && LA29_1<=18)||LA29_1==20||(LA29_1>=22 && LA29_1<=25)||LA29_1==27||LA29_1==30||LA29_1==38||LA29_1==40||LA29_1==42||(LA29_1>=44 && LA29_1<=75)||(LA29_1>=77 && LA29_1<=100)) ) {
+                    alt29=2;
                 }
                 else {
                     if (state.backtracking>0) {state.failed=true; return current;}
@@ -5382,11 +5375,11 @@ public class InternalUmlTestLangParser extends AbstractInternalAntlrParser {
                 {
                 int LA29_2 = input.LA(2);
 
-                if ( (LA29_2==26) ) {
-                    alt29=1;
-                }
-                else if ( (LA29_2==EOF||(LA29_2>=RULE_ID && LA29_2<=RULE_DECIMAL)||LA29_2==13||(LA29_2>=16 && LA29_2<=18)||LA29_2==20||(LA29_2>=22 && LA29_2<=25)||LA29_2==27||LA29_2==30||LA29_2==38||LA29_2==40||LA29_2==42||(LA29_2>=44 && LA29_2<=75)||(LA29_2>=77 && LA29_2<=100)) ) {
+                if ( (LA29_2==EOF||(LA29_2>=RULE_ID && LA29_2<=RULE_DECIMAL)||LA29_2==13||(LA29_2>=16 && LA29_2<=18)||LA29_2==20||(LA29_2>=22 && LA29_2<=25)||LA29_2==27||LA29_2==30||LA29_2==38||LA29_2==40||LA29_2==42||(LA29_2>=44 && LA29_2<=75)||(LA29_2>=77 && LA29_2<=100)) ) {
                     alt29=2;
+                }
+                else if ( (LA29_2==26) ) {
+                    alt29=1;
                 }
                 else {
                     if (state.backtracking>0) {state.failed=true; return current;}
@@ -5420,11 +5413,11 @@ public class InternalUmlTestLangParser extends AbstractInternalAntlrParser {
                 {
                 int LA29_4 = input.LA(2);
 
-                if ( (LA29_4==26) ) {
-                    alt29=1;
-                }
-                else if ( (LA29_4==EOF||(LA29_4>=RULE_ID && LA29_4<=RULE_DECIMAL)||LA29_4==13||(LA29_4>=16 && LA29_4<=18)||LA29_4==20||(LA29_4>=22 && LA29_4<=25)||LA29_4==27||LA29_4==30||LA29_4==38||LA29_4==40||LA29_4==42||(LA29_4>=44 && LA29_4<=75)||(LA29_4>=77 && LA29_4<=100)) ) {
+                if ( (LA29_4==EOF||(LA29_4>=RULE_ID && LA29_4<=RULE_DECIMAL)||LA29_4==13||(LA29_4>=16 && LA29_4<=18)||LA29_4==20||(LA29_4>=22 && LA29_4<=25)||LA29_4==27||LA29_4==30||LA29_4==38||LA29_4==40||LA29_4==42||(LA29_4>=44 && LA29_4<=75)||(LA29_4>=77 && LA29_4<=100)) ) {
                     alt29=2;
+                }
+                else if ( (LA29_4==26) ) {
+                    alt29=1;
                 }
                 else {
                     if (state.backtracking>0) {state.failed=true; return current;}
@@ -5439,11 +5432,11 @@ public class InternalUmlTestLangParser extends AbstractInternalAntlrParser {
                 {
                 int LA29_5 = input.LA(2);
 
-                if ( (LA29_5==EOF||(LA29_5>=RULE_ID && LA29_5<=RULE_DECIMAL)||LA29_5==13||(LA29_5>=16 && LA29_5<=18)||LA29_5==20||(LA29_5>=22 && LA29_5<=25)||LA29_5==27||LA29_5==30||LA29_5==38||LA29_5==40||LA29_5==42||(LA29_5>=44 && LA29_5<=75)||(LA29_5>=77 && LA29_5<=100)) ) {
-                    alt29=2;
-                }
-                else if ( (LA29_5==26) ) {
+                if ( (LA29_5==26) ) {
                     alt29=1;
+                }
+                else if ( (LA29_5==EOF||(LA29_5>=RULE_ID && LA29_5<=RULE_DECIMAL)||LA29_5==13||(LA29_5>=16 && LA29_5<=18)||LA29_5==20||(LA29_5>=22 && LA29_5<=25)||LA29_5==27||LA29_5==30||LA29_5==38||LA29_5==40||LA29_5==42||(LA29_5>=44 && LA29_5<=75)||(LA29_5>=77 && LA29_5<=100)) ) {
+                    alt29=2;
                 }
                 else {
                     if (state.backtracking>0) {state.failed=true; return current;}
@@ -24533,7 +24526,7 @@ public class InternalUmlTestLangParser extends AbstractInternalAntlrParser {
     static final String DFA28_acceptS =
         "\10\uffff\1\2\1\1";
     static final String DFA28_specialS =
-        "\1\uffff\1\3\1\4\1\2\1\1\1\0\1\6\1\5\2\uffff}>";
+        "\1\uffff\1\0\1\2\1\1\1\5\1\6\1\3\1\4\2\uffff}>";
     static final String[] DFA28_transitionS = {
             "\5\10\4\uffff\1\10\2\uffff\3\10\1\uffff\1\10\1\uffff\4\10\1"+
             "\uffff\1\10\2\uffff\1\10\7\uffff\1\10\1\uffff\1\10\1\uffff\1"+
@@ -24586,51 +24579,6 @@ public class InternalUmlTestLangParser extends AbstractInternalAntlrParser {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA28_5 = input.LA(1);
-
-                         
-                        int index28_5 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred1_InternalUmlTestLang()) ) {s = 9;}
-
-                        else if ( (true) ) {s = 8;}
-
-                         
-                        input.seek(index28_5);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 1 : 
-                        int LA28_4 = input.LA(1);
-
-                         
-                        int index28_4 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred1_InternalUmlTestLang()) ) {s = 9;}
-
-                        else if ( (true) ) {s = 8;}
-
-                         
-                        input.seek(index28_4);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 2 : 
-                        int LA28_3 = input.LA(1);
-
-                         
-                        int index28_3 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred1_InternalUmlTestLang()) ) {s = 9;}
-
-                        else if ( (true) ) {s = 8;}
-
-                         
-                        input.seek(index28_3);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 3 : 
                         int LA28_1 = input.LA(1);
 
                          
@@ -24645,7 +24593,22 @@ public class InternalUmlTestLangParser extends AbstractInternalAntlrParser {
                         input.seek(index28_1);
                         if ( s>=0 ) return s;
                         break;
-                    case 4 : 
+                    case 1 : 
+                        int LA28_3 = input.LA(1);
+
+                         
+                        int index28_3 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred1_InternalUmlTestLang()) ) {s = 9;}
+
+                        else if ( (true) ) {s = 8;}
+
+                         
+                        input.seek(index28_3);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 2 : 
                         int LA28_2 = input.LA(1);
 
                          
@@ -24660,7 +24623,22 @@ public class InternalUmlTestLangParser extends AbstractInternalAntlrParser {
                         input.seek(index28_2);
                         if ( s>=0 ) return s;
                         break;
-                    case 5 : 
+                    case 3 : 
+                        int LA28_6 = input.LA(1);
+
+                         
+                        int index28_6 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred1_InternalUmlTestLang()) ) {s = 9;}
+
+                        else if ( (true) ) {s = 8;}
+
+                         
+                        input.seek(index28_6);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 4 : 
                         int LA28_7 = input.LA(1);
 
                          
@@ -24675,11 +24653,11 @@ public class InternalUmlTestLangParser extends AbstractInternalAntlrParser {
                         input.seek(index28_7);
                         if ( s>=0 ) return s;
                         break;
-                    case 6 : 
-                        int LA28_6 = input.LA(1);
+                    case 5 : 
+                        int LA28_4 = input.LA(1);
 
                          
-                        int index28_6 = input.index();
+                        int index28_4 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred1_InternalUmlTestLang()) ) {s = 9;}
@@ -24687,7 +24665,22 @@ public class InternalUmlTestLangParser extends AbstractInternalAntlrParser {
                         else if ( (true) ) {s = 8;}
 
                          
-                        input.seek(index28_6);
+                        input.seek(index28_4);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 6 : 
+                        int LA28_5 = input.LA(1);
+
+                         
+                        int index28_5 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred1_InternalUmlTestLang()) ) {s = 9;}
+
+                        else if ( (true) ) {s = 8;}
+
+                         
+                        input.seek(index28_5);
                         if ( s>=0 ) return s;
                         break;
             }
@@ -24709,7 +24702,7 @@ public class InternalUmlTestLangParser extends AbstractInternalAntlrParser {
     static final String DFA38_acceptS =
         "\1\uffff\1\2\10\uffff\1\1";
     static final String DFA38_specialS =
-        "\2\uffff\1\6\1\1\1\4\1\3\1\0\1\2\1\7\1\5\1\uffff}>";
+        "\2\uffff\1\3\1\7\1\2\1\4\1\1\1\0\1\6\1\5\1\uffff}>";
     static final String[] DFA38_transitionS = {
             "\5\1\4\uffff\1\1\2\uffff\3\1\1\uffff\1\1\1\uffff\4\1\1\uffff"+
             "\1\1\2\uffff\1\1\7\uffff\1\1\1\uffff\1\1\1\uffff\1\1\1\uffff"+
@@ -24764,36 +24757,6 @@ public class InternalUmlTestLangParser extends AbstractInternalAntlrParser {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA38_6 = input.LA(1);
-
-                         
-                        int index38_6 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred7_InternalUmlTestLang()) ) {s = 10;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index38_6);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 1 : 
-                        int LA38_3 = input.LA(1);
-
-                         
-                        int index38_3 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred7_InternalUmlTestLang()) ) {s = 10;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index38_3);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 2 : 
                         int LA38_7 = input.LA(1);
 
                          
@@ -24808,11 +24771,11 @@ public class InternalUmlTestLangParser extends AbstractInternalAntlrParser {
                         input.seek(index38_7);
                         if ( s>=0 ) return s;
                         break;
-                    case 3 : 
-                        int LA38_5 = input.LA(1);
+                    case 1 : 
+                        int LA38_6 = input.LA(1);
 
                          
-                        int index38_5 = input.index();
+                        int index38_6 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred7_InternalUmlTestLang()) ) {s = 10;}
@@ -24820,10 +24783,10 @@ public class InternalUmlTestLangParser extends AbstractInternalAntlrParser {
                         else if ( (true) ) {s = 1;}
 
                          
-                        input.seek(index38_5);
+                        input.seek(index38_6);
                         if ( s>=0 ) return s;
                         break;
-                    case 4 : 
+                    case 2 : 
                         int LA38_4 = input.LA(1);
 
                          
@@ -24836,6 +24799,36 @@ public class InternalUmlTestLangParser extends AbstractInternalAntlrParser {
 
                          
                         input.seek(index38_4);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 3 : 
+                        int LA38_2 = input.LA(1);
+
+                         
+                        int index38_2 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred7_InternalUmlTestLang()) ) {s = 10;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index38_2);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 4 : 
+                        int LA38_5 = input.LA(1);
+
+                         
+                        int index38_5 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred7_InternalUmlTestLang()) ) {s = 10;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index38_5);
                         if ( s>=0 ) return s;
                         break;
                     case 5 : 
@@ -24854,21 +24847,6 @@ public class InternalUmlTestLangParser extends AbstractInternalAntlrParser {
                         if ( s>=0 ) return s;
                         break;
                     case 6 : 
-                        int LA38_2 = input.LA(1);
-
-                         
-                        int index38_2 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred7_InternalUmlTestLang()) ) {s = 10;}
-
-                        else if ( (true) ) {s = 1;}
-
-                         
-                        input.seek(index38_2);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 7 : 
                         int LA38_8 = input.LA(1);
 
                          
@@ -24881,6 +24859,21 @@ public class InternalUmlTestLangParser extends AbstractInternalAntlrParser {
 
                          
                         input.seek(index38_8);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 7 : 
+                        int LA38_3 = input.LA(1);
+
+                         
+                        int index38_3 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred7_InternalUmlTestLang()) ) {s = 10;}
+
+                        else if ( (true) ) {s = 1;}
+
+                         
+                        input.seek(index38_3);
                         if ( s>=0 ) return s;
                         break;
             }
@@ -27873,7 +27866,7 @@ public class InternalUmlTestLangParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_ruleUMLTestSuite_in_entryRuleUMLTestSuite75 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleUMLTestSuite85 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleImport_in_ruleUMLTestSuite131 = new BitSet(new long[]{0x0000000010006002L});
-    public static final BitSet FOLLOW_ruleUMLScenario_in_ruleUMLTestSuite153 = new BitSet(new long[]{0x0000000010004002L});
+    public static final BitSet FOLLOW_ruleUMLScenario_in_ruleUMLTestSuite153 = new BitSet(new long[]{0x0000000000004002L});
     public static final BitSet FOLLOW_ruleUMLTestCase_in_ruleUMLTestSuite175 = new BitSet(new long[]{0x0000000000004002L});
     public static final BitSet FOLLOW_ruleImport_in_entryRuleImport212 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleImport222 = new BitSet(new long[]{0x0000000000000002L});

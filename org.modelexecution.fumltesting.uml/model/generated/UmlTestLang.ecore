@@ -5,8 +5,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="UMLTestSuite">
     <eStructuralFeatures xsi:type="ecore:EReference" name="imports" upperBound="-1"
         eType="#//Import" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="scenarios" upperBound="-1"
-        eType="#//UMLScenario" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="scenario" eType="#//UMLScenario"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="tests" upperBound="-1"
         eType="#//UMLTestCase" containment="true"/>
   </eClassifiers>

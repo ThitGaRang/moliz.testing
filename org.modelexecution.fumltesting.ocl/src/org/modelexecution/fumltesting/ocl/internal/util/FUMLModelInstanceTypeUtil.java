@@ -20,6 +20,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.WeakHashMap;
 
+import org.dresdenocl.essentialocl.standardlibrary.OclBoolean;
+import org.dresdenocl.essentialocl.standardlibrary.OclInteger;
+import org.dresdenocl.essentialocl.standardlibrary.OclReal;
+import org.dresdenocl.essentialocl.standardlibrary.OclString;
 import org.dresdenocl.model.IModel;
 import org.dresdenocl.model.ModelAccessException;
 import org.dresdenocl.model.ModelConstants;
@@ -47,11 +51,11 @@ import fUML.Semantics.Classes.Kernel.StringValue;
  * 
  */
 public class FUMLModelInstanceTypeUtil {
-	private static final Class<?> BOOLEAN_CLASSES[] = new Class<?>[] { boolean.class, Boolean.class, JavaModelInstanceBoolean.class };
+	private static final Class<?> BOOLEAN_CLASSES[] = new Class<?>[] { boolean.class, Boolean.class, JavaModelInstanceBoolean.class, OclBoolean.class };
 	private static final Class<?> INTEGER_CLASSES[] = new Class<?>[] { BigDecimal.class, BigInteger.class, byte.class, Byte.class, int.class, Integer.class,
-			long.class, Long.class, short.class, Short.class, JavaModelInstanceInteger.class };
-	private static final Class<?> REAL_CLASSES[] = new Class<?>[] { double.class, Double.class, float.class, Float.class, JavaModelInstanceReal.class };
-	private static final Class<?> STRING_CLASSES[] = new Class<?>[] { char.class, Character.class, String.class, JavaModelInstanceString.class };
+			long.class, Long.class, short.class, Short.class, JavaModelInstanceInteger.class, OclInteger.class };
+	private static final Class<?> REAL_CLASSES[] = new Class<?>[] { double.class, Double.class, float.class, Float.class, JavaModelInstanceReal.class, OclReal.class };
+	private static final Class<?> STRING_CLASSES[] = new Class<?>[] { char.class, Character.class, String.class, JavaModelInstanceString.class, OclString.class };
 	private static Map<Type, Class<?>> cachedClasses = new WeakHashMap<Type, Class<?>>();
 	private Map<List<String>, Type> cachedTypes = new WeakHashMap<List<String>, Type>();
 	private IModel model;
@@ -173,13 +177,14 @@ public class FUMLModelInstanceTypeUtil {
 		} else if (object instanceof Link) {
 			String qualifiedTypeName = ((Link) object).getTypes().get(0).qualifiedName;
 			qualifiedTypeNameSeparated = new ArrayList<String>(Arrays.asList(qualifiedTypeName.split("::")));
-		} else if (object instanceof StringValue || object instanceof String || object instanceof JavaModelInstanceString) {
+		} else if (object instanceof StringValue || object instanceof String || object instanceof JavaModelInstanceString || object instanceof OclString) {
 			qualifiedTypeNameSeparated = new ArrayList<String>();
 			qualifiedTypeNameSeparated.add("String");
-		} else if (object instanceof BooleanValue || object instanceof Boolean || object instanceof JavaModelInstanceBoolean) {
+		} else if (object instanceof BooleanValue || object instanceof Boolean || object instanceof JavaModelInstanceBoolean || object instanceof OclBoolean) {
 			qualifiedTypeNameSeparated = new ArrayList<String>();
 			qualifiedTypeNameSeparated.add("Boolean");
-		} else if (object instanceof IntegerValue || object instanceof Integer || object instanceof Long || object instanceof JavaModelInstanceInteger) {
+		} else if (object instanceof IntegerValue || object instanceof Integer || object instanceof Long || object instanceof JavaModelInstanceInteger
+				|| object instanceof OclInteger) {
 			qualifiedTypeNameSeparated = new ArrayList<String>();
 			qualifiedTypeNameSeparated.add("Integer");
 		}

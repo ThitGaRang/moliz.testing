@@ -97,7 +97,8 @@ public class UmlTestConverter implements TestConverter {
 	public TestSuite convertSuite(Object aSuite) {
 		UMLTestSuite umlSuite = (UMLTestSuite) aSuite;
 		TestSuite suite = new TestSuite();
-		for (UMLScenario umlScenario : umlSuite.getScenarios()) {
+		if (umlSuite.getScenario() != null) {
+			UMLScenario umlScenario = umlSuite.getScenario();
 			Scenario scenario = convertScenario(umlScenario);
 			suite.addScenario(scenario);
 			mappedScenarios.put(umlScenario, scenario);
