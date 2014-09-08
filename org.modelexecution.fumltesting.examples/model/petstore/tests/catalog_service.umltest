@@ -2,7 +2,6 @@ import petstore.data.*
 import petstore.logic.*
 
 scenario TestData[
-	object entityManagerTD: EntityManager{}
 	object catalogServiceTD: CatalogService{}
 	
 	object customerTD: Customer{
@@ -13,17 +12,43 @@ scenario TestData[
 		Customer.password='password';
 	}
 	
+	object productTD: Product{
+		Product.name = 'product';
+		Product.description = 'A product for testing.';
+	}
+	
 	object itemTD: Item{
 		Item.name = 'item';
 		Item.unitCost = 10;
 		Item.description = 'An item used for testing.';
 	}
 	
-	link catalogService_entityManager{ source catalogService_entityManager.catalogService=catalogServiceTD; target catalogService_entityManager.entityManager=entityManagerTD; }
+	object anotherItemTD: Item{
+		Item.name = 'anotherItem';
+		Item.unitCost = 20;
+		Item.description = 'An other item used for testing.';
+	}
 ]
 
-test findItemTest activity CatalogService.FindItem(FindItem.name='item') on TestData.catalogServiceTD{
+test findAllItemsTest activity CatalogService.FindAllItems{
+	assertOrder FindAllItems.init, FindAllItems.retrieveItems;
 	finally{
-		FindItem.item != null;
+		FindAllItems.items includes TestData.itemTD;
+		FindAllItems.items includes TestData.anotherItemTD;
+		check 'itemSize';
 	}
 }
+
+test findAllProductsTest activity CatalogService.FindAllProducts{
+	assertOrder FindAllProducts.init, FindAllProducts.retrieveProducts;
+	finally{
+		FindAllProducts.products includes TestData.productTD;
+		check 'productSize';
+	}
+}
+
+//test findItemTest activity CatalogService.FindItem(FindItem.name='item') on TestData.catalogServiceTD{
+//	finally{
+//		FindItem.item != null;
+//	}
+//}

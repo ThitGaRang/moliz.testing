@@ -21,6 +21,7 @@ public class OrderAssertionResult extends AssertionResult {
 	private List<NodeSpecification> orderSpecification;
 	private ArrayList<PathCheckResult> pathCheckResults;
 	private ArrayList<OrderAssertionResult> subOrderAssertionResults;
+	private boolean matrixResult;
 
 	public OrderAssertionResult(List<NodeSpecification> orderSpecification) {
 		this.orderSpecification = orderSpecification;
@@ -64,6 +65,14 @@ public class OrderAssertionResult extends AssertionResult {
 
 	public int numberOfPathsChecked() {
 		return pathCheckResults.size();
+	}
+
+	public boolean getMatrixResult() {
+		return matrixResult;
+	}
+
+	public void setMatrixResult(boolean matrixResult) {
+		this.matrixResult = matrixResult;
 	}
 
 	@Override

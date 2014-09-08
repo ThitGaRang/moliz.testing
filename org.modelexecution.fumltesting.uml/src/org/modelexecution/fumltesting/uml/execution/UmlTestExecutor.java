@@ -244,6 +244,7 @@ public class UmlTestExecutor {
 					continue;
 				}
 				mainActivityExecutionID = executor.executeActivity(activity, inputValues, null);
+				testDataConverter.setMainActivityID(mainActivityExecutionID);
 			}
 
 			traceUtil = new TraceUtil(mainActivityExecutionID);

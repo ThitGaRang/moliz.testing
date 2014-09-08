@@ -22,6 +22,6 @@ test createSessionIDTest activity ApplicationController.CreateSessionID on TestD
 test createSessionTest activity ApplicationController.CreateSession(CreateSession.customer=TestData.customerTD) on TestData.applicationControllerTD{
 	finally{
 		CreateSession.sessionId = 0;
-		check 'sessionAdded', 'customerInfo', 'customerInSession';
+		check 'sessionAdded';
 	}
 }

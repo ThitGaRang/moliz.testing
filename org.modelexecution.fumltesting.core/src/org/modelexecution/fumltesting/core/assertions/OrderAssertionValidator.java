@@ -16,13 +16,10 @@ import org.modelexecution.fumltesting.core.testlang.NodeSpecification;
 import org.modelexecution.fumltesting.core.testlang.OrderAssertion;
 import org.modelexecution.fumltesting.core.trace.TraceUtil;
 
-import fUML.Syntax.Actions.BasicActions.Action;
 import fUML.Syntax.Actions.BasicActions.CallBehaviorAction;
 import fUML.Syntax.Actions.BasicActions.CallOperationAction;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
-import fUML.Syntax.Activities.IntermediateActivities.ActivityFinalNode;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
-import fUML.Syntax.Activities.IntermediateActivities.InitialNode;
 
 /**
  * Utility class for validation of order execution assertion.
@@ -33,14 +30,23 @@ import fUML.Syntax.Activities.IntermediateActivities.InitialNode;
 public class OrderAssertionValidator {
 
 	private TraceUtil traceUtil;
+	private OrderUtil orderAssertionUtil;
+	private MatrixOrderAssertionValidator matrixOrderAssertionValidator;
 
 	public OrderAssertionValidator(TraceUtil traceUtil) {
 		this.traceUtil = traceUtil;
+		this.orderAssertionUtil = new OrderUtil();
+		this.matrixOrderAssertionValidator = new MatrixOrderAssertionValidator(traceUtil);
 	}
 
 	public OrderAssertionResult checkOrder(OrderAssertion assertion) {
 		OrderAssertionResult result = new OrderAssertionResult(((OrderAssertion) assertion).getOrder().getAllNodes());
+		OrderAssertionResult matrixResult = new OrderAssertionResult(((OrderAssertion) assertion).getOrder().getAllNodes());
+
+		matrixResult = matrixOrderAssertionValidator.checkOrder(assertion);
+
 		result.setAssertion(assertion);
+		result.setMatrixResult(matrixResult.getMatrixResult());
 
 		List<NodeSpecification> nodeOrder = assertion.getOrder().getAllNodes();
 		Activity main = assertion.getContainer().getActivityUnderTest();
@@ -48,7 +54,7 @@ public class OrderAssertionValidator {
 		for (ArrayList<ActivityNodeExecution> path : traceUtil.getAllPaths()) {
 			PathCheckResult pathCheckResult = new PathCheckResult(path);
 
-			boolean validationResult = compare(getTopNodes(main, path), nodeOrder);
+			boolean validationResult = compare(orderAssertionUtil.getTopNodes(main, path), nodeOrder);
 
 			pathCheckResult.setValidationResult(validationResult);
 			result.addPathCheckResult(pathCheckResult);
@@ -75,7 +81,7 @@ public class OrderAssertionValidator {
 
 				for (ArrayList<ActivityNodeExecution> path : subTraceUtil.getAllPaths()) {
 					PathCheckResult pathCheckResult = new PathCheckResult(path);
-					boolean validationResult = compare(getTopNodes(parent, path), nodeSpecification.getSubOrder().getAllNodes());
+					boolean validationResult = compare(orderAssertionUtil.getTopNodes(parent, path), nodeSpecification.getSubOrder().getAllNodes());
 					pathCheckResult.setValidationResult(validationResult);
 					subOrderResult.addPathCheckResult(pathCheckResult);
 				}
@@ -88,60 +94,39 @@ public class OrderAssertionValidator {
 	private boolean compare(List<ActivityNodeExecution> executedNodes, List<NodeSpecification> nodeOrder) {
 		if (nodeOrder.size() == 1) {
 			NodeSpecification theNode = nodeOrder.get(0);
-			if (isUnderscore(theNode)) {
-				if (executedNodes.size() == 1)
-					return true;
-				else
-					return true;
+			if (orderAssertionUtil.isUnderscore(theNode)) {
+				return executedNodes.size() == 1;
 			}
-			if (isStar(theNode)) {
-				return true;
+			if (orderAssertionUtil.isStar(theNode)) {
+				return executedNodes.size() > 0;
 			}
-			if (isNode(theNode)) {
-				if (nodeOrder.get(0).getNode() == executedNodes.get(0) && executedNodes.size() == 1)
-					return true;
-				else
-					return false;
+			if (orderAssertionUtil.isNode(theNode)) {
+				return nodeOrder.get(0).getNode() == executedNodes.get(0) && executedNodes.size() == 1;
 			}
 		} else if (nodeOrder.size() == 2) {
 			NodeSpecification firstNode = nodeOrder.get(0);
 			NodeSpecification secondNode = nodeOrder.get(1);
 			// case: _, node
-			if (isUnderscore(firstNode) && isNode(secondNode)) {
-				if (executedNodes.get(1).getNode() == secondNode.getNode() && executedNodes.size() == 2)
-					return true;
-				else
-					return false;
+			if (orderAssertionUtil.isUnderscore(firstNode) && orderAssertionUtil.isNode(secondNode)) {
+				return executedNodes.get(1).getNode() == secondNode.getNode() && executedNodes.size() == 2;
 			}
 			// case: *, node
-			if (isStar(firstNode) && isNode(secondNode)) {
-				int nodeIndex = getExecutedNodeIndex(secondNode.getNode(), executedNodes);
-				if (nodeIndex > 0)
-					return true;
-				else
-					return false;
+			if (orderAssertionUtil.isStar(firstNode) && orderAssertionUtil.isNode(secondNode)) {
+				int nodeIndex = executedNodes.indexOf(secondNode.getNode());
+				return nodeIndex > 0 && nodeIndex == executedNodes.size() - 1;
 			}
 			// case: node, node
-			if (isNode(firstNode) && isNode(secondNode)) {
-				if (executedNodes.get(0).getNode() == firstNode.getNode() && executedNodes.get(1).getNode() == secondNode.getNode()
-						&& executedNodes.size() == 2) {
-					return true;
-				} else
-					return false;
+			if (orderAssertionUtil.isNode(firstNode) && orderAssertionUtil.isNode(secondNode)) {
+				return executedNodes.get(0).getNode() == firstNode.getNode() && executedNodes.get(1).getNode() == secondNode.getNode()
+						&& executedNodes.size() == 2;
 			}
 			// case: node, _
-			if (isNode(firstNode) && isUnderscore(secondNode)) {
-				if (firstNode.getNode() == executedNodes.get(0).getNode() && executedNodes.size() == 2)
-					return true;
-				else
-					return false;
+			if (orderAssertionUtil.isNode(firstNode) && orderAssertionUtil.isUnderscore(secondNode)) {
+				return firstNode.getNode() == executedNodes.get(0).getNode() && executedNodes.size() == 2;
 			}
 			// case: node,*
-			if (isNode(firstNode) && isStar(secondNode)) {
-				if (firstNode.getNode() == executedNodes.get(0).getNode() && executedNodes.size() >= 2)
-					return true;
-				else
-					return false;
+			if (orderAssertionUtil.isNode(firstNode) && orderAssertionUtil.isStar(secondNode)) {
+				return firstNode.getNode() == executedNodes.get(0).getNode() && executedNodes.size() >= 2;
 			}
 		} else if (nodeOrder.size() > 2) {
 			for (int step = 0; step < nodeOrder.size(); step++) {
@@ -153,163 +138,209 @@ public class OrderAssertionValidator {
 				boolean nodeBeforeWindowExists = step > 0;
 				boolean nodeAfterWindowExists = nodeOrder.size() - 1 > step + 2;
 
-				int nodeIndexFirst = getExecutedNodeIndex(firstNode.getNode(), executedNodes);
-				int nodeIndexSecond = getExecutedNodeIndex(secondNode.getNode(), executedNodes);
-				int nodeIndexThird = getExecutedNodeIndex(thirdNode.getNode(), executedNodes);
+				boolean firstIsStartNode = orderAssertionUtil.indexOf(firstNode.getNode(), executedNodes) == 0;
+
+				boolean secondIsStartNode = orderAssertionUtil.indexOf(secondNode.getNode(), executedNodes) == 0;
+				boolean secondIsEndNode = orderAssertionUtil.indexOf(secondNode.getNode(), executedNodes) + 1 == executedNodes.size();
+
+				boolean secondNodeIsNotNextToFirst = orderAssertionUtil.indexOf(secondNode.getNode(), executedNodes) != 1;
+				boolean secondNodeIsNotNextToLast = orderAssertionUtil.indexOf(secondNode.getNode(), executedNodes) + 2 != executedNodes.size();
+
+				boolean thirdIsEndNode = orderAssertionUtil.indexOf(thirdNode.getNode(), executedNodes) + 1 == executedNodes.size();
+
+				boolean oneNodeIsInBetween = orderAssertionUtil.indexOf(firstNode.getNode(), executedNodes) + 2 == orderAssertionUtil.indexOf(
+						thirdNode.getNode(), executedNodes);
+				boolean oneOrMoreNodesIsInBetween = orderAssertionUtil.indexOf(firstNode.getNode(), executedNodes) + 2 <= orderAssertionUtil.indexOf(
+						thirdNode.getNode(), executedNodes);
+
+				boolean firstIsNotNextToSecond = orderAssertionUtil.indexOf(firstNode.getNode(), executedNodes) + 1 != orderAssertionUtil.indexOf(
+						secondNode.getNode(), executedNodes);
+				boolean secondIsNotNextToThird = orderAssertionUtil.indexOf(secondNode.getNode(), executedNodes) + 1 != orderAssertionUtil.indexOf(
+						thirdNode.getNode(), executedNodes);
 
 				// case: *, node, *
-				if (isStar(firstNode) && isNode(secondNode) && isStar(thirdNode)) {
-					if (nodeIndexSecond == 0 || nodeIndexSecond == executedNodes.size() - 1)
+				if (orderAssertionUtil.isStar(firstNode) && orderAssertionUtil.isNode(secondNode) && orderAssertionUtil.isStar(thirdNode)) {
+					if (secondIsStartNode || secondIsEndNode)
 						return false;
 				}
 				// case: *, node, _
-				if (isStar(firstNode) && isNode(secondNode) && isUnderscore(thirdNode)) {
+				if (orderAssertionUtil.isStar(firstNode) && orderAssertionUtil.isNode(secondNode) && orderAssertionUtil.isUnderscore(thirdNode)) {
 					if (nodeAfterWindowExists) {
-						if (nodeIndexSecond == 0 || executedNodes.size() <= nodeIndexSecond + 1)
+						if (secondIsStartNode || secondIsEndNode)
 							return false;
 					} else {
-						if (nodeIndexSecond == 0 || executedNodes.size() != nodeIndexSecond + 1)
+						if (secondIsStartNode || secondNodeIsNotNextToLast)
 							return false;
 					}
 				}
 				// case: _, node, *
-				if (isUnderscore(firstNode) && isNode(secondNode) && isStar(thirdNode)) {
+				if (orderAssertionUtil.isUnderscore(firstNode) && orderAssertionUtil.isNode(secondNode) && orderAssertionUtil.isStar(thirdNode)) {
 					if (nodeBeforeWindowExists) {
-						if (nodeIndexSecond == 0 || executedNodes.size() <= nodeIndexSecond + 1)
+						if (secondIsStartNode || secondIsEndNode)
 							return false;
 					} else {
-						if (nodeIndexSecond != 1 || executedNodes.size() <= nodeIndexSecond + 1)
+						if (secondNodeIsNotNextToFirst || secondIsEndNode)
 							return false;
 					}
 				}
 				// case: _, node, _
-				if (isUnderscore(firstNode) && isNode(secondNode) && isUnderscore(thirdNode)) {
-					if (nodeBeforeWindowExists && nodeAfterWindowExists) {
-						if (nodeIndexSecond == 0 || nodeIndexSecond == executedNodes.size() - 1)
-							return false;
-					} else if (!nodeBeforeWindowExists && !nodeAfterWindowExists) {
-						if (nodeIndexSecond != 0 || nodeIndexSecond != executedNodes.size() - 1)
-							return false;
-					} else if (!nodeBeforeWindowExists && nodeAfterWindowExists) {
-						if (nodeIndexSecond != 0 || nodeIndexSecond < executedNodes.size() - 1)
-							return false;
-					} else if (nodeBeforeWindowExists && !nodeAfterWindowExists) {
-						if (nodeIndexSecond == 0 && nodeIndexSecond == executedNodes.size() - 1)
-							return false;
+				if (orderAssertionUtil.isUnderscore(firstNode) && orderAssertionUtil.isNode(secondNode) && orderAssertionUtil.isUnderscore(thirdNode)) {
+					if (nodeBeforeWindowExists) {
+						if (nodeAfterWindowExists) {
+							if (secondIsStartNode || secondIsEndNode)
+								return false;
+						} else {
+							if (secondIsStartNode && secondNodeIsNotNextToLast)
+								return false;
+						}
+					} else {
+						if (nodeAfterWindowExists) {
+							if (secondNodeIsNotNextToFirst || secondIsEndNode)
+								return false;
+						} else {
+							if (secondNodeIsNotNextToFirst || secondNodeIsNotNextToLast)
+								return false;
+						}
 					}
 				}
 				// case: node, node, _
-				if (isNode(firstNode) && isNode(secondNode) && isUnderscore(thirdNode)) {
-					if (nodeBeforeWindowExists && nodeAfterWindowExists) {
-						if (nodeIndexFirst == 0 || nodeIndexFirst + 1 != nodeIndexSecond || nodeIndexSecond == executedNodes.size() - 1)
-							return false;
-					} else if (!nodeBeforeWindowExists && !nodeAfterWindowExists) {
-						if (nodeIndexFirst != 0 || nodeIndexFirst + 1 != nodeIndexSecond || nodeIndexSecond != executedNodes.size() - 2)
-							return false;
-					} else if (!nodeBeforeWindowExists && nodeAfterWindowExists) {
-						if (nodeIndexFirst != 0 || nodeIndexSecond != 1 || nodeIndexSecond == executedNodes.size() - 1)
-							return false;
-					} else if (nodeBeforeWindowExists && !nodeAfterWindowExists) {
-						if (nodeIndexFirst == 0 || nodeIndexFirst + 1 != nodeIndexSecond || nodeIndexSecond != executedNodes.size() - 2)
-							return false;
+				if (orderAssertionUtil.isNode(firstNode) && orderAssertionUtil.isNode(secondNode) && orderAssertionUtil.isUnderscore(thirdNode)) {
+					if (nodeBeforeWindowExists) {
+						if (nodeAfterWindowExists) {
+							if (firstIsStartNode || firstIsNotNextToSecond || secondIsEndNode)
+								return false;
+						} else {
+							if (firstIsStartNode || firstIsNotNextToSecond || secondNodeIsNotNextToLast)
+								return false;
+						}
+					} else {
+						if (nodeAfterWindowExists) {
+							if (!firstIsStartNode || firstIsNotNextToSecond)
+								return false;
+						} else {
+							if (!firstIsStartNode || firstIsNotNextToSecond || secondNodeIsNotNextToLast)
+								return false;
+						}
 					}
 				}
 				// case: node, node, *
-				if (isNode(firstNode) && isNode(secondNode) && isStar(thirdNode)) {
-					if (nodeBeforeWindowExists && nodeAfterWindowExists) {
-						if (nodeIndexFirst == 0 || nodeIndexFirst + 1 != nodeIndexSecond)
-							return false;
-					} else if (!nodeBeforeWindowExists && !nodeAfterWindowExists) {
-						if (nodeIndexFirst != 0 || nodeIndexSecond != 1)
-							return false;
-					} else if (!nodeBeforeWindowExists && nodeAfterWindowExists) {
-						if (nodeIndexFirst != 0 || nodeIndexFirst + 1 != nodeIndexSecond)
-							return false;
-					} else if (nodeBeforeWindowExists && !nodeAfterWindowExists) {
-						if (nodeIndexFirst == 0 || nodeIndexFirst + 1 != nodeIndexSecond)
-							return false;
+				if (orderAssertionUtil.isNode(firstNode) && orderAssertionUtil.isNode(secondNode) && orderAssertionUtil.isStar(thirdNode)) {
+					if (nodeBeforeWindowExists) {
+						if (nodeAfterWindowExists) {
+							if (firstIsStartNode || firstIsNotNextToSecond || secondIsEndNode)
+								return false;
+						} else {
+							if (firstIsStartNode || firstIsNotNextToSecond || secondIsEndNode)
+								return false;
+						}
+					} else {
+						if (nodeAfterWindowExists) {
+							if (!firstIsStartNode || firstIsNotNextToSecond || secondIsEndNode)
+								return false;
+						} else {
+							if (!firstIsStartNode || firstIsNotNextToSecond || secondIsEndNode)
+								return false;
+						}
 					}
 				}
 				// case: _, node, node
-				if (isUnderscore(firstNode) && isNode(secondNode) && isNode(thirdNode)) {
-					if (nodeBeforeWindowExists && nodeAfterWindowExists) {
-						if (nodeIndexSecond == 0 || nodeIndexSecond + 1 != nodeIndexThird || nodeIndexThird == executedNodes.size() - 1)
-							return false;
-					} else if (!nodeBeforeWindowExists && !nodeAfterWindowExists) {
-						if (nodeIndexSecond != 1 || nodeIndexThird != 2 || nodeIndexThird != executedNodes.size() - 1)
-							return false;
-					} else if (!nodeBeforeWindowExists && nodeAfterWindowExists) {
-						if (nodeIndexSecond != 1 || nodeIndexSecond + 1 != nodeIndexThird || nodeIndexThird == executedNodes.size() - 1)
-							return false;
-					} else if (nodeBeforeWindowExists && !nodeAfterWindowExists) {
-						if (nodeIndexSecond == 0 || nodeIndexSecond + 1 != nodeIndexThird || nodeIndexThird != executedNodes.size() - 1)
-							return false;
+				if (orderAssertionUtil.isUnderscore(firstNode) && orderAssertionUtil.isNode(secondNode) && orderAssertionUtil.isNode(thirdNode)) {
+					if (nodeBeforeWindowExists) {
+						if (nodeAfterWindowExists) {
+							if (secondIsStartNode || secondIsNotNextToThird || thirdIsEndNode)
+								return false;
+						} else {
+							if (secondIsStartNode || secondIsNotNextToThird || !thirdIsEndNode)
+								return false;
+						}
+					} else {
+						if (nodeAfterWindowExists) {
+							if (secondNodeIsNotNextToFirst || secondIsNotNextToThird || thirdIsEndNode)
+								return false;
+						} else {
+							if (secondNodeIsNotNextToFirst || secondIsNotNextToThird || !thirdIsEndNode)
+								return false;
+						}
 					}
 				}
 				// case: *, node, node
-				if (isStar(firstNode) && isNode(secondNode) && isNode(thirdNode)) {
-					if (nodeBeforeWindowExists && nodeAfterWindowExists) {
-						if (nodeIndexSecond == 0 || nodeIndexSecond + 1 != nodeIndexThird || nodeIndexThird == executedNodes.size() - 1)
-							return false;
-					} else if (!nodeBeforeWindowExists && !nodeAfterWindowExists) {
-						if (nodeIndexSecond + 1 != nodeIndexThird || nodeIndexThird != executedNodes.size() - 1)
-							return false;
-					} else if (!nodeBeforeWindowExists && nodeAfterWindowExists) {
-						if (nodeIndexSecond + 1 != nodeIndexThird || nodeIndexThird == executedNodes.size() - 1)
-							return false;
-					} else if (nodeBeforeWindowExists && !nodeAfterWindowExists) {
-						if (nodeIndexSecond == 0 || nodeIndexSecond + 1 != nodeIndexThird || nodeIndexThird != executedNodes.size() - 1)
-							return false;
+				if (orderAssertionUtil.isStar(firstNode) && orderAssertionUtil.isNode(secondNode) && orderAssertionUtil.isNode(thirdNode)) {
+					if (nodeBeforeWindowExists) {
+						if (nodeAfterWindowExists) {
+							if (secondNodeIsNotNextToFirst || secondIsNotNextToThird || thirdIsEndNode)
+								return false;
+						} else {
+							if (secondNodeIsNotNextToFirst || secondIsNotNextToThird || !thirdIsEndNode)
+								return false;
+						}
+					} else {
+						if (nodeAfterWindowExists) {
+							if (secondNodeIsNotNextToFirst || secondIsNotNextToThird || thirdIsEndNode)
+								return false;
+						} else {
+							if (secondNodeIsNotNextToFirst || secondIsNotNextToThird || !thirdIsEndNode)
+								return false;
+						}
 					}
 				}
 				// case: node, _, node
-				if (isNode(firstNode) && isUnderscore(secondNode) && isNode(thirdNode)) {
-					if (nodeBeforeWindowExists && nodeAfterWindowExists) {
-						if (nodeIndexFirst == 0 || nodeIndexFirst + 2 != nodeIndexThird || nodeIndexThird == executedNodes.size() - 1)
-							return false;
-					} else if (!nodeBeforeWindowExists && !nodeAfterWindowExists) {
-						if (nodeIndexFirst != 0 || nodeIndexThird != 2 || nodeIndexThird != executedNodes.size() - 1)
-							return false;
-					} else if (!nodeBeforeWindowExists && nodeAfterWindowExists) {
-						if (nodeIndexFirst != 0 || nodeIndexThird != 2 || nodeIndexThird == executedNodes.size() - 1)
-							return false;
-					} else if (nodeBeforeWindowExists && !nodeAfterWindowExists) {
-						if (nodeIndexFirst == 0 || nodeIndexFirst + 2 != nodeIndexThird || nodeIndexThird != executedNodes.size() - 1)
-							return false;
+				if (orderAssertionUtil.isNode(firstNode) && orderAssertionUtil.isUnderscore(secondNode) && orderAssertionUtil.isNode(thirdNode)) {
+					if (nodeBeforeWindowExists) {
+						if (nodeAfterWindowExists) {
+							if (firstIsStartNode || !oneNodeIsInBetween || thirdIsEndNode)
+								return false;
+						} else {
+							if (firstIsStartNode || !oneNodeIsInBetween || !thirdIsEndNode)
+								return false;
+						}
+					} else {
+						if (nodeAfterWindowExists) {
+							if (!firstIsStartNode || !oneNodeIsInBetween || thirdIsEndNode)
+								return false;
+						} else {
+							if (!firstIsStartNode || !oneNodeIsInBetween || !thirdIsEndNode)
+								return false;
+						}
 					}
 				}
 				// case: node, *, node
-				if (isNode(firstNode) && isStar(secondNode) && isNode(thirdNode)) {
-					if (nodeBeforeWindowExists && nodeAfterWindowExists) {
-						if (nodeIndexFirst == 0 || nodeIndexFirst > nodeIndexThird || nodeIndexThird == executedNodes.size() - 1)
-							return false;
-					} else if (!nodeBeforeWindowExists && !nodeAfterWindowExists) {
-						if (nodeIndexFirst != 0 || nodeIndexFirst > nodeIndexThird || nodeIndexThird != executedNodes.size() - 1)
-							return false;
-					} else if (!nodeBeforeWindowExists && nodeAfterWindowExists) {
-						if (nodeIndexFirst != 0 || nodeIndexFirst > nodeIndexThird || nodeIndexThird == executedNodes.size() - 1)
-							return false;
-					} else if (nodeBeforeWindowExists && !nodeAfterWindowExists) {
-						if (nodeIndexFirst == 0 || nodeIndexFirst > nodeIndexThird || nodeIndexThird != executedNodes.size() - 1)
-							return false;
+				if (orderAssertionUtil.isNode(firstNode) && orderAssertionUtil.isStar(secondNode) && orderAssertionUtil.isNode(thirdNode)) {
+					if (nodeBeforeWindowExists) {
+						if (nodeAfterWindowExists) {
+							if (firstIsStartNode || !oneOrMoreNodesIsInBetween || thirdIsEndNode)
+								return false;
+						} else {
+							if (firstIsStartNode || !oneOrMoreNodesIsInBetween || !thirdIsEndNode)
+								return false;
+						}
+					} else {
+						if (nodeAfterWindowExists) {
+							if (!firstIsStartNode || !oneOrMoreNodesIsInBetween || thirdIsEndNode)
+								return false;
+						} else {
+							if (!firstIsStartNode || !oneOrMoreNodesIsInBetween || !thirdIsEndNode)
+								return false;
+						}
 					}
 				}
 				// case: node, node, node
-				if (isNode(firstNode) && isNode(secondNode) && isNode(thirdNode)) {
-					if (nodeBeforeWindowExists && nodeAfterWindowExists) {
-						if (nodeIndexFirst == 0 || nodeIndexFirst + 1 != nodeIndexSecond || nodeIndexSecond + 1 != nodeIndexThird
-								|| nodeIndexThird == executedNodes.size() - 1)
-							return false;
-					} else if (!nodeBeforeWindowExists && !nodeAfterWindowExists) {
-						if (nodeIndexFirst != 0 || nodeIndexSecond != 1 || nodeIndexThird != 2 || nodeIndexThird != executedNodes.size() - 1)
-							return false;
-					} else if (!nodeBeforeWindowExists && nodeAfterWindowExists) {
-						if (nodeIndexFirst != 0 || nodeIndexSecond != 1 || nodeIndexThird != 2 || nodeIndexThird == executedNodes.size() - 1)
-							return false;
-					} else if (nodeBeforeWindowExists && !nodeAfterWindowExists) {
-						if (nodeIndexFirst == 0 || nodeIndexFirst + 1 != nodeIndexSecond || nodeIndexSecond + 1 != nodeIndexThird
-								|| nodeIndexThird != executedNodes.size() - 1)
-							return false;
+				if (orderAssertionUtil.isNode(firstNode) && orderAssertionUtil.isNode(secondNode) && orderAssertionUtil.isNode(thirdNode)) {
+					if (nodeBeforeWindowExists) {
+						if (nodeAfterWindowExists) {
+							if (firstIsStartNode || firstIsNotNextToSecond || secondIsNotNextToThird || thirdIsEndNode)
+								return false;
+						} else {
+							if (firstIsStartNode || firstIsNotNextToSecond || secondIsNotNextToThird || !thirdIsEndNode)
+								return false;
+						}
+					} else {
+						if (nodeAfterWindowExists) {
+							if (!firstIsStartNode || firstIsNotNextToSecond || secondIsNotNextToThird || thirdIsEndNode)
+								return false;
+						} else {
+							if (!firstIsStartNode || firstIsNotNextToSecond || secondIsNotNextToThird || !thirdIsEndNode)
+								return false;
+						}
 					}
 				}
 				// if it is the last window exit the for loop
@@ -318,42 +349,5 @@ public class OrderAssertionValidator {
 			}
 		}
 		return true;
-	}
-
-	private int getExecutedNodeIndex(ActivityNode node, List<ActivityNodeExecution> executedNodes) {
-		for (int i = 0; i < executedNodes.size(); i++) {
-			if (executedNodes.get(i).getNode() == node)
-				return i;
-		}
-		return -1;
-	}
-
-	private List<ActivityNodeExecution> getTopNodes(Activity activity, List<ActivityNodeExecution> executedNodes) {
-		List<ActivityNodeExecution> topNodes = new ArrayList<ActivityNodeExecution>();
-		for (ActivityNodeExecution node : executedNodes) {
-			if (node.getNode().owner == activity
-					&& (node.getNode() instanceof Action || node.getNode() instanceof InitialNode || node.getNode() instanceof ActivityFinalNode)) {
-				topNodes.add(node);
-			}
-		}
-		return topNodes;
-	}
-
-	private boolean isStar(NodeSpecification nodeSpecification) {
-		if (nodeSpecification.getJoker() != null && nodeSpecification.getJoker().equals("*"))
-			return true;
-		return false;
-	}
-
-	private boolean isUnderscore(NodeSpecification nodeSpecification) {
-		if (nodeSpecification.getJoker() != null && nodeSpecification.getJoker().equals("_"))
-			return true;
-		return false;
-	}
-
-	private boolean isNode(NodeSpecification nodeSpecification) {
-		if (nodeSpecification.getNode() != null)
-			return true;
-		return false;
 	}
 }

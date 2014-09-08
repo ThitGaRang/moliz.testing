@@ -14,6 +14,7 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Input;
 import org.modelexecution.fumldebug.core.trace.tracemodel.InputParameterSetting;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Output;
+import org.modelexecution.fumldebug.core.trace.tracemodel.OutputValue;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot;
@@ -26,6 +27,7 @@ import fUML.Semantics.Classes.Kernel.Reference;
 import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Syntax.Actions.BasicActions.CallBehaviorAction;
 import fUML.Syntax.Actions.BasicActions.CallOperationAction;
+import fUML.Syntax.Actions.CompleteActions.ReadExtentAction;
 import fUML.Syntax.Actions.IntermediateActions.AddStructuralFeatureValueAction;
 import fUML.Syntax.Actions.IntermediateActions.CreateObjectAction;
 import fUML.Syntax.Actions.IntermediateActions.DestroyObjectAction;
@@ -117,6 +119,16 @@ public class SequenceGenerator {
 					ValueSnapshot snapshot = input.getInputValues().get(0).getValueSnapshot();
 					ValueInstance instance = (ValueInstance) snapshot.eContainer();
 					state.removeStateObjectSnapshot(instance);
+				}
+			} else if (nodeExecution.getNode() instanceof ReadExtentAction) {
+				State state = sequence.createNewState(nodeExecution);
+				for (Output output : ((ActionExecution) nodeExecution).getOutputs()) {
+					for (OutputValue outputValue : output.getOutputValues()) {
+						ValueSnapshot snapshot = outputValue.getValueSnapshot();
+						ValueInstance instance = (ValueInstance) snapshot.eContainer();
+						Object_ object = (Object_) snapshot.getValue();
+						state.addStateObjectSnapshot(object, instance);
+					}
 				}
 			} else if (nodeExecution.getNode() instanceof AddStructuralFeatureValueAction) {
 				State state = sequence.createNewState(nodeExecution);

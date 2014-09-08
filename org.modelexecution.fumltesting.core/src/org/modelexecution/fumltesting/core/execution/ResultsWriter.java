@@ -112,6 +112,8 @@ public class ResultsWriter {
 					writer.println("\tNumber of paths checked: " + orderAssertionResult.numberOfPathsChecked());
 					writer.println("\tNumber of invalid paths: " + orderAssertionResult.getFailedPathCheckResults().size());
 					writer.println();
+					writer.println("\tMatrix validation: " + (orderAssertionResult.getMatrixResult() ? "SUCCESS" : "FAIL"));
+					writer.println();
 
 					int counter = 0;
 
@@ -151,7 +153,10 @@ public class ResultsWriter {
 					writer.print("\n\tState assertion: " + assertion.getQuantifier() + " " + assertion.getOperator() + " ");
 					if (assertion.getReferencePoint() instanceof ActionReferencePoint) {
 						Action action = ((ActionReferencePoint) assertion.getReferencePoint()).getAction();
-						writer.print("action " + action.name);
+						if (action == null)
+							writer.print("UNKNOWN");
+						else
+							writer.print("action " + action.name);
 					}
 					if (assertion.getReferencePoint() instanceof ConstraintReferencePoint) {
 						writer.print("constraint " + ((ConstraintReferencePoint) assertion.getReferencePoint()).getConstraintName());

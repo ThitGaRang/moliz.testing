@@ -11,7 +11,10 @@ import org.eclipse.uml2.uml.Activity;
 import org.eclipse.uml2.uml.ActivityFinalNode;
 import org.eclipse.uml2.uml.ActivityParameterNode;
 import org.eclipse.uml2.uml.Class;
+import org.eclipse.uml2.uml.DecisionNode;
+import org.eclipse.uml2.uml.ForkNode;
 import org.eclipse.uml2.uml.InitialNode;
+import org.eclipse.uml2.uml.JoinNode;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.ObjectNode;
 import org.eclipse.uml2.uml.Pin;
@@ -42,6 +45,21 @@ public class UmlQualifiedNameProvider extends XbaseQualifiedNameProvider {
 	}
 
 	protected QualifiedName qualifiedName(ActivityFinalNode node) {
+		NamedElement owner = (NamedElement) node.getOwner();
+		return QualifiedName.create(owner.getName(), node.getName());
+	}
+
+	protected QualifiedName qualifiedName(ForkNode node) {
+		NamedElement owner = (NamedElement) node.getOwner();
+		return QualifiedName.create(owner.getName(), node.getName());
+	}
+
+	protected QualifiedName qualifiedName(JoinNode node) {
+		NamedElement owner = (NamedElement) node.getOwner();
+		return QualifiedName.create(owner.getName(), node.getName());
+	}
+
+	protected QualifiedName qualifiedName(DecisionNode node) {
 		NamedElement owner = (NamedElement) node.getOwner();
 		return QualifiedName.create(owner.getName(), node.getName());
 	}

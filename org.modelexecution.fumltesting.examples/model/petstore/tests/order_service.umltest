@@ -2,7 +2,6 @@ import petstore.data.*
 import petstore.logic.*
 
 scenario TestData[
-	object entityManagerTD: EntityManager{}
 	object orderServiceTD: CustomerService{}
 	
 	object customerTD: Customer{
@@ -11,17 +10,6 @@ scenario TestData[
 		Customer.email='user@test.com';
 		Customer.login='user';
 		Customer.password='password';
-	}
-	
-	object itemTD: Item{
-		Item.name = 'item';
-		Item.unitCost = 10;
-		Item.description = 'An item used for testing.';
-	}
-	
-	link orderService_entityManager { 
-		source orderService_entityManager.orderService=TestData.orderServiceTD; 
-		target orderService_entityManager.entityManager=TestData.entityManagerTD;
 	}
 ]
 

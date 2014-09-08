@@ -16,8 +16,12 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.CallActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Input;
 import org.modelexecution.fumldebug.core.trace.tracemodel.InputParameterSetting;
+import org.modelexecution.fumldebug.core.trace.tracemodel.InputParameterValue;
+import org.modelexecution.fumldebug.core.trace.tracemodel.InputValue;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Output;
 import org.modelexecution.fumldebug.core.trace.tracemodel.OutputParameterSetting;
+import org.modelexecution.fumldebug.core.trace.tracemodel.OutputParameterValue;
+import org.modelexecution.fumldebug.core.trace.tracemodel.OutputValue;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 import org.modelexecution.fumltesting.core.exceptions.ActionNotExecutedException;
@@ -57,9 +61,11 @@ public class TraceUtil {
 	private ExecutionPathFinder pathFinder;
 	private List<ActivityNodeExecution> executedNodes;
 	private boolean executedNodesListGenerated;
+	private ActivityExecution activityExecution;
 
 	public TraceUtil(int activityExecutionID) {
 		trace = ExecutionContext.getInstance().getTrace(activityExecutionID);
+		activityExecution = trace.getActivityExecutionByID(activityExecutionID);
 		executedNodes = new ArrayList<ActivityNodeExecution>();
 		executedNodesListGenerated = false;
 		getListOfAllExecutedNodes(activityExecutionID);
@@ -74,6 +80,10 @@ public class TraceUtil {
 
 		pathFinder = new ExecutionPathFinder();
 		pathFinder.init(trace.getActivityExecutionByID(activityExecutionID));
+	}
+
+	public ActivityExecution getActivityExecution() {
+		return activityExecution;
 	}
 
 	public Object getExecution(Object node) throws ActionNotExecutedException {
@@ -96,14 +106,17 @@ public class TraceUtil {
 		throw new ActionNotExecutedException("Action " + nodeName + " was never executed!");
 	}
 
-	public ValueInstance getValueInstance(ObjectNode node, Object nodeExecution) {
-		ValueInstance instance = null;
+	public ArrayList<ValueInstance> getValueInstances(ObjectNode node, Object nodeExecution) {
+		ArrayList<ValueInstance> instances = new ArrayList<ValueInstance>();
+		;
 		if (node instanceof OutputPin || node instanceof ActivityParameterNode) {
 			if (nodeExecution instanceof ActionExecution) {
 				for (Output output : ((ActionExecution) nodeExecution).getOutputs()) {
 					if (output.getOutputPin().name.equals(node.name)) {
 						if (output.getOutputValues().size() > 0)
-							instance = (ValueInstance) output.getOutputValues().get(0).getValueSnapshot().eContainer();
+							for (OutputValue outputValue : output.getOutputValues()) {
+								instances.add((ValueInstance) outputValue.getValueSnapshot().eContainer());
+							}
 					}
 				}
 			}
@@ -111,7 +124,9 @@ public class TraceUtil {
 				for (OutputParameterSetting output : ((ActivityExecution) nodeExecution).getActivityOutputs()) {
 					if (output.getParameter().name.equals(node.name)) {
 						if (output.getParameterValues().size() > 0)
-							instance = (ValueInstance) output.getParameterValues().get(0).getValueSnapshot().eContainer();
+							for (OutputParameterValue parameterValue : output.getParameterValues()) {
+								instances.add((ValueInstance) parameterValue.getValueSnapshot().eContainer());
+							}
 					}
 				}
 			}
@@ -122,7 +137,9 @@ public class TraceUtil {
 				for (Input input : ((ActionExecution) nodeExecution).getInputs()) {
 					if (input.getInputPin().name.equals(node.name)) {
 						if (input.getInputValues().size() > 0)
-							instance = (ValueInstance) input.getInputValues().get(0).getValueSnapshot().eContainer();
+							for (InputValue inputValue : input.getInputValues()) {
+								instances.add((ValueInstance) inputValue.getValueSnapshot().eContainer());
+							}
 					}
 				}
 			}
@@ -130,12 +147,14 @@ public class TraceUtil {
 				for (InputParameterSetting input : ((ActivityExecution) nodeExecution).getActivityInputs()) {
 					if (input.getParameter().name.equals(node.name)) {
 						if (input.getParameterValues().size() > 0)
-							instance = (ValueInstance) input.getParameterValues().get(0).getValueSnapshot().eContainer();
+							for (InputParameterValue parameterValue : input.getParameterValues()) {
+								instances.add((ValueInstance) parameterValue.getValueSnapshot().eContainer());
+							}
 					}
 				}
 			}
 		}
-		return instance;
+		return instances;
 	}
 
 	public List<State> getStates(Object stateAssertion) throws ConstraintNotFoundException, ActionNotExecutedException, ConstraintStateNotFoundException {
@@ -243,12 +262,12 @@ public class TraceUtil {
 				ActivityNodeExecution lastNode = activityExecution.getLastExecutedNode();
 
 				while (true) {
+					if (lastNode == null)
+						return null;
 					if (lastNode.getNode() instanceof Action)
 						return lastNode.getNode();
 					else {
 						lastNode = lastNode.getChronologicalPredecessor();
-						if (lastNode == null)
-							return null;
 					}
 				}
 			}

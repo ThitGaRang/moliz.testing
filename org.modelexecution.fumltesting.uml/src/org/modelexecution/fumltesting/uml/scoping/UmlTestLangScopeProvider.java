@@ -20,8 +20,11 @@ import org.eclipse.uml2.uml.Association;
 import org.eclipse.uml2.uml.CallBehaviorAction;
 import org.eclipse.uml2.uml.CallOperationAction;
 import org.eclipse.uml2.uml.Class;
+import org.eclipse.uml2.uml.DecisionNode;
 import org.eclipse.uml2.uml.Element;
+import org.eclipse.uml2.uml.ForkNode;
 import org.eclipse.uml2.uml.InitialNode;
+import org.eclipse.uml2.uml.JoinNode;
 import org.eclipse.uml2.uml.ObjectNode;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.ParameterDirectionKind;
@@ -55,6 +58,14 @@ import org.modelexecution.fumltesting.xtext.UmlQualifiedNameProvider;
  */
 @SuppressWarnings({ "deprecation", "restriction" })
 public class UmlTestLangScopeProvider extends XbaseScopeProvider {
+
+	private boolean isFilteredOut(ActivityNode node) {
+		if (node instanceof Action || node instanceof ActivityFinalNode || node instanceof InitialNode || node instanceof ForkNode || node instanceof JoinNode
+				|| node instanceof DecisionNode)
+			return false;
+		return true;
+	}
+
 	@Override
 	public IScope getScope(EObject context, EReference reference) {
 
@@ -124,7 +135,7 @@ public class UmlTestLangScopeProvider extends XbaseScopeProvider {
 			Activity activity = (Activity) testCase.getActivityUnderTest();
 			ArrayList<ActivityNode> nodes = new ArrayList<ActivityNode>();
 			for (ActivityNode node : activity.getNodes()) {
-				if (node instanceof Action || node instanceof ActivityFinalNode || node instanceof InitialNode)
+				if (!isFilteredOut(node))
 					nodes.add(node);
 			}
 			return Scopes.scopeFor(nodes, new UmlQualifiedNameProvider(), IScope.NULLSCOPE);
@@ -137,7 +148,7 @@ public class UmlTestLangScopeProvider extends XbaseScopeProvider {
 				UMLTestCase testCase = (UMLTestCase) context.eContainer().eContainer();
 				Activity activity = (Activity) testCase.getActivityUnderTest();
 				for (ActivityNode node : activity.getNodes()) {
-					if (node instanceof Action || node instanceof ActivityFinalNode || node instanceof InitialNode)
+					if (!isFilteredOut(node))
 						nodes.add(node);
 				}
 			}
@@ -146,14 +157,14 @@ public class UmlTestLangScopeProvider extends XbaseScopeProvider {
 				if (nodeSpec.getNode() instanceof CallBehaviorAction) {
 					CallBehaviorAction action = (CallBehaviorAction) nodeSpec.getNode();
 					for (ActivityNode node : ((Activity) action.getBehavior()).getNodes()) {
-						if (node instanceof Action || node instanceof ActivityFinalNode || node instanceof InitialNode)
+						if (!isFilteredOut(node))
 							nodes.add(node);
 					}
 				}
 				if (nodeSpec.getNode() instanceof CallOperationAction) {
 					CallOperationAction action = (CallOperationAction) nodeSpec.getNode();
 					for (ActivityNode node : ((Activity) action.getOperation().getMethods().get(0)).getNodes()) {
-						if (node instanceof Action || node instanceof ActivityFinalNode || node instanceof InitialNode)
+						if (!isFilteredOut(node))
 							nodes.add(node);
 					}
 				}
@@ -174,7 +185,7 @@ public class UmlTestLangScopeProvider extends XbaseScopeProvider {
 			ArrayList<ActivityNode> nodes = new ArrayList<ActivityNode>();
 			if (subActivity != null && subActivity.getNodes() != null) {
 				for (ActivityNode aNode : subActivity.getNodes()) {
-					if (aNode instanceof Action || aNode instanceof ActivityFinalNode || aNode instanceof InitialNode)
+					if (!isFilteredOut(aNode))
 						nodes.add(aNode);
 				}
 			}

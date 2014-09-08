@@ -114,7 +114,7 @@ public class StateAssertionValidator {
 							try {
 								Object nodeExecution = traceUtil.getExecution(((ConstraintCheck) check).getObject().owner);
 								ObjectNode objectNode = ((ConstraintCheck) check).getObject();
-								context = traceUtil.getValueInstance(objectNode, nodeExecution);
+								context = traceUtil.getValueInstances(objectNode, nodeExecution).get(0);
 							} catch (ActionNotExecutedException e) {
 								result.setError(e.getMessage());
 								return result;
@@ -350,7 +350,10 @@ public class StateAssertionValidator {
 		boolean sameType = false;
 		ArrayList<Boolean> results = new ArrayList<Boolean>();
 		ArrayList<Boolean> resultListCheck = new ArrayList<Boolean>();
+		ValueInstance instance = testDataConverter.getValueInstance(((ObjectValue) expression.getValue()).getValue());
 		for (ValueSnapshot snapshot : relevantSnapshots) {
+			if (snapshot.getValueInstance() != instance)
+				continue;
 			Object_ object_ = (Object_) snapshot.getValue();
 
 			// compare types

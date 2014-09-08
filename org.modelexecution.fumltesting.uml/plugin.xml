@@ -11,6 +11,13 @@
 	
   </extension>
 
+   <extension point="org.eclipse.emf.ecore.extension_parser">
+      <!-- @generated UmlTestLang -->
+      <parser
+            type="umltest"
+            class="org.modelexecution.fumltesting.uml.umlTestLang.util.UmlTestLangResourceFactoryImpl"/>
+   </extension>
+
 
 
 

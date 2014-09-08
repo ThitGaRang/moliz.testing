@@ -1,8 +1,9 @@
 package logic
 context ApplicationController
-inv sessionAdded: sessions->size() = 1
-inv customerInSession: sessions->select(sessionId=0)->collect(customer)->one(login='user')
-context Customer
-inv customerInfo: login = 'user' and password = 'password' and 
-	firstname='user' and lastname='userLastName' and email='user@test.com'
+inv sessionAdded: sessions->size() > 0
+
+context Item
+inv itemSize: Item.allInstances()->size()=2
+context Product
+inv productSize: Product.allInstances()->size()=1
 endpackage
