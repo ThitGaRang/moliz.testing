@@ -39,7 +39,7 @@ public class ExecutionMatrix {
 
 	public ArrayList<ActivityNode> getPredecessors(ActivityNode node) {
 		ArrayList<ActivityNode> predecessors = new ArrayList<ActivityNode>();
-		int index = nodes.indexOf(node);
+		int index = indexOf(node);
 		for (int rowIndex = 0; rowIndex < nodes.size(); rowIndex++) {
 			if (matrix[rowIndex][index])
 				predecessors.add(nodes.get(rowIndex));
@@ -54,7 +54,7 @@ public class ExecutionMatrix {
 	}
 
 	private void loadAncestors(ActivityNode node, ArrayList<ActivityNode> ancestors) {
-		int index = nodes.indexOf(node);
+		int index = indexOf(node);
 		for (int rowIndex = 0; rowIndex < nodes.size(); rowIndex++) {
 			if (matrix[rowIndex][index]) {
 				ancestors.add(nodes.get(rowIndex));
@@ -65,7 +65,7 @@ public class ExecutionMatrix {
 
 	public ArrayList<ActivityNode> getSuccessors(ActivityNode node) {
 		ArrayList<ActivityNode> successors = new ArrayList<ActivityNode>();
-		int index = nodes.indexOf(node);
+		int index = indexOf(node);
 		for (int columnIndex = 0; columnIndex < nodes.size(); columnIndex++) {
 			if (matrix[index][columnIndex])
 				successors.add(nodes.get(columnIndex));
@@ -80,13 +80,21 @@ public class ExecutionMatrix {
 	}
 
 	private void loadDescendants(ActivityNode node, ArrayList<ActivityNode> descendants) {
-		int index = nodes.indexOf(node);
+		int index = indexOf(node);
 		for (int columnIndex = 0; columnIndex < nodes.size(); columnIndex++) {
 			if (matrix[index][columnIndex]) {
 				descendants.add(nodes.get(columnIndex));
 				loadDescendants(nodes.get(columnIndex), descendants);
 			}
 		}
+	}
+
+	private int indexOf(ActivityNode node) {
+		for (ActivityNode aNode : nodes) {
+			if (aNode.name.equals(node.name))
+				return nodes.indexOf(aNode);
+		}
+		return -1;
 	}
 
 	public boolean hasIndependentNodes(ActivityNode node) {
@@ -102,7 +110,11 @@ public class ExecutionMatrix {
 	}
 
 	public boolean isStartNode(ActivityNode node) {
-		return startNodes.contains(node);
+		for (ActivityNode aNode : startNodes) {
+			if (aNode.name.equals(node.name))
+				return true;
+		}
+		return false;
 	}
 
 	public int startNodeSize() {
@@ -110,7 +122,11 @@ public class ExecutionMatrix {
 	}
 
 	public boolean isEndNode(ActivityNode node) {
-		return endNodes.contains(node);
+		for (ActivityNode aNode : endNodes) {
+			if (aNode.name.equals(node.name))
+				return true;
+		}
+		return false;
 	}
 
 	public int endNodeSize() {

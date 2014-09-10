@@ -31,22 +31,16 @@ public class OrderAssertionValidator {
 
 	private TraceUtil traceUtil;
 	private OrderUtil orderAssertionUtil;
-	private MatrixOrderAssertionValidator matrixOrderAssertionValidator;
 
 	public OrderAssertionValidator(TraceUtil traceUtil) {
 		this.traceUtil = traceUtil;
 		this.orderAssertionUtil = new OrderUtil();
-		this.matrixOrderAssertionValidator = new MatrixOrderAssertionValidator(traceUtil);
 	}
 
 	public OrderAssertionResult checkOrder(OrderAssertion assertion) {
 		OrderAssertionResult result = new OrderAssertionResult(((OrderAssertion) assertion).getOrder().getAllNodes());
-		OrderAssertionResult matrixResult = new OrderAssertionResult(((OrderAssertion) assertion).getOrder().getAllNodes());
-
-		matrixResult = matrixOrderAssertionValidator.checkOrder(assertion);
 
 		result.setAssertion(assertion);
-		result.setMatrixResult(matrixResult.getMatrixResult());
 
 		List<NodeSpecification> nodeOrder = assertion.getOrder().getAllNodes();
 		Activity main = assertion.getContainer().getActivityUnderTest();
@@ -98,7 +92,7 @@ public class OrderAssertionValidator {
 				return executedNodes.size() == 1;
 			}
 			if (orderAssertionUtil.isStar(theNode)) {
-				return executedNodes.size() > 0;
+				return executedNodes.size() >= 0;
 			}
 			if (orderAssertionUtil.isNode(theNode)) {
 				return nodeOrder.get(0).getNode() == executedNodes.get(0) && executedNodes.size() == 1;
@@ -113,7 +107,7 @@ public class OrderAssertionValidator {
 			// case: *, node
 			if (orderAssertionUtil.isStar(firstNode) && orderAssertionUtil.isNode(secondNode)) {
 				int nodeIndex = executedNodes.indexOf(secondNode.getNode());
-				return nodeIndex > 0 && nodeIndex == executedNodes.size() - 1;
+				return nodeIndex >= 0 && nodeIndex == executedNodes.size() - 1;
 			}
 			// case: node, node
 			if (orderAssertionUtil.isNode(firstNode) && orderAssertionUtil.isNode(secondNode)) {
@@ -126,7 +120,7 @@ public class OrderAssertionValidator {
 			}
 			// case: node,*
 			if (orderAssertionUtil.isNode(firstNode) && orderAssertionUtil.isStar(secondNode)) {
-				return firstNode.getNode() == executedNodes.get(0).getNode() && executedNodes.size() >= 2;
+				return firstNode.getNode() == executedNodes.get(0).getNode() && executedNodes.size() >= 1;
 			}
 		} else if (nodeOrder.size() > 2) {
 			for (int step = 0; step < nodeOrder.size(); step++) {
@@ -150,7 +144,7 @@ public class OrderAssertionValidator {
 
 				boolean oneNodeIsInBetween = orderAssertionUtil.indexOf(firstNode.getNode(), executedNodes) + 2 == orderAssertionUtil.indexOf(
 						thirdNode.getNode(), executedNodes);
-				boolean oneOrMoreNodesIsInBetween = orderAssertionUtil.indexOf(firstNode.getNode(), executedNodes) + 2 <= orderAssertionUtil.indexOf(
+				boolean zeroOrMoreNodesIsInBetween = orderAssertionUtil.indexOf(firstNode.getNode(), executedNodes) + 1 <= orderAssertionUtil.indexOf(
 						thirdNode.getNode(), executedNodes);
 
 				boolean firstIsNotNextToSecond = orderAssertionUtil.indexOf(firstNode.getNode(), executedNodes) + 1 != orderAssertionUtil.indexOf(
@@ -160,26 +154,26 @@ public class OrderAssertionValidator {
 
 				// case: *, node, *
 				if (orderAssertionUtil.isStar(firstNode) && orderAssertionUtil.isNode(secondNode) && orderAssertionUtil.isStar(thirdNode)) {
-					if (secondIsStartNode || secondIsEndNode)
+					if (executedNodes.size() < 1)
 						return false;
 				}
 				// case: *, node, _
 				if (orderAssertionUtil.isStar(firstNode) && orderAssertionUtil.isNode(secondNode) && orderAssertionUtil.isUnderscore(thirdNode)) {
 					if (nodeAfterWindowExists) {
-						if (secondIsStartNode || secondIsEndNode)
+						if (executedNodes.size() < 1)
 							return false;
 					} else {
-						if (secondIsStartNode || secondNodeIsNotNextToLast)
+						if (executedNodes.size() < 2 || secondNodeIsNotNextToLast)
 							return false;
 					}
 				}
 				// case: _, node, *
 				if (orderAssertionUtil.isUnderscore(firstNode) && orderAssertionUtil.isNode(secondNode) && orderAssertionUtil.isStar(thirdNode)) {
 					if (nodeBeforeWindowExists) {
-						if (secondIsStartNode || secondIsEndNode)
+						if (secondIsStartNode)
 							return false;
 					} else {
-						if (secondNodeIsNotNextToFirst || secondIsEndNode)
+						if (secondNodeIsNotNextToFirst)
 							return false;
 					}
 				}
@@ -227,18 +221,18 @@ public class OrderAssertionValidator {
 				if (orderAssertionUtil.isNode(firstNode) && orderAssertionUtil.isNode(secondNode) && orderAssertionUtil.isStar(thirdNode)) {
 					if (nodeBeforeWindowExists) {
 						if (nodeAfterWindowExists) {
-							if (firstIsStartNode || firstIsNotNextToSecond || secondIsEndNode)
+							if (firstIsStartNode || firstIsNotNextToSecond)
 								return false;
 						} else {
-							if (firstIsStartNode || firstIsNotNextToSecond || secondIsEndNode)
+							if (firstIsStartNode || firstIsNotNextToSecond)
 								return false;
 						}
 					} else {
 						if (nodeAfterWindowExists) {
-							if (!firstIsStartNode || firstIsNotNextToSecond || secondIsEndNode)
+							if (!firstIsStartNode || firstIsNotNextToSecond)
 								return false;
 						} else {
-							if (!firstIsStartNode || firstIsNotNextToSecond || secondIsEndNode)
+							if (!firstIsStartNode || firstIsNotNextToSecond)
 								return false;
 						}
 					}
@@ -267,18 +261,18 @@ public class OrderAssertionValidator {
 				if (orderAssertionUtil.isStar(firstNode) && orderAssertionUtil.isNode(secondNode) && orderAssertionUtil.isNode(thirdNode)) {
 					if (nodeBeforeWindowExists) {
 						if (nodeAfterWindowExists) {
-							if (secondNodeIsNotNextToFirst || secondIsNotNextToThird || thirdIsEndNode)
+							if (secondIsNotNextToThird || thirdIsEndNode)
 								return false;
 						} else {
-							if (secondNodeIsNotNextToFirst || secondIsNotNextToThird || !thirdIsEndNode)
+							if (secondIsNotNextToThird || !thirdIsEndNode)
 								return false;
 						}
 					} else {
 						if (nodeAfterWindowExists) {
-							if (secondNodeIsNotNextToFirst || secondIsNotNextToThird || thirdIsEndNode)
+							if (secondIsNotNextToThird || thirdIsEndNode)
 								return false;
 						} else {
-							if (secondNodeIsNotNextToFirst || secondIsNotNextToThird || !thirdIsEndNode)
+							if (secondIsNotNextToThird || !thirdIsEndNode)
 								return false;
 						}
 					}
@@ -307,18 +301,18 @@ public class OrderAssertionValidator {
 				if (orderAssertionUtil.isNode(firstNode) && orderAssertionUtil.isStar(secondNode) && orderAssertionUtil.isNode(thirdNode)) {
 					if (nodeBeforeWindowExists) {
 						if (nodeAfterWindowExists) {
-							if (firstIsStartNode || !oneOrMoreNodesIsInBetween || thirdIsEndNode)
+							if (firstIsStartNode || !zeroOrMoreNodesIsInBetween || thirdIsEndNode)
 								return false;
 						} else {
-							if (firstIsStartNode || !oneOrMoreNodesIsInBetween || !thirdIsEndNode)
+							if (firstIsStartNode || !zeroOrMoreNodesIsInBetween || !thirdIsEndNode)
 								return false;
 						}
 					} else {
 						if (nodeAfterWindowExists) {
-							if (!firstIsStartNode || !oneOrMoreNodesIsInBetween || thirdIsEndNode)
+							if (!firstIsStartNode || !zeroOrMoreNodesIsInBetween || thirdIsEndNode)
 								return false;
 						} else {
-							if (!firstIsStartNode || !oneOrMoreNodesIsInBetween || !thirdIsEndNode)
+							if (!firstIsStartNode || !zeroOrMoreNodesIsInBetween || !thirdIsEndNode)
 								return false;
 						}
 					}

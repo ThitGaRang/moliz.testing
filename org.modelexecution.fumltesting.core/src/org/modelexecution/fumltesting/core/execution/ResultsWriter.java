@@ -18,6 +18,7 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumltesting.core.results.ActivityInput;
 import org.modelexecution.fumltesting.core.results.AssertionResult;
 import org.modelexecution.fumltesting.core.results.ConstraintResult;
+import org.modelexecution.fumltesting.core.results.MatrixOrderAssertionResult;
 import org.modelexecution.fumltesting.core.results.OrderAssertionResult;
 import org.modelexecution.fumltesting.core.results.PathCheckResult;
 import org.modelexecution.fumltesting.core.results.StateAssertionResult;
@@ -106,13 +107,22 @@ public class ResultsWriter {
 			}
 			writer.println();
 			for (AssertionResult assertionResult : testCaseResult.getAssertionResults()) {
+				if (assertionResult instanceof MatrixOrderAssertionResult) {
+					MatrixOrderAssertionResult orderAssertionResult = (MatrixOrderAssertionResult) assertionResult;
+					printSpecification(orderAssertionResult.getOrderSpecification());
+					writer.println("\tValidation result: " + (orderAssertionResult.getAssertionValidationResult() ? "SUCCESS" : "FAIL"));
+					for (MatrixOrderAssertionResult subResult : orderAssertionResult.getSubOrderAssertionResults()) {
+						writer.println("\t\tSub-order checked..");
+						writer.print("\t");
+						printSpecification(((NodeOrder) subResult.getOrderSpecification()).getAllNodes());
+						writer.println("\t\tValidation result: " + (orderAssertionResult.getAssertionValidationResult() ? "SUCCESS" : "FAIL"));
+					}
+				}
 				if (assertionResult instanceof OrderAssertionResult) {
 					OrderAssertionResult orderAssertionResult = (OrderAssertionResult) assertionResult;
 					printSpecification(orderAssertionResult.getOrderSpecification());
 					writer.println("\tNumber of paths checked: " + orderAssertionResult.numberOfPathsChecked());
 					writer.println("\tNumber of invalid paths: " + orderAssertionResult.getFailedPathCheckResults().size());
-					writer.println();
-					writer.println("\tMatrix validation: " + (orderAssertionResult.getMatrixResult() ? "SUCCESS" : "FAIL"));
 					writer.println();
 
 					int counter = 0;

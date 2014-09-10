@@ -24,6 +24,7 @@ import org.eclipse.uml2.uml.resource.UMLResource;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.junit.Test;
+import org.modelexecution.fumltesting.core.assertions.MatrixOrderAssertionValidator;
 import org.modelexecution.fumltesting.core.assertions.OrderAssertionValidator;
 import org.modelexecution.fumltesting.core.assertions.StateAssertionValidator;
 import org.modelexecution.fumltesting.core.convert.TestConverter;
@@ -76,6 +77,7 @@ public class UmlTestExecutor {
 	private TraceUtil traceUtil;
 
 	private OrderAssertionValidator orderAssertionValidator;
+	private MatrixOrderAssertionValidator matrixOrderAssertionValidator;
 	private StateAssertionValidator stateAssertionValidator;
 
 	private XtextResourceSet resourceSet;
@@ -249,6 +251,7 @@ public class UmlTestExecutor {
 
 			traceUtil = new TraceUtil(mainActivityExecutionID);
 			orderAssertionValidator = new OrderAssertionValidator(traceUtil);
+			matrixOrderAssertionValidator = new MatrixOrderAssertionValidator(traceUtil);
 			stateAssertionValidator = new StateAssertionValidator(traceUtil, testDataConverter);
 
 			TestCaseResult testCaseResult = new TestCaseResult(testCase.getName(), executor.getActivityExecution(mainActivityExecutionID));
@@ -263,7 +266,9 @@ public class UmlTestExecutor {
 			for (Assertion assertion : testCase.getAllAssertions()) {
 				AssertionResult result = null;
 				if (assertion instanceof OrderAssertion) {
+					//TODO add ability to have both validation methods executed
 					result = orderAssertionValidator.checkOrder((OrderAssertion) assertion);
+					//result = matrixOrderAssertionValidator.checkOrder((OrderAssertion) assertion);
 				} else if (assertion instanceof FinallyStateAssertion) {
 					try {
 						result = stateAssertionValidator.check((FinallyStateAssertion) assertion);

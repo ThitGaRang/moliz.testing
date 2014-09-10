@@ -3,7 +3,7 @@ package org.modelexecution.fumltesting.core.assertions;
 import java.util.List;
 
 import org.modelexecution.fumltesting.core.parallelism.ExecutionMatrix;
-import org.modelexecution.fumltesting.core.results.OrderAssertionResult;
+import org.modelexecution.fumltesting.core.results.MatrixOrderAssertionResult;
 import org.modelexecution.fumltesting.core.testlang.NodeSpecification;
 import org.modelexecution.fumltesting.core.testlang.OrderAssertion;
 import org.modelexecution.fumltesting.core.trace.TraceUtil;
@@ -24,14 +24,13 @@ public class MatrixOrderAssertionValidator {
 		this.matrix = new ExecutionMatrix(orderUtil.getTopNodes(traceUtil.getActivityExecution()));
 	}
 
-	public OrderAssertionResult checkOrder(OrderAssertion assertion) {
-		OrderAssertionResult result = new OrderAssertionResult(((OrderAssertion) assertion).getOrder().getAllNodes());
+	public MatrixOrderAssertionResult checkOrder(OrderAssertion assertion) {
+		MatrixOrderAssertionResult result = new MatrixOrderAssertionResult(((OrderAssertion) assertion).getOrder().getAllNodes());
 		result.setAssertion(assertion);
 
 		List<NodeSpecification> nodeOrder = assertion.getOrder().getAllNodes();
 
-		boolean validationResult = validate(nodeOrder);
-		result.setMatrixResult(validationResult);
+		result.setAssertionValidationResult(validate(nodeOrder));
 
 		for (NodeSpecification nodeSpecification : nodeOrder) {
 			if (nodeSpecification.getSubOrder() != null) {
@@ -47,14 +46,13 @@ public class MatrixOrderAssertionValidator {
 
 				int activityExecutionID = traceUtil.getActivityExecutionID(parent.name);
 
-				OrderAssertionResult subOrderResult = new OrderAssertionResult(nodeSpecification.getSubOrder().getAllNodes());
+				MatrixOrderAssertionResult subOrderResult = new MatrixOrderAssertionResult(nodeSpecification.getSubOrder().getAllNodes());
 				subOrderResult.setAssertion(assertion);
 
 				TraceUtil subTraceUtil = new TraceUtil(activityExecutionID);
 				MatrixOrderAssertionValidator subOrderValidator = new MatrixOrderAssertionValidator(subTraceUtil);
 
-				boolean subValidationResult = subOrderValidator.validate(nodeSpecification.getSubOrder().getAllNodes());
-				subOrderResult.setMatrixResult(subValidationResult);
+				subOrderResult.setAssertionValidationResult(subOrderValidator.validate(nodeSpecification.getSubOrder().getAllNodes()));
 
 				result.addSubOrderAssertionResult(subOrderResult);
 			}
@@ -72,7 +70,7 @@ public class MatrixOrderAssertionValidator {
 			}
 			// case: *
 			else if (orderUtil.isStar(specifiedNode)) {
-				return matrix.nodeSize() > 0;
+				return matrix.nodeSize() >= 0;
 			}
 
 		} else if (orderSpecification.size() == 2) {
@@ -81,11 +79,11 @@ public class MatrixOrderAssertionValidator {
 
 			// case: node, *
 			if (orderUtil.isNode(firstNode) && orderUtil.isStar(secondNode)) {
-				return matrix.isStartNode(firstNode.getNode()) && !matrix.hasIndependentNodes(firstNode.getNode()) && matrix.nodeSize() > 1;
+				return matrix.isStartNode(firstNode.getNode()) && !matrix.hasIndependentNodes(firstNode.getNode()) && matrix.nodeSize() >= 1;
 			}
 			// case: *, node
 			else if (orderUtil.isStar(firstNode) && orderUtil.isNode(secondNode)) {
-				return matrix.isEndNode(secondNode.getNode()) && !matrix.hasIndependentNodes(secondNode.getNode()) && matrix.nodeSize() > 1;
+				return matrix.isEndNode(secondNode.getNode()) && !matrix.hasIndependentNodes(secondNode.getNode()) && matrix.nodeSize() >= 1;
 			}
 			// case: node, _
 			else if (orderUtil.isNode(firstNode) && orderUtil.isUnderscore(secondNode)) {
@@ -113,19 +111,18 @@ public class MatrixOrderAssertionValidator {
 
 				// case: *, node, *
 				if (orderUtil.isStar(firstNode) && orderUtil.isNode(secondNode) && orderUtil.isStar(thirdNode)) {
-					boolean result = !matrix.isStartNode(secondNode.getNode()) && !matrix.isEndNode(secondNode.getNode()) && matrix.nodeSize() > 2;
+					boolean result = matrix.nodeSize() >= 1;
 					if (!result)
 						return false;
 				}
 				// case: *, node, _
 				if (orderUtil.isStar(firstNode) && orderUtil.isNode(secondNode) && orderUtil.isUnderscore(thirdNode)) {
 					if (nodeAfterWindowExists) {
-						boolean result = !matrix.isStartNode(secondNode.getNode()) && !matrix.isEndNode(secondNode.getNode());
+						boolean result = !matrix.isEndNode(secondNode.getNode());
 						if (!result)
 							return false;
 					} else {
-						boolean result = !matrix.isStartNode(secondNode.getNode()) && matrix.getDescendants(secondNode.getNode()).size() == 1
-								&& !matrix.hasIndependentNodes(secondNode.getNode());
+						boolean result = matrix.getDescendants(secondNode.getNode()).size() == 1 && !matrix.hasIndependentNodes(secondNode.getNode());
 						if (!result)
 							return false;
 					}
@@ -205,8 +202,7 @@ public class MatrixOrderAssertionValidator {
 							if (!result)
 								return false;
 						} else {
-							boolean result = matrix.alwaysInOrder(firstNode.getNode(), secondNode.getNode())
-									&& matrix.getDescendants(secondNode.getNode()).size() == 1;
+							boolean result = matrix.alwaysInOrder(firstNode.getNode(), secondNode.getNode());
 							if (!result)
 								return false;
 						}
@@ -260,7 +256,7 @@ public class MatrixOrderAssertionValidator {
 							if (!result)
 								return false;
 						} else {
-							boolean result = !matrix.isStartNode(secondNode.getNode()) && matrix.alwaysInOrder(secondNode.getNode(), thirdNode.getNode());
+							boolean result = matrix.alwaysInOrder(secondNode.getNode(), thirdNode.getNode());
 							if (!result)
 								return false;
 						}
