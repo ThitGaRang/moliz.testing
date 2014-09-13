@@ -15,6 +15,7 @@ import fUML.Syntax.Activities.IntermediateActivities.DecisionNode;
 import fUML.Syntax.Activities.IntermediateActivities.ForkNode;
 import fUML.Syntax.Activities.IntermediateActivities.InitialNode;
 import fUML.Syntax.Activities.IntermediateActivities.JoinNode;
+import fUML.Syntax.Activities.IntermediateActivities.MergeNode;
 
 public class OrderUtil {
 	public boolean isStar(NodeSpecification nodeSpecification) {
@@ -37,7 +38,7 @@ public class OrderUtil {
 
 	private boolean isFilteredOut(ActivityNode node) {
 		if (node instanceof Action || node instanceof ActivityFinalNode || node instanceof InitialNode || node instanceof ForkNode || node instanceof JoinNode
-				|| node instanceof DecisionNode)
+				|| node instanceof DecisionNode || node instanceof MergeNode)
 			return false;
 		return true;
 	}

@@ -2,7 +2,7 @@ import petstore.data.*
 import petstore.logic.*
 
 scenario TestData[
-	object orderServiceTD: CustomerService{}
+	object orderServiceTD: OrderService{}
 	
 	object customerTD: Customer{
 		Customer.firstname='user'; 
@@ -11,10 +11,50 @@ scenario TestData[
 		Customer.login='user';
 		Customer.password='password';
 	}
+	
+	object cartTD: Cart{}
+	
+	object productTD: Product{
+		Product.name = 'product';
+		Product.description = 'description';
+	}
+	
+	object itemID: Item{
+		Item.name='item';
+		Item.description='description';
+		Item.unitCost=10;
+	}
+	
+	object cartItemTD: CartItem{
+		CartItem.quantity = 2;
+	}
+	
+	link cart_customer { source cart_customer.cart=TestData.cartTD; target cart_customer.customer=TestData.customerTD; }
+	link product_item { source product_item.item = TestData.itemID; target product_item.product = TestData.productTD; }
+	link cartItem_item { source cartItem_item.cartItem = TestData.cartItemTD; target cartItem_item.item = TestData.itemID; }
 ]
 
 test getCartTest activity OrderService.GetCart(GetCart.customer=TestData.customerTD){
 	finally{
-		GetCart.cart != null;
+		GetCart.cart = TestData.cartTD;
+	}
+}
+
+test setFoundItemTest activity OrderService.SetFoundCartItem(SetFoundCartItem.cartItem=TestData.cartItemTD) 
+	on TestData.orderServiceTD{
+	finally{
+		SetFoundCartItem.cartItem::cartItem_item.item = TestData.itemID;
+	}
+}
+
+test createOrderLineTest activity OrderService.CreateOrderLine(CreateOrderLine.item=TestData.itemID, CreateOrderLine.quantity=1){
+	finally{
+		CreateOrderLine.orderLine::orderLine_item.item = TestData.itemID;
+	}
+}
+
+test createOrderLineFromCartItemTest activity OrderService.CreateOrderLineFromCartItem(CreateOrderLineFromCartItem.cartItem=TestData.cartItemTD) on TestData.orderServiceTD{
+	finally{
+		CreateOrderLineFromCartItem.orderLine::orderLine_item.item = TestData.itemID;
 	}
 }

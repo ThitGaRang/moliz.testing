@@ -30,25 +30,31 @@ scenario TestData[
 	}
 ]
 
-test findAllItemsTest activity CatalogService.FindAllItems{
-	assertOrder FindAllItems.init, FindAllItems.retrieveItems;
-	finally{
-		FindAllItems.items includes TestData.itemTD;
-		FindAllItems.items includes TestData.anotherItemTD;
-		check 'itemSize';
-	}
-}
-
-test findAllProductsTest activity CatalogService.FindAllProducts{
-	assertOrder FindAllProducts.init, FindAllProducts.retrieveProducts;
-	finally{
-		FindAllProducts.products includes TestData.productTD;
-		check 'productSize';
-	}
-}
-
+//test findAllItemsTest activity CatalogService.FindAllItems{
+//	assertOrder FindAllItems.init, FindAllItems.retrieveItems;
+//	finally{
+//		FindAllItems.items includes TestData.itemTD;
+//		FindAllItems.items includes TestData.anotherItemTD;
+//		check 'itemSize';
+//	}
+//}
+//
+//test findAllProductsTest activity CatalogService.FindAllProducts{
+//	assertOrder FindAllProducts.init, FindAllProducts.retrieveProducts;
+//	finally{
+//		FindAllProducts.products includes TestData.productTD;
+//		check 'productSize';
+//	}
+//}
+//
 //test findItemTest activity CatalogService.FindItem(FindItem.name='item') on TestData.catalogServiceTD{
 //	finally{
-//		FindItem.item != null;
+//		FindItem.item = TestData.itemTD;
+//	}
+//}
+//
+//test findItemTestFail activity CatalogService.FindItem(FindItem.name='nonExistingItem') on TestData.catalogServiceTD{
+//	finally{
+//		FindItem.item = null;
 //	}
 //}

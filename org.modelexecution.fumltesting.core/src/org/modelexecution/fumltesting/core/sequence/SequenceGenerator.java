@@ -232,16 +232,24 @@ public class SequenceGenerator {
 	}
 
 	private void addLinksOfInitialObject(Object_ object, State state) {
-		for (ValueInstance locusInstance : trace.getInitialLocusValueInstances()) {
-			if (locusInstance.getRuntimeValue() != null && locusInstance.getRuntimeValue() instanceof Link) {
-				Link locusLink = (Link) locusInstance.getRuntimeValue();
+		Link link = null;
+		for (ValueInstance instance : trace.getInitialLocusValueInstances()) {
+			if (instance.getRuntimeValue() != null && instance.getRuntimeValue() instanceof Link) {
+				link = (Link) instance.getRuntimeValue();
 				FeatureValue linkSource = null;
 				FeatureValue linkTarget = null;
-				for (FeatureValue featureValue : locusLink.featureValues) {
-					if (!locusLink.type.navigableOwnedEnd.contains(featureValue.feature))
+				for (FeatureValue featureValue : link.featureValues) {
+					if (!link.type.navigableOwnedEnd.contains(featureValue.feature))
 						linkSource = featureValue;
 					else
 						linkTarget = featureValue;
+				}
+				if (linkSource == null) {
+					for (FeatureValue featureValue : link.featureValues) {
+						if (featureValue != linkTarget) {
+							linkSource = featureValue;
+						}
+					}
 				}
 				for (Value reference : linkSource.values) {
 					Reference theSourceReference = (Reference) reference;
@@ -249,7 +257,7 @@ public class SequenceGenerator {
 						Object_ targetValue = ((Reference) linkTarget.values.get(0)).referent;
 						ValueInstance targetInstance = trace.getValueInstance(targetValue);
 						state.addStateObjectSnapshot((Object_) targetInstance.getOriginal().getValue(), targetInstance);
-						state.addStateLinkSnapshot(locusLink, locusInstance);
+						state.addStateLinkSnapshot(link, instance);
 						addLinksOfInitialObject((Object_) targetInstance.getRuntimeValue(), state);
 					}
 				}

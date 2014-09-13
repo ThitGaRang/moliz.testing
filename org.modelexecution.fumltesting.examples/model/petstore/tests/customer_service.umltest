@@ -13,19 +13,44 @@ scenario TestData[
 	}
 ]
 
-test loginTest activity CustomerService.Login(Login.login='user', Login.password='password') on TestData.customerServiceTD{
-	finally{
-		Login.customer != null;
-	}
-}
-
-test checkCredentials activity CustomerService.CheckCredentials(CheckCredentials.customer=TestData.customerTD, CheckCredentials.login='user', CheckCredentials.password='password'){
-	assertOrder CheckCredentials.customerFork, CheckCredentials.getLogin, CheckCredentials.loginEquals, 
-		CheckCredentials.loginDecision, *, CheckCredentials.success;
-		
-	assertOrder _, CheckCredentials.getLogin, _, CheckCredentials.loginDecision, *, CheckCredentials.success;
-	
-	finally{
-		CheckCredentials.corresponds = true;
-	}
-}
+//test loginTest activity CustomerService.Login(Login.login='user', Login.password='password') on TestData.customerServiceTD{
+//	finally{
+//		Login.customer != null;
+//	}
+//}
+//
+//test loginTestFailPass activity CustomerService.Login(Login.login='login', Login.password='wrongPassword') on TestData.customerServiceTD{
+//	finally{
+//		Login.customer = null;
+//	}
+//}
+//
+//test loginTestFailName activity CustomerService.Login(Login.login='wrongLogin', Login.password='password') on TestData.customerServiceTD{
+//	finally{
+//		Login.customer = null;
+//	}
+//}
+//
+//test checkCredentials activity CustomerService.CheckCredentials(CheckCredentials.customer=TestData.customerTD, CheckCredentials.login='user', CheckCredentials.password='password'){
+//	finally{
+//		CheckCredentials.corresponds = true;
+//	}
+//}
+//
+//test checkCredentialsFail activity CustomerService.CheckCredentials(CheckCredentials.customer=TestData.customerTD, CheckCredentials.login='user', CheckCredentials.password='wrongPassword'){
+//	finally{
+//		CheckCredentials.corresponds = false;
+//	}
+//}
+//
+//test findCustomerTest activity CustomerService.FindCustomer(FindCustomer.login='user', FindCustomer.password='password') on TestData.customerServiceTD{
+//	finally{
+//		FindCustomer.customer = TestData.customerTD;
+//	}
+//}
+//
+//test findCustomerTestFail activity CustomerService.FindCustomer(FindCustomer.login='nonExistingUser', FindCustomer.password='password') on TestData.customerServiceTD{
+//	finally{
+//		FindCustomer.customer = null;
+//	}
+//}

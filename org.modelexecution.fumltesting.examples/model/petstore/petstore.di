@@ -142,9 +142,6 @@
         <children>
           <emfPageIdentifier href="petstore.notation#_sX2AwN_QEeKxs-T-7hfQjA"/>
         </children>
-        <children>
-          <emfPageIdentifier href="petstore.notation#_LMz4AOC8EeKibaNzws831w"/>
-        </children>
       </children>
     </windows>
   </sashModel>

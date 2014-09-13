@@ -77,9 +77,6 @@ public class TraceUtil {
 		} catch (SequenceGeneratorException e) {
 			e.printStackTrace();
 		}
-
-		pathFinder = new ExecutionPathFinder();
-		pathFinder.init(trace.getActivityExecutionByID(activityExecutionID));
 	}
 
 	public ActivityExecution getActivityExecution() {
@@ -295,6 +292,10 @@ public class TraceUtil {
 	}
 
 	public ArrayList<ArrayList<ActivityNodeExecution>> getAllPaths() {
+		if (pathFinder == null) {
+			pathFinder = new ExecutionPathFinder();
+			pathFinder.init(activityExecution);
+		}
 		return pathFinder.getAllPaths();
 	}
 

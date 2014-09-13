@@ -266,9 +266,8 @@ public class UmlTestExecutor {
 			for (Assertion assertion : testCase.getAllAssertions()) {
 				AssertionResult result = null;
 				if (assertion instanceof OrderAssertion) {
-					//TODO add ability to have both validation methods executed
 					result = orderAssertionValidator.checkOrder((OrderAssertion) assertion);
-					//result = matrixOrderAssertionValidator.checkOrder((OrderAssertion) assertion);
+					testCaseResult.addAssertionResult(matrixOrderAssertionValidator.checkOrder((OrderAssertion) assertion));
 				} else if (assertion instanceof FinallyStateAssertion) {
 					try {
 						result = stateAssertionValidator.check((FinallyStateAssertion) assertion);

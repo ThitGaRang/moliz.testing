@@ -25,6 +25,7 @@ import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.ForkNode;
 import org.eclipse.uml2.uml.InitialNode;
 import org.eclipse.uml2.uml.JoinNode;
+import org.eclipse.uml2.uml.MergeNode;
 import org.eclipse.uml2.uml.ObjectNode;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.ParameterDirectionKind;
@@ -61,7 +62,7 @@ public class UmlTestLangScopeProvider extends XbaseScopeProvider {
 
 	private boolean isFilteredOut(ActivityNode node) {
 		if (node instanceof Action || node instanceof ActivityFinalNode || node instanceof InitialNode || node instanceof ForkNode || node instanceof JoinNode
-				|| node instanceof DecisionNode)
+				|| node instanceof DecisionNode || node instanceof MergeNode)
 			return false;
 		return true;
 	}
@@ -247,8 +248,8 @@ public class UmlTestLangScopeProvider extends XbaseScopeProvider {
 			return Scopes.scopeFor(scenario.getObjects(), new UmlQualifiedNameProvider(), IScope.NULLSCOPE);
 		}
 
-		/** OBJECT STATE EXPRESSION SCOPE */
-		if (context instanceof UMLObjectStateExpression && reference.getName().equals("value")) {
+		/** PROPERTY AND OBJECT STATE EXPRESSION SCOPE */
+		if ((context instanceof UMLObjectStateExpression || context instanceof UMLPropertyStateExpression) && reference.getName().equals("value")) {
 			if (context.eContainer() instanceof UMLStateAssertion) {
 				UMLStateAssertion stateAssertion = (UMLStateAssertion) context.eContainer();
 				UMLTestSuite testSuite = (UMLTestSuite) ((UMLTestCase) stateAssertion.eContainer()).eContainer();
