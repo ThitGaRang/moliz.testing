@@ -46,6 +46,7 @@ import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNodeList;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
 import fUML.Syntax.Activities.IntermediateActivities.ObjectNode;
+import fUML.Syntax.Classes.Kernel.NamedElement;
 
 /**
  * Utility class for managing the trace of execution.
@@ -85,22 +86,25 @@ public class TraceUtil {
 
 	public Object getExecution(Object node) throws ActionNotExecutedException {
 		String nodeName = "";
+		String nodeParent = "";
 		if (node instanceof Action) {
 			nodeName = ((Action) node).name;
+			nodeParent = ((NamedElement) ((Action) node).owner).name;
 			for (ActivityNodeExecution execution : this.executedNodes) {
-				if (execution.getNode() == node)
+				if (execution.getNode().qualifiedName.equals(((Action) node).qualifiedName))
 					return execution;
 			}
 		}
 		if (node instanceof Activity) {
 			nodeName = ((Activity) node).name;
+			nodeParent = ((NamedElement) ((Activity) node).owner).name;
 			for (ActivityExecution execution : this.trace.getActivityExecutions()) {
-				if (execution.getActivity() == node) {
+				if (execution.getActivity().qualifiedName.equals(((Activity) node).qualifiedName)) {
 					return execution;
 				}
 			}
 		}
-		throw new ActionNotExecutedException("Action " + nodeName + " was never executed!");
+		throw new ActionNotExecutedException("Action/Activity " + nodeParent + "." + nodeName + " was never executed!");
 	}
 
 	public ArrayList<ValueInstance> getValueInstances(ObjectNode node, Object nodeExecution) {

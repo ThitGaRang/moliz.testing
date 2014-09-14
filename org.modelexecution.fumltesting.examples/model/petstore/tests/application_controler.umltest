@@ -12,16 +12,16 @@ scenario TestData[
 	}
 ]
 
-//test createSessionIDTest activity ApplicationController.CreateSessionID on TestData.applicationControllerTD{
-//	finally{
-//		CreateSessionID.sessionId = 0;
-//		CreateSessionID.self.result::ApplicationController.lastSessionId = 0;
-//	}
-//}
-//
-//test createSessionTest activity ApplicationController.CreateSession(CreateSession.customer=TestData.customerTD) on TestData.applicationControllerTD{
-//	finally{
-//		CreateSession.sessionId = 0;
-//		check 'sessionAdded';
-//	}
-//}
+test createSessionIDTest activity ApplicationController.CreateSessionID on TestData.applicationControllerTD{
+	finally{
+		ApplicationController.CreateSessionID.sessionId = 0;
+		CreateSessionID.self.result::ApplicationController.lastSessionId = 0;
+	}
+}
+
+test createSessionTest activity ApplicationController.CreateSession(ApplicationController.CreateSession.customer=TestData.customerTD) on TestData.applicationControllerTD{
+	finally{
+		ApplicationController.CreateSession.sessionId = 0;
+		check 'sessionAdded';
+	}
+}

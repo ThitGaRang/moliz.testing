@@ -206,45 +206,50 @@ public class ResultsWriter {
 						writer.println("\tState expressions failed: " + ((StateAssertionResult) assertionResult).getFailedStateExpressions().size());
 
 						for (StateExpressionResult result : ((StateAssertionResult) assertionResult).getFailedStateExpressions()) {
-							String pinQualifiedName = "";
-							if (result.getStateExpression() instanceof PropertyStateExpression) {
-								ObjectNode pin = ((PropertyStateExpression) result.getStateExpression()).getPin();
-								if (pin.owner instanceof Activity) {
-									pinQualifiedName = ((Activity) pin.owner).name + "." + pin.name;
-								} else if (pin.owner instanceof Action) {
-									pinQualifiedName = ((Action) pin.owner).activity.name + "." + ((Action) pin.owner).name + "." + pin.name;
+							if (result.hasError()) {
+								writer.println("\tError occured: " + result.getError());
+							} else {
+								String pinQualifiedName = "";
+								if (result.getStateExpression() instanceof PropertyStateExpression) {
+									ObjectNode pin = ((PropertyStateExpression) result.getStateExpression()).getPin();
+									if (pin.owner instanceof Activity) {
+										pinQualifiedName = ((Activity) pin.owner).name + "." + pin.name;
+									} else if (pin.owner instanceof Action) {
+										pinQualifiedName = ((Action) pin.owner).activity.name + "." + ((Action) pin.owner).name + "." + pin.name;
+									}
+									Property property = ((PropertyStateExpression) result.getStateExpression()).getProperty();
+									writer.print("\t\tExpression: " + pinQualifiedName + "::" + property.name + " "
+											+ ((StateExpression) result.getStateExpression()).getOperator() + " ");
 								}
-								Property property = ((PropertyStateExpression) result.getStateExpression()).getProperty();
-								writer.print("\t\tExpression: " + pinQualifiedName + "::" + property.name + " "
-										+ ((StateExpression) result.getStateExpression()).getOperator() + " ");
-							}
-							if (result.getStateExpression() instanceof ObjectStateExpression) {
-								ObjectNode pin = ((ObjectStateExpression) result.getStateExpression()).getPin();
-								if (pin.owner instanceof Activity) {
-									pinQualifiedName = ((Activity) pin.owner).name + "." + pin.name;
-								} else if (pin.owner instanceof Action) {
-									pinQualifiedName = ((Action) pin.owner).activity.name + "." + ((Action) pin.owner).name + "." + pin.name;
+								if (result.getStateExpression() instanceof ObjectStateExpression) {
+									ObjectNode pin = ((ObjectStateExpression) result.getStateExpression()).getPin();
+									if (pin.owner instanceof Activity) {
+										pinQualifiedName = ((Activity) pin.owner).name + "." + pin.name;
+									} else if (pin.owner instanceof Action) {
+										pinQualifiedName = ((Action) pin.owner).activity.name + "." + ((Action) pin.owner).name + "." + pin.name;
+									}
+									writer.print("\t\tExpression: " + pinQualifiedName + " " + ((StateExpression) result.getStateExpression()).getOperator()
+											+ " ");
 								}
-								writer.print("\t\tExpression: " + pinQualifiedName + " " + ((StateExpression) result.getStateExpression()).getOperator() + " ");
-							}
-							Value value = ((StateExpression) result.getStateExpression()).getValue();
-							if (value instanceof ObjectValue) {
-								writer.print(((ObjectValue) value).getValue().getName());
-							} else if (value instanceof Value) {
-								if (value instanceof NullValue) {
-									writer.print("null");
-								} else if (value instanceof StringValue) {
-									writer.print(((StringValue) value).getValue());
-								} else if (value instanceof BooleanValue) {
-									writer.print(((BooleanValue) value).getValue());
-								} else if (value instanceof IntegerValue) {
-									writer.print(((IntegerValue) value).getValue());
+								Value value = ((StateExpression) result.getStateExpression()).getValue();
+								if (value instanceof ObjectValue) {
+									writer.print(((ObjectValue) value).getValue().getName());
+								} else if (value instanceof Value) {
+									if (value instanceof NullValue) {
+										writer.print("null");
+									} else if (value instanceof StringValue) {
+										writer.print(((StringValue) value).getValue());
+									} else if (value instanceof BooleanValue) {
+										writer.print(((BooleanValue) value).getValue());
+									} else if (value instanceof IntegerValue) {
+										writer.print(((IntegerValue) value).getValue());
+									}
 								}
+								if (result.getActual() != null)
+									writer.println(" / Actual was: " + result.getActual());
+								else
+									writer.println();
 							}
-							if (result.getActual() != null)
-								writer.println(" / Actual was: " + result.getActual());
-							else
-								writer.println();
 						}
 					}
 				}

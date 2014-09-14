@@ -232,7 +232,7 @@ public class UmlTestExecutor {
 			}
 
 			if (testCase.getContextObject() != null) {
-				if (contextType != testCase.getContextObject().getType()) {
+				if (contextType != testCase.getContextObject().getType() && requiresContext) {
 					testsThatDidNotRun.put(testCase.getName(), "Object of wrong type declared as context! Please use the proper one.");
 					continue;
 				}

@@ -15,6 +15,7 @@ import org.eclipse.uml2.uml.DecisionNode;
 import org.eclipse.uml2.uml.ForkNode;
 import org.eclipse.uml2.uml.InitialNode;
 import org.eclipse.uml2.uml.JoinNode;
+import org.eclipse.uml2.uml.MergeNode;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.ObjectNode;
 import org.eclipse.uml2.uml.Pin;
@@ -35,52 +36,53 @@ public class UmlQualifiedNameProvider extends XbaseQualifiedNameProvider {
 	}
 
 	protected QualifiedName qualifiedName(Action action) {
-		NamedElement owner = (NamedElement) action.getOwner();
-		return QualifiedName.create(owner.getName(), action.getName());
+		return generateQualifiedName(action);
 	}
 
 	protected QualifiedName qualifiedName(InitialNode node) {
-		NamedElement owner = (NamedElement) node.getOwner();
-		return QualifiedName.create(owner.getName(), node.getName());
+		return generateQualifiedName(node);
 	}
 
 	protected QualifiedName qualifiedName(ActivityFinalNode node) {
-		NamedElement owner = (NamedElement) node.getOwner();
-		return QualifiedName.create(owner.getName(), node.getName());
+		return generateQualifiedName(node);
 	}
 
 	protected QualifiedName qualifiedName(ForkNode node) {
-		NamedElement owner = (NamedElement) node.getOwner();
-		return QualifiedName.create(owner.getName(), node.getName());
+		return generateQualifiedName(node);
 	}
 
 	protected QualifiedName qualifiedName(JoinNode node) {
-		NamedElement owner = (NamedElement) node.getOwner();
-		return QualifiedName.create(owner.getName(), node.getName());
+		return generateQualifiedName(node);
 	}
 
 	protected QualifiedName qualifiedName(DecisionNode node) {
-		NamedElement owner = (NamedElement) node.getOwner();
-		return QualifiedName.create(owner.getName(), node.getName());
+		return generateQualifiedName(node);
+	}
+	
+	protected QualifiedName qualifiedName(MergeNode node){
+		return generateQualifiedName(node);
 	}
 
 	protected QualifiedName qualifiedName(ActivityParameterNode node) {
-		return QualifiedName.create(node.getActivity().getName(), node.getName());
+		return generateQualifiedName(node);
 	}
 
 	protected QualifiedName qualifiedName(Pin node) {
-		Activity activity = (Activity) node.eContainer().eContainer();
-		Action action = (Action) node.eContainer();
-		return QualifiedName.create(activity.getName(), action.getName(), node.getName());
+		return generateQualifiedName(node);
 	}
 
 	protected QualifiedName qualifiedName(ObjectNode node) {
-		NamedElement owner = (NamedElement) node.getOwner();
-		return QualifiedName.create(owner.getName(), node.getName());
+		return generateQualifiedName(node);
 	}
 
 	protected QualifiedName qualifiedName(Activity activity) {
 		Class owner = (Class) activity.getOwner();
 		return QualifiedName.create(owner.getName(), activity.getName());
+	}
+	
+	private QualifiedName generateQualifiedName(NamedElement namedElement){
+		NamedElement activity = (NamedElement) namedElement.getOwner();
+		NamedElement class_ = (NamedElement) activity.getOwner();
+		return QualifiedName.create(class_.getName(), activity.getName(), namedElement.getName());
 	}
 }

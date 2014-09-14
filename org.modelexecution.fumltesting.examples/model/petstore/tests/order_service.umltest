@@ -32,29 +32,36 @@ scenario TestData[
 	link cart_customer { source cart_customer.cart=TestData.cartTD; target cart_customer.customer=TestData.customerTD; }
 	link product_item { source product_item.item = TestData.itemID; target product_item.product = TestData.productTD; }
 	link cartItem_item { source cartItem_item.cartItem = TestData.cartItemTD; target cartItem_item.item = TestData.itemID; }
+	link cart_cartItem { source cart_cartItem.cart = TestData.cartTD; target cart_cartItem.cartItems = TestData.cartItemTD; }
 ]
 
-test getCartTest activity OrderService.GetCart(GetCart.customer=TestData.customerTD){
+test getCartTest activity OrderService.GetCart(OrderService.GetCart.customer=TestData.customerTD){
 	finally{
-		GetCart.cart = TestData.cartTD;
+		OrderService.GetCart.cart = TestData.cartTD;
 	}
 }
 
-test setFoundItemTest activity OrderService.SetFoundCartItem(SetFoundCartItem.cartItem=TestData.cartItemTD) 
+test setFoundItemTest activity OrderService.SetFoundCartItem(OrderService.SetFoundCartItem.cartItem=TestData.cartItemTD) 
 	on TestData.orderServiceTD{
 	finally{
-		SetFoundCartItem.cartItem::cartItem_item.item = TestData.itemID;
+		OrderService.SetFoundCartItem.cartItem::cartItem_item.item = TestData.itemID;
 	}
 }
 
-test createOrderLineTest activity OrderService.CreateOrderLine(CreateOrderLine.item=TestData.itemID, CreateOrderLine.quantity=1){
+test createOrderLineTest activity OrderService.CreateOrderLine(OrderService.CreateOrderLine.item=TestData.itemID, OrderService.CreateOrderLine.quantity=1){
 	finally{
-		CreateOrderLine.orderLine::orderLine_item.item = TestData.itemID;
+		OrderService.CreateOrderLine.orderLine::orderLine_item.item = TestData.itemID;
 	}
 }
 
-test createOrderLineFromCartItemTest activity OrderService.CreateOrderLineFromCartItem(CreateOrderLineFromCartItem.cartItem=TestData.cartItemTD) on TestData.orderServiceTD{
+test createOrderLineFromCartItemTest activity OrderService.CreateOrderLineFromCartItem(OrderService.CreateOrderLineFromCartItem.cartItem=TestData.cartItemTD) on TestData.orderServiceTD{
 	finally{
-		CreateOrderLineFromCartItem.orderLine::orderLine_item.item = TestData.itemID;
+		OrderService.CreateOrderLineFromCartItem.orderLine::orderLine_item.item = TestData.itemID;
+	}
+}
+
+test confirmOrderTest activity OrderService.ConfirmOrder(OrderService.ConfirmOrder.customer=TestData.customerTD) on TestData.orderServiceTD{
+	finally{
+		OrderService.ConfirmOrder.order::order_customer.customer = TestData.customerTD;
 	}
 }
