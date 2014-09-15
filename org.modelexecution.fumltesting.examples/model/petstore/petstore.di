@@ -143,7 +143,16 @@
           <emfPageIdentifier href="petstore.notation#_sX2AwN_QEeKxs-T-7hfQjA"/>
         </children>
         <children>
-          <emfPageIdentifier href="petstore.notation#_ONZHcOJZEeK8HamiyIssFw"/>
+          <emfPageIdentifier href="petstore.notation#_3LGeYODVEeKbNtLCas5YyQ"/>
+        </children>
+        <children>
+          <emfPageIdentifier href="petstore.notation#_EEF3IODjEeKbNtLCas5YyQ"/>
+        </children>
+        <children>
+          <emfPageIdentifier href="petstore.notation#_atAvAN_WEeKxs-T-7hfQjA"/>
+        </children>
+        <children>
+          <emfPageIdentifier href="petstore.notation#_xZNLYN_cEeKxs-T-7hfQjA"/>
         </children>
       </children>
     </windows>

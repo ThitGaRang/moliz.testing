@@ -24,6 +24,7 @@ import org.eclipse.uml2.uml.resource.UMLResource;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.junit.Test;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 import org.modelexecution.fumltesting.core.assertions.MatrixOrderAssertionValidator;
 import org.modelexecution.fumltesting.core.assertions.OrderAssertionValidator;
 import org.modelexecution.fumltesting.core.assertions.StateAssertionValidator;
@@ -103,6 +104,13 @@ public class UmlTestExecutor {
 	public void runTests() {
 		File folder = new File(testsPath);
 		File[] files = folder.listFiles();
+
+		// clean up the test results directory
+		File testDirectory = new File("results");
+		for (File file : testDirectory.listFiles()) {
+			file.delete();
+		}
+
 		for (File testFile : files) {
 			if (testFile.isFile() && testFile.getName().endsWith(testEndsWithFilter)) {
 				try {
@@ -193,6 +201,7 @@ public class UmlTestExecutor {
 		SimpleDateFormat currentTime = new SimpleDateFormat("dd.MM.yy_HH.mm.ss");
 		String testFileNameWithoutExtension = testFile.getName().replace(".fumltest", "");
 		String testResultsFile = "results/testresults_" + testFileNameWithoutExtension + "_" + currentTime.format(new Date()) + ".txt";
+
 		HashMap<String, String> testsThatDidNotRun = new HashMap<String, String>();
 		for (TestCase testCase : convertedSuite.getAllTestCases()) {
 			Activity activity = testCase.getActivityUnderTest();
@@ -240,13 +249,16 @@ public class UmlTestExecutor {
 				contextValue.setValue(testCase.getContextObject());
 				Object_ contextObject = (Object_) testDataConverter.getFumlObject(contextValue);
 				mainActivityExecutionID = executor.executeActivity(activity, inputValues, contextObject);
+				ActivityExecution activityExecution = executor.getActivityExecution(mainActivityExecutionID);
+				testDataConverter.setActivityExecution(activityExecution);
 			} else {
 				if (requiresContext) {
 					testsThatDidNotRun.put(testCase.getName(), "CONTEXT for activity NOT defined. Please correct the test declaration.");
 					continue;
 				}
 				mainActivityExecutionID = executor.executeActivity(activity, inputValues, null);
-				testDataConverter.setMainActivityID(mainActivityExecutionID);
+				ActivityExecution activityExecution = executor.getActivityExecution(mainActivityExecutionID);
+				testDataConverter.setActivityExecution(activityExecution);
 			}
 
 			traceUtil = new TraceUtil(mainActivityExecutionID);

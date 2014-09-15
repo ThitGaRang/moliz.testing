@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.modelexecution.fumldebug.core.ExecutionContext;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 import org.modelexecution.fumltesting.core.testlang.Attribute;
 import org.modelexecution.fumltesting.core.testlang.DoubleValue;
@@ -42,7 +43,7 @@ public class TestDataConverter {
 
 	private Locus locus = ExecutionContext.getInstance().getLocus();
 	private HashMap<ObjectSpecification, Object_> objects = new HashMap<ObjectSpecification, Object_>();
-	private int mainActivityID;
+	private ActivityExecution activityExecution;
 
 	public void cleanUpAndInit(TestSuite suite) {
 		objects = new HashMap<ObjectSpecification, Object_>();
@@ -184,7 +185,7 @@ public class TestDataConverter {
 	}
 
 	public ValueInstance getValueInstance(ObjectSpecification objectSpecification) {
-		List<ValueInstance> valueInstances = ExecutionContext.getInstance().getTrace(mainActivityID).getValueInstances();
+		List<ValueInstance> valueInstances = activityExecution.getTrace().getValueInstances();
 		for (ValueInstance valueInstance : valueInstances) {
 			if (valueInstance.getRuntimeValue() == objects.get(objectSpecification)) {
 				return valueInstance;
@@ -193,7 +194,7 @@ public class TestDataConverter {
 		return null;
 	}
 
-	public void setMainActivityID(int mainActivityID) {
-		this.mainActivityID = mainActivityID;
+	public void setActivityExecution(ActivityExecution activityExecution) {
+		this.activityExecution = activityExecution;
 	}
 }

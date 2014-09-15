@@ -94,11 +94,13 @@ public class SequenceGenerator {
 
 		for (InputParameterSetting inputParameterSetting : nodeExecution.getActivityExecution().getActivityInputs()) {
 			ValueSnapshot snapshot = inputParameterSetting.getParameterValues().get(0).getValueSnapshot();
-			if (snapshot.getValue() instanceof Object_) {
-				ValueInstance instance = (ValueInstance) snapshot.eContainer();
-				Object_ object = (Object_) instance.getOriginal().getValue();
-				state.addStateObjectSnapshot(object, instance);
-				addLinksOfInitialObject(object, state);
+			if (snapshot != null) {
+				if (snapshot.getValue() instanceof Object_) {
+					ValueInstance instance = (ValueInstance) snapshot.eContainer();
+					Object_ object = (Object_) instance.getOriginal().getValue();
+					state.addStateObjectSnapshot(object, instance);
+					addLinksOfInitialObject(object, state);
+				}
 			}
 		}
 	}

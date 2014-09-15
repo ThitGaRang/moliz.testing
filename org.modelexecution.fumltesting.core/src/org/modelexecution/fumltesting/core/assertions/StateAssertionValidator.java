@@ -348,6 +348,7 @@ public class StateAssertionValidator {
 
 	private boolean processStateExpression(ObjectStateExpression expression, Object_ fumlTarget) {
 		boolean sameType = false;
+		boolean objectFound = false;
 		ArrayList<Boolean> results = new ArrayList<Boolean>();
 		ArrayList<Boolean> resultListCheck = new ArrayList<Boolean>();
 		ValueInstance instance = testDataConverter.getValueInstance(((ObjectValue) expression.getValue()).getValue());
@@ -355,6 +356,7 @@ public class StateAssertionValidator {
 			if (snapshot.getValueInstance() != instance)
 				continue;
 			Object_ object_ = (Object_) snapshot.getValue();
+			objectFound = true;
 
 			// compare types
 			search: for (Class_ class_ : object_.types) {
@@ -395,6 +397,12 @@ public class StateAssertionValidator {
 					}
 				}
 			}
+		}
+		if (!objectFound) {
+			if (expression.getOperator() == ArithmeticOperator.EQUAL)
+				return false;
+			if (expression.getOperator() == ArithmeticOperator.NOT_EQUAL)
+				return true;
 		}
 		if (expression.getOperator() == ArithmeticOperator.INCLUDES) {
 			if (resultListCheck.size() == 0)

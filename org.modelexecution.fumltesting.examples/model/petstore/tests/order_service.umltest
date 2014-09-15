@@ -19,10 +19,16 @@ scenario TestData[
 		Product.description = 'description';
 	}
 	
-	object itemID: Item{
+	object itemTD: Item{
 		Item.name='item';
 		Item.description='description';
 		Item.unitCost=10;
+	}
+	
+	object anotherItemTD: Item{
+		Item.name='anotherItem';
+		Item.description='description';
+		Item.unitCost=5;
 	}
 	
 	object cartItemTD: CartItem{
@@ -30,8 +36,8 @@ scenario TestData[
 	}
 	
 	link cart_customer { source cart_customer.cart=TestData.cartTD; target cart_customer.customer=TestData.customerTD; }
-	link product_item { source product_item.item = TestData.itemID; target product_item.product = TestData.productTD; }
-	link cartItem_item { source cartItem_item.cartItem = TestData.cartItemTD; target cartItem_item.item = TestData.itemID; }
+	link product_item { source product_item.item = TestData.itemTD; target product_item.product = TestData.productTD; }
+	link cartItem_item { source cartItem_item.cartItem = TestData.cartItemTD; target cartItem_item.item = TestData.itemTD; }
 	link cart_cartItem { source cart_cartItem.cart = TestData.cartTD; target cart_cartItem.cartItems = TestData.cartItemTD; }
 ]
 
@@ -44,19 +50,19 @@ test getCartTest activity OrderService.GetCart(OrderService.GetCart.customer=Tes
 test setFoundItemTest activity OrderService.SetFoundCartItem(OrderService.SetFoundCartItem.cartItem=TestData.cartItemTD) 
 	on TestData.orderServiceTD{
 	finally{
-		OrderService.SetFoundCartItem.cartItem::cartItem_item.item = TestData.itemID;
+		OrderService.SetFoundCartItem.cartItem::cartItem_item.item = TestData.itemTD;
 	}
 }
 
-test createOrderLineTest activity OrderService.CreateOrderLine(OrderService.CreateOrderLine.item=TestData.itemID, OrderService.CreateOrderLine.quantity=1){
+test createOrderLineTest activity OrderService.CreateOrderLine(OrderService.CreateOrderLine.item=TestData.itemTD, OrderService.CreateOrderLine.quantity=1){
 	finally{
-		OrderService.CreateOrderLine.orderLine::orderLine_item.item = TestData.itemID;
+		OrderService.CreateOrderLine.orderLine::orderLine_item.item = TestData.itemTD;
 	}
 }
 
 test createOrderLineFromCartItemTest activity OrderService.CreateOrderLineFromCartItem(OrderService.CreateOrderLineFromCartItem.cartItem=TestData.cartItemTD) on TestData.orderServiceTD{
 	finally{
-		OrderService.CreateOrderLineFromCartItem.orderLine::orderLine_item.item = TestData.itemID;
+		OrderService.CreateOrderLineFromCartItem.orderLine::orderLine_item.item = TestData.itemTD;
 	}
 }
 
@@ -64,4 +70,14 @@ test confirmOrderTest activity OrderService.ConfirmOrder(OrderService.ConfirmOrd
 	finally{
 		OrderService.ConfirmOrder.order::order_customer.customer = TestData.customerTD;
 	}
+}
+
+test getCartItemTest activity OrderService.GetCartItem(OrderService.GetCartItem.cart=TestData.cartTD, OrderService.GetCartItem.item=TestData.itemTD) on TestData.orderServiceTD{
+	finally{
+		OrderService.GetCartItem.cartItem = TestData.cartItemTD;
+	}
+}
+
+test addItemToCartTest activity OrderService.AddItemToCart(OrderService.AddItemToCart.customer=TestData.customerTD, OrderService.AddItemToCart.item=TestData.anotherItemTD) on TestData.orderServiceTD{
+	
 }
