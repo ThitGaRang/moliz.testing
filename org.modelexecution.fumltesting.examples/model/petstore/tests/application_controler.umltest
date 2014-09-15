@@ -3,12 +3,29 @@ import petstore.logic.*
 
 scenario TestData[
 	object applicationControllerTD: ApplicationController{ ApplicationController.lastSessionId = -1; }
+	object customerServiceTD: CustomerService{}
+	object catalogServiceTD: CatalogService{}
 	object customerTD: Customer{
 		Customer.firstname='user'; 
 		Customer.lastname='userLastName';
 		Customer.email='user@test.com';
 		Customer.login='user';
 		Customer.password='password';
+	}
+	object itemTD: Item{
+		Item.name='item';
+		Item.description='description';
+		Item.unitCost=0;
+	}
+	
+	link applicationController_customerService{ 
+		source applicationController_customerService.applicationController=TestData.applicationControllerTD; 
+		target applicationController_customerService.customerService=TestData.customerServiceTD;
+	}
+	
+	link applicationController_catalogService{
+		source applicationController_catalogService.applicationController=TestData.catalogServiceTD;
+		target applicationController_catalogService.catalogService = TestData.catalogServiceTD;
 	}
 ]
 
@@ -23,5 +40,29 @@ test createSessionTest activity ApplicationController.CreateSession(ApplicationC
 	finally{
 		ApplicationController.CreateSession.sessionId = 0;
 		check 'sessionAdded';
+	}
+}
+
+test setFoundCustomerTest activity ApplicationController.SetFoundCustomer(ApplicationController.SetFoundCustomer.customer=TestData.customerTD) on TestData.applicationControllerTD{
+	finally{
+		SetFoundCustomer.setFoundCustomer.result::foundCustomer.customer = TestData.customerTD;
+	}
+}
+
+test loginTest activity ApplicationController.Login(ApplicationController.Login.login='user', ApplicationController.Login.password='password') on TestData.applicationControllerTD{
+	finally{
+		ApplicationController.Login.sessionID = 0;
+	}
+}
+
+//test findItemTest activity ApplicationController.FindItem(ApplicationController.FindItem.name='item') on TestData.applicationControllerTD{
+//	finally{
+//		ApplicationController.FindItem.items includes TestData.itemTD;
+//	}
+//}
+
+test findItemCSTest activity CatalogService.FindItem(CatalogService.FindItem.name='item') on TestData.catalogServiceTD{
+	finally{
+		CatalogService.FindItem.item = TestData.itemTD;
 	}
 }

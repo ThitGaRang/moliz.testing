@@ -104,6 +104,8 @@ public class TestDataConverter {
 			}
 		}
 
+		objects.put(object, object_);
+
 		for (org.modelexecution.fumltesting.core.testlang.Link link : testData.getAllLinks()) {
 			if (link.getSourceValue().equals(object)) {
 				Link fumlLink = new Link();
@@ -149,7 +151,6 @@ public class TestDataConverter {
 				fumlLink.addTo(locus);
 			}
 		}
-		objects.put(object, object_);
 		return object_;
 	}
 

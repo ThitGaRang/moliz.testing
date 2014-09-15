@@ -83,14 +83,16 @@ public class SequenceGenerator {
 		State state = sequence.createNewState(nodeExecution);
 
 		ValueSnapshot contextSnapshot = nodeExecution.getActivityExecution().getContextValueSnapshot();
+		Object_ contextObject = null;
 		if (contextSnapshot != null) {
 			if (contextSnapshot.getValue() instanceof Object_) {
 				ValueInstance instance = (ValueInstance) contextSnapshot.eContainer();
-				Object_ object = (Object_) instance.getOriginal().getValue();
-				state.addStateObjectSnapshot(object, instance);
-				addLinksOfInitialObject(object, state);
+				contextObject = (Object_) instance.getOriginal().getValue();
+				state.addStateObjectSnapshot(contextObject, instance);
 			}
 		}
+
+		ArrayList<Object_> inputObjects = new ArrayList<Object_>();
 
 		for (InputParameterSetting inputParameterSetting : nodeExecution.getActivityExecution().getActivityInputs()) {
 			ValueSnapshot snapshot = inputParameterSetting.getParameterValues().get(0).getValueSnapshot();
@@ -99,9 +101,16 @@ public class SequenceGenerator {
 					ValueInstance instance = (ValueInstance) snapshot.eContainer();
 					Object_ object = (Object_) instance.getOriginal().getValue();
 					state.addStateObjectSnapshot(object, instance);
-					addLinksOfInitialObject(object, state);
+					inputObjects.add(object);
 				}
 			}
+		}
+
+		// once all objects are added to state, proceed with adding links
+		if (contextObject != null)
+			addLinksOfInitialObject(contextObject, state);
+		for (Object_ inputObject : inputObjects) {
+			addLinksOfInitialObject(inputObject, state);
 		}
 	}
 
@@ -260,7 +269,6 @@ public class SequenceGenerator {
 						ValueInstance targetInstance = trace.getValueInstance(targetValue);
 						state.addStateObjectSnapshot((Object_) targetInstance.getOriginal().getValue(), targetInstance);
 						state.addStateLinkSnapshot(link, instance);
-						addLinksOfInitialObject((Object_) targetInstance.getRuntimeValue(), state);
 					}
 				}
 			}
