@@ -24,7 +24,7 @@ scenario TestData[
 	}
 	
 	link applicationController_catalogService{
-		source applicationController_catalogService.applicationController=TestData.catalogServiceTD;
+		source applicationController_catalogService.applicationController=TestData.applicationControllerTD;
 		target applicationController_catalogService.catalogService = TestData.catalogServiceTD;
 	}
 ]
@@ -55,14 +55,24 @@ test loginTest activity ApplicationController.Login(ApplicationController.Login.
 	}
 }
 
-//test findItemTest activity ApplicationController.FindItem(ApplicationController.FindItem.name='item') on TestData.applicationControllerTD{
-//	finally{
-//		ApplicationController.FindItem.items includes TestData.itemTD;
-//	}
-//}
-
-test findItemCSTest activity CatalogService.FindItem(CatalogService.FindItem.name='item') on TestData.catalogServiceTD{
+test findItemTest activity ApplicationController.FindItem(ApplicationController.FindItem.name='item') on TestData.applicationControllerTD{
 	finally{
-		CatalogService.FindItem.item = TestData.itemTD;
+		ApplicationController.FindItem.items = TestData.itemTD;
 	}
+}
+
+test getCustomerTest activity ApplicationController.GetCustomer(ApplicationController.GetCustomer.sessionID=0) on TestData.applicationControllerTD{
+	finally{
+		ApplicationController.GetCustomer.customer = null;
+	}
+}
+
+test confirmOrderTest activity ApplicationController.ConfirmOrder(ApplicationController.ConfirmOrder.sessionID=0) on TestData.applicationControllerTD{
+	finally{
+		ApplicationController.ConfirmOrder.order = null;
+	}
+}
+
+test addItemToCart activity ApplicationController.AddItemToCart(ApplicationController.AddItemToCart.item=TestData.itemTD, ApplicationController.AddItemToCart.sessionID=0) on TestData.applicationControllerTD{
+	
 }

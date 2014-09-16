@@ -109,14 +109,15 @@ public class TraceUtil {
 
 	public ArrayList<ValueInstance> getValueInstances(ObjectNode node, Object nodeExecution) {
 		ArrayList<ValueInstance> instances = new ArrayList<ValueInstance>();
-		;
 		if (node instanceof OutputPin || node instanceof ActivityParameterNode) {
 			if (nodeExecution instanceof ActionExecution) {
 				for (Output output : ((ActionExecution) nodeExecution).getOutputs()) {
 					if (output.getOutputPin().name.equals(node.name)) {
 						if (output.getOutputValues().size() > 0)
 							for (OutputValue outputValue : output.getOutputValues()) {
-								instances.add((ValueInstance) outputValue.getValueSnapshot().eContainer());
+								if (outputValue != null && outputValue.getValueSnapshot() != null) {
+									instances.add((ValueInstance) outputValue.getValueSnapshot().eContainer());
+								}
 							}
 					}
 				}
@@ -126,7 +127,9 @@ public class TraceUtil {
 					if (output.getParameter().name.equals(node.name)) {
 						if (output.getParameterValues().size() > 0)
 							for (OutputParameterValue parameterValue : output.getParameterValues()) {
-								instances.add((ValueInstance) parameterValue.getValueSnapshot().eContainer());
+								if (parameterValue != null && parameterValue.getValueSnapshot() != null) {
+									instances.add((ValueInstance) parameterValue.getValueSnapshot().eContainer());
+								}
 							}
 					}
 				}
@@ -139,7 +142,9 @@ public class TraceUtil {
 					if (input.getInputPin().name.equals(node.name)) {
 						if (input.getInputValues().size() > 0)
 							for (InputValue inputValue : input.getInputValues()) {
-								instances.add((ValueInstance) inputValue.getValueSnapshot().eContainer());
+								if (inputValue != null && inputValue.getValueSnapshot() != null) {
+									instances.add((ValueInstance) inputValue.getValueSnapshot().eContainer());
+								}
 							}
 					}
 				}
@@ -149,7 +154,9 @@ public class TraceUtil {
 					if (input.getParameter().name.equals(node.name)) {
 						if (input.getParameterValues().size() > 0)
 							for (InputParameterValue parameterValue : input.getParameterValues()) {
-								instances.add((ValueInstance) parameterValue.getValueSnapshot().eContainer());
+								if (parameterValue != null && parameterValue.getValueSnapshot() != null) {
+									instances.add((ValueInstance) parameterValue.getValueSnapshot().eContainer());
+								}
 							}
 					}
 				}

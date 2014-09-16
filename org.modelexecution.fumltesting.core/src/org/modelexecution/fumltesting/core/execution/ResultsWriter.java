@@ -48,6 +48,7 @@ import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
 import fUML.Syntax.Activities.IntermediateActivities.InitialNode;
 import fUML.Syntax.Activities.IntermediateActivities.ObjectNode;
+import fUML.Syntax.Classes.Kernel.NamedElement;
 import fUML.Syntax.Classes.Kernel.Property;
 
 /**
@@ -78,7 +79,8 @@ public class ResultsWriter {
 
 		for (TestCaseResult testCaseResult : suiteResult.getTestCaseResults()) {
 			writer.println("TestCase: " + testCaseResult.getTestCaseName());
-			writer.println("Activity: " + (testCaseResult.getActivityUnderTest().getActivity()).name);
+			writer.println("Activity: " + ((NamedElement) testCaseResult.getActivityUnderTest().getActivity().owner).name + "."
+					+ testCaseResult.getActivityUnderTest().getActivity().name);
 			if (testCaseResult.getActivityContextObject() != null) {
 				writer.println("Activity context object: " + ((ObjectSpecification) testCaseResult.getActivityContextObject()).getName());
 			}
