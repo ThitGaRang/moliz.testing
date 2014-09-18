@@ -13,48 +13,63 @@ scenario TestData[
 	}
 ]
 
-test loginTest activity CustomerService.Login(CustomerService.Login.login='user', CustomerService.Login.password='password') on TestData.customerServiceTD{
-	finally{
-		CustomerService.Login.customer != null;
-	}
-}
-
-test loginTestFailPass activity CustomerService.Login(CustomerService.Login.login='login', CustomerService.Login.password='wrongPassword') on TestData.customerServiceTD{
-	finally{
-		CustomerService.Login.customer = null;
-	}
-}
-
-test loginTestFailName activity CustomerService.Login(CustomerService.Login.login='wrongLogin', CustomerService.Login.password='password') on TestData.customerServiceTD{
-	finally{
-		CustomerService.Login.customer = null;
-	}
-}
-
-test checkCredentials activity CustomerService.CheckCredentials(CustomerService.CheckCredentials.customer=TestData.customerTD, 
-		CustomerService.CheckCredentials.login='user', CustomerService.CheckCredentials.password='password'){
-	finally{
-		CustomerService.CheckCredentials.corresponds = true;
-	}
-}
-
-test checkCredentialsFail activity CustomerService.CheckCredentials(CustomerService.CheckCredentials.customer=TestData.customerTD, 
-		CustomerService.CheckCredentials.login='user', CustomerService.CheckCredentials.password='wrongPassword'){
-	finally{
-		CustomerService.CheckCredentials.corresponds = false;
-	}
-}
-
-test findCustomerTest activity CustomerService.FindCustomer(CustomerService.FindCustomer.login='user', 
-	CustomerService.FindCustomer.password='password') on TestData.customerServiceTD{
-	finally{
-		CustomerService.FindCustomer.customer = TestData.customerTD;
-	}
-}
-
-test findCustomerTestFail activity CustomerService.FindCustomer(CustomerService.FindCustomer.login='nonExistingUser', 
-	CustomerService.FindCustomer.password='password') on TestData.customerServiceTD{
-	finally{
-		CustomerService.FindCustomer.customer = null;
-	}
-}
+//test loginTest activity CustomerService.Login(CustomerService.Login.login='user', CustomerService.Login.password='password') on TestData.customerServiceTD{
+//	finally{
+//		CustomerService.Login.customer != null;
+//	}
+//}
+//
+//test loginTestFailPass activity CustomerService.Login(CustomerService.Login.login='user', CustomerService.Login.password='wrongPassword') on TestData.customerServiceTD{
+//	finally{
+//		CustomerService.Login.customer = null;
+//	}
+//}
+//
+//test loginTestFailName activity CustomerService.Login(CustomerService.Login.login='wrongLogin', CustomerService.Login.password='password') on TestData.customerServiceTD{
+//	finally{
+//		CustomerService.Login.customer = null;
+//	}
+//}
+//
+//test checkCredentials activity CustomerService.CheckCredentials(CustomerService.CheckCredentials.customer=TestData.customerTD, 
+//		CustomerService.CheckCredentials.login='user', CustomerService.CheckCredentials.password='password'){
+//	assertOrder CustomerService.CheckCredentials.customerFork, CustomerService.CheckCredentials.getLogin, CustomerService.CheckCredentials.loginEquals, 
+//		CustomerService.CheckCredentials.loginDecision, CustomerService.CheckCredentials.getPassword, CustomerService.CheckCredentials.passwordEquals, 
+//		CustomerService.CheckCredentials.passwordDecision, CustomerService.CheckCredentials.success;
+//	finally{
+//		CustomerService.CheckCredentials.corresponds = true;
+//	}
+//}
+//
+//test checkCredentialsFail activity CustomerService.CheckCredentials(CustomerService.CheckCredentials.customer=TestData.customerTD, 
+//		CustomerService.CheckCredentials.login='wrongLogin', CustomerService.CheckCredentials.password='password'){
+//	assertOrder CustomerService.CheckCredentials.customerFork, CustomerService.CheckCredentials.getLogin, CustomerService.CheckCredentials.loginEquals, 
+//		CustomerService.CheckCredentials.loginDecision, CustomerService.CheckCredentials.loginFalse;
+//	finally{
+//		CustomerService.CheckCredentials.corresponds = false;
+//	}
+//}
+//
+//test checkCredentialsFail activity CustomerService.CheckCredentials(CustomerService.CheckCredentials.customer=TestData.customerTD, 
+//		CustomerService.CheckCredentials.login='user', CustomerService.CheckCredentials.password='wrongPassword'){
+//	assertOrder CustomerService.CheckCredentials.customerFork, CustomerService.CheckCredentials.getLogin, CustomerService.CheckCredentials.loginEquals, 
+//		CustomerService.CheckCredentials.loginDecision, CustomerService.CheckCredentials.getPassword, CustomerService.CheckCredentials.passwordEquals, 
+//		CustomerService.CheckCredentials.passwordDecision, CustomerService.CheckCredentials.passwordFalse;
+//	finally{
+//		CustomerService.CheckCredentials.corresponds = false;
+//	}
+//}
+//
+//test findCustomerTest activity CustomerService.FindCustomer(CustomerService.FindCustomer.login='user', 
+//	CustomerService.FindCustomer.password='password') on TestData.customerServiceTD{
+//	finally{
+//		CustomerService.FindCustomer.customer = TestData.customerTD;
+//	}
+//}
+//
+//test findCustomerTestFail activity CustomerService.FindCustomer(CustomerService.FindCustomer.login='nonExistingUser', 
+//	CustomerService.FindCustomer.password='password') on TestData.customerServiceTD{
+//	finally{
+//		CustomerService.FindCustomer.customer = null;
+//	}
+//}

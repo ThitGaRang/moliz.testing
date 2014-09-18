@@ -43,12 +43,29 @@ public class Sequence {
 				Object_ object = lastState.getStateObjectSnapshot(instance);
 				state.addStateObjectSnapshot(object, instance);
 			}
-			for(ValueInstance instance: lastState.getStateLinkInstances()){
+			for (ValueInstance instance : lastState.getStateLinkInstances()) {
 				Link link = lastState.getStateLinkSnapshot(instance);
 				state.addStateLinkSnapshot(link, instance);
 			}
 			lastState.setSuccessor(state);
 			state.setPredecessor(lastState);
+		}
+		states.add(state);
+		lastState = state;
+		return state;
+	}
+
+	public State createNewState(State anotherState) {
+		State state = new State(null);
+		if (lastState != null) {
+			for (ValueInstance instance : anotherState.getStateObjectInstances()) {
+				Object_ object = anotherState.getStateObjectSnapshot(instance);
+				state.addStateObjectSnapshot(object, instance);
+			}
+			for (ValueInstance instance : anotherState.getStateLinkInstances()) {
+				Link link = anotherState.getStateLinkSnapshot(instance);
+				state.addStateLinkSnapshot(link, instance);
+			}
 		}
 		states.add(state);
 		lastState = state;

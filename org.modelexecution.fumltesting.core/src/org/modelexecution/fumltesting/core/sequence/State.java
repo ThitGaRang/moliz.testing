@@ -88,11 +88,10 @@ public class State {
 			for (FeatureValue featureValue : link.featureValues) {
 				if (link.type.navigableOwnedEnd.contains(featureValue.feature)) {
 					targetFeatureValue = featureValue;
-					break;
+					if (instance.getRuntimeValue() == ((Reference) targetFeatureValue.values.get(0)).referent) {
+						return getStateObjectSnapshot(instance);
+					}
 				}
-			}
-			if (instance.getRuntimeValue().equals(((Reference) targetFeatureValue.values.get(0)).referent)) {
-				return getStateObjectSnapshot(instance);
 			}
 		}
 		return null;
@@ -106,11 +105,10 @@ public class State {
 			for (FeatureValue featureValue : link.featureValues) {
 				if (!link.type.navigableOwnedEnd.contains(featureValue.feature)) {
 					sourceFeatureValue = featureValue;
-					break;
+					if (instance.getRuntimeValue() == ((Reference) sourceFeatureValue.values.get(0)).referent) {
+						return getStateObjectSnapshot(instance);
+					}
 				}
-			}
-			if (instance.getRuntimeValue().equals(((Reference) sourceFeatureValue.values.get(0)).referent)) {
-				return getStateObjectSnapshot(instance);
 			}
 		}
 		return null;

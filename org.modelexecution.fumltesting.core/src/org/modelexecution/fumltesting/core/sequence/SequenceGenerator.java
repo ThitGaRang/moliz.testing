@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
+import org.modelexecution.fumldebug.core.trace.tracemodel.CallActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Input;
-import org.modelexecution.fumldebug.core.trace.tracemodel.InputParameterSetting;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Output;
 import org.modelexecution.fumldebug.core.trace.tracemodel.OutputValue;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
@@ -79,38 +79,38 @@ public class SequenceGenerator {
 		return sequence;
 	}
 
+	private Sequence createSequenceOfCalled(ActivityExecution activityExecution, State lastState) throws SequenceGeneratorException {
+		Sequence sequence = new Sequence(activityExecution);
+		sequenceTrace.getSequences().add(sequence);
+		ActivityNodeExecution initial = null;
+		for (ActivityNodeExecution nodeExecution : activityExecution.getNodeExecutions()) {
+			if (nodeExecution.getLogicalPredecessor().size() == 0) {
+				initial = nodeExecution;
+				break;
+			}
+		}
+		
+		sequence.createNewState(lastState);
+		
+		if (initial != null) {
+			completeSequence(initial.getChronologicalSuccessor(), sequence);			
+		}
+		return sequence;
+	}
+
 	private void createInitialState(ActivityNodeExecution nodeExecution, Sequence sequence) {
 		State state = sequence.createNewState(nodeExecution);
+		ArrayList<Object_> initialObjects = new ArrayList<Object_>();
 
-		ValueSnapshot contextSnapshot = nodeExecution.getActivityExecution().getContextValueSnapshot();
-		Object_ contextObject = null;
-		if (contextSnapshot != null) {
-			if (contextSnapshot.getValue() instanceof Object_) {
-				ValueInstance instance = (ValueInstance) contextSnapshot.eContainer();
-				contextObject = (Object_) instance.getOriginal().getValue();
-				state.addStateObjectSnapshot(contextObject, instance);
+		for (ValueInstance instance : trace.getInitialLocusValueInstances()) {
+			if (instance.getRuntimeValue() != null && instance.getRuntimeValue() instanceof Object_) {
+				initialObjects.add((Object_) instance.getOriginal().getValue());
+				state.addStateObjectSnapshot((Object_) instance.getOriginal().getValue(), instance);
 			}
 		}
 
-		ArrayList<Object_> inputObjects = new ArrayList<Object_>();
-
-		for (InputParameterSetting inputParameterSetting : nodeExecution.getActivityExecution().getActivityInputs()) {
-			ValueSnapshot snapshot = inputParameterSetting.getParameterValues().get(0).getValueSnapshot();
-			if (snapshot != null) {
-				if (snapshot.getValue() instanceof Object_) {
-					ValueInstance instance = (ValueInstance) snapshot.eContainer();
-					Object_ object = (Object_) instance.getOriginal().getValue();
-					state.addStateObjectSnapshot(object, instance);
-					inputObjects.add(object);
-				}
-			}
-		}
-
-		// once all objects are added to state, proceed with adding links
-		if (contextObject != null)
-			addLinksOfInitialObject(contextObject, state);
-		for (Object_ inputObject : inputObjects) {
-			addLinksOfInitialObject(inputObject, state);
+		for (Object_ initialObject : initialObjects) {
+			addLinksOfInitialObject(initialObject, state);
 		}
 	}
 
@@ -174,14 +174,12 @@ public class SequenceGenerator {
 			} else if (nodeExecution.getNode() instanceof CallBehaviorAction || nodeExecution.getNode() instanceof CallOperationAction) {
 				Sequence calledActionSequence = null;
 				for (ActivityExecution execution : trace.getActivityExecutions()) {
-					if (nodeExecution.getNode() instanceof CallBehaviorAction
-							&& execution.getActivity() == ((CallBehaviorAction) nodeExecution.getNode()).behavior) {
-						calledActionSequence = createSequence(execution);
+					if (nodeExecution.getNode() instanceof CallBehaviorAction && execution == ((CallActionExecution) nodeExecution).getCallee()) {
+						calledActionSequence = createSequenceOfCalled(execution, sequence.lastState());
 						break;
 					}
-					if (nodeExecution.getNode() instanceof CallOperationAction
-							&& execution.getActivity() == ((CallOperationAction) nodeExecution.getNode()).operation.method.get(0)) {
-						calledActionSequence = createSequence(execution);
+					if (nodeExecution.getNode() instanceof CallOperationAction && execution == ((CallActionExecution) nodeExecution).getCallee()) {
+						calledActionSequence = createSequenceOfCalled(execution, sequence.lastState());
 						break;
 					}
 				}

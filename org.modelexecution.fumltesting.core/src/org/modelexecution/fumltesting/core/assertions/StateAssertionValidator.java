@@ -32,6 +32,7 @@ import org.modelexecution.fumltesting.core.testlang.ActionReferencePoint;
 import org.modelexecution.fumltesting.core.testlang.ArithmeticOperator;
 import org.modelexecution.fumltesting.core.testlang.Check;
 import org.modelexecution.fumltesting.core.testlang.ConstraintCheck;
+import org.modelexecution.fumltesting.core.testlang.FinallyStateAssertion;
 import org.modelexecution.fumltesting.core.testlang.NullValue;
 import org.modelexecution.fumltesting.core.testlang.ObjectStateExpression;
 import org.modelexecution.fumltesting.core.testlang.ObjectValue;
@@ -151,7 +152,7 @@ public class StateAssertionValidator {
 		return result;
 	}
 
-	public StateAssertionResult check(org.modelexecution.fumltesting.core.testlang.FinallyStateAssertion assertion) throws ActionNotExecutedException {
+	public StateAssertionResult check(FinallyStateAssertion assertion) throws ActionNotExecutedException {
 		StateAssertion stateAssertion = new StateAssertion();
 
 		stateAssertion.setQuantifier(TemporalQuantifier.ALWAYS);

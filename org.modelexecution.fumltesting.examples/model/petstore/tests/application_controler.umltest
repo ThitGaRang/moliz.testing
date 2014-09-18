@@ -29,50 +29,51 @@ scenario TestData[
 	}
 ]
 
-test createSessionIDTest activity ApplicationController.CreateSessionID on TestData.applicationControllerTD{
-	finally{
-		ApplicationController.CreateSessionID.sessionId = 0;
-		CreateSessionID.self.result::ApplicationController.lastSessionId = 0;
-	}
-}
-
-test createSessionTest activity ApplicationController.CreateSession(ApplicationController.CreateSession.customer=TestData.customerTD) on TestData.applicationControllerTD{
-	finally{
-		ApplicationController.CreateSession.sessionId = 0;
-		check 'sessionAdded';
-	}
-}
-
-test setFoundCustomerTest activity ApplicationController.SetFoundCustomer(ApplicationController.SetFoundCustomer.customer=TestData.customerTD) on TestData.applicationControllerTD{
-	finally{
-		SetFoundCustomer.setFoundCustomer.result::foundCustomer.customer = TestData.customerTD;
-	}
-}
-
-test loginTest activity ApplicationController.Login(ApplicationController.Login.login='user', ApplicationController.Login.password='password') on TestData.applicationControllerTD{
-	finally{
-		ApplicationController.Login.sessionID = 0;
-	}
-}
-
-test findItemTest activity ApplicationController.FindItem(ApplicationController.FindItem.name='item') on TestData.applicationControllerTD{
-	finally{
-		ApplicationController.FindItem.items = TestData.itemTD;
-	}
-}
-
-test getCustomerTest activity ApplicationController.GetCustomer(ApplicationController.GetCustomer.sessionID=0) on TestData.applicationControllerTD{
-	finally{
-		ApplicationController.GetCustomer.customer = null;
-	}
-}
-
-test confirmOrderTest activity ApplicationController.ConfirmOrder(ApplicationController.ConfirmOrder.sessionID=0) on TestData.applicationControllerTD{
-	finally{
-		ApplicationController.ConfirmOrder.order = null;
-	}
-}
-
-test addItemToCart activity ApplicationController.AddItemToCart(ApplicationController.AddItemToCart.item=TestData.itemTD, ApplicationController.AddItemToCart.sessionID=0) on TestData.applicationControllerTD{
-	
-}
+//test createSessionIDTest activity ApplicationController.CreateSessionID on TestData.applicationControllerTD{
+//	finally{
+//		ApplicationController.CreateSessionID.sessionId = 0;
+//		CreateSessionID.self.result::ApplicationController.lastSessionId = 0;
+//	}
+//}
+//
+//test createSessionTest activity ApplicationController.CreateSession(ApplicationController.CreateSession.customer=TestData.customerTD) on TestData.applicationControllerTD{
+//	finally{
+//		ApplicationController.CreateSession.sessionId = 0;
+//		check 'sessionAdded';
+//	}
+//}
+//
+//test setFoundCustomerTest activity ApplicationController.SetFoundCustomer(ApplicationController.SetFoundCustomer.customer=TestData.customerTD) on TestData.applicationControllerTD{
+//	finally{
+//		SetFoundCustomer.setFoundCustomer.result::foundCustomer.customer = TestData.customerTD;
+//	}
+//}
+//
+//test loginTest activity ApplicationController.Login(ApplicationController.Login.login='user', ApplicationController.Login.password='password') on TestData.applicationControllerTD{
+//	assertOrder *;
+//	finally{
+//		ApplicationController.Login.sessionID = 0;
+//	}
+//}
+//
+//test findItemTest activity ApplicationController.FindItem(ApplicationController.FindItem.name='item') on TestData.applicationControllerTD{
+//	finally{
+//		ApplicationController.FindItem.items = TestData.itemTD;
+//	}
+//}
+//
+//test getCustomerTest activity ApplicationController.GetCustomer(ApplicationController.GetCustomer.sessionID=0) on TestData.applicationControllerTD{
+//	finally{
+//		ApplicationController.GetCustomer.customer = null;
+//	}
+//}
+//
+//test confirmOrderTest activity ApplicationController.ConfirmOrder(ApplicationController.ConfirmOrder.sessionID=0) on TestData.applicationControllerTD{
+//	finally{
+//		ApplicationController.ConfirmOrder.order = null;
+//	}
+//}
+//
+//test addItemToCart activity ApplicationController.AddItemToCart(ApplicationController.AddItemToCart.item=TestData.itemTD, ApplicationController.AddItemToCart.sessionID=0) on TestData.applicationControllerTD{
+//	
+//}

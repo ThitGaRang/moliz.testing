@@ -5,5 +5,9 @@ inv sessionAdded: sessions->size() > 0
 context Item
 inv itemSize: Item.allInstances()->size()=2
 context Product
-inv productSize: Product.allInstances()->size()=1
+inv productSize: Product.allInstances()->size()=2
+context Order
+inv numberOfOrderLines: orderLines->size()=2
+context OrderLine
+inv numberOfExistingOrderLines: OrderLine.allInstances()->size()=2
 endpackage

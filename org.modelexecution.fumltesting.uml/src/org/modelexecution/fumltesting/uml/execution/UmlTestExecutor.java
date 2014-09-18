@@ -92,7 +92,7 @@ public class UmlTestExecutor {
 	private String modelFolder = "petstore";
 	private String modelName = "petstore";
 
-	private String testsPath = "../org.modelexecution.fumltesting.examples/model/" + modelFolder + "/tests";
+	private String testsPath = "../org.modelexecution.fumltesting.examples/model/" + modelFolder + "/userstudy";
 	private String umlModelPath = "../org.modelexecution.fumltesting.examples/model/" + modelFolder + "/" + modelName + ".uml";
 	private String primitivesPath = "../../moliz/org.modelexecution.fumldebug.standardlibrary/library/uml_library.uml";
 	private String oclPath = "../org.modelexecution.fumltesting.examples/model/" + modelFolder + "/" + modelName + ".ocl";

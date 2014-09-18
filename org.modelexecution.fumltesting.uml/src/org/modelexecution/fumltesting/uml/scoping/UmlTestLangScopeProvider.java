@@ -24,9 +24,11 @@ import org.eclipse.uml2.uml.DecisionNode;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.ForkNode;
 import org.eclipse.uml2.uml.InitialNode;
+import org.eclipse.uml2.uml.InputPin;
 import org.eclipse.uml2.uml.JoinNode;
 import org.eclipse.uml2.uml.MergeNode;
 import org.eclipse.uml2.uml.ObjectNode;
+import org.eclipse.uml2.uml.OutputPin;
 import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.ParameterDirectionKind;
 import org.eclipse.uml2.uml.PrimitiveType;
@@ -39,6 +41,7 @@ import org.modelexecution.fumltesting.uml.umlTestLang.FinallyStateAssertion;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLActionReferencePoint;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLActivityInput;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLAttribute;
+import org.modelexecution.fumltesting.uml.umlTestLang.UMLConstraintCheck;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLFinallyStateAssertion;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLLink;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLNodeOrder;
@@ -261,6 +264,25 @@ public class UmlTestLangScopeProvider extends XbaseScopeProvider {
 			}
 		}
 
+		/** CONSTRAINT CONTEXT OBJECT SCOPE */
+		if (context instanceof UMLConstraintCheck && reference.getName().equals("object")) {
+			ArrayList<ActivityNode> nodes = new ArrayList<ActivityNode>();
+			UMLTestCase testCase = (UMLTestCase) context.eContainer().eContainer();
+			for (ActivityNode node : testCase.getActivityUnderTest().getNodes()) {
+				if (node.getOwner() == testCase.getActivityUnderTest() && node instanceof ActivityParameterNode) {
+					nodes.add(node);
+				}
+				if (node instanceof Action) {
+					for (OutputPin pin : ((Action) node).getOutputs()) {
+						nodes.add(pin);
+					}
+					for (InputPin pin : ((Action) node).getInputs()) {
+						nodes.add(pin);
+					}
+				}
+			}
+			return Scopes.scopeFor(nodes, new UmlQualifiedNameProvider(), IScope.NULLSCOPE);
+		}
 		return super.getScope(context, reference);
 	}
 }

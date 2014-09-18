@@ -272,7 +272,7 @@ public class TraceUtil {
 				while (true) {
 					if (lastNode == null)
 						return null;
-					if (lastNode.getNode() instanceof Action)
+					if (lastNode.getNode() instanceof Action && lastNode.getActivityExecution().getActivity().name.equals(activityName))
 						return lastNode.getNode();
 					else {
 						lastNode = lastNode.getChronologicalPredecessor();
@@ -311,7 +311,7 @@ public class TraceUtil {
 	}
 
 	public ActivityNodeExecution getLastExecutedNode(ActivityNodeExecution nodeExecution) {
-		ActivityNodeList nodes = nodeExecution.getNode().activity.node;
+		ActivityNodeList nodes = ((CallActionExecution) nodeExecution).getCallee().getActivity().node;
 		return getLastNode(nodeExecution, nodes);
 	}
 
