@@ -36,6 +36,25 @@ public class Sequence {
 		return activityExecution;
 	}
 
+	public State createNewState() {
+		State state = new State(null);
+		if (lastState != null) {
+			for (ValueInstance instance : lastState.getStateObjectInstances()) {
+				Object_ object = lastState.getStateObjectSnapshot(instance);
+				state.addStateObjectSnapshot(object, instance);
+			}
+			for (ValueInstance instance : lastState.getStateLinkInstances()) {
+				Link link = lastState.getStateLinkSnapshot(instance);
+				state.addStateLinkSnapshot(link, instance);
+			}
+			lastState.setSuccessor(state);
+			state.setPredecessor(lastState);
+		}
+		states.add(state);
+		lastState = state;
+		return state;
+	}
+
 	public State createNewState(ActivityNodeExecution stateCreator) {
 		State state = new State(stateCreator);
 		if (lastState != null) {

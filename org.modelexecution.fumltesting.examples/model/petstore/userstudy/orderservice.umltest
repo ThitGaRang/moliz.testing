@@ -1,0 +1,37 @@
+import petstore.data.*
+import petstore.logic.*
+
+scenario TestData[
+	object orderService: OrderService{}
+	
+	object productOne: Product{Product.name='productOne';}
+	object productTwo: Product{Product.name='productTwo';}
+	
+	object itemOne: Item{Item.name='itemOne';Item.unitCost=10;}
+	object itemTwo: Item{Item.name='itemTwo';Item.unitCost=10;}
+	
+	object cartItemOne: CartItem{CartItem.quantity=1;}
+	object cartItemTwo: CartItem{CartItem.quantity=1;}
+	
+	object cart: Cart{}
+	object customer: Customer{Customer.login='customer'; Customer.password='pass';}
+	
+	link product_item{source product_item.item=TestData.itemOne; target product_item.product=TestData.productOne;}
+	link product_item{source product_item.item=TestData.itemTwo; target product_item.product=TestData.productTwo;}
+	
+	link cartItem_item{source cartItem_item.cartItem=TestData.cartItemOne; target cartItem_item.item=TestData.itemOne;}
+	link cartItem_item{source cartItem_item.cartItem=TestData.cartItemTwo; target cartItem_item.item=TestData.cartItemTwo;}
+	
+	link cart_cartItem{source cart_cartItem.cart=TestData.cart; target cart_cartItem.cartItems=TestData.cartItemOne;}
+	link cart_cartItem{source cart_cartItem.cart=TestData.cart; target cart_cartItem.cartItems=TestData.cartItemTwo;}
+	
+	link cart_customer{source cart_customer.customer=TestData.customer; target cart_customer.cart=TestData.cart;}
+]
+
+test confirmOrderTest activity OrderService.ConfirmOrder(OrderService.ConfirmOrder.customer=TestData.customer) on TestData.orderService{
+	finally{
+		OrderService.ConfirmOrder.order::order_customer.customer = TestData.customer;
+		OrderService.ConfirmOrder.customer::cart_customer.cart = null;
+		check 'numberOfOrderLines' on OrderService.ConfirmOrder.order;
+	}
+}

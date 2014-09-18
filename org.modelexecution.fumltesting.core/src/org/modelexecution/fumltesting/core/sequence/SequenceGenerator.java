@@ -63,6 +63,7 @@ public class SequenceGenerator {
 	private Sequence createSequence(ActivityExecution activityExecution) throws SequenceGeneratorException {
 		Sequence sequence = new Sequence(activityExecution);
 		sequenceTrace.getSequences().add(sequence);
+		createInitialState(sequence);
 		ActivityNodeExecution initial = null;
 		for (ActivityNodeExecution nodeExecution : activityExecution.getNodeExecutions()) {
 			if (nodeExecution.getLogicalPredecessor().size() == 0) {
@@ -71,10 +72,7 @@ public class SequenceGenerator {
 			}
 		}
 		if (initial != null) {
-			createInitialState(initial, sequence);
-			if (initial.getChronologicalSuccessor() != null) {
-				completeSequence(initial.getChronologicalSuccessor(), sequence);
-			}
+			completeSequence(initial, sequence);
 		}
 		return sequence;
 	}
@@ -89,17 +87,15 @@ public class SequenceGenerator {
 				break;
 			}
 		}
-		
 		sequence.createNewState(lastState);
-		
 		if (initial != null) {
-			completeSequence(initial.getChronologicalSuccessor(), sequence);			
+			completeSequence(initial, sequence);
 		}
 		return sequence;
 	}
 
-	private void createInitialState(ActivityNodeExecution nodeExecution, Sequence sequence) {
-		State state = sequence.createNewState(nodeExecution);
+	private void createInitialState(Sequence sequence) {
+		State state = sequence.createNewState();
 		ArrayList<Object_> initialObjects = new ArrayList<Object_>();
 
 		for (ValueInstance instance : trace.getInitialLocusValueInstances()) {
