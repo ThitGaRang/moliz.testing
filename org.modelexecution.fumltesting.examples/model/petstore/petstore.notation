@@ -19776,10 +19776,6 @@
         <element xmi:type="uml:ActivityParameterNode" href="petstore.uml#_uWXcwOJeEeK8HamiyIssFw"/>
         <layoutConstraint xmi:type="notation:Bounds" xmi:id="_uWqXsuJeEeK8HamiyIssFw" x="972" y="420"/>
       </children>
-      <children xmi:type="notation:BasicCompartment" xmi:id="_bQmOADwVEeSHDKeKdy2j9Q" visible="false" type="compartment_shape_display">
-        <styles xmi:type="notation:TitleStyle" xmi:id="_bQmOATwVEeSHDKeKdy2j9Q"/>
-        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_bQmOAjwVEeSHDKeKdy2j9Q"/>
-      </children>
       <element xmi:type="uml:Activity" href="petstore.uml#_NSe-YOJZEeK8HamiyIssFw"/>
       <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ONZHiOJZEeK8HamiyIssFw" height="551"/>
     </children>
@@ -20022,33 +20018,6 @@
       <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_6ftNIuJeEeK8HamiyIssFw" points="[7, -2, -32, -2]$[38, -8, -1, -8]"/>
       <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_6gJ5EOJeEeK8HamiyIssFw" id="(0.3,0.075)"/>
     </edges>
-    <edges xmi:type="notation:Connector" xmi:id="_7G1ekOJeEeK8HamiyIssFw" type="4003" source="_5vWuQOJeEeK8HamiyIssFw" target="_05AqYOJeEeK8HamiyIssFw" lineColor="0">
-      <children xmi:type="notation:DecorationNode" xmi:id="_7G1ek-JeEeK8HamiyIssFw" visible="false" type="6001">
-        <layoutConstraint xmi:type="notation:Location" xmi:id="_7G1elOJeEeK8HamiyIssFw" y="20"/>
-      </children>
-      <children xmi:type="notation:DecorationNode" xmi:id="_7G1eleJeEeK8HamiyIssFw" visible="false" type="6002">
-        <layoutConstraint xmi:type="notation:Location" xmi:id="_7G1eluJeEeK8HamiyIssFw" y="20"/>
-      </children>
-      <children xmi:type="notation:DecorationNode" xmi:id="_7G1el-JeEeK8HamiyIssFw" type="6005">
-        <layoutConstraint xmi:type="notation:Location" xmi:id="_7G1emOJeEeK8HamiyIssFw" x="20" y="40"/>
-      </children>
-      <children xmi:type="notation:DecorationNode" xmi:id="_7G1emeJeEeK8HamiyIssFw" type="6006">
-        <layoutConstraint xmi:type="notation:Location" xmi:id="_7G1emuJeEeK8HamiyIssFw" x="-20" y="-60"/>
-      </children>
-      <children xmi:type="notation:DecorationNode" xmi:id="_7G1em-JeEeK8HamiyIssFw" type="6007">
-        <layoutConstraint xmi:type="notation:Location" xmi:id="_7G1enOJeEeK8HamiyIssFw" y="-20"/>
-      </children>
-      <children xmi:type="notation:DecorationNode" xmi:id="_7G1eneJeEeK8HamiyIssFw" visible="false" type="6008">
-        <layoutConstraint xmi:type="notation:Location" xmi:id="_7G1enuJeEeK8HamiyIssFw" y="20"/>
-      </children>
-      <children xmi:type="notation:DecorationNode" xmi:id="_7G1en-JeEeK8HamiyIssFw" type="6010">
-        <layoutConstraint xmi:type="notation:Location" xmi:id="_7G1eoOJeEeK8HamiyIssFw" y="-20"/>
-      </children>
-      <styles xmi:type="notation:FontStyle" xmi:id="_7G1ekeJeEeK8HamiyIssFw" fontName="Segoe UI"/>
-      <element xmi:type="uml:ObjectFlow" href="petstore.uml#_7GijoOJeEeK8HamiyIssFw"/>
-      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_7G1ekuJeEeK8HamiyIssFw" points="[5, 2, -391, -200]$[394, 194, -2, -8]"/>
-      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_7HbUcOJeEeK8HamiyIssFw" id="(0.5,0.8)"/>
-    </edges>
     <edges xmi:type="notation:Connector" xmi:id="_HzdDsOJ2EeK_6PB5J_ER3A" type="4003" source="_DQl8gOJ2EeK_6PB5J_ER3A" target="_-ejlKuJaEeK8HamiyIssFw" lineColor="0">
       <children xmi:type="notation:DecorationNode" xmi:id="_HzdDs-J2EeK_6PB5J_ER3A" visible="false" type="6001">
         <layoutConstraint xmi:type="notation:Location" xmi:id="_HzdDtOJ2EeK_6PB5J_ER3A" y="20"/>
@@ -20170,6 +20139,32 @@
       <styles xmi:type="notation:FontStyle" xmi:id="_QbtwAefGEeKYGqqJU5zkGg" fontName="Segoe UI"/>
       <element xmi:type="uml:ObjectFlow" href="petstore.uml#_QbH6IOfGEeKYGqqJU5zkGg"/>
       <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_QbtwAufGEeKYGqqJU5zkGg" points="[5, -5, -495, -5]$[467, -5, -33, -5]"/>
+    </edges>
+    <edges xmi:type="notation:Connector" xmi:id="_POtyYD_4EeSrc_kwupipeA" type="4003" source="_5vWuQOJeEeK8HamiyIssFw" target="_05AqYOJeEeK8HamiyIssFw" lineColor="0">
+      <children xmi:type="notation:DecorationNode" xmi:id="_POuZcD_4EeSrc_kwupipeA" visible="false" type="6001">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_POuZcT_4EeSrc_kwupipeA" y="20"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_POuZcj_4EeSrc_kwupipeA" visible="false" type="6002">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_POvAgD_4EeSrc_kwupipeA" y="20"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_POvAgT_4EeSrc_kwupipeA" type="6005">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_POvAgj_4EeSrc_kwupipeA" x="20" y="40"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_POvAgz_4EeSrc_kwupipeA" type="6006">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_POvAhD_4EeSrc_kwupipeA" x="-20" y="-60"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_POvAhT_4EeSrc_kwupipeA" type="6007">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_POvAhj_4EeSrc_kwupipeA" y="-20"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_POvAhz_4EeSrc_kwupipeA" visible="false" type="6008">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_POvAiD_4EeSrc_kwupipeA" y="20"/>
+      </children>
+      <children xmi:type="notation:DecorationNode" xmi:id="_POvAiT_4EeSrc_kwupipeA" type="6010">
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_POvnkD_4EeSrc_kwupipeA" y="-20"/>
+      </children>
+      <styles xmi:type="notation:FontStyle" xmi:id="_POtyYT_4EeSrc_kwupipeA" fontHeight="8"/>
+      <element xmi:type="uml:ObjectFlow" href="petstore.uml#_POa3cD_4EeSrc_kwupipeA"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_POtyYj_4EeSrc_kwupipeA" points="[5, 2, -391, -212]$[394, 222, -2, 8]"/>
     </edges>
   </notation:Diagram>
   <notation:Diagram xmi:id="_yEE24OJZEeK8HamiyIssFw" type="PapyrusUMLActivityDiagram" name="OrderService::createOrderLine" measurementUnit="Pixel">

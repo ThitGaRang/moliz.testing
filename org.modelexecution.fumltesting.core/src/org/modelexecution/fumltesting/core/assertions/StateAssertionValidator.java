@@ -140,15 +140,11 @@ public class StateAssertionValidator {
 						result.addConstraintResult(constraintResult);
 					}
 				}
+				if (check instanceof StateExpression) {
+					result.addExpressionResult(checkExpression((StateExpression) check));
+				}
 			}
 		}
-
-		for (Check check : assertion.getAllChecks()) {
-			if (check instanceof StateExpression) {
-				result.addExpressionResult(checkExpression((StateExpression) check));
-			}
-		}
-
 		return result;
 	}
 
@@ -176,30 +172,20 @@ public class StateAssertionValidator {
 
 	private StateExpressionResult checkExpression(StateExpression expression) {
 		StateExpressionResult result = new StateExpressionResult(expression);
-		String expected = "";
-		if (expression.getValue() instanceof org.modelexecution.fumltesting.core.testlang.StringValue) {
-			expected = ((org.modelexecution.fumltesting.core.testlang.StringValue) expression.getValue()).getValue();
-		} else if (expression.getValue() instanceof org.modelexecution.fumltesting.core.testlang.IntegerValue) {
-			expected = ((org.modelexecution.fumltesting.core.testlang.IntegerValue) expression.getValue()).getValue().toString();
-		} else if (expression.getValue() instanceof org.modelexecution.fumltesting.core.testlang.BooleanValue) {
-			expected = ((org.modelexecution.fumltesting.core.testlang.BooleanValue) expression.getValue()).getValue().toString();
-		} else if (expression.getValue() instanceof ObjectValue) {
-			expected = ((ObjectValue) expression.getValue()).getValue().getName();
-		}
-		result.setExpected(expected);
 		try {
 			relevantSnapshots = snapshotUtil.getRelevantSnapshots(expression, referenceActionExecution, untilActionExecution);
-
-			if (!(expression.getValue() instanceof ObjectValue)) {
-				// special case
-				if (expression instanceof PropertyStateExpression
-						&& ((Property) ((PropertyStateExpression) expression).getProperty()).owner != ((ObjectNode) expression.getPin()).typedElement.type) {
-					result.setValidationResult(processObject(expression));
+			if (expression instanceof ObjectStateExpression) {
+				if (expression.getValue() instanceof ObjectValue || expression.getValue() instanceof NullValue) {
+					result.setValidationResult(processObject((ObjectStateExpression) expression));
 				} else {
-					result.setValidationResult(processValue(expression));
+					result.setValidationResult(processValue((ObjectStateExpression) expression));
 				}
-			} else {
-				result.setValidationResult(processObject(expression));
+			} else if (expression instanceof PropertyStateExpression) {
+				if (expression.getValue() instanceof ObjectValue || expression.getValue() instanceof NullValue) {
+					result.setValidationResult(processObject((PropertyStateExpression) expression));
+				} else {
+					result.setValidationResult(processValue((PropertyStateExpression) expression));
+				}
 			}
 		} catch (ActionNotExecutedException | ExpectedLinkValueException e) {
 			result.setError(e.getMessage());
@@ -208,7 +194,7 @@ public class StateAssertionValidator {
 		return result;
 	}
 
-	private boolean processValue(StateExpression expression) {
+	private boolean processValue(ObjectStateExpression expression) {
 		ArrayList<Boolean> results = new ArrayList<Boolean>();
 		Value simpleValue = (Value) expression.getValue();
 
@@ -217,10 +203,71 @@ public class StateAssertionValidator {
 				results.add(true);
 			else
 				return false;
+		} else {
+			for (ValueSnapshot snapshot : relevantSnapshots) {
+				if (simpleValue instanceof org.modelexecution.fumltesting.core.testlang.StringValue) {
+					String target = ((org.modelexecution.fumltesting.core.testlang.StringValue) simpleValue).getValue();
+					String value = ((StringValue) snapshot.getValue()).value;
+					boolean result = compareValues(expression.getOperator(), value, target);
+					results.add(result);
+					actualValueAsserted = value;
+				}
+				if (simpleValue instanceof org.modelexecution.fumltesting.core.testlang.BooleanValue) {
+					Boolean target = ((org.modelexecution.fumltesting.core.testlang.BooleanValue) simpleValue).getValue();
+					Boolean value = ((BooleanValue) snapshot.getValue()).value;
+					boolean result = compareValues(expression.getOperator(), value, target);
+					results.add(result);
+					actualValueAsserted = value.toString();
+				}
+				if (simpleValue instanceof org.modelexecution.fumltesting.core.testlang.IntegerValue) {
+					Double target = Double.valueOf(((org.modelexecution.fumltesting.core.testlang.IntegerValue) simpleValue).getValue());
+					Double value = 0.0;
+					if (snapshot.getValue() instanceof IntegerValue)
+						value = Double.valueOf(((IntegerValue) snapshot.getValue()).value);
+					if (snapshot.getValue() instanceof UnlimitedNaturalValue)
+						value = Double.valueOf(((UnlimitedNaturalValue) snapshot.getValue()).value.naturalValue);
+					boolean result = compareValues(expression.getOperator(), value, target);
+					results.add(result);
+					actualValueAsserted = value.toString();
+				}
+				if (simpleValue instanceof NullValue) {
+					if (expression.getOperator() == ArithmeticOperator.EQUAL)
+						if (relevantSnapshots.size() != 0) {
+							// at the beginning everything was equal to null
+							if (expression.getContainer().getQuantifier() == TemporalQuantifier.SOMETIMES
+									&& expression.getContainer().getOperator() == TemporalOperator.UNTIL)
+								results.add(true);
+							else {
+								results.add(false);
+								actualValueAsserted = "NOT NULL";
+							}
+						} else {
+							results.add(true);
+						}
+					if (expression.getOperator() == ArithmeticOperator.NOT_EQUAL)
+						if (relevantSnapshots.size() == 0) {
+							results.add(false);
+							actualValueAsserted = "NOT NULL";
+						} else {
+							results.add(true);
+						}
+				}
+			}
 		}
+		return compileResult(results, (expression.getContainer()).getQuantifier());
+	}
 
-		for (ValueSnapshot snapshot : relevantSnapshots) {
-			if (expression instanceof PropertyStateExpression) {
+	private boolean processValue(PropertyStateExpression expression) {
+		ArrayList<Boolean> results = new ArrayList<Boolean>();
+		Value simpleValue = (Value) expression.getValue();
+
+		if (relevantSnapshots.size() == 0) {
+			if (simpleValue instanceof NullValue && expression.getOperator() == ArithmeticOperator.EQUAL)
+				results.add(true);
+			else
+				return false;
+		} else {
+			for (ValueSnapshot snapshot : relevantSnapshots) {
 				Object_ object = (Object_) snapshot.getValue();
 				for (FeatureValue featureValue : object.featureValues) {
 					String featureName = featureValue.feature.name;
@@ -278,369 +325,398 @@ public class StateAssertionValidator {
 					}
 				}
 			}
-			if (expression instanceof ObjectStateExpression) {
-				if (simpleValue instanceof org.modelexecution.fumltesting.core.testlang.StringValue) {
-					String target = ((org.modelexecution.fumltesting.core.testlang.StringValue) simpleValue).getValue();
-					String value = ((StringValue) snapshot.getValue()).value;
-					boolean result = compareValues(expression.getOperator(), value, target);
-					results.add(result);
-					actualValueAsserted = value;
-				}
-				if (simpleValue instanceof org.modelexecution.fumltesting.core.testlang.BooleanValue) {
-					Boolean target = ((org.modelexecution.fumltesting.core.testlang.BooleanValue) simpleValue).getValue();
-					Boolean value = ((BooleanValue) snapshot.getValue()).value;
-					boolean result = compareValues(expression.getOperator(), value, target);
-					results.add(result);
-					actualValueAsserted = value.toString();
-				}
-				if (simpleValue instanceof org.modelexecution.fumltesting.core.testlang.IntegerValue) {
-					Double target = Double.valueOf(((org.modelexecution.fumltesting.core.testlang.IntegerValue) simpleValue).getValue());
-					Double value = 0.0;
-					if (snapshot.getValue() instanceof IntegerValue)
-						value = Double.valueOf(((IntegerValue) snapshot.getValue()).value);
-					if (snapshot.getValue() instanceof UnlimitedNaturalValue)
-						value = Double.valueOf(((UnlimitedNaturalValue) snapshot.getValue()).value.naturalValue);
-					boolean result = compareValues(expression.getOperator(), value, target);
-					results.add(result);
-					actualValueAsserted = value.toString();
-				}
-				if (simpleValue instanceof NullValue) {
-					if (expression.getOperator() == ArithmeticOperator.EQUAL)
-						if (relevantSnapshots.size() != 0) {
-							// at the beginning everything was equal to null
-							if (expression.getContainer().getQuantifier() == TemporalQuantifier.SOMETIMES
-									&& expression.getContainer().getOperator() == TemporalOperator.UNTIL)
-								results.add(true);
-							else {
-								results.add(false);
-								actualValueAsserted = "NOT NULL";
-							}
-						} else {
-							results.add(true);
-						}
-					if (expression.getOperator() == ArithmeticOperator.NOT_EQUAL)
-						if (relevantSnapshots.size() == 0) {
-							results.add(false);
-							actualValueAsserted = "NOT NULL";
-						} else {
-							results.add(true);
-						}
-				}
-			}
 		}
 		return compileResult(results, (expression.getContainer()).getQuantifier());
 	}
 
-	private boolean processObject(StateExpression expression) throws ActionNotExecutedException, ExpectedLinkValueException {
-		Object_ fumlTarget = null;
+	private boolean processObject(ObjectStateExpression expression) throws ActionNotExecutedException, ExpectedLinkValueException {
+		Object_ target = null;
 		if (expression.getValue() instanceof ObjectValue) {
-			fumlTarget = testDataConverter.getFumlObject((ObjectValue) expression.getValue());
+			target = testDataConverter.getFumlObject((ObjectValue) expression.getValue());
 		}
-
-		if (expression instanceof ObjectStateExpression) {
-			return processStateExpression((ObjectStateExpression) expression, fumlTarget);
-		}
-		// link validation
-		if (expression instanceof PropertyStateExpression) {
-			return processStateExpression((PropertyStateExpression) expression, fumlTarget);
-		}
-		return false;
-	}
-
-	private boolean processStateExpression(ObjectStateExpression expression, Object_ fumlTarget) {
 		boolean sameType = false;
 		boolean objectFound = false;
 		ArrayList<Boolean> results = new ArrayList<Boolean>();
 		ArrayList<Boolean> resultListCheck = new ArrayList<Boolean>();
-		ValueInstance instance = testDataConverter.getValueInstance(((ObjectValue) expression.getValue()).getValue());
-		for (ValueSnapshot snapshot : relevantSnapshots) {
-			if (snapshot.getValueInstance() != instance)
-				continue;
-			Object_ object_ = (Object_) snapshot.getValue();
-			objectFound = true;
 
-			// compare types
-			search: for (Class_ class_ : object_.types) {
-				for (Class_ targetClass_ : fumlTarget.types) {
-					if (class_.qualifiedName.equals(targetClass_.qualifiedName))
-						sameType = true;
-					break search;
+		if (expression.getValue() instanceof ObjectValue) {
+			ValueInstance instance = testDataConverter.getValueInstance(((ObjectValue) expression.getValue()).getValue());
+			for (ValueSnapshot snapshot : relevantSnapshots) {
+				if (snapshot.getValueInstance() != instance)
+					continue;
+				Object_ object_ = (Object_) snapshot.getValue();
+				objectFound = true;
+
+				// compare types
+				search: for (Class_ class_ : object_.types) {
+					for (Class_ targetClass_ : target.types) {
+						if (class_.qualifiedName.equals(targetClass_.qualifiedName))
+							sameType = true;
+						break search;
+					}
 				}
-			}
-			if (sameType == false)
-				return false;
+				if (sameType == false)
+					return false;
 
-			// compare each feature
-			for (FeatureValue featureValue : object_.featureValues) {
-				if (expression.getOperator() == ArithmeticOperator.EQUAL || expression.getOperator() == ArithmeticOperator.INCLUDES
-						|| expression.getOperator() == ArithmeticOperator.EXCLUDES) {
-					for (FeatureValue targetFeatureValue : fumlTarget.featureValues) {
-						if (targetFeatureValue.feature.name.equals(featureValue.feature.name)) {
-							boolean result = compare(targetFeatureValue, featureValue);
-							results.add(result);
+				// compare each feature
+				for (FeatureValue featureValue : object_.featureValues) {
+					if (expression.getOperator() == ArithmeticOperator.EQUAL || expression.getOperator() == ArithmeticOperator.INCLUDES
+							|| expression.getOperator() == ArithmeticOperator.EXCLUDES) {
+						for (FeatureValue targetFeatureValue : target.featureValues) {
+							if (targetFeatureValue.feature.name.equals(featureValue.feature.name)) {
+								boolean result = compare(targetFeatureValue, featureValue);
+								results.add(result);
+							}
+						}
+						if (expression.getOperator() == ArithmeticOperator.INCLUDES) {
+							if (!results.contains(false))
+								resultListCheck.add(true);
+						}
+						if (expression.getOperator() == ArithmeticOperator.EXCLUDES) {
+							if (!results.contains(false))
+								resultListCheck.add(false);
 						}
 					}
-					if (expression.getOperator() == ArithmeticOperator.INCLUDES) {
-						if (!results.contains(false))
-							resultListCheck.add(true);
-					}
-					if (expression.getOperator() == ArithmeticOperator.EXCLUDES) {
-						if (!results.contains(false))
-							resultListCheck.add(false);
-					}
-				}
-				if (expression.getOperator() == ArithmeticOperator.NOT_EQUAL) {
-					for (FeatureValue targetFeatureValue : fumlTarget.featureValues) {
-						if (targetFeatureValue.feature.name.equals(featureValue.feature.name)) {
-							boolean result = compare(targetFeatureValue, featureValue) == false;
-							results.add(result);
+					if (expression.getOperator() == ArithmeticOperator.NOT_EQUAL) {
+						for (FeatureValue targetFeatureValue : target.featureValues) {
+							if (targetFeatureValue.feature.name.equals(featureValue.feature.name)) {
+								boolean result = compare(targetFeatureValue, featureValue) == false;
+								results.add(result);
+							}
 						}
 					}
 				}
 			}
-		}
-		if (!objectFound) {
+			if (!objectFound) {
+				if (expression.getOperator() == ArithmeticOperator.EQUAL)
+					return false;
+				if (expression.getOperator() == ArithmeticOperator.NOT_EQUAL)
+					return true;
+			}
+			if (expression.getOperator() == ArithmeticOperator.INCLUDES) {
+				if (resultListCheck.size() == 0)
+					return false;
+				else
+					return true;
+			} else if (expression.getOperator() == ArithmeticOperator.EXCLUDES) {
+				if (resultListCheck.size() == 0)
+					return true;
+				else
+					return false;
+			}
+			return compileResult(results, expression.getContainer().getQuantifier());
+		} else if (expression.getValue() instanceof NullValue) {
 			if (expression.getOperator() == ArithmeticOperator.EQUAL)
-				return false;
+				if (target == null) {
+					return true;
+				} else {
+					return false;
+				}
 			if (expression.getOperator() == ArithmeticOperator.NOT_EQUAL)
-				return true;
+				if (target == null) {
+					return false;
+				} else {
+					return true;
+				}
 		}
-		if (expression.getOperator() == ArithmeticOperator.INCLUDES) {
-			if (resultListCheck.size() == 0)
-				return false;
-			else
-				return true;
-		} else if (expression.getOperator() == ArithmeticOperator.EXCLUDES) {
-			if (resultListCheck.size() == 0)
-				return true;
-			else
-				return false;
+		return false;
+	}
+
+	private boolean processObject(PropertyStateExpression expression) throws ActionNotExecutedException, ExpectedLinkValueException {
+		ArrayList<ValueInstance> links;
+		Object_ target = null;
+		if (expression.getValue() instanceof ObjectValue) {
+			target = testDataConverter.getFumlObject((ObjectValue) expression.getValue());
+		}
+		if (target != null) {
+			links = resolveLinks(expression, target);
+			return checkLinks(expression, links, target);
+		} else {
+			links = resolveLinks(expression);
+			return checkLinks(expression, links);
+		}
+	}
+
+	private ValueInstance resolveSource(PropertyStateExpression expression) throws ActionNotExecutedException {
+		ValueInstance source = null;
+		ObjectNode pin = expression.getPin();
+		Object pinOwner = expression.getPin().owner;
+
+		if (pinOwner instanceof Action) {
+			ActionExecution execution = (ActionExecution) traceUtil.getExecution(pinOwner);
+			if (pin instanceof InputPin) {
+				for (Input input : execution.getInputs()) {
+					if (input.getInputPin().name.equals(pin.name))
+						source = (ValueInstance) ((ValueSnapshot) input.getInputValues().get(0).getValueSnapshot()).eContainer();
+				}
+			}
+			if (pin instanceof OutputPin) {
+				for (Output output : execution.getOutputs()) {
+					if (output.getOutputPin().name.equals(pin.name))
+						source = (ValueInstance) ((ValueSnapshot) output.getOutputValues().get(0).getValueSnapshot()).eContainer();
+				}
+			}
+		}
+		if (pinOwner instanceof Activity) {
+			ActivityExecution execution = (ActivityExecution) traceUtil.getExecution(pinOwner);
+			ActivityParameterNode parameterNode = (ActivityParameterNode) expression.getPin();
+			if (parameterNode.parameter.direction == ParameterDirectionKind.out) {
+				for (OutputParameterSetting output : execution.getActivityOutputs()) {
+					if (output.getParameter().name.equals(parameterNode.name))
+						source = (ValueInstance) ((ValueSnapshot) output.getParameterValues().get(0).getValueSnapshot()).eContainer();
+				}
+			}
+			if (parameterNode.parameter.direction == ParameterDirectionKind.in) {
+				for (InputParameterSetting input : execution.getActivityInputs()) {
+					if (input.getParameter().name.equals(parameterNode.name))
+						source = (ValueInstance) ((ValueSnapshot) input.getParameterValues().get(0).getValueSnapshot()).eContainer();
+				}
+			}
+		}
+		return source;
+	}
+
+	private ArrayList<ValueInstance> resolveLinks(PropertyStateExpression expression, Object_ target) throws ActionNotExecutedException {
+		ArrayList<ValueInstance> links = new ArrayList<ValueInstance>();
+
+		StateAssertion assertion = expression.getContainer();
+		TemporalOperator operator = assertion.getOperator();
+		Property property = expression.getProperty();
+
+		ValueInstance source = resolveSource(expression);
+
+		for (ValueInstance linkValueInstance : traceUtil.getAllLinks()) {
+			Link link = (Link) linkValueInstance.getRuntimeValue();
+			boolean sourceContained = false;
+			boolean targetContained = false;
+			if (link.type == property.association) {
+				for (FeatureValue value : link.getFeatureValues()) {
+					Object_ referencedObject = ((Reference) value.values.get(0)).referent;
+					for (ValueSnapshot snapshot : source.getSnapshots()) {
+						if (snapshot.getValue().equals(referencedObject))
+							sourceContained = true;
+						if (target != null && target.equals(referencedObject))
+							targetContained = true;
+					}
+					if (source.getRuntimeValue().equals(referencedObject)) {
+						sourceContained = true;
+					}
+				}
+			}
+			boolean isRelevantLink = true;
+			switch (operator) {
+			case AFTER:
+				if (linkValueInstance.getDestroyer() != null && !traceUtil.isAfter(linkValueInstance.getDestroyer(), referenceActionExecution))
+					isRelevantLink = false;
+				if (linkValueInstance.getCreator() == untilActionExecution && untilActionExecution != null) {
+					isRelevantLink = false;
+				} else if (untilActionExecution != null && traceUtil.isAfter(linkValueInstance.getCreator(), untilActionExecution))
+					isRelevantLink = false;
+				break;
+			case UNTIL:
+				if (linkValueInstance.getCreator() == referenceActionExecution) {
+					isRelevantLink = false;
+				} else if (traceUtil.isAfter(linkValueInstance.getCreator(), referenceActionExecution))
+					isRelevantLink = false;
+				break;
+			}
+			if (sourceContained && targetContained && isRelevantLink) {
+				links.add(linkValueInstance);
+			}
+		}
+		return links;
+	}
+
+	private ArrayList<ValueInstance> resolveLinks(PropertyStateExpression expression) throws ActionNotExecutedException {
+		ArrayList<ValueInstance> links = new ArrayList<ValueInstance>();
+
+		StateAssertion assertion = expression.getContainer();
+		TemporalOperator operator = assertion.getOperator();
+		Property property = expression.getProperty();
+
+		ValueInstance source = resolveSource(expression);
+
+		for (ValueInstance linkValueInstance : traceUtil.getAllLinks()) {
+			Link link = (Link) linkValueInstance.getRuntimeValue();
+			boolean sourceContained = false;
+			if (link.type == property.association) {
+				for (FeatureValue value : link.getFeatureValues()) {
+					Object_ referencedObject = ((Reference) value.values.get(0)).referent;
+					for (ValueSnapshot snapshot : source.getSnapshots()) {
+						if (snapshot.getValue().equals(referencedObject))
+							sourceContained = true;
+
+					}
+					if (source.getRuntimeValue().equals(referencedObject)) {
+						sourceContained = true;
+					}
+				}
+			}
+			boolean isRelevantLink = true;
+			switch (operator) {
+			case AFTER:
+				if (linkValueInstance.getDestroyer() != null && !traceUtil.isAfter(linkValueInstance.getDestroyer(), referenceActionExecution))
+					isRelevantLink = false;
+				if (linkValueInstance.getCreator() == untilActionExecution && untilActionExecution != null) {
+					isRelevantLink = false;
+				} else if (untilActionExecution != null && traceUtil.isAfter(linkValueInstance.getCreator(), untilActionExecution))
+					isRelevantLink = false;
+				break;
+			case UNTIL:
+				if (linkValueInstance.getCreator() == referenceActionExecution) {
+					isRelevantLink = false;
+				} else if (traceUtil.isAfter(linkValueInstance.getCreator(), referenceActionExecution))
+					isRelevantLink = false;
+				break;
+			}
+			if (sourceContained && isRelevantLink) {
+				links.add(linkValueInstance);
+			}
+		}
+		return links;
+	}
+
+	private boolean checkLinks(PropertyStateExpression expression, ArrayList<ValueInstance> links, Object_ target) {
+		Property property = expression.getProperty();
+		ArrayList<Boolean> results = new ArrayList<Boolean>();
+
+		if (links.size() == 0) {
+			if (expression.getOperator() == ArithmeticOperator.INCLUDES)
+				results.add(false);
+			if (expression.getOperator() == ArithmeticOperator.EXCLUDES)
+				results.add(true);
+		} else {
+			if (expression.getOperator() == ArithmeticOperator.EQUAL || expression.getOperator() == ArithmeticOperator.NOT_EQUAL) {
+				for (ValueInstance link : links) {
+					Link theLink = (Link) link.getRuntimeValue();
+
+					for (FeatureValue featureValue : theLink.featureValues) {
+						if (featureValue.feature.name.equals(property.name)) {
+							Object_ realValue = ((Reference) featureValue.values.get(0)).referent;
+							for (FeatureValue targetValue : target.featureValues) {
+								for (FeatureValue checkedFeature : realValue.featureValues) {
+									if (targetValue.feature.name.equals(checkedFeature.feature.name)) {
+										if (expression.getOperator() == ArithmeticOperator.EQUAL) {
+											boolean result = compare(targetValue, checkedFeature);
+											results.add(result);
+										}
+										if (expression.getOperator() == ArithmeticOperator.NOT_EQUAL) {
+											boolean result = !compare(targetValue, checkedFeature);
+											results.add(result);
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			} else if (expression.getOperator() == ArithmeticOperator.INCLUDES || expression.getOperator() == ArithmeticOperator.EXCLUDES) {
+				outter: for (ValueInstance link : links) {
+					Link theLink = (Link) link.getRuntimeValue();
+					ArrayList<Boolean> resultsSingleObject = new ArrayList<Boolean>();
+
+					for (FeatureValue featureValue : theLink.featureValues) {
+						if (featureValue.feature.name.equals(property.name)) {
+							Object_ realValue = ((Reference) featureValue.values.get(0)).referent;
+							for (FeatureValue targetValue : target.featureValues) {
+								for (FeatureValue checkedFeature : realValue.featureValues) {
+									if (targetValue.feature.name.equals(checkedFeature.feature.name)) {
+										boolean result = compare(targetValue, checkedFeature);
+										resultsSingleObject.add(result);
+									}
+								}
+							}
+							if (resultsSingleObject.contains(false)) {
+								continue outter;
+							} else {
+								if (expression.getOperator() == ArithmeticOperator.INCLUDES)
+									results.add(true);
+								if (expression.getOperator() == ArithmeticOperator.EXCLUDES)
+									results.add(false);
+								break outter;
+							}
+						}
+					}
+				}
+				if (results.size() == 0) {
+					if (expression.getOperator() == ArithmeticOperator.INCLUDES)
+						results.add(false);
+					if (expression.getOperator() == ArithmeticOperator.EXCLUDES)
+						results.add(true);
+				}
+			}
 		}
 		return compileResult(results, expression.getContainer().getQuantifier());
 	}
 
-	private boolean processStateExpression(PropertyStateExpression expression, Object_ fumlTarget) throws ActionNotExecutedException,
-			ExpectedLinkValueException {
+	private boolean checkLinks(PropertyStateExpression expression, ArrayList<ValueInstance> links) {
 		ArrayList<Boolean> results = new ArrayList<Boolean>();
-		List<ValueInstance> links = new ArrayList<ValueInstance>();
+		TemporalQuantifier quantifier = expression.getContainer().getQuantifier();
 
-		StateAssertion assertion = expression.getContainer();
-		TemporalOperator operator = assertion.getOperator();
-
-		PropertyStateExpression propertyExpression = (PropertyStateExpression) expression;
-		Property property = propertyExpression.getProperty();
-		if (property.typedElement.type instanceof Class_) {
-
-			ValueInstance source = null;
-			ObjectNode pin = propertyExpression.getPin();
-			Object pinOwner = propertyExpression.getPin().owner;
-
-			if (pinOwner instanceof Action) {
-				ActionExecution execution = (ActionExecution) traceUtil.getExecution(pinOwner);
-				if (pin instanceof InputPin) {
-					for (Input input : execution.getInputs()) {
-						if (input.getInputPin().name.equals(pin.name))
-							source = (ValueInstance) ((ValueSnapshot) input.getInputValues().get(0).getValueSnapshot()).eContainer();
-					}
-				}
-				if (pin instanceof OutputPin) {
-					for (Output output : execution.getOutputs()) {
-						if (output.getOutputPin().name.equals(pin.name))
-							source = (ValueInstance) ((ValueSnapshot) output.getOutputValues().get(0).getValueSnapshot()).eContainer();
-					}
-				}
-			}
-			if (pinOwner instanceof Activity) {
-				ActivityExecution execution = (ActivityExecution) traceUtil.getExecution(pinOwner);
-				ActivityParameterNode parameterNode = (ActivityParameterNode) propertyExpression.getPin();
-				if (parameterNode.parameter.direction == ParameterDirectionKind.out) {
-					for (OutputParameterSetting output : execution.getActivityOutputs()) {
-						if (output.getParameter().name.equals(parameterNode.name))
-							source = (ValueInstance) ((ValueSnapshot) output.getParameterValues().get(0).getValueSnapshot()).eContainer();
-					}
-				}
-				if (parameterNode.parameter.direction == ParameterDirectionKind.in) {
-					for (InputParameterSetting input : execution.getActivityInputs()) {
-						if (input.getParameter().name.equals(parameterNode.name))
-							source = (ValueInstance) ((ValueSnapshot) input.getParameterValues().get(0).getValueSnapshot()).eContainer();
-					}
-				}
-			}
-
-			if (!(propertyExpression.getValue() instanceof ObjectValue) && !(propertyExpression.getValue() instanceof NullValue)) {
-				throw new ExpectedLinkValueException("For links only null is allowed!");
-			}
-
-			for (ValueInstance linkValueInstance : traceUtil.getAllLinks()) {
-				Link link = (Link) linkValueInstance.getRuntimeValue();
-				boolean sourceContained = false;
-				boolean targetContained = false;
-				if (link.type == property.association) {
-					for (FeatureValue value : link.getFeatureValues()) {
-						Object_ referencedObject = ((Reference) value.values.get(0)).referent;
-						for (ValueSnapshot snapshot : source.getSnapshots()) {
-							if (snapshot.getValue().equals(referencedObject))
-								sourceContained = true;
-							if (fumlTarget != null && fumlTarget.equals(referencedObject))
-								targetContained = true;
-						}
-						if (source.getRuntimeValue().equals(referencedObject)) {
-							sourceContained = true;
-						}
-					}
-				}
-				boolean isRelevantLink = true;
-				switch (operator) {
-				case AFTER:
-					if (linkValueInstance.getDestroyer() != null && !traceUtil.isAfter(linkValueInstance.getDestroyer(), referenceActionExecution))
-						isRelevantLink = false;
-					if (linkValueInstance.getCreator() == untilActionExecution && untilActionExecution != null) {
-						isRelevantLink = false;
-					} else if (untilActionExecution != null && traceUtil.isAfter(linkValueInstance.getCreator(), untilActionExecution))
-						isRelevantLink = false;
-					break;
-				case UNTIL:
-					if (linkValueInstance.getCreator() == referenceActionExecution) {
-						isRelevantLink = false;
-					} else if (traceUtil.isAfter(linkValueInstance.getCreator(), referenceActionExecution))
-						isRelevantLink = false;
-					break;
-				}
-				if (sourceContained && targetContained && isRelevantLink) {
-					links.add(linkValueInstance);
-				}
-			}
-		}
-
-		if (fumlTarget != null) {
-			if (links.size() == 0) {
-				if (propertyExpression.getOperator() == ArithmeticOperator.INCLUDES)
-					results.add(false);
-				if (propertyExpression.getOperator() == ArithmeticOperator.EXCLUDES)
-					results.add(true);
-			} else {
-				if (expression.getOperator() == ArithmeticOperator.EQUAL || expression.getOperator() == ArithmeticOperator.NOT_EQUAL) {
-					for (ValueInstance link : links) {
-						Link theLink = (Link) link.getRuntimeValue();
-
-						for (FeatureValue featureValue : theLink.featureValues) {
-							if (featureValue.feature.name.equals(property.name)) {
-								Object_ realValue = ((Reference) featureValue.values.get(0)).referent;
-								for (FeatureValue targetValue : fumlTarget.featureValues) {
-									for (FeatureValue checkedFeature : realValue.featureValues) {
-										if (targetValue.feature.name.equals(checkedFeature.feature.name)) {
-											if (expression.getOperator() == ArithmeticOperator.EQUAL) {
-												boolean result = compare(targetValue, checkedFeature);
-												results.add(result);
-											}
-											if (expression.getOperator() == ArithmeticOperator.NOT_EQUAL) {
-												boolean result = !compare(targetValue, checkedFeature);
-												results.add(result);
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				} else if (expression.getOperator() == ArithmeticOperator.INCLUDES || expression.getOperator() == ArithmeticOperator.EXCLUDES) {
-					outter: for (ValueInstance link : links) {
-						Link theLink = (Link) link.getRuntimeValue();
-						ArrayList<Boolean> resultsSingleObject = new ArrayList<Boolean>();
-
-						for (FeatureValue featureValue : theLink.featureValues) {
-							if (featureValue.feature.name.equals(property.name)) {
-								Object_ realValue = ((Reference) featureValue.values.get(0)).referent;
-								for (FeatureValue targetValue : fumlTarget.featureValues) {
-									for (FeatureValue checkedFeature : realValue.featureValues) {
-										if (targetValue.feature.name.equals(checkedFeature.feature.name)) {
-											boolean result = compare(targetValue, checkedFeature);
-											resultsSingleObject.add(result);
-										}
-									}
-								}
-								if (resultsSingleObject.contains(false)) {
-									continue outter;
-								} else {
-									if (expression.getOperator() == ArithmeticOperator.INCLUDES)
-										results.add(true);
-									if (expression.getOperator() == ArithmeticOperator.EXCLUDES)
-										results.add(false);
-									break outter;
-								}
-							}
-						}
-					}
-					if (results.size() == 0) {
-						if (expression.getOperator() == ArithmeticOperator.INCLUDES)
+		if (expression.getOperator() == ArithmeticOperator.EQUAL) {
+			switch (quantifier) {
+			case ALWAYS:
+				if (links.size() > 0) {
+					for (ValueInstance linkInstance : links) {
+						if (linkInstance.getDestroyer() != null
+								&& (!traceUtil.isAfter(linkInstance.getDestroyer(), referenceActionExecution) || (untilActionExecution != null && !traceUtil
+										.isAfter(linkInstance.getDestroyer(), untilActionExecution))))
 							results.add(false);
-						if (expression.getOperator() == ArithmeticOperator.EXCLUDES)
-							results.add(true);
 					}
-				}
-			}
-		} else {
-			TemporalQuantifier quantifier = expression.getContainer().getQuantifier();
-			if (propertyExpression.getOperator() == ArithmeticOperator.EQUAL) {
-				switch (quantifier) {
-				case ALWAYS:
-					if (links.size() > 0) {
-						results.add(false);
-					} else {
-						results.add(true);
-					}
-					break;
-				case EVENTUALLY:
-					if (links.size() > 0) {
-						for (ValueInstance linkInstance : links) {
-							if (linkInstance.getDestroyer() != null
-									&& (!traceUtil.isAfter(linkInstance.getDestroyer(), referenceActionExecution) || (untilActionExecution != null && !traceUtil
-											.isAfter(linkInstance.getDestroyer(), untilActionExecution))))
-								results.add(true);
-							else {
-								results.add(false);
-							}
-						}
-					} else {
-						results.add(true);
-					}
-					break;
-				case IMMEDIATELY:
-					if (links.size() > 0) {
-						for (ValueInstance linkInstance : links) {
-							if (traceUtil.isAfter(linkInstance.getCreator(), referenceActionExecution)
-									|| (untilActionExecution != null && traceUtil.isAfter(linkInstance.getCreator(), untilActionExecution)))
-								results.add(true);
-							else {
-								results.add(false);
-							}
-						}
-					} else {
-						results.add(true);
-					}
-					break;
-				case SOMETIMES:
-					if (links.size() > 0) {
-						for (ValueInstance linkInstance : links) {
-							if (traceUtil.isAfter(linkInstance.getCreator(), referenceActionExecution)
-									|| (linkInstance.getDestroyer() != null && untilActionExecution != null && !traceUtil.isAfter(linkInstance.getDestroyer(),
-											untilActionExecution)))
-								results.add(true);
-							else {
-								results.add(false);
-							}
-						}
-					} else {
-						results.add(true);
-					}
-					break;
-				}
-			} else if (propertyExpression.getOperator() == ArithmeticOperator.NOT_EQUAL) {
-				if (links.size() == 0)
-					results.add(false);
-				else
+				} else {
 					results.add(true);
+				}
+				break;
+			case EVENTUALLY:
+				if (links.size() > 0) {
+					for (ValueInstance linkInstance : links) {
+						if (linkInstance.getDestroyer() != null
+								&& (!traceUtil.isAfter(linkInstance.getDestroyer(), referenceActionExecution) || (untilActionExecution != null && !traceUtil
+										.isAfter(linkInstance.getDestroyer(), untilActionExecution))))
+							results.add(true);
+						else {
+							results.add(false);
+						}
+					}
+				} else {
+					results.add(true);
+				}
+				break;
+			case IMMEDIATELY:
+				if (links.size() > 0) {
+					for (ValueInstance linkInstance : links) {
+						if (traceUtil.isAfter(linkInstance.getCreator(), referenceActionExecution)
+								|| (untilActionExecution != null && traceUtil.isAfter(linkInstance.getCreator(), untilActionExecution)))
+							results.add(true);
+						else {
+							results.add(false);
+						}
+					}
+				} else {
+					results.add(true);
+				}
+				break;
+			case SOMETIMES:
+				if (links.size() > 0) {
+					for (ValueInstance linkInstance : links) {
+						if (traceUtil.isAfter(linkInstance.getCreator(), referenceActionExecution)
+								|| (linkInstance.getDestroyer() != null && untilActionExecution != null && !traceUtil.isAfter(linkInstance.getDestroyer(),
+										untilActionExecution)))
+							results.add(true);
+						else {
+							results.add(false);
+						}
+					}
+				} else {
+					results.add(true);
+				}
+				break;
 			}
+		} else if (expression.getOperator() == ArithmeticOperator.NOT_EQUAL) {
+			if (links.size() == 0)
+				results.add(false);
+			else
+				results.add(true);
 		}
 		return compileResult(results, expression.getContainer().getQuantifier());
 	}

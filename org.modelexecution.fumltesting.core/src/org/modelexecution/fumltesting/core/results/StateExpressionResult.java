@@ -6,6 +6,7 @@
  */
 package org.modelexecution.fumltesting.core.results;
 
+import org.modelexecution.fumltesting.core.testlang.ObjectValue;
 import org.modelexecution.fumltesting.core.testlang.StateExpression;
 
 /**
@@ -22,6 +23,7 @@ public class StateExpressionResult {
 
 	public StateExpressionResult(StateExpression expression) {
 		this.expression = expression;
+		setExpected();
 	}
 
 	public void setValidationResult(boolean validationResult) {
@@ -49,7 +51,17 @@ public class StateExpressionResult {
 		return expected;
 	}
 
-	public void setExpected(Object expected) {
+	private void setExpected() {
+		String expected = "";
+		if (expression.getValue() instanceof org.modelexecution.fumltesting.core.testlang.StringValue) {
+			expected = ((org.modelexecution.fumltesting.core.testlang.StringValue) expression.getValue()).getValue();
+		} else if (expression.getValue() instanceof org.modelexecution.fumltesting.core.testlang.IntegerValue) {
+			expected = ((org.modelexecution.fumltesting.core.testlang.IntegerValue) expression.getValue()).getValue().toString();
+		} else if (expression.getValue() instanceof org.modelexecution.fumltesting.core.testlang.BooleanValue) {
+			expected = ((org.modelexecution.fumltesting.core.testlang.BooleanValue) expression.getValue()).getValue().toString();
+		} else if (expression.getValue() instanceof ObjectValue) {
+			expected = ((ObjectValue) expression.getValue()).getValue().getName();
+		}
 		this.expected = expected;
 	}
 
