@@ -407,13 +407,13 @@ public class StateAssertionValidator {
 			return compileResult(results, expression.getContainer().getQuantifier());
 		} else if (expression.getValue() instanceof NullValue) {
 			if (expression.getOperator() == ArithmeticOperator.EQUAL)
-				if (target == null) {
+				if (relevantSnapshots.size() == 0) {
 					return true;
 				} else {
 					return false;
 				}
 			if (expression.getOperator() == ArithmeticOperator.NOT_EQUAL)
-				if (target == null) {
+				if (relevantSnapshots.size() == 0) {
 					return false;
 				} else {
 					return true;
