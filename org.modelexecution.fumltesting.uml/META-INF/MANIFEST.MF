@@ -27,8 +27,13 @@ Require-Bundle: org.eclipse.xtext;visibility:=reexport,
  org.modelexecution.fumltesting.core;bundle-version="1.0.0",
  org.junit;bundle-version="4.11.0",
  org.objectweb.asm;bundle-version="[5.0.1,6.0.0)";resolution:=optional,
- org.dresdenocl.facade;bundle-version="3.3.0"
+ org.dresdenocl.facade;bundle-version="3.3.0",
+ org.eclipse.ui.console;bundle-version="3.5.200",
+ org.eclipse.jface;bundle-version="3.9.1"
 Import-Package: org.apache.log4j,
+ org.eclipse.core.runtime;version="3.4.0",
+ org.eclipse.debug.core,
+ org.eclipse.debug.core.model,
  org.eclipse.xtext.xbase.lib
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: org.modelexecution.fumltesting.uml,

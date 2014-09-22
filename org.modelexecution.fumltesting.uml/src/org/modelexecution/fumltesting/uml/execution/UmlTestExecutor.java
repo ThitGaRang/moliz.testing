@@ -7,9 +7,7 @@
 package org.modelexecution.fumltesting.uml.execution;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.io.OutputStream;
 import java.util.HashMap;
 
 import org.dresdenocl.parser.ParseException;
@@ -88,58 +86,56 @@ public class UmlTestExecutor {
 	private NamedElement umlModel;
 	private TestConverter testConverter;
 
-	// banking_new:banking, webstore:webstore, petstore:petstore
-	private String modelFolder = "petstore";
-	private String modelName = "petstore";
+	private String testsPath = "";
+	private String umlModelPath = "";
+	private String primitivesPath = "C:/git/moliz/org.modelexecution.fumldebug.standardlibrary/library/uml_library.uml";
+	private String oclPath = "";
+	private OutputStream output;
 
-	private String testsPath = "../org.modelexecution.fumltesting.examples/model/" + modelFolder + "/userstudy";
-	private String umlModelPath = "../org.modelexecution.fumltesting.examples/model/" + modelFolder + "/" + modelName + ".uml";
-	private String primitivesPath = "../../moliz/org.modelexecution.fumldebug.standardlibrary/library/uml_library.uml";
-	private String oclPath = "../org.modelexecution.fumltesting.examples/model/" + modelFolder + "/" + modelName + ".ocl";
+	public void setModelResource(String modelResource) {
+		umlModelPath = modelResource;
+	}
 
-	private String testEndsWithFilter = ".umltest";
+	public void setTestSuiteResource(String testSuiteResource) {
+		testsPath = testSuiteResource;
+	}
+
+	public void setOclResource(String oclResource) {
+		oclPath = oclResource;
+	}
+
+	public void setOutput(OutputStream output) {
+		this.output = output;
+	}
 
 	/** Main method of the testing framework. */
 	@Test
 	public void runTests() {
-		File folder = new File(testsPath);
-		File[] files = folder.listFiles();
+		File testSuite = new File(testsPath);
 
-		// clean up the test results directory
-		File testDirectory = new File("results");
-		for (File file : testDirectory.listFiles()) {
-			file.delete();
+		try {
+			loadAndSetupAllTestResources();
+		} catch (ParseException e) {
+			System.out.println("Problem with loading OCL file!");
+			e.printStackTrace();
+			return;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return;
 		}
-
-		for (File testFile : files) {
-			if (testFile.isFile() && testFile.getName().endsWith(testEndsWithFilter)) {
-				try {
-					loadAndSetupAllTestResources(testFile);
-				} catch (ParseException e) {
-					System.out.println("Problem with loading OCL file!");
-					e.printStackTrace();
-					return;
-				} catch (Exception e) {
-					e.printStackTrace();
-					return;
-				}
-				testSuiteEvaluation(testFile);
-			}
-		}
+		testSuiteEvaluation(testSuite);
 	}
 
-	private void loadAndSetupAllTestResources(File testFile) throws Exception {
+	private void loadAndSetupAllTestResources() throws Exception {
 		executor = new ActivityExecutor();
 		testDataConverter = new TestDataConverter();
-
-		String testLocation = testsPath + "/" + testFile.getName();
 
 		new UmlSupport().registerServices(true);
 		Injector injector = new UmlTestLangStandaloneSetup().createInjectorAndDoEMFRegistration();
 		resourceSet = injector.getInstance(XtextResourceSet.class);
 		resourceSet.addLoadOption(XtextResource.OPTION_RESOLVE_ALL, Boolean.TRUE);
 
-		testResource = resourceSet.getResource(URI.createFileURI(new File(testLocation).getAbsolutePath()), true);
+		testResource = resourceSet.getResource(URI.createFileURI(new File(testsPath).getAbsolutePath()), true);
 		testResource.load(null);
 
 		if (testResource != null) {
@@ -193,14 +189,13 @@ public class UmlTestExecutor {
 				oclExecutor.setModel(fumlPackage);
 			}
 		}
-		oclExecutor.loadConstraints(new File(oclPath));
+		if (!oclPath.equals("")) {
+			oclExecutor.loadConstraints(new File(oclPath));
+		}
 	}
 
 	private void testSuiteEvaluation(File testFile) {
 		TestSuiteResult suiteResult = new TestSuiteResult();
-		SimpleDateFormat currentTime = new SimpleDateFormat("dd.MM.yy_HH.mm.ss");
-		String testFileNameWithoutExtension = testFile.getName().replace(".fumltest", "");
-		String testResultsFile = "results/testresults_" + testFileNameWithoutExtension + "_" + currentTime.format(new Date()) + ".txt";
 
 		HashMap<String, String> testsThatDidNotRun = new HashMap<String, String>();
 		for (TestCase testCase : convertedSuite.getAllTestCases()) {
@@ -295,14 +290,9 @@ public class UmlTestExecutor {
 			suiteResult.addTestCaseResult(testCaseResult);
 		}
 
-		try {
-			ResultsWriter writer = new ResultsWriter(testResultsFile, suiteResult, testsThatDidNotRun);
-			writer.writeResults();
-		} catch (FileNotFoundException e) {
-			System.out.println("Could not write to file " + testResultsFile);
-		}
+		ResultsWriter writer = new ResultsWriter(suiteResult, testsThatDidNotRun, output);
+		writer.writeResults();
 
-		System.out.println("Results successfully written to file: " + testResultsFile);
 		System.out.println("End of test suite.");
 	}
 }

@@ -18,7 +18,17 @@
             class="org.modelexecution.fumltesting.uml.umlTestLang.util.UmlTestLangResourceFactoryImpl"/>
    </extension>
 
-
+   <extension
+         point="org.eclipse.debug.core.launchConfigurationTypes">
+      <launchConfigurationType
+            delegate="org.modelexecution.fumltesting.uml.execution.TestSuiteLaunchDelegate"
+            delegateDescription="The fUML TestSuite Runner supporting execution of Test Cases on UML Activity Diagrams."
+            delegateName="fUML TestSuite Launcher"
+            id="org.modelexecution.fumltesting.uml.launchConfigurationType"
+            modes="run"
+            name="fUML TestSuite">
+      </launchConfigurationType>
+   </extension>
 
 
 </plugin>

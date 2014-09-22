@@ -6,7 +6,7 @@
  */
 package org.modelexecution.fumltesting.core.execution;
 
-import java.io.FileNotFoundException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -62,10 +62,10 @@ public class ResultsWriter {
 	private PrintWriter writer;
 	private final String marking = "******************************************************************************************";
 
-	public ResultsWriter(String fileName, TestSuiteResult suiteResult, HashMap<String, String> testsThatDidNotRun) throws FileNotFoundException {
+	public ResultsWriter(TestSuiteResult suiteResult, HashMap<String, String> testsThatDidNotRun, OutputStream output) {
 		this.suiteResult = suiteResult;
 		this.testsThatDidNotRun = testsThatDidNotRun;
-		writer = new PrintWriter(fileName);
+		writer = new PrintWriter(output);
 	}
 
 	public void writeResults() {

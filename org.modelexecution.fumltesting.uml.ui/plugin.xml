@@ -520,5 +520,22 @@
             extensions="umltest">
     </provider>
   </extension>
+  
+  <extension
+         point="org.eclipse.debug.ui.launchConfigurationTypeImages">
+      <launchConfigurationTypeImage
+            configTypeID="org.modelexecution.fumltesting.uml.launchConfigurationType"
+            icon="icons/test.png"
+            id="org.modelexecution.fumltesting.uml.ui.launchConfigurationTypeImage">
+      </launchConfigurationTypeImage>
+   </extension>
+   <extension
+         point="org.eclipse.debug.ui.launchConfigurationTabGroups">
+      <launchConfigurationTabGroup
+            class="org.modelexecution.fumltesting.uml.ui.launch.TestSuiteLaunchConfigurationTabGroup"
+            id="org.modelexecution.fumltesting.uml.ui.launchConfigurationTabGroup"
+            type="org.modelexecution.fumltesting.uml.launchConfigurationType">
+      </launchConfigurationTabGroup>
+   </extension>
 
 </plugin>
