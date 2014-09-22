@@ -25,6 +25,8 @@ public class TestSuiteLaunchDelegate extends LaunchConfigurationDelegate {
 
 		MessageConsole myConsole = findConsole("console");
 		MessageConsoleStream out = myConsole.newMessageStream();
+		myConsole.clearConsole();
+		myConsole.activate();
 
 		executor.setOutput(out);
 		executor.runTests();

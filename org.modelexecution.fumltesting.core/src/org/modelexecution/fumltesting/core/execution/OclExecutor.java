@@ -29,6 +29,7 @@ import org.dresdenocl.pivotmodel.Constraint;
 import org.dresdenocl.pivotmodel.Property;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 import org.modelexecution.fumltesting.core.exceptions.ConstraintNotFoundException;
+import org.modelexecution.fumltesting.core.exceptions.ConstraintsNotLoadedException;
 import org.modelexecution.fumltesting.core.sequence.State;
 import org.modelexecution.fumltesting.ocl.internal.model.FUMLClass;
 import org.modelexecution.fumltesting.ocl.internal.modelinstance.FUMLModelInstanceObject;
@@ -84,7 +85,12 @@ public class OclExecutor {
 		}
 	}
 
-	public boolean checkConstraint(String constraintName, ValueInstance contextObject, State state) throws ConstraintNotFoundException {
+	public boolean checkConstraint(String constraintName, ValueInstance contextObject, State state) throws ConstraintNotFoundException,
+			ConstraintsNotLoadedException {
+
+		if (constraints == null)
+			throw new ConstraintsNotLoadedException("Constraints were not loaded. Check the OCL file!");
+
 		Object contextObjectSnapshot = state.getStateObjectSnapshot(contextObject);
 
 		if (adaptedStates.containsKey(state)) {

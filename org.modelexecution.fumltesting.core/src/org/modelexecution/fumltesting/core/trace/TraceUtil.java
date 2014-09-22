@@ -27,6 +27,7 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 import org.modelexecution.fumltesting.core.exceptions.ActionNotExecutedException;
 import org.modelexecution.fumltesting.core.exceptions.ConstraintNotFoundException;
 import org.modelexecution.fumltesting.core.exceptions.ConstraintStateNotFoundException;
+import org.modelexecution.fumltesting.core.exceptions.ConstraintsNotLoadedException;
 import org.modelexecution.fumltesting.core.exceptions.SequenceGeneratorException;
 import org.modelexecution.fumltesting.core.execution.OclExecutor;
 import org.modelexecution.fumltesting.core.parallelism.ExecutionPathFinder;
@@ -165,7 +166,7 @@ public class TraceUtil {
 		return instances;
 	}
 
-	public List<State> getStates(Object stateAssertion) throws ConstraintNotFoundException, ActionNotExecutedException, ConstraintStateNotFoundException {
+	public List<State> getStates(Object stateAssertion) throws ConstraintNotFoundException, ActionNotExecutedException, ConstraintStateNotFoundException, ConstraintsNotLoadedException {
 		StateAssertion assertion = (StateAssertion) stateAssertion;
 		ActivityNodeExecution referredActionExecution = getReferenceActionExecution(assertion);
 		ActivityNodeExecution untilActionExecution = getUntilActionExecution(assertion);
@@ -201,7 +202,7 @@ public class TraceUtil {
 	}
 
 	public ActivityNodeExecution getReferenceActionExecution(StateAssertion assertion) throws ConstraintNotFoundException, ActionNotExecutedException,
-			ConstraintStateNotFoundException {
+			ConstraintStateNotFoundException, ConstraintsNotLoadedException {
 		ActivityNodeExecution referenceActionExecution = null;
 		Activity activityUnderTest = assertion.getContainer().getActivityUnderTest();
 
@@ -228,7 +229,7 @@ public class TraceUtil {
 	}
 
 	public ActivityNodeExecution getUntilActionExecution(StateAssertion assertion) throws ConstraintNotFoundException, ActionNotExecutedException,
-			ConstraintStateNotFoundException {
+			ConstraintStateNotFoundException, ConstraintsNotLoadedException {
 		ActivityNodeExecution untilActionExecution = null;
 		Activity activityUnderTest = assertion.getContainer().getActivityUnderTest();
 

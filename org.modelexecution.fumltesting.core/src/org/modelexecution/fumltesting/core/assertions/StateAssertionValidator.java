@@ -22,6 +22,7 @@ import org.modelexecution.fumltesting.core.convert.TestDataConverter;
 import org.modelexecution.fumltesting.core.exceptions.ActionNotExecutedException;
 import org.modelexecution.fumltesting.core.exceptions.ConstraintNotFoundException;
 import org.modelexecution.fumltesting.core.exceptions.ConstraintStateNotFoundException;
+import org.modelexecution.fumltesting.core.exceptions.ConstraintsNotLoadedException;
 import org.modelexecution.fumltesting.core.exceptions.ExpectedLinkValueException;
 import org.modelexecution.fumltesting.core.execution.OclExecutor;
 import org.modelexecution.fumltesting.core.results.ConstraintResult;
@@ -95,7 +96,7 @@ public class StateAssertionValidator {
 			referenceActionExecution = traceUtil.getReferenceActionExecution(assertion);
 			untilActionExecution = traceUtil.getUntilActionExecution(assertion);
 			states = traceUtil.getStates(assertion);
-		} catch (ActionNotExecutedException | ConstraintNotFoundException | ConstraintStateNotFoundException e) {
+		} catch (ActionNotExecutedException | ConstraintNotFoundException | ConstraintStateNotFoundException | ConstraintsNotLoadedException e) {
 			result.setError(e.getMessage());
 			return result;
 		}
@@ -127,6 +128,10 @@ public class StateAssertionValidator {
 							try {
 								constraintResultInSingleState = OclExecutor.getInstance().checkConstraint(constraintName, context, state);
 							} catch (ConstraintNotFoundException e) {
+								result.setError(e.getMessage());
+								constraintResult.setValidationResult(false);
+								return result;
+							} catch (ConstraintsNotLoadedException e) {
 								result.setError(e.getMessage());
 								constraintResult.setValidationResult(false);
 								return result;
