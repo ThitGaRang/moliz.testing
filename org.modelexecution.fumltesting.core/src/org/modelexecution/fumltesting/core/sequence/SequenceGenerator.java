@@ -132,9 +132,11 @@ public class SequenceGenerator {
 				for (Output output : ((ActionExecution) nodeExecution).getOutputs()) {
 					for (OutputValue outputValue : output.getOutputValues()) {
 						ValueSnapshot snapshot = outputValue.getValueSnapshot();
-						ValueInstance instance = (ValueInstance) snapshot.eContainer();
-						Object_ object = (Object_) snapshot.getValue();
-						state.addStateObjectSnapshot(object, instance);
+						if (snapshot != null) {
+							ValueInstance instance = (ValueInstance) snapshot.eContainer();
+							Object_ object = (Object_) snapshot.getValue();
+							state.addStateObjectSnapshot(object, instance);
+						}
 					}
 				}
 			} else if (nodeExecution.getNode() instanceof AddStructuralFeatureValueAction) {

@@ -231,7 +231,7 @@
               <upperBound xmi:type="uml:LiteralInteger" xmi:id="_rTG-kt_WEeKxs-T-7hfQjA" value="1"/>
             </result>
           </node>
-          <node xmi:type="uml:CallOperationAction" xmi:id="_vYgGoN_WEeKxs-T-7hfQjA" name="callLoginCustomerService" outgoing="_vkbeQDz_EeSBFsm8qnQLWg" operation="_3W1ocN_REeKxs-T-7hfQjA">
+          <node xmi:type="uml:CallOperationAction" xmi:id="_vYgGoN_WEeKxs-T-7hfQjA" name="callLogin" outgoing="_vkbeQDz_EeSBFsm8qnQLWg" operation="_3W1ocN_REeKxs-T-7hfQjA">
             <argument xmi:type="uml:InputPin" xmi:id="_vYzBlN_WEeKxs-T-7hfQjA" name="login" incoming="__PbjEN_WEeKxs-T-7hfQjA" type="_HqAcUN_PEeKxs-T-7hfQjA">
               <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_vYzBlt_WEeKxs-T-7hfQjA" source="PinToParameterLink">
                 <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_vYzBl9_WEeKxs-T-7hfQjA" key="PinToParameterLink" value="_5fRUkN_REeKxs-T-7hfQjA"/>
@@ -283,7 +283,7 @@
             </result>
           </node>
           <node xmi:type="uml:DecisionNode" xmi:id="_MfYgwN_YEeKxs-T-7hfQjA" name="lessDecision" outgoing="_RCHFEN_YEeKxs-T-7hfQjA _TKr7IN_YEeKxs-T-7hfQjA" incoming="_qnuXQOAuEeKeo_423tvTpQ _ieQV8C7MEeSe2vQsmqYDqA" decisionInputFlow="_qnuXQOAuEeKeo_423tvTpQ"/>
-          <node xmi:type="uml:CallOperationAction" xmi:id="_PmiB0OAuEeKeo_423tvTpQ" name="setFoundCustomer" outgoing="_1EwW0OAuEeKeo_423tvTpQ" incoming="_vkbeQDz_EeSBFsm8qnQLWg" operation="_8FRosOAtEeKeo_423tvTpQ">
+          <node xmi:type="uml:CallOperationAction" xmi:id="_PmiB0OAuEeKeo_423tvTpQ" name="callSetFoundCustomer" outgoing="_1EwW0OAuEeKeo_423tvTpQ" incoming="_vkbeQDz_EeSBFsm8qnQLWg" operation="_8FRosOAtEeKeo_423tvTpQ">
             <argument xmi:type="uml:InputPin" xmi:id="_PmiB0eAuEeKeo_423tvTpQ" name="customer" incoming="_XvPOUOAuEeKeo_423tvTpQ" type="_40rm0N_OEeKxs-T-7hfQjA">
               <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_PmiB0-AuEeKeo_423tvTpQ" source="PinToParameterLink">
                 <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_PmiB1OAuEeKeo_423tvTpQ" key="PinToParameterLink" value="_-qbGAOAtEeKeo_423tvTpQ"/>
@@ -370,9 +370,9 @@
               <upperBound xmi:type="uml:LiteralInteger" xmi:id="_xWQPUOAvEeKibaNzws831w" value="1"/>
             </result>
           </node>
-          <node xmi:type="uml:ClearStructuralFeatureAction" xmi:id="_5Sd38OAvEeKibaNzws831w" name="clearLastCustomer">
-            <object xmi:type="uml:InputPin" xmi:id="_8i5t8OAvEeKibaNzws831w" name="object" incoming="__7NtkOAvEeKibaNzws831w"/>
-            <result xmi:type="uml:OutputPin" xmi:id="_-NkgAOAvEeKibaNzws831w" name="result"/>
+          <node xmi:type="uml:ClearStructuralFeatureAction" xmi:id="_5Sd38OAvEeKibaNzws831w" name="clearLastCustomer" structuralFeature="_ja4vkC7HEeSe2vQsmqYDqA">
+            <object xmi:type="uml:InputPin" xmi:id="_8i5t8OAvEeKibaNzws831w" name="object" incoming="__7NtkOAvEeKibaNzws831w" type="_uJN3wN_QEeKxs-T-7hfQjA"/>
+            <result xmi:type="uml:OutputPin" xmi:id="_-NkgAOAvEeKibaNzws831w" name="result" type="_uJN3wN_QEeKxs-T-7hfQjA"/>
           </node>
         </ownedBehavior>
         <ownedBehavior xmi:type="uml:Activity" xmi:id="_44EtgN_YEeKxs-T-7hfQjA" name="CreateSession" specification="_BeOLUN_WEeKxs-T-7hfQjA" node="_-X7BYN_YEeKxs-T-7hfQjA __7AkwN_YEeKxs-T-7hfQjA _NaMGsN_ZEeKxs-T-7hfQjA _lLTLcN_ZEeKxs-T-7hfQjA _t4-GMN_ZEeKxs-T-7hfQjA _t-LEYN_bEeKxs-T-7hfQjA _zCf54N_bEeKxs-T-7hfQjA _8ndB8N_bEeKxs-T-7hfQjA _IaekEN_cEeKxs-T-7hfQjA _dTpyYN_cEeKxs-T-7hfQjA">
@@ -2564,7 +2564,7 @@
               <upperBound xmi:type="uml:LiteralInteger" xmi:id="_doiKUuJaEeK8HamiyIssFw" value="1"/>
             </result>
           </node>
-          <node xmi:type="uml:CallOperationAction" xmi:id="_iJ5csOJaEeK8HamiyIssFw" name="createOrderLine" operation="_mghUIOJZEeK8HamiyIssFw">
+          <node xmi:type="uml:CallOperationAction" xmi:id="_iJ5csOJaEeK8HamiyIssFw" name="callCreateOrderLine" operation="_mghUIOJZEeK8HamiyIssFw">
             <argument xmi:type="uml:InputPin" xmi:id="_iKDNtOJaEeK8HamiyIssFw" name="item" incoming="_qb-noOJaEeK8HamiyIssFw" type="_7zao0N_OEeKxs-T-7hfQjA">
               <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_iKDNtuJaEeK8HamiyIssFw" source="PinToParameterLink">
                 <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_iKDNt-JaEeK8HamiyIssFw" key="PinToParameterLink" value="_pE6jgOJZEeK8HamiyIssFw"/>

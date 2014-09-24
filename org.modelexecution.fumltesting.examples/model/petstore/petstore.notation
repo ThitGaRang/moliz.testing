@@ -2722,7 +2722,7 @@
       </children>
       <styles xmi:type="notation:FontStyle" xmi:id="_zn6I4eAvEeKibaNzws831w" fontName="Segoe UI"/>
       <element xmi:type="uml:ControlFlow" href="petstore.uml#_znwX4OAvEeKibaNzws831w"/>
-      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_zn6I4uAvEeKibaNzws831w" points="[8, -3, -95, 85]$[8, -40, -95, 48]$[103, -40, 0, 48]$[103, -68, 0, 20]"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_zn6I4uAvEeKibaNzws831w" points="[2, -3, -45, 85]$[36, -68, -11, 20]"/>
       <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_2qGuwC7NEeSe2vQsmqYDqA" id="(0.8,0.058823529411764705)"/>
     </edges>
     <edges xmi:type="notation:Connector" xmi:id="_iej38C7MEeSe2vQsmqYDqA" type="4004" source="_jv8nIOAuEeKeo_423tvTpQ" target="_MflVEN_YEeKxs-T-7hfQjA" lineColor="0">
@@ -13058,6 +13058,10 @@
         <styles xmi:type="notation:HintedDiagramLinkStyle" xmi:id="_WRWkseDWEeKbNtLCas5YyQ"/>
         <element xmi:type="uml:ActivityParameterNode" href="petstore.uml#_WQ6f0ODWEeKbNtLCas5YyQ"/>
         <layoutConstraint xmi:type="notation:Bounds" xmi:id="_WRWksuDWEeKbNtLCas5YyQ" x="1030" y="74"/>
+      </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_JC0l4EMvEeSFqqNTD9pteg" visible="false" type="compartment_shape_display">
+        <styles xmi:type="notation:TitleStyle" xmi:id="_JC0l4UMvEeSFqqNTD9pteg"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_JC0l4kMvEeSFqqNTD9pteg"/>
       </children>
       <element xmi:type="uml:Activity" href="petstore.uml#_PsB2gODWEeKbNtLCas5YyQ"/>
       <layoutConstraint xmi:type="notation:Bounds" xmi:id="_TT-NqODWEeKbNtLCas5YyQ" width="888" height="348"/>
