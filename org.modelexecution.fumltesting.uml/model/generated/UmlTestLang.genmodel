@@ -4,7 +4,7 @@
     editorDirectory="/org.modelexecution.fumltesting.uml.editor/src" modelPluginID="org.modelexecution.fumltesting.uml"
     forceOverwrite="true" modelName="UmlTestLang" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     complianceLevel="5.0" copyrightFields="false" editPluginID="org.modelexecution.fumltesting.uml.edit"
-    editorPluginID="org.modelexecution.fumltesting.uml.editor" runtimeVersion="2.9"
+    editorPluginID="org.modelexecution.fumltesting.uml.editor" runtimeVersion="2.10"
     usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/resource/org.eclipse.uml2.uml/model/UML.genmodel#//uml platform:/resource/org.eclipse.xtext.xbase/model/Xbase.genmodel#//xbase">
   <genPackages prefix="UmlTestLang" basePackage="org.modelexecution.fumltesting.uml"
       resource="XML" disposableProviderFactory="true" fileExtensions="umltest" ecorePackage="UmlTestLang.ecore#/">
@@ -30,7 +30,7 @@
     </genEnums>
     <genClasses ecoreClass="UmlTestLang.ecore#//UMLTestSuite">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UmlTestLang.ecore#//UMLTestSuite/imports"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UmlTestLang.ecore#//UMLTestSuite/scenario"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UmlTestLang.ecore#//UMLTestSuite/scenarios"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UmlTestLang.ecore#//UMLTestSuite/tests"/>
     </genClasses>
     <genClasses ecoreClass="UmlTestLang.ecore#//Import">
@@ -41,7 +41,7 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UmlTestLang.ecore#//UMLTestCase/activityUnderTest"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UmlTestLang.ecore#//UMLTestCase/inputs"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UmlTestLang.ecore#//UMLTestCase/contextObject"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UmlTestLang.ecore#//UMLTestCase/initScenarios"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference UmlTestLang.ecore#//UMLTestCase/initScenario"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UmlTestLang.ecore#//UMLTestCase/assertions"/>
     </genClasses>
     <genClasses ecoreClass="UmlTestLang.ecore#//UMLActivityInput">

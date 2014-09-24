@@ -12,7 +12,6 @@ import org.modelexecution.fumltesting.core.testlang.NodeOrder;
 import org.modelexecution.fumltesting.core.testlang.ReferencePoint;
 import org.modelexecution.fumltesting.core.testlang.Scenario;
 import org.modelexecution.fumltesting.core.testlang.TestCase;
-import org.modelexecution.fumltesting.core.testlang.TestSuite;
 
 /**
  * @author Stefan Mijatov
@@ -21,8 +20,6 @@ import org.modelexecution.fumltesting.core.testlang.TestSuite;
 public interface TestConverter {
 
 	public ModelConverter getModelConverter();
-
-	public TestSuite convertSuite(Object suite);
 
 	public Scenario convertScenario(Object aScenario);
 

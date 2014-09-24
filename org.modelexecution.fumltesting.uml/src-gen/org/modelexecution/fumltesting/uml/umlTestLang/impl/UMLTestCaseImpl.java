@@ -16,7 +16,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.eclipse.uml2.uml.Activity;
@@ -39,7 +38,7 @@ import org.modelexecution.fumltesting.uml.umlTestLang.UmlTestLangPackage;
  *   <li>{@link org.modelexecution.fumltesting.uml.umlTestLang.impl.UMLTestCaseImpl#getActivityUnderTest <em>Activity Under Test</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.uml.umlTestLang.impl.UMLTestCaseImpl#getInputs <em>Inputs</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.uml.umlTestLang.impl.UMLTestCaseImpl#getContextObject <em>Context Object</em>}</li>
- *   <li>{@link org.modelexecution.fumltesting.uml.umlTestLang.impl.UMLTestCaseImpl#getInitScenarios <em>Init Scenarios</em>}</li>
+ *   <li>{@link org.modelexecution.fumltesting.uml.umlTestLang.impl.UMLTestCaseImpl#getInitScenario <em>Init Scenario</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.uml.umlTestLang.impl.UMLTestCaseImpl#getAssertions <em>Assertions</em>}</li>
  * </ul>
  * </p>
@@ -99,14 +98,14 @@ public class UMLTestCaseImpl extends MinimalEObjectImpl.Container implements UML
   protected UMLObjectSpecification contextObject;
 
   /**
-   * The cached value of the '{@link #getInitScenarios() <em>Init Scenarios</em>}' reference list.
+   * The cached value of the '{@link #getInitScenario() <em>Init Scenario</em>}' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getInitScenarios()
+   * @see #getInitScenario()
    * @generated
    * @ordered
    */
-  protected EList<UMLScenario> initScenarios;
+  protected UMLScenario initScenario;
 
   /**
    * The cached value of the '{@link #getAssertions() <em>Assertions</em>}' containment reference list.
@@ -267,13 +266,42 @@ public class UMLTestCaseImpl extends MinimalEObjectImpl.Container implements UML
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<UMLScenario> getInitScenarios()
+  public UMLScenario getInitScenario()
   {
-    if (initScenarios == null)
+    if (initScenario != null && initScenario.eIsProxy())
     {
-      initScenarios = new EObjectResolvingEList<UMLScenario>(UMLScenario.class, this, UmlTestLangPackage.UML_TEST_CASE__INIT_SCENARIOS);
+      InternalEObject oldInitScenario = (InternalEObject)initScenario;
+      initScenario = (UMLScenario)eResolveProxy(oldInitScenario);
+      if (initScenario != oldInitScenario)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, UmlTestLangPackage.UML_TEST_CASE__INIT_SCENARIO, oldInitScenario, initScenario));
+      }
     }
-    return initScenarios;
+    return initScenario;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public UMLScenario basicGetInitScenario()
+  {
+    return initScenario;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setInitScenario(UMLScenario newInitScenario)
+  {
+    UMLScenario oldInitScenario = initScenario;
+    initScenario = newInitScenario;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, UmlTestLangPackage.UML_TEST_CASE__INIT_SCENARIO, oldInitScenario, initScenario));
   }
 
   /**
@@ -328,8 +356,9 @@ public class UMLTestCaseImpl extends MinimalEObjectImpl.Container implements UML
       case UmlTestLangPackage.UML_TEST_CASE__CONTEXT_OBJECT:
         if (resolve) return getContextObject();
         return basicGetContextObject();
-      case UmlTestLangPackage.UML_TEST_CASE__INIT_SCENARIOS:
-        return getInitScenarios();
+      case UmlTestLangPackage.UML_TEST_CASE__INIT_SCENARIO:
+        if (resolve) return getInitScenario();
+        return basicGetInitScenario();
       case UmlTestLangPackage.UML_TEST_CASE__ASSERTIONS:
         return getAssertions();
     }
@@ -360,9 +389,8 @@ public class UMLTestCaseImpl extends MinimalEObjectImpl.Container implements UML
       case UmlTestLangPackage.UML_TEST_CASE__CONTEXT_OBJECT:
         setContextObject((UMLObjectSpecification)newValue);
         return;
-      case UmlTestLangPackage.UML_TEST_CASE__INIT_SCENARIOS:
-        getInitScenarios().clear();
-        getInitScenarios().addAll((Collection<? extends UMLScenario>)newValue);
+      case UmlTestLangPackage.UML_TEST_CASE__INIT_SCENARIO:
+        setInitScenario((UMLScenario)newValue);
         return;
       case UmlTestLangPackage.UML_TEST_CASE__ASSERTIONS:
         getAssertions().clear();
@@ -394,8 +422,8 @@ public class UMLTestCaseImpl extends MinimalEObjectImpl.Container implements UML
       case UmlTestLangPackage.UML_TEST_CASE__CONTEXT_OBJECT:
         setContextObject((UMLObjectSpecification)null);
         return;
-      case UmlTestLangPackage.UML_TEST_CASE__INIT_SCENARIOS:
-        getInitScenarios().clear();
+      case UmlTestLangPackage.UML_TEST_CASE__INIT_SCENARIO:
+        setInitScenario((UMLScenario)null);
         return;
       case UmlTestLangPackage.UML_TEST_CASE__ASSERTIONS:
         getAssertions().clear();
@@ -422,8 +450,8 @@ public class UMLTestCaseImpl extends MinimalEObjectImpl.Container implements UML
         return inputs != null && !inputs.isEmpty();
       case UmlTestLangPackage.UML_TEST_CASE__CONTEXT_OBJECT:
         return contextObject != null;
-      case UmlTestLangPackage.UML_TEST_CASE__INIT_SCENARIOS:
-        return initScenarios != null && !initScenarios.isEmpty();
+      case UmlTestLangPackage.UML_TEST_CASE__INIT_SCENARIO:
+        return initScenario != null;
       case UmlTestLangPackage.UML_TEST_CASE__ASSERTIONS:
         return assertions != null && !assertions.isEmpty();
     }

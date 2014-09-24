@@ -43,10 +43,10 @@ import org.modelexecution.fumltesting.core.testlang.ObjectValue;
 import org.modelexecution.fumltesting.core.testlang.OrderAssertion;
 import org.modelexecution.fumltesting.core.testlang.StateAssertion;
 import org.modelexecution.fumltesting.core.testlang.TestCase;
-import org.modelexecution.fumltesting.core.testlang.TestSuite;
 import org.modelexecution.fumltesting.core.trace.TraceUtil;
 import org.modelexecution.fumltesting.uml.UmlTestLangStandaloneSetup;
 import org.modelexecution.fumltesting.uml.convert.UmlTestConverter;
+import org.modelexecution.fumltesting.uml.umlTestLang.UMLTestCase;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLTestSuite;
 import org.modelexecution.fumltesting.xtext.UmlSupport;
 
@@ -68,8 +68,7 @@ import fUML.Syntax.Classes.Kernel.Package;
 public class UmlTestExecutor {
 	private int mainActivityExecutionID;
 	private UMLTestSuite suite;
-	private TestSuite convertedSuite;
-
+	
 	private ActivityExecutor executor;
 	private OclExecutor oclExecutor;
 	private TestDataConverter testDataConverter;
@@ -171,8 +170,6 @@ public class UmlTestExecutor {
 		oclExecutor = OclExecutor.getInstance();
 		testConverter = new UmlTestConverter(umlModel);
 
-		convertedSuite = testConverter.convertSuite(suite);
-
 		if (oclExecutor.getMetamodel() != null) {
 			System.out.println("Metamodel adaptation: " + oclExecutor.getMetamodel().getName());
 			System.out.println("Model adaptation: " + umlModel.getName());
@@ -198,10 +195,11 @@ public class UmlTestExecutor {
 		TestSuiteResult suiteResult = new TestSuiteResult();
 
 		HashMap<String, String> testsThatDidNotRun = new HashMap<String, String>();
-		for (TestCase testCase : convertedSuite.getAllTestCases()) {
+		for (UMLTestCase umlTestCase : suite.getTests()) {
+			TestCase testCase = testConverter.convertTestCase(umlTestCase);
 			Activity activity = testCase.getActivityUnderTest();
 
-			testDataConverter.cleanUpAndInit(convertedSuite);
+			testDataConverter.cleanUpAndInit(testCase);
 
 			boolean requiresContext = false;
 			Class_ contextType = null;

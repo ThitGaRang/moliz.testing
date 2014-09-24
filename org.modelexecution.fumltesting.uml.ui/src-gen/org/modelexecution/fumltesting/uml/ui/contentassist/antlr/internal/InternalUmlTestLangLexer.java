@@ -1300,10 +1300,10 @@ public class InternalUmlTestLangLexer extends Lexer {
         try {
             int _type = T__69;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:67:7: ( '[' )
-            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:67:9: '['
+            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:67:7: ( ';' )
+            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:67:9: ';'
             {
-            match('['); 
+            match(';'); 
 
             }
 
@@ -1320,10 +1320,11 @@ public class InternalUmlTestLangLexer extends Lexer {
         try {
             int _type = T__70;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:68:7: ( ']' )
-            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:68:9: ']'
+            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:68:7: ( 'scenario' )
+            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:68:9: 'scenario'
             {
-            match(']'); 
+            match("scenario"); 
+
 
             }
 
@@ -1340,10 +1341,10 @@ public class InternalUmlTestLangLexer extends Lexer {
         try {
             int _type = T__71;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:69:7: ( ';' )
-            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:69:9: ';'
+            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:69:7: ( '[' )
+            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:69:9: '['
             {
-            match(';'); 
+            match('['); 
 
             }
 
@@ -1360,11 +1361,10 @@ public class InternalUmlTestLangLexer extends Lexer {
         try {
             int _type = T__72;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:70:7: ( 'scenario' )
-            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:70:9: 'scenario'
+            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:70:7: ( ']' )
+            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:70:9: ']'
             {
-            match("scenario"); 
-
+            match(']'); 
 
             }
 
@@ -2173,10 +2173,10 @@ public class InternalUmlTestLangLexer extends Lexer {
         try {
             int _type = RULE_HEX;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24254:10: ( ( '0x' | '0X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' | '_' )+ ( '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) ) )? )
-            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24254:12: ( '0x' | '0X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' | '_' )+ ( '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) ) )?
+            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24075:10: ( ( '0x' | '0X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' | '_' )+ ( '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) ) )? )
+            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24075:12: ( '0x' | '0X' ) ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' | '_' )+ ( '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) ) )?
             {
-            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24254:12: ( '0x' | '0X' )
+            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24075:12: ( '0x' | '0X' )
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -2204,7 +2204,7 @@ public class InternalUmlTestLangLexer extends Lexer {
             }
             switch (alt1) {
                 case 1 :
-                    // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24254:13: '0x'
+                    // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24075:13: '0x'
                     {
                     match("0x"); 
 
@@ -2212,7 +2212,7 @@ public class InternalUmlTestLangLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24254:18: '0X'
+                    // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24075:18: '0X'
                     {
                     match("0X"); 
 
@@ -2222,7 +2222,7 @@ public class InternalUmlTestLangLexer extends Lexer {
 
             }
 
-            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24254:24: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' | '_' )+
+            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24075:24: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' | '_' )+
             int cnt2=0;
             loop2:
             do {
@@ -2260,7 +2260,7 @@ public class InternalUmlTestLangLexer extends Lexer {
                 cnt2++;
             } while (true);
 
-            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24254:58: ( '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) ) )?
+            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24075:58: ( '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) ) )?
             int alt4=2;
             int LA4_0 = input.LA(1);
 
@@ -2269,10 +2269,10 @@ public class InternalUmlTestLangLexer extends Lexer {
             }
             switch (alt4) {
                 case 1 :
-                    // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24254:59: '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) )
+                    // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24075:59: '#' ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) )
                     {
                     match('#'); 
-                    // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24254:63: ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) )
+                    // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24075:63: ( ( 'b' | 'B' ) ( 'i' | 'I' ) | ( 'l' | 'L' ) )
                     int alt3=2;
                     int LA3_0 = input.LA(1);
 
@@ -2290,7 +2290,7 @@ public class InternalUmlTestLangLexer extends Lexer {
                     }
                     switch (alt3) {
                         case 1 :
-                            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24254:64: ( 'b' | 'B' ) ( 'i' | 'I' )
+                            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24075:64: ( 'b' | 'B' ) ( 'i' | 'I' )
                             {
                             if ( input.LA(1)=='B'||input.LA(1)=='b' ) {
                                 input.consume();
@@ -2314,7 +2314,7 @@ public class InternalUmlTestLangLexer extends Lexer {
                             }
                             break;
                         case 2 :
-                            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24254:84: ( 'l' | 'L' )
+                            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24075:84: ( 'l' | 'L' )
                             {
                             if ( input.LA(1)=='L'||input.LA(1)=='l' ) {
                                 input.consume();
@@ -2353,11 +2353,11 @@ public class InternalUmlTestLangLexer extends Lexer {
         try {
             int _type = RULE_INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24256:10: ( '0' .. '9' ( '0' .. '9' | '_' )* )
-            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24256:12: '0' .. '9' ( '0' .. '9' | '_' )*
+            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24077:10: ( '0' .. '9' ( '0' .. '9' | '_' )* )
+            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24077:12: '0' .. '9' ( '0' .. '9' | '_' )*
             {
             matchRange('0','9'); 
-            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24256:21: ( '0' .. '9' | '_' )*
+            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24077:21: ( '0' .. '9' | '_' )*
             loop5:
             do {
                 int alt5=2;
@@ -2406,11 +2406,11 @@ public class InternalUmlTestLangLexer extends Lexer {
         try {
             int _type = RULE_DECIMAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24258:14: ( RULE_INT ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )? ( ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' ) | ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' ) )? )
-            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24258:16: RULE_INT ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )? ( ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' ) | ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' ) )?
+            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24079:14: ( RULE_INT ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )? ( ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' ) | ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' ) )? )
+            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24079:16: RULE_INT ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )? ( ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' ) | ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' ) )?
             {
             mRULE_INT(); 
-            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24258:25: ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )?
+            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24079:25: ( ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT )?
             int alt7=2;
             int LA7_0 = input.LA(1);
 
@@ -2419,7 +2419,7 @@ public class InternalUmlTestLangLexer extends Lexer {
             }
             switch (alt7) {
                 case 1 :
-                    // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24258:26: ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT
+                    // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24079:26: ( 'e' | 'E' ) ( '+' | '-' )? RULE_INT
                     {
                     if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                         input.consume();
@@ -2430,7 +2430,7 @@ public class InternalUmlTestLangLexer extends Lexer {
                         recover(mse);
                         throw mse;}
 
-                    // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24258:36: ( '+' | '-' )?
+                    // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24079:36: ( '+' | '-' )?
                     int alt6=2;
                     int LA6_0 = input.LA(1);
 
@@ -2463,7 +2463,7 @@ public class InternalUmlTestLangLexer extends Lexer {
 
             }
 
-            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24258:58: ( ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' ) | ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' ) )?
+            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24079:58: ( ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' ) | ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' ) )?
             int alt8=3;
             int LA8_0 = input.LA(1);
 
@@ -2475,7 +2475,7 @@ public class InternalUmlTestLangLexer extends Lexer {
             }
             switch (alt8) {
                 case 1 :
-                    // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24258:59: ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' )
+                    // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24079:59: ( 'b' | 'B' ) ( 'i' | 'I' | 'd' | 'D' )
                     {
                     if ( input.LA(1)=='B'||input.LA(1)=='b' ) {
                         input.consume();
@@ -2499,7 +2499,7 @@ public class InternalUmlTestLangLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24258:87: ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' )
+                    // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24079:87: ( 'l' | 'L' | 'd' | 'D' | 'f' | 'F' )
                     {
                     if ( input.LA(1)=='D'||input.LA(1)=='F'||input.LA(1)=='L'||input.LA(1)=='d'||input.LA(1)=='f'||input.LA(1)=='l' ) {
                         input.consume();
@@ -2532,10 +2532,10 @@ public class InternalUmlTestLangLexer extends Lexer {
         try {
             int _type = RULE_ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24260:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '$' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '$' | '_' | '0' .. '9' )* )
-            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24260:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '$' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '$' | '_' | '0' .. '9' )*
+            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24081:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '$' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '$' | '_' | '0' .. '9' )* )
+            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24081:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '$' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '$' | '_' | '0' .. '9' )*
             {
-            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24260:11: ( '^' )?
+            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24081:11: ( '^' )?
             int alt9=2;
             int LA9_0 = input.LA(1);
 
@@ -2544,7 +2544,7 @@ public class InternalUmlTestLangLexer extends Lexer {
             }
             switch (alt9) {
                 case 1 :
-                    // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24260:11: '^'
+                    // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24081:11: '^'
                     {
                     match('^'); 
 
@@ -2562,7 +2562,7 @@ public class InternalUmlTestLangLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24260:44: ( 'a' .. 'z' | 'A' .. 'Z' | '$' | '_' | '0' .. '9' )*
+            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24081:44: ( 'a' .. 'z' | 'A' .. 'Z' | '$' | '_' | '0' .. '9' )*
             loop10:
             do {
                 int alt10=2;
@@ -2611,10 +2611,10 @@ public class InternalUmlTestLangLexer extends Lexer {
         try {
             int _type = RULE_STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24262:13: ( ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
-            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24262:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24083:13: ( ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
+            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24083:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             {
-            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24262:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24083:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             int alt13=2;
             int LA13_0 = input.LA(1);
 
@@ -2632,10 +2632,10 @@ public class InternalUmlTestLangLexer extends Lexer {
             }
             switch (alt13) {
                 case 1 :
-                    // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24262:16: '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
+                    // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24083:16: '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
                     {
                     match('\"'); 
-                    // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24262:20: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )*
+                    // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24083:20: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )*
                     loop11:
                     do {
                         int alt11=3;
@@ -2651,7 +2651,7 @@ public class InternalUmlTestLangLexer extends Lexer {
 
                         switch (alt11) {
                     	case 1 :
-                    	    // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24262:21: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
+                    	    // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24083:21: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
                     	    {
                     	    match('\\'); 
                     	    if ( input.LA(1)=='\"'||input.LA(1)=='\''||input.LA(1)=='\\'||input.LA(1)=='b'||input.LA(1)=='f'||input.LA(1)=='n'||input.LA(1)=='r'||(input.LA(1)>='t' && input.LA(1)<='u') ) {
@@ -2667,7 +2667,7 @@ public class InternalUmlTestLangLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24262:66: ~ ( ( '\\\\' | '\"' ) )
+                    	    // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24083:66: ~ ( ( '\\\\' | '\"' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -2692,10 +2692,10 @@ public class InternalUmlTestLangLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24262:86: '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
+                    // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24083:86: '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
                     {
                     match('\''); 
-                    // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24262:91: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )*
+                    // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24083:91: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )*
                     loop12:
                     do {
                         int alt12=3;
@@ -2711,7 +2711,7 @@ public class InternalUmlTestLangLexer extends Lexer {
 
                         switch (alt12) {
                     	case 1 :
-                    	    // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24262:92: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
+                    	    // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24083:92: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
                     	    {
                     	    match('\\'); 
                     	    if ( input.LA(1)=='\"'||input.LA(1)=='\''||input.LA(1)=='\\'||input.LA(1)=='b'||input.LA(1)=='f'||input.LA(1)=='n'||input.LA(1)=='r'||(input.LA(1)>='t' && input.LA(1)<='u') ) {
@@ -2727,7 +2727,7 @@ public class InternalUmlTestLangLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24262:137: ~ ( ( '\\\\' | '\\'' ) )
+                    	    // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24083:137: ~ ( ( '\\\\' | '\\'' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -2770,12 +2770,12 @@ public class InternalUmlTestLangLexer extends Lexer {
         try {
             int _type = RULE_ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24264:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
-            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24264:19: '/*' ( options {greedy=false; } : . )* '*/'
+            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24085:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
+            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24085:19: '/*' ( options {greedy=false; } : . )* '*/'
             {
             match("/*"); 
 
-            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24264:24: ( options {greedy=false; } : . )*
+            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24085:24: ( options {greedy=false; } : . )*
             loop14:
             do {
                 int alt14=2;
@@ -2800,7 +2800,7 @@ public class InternalUmlTestLangLexer extends Lexer {
 
                 switch (alt14) {
             	case 1 :
-            	    // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24264:52: .
+            	    // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24085:52: .
             	    {
             	    matchAny(); 
 
@@ -2830,12 +2830,12 @@ public class InternalUmlTestLangLexer extends Lexer {
         try {
             int _type = RULE_SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24266:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
-            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24266:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
+            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24087:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
+            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24087:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
             {
             match("//"); 
 
-            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24266:24: (~ ( ( '\\n' | '\\r' ) ) )*
+            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24087:24: (~ ( ( '\\n' | '\\r' ) ) )*
             loop15:
             do {
                 int alt15=2;
@@ -2848,7 +2848,7 @@ public class InternalUmlTestLangLexer extends Lexer {
 
                 switch (alt15) {
             	case 1 :
-            	    // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24266:24: ~ ( ( '\\n' | '\\r' ) )
+            	    // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24087:24: ~ ( ( '\\n' | '\\r' ) )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -2868,7 +2868,7 @@ public class InternalUmlTestLangLexer extends Lexer {
                 }
             } while (true);
 
-            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24266:40: ( ( '\\r' )? '\\n' )?
+            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24087:40: ( ( '\\r' )? '\\n' )?
             int alt17=2;
             int LA17_0 = input.LA(1);
 
@@ -2877,9 +2877,9 @@ public class InternalUmlTestLangLexer extends Lexer {
             }
             switch (alt17) {
                 case 1 :
-                    // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24266:41: ( '\\r' )? '\\n'
+                    // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24087:41: ( '\\r' )? '\\n'
                     {
-                    // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24266:41: ( '\\r' )?
+                    // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24087:41: ( '\\r' )?
                     int alt16=2;
                     int LA16_0 = input.LA(1);
 
@@ -2888,7 +2888,7 @@ public class InternalUmlTestLangLexer extends Lexer {
                     }
                     switch (alt16) {
                         case 1 :
-                            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24266:41: '\\r'
+                            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24087:41: '\\r'
                             {
                             match('\r'); 
 
@@ -2920,10 +2920,10 @@ public class InternalUmlTestLangLexer extends Lexer {
         try {
             int _type = RULE_WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24268:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
-            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24268:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24089:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
+            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24089:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             {
-            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24268:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24089:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             int cnt18=0;
             loop18:
             do {
@@ -2977,8 +2977,8 @@ public class InternalUmlTestLangLexer extends Lexer {
         try {
             int _type = RULE_ANY_OTHER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24270:16: ( . )
-            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24270:18: .
+            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24091:16: ( . )
+            // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:24091:18: .
             {
             matchAny(); 
 
@@ -3842,12 +3842,12 @@ public class InternalUmlTestLangLexer extends Lexer {
         "\1\uffff\1\145\1\171\2\172\1\145\1\162\1\172\1\uffff\1\144\1\172"+
         "\2\uffff\2\172\1\uffff\1\172\4\uffff";
     static final String DFA19_acceptS =
-        "\16\uffff\1\40\10\uffff\1\63\1\64\1\65\1\66\1\uffff\1\71\1\72\1"+
-        "\73\3\uffff\1\113\10\uffff\1\146\2\uffff\1\152\1\153\1\uffff\1\23"+
+        "\16\uffff\1\40\10\uffff\1\63\1\64\1\65\1\66\1\uffff\1\71\1\73\1"+
+        "\74\3\uffff\1\113\10\uffff\1\146\2\uffff\1\152\1\153\1\uffff\1\23"+
         "\1\1\1\2\1\140\1\3\1\135\1\4\1\35\1\26\1\5\1\20\1\36\1\27\1\6\1"+
         "\31\1\30\1\7\1\150\1\151\1\32\1\10\1\33\1\uffff\1\34\1\15\1\16\1"+
         "\24\1\50\1\17\1\uffff\1\37\1\25\1\137\1\134\1\40\1\uffff\1\146\31"+
-        "\uffff\1\63\1\64\1\65\1\66\2\uffff\1\71\1\72\1\73\1\107\1\76\4\uffff"+
+        "\uffff\1\63\1\64\1\65\1\66\2\uffff\1\71\1\73\1\74\1\107\1\76\4\uffff"+
         "\1\113\6\uffff\1\136\1\143\1\uffff\1\144\1\145\1\147\1\152\1\13"+
         "\1\11\1\14\1\12\1\21\1\22\22\uffff\1\114\7\uffff\1\112\7\uffff\1"+
         "\67\7\uffff\1\123\4\uffff\1\41\1\141\22\uffff\1\121\11\uffff\1\131"+
@@ -3856,7 +3856,7 @@ public class InternalUmlTestLangLexer extends Lexer {
         "\1\53\4\uffff\1\54\2\uffff\1\127\2\uffff\1\106\1\133\1\uffff\1\122"+
         "\5\uffff\1\43\1\uffff\1\100\1\uffff\1\116\1\uffff\1\44\5\uffff\1"+
         "\55\1\uffff\1\103\2\uffff\1\101\1\126\1\75\2\uffff\1\130\1\42\12"+
-        "\uffff\1\105\4\uffff\1\117\1\uffff\1\52\2\uffff\1\74\2\uffff\1\51"+
+        "\uffff\1\105\4\uffff\1\117\1\uffff\1\52\2\uffff\1\72\2\uffff\1\51"+
         "\2\uffff\1\62\3\uffff\1\45\1\uffff\1\56\7\uffff\1\57\2\uffff\1\70"+
         "\1\111\2\uffff\1\104\1\uffff\1\60\1\102\1\110\1\132";
     static final String DFA19_specialS =
@@ -3864,7 +3864,7 @@ public class InternalUmlTestLangLexer extends Lexer {
     static final String[] DFA19_transitionS = {
             "\11\57\2\56\2\57\1\56\22\57\1\56\1\11\1\54\1\42\1\53\1\10\1"+
             "\3\1\55\1\31\1\32\1\6\1\4\1\16\1\5\1\14\1\7\1\50\11\51\1\37"+
-            "\1\36\1\13\1\1\1\12\1\15\1\57\32\53\1\34\1\57\1\35\1\52\1\47"+
+            "\1\34\1\13\1\1\1\12\1\15\1\57\32\53\1\35\1\57\1\36\1\52\1\47"+
             "\1\57\1\24\1\53\1\41\1\43\1\20\1\23\2\53\1\22\2\53\1\40\1\53"+
             "\1\45\1\33\2\53\1\46\1\21\1\26\1\25\1\17\1\44\3\53\1\27\1\2"+
             "\1\30\uff82\57",
@@ -4432,11 +4432,11 @@ public class InternalUmlTestLangLexer extends Lexer {
 
                         else if ( (LA19_0=='o') ) {s = 27;}
 
-                        else if ( (LA19_0=='[') ) {s = 28;}
+                        else if ( (LA19_0==';') ) {s = 28;}
 
-                        else if ( (LA19_0==']') ) {s = 29;}
+                        else if ( (LA19_0=='[') ) {s = 29;}
 
-                        else if ( (LA19_0==';') ) {s = 30;}
+                        else if ( (LA19_0==']') ) {s = 30;}
 
                         else if ( (LA19_0==':') ) {s = 31;}
 

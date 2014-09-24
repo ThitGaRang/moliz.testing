@@ -5,8 +5,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="UMLTestSuite">
     <eStructuralFeatures xsi:type="ecore:EReference" name="imports" upperBound="-1"
         eType="#//Import" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="scenario" eType="#//UMLScenario"
-        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="scenarios" upperBound="-1"
+        eType="#//UMLScenario" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="tests" upperBound="-1"
         eType="#//UMLTestCase" containment="true"/>
   </eClassifiers>
@@ -19,8 +19,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="inputs" upperBound="-1"
         eType="#//UMLActivityInput" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="contextObject" eType="#//UMLObjectSpecification"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="initScenarios" unique="false"
-        upperBound="-1" eType="#//UMLScenario"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="initScenario" eType="#//UMLScenario"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="assertions" upperBound="-1"
         eType="#//UMLAssertion" containment="true"/>
   </eClassifiers>

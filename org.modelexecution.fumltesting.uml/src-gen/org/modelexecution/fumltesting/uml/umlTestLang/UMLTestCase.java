@@ -20,7 +20,7 @@ import org.eclipse.uml2.uml.Activity;
  *   <li>{@link org.modelexecution.fumltesting.uml.umlTestLang.UMLTestCase#getActivityUnderTest <em>Activity Under Test</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.uml.umlTestLang.UMLTestCase#getInputs <em>Inputs</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.uml.umlTestLang.UMLTestCase#getContextObject <em>Context Object</em>}</li>
- *   <li>{@link org.modelexecution.fumltesting.uml.umlTestLang.UMLTestCase#getInitScenarios <em>Init Scenarios</em>}</li>
+ *   <li>{@link org.modelexecution.fumltesting.uml.umlTestLang.UMLTestCase#getInitScenario <em>Init Scenario</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.uml.umlTestLang.UMLTestCase#getAssertions <em>Assertions</em>}</li>
  * </ul>
  * </p>
@@ -126,20 +126,30 @@ public interface UMLTestCase extends EObject
   void setContextObject(UMLObjectSpecification value);
 
   /**
-   * Returns the value of the '<em><b>Init Scenarios</b></em>' reference list.
-   * The list contents are of type {@link org.modelexecution.fumltesting.uml.umlTestLang.UMLScenario}.
+   * Returns the value of the '<em><b>Init Scenario</b></em>' reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Init Scenarios</em>' reference list isn't clear,
+   * If the meaning of the '<em>Init Scenario</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Init Scenarios</em>' reference list.
-   * @see org.modelexecution.fumltesting.uml.umlTestLang.UmlTestLangPackage#getUMLTestCase_InitScenarios()
+   * @return the value of the '<em>Init Scenario</em>' reference.
+   * @see #setInitScenario(UMLScenario)
+   * @see org.modelexecution.fumltesting.uml.umlTestLang.UmlTestLangPackage#getUMLTestCase_InitScenario()
    * @model
    * @generated
    */
-  EList<UMLScenario> getInitScenarios();
+  UMLScenario getInitScenario();
+
+  /**
+   * Sets the value of the '{@link org.modelexecution.fumltesting.uml.umlTestLang.UMLTestCase#getInitScenario <em>Init Scenario</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Init Scenario</em>' reference.
+   * @see #getInitScenario()
+   * @generated
+   */
+  void setInitScenario(UMLScenario value);
 
   /**
    * Returns the value of the '<em><b>Assertions</b></em>' containment reference list.

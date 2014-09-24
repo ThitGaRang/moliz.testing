@@ -109,7 +109,7 @@ RULE_WS=11
 'sometimes'=108
 '=='=54
 'extension'=89
-';'=24
+';'=22
 '==='=56
 'return'=97
 'activity'=15
@@ -133,12 +133,12 @@ RULE_WS=11
 'synchronized'=99
 'default'=80
 'includes'=104
-']'=23
+']'=28
 '..<'=60
 'finally'=38
 'new'=91
 'val'=86
-'='=26
+'='=24
 'object'=29
 'source'=32
 '->'=59
@@ -153,7 +153,7 @@ RULE_WS=11
 '!='=55
 '<'=49
 '--'=72
-'['=22
+'['=27
 '&'=102
 'instanceof'=58
 '#'=75
@@ -170,7 +170,7 @@ RULE_WS=11
 '?:'=64
 '++'=71
 'true'=93
-'scenario'=28
+'scenario'=26
 'else'=78
 '+='=44
 'link'=31
@@ -178,7 +178,7 @@ RULE_WS=11
 'as'=70
 '?'=101
 'if'=77
-'-'=27
+'-'=25
 'while'=83
 ','=17
 '-='=45
@@ -197,7 +197,7 @@ RULE_WS=11
 'on'=19
 'do'=84
 'after'=106
-'}'=25
+'}'=23
 'immediately'=110
 'initialize'=21
 'assertOrder'=41

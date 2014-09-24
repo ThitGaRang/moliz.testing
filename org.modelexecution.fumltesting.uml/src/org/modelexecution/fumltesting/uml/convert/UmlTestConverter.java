@@ -44,7 +44,6 @@ import org.modelexecution.fumltesting.core.testlang.StringValue;
 import org.modelexecution.fumltesting.core.testlang.TemporalOperator;
 import org.modelexecution.fumltesting.core.testlang.TemporalQuantifier;
 import org.modelexecution.fumltesting.core.testlang.TestCase;
-import org.modelexecution.fumltesting.core.testlang.TestSuite;
 import org.modelexecution.fumltesting.core.testlang.Value;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLActionReferencePoint;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLActivityInput;
@@ -67,7 +66,6 @@ import org.modelexecution.fumltesting.uml.umlTestLang.UMLSimpleValue;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLStateAssertion;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLStateExpression;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLTestCase;
-import org.modelexecution.fumltesting.uml.umlTestLang.UMLTestSuite;
 
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 
@@ -79,34 +77,16 @@ import fUML.Syntax.Activities.IntermediateActivities.Activity;
 public class UmlTestConverter implements TestConverter {
 	private ModelConverter modelConverter;
 	private HashMap<UMLObjectSpecification, ObjectSpecification> mappedObjects;
-	private HashMap<UMLScenario, Scenario> mappedScenarios;
 
 	public UmlTestConverter(Object model) {
 		this.modelConverter = new ModelConverter();
 		modelConverter.setModelAndConvert(model);
 		this.mappedObjects = new HashMap<UMLObjectSpecification, ObjectSpecification>();
-		this.mappedScenarios = new HashMap<UMLScenario, Scenario>();
 	}
 
 	@Override
 	public ModelConverter getModelConverter() {
 		return this.modelConverter;
-	}
-
-	@Override
-	public TestSuite convertSuite(Object aSuite) {
-		UMLTestSuite umlSuite = (UMLTestSuite) aSuite;
-		TestSuite suite = new TestSuite();
-		if (umlSuite.getScenario() != null) {
-			UMLScenario umlScenario = umlSuite.getScenario();
-			Scenario scenario = convertScenario(umlScenario);
-			suite.addScenario(scenario);
-			mappedScenarios.put(umlScenario, scenario);
-		}
-		for (UMLTestCase umlTestCase : umlSuite.getTests()) {
-			suite.addTestCase(convertTestCase(umlTestCase));
-		}
-		return suite;
 	}
 
 	@Override
@@ -144,6 +124,9 @@ public class UmlTestConverter implements TestConverter {
 		if (umlTestCase.getContextObject() != null) {
 			testCase.setContextObject((ObjectSpecification) convertValue(umlTestCase.getContextObject()));
 		}
+		
+		Scenario scenario = convertScenario(umlTestCase.getInitScenario());
+		testCase.getScenarios().add(scenario);
 
 		for (UMLActivityInput umlActivityInput : umlTestCase.getInputs()) {
 			ActivityInput activityInput = new ActivityInput();

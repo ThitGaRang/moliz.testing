@@ -4,7 +4,6 @@ package org.modelexecution.fumltesting.uml.umlTestLang.impl;
 
 import java.util.Collection;
 
-import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
@@ -12,7 +11,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
@@ -32,7 +30,7 @@ import org.modelexecution.fumltesting.uml.umlTestLang.UmlTestLangPackage;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.modelexecution.fumltesting.uml.umlTestLang.impl.UMLTestSuiteImpl#getImports <em>Imports</em>}</li>
- *   <li>{@link org.modelexecution.fumltesting.uml.umlTestLang.impl.UMLTestSuiteImpl#getScenario <em>Scenario</em>}</li>
+ *   <li>{@link org.modelexecution.fumltesting.uml.umlTestLang.impl.UMLTestSuiteImpl#getScenarios <em>Scenarios</em>}</li>
  *   <li>{@link org.modelexecution.fumltesting.uml.umlTestLang.impl.UMLTestSuiteImpl#getTests <em>Tests</em>}</li>
  * </ul>
  * </p>
@@ -52,14 +50,14 @@ public class UMLTestSuiteImpl extends MinimalEObjectImpl.Container implements UM
   protected EList<Import> imports;
 
   /**
-   * The cached value of the '{@link #getScenario() <em>Scenario</em>}' containment reference.
+   * The cached value of the '{@link #getScenarios() <em>Scenarios</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getScenario()
+   * @see #getScenarios()
    * @generated
    * @ordered
    */
-  protected UMLScenario scenario;
+  protected EList<UMLScenario> scenarios;
 
   /**
    * The cached value of the '{@link #getTests() <em>Tests</em>}' containment reference list.
@@ -111,47 +109,13 @@ public class UMLTestSuiteImpl extends MinimalEObjectImpl.Container implements UM
    * <!-- end-user-doc -->
    * @generated
    */
-  public UMLScenario getScenario()
+  public EList<UMLScenario> getScenarios()
   {
-    return scenario;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetScenario(UMLScenario newScenario, NotificationChain msgs)
-  {
-    UMLScenario oldScenario = scenario;
-    scenario = newScenario;
-    if (eNotificationRequired())
+    if (scenarios == null)
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, UmlTestLangPackage.UML_TEST_SUITE__SCENARIO, oldScenario, newScenario);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
+      scenarios = new EObjectContainmentEList<UMLScenario>(UMLScenario.class, this, UmlTestLangPackage.UML_TEST_SUITE__SCENARIOS);
     }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setScenario(UMLScenario newScenario)
-  {
-    if (newScenario != scenario)
-    {
-      NotificationChain msgs = null;
-      if (scenario != null)
-        msgs = ((InternalEObject)scenario).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - UmlTestLangPackage.UML_TEST_SUITE__SCENARIO, null, msgs);
-      if (newScenario != null)
-        msgs = ((InternalEObject)newScenario).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - UmlTestLangPackage.UML_TEST_SUITE__SCENARIO, null, msgs);
-      msgs = basicSetScenario(newScenario, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, UmlTestLangPackage.UML_TEST_SUITE__SCENARIO, newScenario, newScenario));
+    return scenarios;
   }
 
   /**
@@ -180,8 +144,8 @@ public class UMLTestSuiteImpl extends MinimalEObjectImpl.Container implements UM
     {
       case UmlTestLangPackage.UML_TEST_SUITE__IMPORTS:
         return ((InternalEList<?>)getImports()).basicRemove(otherEnd, msgs);
-      case UmlTestLangPackage.UML_TEST_SUITE__SCENARIO:
-        return basicSetScenario(null, msgs);
+      case UmlTestLangPackage.UML_TEST_SUITE__SCENARIOS:
+        return ((InternalEList<?>)getScenarios()).basicRemove(otherEnd, msgs);
       case UmlTestLangPackage.UML_TEST_SUITE__TESTS:
         return ((InternalEList<?>)getTests()).basicRemove(otherEnd, msgs);
     }
@@ -200,8 +164,8 @@ public class UMLTestSuiteImpl extends MinimalEObjectImpl.Container implements UM
     {
       case UmlTestLangPackage.UML_TEST_SUITE__IMPORTS:
         return getImports();
-      case UmlTestLangPackage.UML_TEST_SUITE__SCENARIO:
-        return getScenario();
+      case UmlTestLangPackage.UML_TEST_SUITE__SCENARIOS:
+        return getScenarios();
       case UmlTestLangPackage.UML_TEST_SUITE__TESTS:
         return getTests();
     }
@@ -223,8 +187,9 @@ public class UMLTestSuiteImpl extends MinimalEObjectImpl.Container implements UM
         getImports().clear();
         getImports().addAll((Collection<? extends Import>)newValue);
         return;
-      case UmlTestLangPackage.UML_TEST_SUITE__SCENARIO:
-        setScenario((UMLScenario)newValue);
+      case UmlTestLangPackage.UML_TEST_SUITE__SCENARIOS:
+        getScenarios().clear();
+        getScenarios().addAll((Collection<? extends UMLScenario>)newValue);
         return;
       case UmlTestLangPackage.UML_TEST_SUITE__TESTS:
         getTests().clear();
@@ -247,8 +212,8 @@ public class UMLTestSuiteImpl extends MinimalEObjectImpl.Container implements UM
       case UmlTestLangPackage.UML_TEST_SUITE__IMPORTS:
         getImports().clear();
         return;
-      case UmlTestLangPackage.UML_TEST_SUITE__SCENARIO:
-        setScenario((UMLScenario)null);
+      case UmlTestLangPackage.UML_TEST_SUITE__SCENARIOS:
+        getScenarios().clear();
         return;
       case UmlTestLangPackage.UML_TEST_SUITE__TESTS:
         getTests().clear();
@@ -269,8 +234,8 @@ public class UMLTestSuiteImpl extends MinimalEObjectImpl.Container implements UM
     {
       case UmlTestLangPackage.UML_TEST_SUITE__IMPORTS:
         return imports != null && !imports.isEmpty();
-      case UmlTestLangPackage.UML_TEST_SUITE__SCENARIO:
-        return scenario != null;
+      case UmlTestLangPackage.UML_TEST_SUITE__SCENARIOS:
+        return scenarios != null && !scenarios.isEmpty();
       case UmlTestLangPackage.UML_TEST_SUITE__TESTS:
         return tests != null && !tests.isEmpty();
     }

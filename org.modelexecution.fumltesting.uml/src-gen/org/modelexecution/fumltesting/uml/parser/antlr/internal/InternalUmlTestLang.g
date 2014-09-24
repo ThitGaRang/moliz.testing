@@ -99,22 +99,22 @@ ruleUMLTestSuite returns [EObject current=null]
 )*(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getUMLTestSuiteAccess().getScenarioUMLScenarioParserRuleCall_1_0()); 
+	        newCompositeNode(grammarAccess.getUMLTestSuiteAccess().getScenariosUMLScenarioParserRuleCall_1_0()); 
 	    }
-		lv_scenario_1_0=ruleUMLScenario		{
+		lv_scenarios_1_0=ruleUMLScenario		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getUMLTestSuiteRule());
 	        }
-       		set(
+       		add(
        			$current, 
-       			"scenario",
-        		lv_scenario_1_0, 
+       			"scenarios",
+        		lv_scenarios_1_0, 
         		"UMLScenario");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)?(
+)*(
 (
 		{ 
 	        newCompositeNode(grammarAccess.getUMLTestSuiteAccess().getTestsUMLTestCaseParserRuleCall_2_0()); 
@@ -312,10 +312,6 @@ ruleUMLTestCase returns [EObject current=null]
     {
     	newLeafNode(otherlv_12, grammarAccess.getUMLTestCaseAccess().getInitializeKeyword_7_0());
     }
-	otherlv_13='[' 
-    {
-    	newLeafNode(otherlv_13, grammarAccess.getUMLTestCaseAccess().getLeftSquareBracketKeyword_7_1());
-    }
 (
 (
 		{
@@ -323,58 +319,37 @@ ruleUMLTestCase returns [EObject current=null]
 	            $current = createModelElement(grammarAccess.getUMLTestCaseRule());
 	        }
         }
-	otherlv_14=RULE_ID
+	otherlv_13=RULE_ID
 	{
-		newLeafNode(otherlv_14, grammarAccess.getUMLTestCaseAccess().getInitScenariosUMLScenarioCrossReference_7_2_0()); 
+		newLeafNode(otherlv_13, grammarAccess.getUMLTestCaseAccess().getInitScenarioUMLScenarioCrossReference_7_1_0()); 
 	}
 
 )
-)(	otherlv_15=',' 
+)	otherlv_14=';' 
     {
-    	newLeafNode(otherlv_15, grammarAccess.getUMLTestCaseAccess().getCommaKeyword_7_3_0());
+    	newLeafNode(otherlv_14, grammarAccess.getUMLTestCaseAccess().getSemicolonKeyword_7_2());
     }
-(
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getUMLTestCaseRule());
-	        }
-        }
-	otherlv_16=RULE_ID
-	{
-		newLeafNode(otherlv_16, grammarAccess.getUMLTestCaseAccess().getInitScenariosUMLScenarioCrossReference_7_3_1_0()); 
-	}
-
-)
-))*	otherlv_17=']' 
-    {
-    	newLeafNode(otherlv_17, grammarAccess.getUMLTestCaseAccess().getRightSquareBracketKeyword_7_4());
-    }
-	otherlv_18=';' 
-    {
-    	newLeafNode(otherlv_18, grammarAccess.getUMLTestCaseAccess().getSemicolonKeyword_7_5());
-    }
-)?(
+)(
 (
 		{ 
 	        newCompositeNode(grammarAccess.getUMLTestCaseAccess().getAssertionsUMLAssertionParserRuleCall_8_0()); 
 	    }
-		lv_assertions_19_0=ruleUMLAssertion		{
+		lv_assertions_15_0=ruleUMLAssertion		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getUMLTestCaseRule());
 	        }
        		add(
        			$current, 
        			"assertions",
-        		lv_assertions_19_0, 
+        		lv_assertions_15_0, 
         		"UMLAssertion");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)*	otherlv_20='}' 
+)*	otherlv_16='}' 
     {
-    	newLeafNode(otherlv_20, grammarAccess.getUMLTestCaseAccess().getRightCurlyBracketKeyword_9());
+    	newLeafNode(otherlv_16, grammarAccess.getUMLTestCaseAccess().getRightCurlyBracketKeyword_9());
     }
 )
 ;

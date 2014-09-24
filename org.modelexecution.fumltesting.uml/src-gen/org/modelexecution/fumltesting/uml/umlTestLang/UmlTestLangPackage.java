@@ -77,13 +77,13 @@ public interface UmlTestLangPackage extends EPackage
   int UML_TEST_SUITE__IMPORTS = 0;
 
   /**
-   * The feature id for the '<em><b>Scenario</b></em>' containment reference.
+   * The feature id for the '<em><b>Scenarios</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int UML_TEST_SUITE__SCENARIO = 1;
+  int UML_TEST_SUITE__SCENARIOS = 1;
 
   /**
    * The feature id for the '<em><b>Tests</b></em>' containment reference list.
@@ -178,13 +178,13 @@ public interface UmlTestLangPackage extends EPackage
   int UML_TEST_CASE__CONTEXT_OBJECT = 3;
 
   /**
-   * The feature id for the '<em><b>Init Scenarios</b></em>' reference list.
+   * The feature id for the '<em><b>Init Scenario</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int UML_TEST_CASE__INIT_SCENARIOS = 4;
+  int UML_TEST_CASE__INIT_SCENARIO = 4;
 
   /**
    * The feature id for the '<em><b>Assertions</b></em>' containment reference list.
@@ -1090,15 +1090,15 @@ public interface UmlTestLangPackage extends EPackage
   EReference getUMLTestSuite_Imports();
 
   /**
-   * Returns the meta object for the containment reference '{@link org.modelexecution.fumltesting.uml.umlTestLang.UMLTestSuite#getScenario <em>Scenario</em>}'.
+   * Returns the meta object for the containment reference list '{@link org.modelexecution.fumltesting.uml.umlTestLang.UMLTestSuite#getScenarios <em>Scenarios</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Scenario</em>'.
-   * @see org.modelexecution.fumltesting.uml.umlTestLang.UMLTestSuite#getScenario()
+   * @return the meta object for the containment reference list '<em>Scenarios</em>'.
+   * @see org.modelexecution.fumltesting.uml.umlTestLang.UMLTestSuite#getScenarios()
    * @see #getUMLTestSuite()
    * @generated
    */
-  EReference getUMLTestSuite_Scenario();
+  EReference getUMLTestSuite_Scenarios();
 
   /**
    * Returns the meta object for the containment reference list '{@link org.modelexecution.fumltesting.uml.umlTestLang.UMLTestSuite#getTests <em>Tests</em>}'.
@@ -1187,15 +1187,15 @@ public interface UmlTestLangPackage extends EPackage
   EReference getUMLTestCase_ContextObject();
 
   /**
-   * Returns the meta object for the reference list '{@link org.modelexecution.fumltesting.uml.umlTestLang.UMLTestCase#getInitScenarios <em>Init Scenarios</em>}'.
+   * Returns the meta object for the reference '{@link org.modelexecution.fumltesting.uml.umlTestLang.UMLTestCase#getInitScenario <em>Init Scenario</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference list '<em>Init Scenarios</em>'.
-   * @see org.modelexecution.fumltesting.uml.umlTestLang.UMLTestCase#getInitScenarios()
+   * @return the meta object for the reference '<em>Init Scenario</em>'.
+   * @see org.modelexecution.fumltesting.uml.umlTestLang.UMLTestCase#getInitScenario()
    * @see #getUMLTestCase()
    * @generated
    */
-  EReference getUMLTestCase_InitScenarios();
+  EReference getUMLTestCase_InitScenario();
 
   /**
    * Returns the meta object for the containment reference list '{@link org.modelexecution.fumltesting.uml.umlTestLang.UMLTestCase#getAssertions <em>Assertions</em>}'.
@@ -1928,12 +1928,12 @@ public interface UmlTestLangPackage extends EPackage
     EReference UML_TEST_SUITE__IMPORTS = eINSTANCE.getUMLTestSuite_Imports();
 
     /**
-     * The meta object literal for the '<em><b>Scenario</b></em>' containment reference feature.
+     * The meta object literal for the '<em><b>Scenarios</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference UML_TEST_SUITE__SCENARIO = eINSTANCE.getUMLTestSuite_Scenario();
+    EReference UML_TEST_SUITE__SCENARIOS = eINSTANCE.getUMLTestSuite_Scenarios();
 
     /**
      * The meta object literal for the '<em><b>Tests</b></em>' containment reference list feature.
@@ -2004,12 +2004,12 @@ public interface UmlTestLangPackage extends EPackage
     EReference UML_TEST_CASE__CONTEXT_OBJECT = eINSTANCE.getUMLTestCase_ContextObject();
 
     /**
-     * The meta object literal for the '<em><b>Init Scenarios</b></em>' reference list feature.
+     * The meta object literal for the '<em><b>Init Scenario</b></em>' reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference UML_TEST_CASE__INIT_SCENARIOS = eINSTANCE.getUMLTestCase_InitScenarios();
+    EReference UML_TEST_CASE__INIT_SCENARIO = eINSTANCE.getUMLTestCase_InitScenario();
 
     /**
      * The meta object literal for the '<em><b>Assertions</b></em>' containment reference list feature.

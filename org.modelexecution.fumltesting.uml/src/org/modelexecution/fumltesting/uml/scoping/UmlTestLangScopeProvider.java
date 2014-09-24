@@ -53,7 +53,6 @@ import org.modelexecution.fumltesting.uml.umlTestLang.UMLPropertyStateExpression
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLScenario;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLStateAssertion;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLTestCase;
-import org.modelexecution.fumltesting.uml.umlTestLang.UMLTestSuite;
 import org.modelexecution.fumltesting.xtext.UmlQualifiedNameProvider;
 
 /**
@@ -107,7 +106,7 @@ public class UmlTestLangScopeProvider extends XbaseScopeProvider {
 
 		/** ACTIVITY CONTEXT OBJECT SCOPE */
 		if (context instanceof UMLTestCase && reference.getName().equals("contextObject")) {
-			UMLScenario scenario = ((UMLTestSuite) context.eContainer()).getScenario();
+			UMLScenario scenario = ((UMLTestCase) context).getInitScenario();
 			return Scopes.scopeFor(scenario.getObjects(), new UmlQualifiedNameProvider(), IScope.NULLSCOPE);
 		}
 
@@ -247,7 +246,7 @@ public class UmlTestLangScopeProvider extends XbaseScopeProvider {
 		/** ACTIVITY INPUT SCOPE */
 		if (context instanceof UMLActivityInput && reference.getName().equals("value")) {
 			UMLTestCase testCase = (UMLTestCase) context.eContainer();
-			UMLScenario scenario = ((UMLTestSuite) testCase.eContainer()).getScenario();
+			UMLScenario scenario = ((UMLTestCase) testCase).getInitScenario();
 			return Scopes.scopeFor(scenario.getObjects(), new UmlQualifiedNameProvider(), IScope.NULLSCOPE);
 		}
 
@@ -255,12 +254,12 @@ public class UmlTestLangScopeProvider extends XbaseScopeProvider {
 		if ((context instanceof UMLObjectStateExpression || context instanceof UMLPropertyStateExpression) && reference.getName().equals("value")) {
 			if (context.eContainer() instanceof UMLStateAssertion) {
 				UMLStateAssertion stateAssertion = (UMLStateAssertion) context.eContainer();
-				UMLTestSuite testSuite = (UMLTestSuite) ((UMLTestCase) stateAssertion.eContainer()).eContainer();
-				return Scopes.scopeFor(testSuite.getScenario().getObjects(), new UmlQualifiedNameProvider(), IScope.NULLSCOPE);
+				UMLTestCase testCase = (UMLTestCase) stateAssertion.eContainer();
+				return Scopes.scopeFor(testCase.getInitScenario().getObjects(), new UmlQualifiedNameProvider(), IScope.NULLSCOPE);
 			} else if (context.eContainer() instanceof FinallyStateAssertion) {
 				FinallyStateAssertion stateAssertion = (FinallyStateAssertion) context.eContainer();
-				UMLTestSuite testSuite = (UMLTestSuite) ((UMLTestCase) stateAssertion.eContainer()).eContainer();
-				return Scopes.scopeFor(testSuite.getScenario().getObjects(), new UmlQualifiedNameProvider(), IScope.NULLSCOPE);
+				UMLTestCase testCase = (UMLTestCase) stateAssertion.eContainer();
+				return Scopes.scopeFor(testCase.getInitScenario().getObjects(), new UmlQualifiedNameProvider(), IScope.NULLSCOPE);
 			}
 		}
 

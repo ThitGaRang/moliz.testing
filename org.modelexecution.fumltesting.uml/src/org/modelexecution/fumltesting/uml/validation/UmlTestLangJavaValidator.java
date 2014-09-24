@@ -3,15 +3,11 @@
  */
 package org.modelexecution.fumltesting.uml.validation;
 
-import java.util.HashSet;
-
 import org.eclipse.xtext.validation.Check;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLNodeSpecification;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLOrderAssertion;
-import org.modelexecution.fumltesting.uml.umlTestLang.UMLScenario;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLStateAssertion;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLTemporalOperator;
-import org.modelexecution.fumltesting.uml.umlTestLang.UMLTestCase;
 import org.modelexecution.fumltesting.uml.umlTestLang.UmlTestLangPackage;
 
 /**
@@ -43,13 +39,6 @@ public class UmlTestLangJavaValidator extends AbstractUmlTestLangJavaValidator {
 		}
 		if (subsequentJokerUsed)
 			error("Use of subsequent jokers is not allowed!", UmlTestLangPackage.Literals.UML_ORDER_ASSERTION__ORDER);
-	}
-
-	@Check
-	public void checkScenarioInitialize(UMLTestCase testCase) {
-		HashSet<UMLScenario> set = new HashSet<UMLScenario>(testCase.getInitScenarios());
-		if (testCase.getInitScenarios().size() > set.size())
-			error("Test scenario declared more than once!", UmlTestLangPackage.Literals.UML_TEST_CASE__INIT_SCENARIOS);
 	}
 
 	private boolean isStar(UMLNodeSpecification nodeSpecification) {

@@ -1594,7 +1594,7 @@ public class UmlTestLangSemanticSequencer extends XbaseSemanticSequencer {
 	 *         activityUnderTest=[Activity|QualifiedName] 
 	 *         (inputs+=UMLActivityInput inputs+=UMLActivityInput*)? 
 	 *         contextObject=[UMLObjectSpecification|QualifiedName]? 
-	 *         (initScenarios+=[UMLScenario|ID] initScenarios+=[UMLScenario|ID]*)? 
+	 *         initScenario=[UMLScenario|ID] 
 	 *         assertions+=UMLAssertion*
 	 *     )
 	 */
@@ -1605,7 +1605,7 @@ public class UmlTestLangSemanticSequencer extends XbaseSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (imports+=Import* scenario=UMLScenario? tests+=UMLTestCase*)
+	 *     (imports+=Import* scenarios+=UMLScenario* tests+=UMLTestCase*)
 	 */
 	protected void sequence_UMLTestSuite(EObject context, UMLTestSuite semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

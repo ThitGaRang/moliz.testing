@@ -17,7 +17,7 @@ import org.modelexecution.fumltesting.core.testlang.DoubleValue;
 import org.modelexecution.fumltesting.core.testlang.ObjectSpecification;
 import org.modelexecution.fumltesting.core.testlang.ObjectValue;
 import org.modelexecution.fumltesting.core.testlang.Scenario;
-import org.modelexecution.fumltesting.core.testlang.TestSuite;
+import org.modelexecution.fumltesting.core.testlang.TestCase;
 import org.modelexecution.fumltesting.core.testlang.Value;
 
 import fUML.Semantics.Classes.Kernel.BooleanValue;
@@ -45,10 +45,10 @@ public class TestDataConverter {
 	private HashMap<ObjectSpecification, Object_> objects = new HashMap<ObjectSpecification, Object_>();
 	private ActivityExecution activityExecution;
 
-	public void cleanUpAndInit(TestSuite suite) {
+	public void cleanUpAndInit(TestCase testCase) {
 		objects = new HashMap<ObjectSpecification, Object_>();
 		locus.extensionalValues.removeAll(locus.extensionalValues);
-		convertScenarios(suite);
+		convertScenarios(testCase);
 	}
 
 	public Object_ getFumlObject(ObjectValue objectValue) {
@@ -72,8 +72,8 @@ public class TestDataConverter {
 		return null;
 	}
 
-	private void convertScenarios(TestSuite suite) {
-		for (Scenario scenario : suite.getAllScenarios()) {
+	private void convertScenarios(TestCase testCase) {
+		for (Scenario scenario : testCase.getScenarios()) {
 			for (ObjectSpecification object : scenario.getAllObjects()) {
 				ObjectValue objectValue = new ObjectValue(object);
 				convertObject(objectValue);
