@@ -204,10 +204,19 @@ public class StateAssertionValidator {
 		Value simpleValue = (Value) expression.getValue();
 
 		if (relevantSnapshots.size() == 0) {
-			if (simpleValue instanceof NullValue && expression.getOperator() == ArithmeticOperator.EQUAL)
-				results.add(true);
-			else
-				return false;
+			if (simpleValue instanceof NullValue) {
+				if (expression.getOperator() == ArithmeticOperator.EQUAL) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				if (expression.getOperator() == ArithmeticOperator.NOT_EQUAL) {
+					return true;
+				} else {
+					return false;
+				}
+			}
 		} else {
 			for (ValueSnapshot snapshot : relevantSnapshots) {
 				if (simpleValue instanceof org.modelexecution.fumltesting.core.testlang.StringValue) {
