@@ -249,8 +249,9 @@ public class ResultsWriter {
 								}
 								if (result.getActual() != null)
 									writer.println(" / Actual was: " + result.getActual());
-								else
-									writer.println();
+								if(result.getActual() == null){
+									writer.println(" / Actual was: NULL");
+								}
 							}
 						}
 					}

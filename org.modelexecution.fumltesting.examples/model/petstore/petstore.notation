@@ -2041,6 +2041,10 @@
         <element xmi:type="uml:ActivityParameterNode" href="petstore.uml#_gAgo8N_WEeKxs-T-7hfQjA"/>
         <layoutConstraint xmi:type="notation:Bounds" xmi:id="_gAqZ8t_WEeKxs-T-7hfQjA" x="972" y="433"/>
       </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_T3J3sEWLEeSEWcZFI9ltIQ" visible="false" type="compartment_shape_display">
+        <styles xmi:type="notation:TitleStyle" xmi:id="_T3J3sUWLEeSEWcZFI9ltIQ"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_T3J3skWLEeSEWcZFI9ltIQ"/>
+      </children>
       <element xmi:type="uml:Activity" href="petstore.uml#_VqeCMN_WEeKxs-T-7hfQjA"/>
       <layoutConstraint xmi:type="notation:Bounds" xmi:id="_atAvGN_WEeKxs-T-7hfQjA" x="-1" y="-69" width="1047" height="540"/>
     </children>
