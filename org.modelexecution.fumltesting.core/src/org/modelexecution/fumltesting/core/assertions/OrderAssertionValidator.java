@@ -106,7 +106,11 @@ public class OrderAssertionValidator {
 			}
 			// case: *, node
 			if (orderAssertionUtil.isStar(firstNode) && orderAssertionUtil.isNode(secondNode)) {
-				int nodeIndex = executedNodes.indexOf(secondNode.getNode());
+				int nodeIndex = -1;
+				for (ActivityNodeExecution nodeExecution : executedNodes) {
+					if (nodeExecution.getNode() == secondNode.getNode())
+						nodeIndex = executedNodes.indexOf(nodeExecution);
+				}
 				return nodeIndex >= 0 && nodeIndex == executedNodes.size() - 1;
 			}
 			// case: node, node
@@ -152,6 +156,20 @@ public class OrderAssertionValidator {
 				boolean secondIsNotNextToThird = orderAssertionUtil.indexOf(secondNode.getNode(), executedNodes) + 1 != orderAssertionUtil.indexOf(
 						thirdNode.getNode(), executedNodes);
 
+				boolean firstWasExecuted = wasExecuted(firstNode.getNode(), executedNodes);
+				boolean secondWasExecuted = wasExecuted(secondNode.getNode(), executedNodes);
+				boolean thirdWasExecuted = wasExecuted(thirdNode.getNode(), executedNodes);
+
+				if (orderAssertionUtil.isNode(firstNode) && !firstWasExecuted) {
+					return false;
+				}
+				if (orderAssertionUtil.isNode(secondNode) && !secondWasExecuted) {
+					return false;
+				}
+				if (orderAssertionUtil.isNode(thirdNode) && !thirdWasExecuted) {
+					return false;
+				}
+
 				// case: *, node, *
 				if (orderAssertionUtil.isStar(firstNode) && orderAssertionUtil.isNode(secondNode) && orderAssertionUtil.isStar(thirdNode)) {
 					if (executedNodes.size() < 1)
@@ -184,7 +202,7 @@ public class OrderAssertionValidator {
 							if (secondIsStartNode || secondIsEndNode)
 								return false;
 						} else {
-							if (secondIsStartNode && secondNodeIsNotNextToLast)
+							if (secondIsStartNode || secondNodeIsNotNextToLast)
 								return false;
 						}
 					} else {
@@ -343,5 +361,15 @@ public class OrderAssertionValidator {
 			}
 		}
 		return true;
+	}
+
+	private boolean wasExecuted(ActivityNode node, List<ActivityNodeExecution> executedNodes) {
+		if (node == null)
+			return false;
+		for (ActivityNodeExecution nodeExecution : executedNodes) {
+			if (nodeExecution.getNode() == node)
+				return true;
+		}
+		return false;
 	}
 }

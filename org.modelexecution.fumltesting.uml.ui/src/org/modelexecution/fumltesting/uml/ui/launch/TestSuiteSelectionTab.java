@@ -12,6 +12,7 @@ package org.modelexecution.fumltesting.uml.ui.launch;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.ILaunchConfigurationWorkingCopy;
 import org.eclipse.debug.ui.AbstractLaunchConfigurationTab;
@@ -242,8 +243,16 @@ public class TestSuiteSelectionTab extends AbstractLaunchConfigurationTab {
 		String defValTestSuiteResourceText = "";
 		String defValOclResourceText = "";
 
+		try {
+			defValModelResourceText = configuration.getAttribute("model", "");
+			defValTestSuiteResourceText = configuration.getAttribute("testSuite", "");
+			defValOclResourceText = configuration.getAttribute("ocl", "");
+		} catch (CoreException e) {
+
+		}
+
 		modelResourceText.setText(defValModelResourceText == null ? "" : defValModelResourceText);
-		testSuiteResourceText.setText(defValTestSuiteResourceText == null ? "" : defValModelResourceText);
+		testSuiteResourceText.setText(defValTestSuiteResourceText == null ? "" : defValTestSuiteResourceText);
 		oclResourceText.setText(defValOclResourceText == null ? "" : defValOclResourceText);
 	}
 

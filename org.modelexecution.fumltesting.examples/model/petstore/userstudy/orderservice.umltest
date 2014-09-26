@@ -29,6 +29,7 @@ scenario TestData[
 ]
 
 test confirmOrderTest activity OrderService.ConfirmOrder(OrderService.ConfirmOrder.customer=TestData.customer) on TestData.orderService{
+	initialize TestData;
 	assertState always until action OrderService.ConfirmOrder.destroyCart{
 		OrderService.ConfirmOrder.customer::cart_customer.cart != null;
 	}

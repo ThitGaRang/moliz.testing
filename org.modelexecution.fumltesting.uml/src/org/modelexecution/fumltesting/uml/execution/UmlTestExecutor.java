@@ -141,6 +141,7 @@ public class UmlTestExecutor {
 			resourceSet.getPackageRegistry().put(UMLPackage.eNS_URI, UMLPackage.eINSTANCE);
 			resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(UMLResource.FILE_EXTENSION, UMLResource.Factory.INSTANCE);
 
+			//TODO check if its not needed
 			primitiviesResource = resourceSet.getResource(URI.createFileURI(new File(primitivesPath).getAbsolutePath()), true);
 			primitiviesResource.load(null);
 

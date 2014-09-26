@@ -22,6 +22,7 @@ public class MatrixOrderAssertionValidator {
 		this.traceUtil = traceUtil;
 		this.orderUtil = new OrderUtil();
 		this.matrix = new ExecutionMatrix(orderUtil.getTopNodes(traceUtil.getActivityExecution()));
+		this.matrix.printMatrix();
 	}
 
 	public MatrixOrderAssertionResult checkOrder(OrderAssertion assertion) {
@@ -66,6 +67,8 @@ public class MatrixOrderAssertionValidator {
 
 			// case: node or _
 			if (orderUtil.isNode(specifiedNode) || orderUtil.isUnderscore(specifiedNode)) {
+				if (orderUtil.isNode(specifiedNode))
+					return matrix.nodeSize() == 1 && matrix.wasExecuted(specifiedNode.getNode());
 				return matrix.nodeSize() == 1;
 			}
 			// case: *
@@ -108,6 +111,16 @@ public class MatrixOrderAssertionValidator {
 
 				boolean nodeBeforeWindowExists = step > 0;
 				boolean nodeAfterWindowExists = orderSpecification.size() - 1 > step + 2;
+
+				if (orderUtil.isNode(firstNode) && !matrix.wasExecuted(firstNode.getNode())) {
+					return false;
+				}
+				if (orderUtil.isNode(secondNode) && !matrix.wasExecuted(secondNode.getNode())) {
+					return false;
+				}
+				if (orderUtil.isNode(thirdNode) && !matrix.wasExecuted(thirdNode.getNode())) {
+					return false;
+				}
 
 				// case: *, node, *
 				if (orderUtil.isStar(firstNode) && orderUtil.isNode(secondNode) && orderUtil.isStar(thirdNode)) {
