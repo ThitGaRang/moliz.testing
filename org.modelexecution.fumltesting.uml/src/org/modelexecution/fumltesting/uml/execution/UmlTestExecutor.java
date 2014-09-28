@@ -68,7 +68,7 @@ import fUML.Syntax.Classes.Kernel.Package;
 public class UmlTestExecutor {
 	private int mainActivityExecutionID;
 	private UMLTestSuite suite;
-	
+
 	private ActivityExecutor executor;
 	private OclExecutor oclExecutor;
 	private TestDataConverter testDataConverter;
@@ -141,7 +141,7 @@ public class UmlTestExecutor {
 			resourceSet.getPackageRegistry().put(UMLPackage.eNS_URI, UMLPackage.eINSTANCE);
 			resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(UMLResource.FILE_EXTENSION, UMLResource.Factory.INSTANCE);
 
-			//TODO check if its not needed
+			// TODO check if its not needed
 			primitiviesResource = resourceSet.getResource(URI.createFileURI(new File(primitivesPath).getAbsolutePath()), true);
 			primitiviesResource.load(null);
 
@@ -227,7 +227,7 @@ public class UmlTestExecutor {
 				ActivityParameterNode parameter = input.getParameter();
 				Object value = null;
 				if (input.getValue() instanceof ObjectValue) {
-					value = testDataConverter.getFumlObject((ObjectValue) input.getValue());
+					value = testDataConverter.convertObject((ObjectValue) input.getValue());
 				} else {
 					value = testDataConverter.getFumlValue(input.getValue());
 				}
@@ -241,7 +241,7 @@ public class UmlTestExecutor {
 				}
 				ObjectValue contextValue = new ObjectValue(null);
 				contextValue.setValue(testCase.getContextObject());
-				Object_ contextObject = (Object_) testDataConverter.getFumlObject(contextValue);
+				Object_ contextObject = (Object_) testDataConverter.convertObject(contextValue);
 				mainActivityExecutionID = executor.executeActivity(activity, inputValues, contextObject);
 				ActivityExecution activityExecution = executor.getActivityExecution(mainActivityExecutionID);
 				testDataConverter.setActivityExecution(activityExecution);

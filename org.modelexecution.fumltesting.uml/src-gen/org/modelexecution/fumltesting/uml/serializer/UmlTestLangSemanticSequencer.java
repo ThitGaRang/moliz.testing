@@ -1594,7 +1594,7 @@ public class UmlTestLangSemanticSequencer extends XbaseSemanticSequencer {
 	 *         activityUnderTest=[Activity|QualifiedName] 
 	 *         (inputs+=UMLActivityInput inputs+=UMLActivityInput*)? 
 	 *         contextObject=[UMLObjectSpecification|QualifiedName]? 
-	 *         initScenario=[UMLScenario|ID] 
+	 *         initScenario=[UMLScenario|ID]? 
 	 *         assertions+=UMLAssertion*
 	 *     )
 	 */

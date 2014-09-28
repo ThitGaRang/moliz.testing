@@ -51,10 +51,6 @@ public class TestDataConverter {
 		convertScenarios(testCase);
 	}
 
-	public Object_ getFumlObject(ObjectValue objectValue) {
-		return objects.get(objectValue.getValue());
-	}
-
 	public fUML.Semantics.Classes.Kernel.Value getFumlValue(Value value) {
 		if (value instanceof org.modelexecution.fumltesting.core.testlang.StringValue) {
 			String theValue = ((org.modelexecution.fumltesting.core.testlang.StringValue) value).getValue();
@@ -81,7 +77,7 @@ public class TestDataConverter {
 		}
 	}
 
-	private Object_ convertObject(ObjectValue value) {
+	public Object_ convertObject(ObjectValue value) {
 		if (objects.containsKey(value.getValue()))
 			return objects.get(value.getValue());
 
@@ -106,51 +102,54 @@ public class TestDataConverter {
 
 		objects.put(object, object_);
 
-		for (org.modelexecution.fumltesting.core.testlang.Link link : testData.getAllLinks()) {
-			if (link.getSourceValue().equals(object)) {
-				Link fumlLink = new Link();
-				Association fumlAssoc = link.getAssociation();
-				fumlLink.type = fumlAssoc;
+		if (testData != null) {
+			for (org.modelexecution.fumltesting.core.testlang.Link link : testData.getAllLinks()) {
+				if (link.getSourceValue().equals(object)) {
+					Link fumlLink = new Link();
+					Association fumlAssoc = link.getAssociation();
+					fumlLink.type = fumlAssoc;
 
-				FeatureValue sourceValue = new FeatureValue();
-				FeatureValue targetValue = new FeatureValue();
+					FeatureValue sourceValue = new FeatureValue();
+					FeatureValue targetValue = new FeatureValue();
 
-				Property source = link.getSourceProperty();
-				Property target = link.getTargetProperty();
+					Property source = link.getSourceProperty();
+					Property target = link.getTargetProperty();
 
-				fUML.Syntax.Classes.Kernel.Property sourcePropertyFuml = null;
-				fUML.Syntax.Classes.Kernel.Property targetPropertyFuml = null;
+					fUML.Syntax.Classes.Kernel.Property sourcePropertyFuml = null;
+					fUML.Syntax.Classes.Kernel.Property targetPropertyFuml = null;
 
-				for (fUML.Syntax.Classes.Kernel.Property attribute : fumlAssoc.memberEnd) {
-					if (attribute.name.equals(source.name)) {
-						sourcePropertyFuml = attribute;
+					for (fUML.Syntax.Classes.Kernel.Property attribute : fumlAssoc.memberEnd) {
+						if (attribute.name.equals(source.name)) {
+							sourcePropertyFuml = attribute;
+						}
+						if (attribute.name.equals(target.name)) {
+							targetPropertyFuml = attribute;
+						}
 					}
-					if (attribute.name.equals(target.name)) {
-						targetPropertyFuml = attribute;
-					}
+
+					sourceValue.feature = sourcePropertyFuml;
+					ObjectValue objectValueSource = new ObjectValue(null);
+					objectValueSource.setValue(link.getSourceValue());
+					Reference sourceReference = new Reference();
+					sourceReference.referent = object_;
+					sourceValue.values.add(sourceReference);
+
+					targetValue.feature = targetPropertyFuml;
+					ObjectValue objectValueTarget = new ObjectValue(null);
+					objectValueTarget.setValue(link.getTargetValue());
+					Object_ targetObject_ = (Object_) convertObject(objectValueTarget);
+					Reference targetReference = new Reference();
+					targetReference.referent = targetObject_;
+					targetValue.values.add(targetReference);
+
+					fumlLink.featureValues.add(sourceValue);
+					fumlLink.featureValues.add(targetValue);
+
+					fumlLink.addTo(locus);
 				}
-
-				sourceValue.feature = sourcePropertyFuml;
-				ObjectValue objectValueSource = new ObjectValue(null);
-				objectValueSource.setValue(link.getSourceValue());
-				Reference sourceReference = new Reference();
-				sourceReference.referent = object_;
-				sourceValue.values.add(sourceReference);
-
-				targetValue.feature = targetPropertyFuml;
-				ObjectValue objectValueTarget = new ObjectValue(null);
-				objectValueTarget.setValue(link.getTargetValue());
-				Object_ targetObject_ = (Object_) convertObject(objectValueTarget);
-				Reference targetReference = new Reference();
-				targetReference.referent = targetObject_;
-				targetValue.values.add(targetReference);
-
-				fumlLink.featureValues.add(sourceValue);
-				fumlLink.featureValues.add(targetValue);
-
-				fumlLink.addTo(locus);
 			}
 		}
+		
 		return object_;
 	}
 

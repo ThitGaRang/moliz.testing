@@ -346,7 +346,7 @@ public class StateAssertionValidator {
 	private boolean processObject(ObjectStateExpression expression) throws ActionNotExecutedException, ExpectedLinkValueException {
 		Object_ target = null;
 		if (expression.getValue() instanceof ObjectValue) {
-			target = testDataConverter.getFumlObject((ObjectValue) expression.getValue());
+			target = testDataConverter.convertObject((ObjectValue) expression.getValue());
 		}
 		boolean sameType = false;
 		boolean objectFound = false;
@@ -440,7 +440,7 @@ public class StateAssertionValidator {
 		ArrayList<ValueInstance> links;
 		Object_ target = null;
 		if (expression.getValue() instanceof ObjectValue) {
-			target = testDataConverter.getFumlObject((ObjectValue) expression.getValue());
+			target = testDataConverter.convertObject((ObjectValue) expression.getValue());
 		}
 		if (target != null) {
 			links = resolveLinks(expression, target);

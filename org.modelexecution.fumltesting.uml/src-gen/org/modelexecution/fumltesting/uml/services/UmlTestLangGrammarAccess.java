@@ -117,12 +117,12 @@ public class UmlTestLangGrammarAccess extends AbstractGrammarElementFinder {
 		//UMLTestCase:
 		//	"test" name=ID "activity" activityUnderTest=[uml::Activity|QualifiedName] ("(" inputs+=UMLActivityInput (","
 		//	inputs+=UMLActivityInput)* ")")? ("on" contextObject=[UMLObjectSpecification|QualifiedName])? "{" ("initialize"
-		//	initScenario=[UMLScenario] ";") assertions+=UMLAssertion* "}";
+		//	initScenario=[UMLScenario] ";")? assertions+=UMLAssertion* "}";
 		public ParserRule getRule() { return rule; }
 
 		//"test" name=ID "activity" activityUnderTest=[uml::Activity|QualifiedName] ("(" inputs+=UMLActivityInput (","
 		//inputs+=UMLActivityInput)* ")")? ("on" contextObject=[UMLObjectSpecification|QualifiedName])? "{" ("initialize"
-		//initScenario=[UMLScenario] ";") assertions+=UMLAssertion* "}"
+		//initScenario=[UMLScenario] ";")? assertions+=UMLAssertion* "}"
 		public Group getGroup() { return cGroup; }
 
 		//"test"
@@ -191,7 +191,7 @@ public class UmlTestLangGrammarAccess extends AbstractGrammarElementFinder {
 		//"{"
 		public Keyword getLeftCurlyBracketKeyword_6() { return cLeftCurlyBracketKeyword_6; }
 
-		//"initialize" initScenario=[UMLScenario] ";"
+		//("initialize" initScenario=[UMLScenario] ";")?
 		public Group getGroup_7() { return cGroup_7; }
 
 		//"initialize"
@@ -1383,7 +1383,7 @@ public class UmlTestLangGrammarAccess extends AbstractGrammarElementFinder {
 	//UMLTestCase:
 	//	"test" name=ID "activity" activityUnderTest=[uml::Activity|QualifiedName] ("(" inputs+=UMLActivityInput (","
 	//	inputs+=UMLActivityInput)* ")")? ("on" contextObject=[UMLObjectSpecification|QualifiedName])? "{" ("initialize"
-	//	initScenario=[UMLScenario] ";") assertions+=UMLAssertion* "}";
+	//	initScenario=[UMLScenario] ";")? assertions+=UMLAssertion* "}";
 	public UMLTestCaseElements getUMLTestCaseAccess() {
 		return (pUMLTestCase != null) ? pUMLTestCase : (pUMLTestCase = new UMLTestCaseElements());
 	}

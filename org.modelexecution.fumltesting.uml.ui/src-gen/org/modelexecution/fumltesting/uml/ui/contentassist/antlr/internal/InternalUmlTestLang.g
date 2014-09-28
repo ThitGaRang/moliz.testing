@@ -4771,7 +4771,7 @@ rule__UMLTestCase__Group__7__Impl
 :
 (
 { before(grammarAccess.getUMLTestCaseAccess().getGroup_7()); }
-(rule__UMLTestCase__Group_7__0)
+(rule__UMLTestCase__Group_7__0)?
 { after(grammarAccess.getUMLTestCaseAccess().getGroup_7()); }
 )
 

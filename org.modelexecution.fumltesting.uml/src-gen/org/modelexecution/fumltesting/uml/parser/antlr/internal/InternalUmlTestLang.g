@@ -329,7 +329,7 @@ ruleUMLTestCase returns [EObject current=null]
     {
     	newLeafNode(otherlv_14, grammarAccess.getUMLTestCaseAccess().getSemicolonKeyword_7_2());
     }
-)(
+)?(
 (
 		{ 
 	        newCompositeNode(grammarAccess.getUMLTestCaseAccess().getAssertionsUMLAssertionParserRuleCall_8_0()); 
