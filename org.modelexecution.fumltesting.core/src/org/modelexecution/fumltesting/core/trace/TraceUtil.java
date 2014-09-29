@@ -166,7 +166,8 @@ public class TraceUtil {
 		return instances;
 	}
 
-	public List<State> getStates(Object stateAssertion) throws ConstraintNotFoundException, ActionNotExecutedException, ConstraintStateNotFoundException, ConstraintsNotLoadedException {
+	public List<State> getStates(Object stateAssertion) throws ConstraintNotFoundException, ActionNotExecutedException, ConstraintStateNotFoundException,
+			ConstraintsNotLoadedException {
 		StateAssertion assertion = (StateAssertion) stateAssertion;
 		ActivityNodeExecution referredActionExecution = getReferenceActionExecution(assertion);
 		ActivityNodeExecution untilActionExecution = getUntilActionExecution(assertion);
@@ -174,9 +175,9 @@ public class TraceUtil {
 		List<State> states = new ArrayList<State>();
 		for (Sequence sequence : sTrace.getSequences()) {
 			if (sequence.getActivityExecution() == referredActionExecution.getActivityExecution()) {
-				referredActionExecution = findLastCreator(referredActionExecution, sequence);
+				ActivityNodeExecution lastExecutedActionAfterReferred = findLastCreator(referredActionExecution, sequence);
 				for (State state : sequence.getStates()) {
-					if (state.getStateCreator() == referredActionExecution) {
+					if (state.getStateCreator() == lastExecutedActionAfterReferred) {
 						switch (assertion.getOperator()) {
 						case AFTER:
 							while (state != null) {
