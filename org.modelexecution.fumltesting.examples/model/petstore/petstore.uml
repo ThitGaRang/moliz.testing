@@ -128,11 +128,11 @@
             <weight xmi:type="uml:LiteralInteger" xmi:id="_oDWBgt_XEeKxs-T-7hfQjA" value="1"/>
           </edge>
           <edge xmi:type="uml:ControlFlow" xmi:id="_RCHFEN_YEeKxs-T-7hfQjA" name="ControlFlow1" source="_MfYgwN_YEeKxs-T-7hfQjA" target="_7Oqm4N_XEeKxs-T-7hfQjA">
-            <guard xmi:type="uml:LiteralBoolean" xmi:id="_RCHFEd_YEeKxs-T-7hfQjA" value="true"/>
+            <guard xmi:type="uml:LiteralBoolean" xmi:id="_RCHFEd_YEeKxs-T-7hfQjA"/>
             <weight xmi:type="uml:LiteralInteger" xmi:id="_RCHFEt_YEeKxs-T-7hfQjA"/>
           </edge>
           <edge xmi:type="uml:ControlFlow" xmi:id="_TKr7IN_YEeKxs-T-7hfQjA" name="ControlFlow2" source="_MfYgwN_YEeKxs-T-7hfQjA" target="_hevsEN_XEeKxs-T-7hfQjA">
-            <guard xmi:type="uml:LiteralBoolean" xmi:id="_TKr7Id_YEeKxs-T-7hfQjA"/>
+            <guard xmi:type="uml:LiteralBoolean" xmi:id="_TKr7Id_YEeKxs-T-7hfQjA" value="true"/>
             <weight xmi:type="uml:LiteralInteger" xmi:id="_TKr7It_YEeKxs-T-7hfQjA"/>
           </edge>
           <edge xmi:type="uml:ObjectFlow" xmi:id="_onMC4OAuEeKeo_423tvTpQ" name="ObjectFlow13" source="_fg4lteAuEeKeo_423tvTpQ" target="_jvzdNeAuEeKeo_423tvTpQ">
@@ -267,7 +267,7 @@
             <result xmi:type="uml:OutputPin" xmi:id="_jnVJMN_XEeKxs-T-7hfQjA" name="result" outgoing="_oDWBgN_XEeKxs-T-7hfQjA" type="_JhdtMN_PEeKxs-T-7hfQjA">
               <upperBound xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_k3E50N_XEeKxs-T-7hfQjA" value="1"/>
             </result>
-            <value xmi:type="uml:LiteralInteger" xmi:id="_jAVaoN_XEeKxs-T-7hfQjA" value="1"/>
+            <value xmi:type="uml:LiteralInteger" xmi:id="_jAVaoN_XEeKxs-T-7hfQjA" value="-1"/>
           </node>
           <node xmi:type="uml:ReadSelfAction" xmi:id="_7Oqm4N_XEeKxs-T-7hfQjA" name="selfForSession" incoming="_RCHFEN_YEeKxs-T-7hfQjA">
             <result xmi:type="uml:OutputPin" xmi:id="_8EYG4N_XEeKxs-T-7hfQjA" name="result" outgoing="_gwfz0ETqEeSBFe_70UzhoQ" type="_uJN3wN_QEeKxs-T-7hfQjA">

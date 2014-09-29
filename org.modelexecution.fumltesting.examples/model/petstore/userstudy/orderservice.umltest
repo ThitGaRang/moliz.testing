@@ -28,6 +28,10 @@ scenario TestData[
 	link cart_customer{source cart_customer.customer=TestData.customer; target cart_customer.cart=TestData.cart;}
 ]
 
+scenario SmallTestData[
+	object customer: Customer{Customer.login='customer'; Customer.password='pass';}
+]
+
 test confirmOrderTest activity OrderService.ConfirmOrder(OrderService.ConfirmOrder.customer=TestData.customer) on TestData.orderService{
 	initialize TestData;
 	assertState always until action OrderService.ConfirmOrder.destroyCart{
@@ -39,3 +43,5 @@ test confirmOrderTest activity OrderService.ConfirmOrder(OrderService.ConfirmOrd
 		check 'numberOfOrderLines' on OrderService.ConfirmOrder.order;
 	}
 }
+
+test getCartTest activity OrderService.GetCart(OrderService.GetCart.customer=SmallTestData.customer){}

@@ -53,6 +53,7 @@ import org.modelexecution.fumltesting.uml.umlTestLang.UMLPropertyStateExpression
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLScenario;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLStateAssertion;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLTestCase;
+import org.modelexecution.fumltesting.uml.umlTestLang.UMLTestSuite;
 import org.modelexecution.fumltesting.xtext.UmlQualifiedNameProvider;
 
 /**
@@ -106,8 +107,9 @@ public class UmlTestLangScopeProvider extends XbaseScopeProvider {
 
 		/** ACTIVITY CONTEXT OBJECT SCOPE */
 		if (context instanceof UMLTestCase && reference.getName().equals("contextObject")) {
+			UMLTestSuite testSuite = (UMLTestSuite) context.eContainer();
 			ArrayList<UMLObjectSpecification> objects = new ArrayList<UMLObjectSpecification>();
-			for (UMLScenario scenario : ((UMLTestCase) context).getInitScenarios()) {
+			for (UMLScenario scenario : testSuite.getScenarios()) {
 				objects.addAll(scenario.getObjects());
 			}
 			return Scopes.scopeFor(objects, new UmlQualifiedNameProvider(), IScope.NULLSCOPE);
@@ -248,10 +250,10 @@ public class UmlTestLangScopeProvider extends XbaseScopeProvider {
 
 		/** ACTIVITY INPUT SCOPE */
 		if (context instanceof UMLActivityInput && reference.getName().equals("value")) {
-			UMLTestCase testCase = (UMLTestCase) context.eContainer();
+			UMLTestSuite testSuite = (UMLTestSuite) context.eContainer().eContainer();
 			ArrayList<UMLObjectSpecification> objects = new ArrayList<UMLObjectSpecification>();
 
-			for (UMLScenario scenario : testCase.getInitScenarios()) {
+			for (UMLScenario scenario : testSuite.getScenarios()) {
 				objects.addAll(scenario.getObjects());
 			}
 			return Scopes.scopeFor(objects, new UmlQualifiedNameProvider(), IScope.NULLSCOPE);
