@@ -44,4 +44,18 @@ test confirmOrderTest activity OrderService.ConfirmOrder(OrderService.ConfirmOrd
 	}
 }
 
-test getCartTest activity OrderService.GetCart(OrderService.GetCart.customer=SmallTestData.customer){}
+test getCartTest activity OrderService.GetCart(OrderService.GetCart.customer=SmallTestData.customer){
+	assertOrder *, OrderService.GetCart.getCart, *, OrderService.GetCart.listSize, *, OrderService.GetCart.sizeEquals, 
+		OrderService.GetCart.cartExistsDecision, OrderService.GetCart.newCart, OrderService.GetCart.setCart, OrderService.GetCart.cartMerge, OrderService.GetCart.getCartForOutput;
+	finally{
+		OrderService.GetCart.cart != null;
+	}
+}
+
+test getCartTest2 activity OrderService.GetCart(OrderService.GetCart.customer=TestData.customer){
+	assertOrder *, OrderService.GetCart.getCart, *, OrderService.GetCart.listSize, *, OrderService.GetCart.sizeEquals, 
+		OrderService.GetCart.cartExistsDecision, OrderService.GetCart.cartMerge, OrderService.GetCart.getCartForOutput;
+	finally{
+		OrderService.GetCart.cart != null;
+	}
+}

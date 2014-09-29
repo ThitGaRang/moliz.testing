@@ -46,7 +46,9 @@ import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityFinalNode;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
+import fUML.Syntax.Activities.IntermediateActivities.DecisionNode;
 import fUML.Syntax.Activities.IntermediateActivities.InitialNode;
+import fUML.Syntax.Activities.IntermediateActivities.MergeNode;
 import fUML.Syntax.Activities.IntermediateActivities.ObjectNode;
 import fUML.Syntax.Classes.Kernel.NamedElement;
 import fUML.Syntax.Classes.Kernel.Property;
@@ -199,10 +201,6 @@ public class ResultsWriter {
 							writer.println();
 						}
 					}
-					if (((StateAssertionResult) assertionResult).getFailedStateExpressions().size() > 0) {
-						writer.println("\tFailed state expressions: ");
-					}
-
 					if (((StateAssertionResult) assertionResult).getNumberOfStateExpressions() > 0) {
 						writer.println("\tState expressions checked: " + ((StateAssertionResult) assertionResult).getNumberOfStateExpressions());
 						writer.println("\tState expressions failed: " + ((StateAssertionResult) assertionResult).getFailedStateExpressions().size());
@@ -249,7 +247,7 @@ public class ResultsWriter {
 								}
 								if (result.getActual() != null)
 									writer.println(" / Actual was: " + result.getActual());
-								if(result.getActual() == null){
+								if (result.getActual() == null) {
 									writer.println(" / Actual was: NULL");
 								}
 							}
@@ -294,7 +292,8 @@ public class ResultsWriter {
 	private void printPath(List<ActivityNodeExecution> executions) {
 		for (int i = 0; i < executions.size(); i++) {
 			ActivityNodeExecution execution = executions.get(i);
-			if (execution.getNode() instanceof Action || execution.getNode() instanceof InitialNode || execution.getNode() instanceof ActivityFinalNode) {
+			if (execution.getNode() instanceof Action || execution.getNode() instanceof InitialNode || execution.getNode() instanceof ActivityFinalNode
+					|| execution.getNode() instanceof MergeNode || execution.getNode() instanceof DecisionNode) {
 				if (i == executions.size() - 1)
 					writer.print(execution.getNode().name);
 				else
