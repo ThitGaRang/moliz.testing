@@ -1,4 +1,5 @@
-package logic
+package data
 context Order
 inv numberOfOrderLines: orderLines->size()=2
+inv noEmptyOrderLines: orderLines->forAll(item->collect(product)<>null)
 endpackage

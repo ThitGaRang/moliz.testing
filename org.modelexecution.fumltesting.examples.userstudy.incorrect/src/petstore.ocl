@@ -1,4 +1,4 @@
-package logic
+package data
 context Order
 inv numberOfOrderLines: orderLines->size()=2
 endpackage
