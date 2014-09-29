@@ -93,6 +93,12 @@ public class UmlTestLangScopeProvider extends XbaseScopeProvider {
 			return Scopes.scopeFor(nodes, new UmlQualifiedNameProvider(), IScope.NULLSCOPE);
 		}
 
+		/** TEST CASE INITIALIZE SCENARIOS SCOPE */
+		if (context instanceof UMLTestCase && reference.getName().equals("initScenarios")) {
+			UMLTestSuite suite = (UMLTestSuite) context.eContainer();
+			return Scopes.scopeFor(suite.getScenarios(), new UmlQualifiedNameProvider(), IScope.NULLSCOPE);
+		}
+
 		/** ACTIVITY PARAMETER ASSIGNMENT SCOPE */
 		if (context instanceof UMLTestCase && reference.getName().equals("parameter")) {
 			ArrayList<ActivityNode> nodes = new ArrayList<ActivityNode>();
