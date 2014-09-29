@@ -1,0 +1,48 @@
+import petstore.data.*
+import petstore.logic.*
+
+scenario TestData [
+	object customerOne: Customer{Customer.login='customerOne'; Customer.password='pass1';}
+	object customerTwo: Customer{Customer.login='customerTwo'; Customer.password='pass2';}
+	object customerService: CustomerService{}
+]
+
+//tests for CheckCredentials activity
+test checkCredentialsSuccess activity CustomerService.CheckCredentials(CustomerService.CheckCredentials.customer=TestData.customerOne, 
+		CustomerService.CheckCredentials.login='customerOne', CustomerService.CheckCredentials.password='pass1'){
+	initialize TestData;
+	assertOrder *, CustomerService.CheckCredentials.loginEquals, *, CustomerService.CheckCredentials.passwordEquals, *;
+	finally{
+		CustomerService.CheckCredentials.corresponds = true;
+	}
+}
+
+test checkCredentialsPassFail activity CustomerService.CheckCredentials(CustomerService.CheckCredentials.customer=TestData.customerOne,
+	CustomerService.CheckCredentials.login='customerOne', CustomerService.CheckCredentials.password='pass2'){
+	assertOrder *, CustomerService.CheckCredentials.passwordEquals, _, CustomerService.CheckCredentials.passwordFalse;
+	finally{
+		CustomerService.CheckCredentials.corresponds = false;
+	}
+}
+
+//tests for FindCustomer activity
+test checkFindCustomerSuccess activity CustomerService.FindCustomer(CustomerService.FindCustomer.login='customerOne', 
+	CustomerService.FindCustomer.password='pass1') on TestData.customerService{
+	initialize TestData;
+	assertState immediately after action CustomerService.FindCustomer.retrieveCustomers{
+		FindCustomer.retrieveCustomers.result includes TestData.customerOne;
+		FindCustomer.retrieveCustomers.result includes TestData.customerTwo;
+	}
+	
+	finally{
+		CustomerService.FindCustomer.customer = TestData.customerOne;
+	}
+}
+
+test checkFindCustomerPassFail activity CustomerService.FindCustomer(CustomerService.FindCustomer.login='customerOne', 
+	CustomerService.FindCustomer.password='pass2') on TestData.customerService{
+	initialize TestData;
+	finally{
+		CustomerService.FindCustomer.customer = null;
+	}
+}

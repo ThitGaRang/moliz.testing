@@ -1,0 +1,38 @@
+import petstore.logic.*
+import petstore.data.*
+
+scenario TestData [
+	object appController: ApplicationController{ApplicationController.lastSessionId=-1;}
+	object customerService: CustomerService{}
+	
+	object customer: Customer{Customer.login='customer'; Customer.password='pass';}
+	
+	link applicationController_customerService{
+		source applicationController_customerService.applicationController=TestData.appController; 
+		target applicationController_customerService.customerService=TestData.customerService;
+	}
+]
+
+test appControllerLoginTest activity ApplicationController.Login(ApplicationController.Login.login='customer', 
+		ApplicationController.Login.password='pass') on TestData.appController{
+	initialize TestData;
+	assertOrder *, ApplicationController.Login.callCreateSession;
+	assertState immediately after action ApplicationController.Login.callLogin{
+		Login.callLogin.customer != null;
+	}
+	finally{
+		ApplicationController.Login.sessionID = 0;
+	}
+}
+
+test appControllerLoginFailTest activity ApplicationController.Login(ApplicationController.Login.login='customer', 
+	ApplicationController.Login.password='pass1') on TestData.appController{
+	initialize TestData;
+	assertOrder *, ApplicationController.Login.notFoundValue, *;
+	assertState immediately after action ApplicationController.Login.callLogin{
+		Login.callLogin.customer = null;
+	}
+	finally{
+		ApplicationController.Login.sessionID = -1;
+	}	
+}
