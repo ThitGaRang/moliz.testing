@@ -5162,9 +5162,9 @@ rule__UMLTestCase__Group_7__1__Impl
     }
 :
 (
-{ before(grammarAccess.getUMLTestCaseAccess().getInitScenarioAssignment_7_1()); }
-(rule__UMLTestCase__InitScenarioAssignment_7_1)
-{ after(grammarAccess.getUMLTestCaseAccess().getInitScenarioAssignment_7_1()); }
+{ before(grammarAccess.getUMLTestCaseAccess().getInitScenariosAssignment_7_1()); }
+(rule__UMLTestCase__InitScenariosAssignment_7_1)
+{ after(grammarAccess.getUMLTestCaseAccess().getInitScenariosAssignment_7_1()); }
 )
 
 ;
@@ -5179,6 +5179,7 @@ rule__UMLTestCase__Group_7__2
     }
 :
 	rule__UMLTestCase__Group_7__2__Impl
+	rule__UMLTestCase__Group_7__3
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -5190,11 +5191,9 @@ rule__UMLTestCase__Group_7__2__Impl
     }
 :
 (
-{ before(grammarAccess.getUMLTestCaseAccess().getSemicolonKeyword_7_2()); }
-
-	';' 
-
-{ after(grammarAccess.getUMLTestCaseAccess().getSemicolonKeyword_7_2()); }
+{ before(grammarAccess.getUMLTestCaseAccess().getGroup_7_2()); }
+(rule__UMLTestCase__Group_7_2__0)*
+{ after(grammarAccess.getUMLTestCaseAccess().getGroup_7_2()); }
 )
 
 ;
@@ -5203,6 +5202,101 @@ finally {
 }
 
 
+rule__UMLTestCase__Group_7__3
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__UMLTestCase__Group_7__3__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__UMLTestCase__Group_7__3__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getUMLTestCaseAccess().getSemicolonKeyword_7_3()); }
+
+	';' 
+
+{ after(grammarAccess.getUMLTestCaseAccess().getSemicolonKeyword_7_3()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+
+
+
+
+
+
+
+
+rule__UMLTestCase__Group_7_2__0
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__UMLTestCase__Group_7_2__0__Impl
+	rule__UMLTestCase__Group_7_2__1
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__UMLTestCase__Group_7_2__0__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getUMLTestCaseAccess().getCommaKeyword_7_2_0()); }
+
+	',' 
+
+{ after(grammarAccess.getUMLTestCaseAccess().getCommaKeyword_7_2_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+rule__UMLTestCase__Group_7_2__1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__UMLTestCase__Group_7_2__1__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__UMLTestCase__Group_7_2__1__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getUMLTestCaseAccess().getInitScenariosAssignment_7_2_1()); }
+(rule__UMLTestCase__InitScenariosAssignment_7_2_1)
+{ after(grammarAccess.getUMLTestCaseAccess().getInitScenariosAssignment_7_2_1()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
 
 
 
@@ -21114,18 +21208,37 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__UMLTestCase__InitScenarioAssignment_7_1
+rule__UMLTestCase__InitScenariosAssignment_7_1
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getUMLTestCaseAccess().getInitScenarioUMLScenarioCrossReference_7_1_0()); }
+{ before(grammarAccess.getUMLTestCaseAccess().getInitScenariosUMLScenarioCrossReference_7_1_0()); }
 (
-{ before(grammarAccess.getUMLTestCaseAccess().getInitScenarioUMLScenarioIDTerminalRuleCall_7_1_0_1()); }
-	RULE_ID{ after(grammarAccess.getUMLTestCaseAccess().getInitScenarioUMLScenarioIDTerminalRuleCall_7_1_0_1()); }
+{ before(grammarAccess.getUMLTestCaseAccess().getInitScenariosUMLScenarioIDTerminalRuleCall_7_1_0_1()); }
+	RULE_ID{ after(grammarAccess.getUMLTestCaseAccess().getInitScenariosUMLScenarioIDTerminalRuleCall_7_1_0_1()); }
 )
-{ after(grammarAccess.getUMLTestCaseAccess().getInitScenarioUMLScenarioCrossReference_7_1_0()); }
+{ after(grammarAccess.getUMLTestCaseAccess().getInitScenariosUMLScenarioCrossReference_7_1_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__UMLTestCase__InitScenariosAssignment_7_2_1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getUMLTestCaseAccess().getInitScenariosUMLScenarioCrossReference_7_2_1_0()); }
+(
+{ before(grammarAccess.getUMLTestCaseAccess().getInitScenariosUMLScenarioIDTerminalRuleCall_7_2_1_0_1()); }
+	RULE_ID{ after(grammarAccess.getUMLTestCaseAccess().getInitScenariosUMLScenarioIDTerminalRuleCall_7_2_1_0_1()); }
+)
+{ after(grammarAccess.getUMLTestCaseAccess().getInitScenariosUMLScenarioCrossReference_7_2_1_0()); }
 )
 
 ;

@@ -178,13 +178,13 @@ public interface UmlTestLangPackage extends EPackage
   int UML_TEST_CASE__CONTEXT_OBJECT = 3;
 
   /**
-   * The feature id for the '<em><b>Init Scenario</b></em>' reference.
+   * The feature id for the '<em><b>Init Scenarios</b></em>' reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int UML_TEST_CASE__INIT_SCENARIO = 4;
+  int UML_TEST_CASE__INIT_SCENARIOS = 4;
 
   /**
    * The feature id for the '<em><b>Assertions</b></em>' containment reference list.
@@ -1187,15 +1187,15 @@ public interface UmlTestLangPackage extends EPackage
   EReference getUMLTestCase_ContextObject();
 
   /**
-   * Returns the meta object for the reference '{@link org.modelexecution.fumltesting.uml.umlTestLang.UMLTestCase#getInitScenario <em>Init Scenario</em>}'.
+   * Returns the meta object for the reference list '{@link org.modelexecution.fumltesting.uml.umlTestLang.UMLTestCase#getInitScenarios <em>Init Scenarios</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Init Scenario</em>'.
-   * @see org.modelexecution.fumltesting.uml.umlTestLang.UMLTestCase#getInitScenario()
+   * @return the meta object for the reference list '<em>Init Scenarios</em>'.
+   * @see org.modelexecution.fumltesting.uml.umlTestLang.UMLTestCase#getInitScenarios()
    * @see #getUMLTestCase()
    * @generated
    */
-  EReference getUMLTestCase_InitScenario();
+  EReference getUMLTestCase_InitScenarios();
 
   /**
    * Returns the meta object for the containment reference list '{@link org.modelexecution.fumltesting.uml.umlTestLang.UMLTestCase#getAssertions <em>Assertions</em>}'.
@@ -2004,12 +2004,12 @@ public interface UmlTestLangPackage extends EPackage
     EReference UML_TEST_CASE__CONTEXT_OBJECT = eINSTANCE.getUMLTestCase_ContextObject();
 
     /**
-     * The meta object literal for the '<em><b>Init Scenario</b></em>' reference feature.
+     * The meta object literal for the '<em><b>Init Scenarios</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference UML_TEST_CASE__INIT_SCENARIO = eINSTANCE.getUMLTestCase_InitScenario();
+    EReference UML_TEST_CASE__INIT_SCENARIOS = eINSTANCE.getUMLTestCase_InitScenarios();
 
     /**
      * The meta object literal for the '<em><b>Assertions</b></em>' containment reference list feature.

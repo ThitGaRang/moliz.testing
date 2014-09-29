@@ -14,7 +14,7 @@ Import:
 UMLTestCase:
 	'test' name=ID 'activity' activityUnderTest=[uml::Activity|QualifiedName] ('(' inputs+=UMLActivityInput (','
 	inputs+=UMLActivityInput)* ')')? ('on' contextObject=[UMLObjectSpecification|QualifiedName])? '{' 
-	('initialize' (initScenario=[UMLScenario]) ';')?
+	('initialize' (initScenarios+=[UMLScenario]) (',' (initScenarios+=[UMLScenario]))* ';')?
 	(assertions+=UMLAssertion)* '}';
 
 UMLActivityInput:

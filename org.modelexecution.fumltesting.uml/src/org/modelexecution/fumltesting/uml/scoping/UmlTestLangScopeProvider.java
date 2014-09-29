@@ -106,8 +106,11 @@ public class UmlTestLangScopeProvider extends XbaseScopeProvider {
 
 		/** ACTIVITY CONTEXT OBJECT SCOPE */
 		if (context instanceof UMLTestCase && reference.getName().equals("contextObject")) {
-			UMLScenario scenario = ((UMLTestCase) context).getInitScenario();
-			return Scopes.scopeFor(scenario.getObjects(), new UmlQualifiedNameProvider(), IScope.NULLSCOPE);
+			ArrayList<UMLObjectSpecification> objects = new ArrayList<UMLObjectSpecification>();
+			for (UMLScenario scenario : ((UMLTestCase) context).getInitScenarios()) {
+				objects.addAll(scenario.getObjects());
+			}
+			return Scopes.scopeFor(objects, new UmlQualifiedNameProvider(), IScope.NULLSCOPE);
 		}
 
 		/** ATTRIBUTE DECLARATION SCOPE */
@@ -246,8 +249,12 @@ public class UmlTestLangScopeProvider extends XbaseScopeProvider {
 		/** ACTIVITY INPUT SCOPE */
 		if (context instanceof UMLActivityInput && reference.getName().equals("value")) {
 			UMLTestCase testCase = (UMLTestCase) context.eContainer();
-			UMLScenario scenario = ((UMLTestCase) testCase).getInitScenario();
-			return Scopes.scopeFor(scenario.getObjects(), new UmlQualifiedNameProvider(), IScope.NULLSCOPE);
+			ArrayList<UMLObjectSpecification> objects = new ArrayList<UMLObjectSpecification>();
+
+			for (UMLScenario scenario : testCase.getInitScenarios()) {
+				objects.addAll(scenario.getObjects());
+			}
+			return Scopes.scopeFor(objects, new UmlQualifiedNameProvider(), IScope.NULLSCOPE);
 		}
 
 		/** PROPERTY AND OBJECT STATE EXPRESSION SCOPE */
@@ -255,11 +262,23 @@ public class UmlTestLangScopeProvider extends XbaseScopeProvider {
 			if (context.eContainer() instanceof UMLStateAssertion) {
 				UMLStateAssertion stateAssertion = (UMLStateAssertion) context.eContainer();
 				UMLTestCase testCase = (UMLTestCase) stateAssertion.eContainer();
-				return Scopes.scopeFor(testCase.getInitScenario().getObjects(), new UmlQualifiedNameProvider(), IScope.NULLSCOPE);
+				ArrayList<UMLObjectSpecification> objects = new ArrayList<UMLObjectSpecification>();
+
+				for (UMLScenario scenario : testCase.getInitScenarios()) {
+					objects.addAll(scenario.getObjects());
+				}
+
+				return Scopes.scopeFor(objects, new UmlQualifiedNameProvider(), IScope.NULLSCOPE);
 			} else if (context.eContainer() instanceof FinallyStateAssertion) {
 				FinallyStateAssertion stateAssertion = (FinallyStateAssertion) context.eContainer();
 				UMLTestCase testCase = (UMLTestCase) stateAssertion.eContainer();
-				return Scopes.scopeFor(testCase.getInitScenario().getObjects(), new UmlQualifiedNameProvider(), IScope.NULLSCOPE);
+				ArrayList<UMLObjectSpecification> objects = new ArrayList<UMLObjectSpecification>();
+
+				for (UMLScenario scenario : testCase.getInitScenarios()) {
+					objects.addAll(scenario.getObjects());
+				}
+
+				return Scopes.scopeFor(objects, new UmlQualifiedNameProvider(), IScope.NULLSCOPE);
 			}
 		}
 

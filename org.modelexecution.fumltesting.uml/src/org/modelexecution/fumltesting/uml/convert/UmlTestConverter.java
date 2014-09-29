@@ -125,9 +125,10 @@ public class UmlTestConverter implements TestConverter {
 			testCase.setContextObject((ObjectSpecification) convertValue(umlTestCase.getContextObject()));
 		}
 
-		if (umlTestCase.getInitScenario() != null) {
-			Scenario scenario = convertScenario(umlTestCase.getInitScenario());
-			testCase.getScenarios().add(scenario);
+		if (umlTestCase.getInitScenarios() != null) {
+			for (UMLScenario scenario : umlTestCase.getInitScenarios()) {
+				testCase.getScenarios().add(convertScenario(scenario));
+			}
 		}
 
 		for (UMLActivityInput umlActivityInput : umlTestCase.getInputs()) {

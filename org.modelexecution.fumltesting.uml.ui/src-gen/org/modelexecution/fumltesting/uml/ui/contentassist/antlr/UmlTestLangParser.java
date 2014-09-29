@@ -92,6 +92,7 @@ public class UmlTestLangParser extends AbstractContentAssistParser {
 					put(grammarAccess.getUMLTestCaseAccess().getGroup_4_2(), "rule__UMLTestCase__Group_4_2__0");
 					put(grammarAccess.getUMLTestCaseAccess().getGroup_5(), "rule__UMLTestCase__Group_5__0");
 					put(grammarAccess.getUMLTestCaseAccess().getGroup_7(), "rule__UMLTestCase__Group_7__0");
+					put(grammarAccess.getUMLTestCaseAccess().getGroup_7_2(), "rule__UMLTestCase__Group_7_2__0");
 					put(grammarAccess.getUMLActivityInputAccess().getGroup(), "rule__UMLActivityInput__Group__0");
 					put(grammarAccess.getUMLSimpleValueAccess().getGroup(), "rule__UMLSimpleValue__Group__0");
 					put(grammarAccess.getUMLScenarioAccess().getGroup(), "rule__UMLScenario__Group__0");
@@ -294,7 +295,8 @@ public class UmlTestLangParser extends AbstractContentAssistParser {
 					put(grammarAccess.getUMLTestCaseAccess().getInputsAssignment_4_1(), "rule__UMLTestCase__InputsAssignment_4_1");
 					put(grammarAccess.getUMLTestCaseAccess().getInputsAssignment_4_2_1(), "rule__UMLTestCase__InputsAssignment_4_2_1");
 					put(grammarAccess.getUMLTestCaseAccess().getContextObjectAssignment_5_1(), "rule__UMLTestCase__ContextObjectAssignment_5_1");
-					put(grammarAccess.getUMLTestCaseAccess().getInitScenarioAssignment_7_1(), "rule__UMLTestCase__InitScenarioAssignment_7_1");
+					put(grammarAccess.getUMLTestCaseAccess().getInitScenariosAssignment_7_1(), "rule__UMLTestCase__InitScenariosAssignment_7_1");
+					put(grammarAccess.getUMLTestCaseAccess().getInitScenariosAssignment_7_2_1(), "rule__UMLTestCase__InitScenariosAssignment_7_2_1");
 					put(grammarAccess.getUMLTestCaseAccess().getAssertionsAssignment_8(), "rule__UMLTestCase__AssertionsAssignment_8");
 					put(grammarAccess.getUMLActivityInputAccess().getParameterAssignment_0(), "rule__UMLActivityInput__ParameterAssignment_0");
 					put(grammarAccess.getUMLActivityInputAccess().getValueAssignment_2(), "rule__UMLActivityInput__ValueAssignment_2");

@@ -321,35 +321,52 @@ ruleUMLTestCase returns [EObject current=null]
         }
 	otherlv_13=RULE_ID
 	{
-		newLeafNode(otherlv_13, grammarAccess.getUMLTestCaseAccess().getInitScenarioUMLScenarioCrossReference_7_1_0()); 
+		newLeafNode(otherlv_13, grammarAccess.getUMLTestCaseAccess().getInitScenariosUMLScenarioCrossReference_7_1_0()); 
 	}
 
 )
-)	otherlv_14=';' 
+)(	otherlv_14=',' 
     {
-    	newLeafNode(otherlv_14, grammarAccess.getUMLTestCaseAccess().getSemicolonKeyword_7_2());
+    	newLeafNode(otherlv_14, grammarAccess.getUMLTestCaseAccess().getCommaKeyword_7_2_0());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getUMLTestCaseRule());
+	        }
+        }
+	otherlv_15=RULE_ID
+	{
+		newLeafNode(otherlv_15, grammarAccess.getUMLTestCaseAccess().getInitScenariosUMLScenarioCrossReference_7_2_1_0()); 
+	}
+
+)
+))*	otherlv_16=';' 
+    {
+    	newLeafNode(otherlv_16, grammarAccess.getUMLTestCaseAccess().getSemicolonKeyword_7_3());
     }
 )?(
 (
 		{ 
 	        newCompositeNode(grammarAccess.getUMLTestCaseAccess().getAssertionsUMLAssertionParserRuleCall_8_0()); 
 	    }
-		lv_assertions_15_0=ruleUMLAssertion		{
+		lv_assertions_17_0=ruleUMLAssertion		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getUMLTestCaseRule());
 	        }
        		add(
        			$current, 
        			"assertions",
-        		lv_assertions_15_0, 
+        		lv_assertions_17_0, 
         		"UMLAssertion");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)*	otherlv_16='}' 
+)*	otherlv_18='}' 
     {
-    	newLeafNode(otherlv_16, grammarAccess.getUMLTestCaseAccess().getRightCurlyBracketKeyword_9());
+    	newLeafNode(otherlv_18, grammarAccess.getUMLTestCaseAccess().getRightCurlyBracketKeyword_9());
     }
 )
 ;

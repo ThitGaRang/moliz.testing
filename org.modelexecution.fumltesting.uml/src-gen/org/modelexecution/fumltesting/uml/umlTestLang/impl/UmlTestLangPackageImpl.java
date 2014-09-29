@@ -440,7 +440,7 @@ public class UmlTestLangPackageImpl extends EPackageImpl implements UmlTestLangP
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getUMLTestCase_InitScenario()
+  public EReference getUMLTestCase_InitScenarios()
   {
     return (EReference)umlTestCaseEClass.getEStructuralFeatures().get(4);
   }
@@ -1138,7 +1138,7 @@ public class UmlTestLangPackageImpl extends EPackageImpl implements UmlTestLangP
     createEReference(umlTestCaseEClass, UML_TEST_CASE__ACTIVITY_UNDER_TEST);
     createEReference(umlTestCaseEClass, UML_TEST_CASE__INPUTS);
     createEReference(umlTestCaseEClass, UML_TEST_CASE__CONTEXT_OBJECT);
-    createEReference(umlTestCaseEClass, UML_TEST_CASE__INIT_SCENARIO);
+    createEReference(umlTestCaseEClass, UML_TEST_CASE__INIT_SCENARIOS);
     createEReference(umlTestCaseEClass, UML_TEST_CASE__ASSERTIONS);
 
     umlActivityInputEClass = createEClass(UML_ACTIVITY_INPUT);
@@ -1292,7 +1292,7 @@ public class UmlTestLangPackageImpl extends EPackageImpl implements UmlTestLangP
     initEReference(getUMLTestCase_ActivityUnderTest(), theUMLPackage.getActivity(), null, "activityUnderTest", null, 0, 1, UMLTestCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getUMLTestCase_Inputs(), this.getUMLActivityInput(), null, "inputs", null, 0, -1, UMLTestCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getUMLTestCase_ContextObject(), this.getUMLObjectSpecification(), null, "contextObject", null, 0, 1, UMLTestCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getUMLTestCase_InitScenario(), this.getUMLScenario(), null, "initScenario", null, 0, 1, UMLTestCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getUMLTestCase_InitScenarios(), this.getUMLScenario(), null, "initScenarios", null, 0, -1, UMLTestCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getUMLTestCase_Assertions(), this.getUMLAssertion(), null, "assertions", null, 0, -1, UMLTestCase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(umlActivityInputEClass, UMLActivityInput.class, "UMLActivityInput", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
