@@ -17,11 +17,13 @@ public class TestSuiteLaunchDelegate extends LaunchConfigurationDelegate {
 		String modelResource = configuration.getAttribute("model", "");
 		String testSuiteResource = configuration.getAttribute("testSuite", "");
 		String oclResource = configuration.getAttribute("ocl", "");
+		boolean bruteForceOn = configuration.getAttribute("bruteForceOn", false);
 
 		UmlTestExecutor executor = new UmlTestExecutor();
 		executor.setModelResource(modelResource);
 		executor.setTestSuiteResource(testSuiteResource);
 		executor.setOclResource(oclResource);
+		executor.setBruteForceOn(bruteForceOn);
 
 		MessageConsole myConsole = findConsole("console");
 		MessageConsoleStream out = myConsole.newMessageStream();

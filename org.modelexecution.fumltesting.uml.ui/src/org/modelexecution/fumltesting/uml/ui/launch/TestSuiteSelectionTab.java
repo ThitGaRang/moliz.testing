@@ -40,6 +40,10 @@ public class TestSuiteSelectionTab extends AbstractLaunchConfigurationTab {
 	private Button browseTestSuiteResourceButton;
 	private Button browseOclResourceButton;
 
+	private Button bruteForceCheckButton;
+
+	private boolean bruteForceOn = false;
+
 	public void createControl(Composite parent) {
 		Font font = parent.getFont();
 		Composite comp = createContainerComposite(parent, font);
@@ -72,6 +76,9 @@ public class TestSuiteSelectionTab extends AbstractLaunchConfigurationTab {
 		createOclResourceLabel(font, comp);
 		createOclResourceTextControl(font, comp);
 		createOclResourceBrowseButton(comp);
+
+		createBruteForceCheckLabel(font, comp);
+		createBruteForceCheckButton(comp);
 	}
 
 	private void createModelResourceBrowseButton(Composite comp) {
@@ -97,6 +104,16 @@ public class TestSuiteSelectionTab extends AbstractLaunchConfigurationTab {
 		browseOclResourceButton.addSelectionListener(new SelectionAdapter() {
 			public void widgetSelected(SelectionEvent e) {
 				browseOclResource();
+			}
+		});
+	}
+
+	private void createBruteForceCheckButton(Composite comp) {
+		bruteForceCheckButton = new Button(comp, SWT.CHECK);
+		bruteForceCheckButton.addSelectionListener(new SelectionAdapter() {
+			public void widgetSelected(SelectionEvent e) {
+				bruteForceOn = !bruteForceOn;
+				updateLaunchConfigurationDialog();
 			}
 		});
 	}
@@ -162,6 +179,14 @@ public class TestSuiteSelectionTab extends AbstractLaunchConfigurationTab {
 		GridData gd = new GridData(GridData.BEGINNING);
 		oclResourceLabel.setLayoutData(gd);
 		oclResourceLabel.setFont(font);
+	}
+
+	private void createBruteForceCheckLabel(Font font, Composite comp) {
+		Label bruteForceCheckLabel = new Label(comp, SWT.NONE);
+		bruteForceCheckLabel.setText("&Brute Force Check:");
+		GridData gd = new GridData(GridData.BEGINNING);
+		bruteForceCheckLabel.setLayoutData(gd);
+		bruteForceCheckLabel.setFont(font);
 	}
 
 	protected void browseModelResource() {
@@ -242,11 +267,13 @@ public class TestSuiteSelectionTab extends AbstractLaunchConfigurationTab {
 		String defValModelResourceText = "";
 		String defValTestSuiteResourceText = "";
 		String defValOclResourceText = "";
+		boolean defValBruteForceOn = false;
 
 		try {
 			defValModelResourceText = configuration.getAttribute("model", "");
 			defValTestSuiteResourceText = configuration.getAttribute("testSuite", "");
 			defValOclResourceText = configuration.getAttribute("ocl", "");
+			defValBruteForceOn = configuration.getAttribute("bruteForceOn", false);
 		} catch (CoreException e) {
 
 		}
@@ -254,6 +281,9 @@ public class TestSuiteSelectionTab extends AbstractLaunchConfigurationTab {
 		modelResourceText.setText(defValModelResourceText == null ? "" : defValModelResourceText);
 		testSuiteResourceText.setText(defValTestSuiteResourceText == null ? "" : defValTestSuiteResourceText);
 		oclResourceText.setText(defValOclResourceText == null ? "" : defValOclResourceText);
+		if (bruteForceOn) {
+			bruteForceCheckButton.setSelection(true);
+		}
 	}
 
 	@Override
@@ -261,6 +291,7 @@ public class TestSuiteSelectionTab extends AbstractLaunchConfigurationTab {
 		configuration.setAttribute("model", modelResourceText.getText().trim());
 		configuration.setAttribute("testSuite", testSuiteResourceText.getText().trim());
 		configuration.setAttribute("ocl", oclResourceText.getText().trim());
+		configuration.setAttribute("bruteForceOn", bruteForceOn);
 	}
 
 	@Override

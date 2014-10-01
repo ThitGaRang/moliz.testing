@@ -111,20 +111,22 @@ public class ResultsWriter {
 			}
 			writer.println();
 			for (AssertionResult assertionResult : testCaseResult.getAssertionResults()) {
+
 				if (assertionResult instanceof MatrixOrderAssertionResult) {
 					MatrixOrderAssertionResult orderAssertionResult = (MatrixOrderAssertionResult) assertionResult;
 					printSpecification(orderAssertionResult.getOrderSpecification());
-					writer.println("\tValidation result: " + (orderAssertionResult.getAssertionValidationResult() ? "SUCCESS" : "FAIL"));
+					writer.println("\tMatrix validation result: " + (orderAssertionResult.getAssertionValidationResult() ? "SUCCESS" : "FAIL"));
 					for (MatrixOrderAssertionResult subResult : orderAssertionResult.getSubOrderAssertionResults()) {
 						writer.println("\t\tSub-order checked..");
 						writer.print("\t");
 						printSpecification(((NodeOrder) subResult.getOrderSpecification()).getAllNodes());
-						writer.println("\t\tValidation result: " + (orderAssertionResult.getAssertionValidationResult() ? "SUCCESS" : "FAIL"));
+						writer.println("\t\tMatrix validation result: " + (orderAssertionResult.getAssertionValidationResult() ? "SUCCESS" : "FAIL"));
 					}
 				}
 				if (assertionResult instanceof OrderAssertionResult) {
 					OrderAssertionResult orderAssertionResult = (OrderAssertionResult) assertionResult;
-					printSpecification(orderAssertionResult.getOrderSpecification());
+					// printSpecification(orderAssertionResult.getOrderSpecification());
+					writer.println("\tBrute force check:");
 					writer.println("\tNumber of paths checked: " + orderAssertionResult.numberOfPathsChecked());
 					writer.println("\tNumber of invalid paths: " + orderAssertionResult.getFailedPathCheckResults().size());
 					writer.println();
@@ -144,7 +146,7 @@ public class ResultsWriter {
 					for (OrderAssertionResult subResult : orderAssertionResult.getSubOrderResults()) {
 						writer.println("\t\tSub-order checked..");
 						writer.print("\t");
-						printSpecification(((NodeOrder) subResult.getOrderSpecification()).getAllNodes());
+						// printSpecification(((NodeOrder)subResult.getOrderSpecification()).getAllNodes());
 						writer.println("\t\tNumber of paths checked: " + subResult.numberOfPathsChecked());
 						writer.println("\t\tNumber of invalid paths: " + subResult.getFailedPathCheckResults().size());
 						writer.println();

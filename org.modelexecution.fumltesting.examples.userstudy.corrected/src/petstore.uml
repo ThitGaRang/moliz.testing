@@ -1567,7 +1567,7 @@
             </result>
           </node>
           <node xmi:type="uml:ForkNode" xmi:id="_dhlpkOEBEeKbNtLCas5YyQ" name="orderServiceFork" outgoing="_fpH90OEBEeKbNtLCas5YyQ _n-LkQOEBEeKbNtLCas5YyQ" incoming="_dhvakOEBEeKbNtLCas5YyQ"/>
-          <node xmi:type="uml:CallOperationAction" xmi:id="_iXV3kOEBEeKbNtLCas5YyQ" name="getCartItem" operation="_isJbAODiEeKbNtLCas5YyQ">
+          <node xmi:type="uml:CallOperationAction" xmi:id="_iXV3kOEBEeKbNtLCas5YyQ" name="callGetCartItem" operation="_isJbAODiEeKbNtLCas5YyQ">
             <argument xmi:type="uml:InputPin" xmi:id="_iXV3leEBEeKbNtLCas5YyQ" name="cart" incoming="_EcOE8DzeEeSxH8rNTlb2Ww" type="__d4IYN_OEeKxs-T-7hfQjA">
               <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_iXV3l-EBEeKbNtLCas5YyQ" source="PinToParameterLink">
                 <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_iXV3mOEBEeKbNtLCas5YyQ" key="PinToParameterLink" value="_naA4UODiEeKbNtLCas5YyQ"/>
@@ -1609,7 +1609,7 @@
               <upperBound xmi:type="uml:LiteralInteger" xmi:id="_0MR40uEBEeKbNtLCas5YyQ" value="1"/>
             </value>
           </node>
-          <node xmi:type="uml:CallBehaviorAction" xmi:id="_9EczYOEBEeKbNtLCas5YyQ" name="add">
+          <node xmi:type="uml:CallBehaviorAction" xmi:id="_9EczYOEBEeKbNtLCas5YyQ" name="plus">
             <argument xmi:type="uml:InputPin" xmi:id="_9EczZeEBEeKbNtLCas5YyQ" name="x" incoming="_E59XEOECEeKbNtLCas5YyQ">
               <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_9EczZ-EBEeKbNtLCas5YyQ" source="PinToParameterLink">
                 <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_9EczaOEBEeKbNtLCas5YyQ" key="PinToParameterLink" value="_5jCrMN_aEeKxs-T-7hfQjA"/>

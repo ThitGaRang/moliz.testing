@@ -91,6 +91,8 @@ public class UmlTestExecutor {
 	private String oclPath = "";
 	private OutputStream output;
 
+	private boolean bruteForceOn;
+
 	public void setModelResource(String modelResource) {
 		umlModelPath = modelResource;
 	}
@@ -105,6 +107,10 @@ public class UmlTestExecutor {
 
 	public void setOutput(OutputStream output) {
 		this.output = output;
+	}
+
+	public void setBruteForceOn(boolean bruteForceOn) {
+		this.bruteForceOn = bruteForceOn;
 	}
 
 	/** Main method of the testing framework. */
@@ -270,21 +276,24 @@ public class UmlTestExecutor {
 			}
 
 			for (Assertion assertion : testCase.getAllAssertions()) {
-				AssertionResult result = null;
 				if (assertion instanceof OrderAssertion) {
-					result = orderAssertionValidator.checkOrder((OrderAssertion) assertion);
+					if (bruteForceOn) {
+						testCaseResult.addAssertionResult(orderAssertionValidator.checkOrder((OrderAssertion) assertion));
+					}
 					testCaseResult.addAssertionResult(matrixOrderAssertionValidator.checkOrder((OrderAssertion) assertion));
 				} else if (assertion instanceof FinallyStateAssertion) {
 					try {
-						result = stateAssertionValidator.check((FinallyStateAssertion) assertion);
+						AssertionResult result = stateAssertionValidator.check((FinallyStateAssertion) assertion);
+						testCaseResult.addAssertionResult(result);
 					} catch (ActionNotExecutedException e) {
-						result = new StateAssertionResult(assertion);
+						AssertionResult result = new StateAssertionResult(assertion);
 						result.setError(e.getMessage());
+						testCaseResult.addAssertionResult(result);
 					}
 				} else if (assertion instanceof StateAssertion) {
-					result = stateAssertionValidator.check((StateAssertion) assertion);
+					AssertionResult result = stateAssertionValidator.check((StateAssertion) assertion);
+					testCaseResult.addAssertionResult(result);
 				}
-				testCaseResult.addAssertionResult(result);
 			}
 			suiteResult.addTestCaseResult(testCaseResult);
 		}
