@@ -183,7 +183,7 @@ public class TestSuiteSelectionTab extends AbstractLaunchConfigurationTab {
 
 	private void createBruteForceCheckLabel(Font font, Composite comp) {
 		Label bruteForceCheckLabel = new Label(comp, SWT.NONE);
-		bruteForceCheckLabel.setText("&Brute Force Check:");
+		bruteForceCheckLabel.setText("&OrderAssertion BruteForce:");
 		GridData gd = new GridData(GridData.BEGINNING);
 		bruteForceCheckLabel.setLayoutData(gd);
 		bruteForceCheckLabel.setFont(font);
@@ -267,13 +267,11 @@ public class TestSuiteSelectionTab extends AbstractLaunchConfigurationTab {
 		String defValModelResourceText = "";
 		String defValTestSuiteResourceText = "";
 		String defValOclResourceText = "";
-		boolean defValBruteForceOn = false;
 
 		try {
 			defValModelResourceText = configuration.getAttribute("model", "");
 			defValTestSuiteResourceText = configuration.getAttribute("testSuite", "");
 			defValOclResourceText = configuration.getAttribute("ocl", "");
-			defValBruteForceOn = configuration.getAttribute("bruteForceOn", false);
 		} catch (CoreException e) {
 
 		}
