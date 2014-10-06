@@ -111,12 +111,12 @@ public class StateAssertionValidator {
 				if (check instanceof ConstraintCheck) {
 					ArrayList<Boolean> results = new ArrayList<Boolean>();
 					for (String constraintName : ((ConstraintCheck) check).getConstraintNames()) {
-						ValueInstance context = null;
+						ArrayList<ValueInstance> contextObjects = null;
 						if (((ConstraintCheck) check).getObject() != null) {
 							try {
 								Object nodeExecution = traceUtil.getExecution(((ConstraintCheck) check).getObject().owner);
 								ObjectNode objectNode = ((ConstraintCheck) check).getObject();
-								context = traceUtil.getValueInstances(objectNode, nodeExecution).get(0);
+								contextObjects = new ArrayList<ValueInstance>(traceUtil.getValueInstances(objectNode, nodeExecution));
 							} catch (ActionNotExecutedException e) {
 								result.setError(e.getMessage());
 								return result;
@@ -126,7 +126,11 @@ public class StateAssertionValidator {
 						for (State state : states) {
 							boolean constraintResultInSingleState = false;
 							try {
-								constraintResultInSingleState = OclExecutor.getInstance().checkConstraint(constraintName, context, state);
+								for (ValueInstance contextObject : contextObjects) {
+									constraintResultInSingleState = OclExecutor.getInstance().checkConstraint(constraintName, contextObject, state);
+									results.add(constraintResultInSingleState);
+									constraintResult.putStateResult(state, constraintResultInSingleState);
+								}
 							} catch (ConstraintNotFoundException e) {
 								result.setError(e.getMessage());
 								constraintResult.setValidationResult(false);
@@ -136,8 +140,6 @@ public class StateAssertionValidator {
 								constraintResult.setValidationResult(false);
 								return result;
 							}
-							results.add(constraintResultInSingleState);
-							constraintResult.putStateResult(state, constraintResultInSingleState);
 						}
 						boolean overallResult = compileResult(results, assertion.getQuantifier());
 						results.clear();
@@ -427,9 +429,9 @@ public class StateAssertionValidator {
 				else
 					return false;
 			}
-			if(objectFound){
+			if (objectFound) {
 				actualValueAsserted = "NOT NULL";
-			}else{
+			} else {
 				actualValueAsserted = "NULL";
 			}
 			return compileResult(results, expression.getContainer().getQuantifier());
