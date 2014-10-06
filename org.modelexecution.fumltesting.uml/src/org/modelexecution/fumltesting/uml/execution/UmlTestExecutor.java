@@ -81,13 +81,11 @@ public class UmlTestExecutor {
 	private XtextResourceSet resourceSet;
 	private Resource testResource;
 	private Resource umlResource;
-	private Resource primitiviesResource;
 	private NamedElement umlModel;
 	private TestConverter testConverter;
 
 	private String testsPath = "";
 	private String umlModelPath = "";
-	private String primitivesPath = "C:/git/moliz/org.modelexecution.fumldebug.standardlibrary/library/uml_library.uml";
 	private String oclPath = "";
 	private OutputStream output;
 
@@ -147,14 +145,9 @@ public class UmlTestExecutor {
 			resourceSet.getPackageRegistry().put(UMLPackage.eNS_URI, UMLPackage.eINSTANCE);
 			resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(UMLResource.FILE_EXTENSION, UMLResource.Factory.INSTANCE);
 
-			// TODO check if its not needed
-			primitiviesResource = resourceSet.getResource(URI.createFileURI(new File(primitivesPath).getAbsolutePath()), true);
-			primitiviesResource.load(null);
-
 			umlResource = resourceSet.getResource(URI.createFileURI(new File(umlModelPath).getAbsolutePath()), true);
 			umlResource.load(null);
 
-			umlResource.getContents().addAll(primitiviesResource.getContents());
 			testResource.getContents().addAll(umlResource.getContents());
 
 			EcoreUtil.resolveAll(resourceSet);
