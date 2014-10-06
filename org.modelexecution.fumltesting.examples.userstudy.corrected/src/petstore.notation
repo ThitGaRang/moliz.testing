@@ -12790,7 +12790,7 @@
           </children>
           <styles xmi:type="notation:HintedDiagramLinkStyle" xmi:id="_YBOYIeDcEeKbNtLCas5YyQ"/>
           <element xmi:type="uml:ValueSpecificationAction" href="petstore.uml#_YA62IODcEeKbNtLCas5YyQ"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_YBOYIuDcEeKbNtLCas5YyQ" x="330" y="179" width="67"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_YBOYIuDcEeKbNtLCas5YyQ" x="333" y="232" width="67"/>
         </children>
         <children xmi:type="notation:Shape" xmi:id="_2vZ8sODcEeKbNtLCas5YyQ" type="3040" fontName="Segoe UI" lineColor="0">
           <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_2vZ8s-DcEeKbNtLCas5YyQ" source="ShadowFigure">
@@ -12857,10 +12857,6 @@
         <styles xmi:type="notation:HintedDiagramLinkStyle" xmi:id="_WRWkseDWEeKbNtLCas5YyQ"/>
         <element xmi:type="uml:ActivityParameterNode" href="petstore.uml#_WQ6f0ODWEeKbNtLCas5YyQ"/>
         <layoutConstraint xmi:type="notation:Bounds" xmi:id="_WRWksuDWEeKbNtLCas5YyQ" x="1030" y="74"/>
-      </children>
-      <children xmi:type="notation:BasicCompartment" xmi:id="_JC0l4EMvEeSFqqNTD9pteg" visible="false" type="compartment_shape_display">
-        <styles xmi:type="notation:TitleStyle" xmi:id="_JC0l4UMvEeSFqqNTD9pteg"/>
-        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_JC0l4kMvEeSFqqNTD9pteg"/>
       </children>
       <element xmi:type="uml:Activity" href="petstore.uml#_PsB2gODWEeKbNtLCas5YyQ"/>
       <layoutConstraint xmi:type="notation:Bounds" xmi:id="_TT-NqODWEeKbNtLCas5YyQ" width="888" height="348"/>
@@ -12964,7 +12960,7 @@
       </children>
       <styles xmi:type="notation:FontStyle" xmi:id="_qG-ckeDcEeKbNtLCas5YyQ" fontName="Segoe UI"/>
       <element xmi:type="uml:ObjectFlow" href="petstore.uml#_qGhwoODcEeKbNtLCas5YyQ"/>
-      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_qG-ckuDcEeKbNtLCas5YyQ" points="[8, -5, -92, 53]$[101, -66, 1, -8]"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_qG-ckuDcEeKbNtLCas5YyQ" points="[8, 0, -80, 55]$[51, 0, -37, 55]$[51, -55, -37, 0]$[80, -55, -8, 0]"/>
     </edges>
     <edges xmi:type="notation:Connector" xmi:id="_u0Pc8ODcEeKbNtLCas5YyQ" type="4003" source="_PoJNdODcEeKbNtLCas5YyQ" target="_W5lQEODbEeKbNtLCas5YyQ" lineColor="0">
       <children xmi:type="notation:DecorationNode" xmi:id="_u0Pc8-DcEeKbNtLCas5YyQ" visible="false" type="6001">

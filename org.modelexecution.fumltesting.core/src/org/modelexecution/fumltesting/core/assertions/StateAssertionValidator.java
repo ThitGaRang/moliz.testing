@@ -372,6 +372,15 @@ public class StateAssertionValidator {
 				if (sameType == false)
 					return false;
 
+				// if there are no features
+				if (object_.featureValues.size() == 0) {
+					if (expression.getOperator() == ArithmeticOperator.EQUAL) {
+						results.add(true);
+					}
+					if (expression.getOperator() == ArithmeticOperator.NOT_EQUAL) {
+						results.add(false);
+					}
+				}
 				// compare each feature
 				for (FeatureValue featureValue : object_.featureValues) {
 					if (expression.getOperator() == ArithmeticOperator.EQUAL || expression.getOperator() == ArithmeticOperator.INCLUDES
@@ -417,6 +426,11 @@ public class StateAssertionValidator {
 					return true;
 				else
 					return false;
+			}
+			if(objectFound){
+				actualValueAsserted = "NOT NULL";
+			}else{
+				actualValueAsserted = "NULL";
 			}
 			return compileResult(results, expression.getContainer().getQuantifier());
 		} else if (expression.getValue() instanceof NullValue) {

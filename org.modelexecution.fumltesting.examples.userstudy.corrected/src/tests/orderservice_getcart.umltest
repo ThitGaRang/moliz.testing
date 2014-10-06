@@ -3,11 +3,15 @@ import petstore.logic.*
 
 scenario OrderServiceScenario[
 	object customer: Customer{Customer.login='customer'; Customer.password='pass';}
+]
+
+scenario OrderServiceScenario2[
+	object customer: Customer{Customer.login='customer'; Customer.password='pass';}
 	object cart: Cart{}
 	
 	link cart_customer{
-		source cart_customer.customer=OrderServiceScenario.customer;
-		target cart_customer.cart=OrderServiceScenario.cart;
+		source cart_customer.customer=OrderServiceScenario2.customer;
+		target cart_customer.cart=OrderServiceScenario2.cart;
 	}
 ]
 
@@ -22,14 +26,14 @@ test getCartTest activity OrderService.GetCart(OrderService.GetCart.customer=Ord
 	}
 }
 
-test getCartTest2 activity OrderService.GetCart(OrderService.GetCart.customer=OrderServiceScenario.customer){
-	initialize OrderServiceScenario;
+test getCartTest activity OrderService.GetCart(OrderService.GetCart.customer=OrderServiceScenario2.customer){
+	initialize OrderServiceScenario2;
 	assertOrder *, OrderService.GetCart.getCart, *, OrderService.GetCart.listSize, *, OrderService.GetCart.sizeEquals, 
 		OrderService.GetCart.cartExistsDecision, OrderService.GetCart.cartMerge, OrderService.GetCart.getCartForOutput;
 	assertState immediately after action OrderService.GetCart.getCart{
-		OrderService.GetCart.getCart.result != null;
+		OrderService.GetCart.getCart.result = OrderServiceScenario2.cart;
 	}
 	finally{
-		OrderService.GetCart.cart != null;
+		OrderService.GetCart.cart = OrderServiceScenario2.cart;
 	}
 }
