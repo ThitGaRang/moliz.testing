@@ -162,6 +162,7 @@ public class ResultsWriter {
 							}
 						}
 					}
+					writer.println();
 				}
 				if (assertionResult instanceof StateAssertionResult) {
 					StateAssertionResult stateAssertionResult = (StateAssertionResult) assertionResult;

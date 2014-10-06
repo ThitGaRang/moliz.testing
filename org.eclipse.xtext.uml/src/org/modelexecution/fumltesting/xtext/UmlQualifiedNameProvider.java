@@ -8,17 +8,11 @@ package org.modelexecution.fumltesting.xtext;
 
 import org.eclipse.uml2.uml.Action;
 import org.eclipse.uml2.uml.Activity;
-import org.eclipse.uml2.uml.ActivityFinalNode;
 import org.eclipse.uml2.uml.ActivityParameterNode;
+import org.eclipse.uml2.uml.Association;
 import org.eclipse.uml2.uml.Class;
-import org.eclipse.uml2.uml.DecisionNode;
-import org.eclipse.uml2.uml.ForkNode;
-import org.eclipse.uml2.uml.InitialNode;
-import org.eclipse.uml2.uml.JoinNode;
-import org.eclipse.uml2.uml.MergeNode;
-import org.eclipse.uml2.uml.NamedElement;
+import org.eclipse.uml2.uml.ControlNode;
 import org.eclipse.uml2.uml.ObjectNode;
-import org.eclipse.uml2.uml.Pin;
 import org.eclipse.uml2.uml.Property;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.xbase.scoping.XbaseQualifiedNameProvider;
@@ -31,58 +25,49 @@ import org.eclipse.xtext.xbase.scoping.XbaseQualifiedNameProvider;
 @SuppressWarnings("restriction")
 public class UmlQualifiedNameProvider extends XbaseQualifiedNameProvider {
 	protected QualifiedName qualifiedName(Property property) {
-		NamedElement owner = (NamedElement) property.getOwner();
-		return QualifiedName.create(owner.getName(), property.getName());
+		Class class_ = (Class) property.getOwner();
+		return QualifiedName.create(class_.getName(), property.getName());
 	}
 
 	protected QualifiedName qualifiedName(Action action) {
-		return generateQualifiedName(action);
+		Activity activity = (Activity) action.getOwner();
+		Class class_ = (Class) activity.getOwner();
+		return QualifiedName.create(class_.getName(), activity.getName(), action.getName());
 	}
 
-	protected QualifiedName qualifiedName(InitialNode node) {
-		return generateQualifiedName(node);
-	}
-
-	protected QualifiedName qualifiedName(ActivityFinalNode node) {
-		return generateQualifiedName(node);
-	}
-
-	protected QualifiedName qualifiedName(ForkNode node) {
-		return generateQualifiedName(node);
-	}
-
-	protected QualifiedName qualifiedName(JoinNode node) {
-		return generateQualifiedName(node);
-	}
-
-	protected QualifiedName qualifiedName(DecisionNode node) {
-		return generateQualifiedName(node);
-	}
-	
-	protected QualifiedName qualifiedName(MergeNode node){
-		return generateQualifiedName(node);
+	protected QualifiedName qualifiedName(ControlNode node) {
+		Activity activity = (Activity) node.getOwner();
+		Class class_ = (Class) activity.getOwner();
+		return QualifiedName.create(class_.getName(), activity.getName(), node.getName());
 	}
 
 	protected QualifiedName qualifiedName(ActivityParameterNode node) {
-		return generateQualifiedName(node);
-	}
-
-	protected QualifiedName qualifiedName(Pin node) {
-		return generateQualifiedName(node);
+		Activity activity = (Activity) node.getOwner();
+		Class class_ = (Class) activity.getOwner();
+		return QualifiedName.create(class_.getName(), activity.getName(), node.getName());
 	}
 
 	protected QualifiedName qualifiedName(ObjectNode node) {
-		return generateQualifiedName(node);
+		if (node.getOwner() instanceof Activity) {
+			Activity activity = (Activity) node.getOwner();
+			Class class_ = (Class) activity.getOwner();
+			return QualifiedName.create(class_.getName(), activity.getName(), node.getName());
+		}
+		if (node.getOwner() instanceof Action) {
+			Action action = (Action) node.getOwner();
+			Activity activity = (Activity) action.getOwner();
+			Class class_ = (Class) activity.getOwner();
+			return QualifiedName.create(class_.getName(), activity.getName(), action.getName(), node.getName());
+		}
+		return null;
 	}
 
 	protected QualifiedName qualifiedName(Activity activity) {
 		Class owner = (Class) activity.getOwner();
 		return QualifiedName.create(owner.getName(), activity.getName());
 	}
-	
-	private QualifiedName generateQualifiedName(NamedElement namedElement){
-		NamedElement activity = (NamedElement) namedElement.getOwner();
-		NamedElement class_ = (NamedElement) activity.getOwner();
-		return QualifiedName.create(class_.getName(), activity.getName(), namedElement.getName());
+
+	protected QualifiedName qualifiedName(Association association) {
+		return QualifiedName.create(association.getName());
 	}
 }
