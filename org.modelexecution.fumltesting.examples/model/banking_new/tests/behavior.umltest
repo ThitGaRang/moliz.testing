@@ -13,10 +13,10 @@ scenario BankingTestData[
 test atmTransactionTest activity ATM.Withdraw(ATM.Withdraw.card=BankingTestData.cardTD, 
 		ATM.Withdraw.pin=1985, ATM.Withdraw.amount = 100) on BankingTestData.atmTD{
 	initialize BankingTestData;
-//	assertOrder *, ATM.Withdraw.call_validatePin, *, ATM.Withdraw.call_makeWithdrawal, *;
-//	assertState eventually after constraint 'TransactionCreated' {
-//		check 'TransactionEnded', 'TransactionAdded';
-//	}
+	assertOrder *, ATM.Withdraw.call_validatePin, *, ATM.Withdraw.call_makeWithdrawal, *;
+	assertState eventually after constraint 'TransactionCreated' {
+		check 'TransactionEnded', 'TransactionAdded' on ATM.Withdraw.context.result;
+	}
 	finally {
 		ATM.Withdraw.readAccount.result::Account.balance = 0;
 		check 'NumOfDeposits', 'NumOfWithdrawsSuccess', 'BalanceRecords' on ATM.Withdraw.readAccount.result;
@@ -27,10 +27,10 @@ test atmTransactionTest activity ATM.Withdraw(ATM.Withdraw.card=BankingTestData.
 test atmTransactionFail activity ATM.Withdraw(ATM.Withdraw.card = BankingTestData.cardTD, 
 	ATM.Withdraw.pin = 1985, ATM.Withdraw.amount = 200) on BankingTestData.atmTD{
 	initialize BankingTestData;
-//	assertOrder *, ATM.Withdraw.call_validatePin, *, ATM.Withdraw.call_makeWithdrawal, *;
-//	assertState eventually after constraint 'TransactionCreated' {
-//		check 'TransactionEnded', 'TransactionAdded';
-//	}
+	assertOrder *, ATM.Withdraw.call_validatePin, *, ATM.Withdraw.call_makeWithdrawal, *;
+	assertState eventually after constraint 'TransactionCreated' {
+		check 'TransactionEnded', 'TransactionAdded' on ATM.Withdraw.context.result;
+	}
 	finally {
 		ATM.Withdraw.readAccount.result::Account.balance = 100;
 		check 'NumOfDeposits', 'NumOfWithdrawsFail', 'BalanceRecords' on ATM.Withdraw.readAccount.result;

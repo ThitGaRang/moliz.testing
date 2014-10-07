@@ -6381,7 +6381,7 @@
           </children>
           <styles xmi:type="notation:HintedDiagramLinkStyle" xmi:id="_9_G30PMAEeO3eNFe961kVQ"/>
           <element xmi:type="uml:ReadSelfAction" href="banking.uml#_9_EbkPMAEeO3eNFe961kVQ"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_9_G30fMAEeO3eNFe961kVQ" x="975" y="267" width="138"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_9_G30fMAEeO3eNFe961kVQ" x="975" y="267" width="144"/>
         </children>
         <children xmi:type="notation:Shape" xmi:id="_GEbZIPMBEeO3eNFe961kVQ" type="3010" fontName="Segoe UI" lineColor="0">
           <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_GEcAMPMBEeO3eNFe961kVQ" source="ShadowFigure">
@@ -7488,7 +7488,7 @@
           </children>
           <styles xmi:type="notation:HintedDiagramLinkStyle" xmi:id="_DunGYfMDEeO3eNFe961kVQ"/>
           <element xmi:type="uml:ReadSelfAction" href="banking.uml#_DukqIPMDEeO3eNFe961kVQ"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DunGYvMDEeO3eNFe961kVQ" x="881" y="254" width="140"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DunGYvMDEeO3eNFe961kVQ" x="881" y="254" width="148"/>
         </children>
         <children xmi:type="notation:Shape" xmi:id="_U4mtMPMDEeO3eNFe961kVQ" type="3010" fontName="Segoe UI" lineColor="0">
           <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_U4mtM_MDEeO3eNFe961kVQ" source="ShadowFigure">

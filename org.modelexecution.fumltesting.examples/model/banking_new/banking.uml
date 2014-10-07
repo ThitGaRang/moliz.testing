@@ -187,7 +187,7 @@
             <upperBound xmi:type="uml:LiteralInteger" xmi:id="_s3nLYPMAEeO3eNFe961kVQ" value="1"/>
           </result>
         </node>
-        <node xmi:type="uml:ReadSelfAction" xmi:id="_9_EbkPMAEeO3eNFe961kVQ" name="context" incoming="_QOOToPMBEeO3eNFe961kVQ">
+        <node xmi:type="uml:ReadSelfAction" xmi:id="_9_EbkPMAEeO3eNFe961kVQ" name="contextForEndTransaction" incoming="_QOOToPMBEeO3eNFe961kVQ">
           <result xmi:type="uml:OutputPin" xmi:id="_BCV_UPMBEeO3eNFe961kVQ" name="result" outgoing="_LP2VIPMBEeO3eNFe961kVQ" type="_5L1JwO2UEeOmmYzDIlRbrw">
             <upperBound xmi:type="uml:LiteralInteger" xmi:id="_BCV_UfMBEeO3eNFe961kVQ" value="1"/>
           </result>
@@ -376,7 +376,7 @@
             <upperBound xmi:type="uml:LiteralInteger" xmi:id="_z0XQM_MCEeO3eNFe961kVQ" value="1"/>
           </target>
         </node>
-        <node xmi:type="uml:ReadSelfAction" xmi:id="_DukqIPMDEeO3eNFe961kVQ" name="context" incoming="_LhP8QPMDEeO3eNFe961kVQ">
+        <node xmi:type="uml:ReadSelfAction" xmi:id="_DukqIPMDEeO3eNFe961kVQ" name="contextForEndTransaction" incoming="_LhP8QPMDEeO3eNFe961kVQ">
           <result xmi:type="uml:OutputPin" xmi:id="_G5xa0PMDEeO3eNFe961kVQ" name="result" outgoing="_Z7y6QPMDEeO3eNFe961kVQ" type="_5L1JwO2UEeOmmYzDIlRbrw">
             <upperBound xmi:type="uml:LiteralInteger" xmi:id="_G5xa0fMDEeO3eNFe961kVQ" value="1"/>
           </result>

@@ -863,15 +863,18 @@ public class StateAssertionValidator {
 			}
 			return true;
 		case EVENTUALLY:
-			for (int i = results.size() - 1; i >= 0; i--) {
-				if (results.get(i) == false) {
-					for (int j = i + 1; j < results.size(); j++) {
-						if (results.get(j) == false)
+			boolean becameTrue = false;
+			for (Boolean result : results) {
+				if (result == true) {
+					int resultIndex = results.indexOf(result);
+					for (int i = resultIndex; i < results.size(); i++) {
+						if (results.get(i) == false)
 							return false;
 					}
-					return true;
+					becameTrue = true;
 				}
 			}
+			return becameTrue;
 		case IMMEDIATELY:
 			return results.get(0);
 		case SOMETIMES:

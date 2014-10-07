@@ -30,12 +30,12 @@ test atmTransactionTest activity ATM.Withdraw(ATM.Withdraw.card=BankingTestData.
 test atmTransactionFail activity ATM.Withdraw(ATM.Withdraw.card = BankingTestData.cardTD, 
 	ATM.Withdraw.pin = 1985, ATM.Withdraw.amount = 200) on BankingTestData.atmTD{
 	assertOrder *, ATM.Withdraw.call_validatePin, *, ATM.Withdraw.call_makeWithdrawal, *;
-//	assertState eventually after constraint 'TransactionCreated' {
-//		check 'TransactionEnded', 'TransactionAdded';
-//	}
-//	finally {
-//		ATM.Withdraw.readAccount.result::Account.balance = 100;
-//		check 'NumOfWithdrawsFail', 'BalanceRecords' on ATM.Withdraw.readAccount.result;
-//		ATM.Withdraw.success = false;
-//	}
+	assertState eventually after constraint 'TransactionCreated' {
+		check 'TransactionEnded', 'TransactionAdded';
+	}
+	finally {
+		ATM.Withdraw.readAccount.result::Account.balance = 100;
+		check 'NumOfWithdrawsFail', 'BalanceRecords' on ATM.Withdraw.readAccount.result;
+		ATM.Withdraw.success = false;
+	}
 }
