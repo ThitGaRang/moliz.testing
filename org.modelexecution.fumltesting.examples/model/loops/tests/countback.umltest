@@ -1,0 +1,9 @@
+import Model.structure.*
+import Model.behavior.*
+
+test coundBackTest activity CountBack(Model.behavior.CountBack.number=1) {
+	assertOrder *;
+	finally{
+		Model.behavior.CountBack.result = 0;
+	}
+}
