@@ -77,6 +77,12 @@
         <children>
           <emfPageIdentifier href="banking.notation#_cMPpAPL6EeO3eNFe961kVQ"/>
         </children>
+        <children>
+          <emfPageIdentifier href="banking.notation#_H-TRwPDFEeOjn9ENJkZYjg"/>
+        </children>
+        <children>
+          <emfPageIdentifier href="banking.notation#_zoPTIPFqEeOWEp_hLkUQHQ"/>
+        </children>
       </children>
     </windows>
   </sashModel>

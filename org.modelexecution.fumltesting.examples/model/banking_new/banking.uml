@@ -743,7 +743,7 @@
           </result>
           <behavior xmi:type="uml:OpaqueBehavior" href="pathmap://UML_LIBRARY/uml_library.uml#_3NE5YN_aEeKxs-T-7hfQjA"/>
         </node>
-        <node xmi:type="uml:AddStructuralFeatureValueAction" xmi:id="_RsKPcPDLEeOjn9ENJkZYjg" name="setNewBalance" structuralFeature="_dVAMYPLwEeO3eNFe961kVQ">
+        <node xmi:type="uml:AddStructuralFeatureValueAction" xmi:id="_RsKPcPDLEeOjn9ENJkZYjg" name="setNewBalance" structuralFeature="_dVAMYPLwEeO3eNFe961kVQ" isReplaceAll="true">
           <object xmi:type="uml:InputPin" xmi:id="_RsMEovDLEeOjn9ENJkZYjg" name="object" incoming="_zetj8PDLEeOjn9ENJkZYjg" type="_RS4pUO2VEeOmmYzDIlRbrw">
             <upperBound xmi:type="uml:LiteralInteger" xmi:id="_RsMEo_DLEeOjn9ENJkZYjg" value="1"/>
           </object>
@@ -912,7 +912,7 @@
         </node>
         <node xmi:type="uml:ForkNode" xmi:id="_lYgZ0PFxEeOWEp_hLkUQHQ" name="splitBalance" outgoing="_rAjncPFxEeOWEp_hLkUQHQ _yF5ScPFxEeOWEp_hLkUQHQ" incoming="_ok_j8PFxEeOWEp_hLkUQHQ"/>
         <node xmi:type="uml:ForkNode" xmi:id="_4SILMPFxEeOWEp_hLkUQHQ" name="splitAmount" outgoing="_9pf4gPFxEeOWEp_hLkUQHQ _BRfS4PFyEeOWEp_hLkUQHQ _-nNMAPFzEeOWEp_hLkUQHQ" incoming="_7QsOEPFxEeOWEp_hLkUQHQ"/>
-        <node xmi:type="uml:AddStructuralFeatureValueAction" xmi:id="_UwK5IPFyEeOWEp_hLkUQHQ" name="setBalance" outgoing="_QTIQoPFzEeOWEp_hLkUQHQ" structuralFeature="_dVAMYPLwEeO3eNFe961kVQ" isReplaceAll="true">
+        <node xmi:type="uml:AddStructuralFeatureValueAction" xmi:id="_UwK5IPFyEeOWEp_hLkUQHQ" name="setBalance" outgoing="_QTIQoPFzEeOWEp_hLkUQHQ" structuralFeature="_dVAMYPLwEeO3eNFe961kVQ">
           <object xmi:type="uml:InputPin" xmi:id="_UwN8cPFyEeOWEp_hLkUQHQ" name="object" incoming="_8E9uMPFyEeOWEp_hLkUQHQ" type="_RS4pUO2VEeOmmYzDIlRbrw">
             <upperBound xmi:type="uml:LiteralInteger" xmi:id="_UwN8cfFyEeOWEp_hLkUQHQ" value="1"/>
           </object>

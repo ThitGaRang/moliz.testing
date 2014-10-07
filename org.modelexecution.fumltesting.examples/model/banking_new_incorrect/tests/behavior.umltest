@@ -16,6 +16,7 @@ scenario BankingTestData[
 
 test atmTransactionTest activity ATM.Withdraw(ATM.Withdraw.card=BankingTestData.cardTD, 
 		ATM.Withdraw.pin=1985, ATM.Withdraw.amount = 100) on BankingTestData.atmTD{
+	initialize BankingTestData;
 	assertOrder *, ATM.Withdraw.call_validatePin, *, ATM.Withdraw.call_makeWithdrawal, *;
 	assertState eventually after constraint 'TransactionCreated' {
 		check 'TransactionEnded', 'TransactionAdded';
@@ -29,6 +30,7 @@ test atmTransactionTest activity ATM.Withdraw(ATM.Withdraw.card=BankingTestData.
 
 test atmTransactionFail activity ATM.Withdraw(ATM.Withdraw.card = BankingTestData.cardTD, 
 	ATM.Withdraw.pin = 1985, ATM.Withdraw.amount = 200) on BankingTestData.atmTD{
+	initialize BankingTestData;
 	assertOrder *, ATM.Withdraw.call_validatePin, *, ATM.Withdraw.call_makeWithdrawal, *;
 	assertState eventually after constraint 'TransactionCreated' {
 		check 'TransactionEnded', 'TransactionAdded';
