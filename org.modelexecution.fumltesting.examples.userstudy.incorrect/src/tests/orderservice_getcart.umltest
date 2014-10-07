@@ -15,7 +15,7 @@ test getCartTest activity OrderService.GetCart(OrderService.GetCart.customer=Ord
 	assertOrder *, OrderService.GetCart.getCart, *, OrderService.GetCart.listSize, *, OrderService.GetCart.sizeEquals, 
 		OrderService.GetCart.cartExistsDecision, OrderService.GetCart.newCart, OrderService.GetCart.setCart, OrderService.GetCart.getCartForOutput;
 	assertState immediately after action OrderService.GetCart.getCart{
-		GetCart.getCart.result = null;
+		OrderService.GetCart.getCart.result = null;
 	}
 	finally{
 		OrderService.GetCart.cart != null;
@@ -27,7 +27,7 @@ test getCartTest2 activity OrderService.GetCart(OrderService.GetCart.customer=Or
 	assertOrder *, OrderService.GetCart.getCart, *, OrderService.GetCart.listSize, *, OrderService.GetCart.sizeEquals, 
 		OrderService.GetCart.cartExistsDecision, OrderService.GetCart.getCartForOutput;
 	assertState immediately after action OrderService.GetCart.getCart{
-		GetCart.getCart.result != null;
+		OrderService.GetCart.getCart.result != null;
 	}
 	finally{
 		OrderService.GetCart.cart != null;

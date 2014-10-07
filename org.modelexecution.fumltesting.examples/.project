@@ -54,8 +54,8 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1409315443011</id>
-			<name>model/banking_new</name>
+			<id>1412625881284</id>
+			<name>model/banking_new_incorrect</name>
 			<type>30</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>
@@ -63,8 +63,8 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1412625881284</id>
-			<name>model/banking_new_incorrect</name>
+			<id>1412701078358</id>
+			<name>model/loops</name>
 			<type>30</type>
 			<matcher>
 				<id>org.eclipse.ui.ide.multiFilter</id>

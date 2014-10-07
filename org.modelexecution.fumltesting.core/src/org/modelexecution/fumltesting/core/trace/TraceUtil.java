@@ -327,6 +327,9 @@ public class TraceUtil {
 	}
 
 	private ActivityNodeExecution getLastNode(ActivityNodeExecution nodeExecution, ActivityNodeList nodeList) {
+		if(nodeExecution.getChronologicalSuccessor() == null){
+			return nodeExecution;
+		}
 		fUML.Syntax.Activities.IntermediateActivities.ActivityNode successor = nodeExecution.getChronologicalSuccessor().getNode();
 		fUML.Syntax.Activities.IntermediateActivities.ActivityNode successorOfSuccessor = null;
 

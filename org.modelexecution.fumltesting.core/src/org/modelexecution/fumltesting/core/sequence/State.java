@@ -8,6 +8,7 @@ package org.modelexecution.fumltesting.core.sequence;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
@@ -26,13 +27,15 @@ import fUML.Semantics.Classes.Kernel.Value;
  */
 public class State {
 
+	private Sequence sequence;
 	private ActivityNodeExecution stateCreator;
 	private HashMap<ValueInstance, Object_> objectSnapshotMappings = new HashMap<ValueInstance, Object_>();
 	private HashMap<ValueInstance, Link> linkSnapshotMappings = new HashMap<ValueInstance, Link>();
 	private State successor;
 	private State predecessor;
 
-	public State(ActivityNodeExecution stateCreator) {
+	public State(Sequence sequence, ActivityNodeExecution stateCreator) {
+		this.sequence = sequence;
 		this.stateCreator = stateCreator;
 	}
 
@@ -84,7 +87,13 @@ public class State {
 		if (!linkSnapshotMappings.containsValue(link))
 			return null;
 		FeatureValue targetFeatureValue = null;
-		for (ValueInstance instance : stateCreator.getActivityExecution().getTrace().getValueInstances()) {
+		List<ValueInstance> instances = null;
+		if (stateCreator != null) {
+			instances = sequence.getActivityExecution().getTrace().getValueInstances();
+		} else {
+			instances = sequence.getActivityExecution().getTrace().getInitialLocusValueInstances();
+		}
+		for (ValueInstance instance : instances) {
 			for (FeatureValue featureValue : link.featureValues) {
 				if (link.type.navigableOwnedEnd.contains(featureValue.feature)) {
 					targetFeatureValue = featureValue;
@@ -101,7 +110,13 @@ public class State {
 		if (!linkSnapshotMappings.containsValue(link))
 			return null;
 		FeatureValue sourceFeatureValue = null;
-		for (ValueInstance instance : stateCreator.getActivityExecution().getTrace().getValueInstances()) {
+		List<ValueInstance> instances = null;
+		if (stateCreator != null) {
+			instances = sequence.getActivityExecution().getTrace().getValueInstances();
+		} else {
+			instances = sequence.getActivityExecution().getTrace().getInitialLocusValueInstances();
+		}
+		for (ValueInstance instance : instances) {
 			for (FeatureValue featureValue : link.featureValues) {
 				if (!link.type.navigableOwnedEnd.contains(featureValue.feature)) {
 					sourceFeatureValue = featureValue;

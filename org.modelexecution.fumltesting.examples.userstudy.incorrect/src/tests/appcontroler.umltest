@@ -18,7 +18,7 @@ test appControllerLoginTest activity ApplicationController.Login(ApplicationCont
 	initialize TestData;
 	assertOrder *, ApplicationController.Login.callCreateSession;
 	assertState immediately after action ApplicationController.Login.callLogin{
-		Login.callLogin.customer != null;
+		ApplicationController.Login.callLogin.customer != null;
 	}
 	finally{
 		ApplicationController.Login.sessionID = 0;
@@ -30,7 +30,7 @@ test appControllerLoginFailTest activity ApplicationController.Login(Application
 	initialize TestData;
 	assertOrder *, ApplicationController.Login.notFoundValue, *;
 	assertState immediately after action ApplicationController.Login.callLogin{
-		Login.callLogin.customer = null;
+		ApplicationController.Login.callLogin.customer = null;
 	}
 	finally{
 		ApplicationController.Login.sessionID = -1;

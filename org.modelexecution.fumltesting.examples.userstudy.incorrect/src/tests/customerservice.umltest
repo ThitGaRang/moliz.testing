@@ -39,8 +39,8 @@ test checkCredentialsPassFail activity CustomerService.CheckCredentials(Customer
 test checkFindCustomerSuccess activity CustomerService.FindCustomer(CustomerService.FindCustomer.login='customerOne', CustomerService.FindCustomer.password='pass1') on TestData.customerService{
 	initialize TestData;
 	assertState immediately after action CustomerService.FindCustomer.retrieveCustomers{
-		FindCustomer.retrieveCustomers.result includes TestData.customerOne;
-		FindCustomer.retrieveCustomers.result includes TestData.customerTwo;
+		CustomerService.FindCustomer.retrieveCustomers.result includes TestData.customerOne;
+		CustomerService.FindCustomer.retrieveCustomers.result includes TestData.customerTwo;
 	}
 	
 	finally{

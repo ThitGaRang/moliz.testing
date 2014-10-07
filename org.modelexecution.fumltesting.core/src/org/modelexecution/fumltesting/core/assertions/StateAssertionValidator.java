@@ -111,7 +111,7 @@ public class StateAssertionValidator {
 				if (check instanceof ConstraintCheck) {
 					ArrayList<Boolean> results = new ArrayList<Boolean>();
 					for (String constraintName : ((ConstraintCheck) check).getConstraintNames()) {
-						ArrayList<ValueInstance> contextObjects = null;
+						ArrayList<ValueInstance> contextObjects = new ArrayList<ValueInstance>();
 						if (((ConstraintCheck) check).getObject() != null) {
 							try {
 								Object nodeExecution = traceUtil.getExecution(((ConstraintCheck) check).getObject().owner);
@@ -126,8 +126,14 @@ public class StateAssertionValidator {
 						for (State state : states) {
 							boolean constraintResultInSingleState = false;
 							try {
-								for (ValueInstance contextObject : contextObjects) {
-									constraintResultInSingleState = OclExecutor.getInstance().checkConstraint(constraintName, contextObject, state);
+								if (contextObjects.size() > 0) {
+									for (ValueInstance contextObject : contextObjects) {
+										constraintResultInSingleState = OclExecutor.getInstance().checkConstraint(constraintName, contextObject, state);
+										results.add(constraintResultInSingleState);
+										constraintResult.putStateResult(state, constraintResultInSingleState);
+									}
+								} else {
+									constraintResultInSingleState = OclExecutor.getInstance().checkConstraint(constraintName, null, state);
 									results.add(constraintResultInSingleState);
 									constraintResult.putStateResult(state, constraintResultInSingleState);
 								}

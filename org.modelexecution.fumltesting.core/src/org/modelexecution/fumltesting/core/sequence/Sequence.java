@@ -37,7 +37,7 @@ public class Sequence {
 	}
 
 	public State createNewState() {
-		State state = new State(null);
+		State state = new State(this, null);
 		if (lastState != null) {
 			for (ValueInstance instance : lastState.getStateObjectInstances()) {
 				Object_ object = lastState.getStateObjectSnapshot(instance);
@@ -56,7 +56,7 @@ public class Sequence {
 	}
 
 	public State createNewState(ActivityNodeExecution stateCreator) {
-		State state = new State(stateCreator);
+		State state = new State(this, stateCreator);
 		if (lastState != null) {
 			for (ValueInstance instance : lastState.getStateObjectInstances()) {
 				Object_ object = lastState.getStateObjectSnapshot(instance);
@@ -75,7 +75,7 @@ public class Sequence {
 	}
 
 	public State createNewState(State anotherState) {
-		State state = new State(null);
+		State state = new State(this, null);
 		if (lastState != null) {
 			for (ValueInstance instance : anotherState.getStateObjectInstances()) {
 				Object_ object = anotherState.getStateObjectSnapshot(instance);

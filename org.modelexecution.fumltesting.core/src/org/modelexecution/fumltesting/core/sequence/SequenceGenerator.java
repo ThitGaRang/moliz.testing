@@ -20,11 +20,8 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueSnapshot;
 import org.modelexecution.fumltesting.core.exceptions.SequenceGeneratorException;
 
-import fUML.Semantics.Classes.Kernel.FeatureValue;
 import fUML.Semantics.Classes.Kernel.Link;
 import fUML.Semantics.Classes.Kernel.Object_;
-import fUML.Semantics.Classes.Kernel.Reference;
-import fUML.Semantics.Classes.Kernel.Value;
 import fUML.Syntax.Actions.BasicActions.CallBehaviorAction;
 import fUML.Syntax.Actions.BasicActions.CallOperationAction;
 import fUML.Syntax.Actions.CompleteActions.ReadExtentAction;
@@ -103,10 +100,9 @@ public class SequenceGenerator {
 				initialObjects.add((Object_) instance.getOriginal().getValue());
 				state.addStateObjectSnapshot((Object_) instance.getOriginal().getValue(), instance);
 			}
-		}
-
-		for (Object_ initialObject : initialObjects) {
-			addLinksOfInitialObject(initialObject, state);
+			if (instance.getRuntimeValue() != null && instance.getRuntimeValue() instanceof Link) {
+				state.addStateLinkSnapshot((Link) instance.getRuntimeValue(), instance);
+			}
 		}
 	}
 
@@ -236,38 +232,5 @@ public class SequenceGenerator {
 			}
 		}
 		return null;
-	}
-
-	private void addLinksOfInitialObject(Object_ object, State state) {
-		Link link = null;
-		for (ValueInstance instance : trace.getInitialLocusValueInstances()) {
-			if (instance.getRuntimeValue() != null && instance.getRuntimeValue() instanceof Link) {
-				link = (Link) instance.getRuntimeValue();
-				FeatureValue linkSource = null;
-				FeatureValue linkTarget = null;
-				for (FeatureValue featureValue : link.featureValues) {
-					if (!link.type.navigableOwnedEnd.contains(featureValue.feature))
-						linkSource = featureValue;
-					else
-						linkTarget = featureValue;
-				}
-				if (linkSource == null) {
-					for (FeatureValue featureValue : link.featureValues) {
-						if (featureValue != linkTarget) {
-							linkSource = featureValue;
-						}
-					}
-				}
-				for (Value reference : linkSource.values) {
-					Reference theSourceReference = (Reference) reference;
-					if (object.equals(theSourceReference.referent)) {
-						Object_ targetValue = ((Reference) linkTarget.values.get(0)).referent;
-						ValueInstance targetInstance = trace.getValueInstance(targetValue);
-						state.addStateObjectSnapshot((Object_) targetInstance.getOriginal().getValue(), targetInstance);
-						state.addStateLinkSnapshot(link, instance);
-					}
-				}
-			}
-		}
 	}
 }
