@@ -12839,6 +12839,10 @@
         <element xmi:type="uml:ActivityParameterNode" href="petstore.uml#_WQ6f0ODWEeKbNtLCas5YyQ"/>
         <layoutConstraint xmi:type="notation:Bounds" xmi:id="_WRWksuDWEeKbNtLCas5YyQ" x="1030" y="74"/>
       </children>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_QQnNcE8QEeSkT7pU8Vcg2g" visible="false" type="compartment_shape_display">
+        <styles xmi:type="notation:TitleStyle" xmi:id="_QQnNcU8QEeSkT7pU8Vcg2g"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_QQnNck8QEeSkT7pU8Vcg2g"/>
+      </children>
       <element xmi:type="uml:Activity" href="petstore.uml#_PsB2gODWEeKbNtLCas5YyQ"/>
       <layoutConstraint xmi:type="notation:Bounds" xmi:id="_TT-NqODWEeKbNtLCas5YyQ" width="888" height="348"/>
     </children>

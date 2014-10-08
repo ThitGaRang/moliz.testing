@@ -17,8 +17,8 @@ test appControllerLoginTest activity ApplicationController.Login(ApplicationCont
 		ApplicationController.Login.password='pass') on TestData.appController{
 	initialize TestData;
 	assertOrder *, ApplicationController.Login.callCreateSession;
-	assertState immediately after action ApplicationController.Login.callLogin{
-		ApplicationController.Login.callLogin.customer != null;
+	assertState immediately after action ApplicationController.Login.callFindCustomer{
+		ApplicationController.Login.callFindCustomer.customer != null;
 	}
 	finally{
 		ApplicationController.Login.sessionID = 0;
@@ -29,8 +29,8 @@ test appControllerLoginFailTest activity ApplicationController.Login(Application
 	ApplicationController.Login.password='pass1') on TestData.appController{
 	initialize TestData;
 	assertOrder *, ApplicationController.Login.notFoundValue, *;
-	assertState immediately after action ApplicationController.Login.callLogin{
-		ApplicationController.Login.callLogin.customer = null;
+	assertState immediately after action ApplicationController.Login.callFindCustomer{
+		ApplicationController.Login.callFindCustomer.customer = null;
 	}
 	finally{
 		ApplicationController.Login.sessionID = -1;
