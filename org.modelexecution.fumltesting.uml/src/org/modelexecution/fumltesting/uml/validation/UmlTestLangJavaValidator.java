@@ -3,9 +3,14 @@
  */
 package org.modelexecution.fumltesting.uml.validation;
 
+import java.util.ArrayList;
+
 import org.eclipse.xtext.validation.Check;
+import org.modelexecution.fumltesting.uml.umlTestLang.UMLLink;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLNodeSpecification;
+import org.modelexecution.fumltesting.uml.umlTestLang.UMLObjectSpecification;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLOrderAssertion;
+import org.modelexecution.fumltesting.uml.umlTestLang.UMLScenario;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLStateAssertion;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLTemporalOperator;
 import org.modelexecution.fumltesting.uml.umlTestLang.UmlTestLangPackage;
@@ -39,6 +44,25 @@ public class UmlTestLangJavaValidator extends AbstractUmlTestLangJavaValidator {
 		}
 		if (subsequentJokerUsed)
 			error("Use of subsequent jokers is not allowed!", UmlTestLangPackage.Literals.UML_ORDER_ASSERTION__ORDER);
+	}
+
+	@Check
+	public void checkObjectNames(UMLScenario scenario) {
+		ArrayList<String> names = new ArrayList<String>();
+		for (UMLObjectSpecification specification : scenario.getObjects()) {
+			if (names.contains(specification.getName())) {
+				error("Objects must have unique names!", UmlTestLangPackage.Literals.UML_SCENARIO__NAME);
+			} else {
+				names.add(specification.getName());
+			}
+		}
+	}
+	
+	@Check
+	public void checkLinkEnds(UMLLink link){
+		if(link.getSourceProperty() == link.getTargetProperty()){
+			error("Same source and target specified!", UmlTestLangPackage.Literals.UML_LINK__ASSOC);
+		}
 	}
 
 	private boolean isStar(UMLNodeSpecification nodeSpecification) {

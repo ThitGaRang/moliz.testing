@@ -101,12 +101,20 @@ public class UmlTestLangScopeProvider extends XbaseScopeProvider {
 
 		/** ACTIVITY PARAMETER ASSIGNMENT SCOPE */
 		if (context instanceof UMLTestCase && reference.getName().equals("parameter")) {
+			UMLTestCase testCase = (UMLTestCase) context;
 			ArrayList<ActivityNode> nodes = new ArrayList<ActivityNode>();
-			Activity activity = (Activity) ((UMLTestCase) context).getActivityUnderTest();
+			Activity activity = (Activity) testCase.getActivityUnderTest();
 			for (ActivityNode node : activity.getNodes()) {
 				if (node.getOwner().equals(activity) && node instanceof ActivityParameterNode
-						&& ((ActivityParameterNode) node).getParameter().getDirection() == ParameterDirectionKind.IN_LITERAL)
-					nodes.add(node);
+						&& ((ActivityParameterNode) node).getParameter().getDirection() == ParameterDirectionKind.IN_LITERAL) {
+					boolean alreadyAdded = false;
+					for (UMLActivityInput input : testCase.getInputs()) {
+						if (input.getParameter() == node)
+							alreadyAdded = true;
+					}
+					if (!alreadyAdded)
+						nodes.add(node);
+				}
 			}
 			return Scopes.scopeFor(nodes, new UmlQualifiedNameProvider(), IScope.NULLSCOPE);
 		}
@@ -126,8 +134,16 @@ public class UmlTestLangScopeProvider extends XbaseScopeProvider {
 			UMLObjectSpecification specification = (UMLObjectSpecification) context;
 			ArrayList<Property> properties = new ArrayList<Property>();
 			for (Property property : ((Class) specification.getType()).getAttributes()) {
-				if (property.getType() instanceof PrimitiveType)
-					properties.add(property);
+				if (property.getType() instanceof PrimitiveType) {
+					boolean alreadyAdded = false;
+					for (UMLAttribute attribute : specification.getAttributes()) {
+						if (attribute.getAtt() == property) {
+							alreadyAdded = true;
+						}
+					}
+					if (!alreadyAdded)
+						properties.add(property);
+				}
 			}
 			return Scopes.scopeFor(properties, new UmlQualifiedNameProvider(), IScope.NULLSCOPE);
 		}
@@ -270,9 +286,10 @@ public class UmlTestLangScopeProvider extends XbaseScopeProvider {
 			if (context.eContainer() instanceof UMLStateAssertion) {
 				UMLStateAssertion stateAssertion = (UMLStateAssertion) context.eContainer();
 				UMLTestCase testCase = (UMLTestCase) stateAssertion.eContainer();
+				UMLTestSuite testSuite = (UMLTestSuite) testCase.eContainer();
 				ArrayList<UMLObjectSpecification> objects = new ArrayList<UMLObjectSpecification>();
 
-				for (UMLScenario scenario : testCase.getInitScenarios()) {
+				for (UMLScenario scenario : testSuite.getScenarios()) {
 					objects.addAll(scenario.getObjects());
 				}
 
@@ -280,9 +297,10 @@ public class UmlTestLangScopeProvider extends XbaseScopeProvider {
 			} else if (context.eContainer() instanceof FinallyStateAssertion) {
 				FinallyStateAssertion stateAssertion = (FinallyStateAssertion) context.eContainer();
 				UMLTestCase testCase = (UMLTestCase) stateAssertion.eContainer();
+				UMLTestSuite testSuite = (UMLTestSuite) testCase.eContainer();
 				ArrayList<UMLObjectSpecification> objects = new ArrayList<UMLObjectSpecification>();
 
-				for (UMLScenario scenario : testCase.getInitScenarios()) {
+				for (UMLScenario scenario : testSuite.getScenarios()) {
 					objects.addAll(scenario.getObjects());
 				}
 

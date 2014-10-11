@@ -196,7 +196,7 @@ public class TestSuiteSelectionTab extends AbstractLaunchConfigurationTab {
 		if (dialog.open() == Window.OK) {
 			Object[] files = dialog.getResult();
 			IFile file = (IFile) files[0];
-			modelResourceText.setText(file.getLocation().toString());
+			modelResourceText.setText(file.getFullPath().toString());
 		}
 
 	}
@@ -208,7 +208,7 @@ public class TestSuiteSelectionTab extends AbstractLaunchConfigurationTab {
 		if (dialog.open() == Window.OK) {
 			Object[] files = dialog.getResult();
 			IFile file = (IFile) files[0];
-			testSuiteResourceText.setText(file.getLocation().toString());
+			testSuiteResourceText.setText(file.getFullPath().toString());
 		}
 
 	}
@@ -220,7 +220,7 @@ public class TestSuiteSelectionTab extends AbstractLaunchConfigurationTab {
 		if (dialog.open() == Window.OK) {
 			Object[] files = dialog.getResult();
 			IFile file = (IFile) files[0];
-			oclResourceText.setText(file.getLocation().toString());
+			oclResourceText.setText(file.getFullPath().toString());
 		}
 
 	}

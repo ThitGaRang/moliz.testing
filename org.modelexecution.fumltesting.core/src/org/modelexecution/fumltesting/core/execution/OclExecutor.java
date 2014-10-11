@@ -6,7 +6,6 @@
  */
 package org.modelexecution.fumltesting.core.execution;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
@@ -27,6 +26,7 @@ import org.dresdenocl.parser.ParseException;
 import org.dresdenocl.pivotmodel.ConstrainableElement;
 import org.dresdenocl.pivotmodel.Constraint;
 import org.dresdenocl.pivotmodel.Property;
+import org.eclipse.emf.common.util.URI;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 import org.modelexecution.fumltesting.core.exceptions.ConstraintNotFoundException;
 import org.modelexecution.fumltesting.core.exceptions.ConstraintsNotLoadedException;
@@ -77,7 +77,7 @@ public class OclExecutor {
 		getInstance().modelProvider.initModel(modelPackage);
 	}
 
-	public void loadConstraints(File oclFile) throws ParseException {
+	public void loadConstraints(URI oclFile) throws ParseException {
 		constraints = new HashMap<String, Constraint>();
 		List<Constraint> constraintList = Ocl2ForEclipseFacade.parseConstraints(oclFile, modelProvider.getModel(), false);
 		for (Constraint constraint : constraintList) {
