@@ -15,6 +15,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.uml2.uml.Model;
 import org.eclipse.uml2.uml.NamedElement;
 import org.eclipse.uml2.uml.UMLPackage;
@@ -136,15 +137,17 @@ public class UmlTestExecutor {
 		new UmlSupport().preInvoke();
 		EPackage.Registry.INSTANCE.put(UMLPackage.eNS_URI, UMLPackage.eINSTANCE);
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put(UMLResource.FILE_EXTENSION, UMLResource.Factory.INSTANCE);
-		
+
 		Injector injector = new UmlTestLangStandaloneSetup().createInjectorAndDoEMFRegistration();
 		resourceSet = injector.getInstance(XtextResourceSet.class);
 		resourceSet.addLoadOption(XtextResource.OPTION_RESOLVE_ALL, Boolean.TRUE);
-		
+
 		umlResource = resourceSet.getResource(URI.createURI(umlModelPath), true);
 		umlResource.load(null);
 		testResource = resourceSet.getResource(URI.createURI(testsPath), true);
 		testResource.load(null);
+
+		EcoreUtil.resolveAll(resourceSet);
 
 		for (EObject model : umlResource.getContents()) {
 			if (model instanceof Model) {
