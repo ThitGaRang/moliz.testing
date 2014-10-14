@@ -175,10 +175,8 @@ public class StateAssertionValidator {
 		for (Check check : assertion.getAllChecks()) {
 			stateAssertion.addCheck(check);
 		}
-
-		// add the replacement state assertion instead of the finally assertion
-		assertion.getContainer().addAssertion(stateAssertion);
-		assertion.getContainer().removeAssertion(assertion);
+		
+		stateAssertion.setContainer(assertion.getContainer());
 
 		return check(stateAssertion);
 	}
