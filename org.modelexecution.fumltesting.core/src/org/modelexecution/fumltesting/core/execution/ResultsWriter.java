@@ -47,6 +47,7 @@ import fUML.Syntax.Activities.IntermediateActivities.ActivityFinalNode;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
 import fUML.Syntax.Activities.IntermediateActivities.DecisionNode;
+import fUML.Syntax.Activities.IntermediateActivities.ForkNode;
 import fUML.Syntax.Activities.IntermediateActivities.InitialNode;
 import fUML.Syntax.Activities.IntermediateActivities.MergeNode;
 import fUML.Syntax.Activities.IntermediateActivities.ObjectNode;
@@ -296,7 +297,7 @@ public class ResultsWriter {
 		for (int i = 0; i < executions.size(); i++) {
 			ActivityNodeExecution execution = executions.get(i);
 			if (execution.getNode() instanceof Action || execution.getNode() instanceof InitialNode || execution.getNode() instanceof ActivityFinalNode
-					|| execution.getNode() instanceof MergeNode || execution.getNode() instanceof DecisionNode) {
+					|| execution.getNode() instanceof MergeNode || execution.getNode() instanceof DecisionNode || execution.getNode() instanceof ForkNode) {
 				if (i == executions.size() - 1)
 					writer.print(execution.getNode().name);
 				else
