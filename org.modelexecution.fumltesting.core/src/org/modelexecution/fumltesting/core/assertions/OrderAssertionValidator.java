@@ -259,7 +259,7 @@ public class OrderAssertionValidator {
 				if (orderAssertionUtil.isUnderscore(firstNode) && orderAssertionUtil.isNode(secondNode) && orderAssertionUtil.isNode(thirdNode)) {
 					if (nodeBeforeWindowExists) {
 						if (nodeAfterWindowExists) {
-							if (secondIsStartNode || secondIsNotNextToThird || thirdIsEndNode)
+							if (secondIsStartNode || secondIsNotNextToThird)
 								return false;
 						} else {
 							if (secondIsStartNode || secondIsNotNextToThird || !thirdIsEndNode)
@@ -267,7 +267,7 @@ public class OrderAssertionValidator {
 						}
 					} else {
 						if (nodeAfterWindowExists) {
-							if (secondNodeIsNotNextToFirst || secondIsNotNextToThird || thirdIsEndNode)
+							if (secondNodeIsNotNextToFirst || secondIsNotNextToThird)
 								return false;
 						} else {
 							if (secondNodeIsNotNextToFirst || secondIsNotNextToThird || !thirdIsEndNode)
@@ -279,7 +279,7 @@ public class OrderAssertionValidator {
 				if (orderAssertionUtil.isStar(firstNode) && orderAssertionUtil.isNode(secondNode) && orderAssertionUtil.isNode(thirdNode)) {
 					if (nodeBeforeWindowExists) {
 						if (nodeAfterWindowExists) {
-							if (secondIsNotNextToThird || thirdIsEndNode)
+							if (secondIsNotNextToThird)
 								return false;
 						} else {
 							if (secondIsNotNextToThird || !thirdIsEndNode)
@@ -287,7 +287,7 @@ public class OrderAssertionValidator {
 						}
 					} else {
 						if (nodeAfterWindowExists) {
-							if (secondIsNotNextToThird || thirdIsEndNode)
+							if (secondIsNotNextToThird)
 								return false;
 						} else {
 							if (secondIsNotNextToThird || !thirdIsEndNode)
@@ -299,7 +299,7 @@ public class OrderAssertionValidator {
 				if (orderAssertionUtil.isNode(firstNode) && orderAssertionUtil.isUnderscore(secondNode) && orderAssertionUtil.isNode(thirdNode)) {
 					if (nodeBeforeWindowExists) {
 						if (nodeAfterWindowExists) {
-							if (firstIsStartNode || !oneNodeIsInBetween || thirdIsEndNode)
+							if (firstIsStartNode || !oneNodeIsInBetween)
 								return false;
 						} else {
 							if (firstIsStartNode || !oneNodeIsInBetween || !thirdIsEndNode)
@@ -307,7 +307,7 @@ public class OrderAssertionValidator {
 						}
 					} else {
 						if (nodeAfterWindowExists) {
-							if (!firstIsStartNode || !oneNodeIsInBetween || thirdIsEndNode)
+							if (!firstIsStartNode || !oneNodeIsInBetween)
 								return false;
 						} else {
 							if (!firstIsStartNode || !oneNodeIsInBetween || !thirdIsEndNode)
@@ -319,7 +319,7 @@ public class OrderAssertionValidator {
 				if (orderAssertionUtil.isNode(firstNode) && orderAssertionUtil.isStar(secondNode) && orderAssertionUtil.isNode(thirdNode)) {
 					if (nodeBeforeWindowExists) {
 						if (nodeAfterWindowExists) {
-							if (firstIsStartNode || !zeroOrMoreNodesIsInBetween || thirdIsEndNode)
+							if (firstIsStartNode || !zeroOrMoreNodesIsInBetween)
 								return false;
 						} else {
 							if (firstIsStartNode || !zeroOrMoreNodesIsInBetween || !thirdIsEndNode)
@@ -327,7 +327,7 @@ public class OrderAssertionValidator {
 						}
 					} else {
 						if (nodeAfterWindowExists) {
-							if (!firstIsStartNode || !zeroOrMoreNodesIsInBetween || thirdIsEndNode)
+							if (!firstIsStartNode || !zeroOrMoreNodesIsInBetween)
 								return false;
 						} else {
 							if (!firstIsStartNode || !zeroOrMoreNodesIsInBetween || !thirdIsEndNode)
@@ -339,7 +339,7 @@ public class OrderAssertionValidator {
 				if (orderAssertionUtil.isNode(firstNode) && orderAssertionUtil.isNode(secondNode) && orderAssertionUtil.isNode(thirdNode)) {
 					if (nodeBeforeWindowExists) {
 						if (nodeAfterWindowExists) {
-							if (firstIsStartNode || firstIsNotNextToSecond || secondIsNotNextToThird || thirdIsEndNode)
+							if (firstIsStartNode || firstIsNotNextToSecond || secondIsNotNextToThird)
 								return false;
 						} else {
 							if (firstIsStartNode || firstIsNotNextToSecond || secondIsNotNextToThird || !thirdIsEndNode)
@@ -347,7 +347,7 @@ public class OrderAssertionValidator {
 						}
 					} else {
 						if (nodeAfterWindowExists) {
-							if (!firstIsStartNode || firstIsNotNextToSecond || secondIsNotNextToThird || thirdIsEndNode)
+							if (!firstIsStartNode || firstIsNotNextToSecond || secondIsNotNextToThird)
 								return false;
 						} else {
 							if (!firstIsStartNode || firstIsNotNextToSecond || secondIsNotNextToThird || !thirdIsEndNode)

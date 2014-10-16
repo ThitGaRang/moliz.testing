@@ -6789,7 +6789,7 @@
           </children>
           <styles xmi:type="notation:HintedDiagramLinkStyle" xmi:id="_CtJwofIXEeOTq-1EUtWWNQ"/>
           <element xmi:type="uml:CallOperationAction" href="banking.uml#_BydqAPIXEeOTq-1EUtWWNQ"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_CtJwovIXEeOTq-1EUtWWNQ" x="396" y="61"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_CtJwovIXEeOTq-1EUtWWNQ" x="396" y="61" width="87"/>
         </children>
         <children xmi:type="notation:Shape" xmi:id="_jQECMPIXEeOTq-1EUtWWNQ" type="3088" fontHeight="8" lineColor="0">
           <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_jQEpQPIXEeOTq-1EUtWWNQ" source="ShadowFigure">

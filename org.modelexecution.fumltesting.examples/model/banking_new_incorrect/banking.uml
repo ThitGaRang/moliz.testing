@@ -223,7 +223,7 @@
           <upperBound xmi:type="uml:LiteralInteger" xmi:id="_n5dhIPIVEeOTq-1EUtWWNQ" value="1"/>
         </node>
         <node xmi:type="uml:ForkNode" xmi:id="_5gSYcPIWEeOTq-1EUtWWNQ" name="splitCard" outgoing="_JPk70PIXEeOTq-1EUtWWNQ _sVbrQPIXEeOTq-1EUtWWNQ" incoming="_9cBjcPMBEeO3eNFe961kVQ"/>
-        <node xmi:type="uml:CallOperationAction" xmi:id="_BydqAPIXEeOTq-1EUtWWNQ" name="call_validatePin" incoming="_K0x7APMHEeO3eNFe961kVQ" operation="_ARp4oO8kEeOTisF9WHSWEQ">
+        <node xmi:type="uml:CallOperationAction" xmi:id="_BydqAPIXEeOTq-1EUtWWNQ" name="validatePin" incoming="_K0x7APMHEeO3eNFe961kVQ" operation="_ARp4oO8kEeOTisF9WHSWEQ">
           <argument xmi:type="uml:InputPin" xmi:id="_Cs8VQPIXEeOTq-1EUtWWNQ" name="pin" incoming="_Lwy7YPIXEeOTq-1EUtWWNQ">
             <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Cs88UPIXEeOTq-1EUtWWNQ" source="PinToParameterLink">
               <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Cs9jYPIXEeOTq-1EUtWWNQ" key="PinToParameterLink" value="_F4AdIO8kEeOTisF9WHSWEQ"/>
@@ -250,7 +250,7 @@
             <upperBound xmi:type="uml:LiteralInteger" xmi:id="_jQAX0fIXEeOTq-1EUtWWNQ" value="1"/>
           </result>
         </node>
-        <node xmi:type="uml:CallOperationAction" xmi:id="_6SCJAPIXEeOTq-1EUtWWNQ" name="call_makeWithdrawal" outgoing="_LhP8QPMDEeO3eNFe961kVQ" operation="__jYqAPC7EeOjn9ENJkZYjg">
+        <node xmi:type="uml:CallOperationAction" xmi:id="_6SCJAPIXEeOTq-1EUtWWNQ" name="makeWithdrawal" outgoing="_LhP8QPMDEeO3eNFe961kVQ" operation="__jYqAPC7EeOjn9ENJkZYjg">
           <argument xmi:type="uml:InputPin" xmi:id="_7Y_xEPIXEeOTq-1EUtWWNQ" name="amount" incoming="_HkHqIPIYEeOTq-1EUtWWNQ">
             <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_7ZAYIPIXEeOTq-1EUtWWNQ" source="PinToParameterLink">
               <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_7ZAYIfIXEeOTq-1EUtWWNQ" key="PinToParameterLink" value="_DfnPAPC8EeOjn9ENJkZYjg"/>
@@ -272,17 +272,17 @@
         <node xmi:type="uml:ActivityParameterNode" xmi:id="_zEtxYPMBEeO3eNFe961kVQ" name="card" outgoing="_9cBjcPMBEeO3eNFe961kVQ" type="_EotcwO2VEeOmmYzDIlRbrw" parameter="_2T2m4PMBEeO3eNFe961kVQ">
           <upperBound xmi:type="uml:LiteralInteger" xmi:id="_zEu_gPMBEeO3eNFe961kVQ" value="1"/>
         </node>
-        <node xmi:type="uml:CallOperationAction" xmi:id="_FcsOQPMCEeO3eNFe961kVQ" name="call_startNewTransaction" outgoing="_K0x7APMHEeO3eNFe961kVQ" operation="_Zk3tMPLxEeO3eNFe961kVQ">
+        <node xmi:type="uml:CallOperationAction" xmi:id="_FcsOQPMCEeO3eNFe961kVQ" name="startNewTransaction" outgoing="_K0x7APMHEeO3eNFe961kVQ" operation="_Zk3tMPLxEeO3eNFe961kVQ">
           <target xmi:type="uml:InputPin" xmi:id="_GOJgYPMCEeO3eNFe961kVQ" name="target" incoming="_L_fz8PMCEeO3eNFe961kVQ" type="_5L1JwO2UEeOmmYzDIlRbrw">
             <upperBound xmi:type="uml:LiteralInteger" xmi:id="_GOJgYfMCEeO3eNFe961kVQ" value="1"/>
           </target>
         </node>
-        <node xmi:type="uml:ReadSelfAction" xmi:id="_DukqIPMDEeO3eNFe961kVQ" name="contextForEndTransaction" incoming="_LhP8QPMDEeO3eNFe961kVQ">
+        <node xmi:type="uml:ReadSelfAction" xmi:id="_DukqIPMDEeO3eNFe961kVQ" name="contextForEnd" incoming="_LhP8QPMDEeO3eNFe961kVQ">
           <result xmi:type="uml:OutputPin" xmi:id="_G5xa0PMDEeO3eNFe961kVQ" name="result" outgoing="_Z7y6QPMDEeO3eNFe961kVQ" type="_5L1JwO2UEeOmmYzDIlRbrw">
             <upperBound xmi:type="uml:LiteralInteger" xmi:id="_G5xa0fMDEeO3eNFe961kVQ" value="1"/>
           </result>
         </node>
-        <node xmi:type="uml:CallOperationAction" xmi:id="_UMkGkPMDEeO3eNFe961kVQ" name="call_endTransaction" operation="_z6WMIPLxEeO3eNFe961kVQ">
+        <node xmi:type="uml:CallOperationAction" xmi:id="_UMkGkPMDEeO3eNFe961kVQ" name="endTransaction" operation="_z6WMIPLxEeO3eNFe961kVQ">
           <target xmi:type="uml:InputPin" xmi:id="_U4mGIvMDEeO3eNFe961kVQ" name="target" incoming="_Z7y6QPMDEeO3eNFe961kVQ" type="_5L1JwO2UEeOmmYzDIlRbrw">
             <upperBound xmi:type="uml:LiteralInteger" xmi:id="_U4mGI_MDEeO3eNFe961kVQ" value="1"/>
           </target>

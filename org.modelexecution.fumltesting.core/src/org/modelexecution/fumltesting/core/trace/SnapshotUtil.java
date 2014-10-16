@@ -22,6 +22,7 @@ import org.modelexecution.fumltesting.core.testlang.StateAssertion;
 import org.modelexecution.fumltesting.core.testlang.StateExpression;
 import org.modelexecution.fumltesting.core.testlang.TemporalOperator;
 
+import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Syntax.Actions.BasicActions.Action;
 import fUML.Syntax.Actions.BasicActions.CallBehaviorAction;
 import fUML.Syntax.Actions.BasicActions.CallOperationAction;
@@ -68,19 +69,35 @@ public class SnapshotUtil {
 		}
 		valueInstances = traceUtil.getValueInstances(expression.getPin(), expressionNodeExecution);
 
-		setupSucessors(assertion.getOperator(), (ActionExecution) this.referenceActionExecution);
-		setupPredecessors(assertion.getOperator(), (ActionExecution) this.referenceActionExecution);
+		if (valueInstances != null && valueInstances.size() > 0) {
+			if (valueInstances.get(0).getOriginal().getValue() instanceof Object_) {
+				setupSucessors(assertion.getOperator(), (ActionExecution) this.referenceActionExecution);
+				setupPredecessors(assertion.getOperator(), (ActionExecution) this.referenceActionExecution);
 
-		if (assertion.getOperator() == TemporalOperator.UNTIL) {
-			list = predecessorSnapshots;
-		}
-		if (assertion.getOperator() == TemporalOperator.AFTER) {
-			if (referenceActionExecution.getNode() != expressionAction && successorSnapshots.size() == 0 && predecessorSnapshots.size() > 0) {
-				// we need to add last predecessor to successors
-				// if the value was not changed after the referred action
-				successorSnapshots.add(predecessorSnapshots.get(0));
+				if (assertion.getOperator() == TemporalOperator.UNTIL) {
+					list = predecessorSnapshots;
+				}
+				if (assertion.getOperator() == TemporalOperator.AFTER) {
+					if (referenceActionExecution.getNode() != expressionAction && successorSnapshots.size() == 0 && predecessorSnapshots.size() > 0) {
+						// we need to add last predecessor to successors
+						// if the value was not changed after the referred
+						// action
+						successorSnapshots.add(predecessorSnapshots.get(0));
+					}
+					list = successorSnapshots;
+				}
+			} else {
+				ActionExecution creatorExecution = (ActionExecution) valueInstances.get(0).getCreator();
+				if (creatorExecution == null) {
+					list.add(valueInstances.get(0).getOriginal());
+				} else if (creatorExecution == referenceActionExecution || creatorExecution == untilActionExecution) {
+					list.add(valueInstances.get(0).getOriginal());
+				} else if (traceUtil.isAfter(creatorExecution, referenceActionExecution) && untilActionExecution == null)
+					list.add(valueInstances.get(0).getOriginal());
+				else if (traceUtil.isAfter(creatorExecution, referenceActionExecution) && !traceUtil.isAfter(creatorExecution, untilActionExecution)) {
+					list.add(valueInstances.get(0).getOriginal());
+				}
 			}
-			list = successorSnapshots;
 		}
 		return list;
 	}

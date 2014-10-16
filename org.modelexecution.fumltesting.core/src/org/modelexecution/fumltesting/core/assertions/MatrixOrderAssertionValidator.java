@@ -143,7 +143,7 @@ public class MatrixOrderAssertionValidator {
 				// case: _, node, *
 				if (orderUtil.isUnderscore(firstNode) && orderUtil.isNode(secondNode) && orderUtil.isStar(thirdNode)) {
 					if (nodeBeforeWindowExists) {
-						boolean result = !matrix.isStartNode(secondNode.getNode()) && !matrix.isEndNode(secondNode.getNode());
+						boolean result = !matrix.isStartNode(secondNode.getNode());
 						if (!result)
 							return false;
 					} else {
@@ -269,7 +269,7 @@ public class MatrixOrderAssertionValidator {
 							if (!result)
 								return false;
 						} else {
-							boolean result = matrix.alwaysInOrder(secondNode.getNode(), thirdNode.getNode());
+							boolean result = matrix.alwaysInOrder(secondNode.getNode(), thirdNode.getNode()) && matrix.isEndNode(thirdNode.getNode());
 							if (!result)
 								return false;
 						}

@@ -1,13 +1,9 @@
 import banking.structure.*
 
 scenario BankingTestData[
-	object accountTD: Account{
-		Account.balance = 100;
-	}	
-	object cardTD: Card{
-		Card.pin = 1985;
-	}
 	object atmTD: ATM{}
+	object cardTD: Card{Card.pin = 1985;}
+	object accountTD: Account{Account.balance = 100;}
 	object depositTD: Deposit{Record.amount = 100;}
 	
 	link card_account {source card_account.card = cardTD; target card_account.account = accountTD;}
@@ -17,7 +13,7 @@ scenario BankingTestData[
 test atmTransactionTest activity ATM.Withdraw(ATM.Withdraw.card=BankingTestData.cardTD, 
 		ATM.Withdraw.pin=1985, ATM.Withdraw.amount = 100) on BankingTestData.atmTD{
 	initialize BankingTestData;
-	assertOrder *, ATM.Withdraw.call_validatePin, *, ATM.Withdraw.call_makeWithdrawal, *;
+	assertOrder *, ATM.Withdraw.validatePin, *, ATM.Withdraw.makeWithdrawal, *;
 	assertState eventually after constraint 'TransactionCreated' {
 		check 'TransactionEnded', 'TransactionAdded';
 	}
@@ -31,7 +27,7 @@ test atmTransactionTest activity ATM.Withdraw(ATM.Withdraw.card=BankingTestData.
 test atmTransactionFail activity ATM.Withdraw(ATM.Withdraw.card = BankingTestData.cardTD, 
 	ATM.Withdraw.pin = 1985, ATM.Withdraw.amount = 200) on BankingTestData.atmTD{
 	initialize BankingTestData;
-	assertOrder *, ATM.Withdraw.call_validatePin, *, ATM.Withdraw.call_makeWithdrawal, *;
+	assertOrder *, ATM.Withdraw.validatePin, *, ATM.Withdraw.makeWithdrawal, *;
 	assertState eventually after constraint 'TransactionCreated' {
 		check 'TransactionEnded', 'TransactionAdded';
 	}
