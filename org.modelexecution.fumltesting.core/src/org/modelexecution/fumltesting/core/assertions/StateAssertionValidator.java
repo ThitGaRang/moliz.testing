@@ -175,7 +175,7 @@ public class StateAssertionValidator {
 		for (Check check : assertion.getAllChecks()) {
 			stateAssertion.addCheck(check);
 		}
-		
+
 		stateAssertion.setContainer(assertion.getContainer());
 
 		return check(stateAssertion);
@@ -273,8 +273,73 @@ public class StateAssertionValidator {
 						}
 				}
 			}
+			if (results.get(0) == false) {
+				return false;
+			} else {
+				ActivityNodeExecution creator = relevantSnapshots.get(0).getValueInstance().getCreator();
+				switch (expression.getContainer().getQuantifier()) {
+				case ALWAYS:
+					switch (expression.getContainer().getOperator()) {
+					case AFTER:
+						if (creator == referenceActionExecution || !traceUtil.isAfter(creator, referenceActionExecution)) {
+							return true;
+						} else
+							return false;
+					case UNTIL:
+						if (!traceUtil.isAfter(creator, referenceActionExecution)) {
+							return true;
+						} else
+							return false;
+					}
+					break;
+				case EVENTUALLY:
+					switch (expression.getContainer().getOperator()) {
+					case AFTER:
+						if (creator == referenceActionExecution || !traceUtil.isAfter(creator, referenceActionExecution)
+								|| (untilActionExecution != null && !traceUtil.isAfter(creator, untilActionExecution))) {
+							return true;
+						} else
+							return false;
+					case UNTIL:
+						if (!traceUtil.isAfter(creator, referenceActionExecution)) {
+							return true;
+						} else
+							return false;
+					}
+					break;
+				case IMMEDIATELY:
+					switch (expression.getContainer().getOperator()) {
+					case AFTER:
+						if (creator == referenceActionExecution || !traceUtil.isAfter(creator, referenceActionExecution)) {
+							return true;
+						} else
+							return false;
+					case UNTIL:
+						if (creator == referenceActionExecution.getChronologicalPredecessor()) {
+							return true;
+						} else
+							return false;
+					}
+					break;
+				case SOMETIMES:
+					switch (expression.getContainer().getOperator()) {
+					case AFTER:
+						if (creator == referenceActionExecution || !traceUtil.isAfter(creator, referenceActionExecution)
+								|| (untilActionExecution != null && !traceUtil.isAfter(creator, untilActionExecution))) {
+							return true;
+						} else
+							return false;
+					case UNTIL:
+						if (!traceUtil.isAfter(creator, referenceActionExecution)) {
+							return true;
+						} else
+							return false;
+					}
+					break;
+				}
+			}
 		}
-		return compileResult(results, (expression.getContainer()).getQuantifier());
+		return false;
 	}
 
 	private boolean processValue(PropertyStateExpression expression) {
@@ -692,10 +757,21 @@ public class StateAssertionValidator {
 			case ALWAYS:
 				if (links.size() > 0) {
 					for (ValueInstance linkInstance : links) {
-						if (linkInstance.getDestroyer() != null
-								&& (!traceUtil.isAfter(linkInstance.getDestroyer(), referenceActionExecution) || (untilActionExecution != null && !traceUtil
-										.isAfter(linkInstance.getDestroyer(), untilActionExecution))))
-							results.add(false);
+						ActivityNodeExecution linkDestroyer = linkInstance.getDestroyer();
+						if (expression.getContainer().getOperator() == TemporalOperator.UNTIL) {
+							if (linkDestroyer != null && !traceUtil.isAfter(linkDestroyer, referenceActionExecution)) {
+								results.add(true);
+							} else {
+								results.add(false);
+							}
+						} else {
+							if (linkDestroyer != null
+									&& (linkDestroyer == referenceActionExecution || !traceUtil.isAfter(linkDestroyer, referenceActionExecution))) {
+								results.add(true);
+							} else {
+								results.add(false);
+							}
+						}
 					}
 				} else {
 					results.add(true);
@@ -704,12 +780,29 @@ public class StateAssertionValidator {
 			case EVENTUALLY:
 				if (links.size() > 0) {
 					for (ValueInstance linkInstance : links) {
-						if (linkInstance.getDestroyer() != null
-								&& (!traceUtil.isAfter(linkInstance.getDestroyer(), referenceActionExecution) || (untilActionExecution != null && !traceUtil
-										.isAfter(linkInstance.getDestroyer(), untilActionExecution))))
-							results.add(true);
-						else {
-							results.add(false);
+						ActivityNodeExecution linkDestroyer = linkInstance.getDestroyer();
+						if (expression.getContainer().getOperator() == TemporalOperator.UNTIL) {
+							if (linkDestroyer != null && !traceUtil.isAfter(linkDestroyer, referenceActionExecution)) {
+								results.add(true);
+							} else {
+								results.add(false);
+							}
+						} else {
+							if (untilActionExecution == null) {
+								if (linkDestroyer != null
+										&& (linkDestroyer == referenceActionExecution || traceUtil.isAfter(linkDestroyer, referenceActionExecution)))
+									results.add(true);
+								else {
+									results.add(false);
+								}
+							} else {
+								if (linkDestroyer != null
+										&& (linkDestroyer == referenceActionExecution || (!traceUtil.isAfter(linkDestroyer, untilActionExecution) && linkDestroyer != untilActionExecution)))
+									results.add(true);
+								else {
+									results.add(false);
+								}
+							}
 						}
 					}
 				} else {
@@ -719,11 +812,20 @@ public class StateAssertionValidator {
 			case IMMEDIATELY:
 				if (links.size() > 0) {
 					for (ValueInstance linkInstance : links) {
-						if (traceUtil.isAfter(linkInstance.getCreator(), referenceActionExecution)
-								|| (untilActionExecution != null && traceUtil.isAfter(linkInstance.getCreator(), untilActionExecution)))
-							results.add(true);
-						else {
-							results.add(false);
+						ActivityNodeExecution linkDestroyer = linkInstance.getDestroyer();
+						if (expression.getContainer().getOperator() == TemporalOperator.UNTIL) {
+							if (linkDestroyer != null && !traceUtil.isAfter(linkDestroyer, referenceActionExecution)) {
+								results.add(true);
+							} else {
+								results.add(false);
+							}
+						} else {
+							if (linkDestroyer != null
+									&& (linkDestroyer == referenceActionExecution || !traceUtil.isAfter(linkDestroyer, referenceActionExecution)))
+								results.add(true);
+							else {
+								results.add(false);
+							}
 						}
 					}
 				} else {
@@ -733,12 +835,29 @@ public class StateAssertionValidator {
 			case SOMETIMES:
 				if (links.size() > 0) {
 					for (ValueInstance linkInstance : links) {
-						if (traceUtil.isAfter(linkInstance.getCreator(), referenceActionExecution)
-								|| (linkInstance.getDestroyer() != null && untilActionExecution != null && !traceUtil.isAfter(linkInstance.getDestroyer(),
-										untilActionExecution)))
-							results.add(true);
-						else {
-							results.add(false);
+						ActivityNodeExecution linkDestroyer = linkInstance.getDestroyer();
+						if (expression.getContainer().getOperator() == TemporalOperator.UNTIL) {
+							if (linkDestroyer != null && !traceUtil.isAfter(linkDestroyer, referenceActionExecution)) {
+								results.add(true);
+							} else {
+								results.add(false);
+							}
+						} else {
+							if (untilActionExecution == null) {
+								if (linkDestroyer != null
+										&& (linkDestroyer == referenceActionExecution || traceUtil.isAfter(linkDestroyer, referenceActionExecution)))
+									results.add(true);
+								else {
+									results.add(false);
+								}
+							} else {
+								if (linkDestroyer != null
+										&& (linkDestroyer == referenceActionExecution || (!traceUtil.isAfter(linkDestroyer, untilActionExecution) && linkDestroyer != untilActionExecution))) {
+									results.add(true);
+								} else {
+									results.add(false);
+								}
+							}
 						}
 					}
 				} else {
@@ -747,10 +866,124 @@ public class StateAssertionValidator {
 				break;
 			}
 		} else if (expression.getOperator() == ArithmeticOperator.NOT_EQUAL) {
-			if (links.size() == 0)
-				results.add(false);
-			else
-				results.add(true);
+			switch (quantifier) {
+			case ALWAYS:
+				if (links.size() > 0) {
+					for (ValueInstance linkInstance : links) {
+						ActivityNodeExecution linkDestroyer = linkInstance.getDestroyer();
+						if (expression.getContainer().getOperator() == TemporalOperator.UNTIL) {
+							if (linkDestroyer == null || traceUtil.isAfter(linkDestroyer, referenceActionExecution)) {
+								results.add(true);
+							} else {
+								results.add(false);
+							}
+						} else {
+							if (untilActionExecution == null) {
+								if (linkDestroyer == null) {
+									results.add(true);
+								} else {
+									results.add(false);
+								}
+							} else {
+								if (linkDestroyer == null
+										|| (linkDestroyer != referenceActionExecution && traceUtil.isAfter(linkDestroyer, untilActionExecution))) {
+									results.add(true);
+								} else {
+									results.add(false);
+								}
+							}
+						}
+					}
+				} else {
+					results.add(false);
+				}
+				break;
+			case EVENTUALLY:
+				if (links.size() > 0) {
+					for (ValueInstance linkInstance : links) {
+						ActivityNodeExecution linkDestroyer = linkInstance.getDestroyer();
+						if (expression.getContainer().getOperator() == TemporalOperator.UNTIL) {
+							if (linkDestroyer == null || traceUtil.isAfter(linkDestroyer, referenceActionExecution)) {
+								results.add(true);
+							} else {
+								results.add(false);
+							}
+						} else {
+							if (untilActionExecution == null) {
+								if (linkDestroyer == null)
+									results.add(true);
+								else {
+									results.add(false);
+								}
+							} else {
+								if (linkDestroyer == null
+										|| (linkDestroyer != referenceActionExecution && traceUtil.isAfter(linkDestroyer, untilActionExecution)))
+									results.add(true);
+								else {
+									results.add(false);
+								}
+							}
+						}
+					}
+				} else {
+					results.add(false);
+				}
+				break;
+			case IMMEDIATELY:
+				if (links.size() > 0) {
+					for (ValueInstance linkInstance : links) {
+						ActivityNodeExecution linkDestroyer = linkInstance.getDestroyer();
+						if (expression.getContainer().getOperator() == TemporalOperator.UNTIL) {
+							if (linkDestroyer == null || traceUtil.isAfter(linkDestroyer, referenceActionExecution)) {
+								results.add(true);
+							} else {
+								results.add(false);
+							}
+						} else {
+							if (linkDestroyer == null || (linkDestroyer != referenceActionExecution && traceUtil.isAfter(linkDestroyer, untilActionExecution)))
+								results.add(true);
+							else {
+								results.add(false);
+							}
+						}
+					}
+				} else {
+					results.add(false);
+				}
+				break;
+			case SOMETIMES:
+				if (links.size() > 0) {
+					for (ValueInstance linkInstance : links) {
+						ActivityNodeExecution linkDestroyer = linkInstance.getDestroyer();
+						if (expression.getContainer().getOperator() == TemporalOperator.UNTIL) {
+							if (linkDestroyer == null || traceUtil.isAfter(linkDestroyer, referenceActionExecution)) {
+								results.add(true);
+							} else {
+								results.add(false);
+							}
+						} else {
+							if (untilActionExecution == null) {
+								if (linkDestroyer == null
+										|| (linkDestroyer != referenceActionExecution && traceUtil.isAfter(linkDestroyer, referenceActionExecution)))
+									results.add(true);
+								else {
+									results.add(false);
+								}
+							} else {
+								if (linkDestroyer == null
+										|| (linkDestroyer != referenceActionExecution && traceUtil.isAfter(linkDestroyer, referenceActionExecution))) {
+									results.add(true);
+								} else {
+									results.add(false);
+								}
+							}
+						}
+					}
+				} else {
+					results.add(false);
+				}
+				break;
+			}
 		}
 		return compileResult(results, expression.getContainer().getQuantifier());
 	}
