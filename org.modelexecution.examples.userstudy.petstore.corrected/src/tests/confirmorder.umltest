@@ -1,0 +1,54 @@
+import petstore.data.*
+import petstore.logic.*
+
+scenario TestData[
+    object orderService: OrderService{}
+    object product1: Product{Product.name='product1';}
+    object product2: Product{Product.name='product2';}
+    object item1: Item{Item.unitCost=10;}
+    object item2: Item{Item.unitCost=20;}
+    object cartItem1: CartItem{CartItem.quantity=5;}
+    object cartItem2: CartItem{CartItem.quantity=8;}
+    object cart: Cart{}
+    object customer: Customer{Customer.login='peter';Customer.lastname='pass';}
+   
+    link item_product {
+        source item_product.item = TestData.item1;
+        target item_product.product = TestData.product1;
+    }
+    link item_product {
+        source item_product.item = TestData.item2;
+        target item_product.product = TestData.product2;
+    }
+    link cartItem_item {
+        source cartItem_item.cartItem = TestData.cartItem1;
+        target cartItem_item.item = TestData.item1;
+    }
+    link cartItem_item {
+        source cartItem_item.cartItem = TestData.cartItem2;
+        target cartItem_item.item = TestData.item2;
+    }
+    link cart_cartItem {
+        source cart_cartItem.cart = TestData.cart;
+        target cart_cartItem.cartItems = TestData.cartItem1;
+    }
+    link cart_cartItem {
+        source cart_cartItem.cart = TestData.cart;
+        target cart_cartItem.cartItems = TestData.cartItem2;
+    }
+    link cart_customer {
+        source cart_customer.customer = TestData.customer;
+        target cart_customer.cart = TestData.cart;
+    }     
+]
+
+test confirmOrderTest activity OrderService.ConfirmOrder(OrderService.ConfirmOrder.customer = TestData.customer) on TestData.orderService {
+    initialize TestData;
+   
+    assertState always after action OrderService.ConfirmOrder.setCustomer {
+        OrderService.ConfirmOrder.setCustomer.result::order_customer.customer = TestData.customer;
+    }
+    finally {
+        check 'orderLineCheckTwoItems' on OrderService.ConfirmOrder.order;
+    }
+}

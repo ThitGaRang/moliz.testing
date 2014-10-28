@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.modelexecution.fumltesting.uml.launchConfigurationType">
+<booleanAttribute key="bruteForceOn" value="false"/>
+<stringAttribute key="model" value="/userstudy.petstore/src/petstore.uml"/>
+<stringAttribute key="ocl" value="/userstudy.petstore/src/petstore.ocl"/>
+<stringAttribute key="testSuite" value="/userstudy.petstore/src/tests/getcart.umltest"/>
+</launchConfiguration>

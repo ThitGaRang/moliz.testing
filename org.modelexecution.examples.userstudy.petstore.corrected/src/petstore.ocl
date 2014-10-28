@@ -1,0 +1,4 @@
+package data
+context Order
+	inv orderLineCheckTwoItems: orderLines->size() = 2
+endpackage
