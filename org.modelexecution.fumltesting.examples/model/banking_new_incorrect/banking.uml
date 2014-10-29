@@ -603,7 +603,7 @@
             <upperBound xmi:type="uml:LiteralInteger" xmi:id="_afOu8fDIEeOjn9ENJkZYjg" value="1"/>
           </result>
         </node>
-        <node xmi:type="uml:AddStructuralFeatureValueAction" xmi:id="_ozllYPDIEeOjn9ENJkZYjg" name="setAmount" structuralFeature="_hWzN4PLwEeO3eNFe961kVQ">
+        <node xmi:type="uml:AddStructuralFeatureValueAction" xmi:id="_ozllYPDIEeOjn9ENJkZYjg" name="setAmount" structuralFeature="_hWzN4PLwEeO3eNFe961kVQ" isReplaceAll="true">
           <object xmi:type="uml:InputPin" xmi:id="_oznakvDIEeOjn9ENJkZYjg" name="object" incoming="_zWWZgPDIEeOjn9ENJkZYjg" type="_KdY-oPCqEeOjfYeEHUkMsA">
             <upperBound xmi:type="uml:LiteralInteger" xmi:id="_oznak_DIEeOjn9ENJkZYjg" value="1"/>
           </object>
@@ -843,7 +843,7 @@
             <upperBound xmi:type="uml:LiteralInteger" xmi:id="_LTKWsfFzEeOWEp_hLkUQHQ" value="1"/>
           </result>
         </node>
-        <node xmi:type="uml:AddStructuralFeatureValueAction" xmi:id="_XeKT8PFzEeOWEp_hLkUQHQ" name="setAmount" structuralFeature="_hWzN4PLwEeO3eNFe961kVQ">
+        <node xmi:type="uml:AddStructuralFeatureValueAction" xmi:id="_XeKT8PFzEeOWEp_hLkUQHQ" name="setAmount" structuralFeature="_hWzN4PLwEeO3eNFe961kVQ" isReplaceAll="true">
           <object xmi:type="uml:InputPin" xmi:id="_XeNXQPFzEeOWEp_hLkUQHQ" name="object" incoming="_vx92EPFzEeOWEp_hLkUQHQ" type="_KdY-oPCqEeOjfYeEHUkMsA">
             <upperBound xmi:type="uml:LiteralInteger" xmi:id="_XeNXQfFzEeOWEp_hLkUQHQ" value="1"/>
           </object>
