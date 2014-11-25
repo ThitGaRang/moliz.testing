@@ -196,13 +196,7 @@ public class ResultsWriter {
 						writer.println("\tConstraints checked: " + stateAssertionResult.numberOfConstraintsChecked());
 						writer.println("\tConstraints failed: " + stateAssertionResult.getFailedConstraints().size());
 						for (ConstraintResult constraintResult : stateAssertionResult.getFailedConstraints()) {
-							writer.print("\t\tConstraint: " + constraintResult.getConstraintName() + " State(s): ");
-							for (int count = 0; count < constraintResult.getFailedStates().size(); count++) {
-								writer.print(constraintResult.getFailedStates().get(count).getStateCreator().getNode().name);
-								if (count < constraintResult.getFailedStates().size() - 1)
-									writer.print(", ");
-							}
-							writer.println();
+							writer.println("\t\tConstraint: " + constraintResult.getConstraintName());
 						}
 					}
 					if (((StateAssertionResult) assertionResult).getNumberOfStateExpressions() > 0) {
