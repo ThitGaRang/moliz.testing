@@ -6,10 +6,15 @@ inv TransactionCreated: currentTransaction <> null
 inv TransactionEnded: currentTransaction = null
 inv TransactionAdded: completedTransactions ->size() > 0
 
+context Withdrawal
+inv NoWithdrawalsCreated: Withdrawal.allInstances()->size() = 0
+
 context Account
 
+inv NumberOfRecords: records->size()=1
+inv NumOfWithdrawalsCreated: records->select(oclIsTypeOf(Withdrawal))->size()=0
 inv NumOfWithdrawsSuccess: records->select(oclIsTypeOf(Withdrawal))->size()=1
-inv NumOfWithdrawsFail: records->select(oclIsTypeOf(Withdrawal))->size()=0
+
 inv NumOfDeposits: records->select(oclIsTypeOf(Deposit))->size()=1
 inv BalanceRecords: (records->select(oclIsTypeOf(Deposit))->collect(Record::amount)->sum() - records->select(oclIsTypeOf(Withdrawal))->collect(amount)->sum()) = balance 
 
