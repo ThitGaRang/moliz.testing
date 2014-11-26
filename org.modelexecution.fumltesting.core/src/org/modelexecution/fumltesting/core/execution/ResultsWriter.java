@@ -29,7 +29,6 @@ import org.modelexecution.fumltesting.core.testlang.ActionReferencePoint;
 import org.modelexecution.fumltesting.core.testlang.BooleanValue;
 import org.modelexecution.fumltesting.core.testlang.ConstraintReferencePoint;
 import org.modelexecution.fumltesting.core.testlang.IntegerValue;
-import org.modelexecution.fumltesting.core.testlang.NodeOrder;
 import org.modelexecution.fumltesting.core.testlang.NodeSpecification;
 import org.modelexecution.fumltesting.core.testlang.NullValue;
 import org.modelexecution.fumltesting.core.testlang.ObjectSpecification;
@@ -115,18 +114,19 @@ public class ResultsWriter {
 
 				if (assertionResult instanceof MatrixOrderAssertionResult) {
 					MatrixOrderAssertionResult orderAssertionResult = (MatrixOrderAssertionResult) assertionResult;
+					writer.println("\tMatrix validation:");
 					printSpecification(orderAssertionResult.getOrderSpecification());
-					writer.println("\tMatrix validation result: " + (orderAssertionResult.getAssertionValidationResult() ? "SUCCESS" : "FAIL"));
+					writer.println("\tValidation result: " + (orderAssertionResult.getAssertionValidationResult() ? "SUCCESS" : "FAIL"));
 					for (MatrixOrderAssertionResult subResult : orderAssertionResult.getSubOrderAssertionResults()) {
+						writer.println("\t\tMatrix validation:");
 						writer.println("\t\tSub-order checked..");
 						writer.print("\t");
-						printSpecification(((NodeOrder) subResult.getOrderSpecification()).getAllNodes());
-						writer.println("\t\tMatrix validation result: " + (orderAssertionResult.getAssertionValidationResult() ? "SUCCESS" : "FAIL"));
+						printSpecification(subResult.getOrderSpecification());
+						writer.println("\t\tValidation result: " + (orderAssertionResult.getAssertionValidationResult() ? "SUCCESS" : "FAIL"));
 					}
 				}
 				if (assertionResult instanceof OrderAssertionResult) {
 					OrderAssertionResult orderAssertionResult = (OrderAssertionResult) assertionResult;
-					// printSpecification(orderAssertionResult.getOrderSpecification());
 					writer.println("\tBrute force check:");
 					writer.println("\tNumber of paths checked: " + orderAssertionResult.numberOfPathsChecked());
 					writer.println("\tNumber of invalid paths: " + orderAssertionResult.getFailedPathCheckResults().size());
@@ -146,8 +146,6 @@ public class ResultsWriter {
 
 					for (OrderAssertionResult subResult : orderAssertionResult.getSubOrderResults()) {
 						writer.println("\t\tSub-order checked..");
-						writer.print("\t");
-						// printSpecification(((NodeOrder)subResult.getOrderSpecification()).getAllNodes());
 						writer.println("\t\tNumber of paths checked: " + subResult.numberOfPathsChecked());
 						writer.println("\t\tNumber of invalid paths: " + subResult.getFailedPathCheckResults().size());
 						writer.println();
@@ -189,9 +187,6 @@ public class ResultsWriter {
 						}
 					}
 					writer.println();
-					if (assertionResult.hasError()) {
-						writer.println("\tError occurred: " + assertionResult.getError());
-					}
 					if (stateAssertionResult.numberOfConstraintsChecked() > 0) {
 						writer.println("\tConstraints checked: " + stateAssertionResult.numberOfConstraintsChecked());
 						writer.println("\tConstraints failed: " + stateAssertionResult.getFailedConstraints().size());
@@ -205,7 +200,7 @@ public class ResultsWriter {
 
 						for (StateExpressionResult result : ((StateAssertionResult) assertionResult).getFailedStateExpressions()) {
 							if (result.hasError()) {
-								writer.println("\tError occured: " + result.getError());
+								writer.println("\tError occurred: " + result.getError());
 							} else {
 								String pinQualifiedName = "";
 								if (result.getStateExpression() instanceof PropertyStateExpression) {

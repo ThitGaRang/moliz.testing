@@ -105,7 +105,12 @@ public class TraceUtil {
 				}
 			}
 		}
-		throw new ActionNotExecutedException("Action/Activity " + nodeParent + "." + nodeName + " was never executed!");
+		if (node instanceof Action) {
+			throw new ActionNotExecutedException("Action " + nodeName + " was never executed!");
+		} else {
+			throw new ActionNotExecutedException("Activity " + nodeParent + " was never executed!");
+		}
+
 	}
 
 	public ArrayList<ValueInstance> getValueInstances(ObjectNode node, Object nodeExecution) {
@@ -327,7 +332,7 @@ public class TraceUtil {
 	}
 
 	private ActivityNodeExecution getLastNode(ActivityNodeExecution nodeExecution, ActivityNodeList nodeList) {
-		if(nodeExecution.getChronologicalSuccessor() == null){
+		if (nodeExecution.getChronologicalSuccessor() == null) {
 			return nodeExecution;
 		}
 		fUML.Syntax.Activities.IntermediateActivities.ActivityNode successor = nodeExecution.getChronologicalSuccessor().getNode();

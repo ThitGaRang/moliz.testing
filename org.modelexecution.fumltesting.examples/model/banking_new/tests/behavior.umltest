@@ -1,45 +1,57 @@
 import banking.structure.*
 
-scenario BankingTestData[
-	object atmTD: ATM{}
-	object accountTD: Account{Account.balance = 100;}	
-	object cardTD: Card{Card.pin = 1985;}
+scenario BankingTD[
+	object accountTD: Account{Account.balance = 100;}
 	object depositTD: Deposit{Record.amount = 100;}
-	
-	link card_account {source card_account.card = cardTD; target card_account.account = accountTD;}
 	link account_record {source account_record.account=accountTD; target account_record.records = depositTD;}
 ]
 
-test makeWithdrawFail activity Account.MakeWithdrawal(Account.MakeWithdrawal.amount=150) on BankingTestData.accountTD{
-	initialize BankingTestData;
+scenario BankingTDWithAtm[
+	object atmTD: ATM{}
+	object cardTD: Card{Card.pin = 1985;}
+	link card_account {source card_account.card = cardTD; target card_account.account = BankingTD.accountTD;}
+]
+
+test makeWithdrawFail activity Account.MakeWithdrawal(Account.MakeWithdrawal.amount=150) on BankingTD.accountTD{
+	initialize BankingTD;
 	finally{
 		Account.MakeWithdrawal.success = false;
 		Account.MakeWithdrawal.context.result::Account.balance = 100;
 		check 'NoWithdrawalsCreated';
-		check 'NumberOfRecords' on Account.MakeWithdrawal.context.result;
+		check 'NumOfWithdrawalsFail' on Account.MakeWithdrawal.context.result;
 	}
 }
 
-test makeWithdrawSuccess activity Account.MakeWithdrawal(Account.MakeWithdrawal.amount=25) on BankingTestData.accountTD{
-	initialize BankingTestData;
+test makeWithdrawSuccess activity Account.MakeWithdrawal(Account.MakeWithdrawal.amount=25) on BankingTD.accountTD{
+	initialize BankingTD;
 	assertOrder *, Account.MakeWithdrawal.greaterOrEquals, *, Account.MakeWithdrawal.minus, *;
 	finally{
 		Account.MakeWithdrawal.success = true;
 		Account.MakeWithdrawal.context.result::Account.balance = 75;
-		check 'NumOfWithdrawsSuccess' on Account.MakeWithdrawal.context.result;
+		check 'NumOfWithdrawalsSuccess' on Account.MakeWithdrawal.context.result;
 	}
 }
 
-//test atmWithdrawFail activity ATM.Withdraw(ATM.Withdraw.card = BankingTestData.cardTD, 
-//	ATM.Withdraw.pin = 1985, ATM.Withdraw.amount = 200) on BankingTestData.atmTD{
-//	initialize BankingTestData;
-//	assertOrder *, ATM.Withdraw.validatePin, *, ATM.Withdraw.makeWithdrawal, *;
-//	assertState eventually after constraint 'TransactionCreated' {
-//		check 'TransactionEnded', 'TransactionAdded' on ATM.Withdraw.context.result;
-//	}
-//	finally {
-//		ATM.Withdraw.readAccount.result::Account.balance = 100;
-//		check 'NumOfDeposits', 'NumOfWithdrawsFail', 'BalanceRecords' on ATM.Withdraw.readAccount.result;
-//		ATM.Withdraw.success = false;
-//	}
-//}
+test atmWithdrawFail activity ATM.Withdraw(ATM.Withdraw.card = BankingTDWithAtm.cardTD, 
+	ATM.Withdraw.pin = 1986, ATM.Withdraw.amount = 150) on BankingTDWithAtm.atmTD{
+	initialize BankingTD, BankingTDWithAtm;
+	finally{
+		ATM.Withdraw.readAccount.result::Account.balance = 100;
+		check 'NumOfWithdrawalsFail' on ATM.Withdraw.readAccount.result;
+		ATM.Withdraw.success = false;
+		
+		check 'TransactionEnded', 'TransactionAdded', 'BalanceRecords';
+	}
+}
+
+test atmWithdrawSuccess activity ATM.Withdraw(ATM.Withdraw.card = BankingTDWithAtm.cardTD, 
+	ATM.Withdraw.pin = 1985, ATM.Withdraw.amount = 25) on BankingTDWithAtm.atmTD{
+	initialize BankingTD, BankingTDWithAtm;
+	finally{
+		ATM.Withdraw.readAccount.result::Account.balance = 75;
+		check 'NumOfWithdrawalsSuccess' on ATM.Withdraw.readAccount.result;
+		ATM.Withdraw.success = true;
+		
+		check 'TransactionEnded', 'TransactionAdded', 'BalanceRecords';
+	}
+}
