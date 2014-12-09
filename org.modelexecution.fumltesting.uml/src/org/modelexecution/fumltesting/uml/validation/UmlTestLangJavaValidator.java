@@ -6,11 +6,13 @@ package org.modelexecution.fumltesting.uml.validation;
 import java.util.ArrayList;
 
 import org.eclipse.xtext.validation.Check;
+import org.eclipse.xtext.xbase.XNumberLiteral;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLLink;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLNodeSpecification;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLObjectSpecification;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLOrderAssertion;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLScenario;
+import org.modelexecution.fumltesting.uml.umlTestLang.UMLSimpleValue;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLStateAssertion;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLTemporalOperator;
 import org.modelexecution.fumltesting.uml.umlTestLang.UmlTestLangPackage;
@@ -20,6 +22,7 @@ import org.modelexecution.fumltesting.uml.umlTestLang.UmlTestLangPackage;
  * 
  * see http://www.eclipse.org/Xtext/documentation.html#validation
  */
+@SuppressWarnings("restriction")
 public class UmlTestLangJavaValidator extends AbstractUmlTestLangJavaValidator {
 	@Check
 	public void checkAfterSpecified(UMLStateAssertion assertion) {
@@ -57,11 +60,18 @@ public class UmlTestLangJavaValidator extends AbstractUmlTestLangJavaValidator {
 			}
 		}
 	}
-	
+
 	@Check
-	public void checkLinkEnds(UMLLink link){
-		if(link.getSourceProperty() == link.getTargetProperty()){
+	public void checkLinkEnds(UMLLink link) {
+		if (link.getSourceProperty() == link.getTargetProperty()) {
 			error("Same source and target specified!", UmlTestLangPackage.Literals.UML_LINK__ASSOC);
+		}
+	}
+
+	@Check
+	public void checkMinusAllowed(UMLSimpleValue value) {
+		if (!(value.getValue() instanceof XNumberLiteral) && value.isNegative()) {
+			error("Minus is allowed only for integer values!", UmlTestLangPackage.Literals.UML_SIMPLE_VALUE__VALUE);
 		}
 	}
 

@@ -248,15 +248,6 @@ public interface UmlTestLangFactory extends EFactory
   UMLNodeSpecification createUMLNodeSpecification();
 
   /**
-   * Returns a new object of class '<em>Finally State Assertion</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Finally State Assertion</em>'.
-   * @generated
-   */
-  FinallyStateAssertion createFinallyStateAssertion();
-
-  /**
    * Returns the package supported by this factory.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

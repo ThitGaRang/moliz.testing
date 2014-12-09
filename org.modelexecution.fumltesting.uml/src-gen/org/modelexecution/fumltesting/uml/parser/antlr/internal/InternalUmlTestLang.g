@@ -1257,7 +1257,7 @@ ruleUMLFinallyStateAssertion returns [EObject current=null]
 (
     {
         $current = forceCreateModelElement(
-            grammarAccess.getUMLFinallyStateAssertionAccess().getFinallyStateAssertionAction_2(),
+            grammarAccess.getUMLFinallyStateAssertionAccess().getUMLFinallyStateAssertionAction_2(),
             $current);
     }
 )(

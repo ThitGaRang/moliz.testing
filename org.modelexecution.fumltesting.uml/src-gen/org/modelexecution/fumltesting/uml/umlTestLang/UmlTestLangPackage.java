@@ -687,13 +687,22 @@ public interface UmlTestLangPackage extends EPackage
   int UML_FINALLY_STATE_ASSERTION = 16;
 
   /**
+   * The feature id for the '<em><b>Checks</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int UML_FINALLY_STATE_ASSERTION__CHECKS = UML_ASSERTION_FEATURE_COUNT + 0;
+
+  /**
    * The number of structural features of the '<em>UML Finally State Assertion</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int UML_FINALLY_STATE_ASSERTION_FEATURE_COUNT = UML_ASSERTION_FEATURE_COUNT + 0;
+  int UML_FINALLY_STATE_ASSERTION_FEATURE_COUNT = UML_ASSERTION_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link org.modelexecution.fumltesting.uml.umlTestLang.impl.UMLCheckImpl <em>UML Check</em>}' class.
@@ -1010,34 +1019,6 @@ public interface UmlTestLangPackage extends EPackage
   int UML_NODE_SPECIFICATION_FEATURE_COUNT = 4;
 
   /**
-   * The meta object id for the '{@link org.modelexecution.fumltesting.uml.umlTestLang.impl.FinallyStateAssertionImpl <em>Finally State Assertion</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.modelexecution.fumltesting.uml.umlTestLang.impl.FinallyStateAssertionImpl
-   * @see org.modelexecution.fumltesting.uml.umlTestLang.impl.UmlTestLangPackageImpl#getFinallyStateAssertion()
-   * @generated
-   */
-  int FINALLY_STATE_ASSERTION = 25;
-
-  /**
-   * The feature id for the '<em><b>Checks</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FINALLY_STATE_ASSERTION__CHECKS = UML_FINALLY_STATE_ASSERTION_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Finally State Assertion</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int FINALLY_STATE_ASSERTION_FEATURE_COUNT = UML_FINALLY_STATE_ASSERTION_FEATURE_COUNT + 1;
-
-  /**
    * The meta object id for the '{@link org.modelexecution.fumltesting.uml.umlTestLang.UMLArithmeticOperator <em>UML Arithmetic Operator</em>}' enum.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1045,7 +1026,7 @@ public interface UmlTestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.uml.umlTestLang.impl.UmlTestLangPackageImpl#getUMLArithmeticOperator()
    * @generated
    */
-  int UML_ARITHMETIC_OPERATOR = 26;
+  int UML_ARITHMETIC_OPERATOR = 25;
 
   /**
    * The meta object id for the '{@link org.modelexecution.fumltesting.uml.umlTestLang.UMLTemporalOperator <em>UML Temporal Operator</em>}' enum.
@@ -1055,7 +1036,7 @@ public interface UmlTestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.uml.umlTestLang.impl.UmlTestLangPackageImpl#getUMLTemporalOperator()
    * @generated
    */
-  int UML_TEMPORAL_OPERATOR = 27;
+  int UML_TEMPORAL_OPERATOR = 26;
 
   /**
    * The meta object id for the '{@link org.modelexecution.fumltesting.uml.umlTestLang.UMLTemporalQuantifier <em>UML Temporal Quantifier</em>}' enum.
@@ -1065,7 +1046,7 @@ public interface UmlTestLangPackage extends EPackage
    * @see org.modelexecution.fumltesting.uml.umlTestLang.impl.UmlTestLangPackageImpl#getUMLTemporalQuantifier()
    * @generated
    */
-  int UML_TEMPORAL_QUANTIFIER = 28;
+  int UML_TEMPORAL_QUANTIFIER = 27;
 
 
   /**
@@ -1624,6 +1605,17 @@ public interface UmlTestLangPackage extends EPackage
   EClass getUMLFinallyStateAssertion();
 
   /**
+   * Returns the meta object for the containment reference list '{@link org.modelexecution.fumltesting.uml.umlTestLang.UMLFinallyStateAssertion#getChecks <em>Checks</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Checks</em>'.
+   * @see org.modelexecution.fumltesting.uml.umlTestLang.UMLFinallyStateAssertion#getChecks()
+   * @see #getUMLFinallyStateAssertion()
+   * @generated
+   */
+  EReference getUMLFinallyStateAssertion_Checks();
+
+  /**
    * Returns the meta object for class '{@link org.modelexecution.fumltesting.uml.umlTestLang.UMLCheck <em>UML Check</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1834,27 +1826,6 @@ public interface UmlTestLangPackage extends EPackage
    * @generated
    */
   EAttribute getUMLNodeSpecification_Joker();
-
-  /**
-   * Returns the meta object for class '{@link org.modelexecution.fumltesting.uml.umlTestLang.FinallyStateAssertion <em>Finally State Assertion</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Finally State Assertion</em>'.
-   * @see org.modelexecution.fumltesting.uml.umlTestLang.FinallyStateAssertion
-   * @generated
-   */
-  EClass getFinallyStateAssertion();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link org.modelexecution.fumltesting.uml.umlTestLang.FinallyStateAssertion#getChecks <em>Checks</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Checks</em>'.
-   * @see org.modelexecution.fumltesting.uml.umlTestLang.FinallyStateAssertion#getChecks()
-   * @see #getFinallyStateAssertion()
-   * @generated
-   */
-  EReference getFinallyStateAssertion_Checks();
 
   /**
    * Returns the meta object for enum '{@link org.modelexecution.fumltesting.uml.umlTestLang.UMLArithmeticOperator <em>UML Arithmetic Operator</em>}'.
@@ -2360,6 +2331,14 @@ public interface UmlTestLangPackage extends EPackage
     EClass UML_FINALLY_STATE_ASSERTION = eINSTANCE.getUMLFinallyStateAssertion();
 
     /**
+     * The meta object literal for the '<em><b>Checks</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference UML_FINALLY_STATE_ASSERTION__CHECKS = eINSTANCE.getUMLFinallyStateAssertion_Checks();
+
+    /**
      * The meta object literal for the '{@link org.modelexecution.fumltesting.uml.umlTestLang.impl.UMLCheckImpl <em>UML Check</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -2534,24 +2513,6 @@ public interface UmlTestLangPackage extends EPackage
      * @generated
      */
     EAttribute UML_NODE_SPECIFICATION__JOKER = eINSTANCE.getUMLNodeSpecification_Joker();
-
-    /**
-     * The meta object literal for the '{@link org.modelexecution.fumltesting.uml.umlTestLang.impl.FinallyStateAssertionImpl <em>Finally State Assertion</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.modelexecution.fumltesting.uml.umlTestLang.impl.FinallyStateAssertionImpl
-     * @see org.modelexecution.fumltesting.uml.umlTestLang.impl.UmlTestLangPackageImpl#getFinallyStateAssertion()
-     * @generated
-     */
-    EClass FINALLY_STATE_ASSERTION = eINSTANCE.getFinallyStateAssertion();
-
-    /**
-     * The meta object literal for the '<em><b>Checks</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference FINALLY_STATE_ASSERTION__CHECKS = eINSTANCE.getFinallyStateAssertion_Checks();
 
     /**
      * The meta object literal for the '{@link org.modelexecution.fumltesting.uml.umlTestLang.UMLArithmeticOperator <em>UML Arithmetic Operator</em>}' enum.

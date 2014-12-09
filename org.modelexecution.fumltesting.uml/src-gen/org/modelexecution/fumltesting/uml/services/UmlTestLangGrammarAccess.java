@@ -774,16 +774,16 @@ public class UmlTestLangGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cFinallyKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Keyword cLeftCurlyBracketKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Action cFinallyStateAssertionAction_2 = (Action)cGroup.eContents().get(2);
+		private final Action cUMLFinallyStateAssertionAction_2 = (Action)cGroup.eContents().get(2);
 		private final Assignment cChecksAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final RuleCall cChecksUMLCheckParserRuleCall_3_0 = (RuleCall)cChecksAssignment_3.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
 		//UMLFinallyStateAssertion:
-		//	"finally" "{" {FinallyStateAssertion} checks+=UMLCheck* "}";
+		//	"finally" "{" {UMLFinallyStateAssertion} checks+=UMLCheck* "}";
 		public ParserRule getRule() { return rule; }
 
-		//"finally" "{" {FinallyStateAssertion} checks+=UMLCheck* "}"
+		//"finally" "{" {UMLFinallyStateAssertion} checks+=UMLCheck* "}"
 		public Group getGroup() { return cGroup; }
 
 		//"finally"
@@ -792,8 +792,8 @@ public class UmlTestLangGrammarAccess extends AbstractGrammarElementFinder {
 		//"{"
 		public Keyword getLeftCurlyBracketKeyword_1() { return cLeftCurlyBracketKeyword_1; }
 
-		//{FinallyStateAssertion}
-		public Action getFinallyStateAssertionAction_2() { return cFinallyStateAssertionAction_2; }
+		//{UMLFinallyStateAssertion}
+		public Action getUMLFinallyStateAssertionAction_2() { return cUMLFinallyStateAssertionAction_2; }
 
 		//checks+=UMLCheck*
 		public Assignment getChecksAssignment_3() { return cChecksAssignment_3; }
@@ -1546,7 +1546,7 @@ public class UmlTestLangGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//UMLFinallyStateAssertion:
-	//	"finally" "{" {FinallyStateAssertion} checks+=UMLCheck* "}";
+	//	"finally" "{" {UMLFinallyStateAssertion} checks+=UMLCheck* "}";
 	public UMLFinallyStateAssertionElements getUMLFinallyStateAssertionAccess() {
 		return (pUMLFinallyStateAssertion != null) ? pUMLFinallyStateAssertion : (pUMLFinallyStateAssertion = new UMLFinallyStateAssertionElements());
 	}

@@ -3510,7 +3510,7 @@ public class InternalUmlTestLangParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
 
                       current = forceCreateModelElement(
-                          grammarAccess.getUMLFinallyStateAssertionAccess().getFinallyStateAssertionAction_2(),
+                          grammarAccess.getUMLFinallyStateAssertionAccess().getUMLFinallyStateAssertionAction_2(),
                           current);
                   
             }

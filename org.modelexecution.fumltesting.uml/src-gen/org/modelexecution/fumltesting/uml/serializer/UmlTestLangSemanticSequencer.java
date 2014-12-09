@@ -58,13 +58,13 @@ import org.eclipse.xtext.xtype.XImportDeclaration;
 import org.eclipse.xtext.xtype.XImportSection;
 import org.eclipse.xtext.xtype.XtypePackage;
 import org.modelexecution.fumltesting.uml.services.UmlTestLangGrammarAccess;
-import org.modelexecution.fumltesting.uml.umlTestLang.FinallyStateAssertion;
 import org.modelexecution.fumltesting.uml.umlTestLang.Import;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLActionReferencePoint;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLActivityInput;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLAttribute;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLConstraintCheck;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLConstraintReferencePoint;
+import org.modelexecution.fumltesting.uml.umlTestLang.UMLFinallyStateAssertion;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLLink;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLNodeOrder;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLNodeSpecification;
@@ -146,13 +146,6 @@ public class UmlTestLangSemanticSequencer extends XbaseSemanticSequencer {
 				else break;
 			}
 		else if(semanticObject.eClass().getEPackage() == UmlTestLangPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
-			case UmlTestLangPackage.FINALLY_STATE_ASSERTION:
-				if(context == grammarAccess.getUMLAssertionRule() ||
-				   context == grammarAccess.getUMLFinallyStateAssertionRule()) {
-					sequence_UMLFinallyStateAssertion(context, (FinallyStateAssertion) semanticObject); 
-					return; 
-				}
-				else break;
 			case UmlTestLangPackage.IMPORT:
 				if(context == grammarAccess.getImportRule()) {
 					sequence_Import(context, (Import) semanticObject); 
@@ -189,6 +182,13 @@ public class UmlTestLangSemanticSequencer extends XbaseSemanticSequencer {
 				if(context == grammarAccess.getUMLConstraintReferencePointRule() ||
 				   context == grammarAccess.getUMLReferencePointRule()) {
 					sequence_UMLConstraintReferencePoint(context, (UMLConstraintReferencePoint) semanticObject); 
+					return; 
+				}
+				else break;
+			case UmlTestLangPackage.UML_FINALLY_STATE_ASSERTION:
+				if(context == grammarAccess.getUMLAssertionRule() ||
+				   context == grammarAccess.getUMLFinallyStateAssertionRule()) {
+					sequence_UMLFinallyStateAssertion(context, (UMLFinallyStateAssertion) semanticObject); 
 					return; 
 				}
 				else break;
@@ -1415,7 +1415,7 @@ public class UmlTestLangSemanticSequencer extends XbaseSemanticSequencer {
 	 * Constraint:
 	 *     (checks+=UMLCheck*)
 	 */
-	protected void sequence_UMLFinallyStateAssertion(EObject context, FinallyStateAssertion semanticObject) {
+	protected void sequence_UMLFinallyStateAssertion(EObject context, UMLFinallyStateAssertion semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

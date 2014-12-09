@@ -21600,7 +21600,7 @@ public class InternalUmlTestLangParser extends AbstractInternalContentAssistPars
             // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:6976:1: ()
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getUMLFinallyStateAssertionAccess().getFinallyStateAssertionAction_2()); 
+               before(grammarAccess.getUMLFinallyStateAssertionAccess().getUMLFinallyStateAssertionAction_2()); 
             }
             // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:6977:1: ()
             // ../org.modelexecution.fumltesting.uml.ui/src-gen/org/modelexecution/fumltesting/uml/ui/contentassist/antlr/internal/InternalUmlTestLang.g:6979:1: 
@@ -21608,7 +21608,7 @@ public class InternalUmlTestLangParser extends AbstractInternalContentAssistPars
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getUMLFinallyStateAssertionAccess().getFinallyStateAssertionAction_2()); 
+               after(grammarAccess.getUMLFinallyStateAssertionAccess().getUMLFinallyStateAssertionAction_2()); 
             }
 
             }

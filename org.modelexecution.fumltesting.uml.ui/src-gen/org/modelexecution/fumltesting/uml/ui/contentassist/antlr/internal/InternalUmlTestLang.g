@@ -6973,11 +6973,11 @@ rule__UMLFinallyStateAssertion__Group__2__Impl
     }
 :
 (
-{ before(grammarAccess.getUMLFinallyStateAssertionAccess().getFinallyStateAssertionAction_2()); }
+{ before(grammarAccess.getUMLFinallyStateAssertionAccess().getUMLFinallyStateAssertionAction_2()); }
 (
 
 )
-{ after(grammarAccess.getUMLFinallyStateAssertionAccess().getFinallyStateAssertionAction_2()); }
+{ after(grammarAccess.getUMLFinallyStateAssertionAccess().getUMLFinallyStateAssertionAction_2()); }
 )
 
 ;

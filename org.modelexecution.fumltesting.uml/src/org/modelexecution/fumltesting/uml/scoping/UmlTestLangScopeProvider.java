@@ -37,7 +37,6 @@ import org.eclipse.uml2.uml.Type;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.scoping.Scopes;
 import org.eclipse.xtext.xbase.scoping.XbaseScopeProvider;
-import org.modelexecution.fumltesting.uml.umlTestLang.FinallyStateAssertion;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLActionReferencePoint;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLActivityInput;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLAttribute;
@@ -294,8 +293,8 @@ public class UmlTestLangScopeProvider extends XbaseScopeProvider {
 				}
 
 				return Scopes.scopeFor(objects, new UmlQualifiedNameProvider(), IScope.NULLSCOPE);
-			} else if (context.eContainer() instanceof FinallyStateAssertion) {
-				FinallyStateAssertion stateAssertion = (FinallyStateAssertion) context.eContainer();
+			} else if (context.eContainer() instanceof UMLFinallyStateAssertion) {
+				UMLFinallyStateAssertion stateAssertion = (UMLFinallyStateAssertion) context.eContainer();
 				UMLTestCase testCase = (UMLTestCase) stateAssertion.eContainer();
 				UMLTestSuite testSuite = (UMLTestSuite) testCase.eContainer();
 				ArrayList<UMLObjectSpecification> objects = new ArrayList<UMLObjectSpecification>();

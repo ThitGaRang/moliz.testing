@@ -92,7 +92,9 @@
     <genClasses ecoreClass="UmlTestLang.ecore#//UMLConstraintReferencePoint">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UmlTestLang.ecore#//UMLConstraintReferencePoint/constraintName"/>
     </genClasses>
-    <genClasses ecoreClass="UmlTestLang.ecore#//UMLFinallyStateAssertion"/>
+    <genClasses ecoreClass="UmlTestLang.ecore#//UMLFinallyStateAssertion">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UmlTestLang.ecore#//UMLFinallyStateAssertion/checks"/>
+    </genClasses>
     <genClasses ecoreClass="UmlTestLang.ecore#//UMLCheck"/>
     <genClasses ecoreClass="UmlTestLang.ecore#//UMLConstraintCheck">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UmlTestLang.ecore#//UMLConstraintCheck/constraintNames"/>
@@ -118,9 +120,6 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UmlTestLang.ecore#//UMLNodeSpecification/size"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UmlTestLang.ecore#//UMLNodeSpecification/subOrder"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute UmlTestLang.ecore#//UMLNodeSpecification/joker"/>
-    </genClasses>
-    <genClasses ecoreClass="UmlTestLang.ecore#//FinallyStateAssertion">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference UmlTestLang.ecore#//FinallyStateAssertion/checks"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

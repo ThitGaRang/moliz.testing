@@ -15,7 +15,6 @@ import org.eclipse.uml2.uml.UMLPackage;
 
 import org.eclipse.xtext.xbase.XbasePackage;
 
-import org.modelexecution.fumltesting.uml.umlTestLang.FinallyStateAssertion;
 import org.modelexecution.fumltesting.uml.umlTestLang.Import;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLActionReferencePoint;
 import org.modelexecution.fumltesting.uml.umlTestLang.UMLActivityInput;
@@ -229,13 +228,6 @@ public class UmlTestLangPackageImpl extends EPackageImpl implements UmlTestLangP
    * @generated
    */
   private EClass umlNodeSpecificationEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  private EClass finallyStateAssertionEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -850,6 +842,16 @@ public class UmlTestLangPackageImpl extends EPackageImpl implements UmlTestLangP
    * <!-- end-user-doc -->
    * @generated
    */
+  public EReference getUMLFinallyStateAssertion_Checks()
+  {
+    return (EReference)umlFinallyStateAssertionEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getUMLCheck()
   {
     return umlCheckEClass;
@@ -1050,26 +1052,6 @@ public class UmlTestLangPackageImpl extends EPackageImpl implements UmlTestLangP
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getFinallyStateAssertion()
-  {
-    return finallyStateAssertionEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getFinallyStateAssertion_Checks()
-  {
-    return (EReference)finallyStateAssertionEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EEnum getUMLArithmeticOperator()
   {
     return umlArithmeticOperatorEEnum;
@@ -1193,6 +1175,7 @@ public class UmlTestLangPackageImpl extends EPackageImpl implements UmlTestLangP
     createEReference(umlConstraintReferencePointEClass, UML_CONSTRAINT_REFERENCE_POINT__CONSTRAINT_NAME);
 
     umlFinallyStateAssertionEClass = createEClass(UML_FINALLY_STATE_ASSERTION);
+    createEReference(umlFinallyStateAssertionEClass, UML_FINALLY_STATE_ASSERTION__CHECKS);
 
     umlCheckEClass = createEClass(UML_CHECK);
 
@@ -1221,9 +1204,6 @@ public class UmlTestLangPackageImpl extends EPackageImpl implements UmlTestLangP
     createEReference(umlNodeSpecificationEClass, UML_NODE_SPECIFICATION__SIZE);
     createEReference(umlNodeSpecificationEClass, UML_NODE_SPECIFICATION__SUB_ORDER);
     createEAttribute(umlNodeSpecificationEClass, UML_NODE_SPECIFICATION__JOKER);
-
-    finallyStateAssertionEClass = createEClass(FINALLY_STATE_ASSERTION);
-    createEReference(finallyStateAssertionEClass, FINALLY_STATE_ASSERTION__CHECKS);
 
     // Create enums
     umlArithmeticOperatorEEnum = createEEnum(UML_ARITHMETIC_OPERATOR);
@@ -1276,7 +1256,6 @@ public class UmlTestLangPackageImpl extends EPackageImpl implements UmlTestLangP
     umlObjectStateExpressionEClass.getESuperTypes().add(this.getUMLStateExpression());
     umlPropertyStateExpressionEClass.getESuperTypes().add(this.getUMLStateExpression());
     umlOrderAssertionEClass.getESuperTypes().add(this.getUMLAssertion());
-    finallyStateAssertionEClass.getESuperTypes().add(this.getUMLFinallyStateAssertion());
 
     // Initialize classes and features; add operations and parameters
     initEClass(umlTestSuiteEClass, UMLTestSuite.class, "UMLTestSuite", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1347,6 +1326,7 @@ public class UmlTestLangPackageImpl extends EPackageImpl implements UmlTestLangP
     initEReference(getUMLConstraintReferencePoint_ConstraintName(), theXbasePackage.getXExpression(), null, "constraintName", null, 0, 1, UMLConstraintReferencePoint.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(umlFinallyStateAssertionEClass, UMLFinallyStateAssertion.class, "UMLFinallyStateAssertion", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getUMLFinallyStateAssertion_Checks(), this.getUMLCheck(), null, "checks", null, 0, -1, UMLFinallyStateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(umlCheckEClass, UMLCheck.class, "UMLCheck", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -1375,9 +1355,6 @@ public class UmlTestLangPackageImpl extends EPackageImpl implements UmlTestLangP
     initEReference(getUMLNodeSpecification_Size(), theXbasePackage.getXExpression(), null, "size", null, 0, 1, UMLNodeSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getUMLNodeSpecification_SubOrder(), this.getUMLNodeOrder(), null, "subOrder", null, 0, 1, UMLNodeSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getUMLNodeSpecification_Joker(), theEcorePackage.getEString(), "joker", null, 0, 1, UMLNodeSpecification.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-    initEClass(finallyStateAssertionEClass, FinallyStateAssertion.class, "FinallyStateAssertion", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getFinallyStateAssertion_Checks(), this.getUMLCheck(), null, "checks", null, 0, -1, FinallyStateAssertion.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Initialize enums and add enum literals
     initEEnum(umlArithmeticOperatorEEnum, UMLArithmeticOperator.class, "UMLArithmeticOperator");

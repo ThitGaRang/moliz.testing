@@ -90,7 +90,6 @@ public class UmlTestLangFactoryImpl extends EFactoryImpl implements UmlTestLangF
       case UmlTestLangPackage.UML_ORDER_ASSERTION: return createUMLOrderAssertion();
       case UmlTestLangPackage.UML_NODE_ORDER: return createUMLNodeOrder();
       case UmlTestLangPackage.UML_NODE_SPECIFICATION: return createUMLNodeSpecification();
-      case UmlTestLangPackage.FINALLY_STATE_ASSERTION: return createFinallyStateAssertion();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -411,17 +410,6 @@ public class UmlTestLangFactoryImpl extends EFactoryImpl implements UmlTestLangF
   {
     UMLNodeSpecificationImpl umlNodeSpecification = new UMLNodeSpecificationImpl();
     return umlNodeSpecification;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public FinallyStateAssertion createFinallyStateAssertion()
-  {
-    FinallyStateAssertionImpl finallyStateAssertion = new FinallyStateAssertionImpl();
-    return finallyStateAssertion;
   }
 
   /**

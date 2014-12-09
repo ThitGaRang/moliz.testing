@@ -82,7 +82,10 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="constraintName" eType="ecore:EClass platform:/resource/org.eclipse.xtext.xbase/model/Xbase.ecore#//XExpression"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="UMLFinallyStateAssertion" eSuperTypes="#//UMLAssertion"/>
+  <eClassifiers xsi:type="ecore:EClass" name="UMLFinallyStateAssertion" eSuperTypes="#//UMLAssertion">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="checks" upperBound="-1"
+        eType="#//UMLCheck" containment="true"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UMLCheck"/>
   <eClassifiers xsi:type="ecore:EClass" name="UMLConstraintCheck" eSuperTypes="#//UMLCheck">
     <eStructuralFeatures xsi:type="ecore:EReference" name="constraintNames" upperBound="-1"
@@ -135,9 +138,5 @@
     <eLiterals name="sometimes" value="1" literal="sometimes"/>
     <eLiterals name="eventually" value="2" literal="eventually"/>
     <eLiterals name="immediately" value="3" literal="immediately"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FinallyStateAssertion" eSuperTypes="#//UMLFinallyStateAssertion">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="checks" upperBound="-1"
-        eType="#//UMLCheck" containment="true"/>
   </eClassifiers>
 </ecore:EPackage>

@@ -60,7 +60,7 @@ UMLConstraintReferencePoint:
 	'constraint' constraintName=XStringLiteral;
 
 UMLFinallyStateAssertion:
-	'finally' '{' {FinallyStateAssertion} (checks+=UMLCheck)* '}';
+	'finally' '{' {UMLFinallyStateAssertion} (checks+=UMLCheck)* '}';
 
 UMLCheck:
 	UMLConstraintCheck | UMLStateExpression;

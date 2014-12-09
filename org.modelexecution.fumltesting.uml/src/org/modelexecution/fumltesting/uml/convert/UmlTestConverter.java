@@ -288,9 +288,9 @@ public class UmlTestConverter implements TestConverter {
 			}
 
 			return stateAssertion;
-		} else if (anAssertion instanceof org.modelexecution.fumltesting.uml.umlTestLang.FinallyStateAssertion) {
+		} else if (anAssertion instanceof UMLFinallyStateAssertion) {
 			FinallyStateAssertion finallyStateAssertion = new FinallyStateAssertion();
-			org.modelexecution.fumltesting.uml.umlTestLang.FinallyStateAssertion umlFinallyStateAssertion = (org.modelexecution.fumltesting.uml.umlTestLang.FinallyStateAssertion) anAssertion;
+			UMLFinallyStateAssertion umlFinallyStateAssertion = (UMLFinallyStateAssertion) anAssertion;
 			for (UMLCheck umlCheck : umlFinallyStateAssertion.getChecks()) {
 				finallyStateAssertion.addCheck(convertCheck(umlCheck));
 			}
