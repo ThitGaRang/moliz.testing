@@ -3,7 +3,7 @@ package org.modelexecution.fumltesting.core.assertions;
 import java.util.List;
 
 import org.modelexecution.fumltesting.core.parallelism.ExecutionMatrix;
-import org.modelexecution.fumltesting.core.results.MatrixOrderAssertionResult;
+import org.modelexecution.fumltesting.core.results.OrderAssertionResult;
 import org.modelexecution.fumltesting.core.testlang.NodeSpecification;
 import org.modelexecution.fumltesting.core.testlang.OrderAssertion;
 import org.modelexecution.fumltesting.core.trace.TraceUtil;
@@ -25,13 +25,13 @@ public class MatrixOrderAssertionValidator {
 		this.matrix.printMatrix();
 	}
 
-	public MatrixOrderAssertionResult checkOrder(OrderAssertion assertion) {
-		MatrixOrderAssertionResult result = new MatrixOrderAssertionResult(((OrderAssertion) assertion).getOrder().getAllNodes());
+	public OrderAssertionResult checkOrder(OrderAssertion assertion) {
+		OrderAssertionResult result = new OrderAssertionResult(((OrderAssertion) assertion).getOrder().getAllNodes(), true);
 		result.setAssertion(assertion);
 
 		List<NodeSpecification> nodeOrder = assertion.getOrder().getAllNodes();
 
-		result.setAssertionValidationResult(validate(nodeOrder));
+		result.setResult(validate(nodeOrder));
 
 		for (NodeSpecification nodeSpecification : nodeOrder) {
 			if (nodeSpecification.getSubOrder() != null) {
@@ -47,13 +47,13 @@ public class MatrixOrderAssertionValidator {
 
 				int activityExecutionID = traceUtil.getActivityExecutionID(parent.name);
 
-				MatrixOrderAssertionResult subOrderResult = new MatrixOrderAssertionResult(nodeSpecification.getSubOrder().getAllNodes());
+				OrderAssertionResult subOrderResult = new OrderAssertionResult(nodeSpecification.getSubOrder().getAllNodes(), true);
 				subOrderResult.setAssertion(assertion);
 
 				TraceUtil subTraceUtil = new TraceUtil(activityExecutionID);
 				MatrixOrderAssertionValidator subOrderValidator = new MatrixOrderAssertionValidator(subTraceUtil);
 
-				subOrderResult.setAssertionValidationResult(subOrderValidator.validate(nodeSpecification.getSubOrder().getAllNodes()));
+				subOrderResult.setResult(subOrderValidator.validate(nodeSpecification.getSubOrder().getAllNodes()));
 
 				result.addSubOrderAssertionResult(subOrderResult);
 			}

@@ -9,6 +9,7 @@ package org.modelexecution.fumltesting.core.results;
 import java.util.ArrayList;
 
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
+import org.modelexecution.fumltesting.core.testlang.ObjectSpecification;
 
 /**
  * 
@@ -18,13 +19,32 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 public class TestCaseResult {
 	private String name = null;
 	private ActivityExecution activityUT = null;
-	private Object context = null;
+	private ObjectSpecification context = null;
 	private ArrayList<ActivityInput> inputValues = new ArrayList<ActivityInput>();
 	private ArrayList<AssertionResult> assertionResults = new ArrayList<AssertionResult>();
+	private boolean hasError = false;
+	private String error = "";
 
-	public TestCaseResult(String name, ActivityExecution activityUT) {
+	public TestCaseResult(String name, ActivityExecution activityUT, boolean hasError) {
 		this.name = name;
 		this.activityUT = activityUT;
+		this.hasError = hasError;
+	}
+
+	public boolean hasError() {
+		return hasError;
+	}
+
+	public String getError() {
+		if (error.equals("")) {
+			return "There were no errors!";
+		} else {
+			return error;
+		}
+	}
+
+	public void setError(String error) {
+		this.error = error;
 	}
 
 	public String getTestCaseName() {
@@ -43,11 +63,11 @@ public class TestCaseResult {
 		return inputValues;
 	}
 
-	public void setActivityContextObject(Object context) {
+	public void setActivityContextObject(ObjectSpecification context) {
 		this.context = context;
 	}
 
-	public Object getActivityContextObject() {
+	public ObjectSpecification getActivityContextObject() {
 		return context;
 	}
 
@@ -61,7 +81,7 @@ public class TestCaseResult {
 
 	public boolean getTestCaseValidationResult() {
 		for (AssertionResult result : assertionResults) {
-			if (!result.getAssertionValidationResult())
+			if (!result.getResult())
 				return false;
 		}
 		return true;

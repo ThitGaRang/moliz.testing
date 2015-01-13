@@ -6,7 +6,9 @@
  */
 package org.modelexecution.fumltesting.core.results;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * 
@@ -14,6 +16,7 @@ import java.util.ArrayList;
  * 
  */
 public class TestSuiteResult {
+	private SimpleDateFormat executedOn = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 	private ArrayList<TestCaseResult> testCaseResults = new ArrayList<TestCaseResult>();
 
 	public void addTestCaseResult(TestCaseResult result) {
@@ -22,5 +25,9 @@ public class TestSuiteResult {
 
 	public ArrayList<TestCaseResult> getTestCaseResults() {
 		return testCaseResults;
+	}
+
+	public String executedOn(){
+		return executedOn.format(new Date());
 	}
 }

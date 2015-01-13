@@ -33,7 +33,7 @@ public class StateAssertionResult extends AssertionResult {
 	public ArrayList<StateExpressionResult> getFailedStateExpressions() {
 		ArrayList<StateExpressionResult> failedStateExpressionResults = new ArrayList<StateExpressionResult>();
 		for (StateExpressionResult result : expressionResults) {
-			if (result.getValidationResult() == false)
+			if (result.getResult() == false)
 				failedStateExpressionResults.add(result);
 		}
 		return failedStateExpressionResults;
@@ -43,27 +43,27 @@ public class StateAssertionResult extends AssertionResult {
 		return expressionResults.size();
 	}
 
-	public int numberOfConstraintsChecked() {
+	public int getNumberOfConstraints() {
 		return constraintResults.size();
 	}
 
 	public ArrayList<ConstraintResult> getFailedConstraints() {
 		ArrayList<ConstraintResult> failedConstraintResults = new ArrayList<ConstraintResult>();
 		for (ConstraintResult result : constraintResults) {
-			if (result.getValidationResult() == false)
+			if (result.getResult() == false)
 				failedConstraintResults.add(result);
 		}
 		return failedConstraintResults;
 	}
 
 	@Override
-	public boolean getAssertionValidationResult() {
+	public boolean getResult() {
 		for (StateExpressionResult result : expressionResults) {
-			if (result.getValidationResult() == false)
+			if (result.getResult() == false)
 				return false;
 		}
 		for (ConstraintResult result : constraintResults) {
-			if (result.getValidationResult() == false) {
+			if (result.getResult() == false) {
 				return false;
 			}
 		}

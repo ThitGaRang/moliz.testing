@@ -8,17 +8,13 @@ package org.modelexecution.fumltesting.core.execution;
 
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map.Entry;
 
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumltesting.core.results.ActivityInput;
 import org.modelexecution.fumltesting.core.results.AssertionResult;
 import org.modelexecution.fumltesting.core.results.ConstraintResult;
-import org.modelexecution.fumltesting.core.results.MatrixOrderAssertionResult;
 import org.modelexecution.fumltesting.core.results.OrderAssertionResult;
 import org.modelexecution.fumltesting.core.results.PathCheckResult;
 import org.modelexecution.fumltesting.core.results.StateAssertionResult;
@@ -44,7 +40,6 @@ import fUML.Syntax.Actions.BasicActions.Action;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityFinalNode;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
-import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
 import fUML.Syntax.Activities.IntermediateActivities.DecisionNode;
 import fUML.Syntax.Activities.IntermediateActivities.ForkNode;
 import fUML.Syntax.Activities.IntermediateActivities.InitialNode;
@@ -59,25 +54,20 @@ import fUML.Syntax.Classes.Kernel.Property;
  * 
  */
 public class ResultsWriter {
-	private HashMap<String, String> testsThatDidNotRun;
 	private TestSuiteResult suiteResult;
 	private PrintWriter writer;
 	private final String marking = "******************************************************************************************";
 
-	public ResultsWriter(TestSuiteResult suiteResult, HashMap<String, String> testsThatDidNotRun, OutputStream output) {
+	public ResultsWriter(TestSuiteResult suiteResult, OutputStream output) {
 		this.suiteResult = suiteResult;
-		this.testsThatDidNotRun = testsThatDidNotRun;
 		writer = new PrintWriter(output);
 	}
 
 	public void writeResults() {
-		SimpleDateFormat currentTime = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-		writer.println("Test Suite Run: " + currentTime.format(new Date()));
+		writer.println("Test Suite Run: " + suiteResult.executedOn());
 		writer.println();
 
-		if (testsThatDidNotRun.size() > 0) {
-			writeTestsThatDidNotRun();
-		}
+		writeTestsThatDidNotRun(suiteResult);
 
 		for (TestCaseResult testCaseResult : suiteResult.getTestCaseResults()) {
 			writer.println("TestCase: " + testCaseResult.getTestCaseName());
@@ -93,7 +83,7 @@ public class ResultsWriter {
 					if (activityInput.getValue() instanceof ObjectValue) {
 						value = ((ObjectValue) activityInput.getValue()).getValue().getName();
 					} else {
-						Value aValue = ((Value) activityInput.getValue());
+						Value aValue = (Value) activityInput.getValue();
 						if (aValue instanceof NullValue) {
 							value = "null";
 						} else if (aValue instanceof StringValue) {
@@ -106,28 +96,25 @@ public class ResultsWriter {
 							value = "UNKNOWN";
 						}
 					}
-					writer.print(((ActivityParameterNode) activityInput.getParameter()).name + " = " + value + "; ");
+					writer.print(activityInput.getParameter().name + " = " + value + "; ");
 				}
 			}
 			writer.println();
 			for (AssertionResult assertionResult : testCaseResult.getAssertionResults()) {
 
-				if (assertionResult instanceof MatrixOrderAssertionResult) {
-					MatrixOrderAssertionResult orderAssertionResult = (MatrixOrderAssertionResult) assertionResult;
-					writer.println("\tMatrix validation:");
+				if (assertionResult instanceof OrderAssertionResult && ((OrderAssertionResult) assertionResult).isMatrixAssertion()) {
+					OrderAssertionResult orderAssertionResult = (OrderAssertionResult) assertionResult;
 					printSpecification(orderAssertionResult.getOrderSpecification());
-					writer.println("\tValidation result: " + (orderAssertionResult.getAssertionValidationResult() ? "SUCCESS" : "FAIL"));
-					for (MatrixOrderAssertionResult subResult : orderAssertionResult.getSubOrderAssertionResults()) {
-						writer.println("\t\tMatrix validation:");
+					writer.println("\tValidation result: " + (orderAssertionResult.getResult() ? "SUCCESS" : "FAIL"));
+					for (OrderAssertionResult subResult : orderAssertionResult.getSubOrderResults()) {
 						writer.println("\t\tSub-order checked..");
 						writer.print("\t");
 						printSpecification(subResult.getOrderSpecification());
-						writer.println("\t\tValidation result: " + (orderAssertionResult.getAssertionValidationResult() ? "SUCCESS" : "FAIL"));
+						writer.println("\t\tValidation result: " + (orderAssertionResult.getResult() ? "SUCCESS" : "FAIL"));
 					}
 				}
-				if (assertionResult instanceof OrderAssertionResult) {
+				if (assertionResult instanceof OrderAssertionResult && !((OrderAssertionResult) assertionResult).isMatrixAssertion()) {
 					OrderAssertionResult orderAssertionResult = (OrderAssertionResult) assertionResult;
-					writer.println("\tBrute force check:");
 					writer.println("\tNumber of paths checked: " + orderAssertionResult.numberOfPathsChecked());
 					writer.println("\tNumber of invalid paths: " + orderAssertionResult.getFailedPathCheckResults().size());
 					writer.println();
@@ -187,61 +174,65 @@ public class ResultsWriter {
 						}
 					}
 					writer.println();
-					if (stateAssertionResult.numberOfConstraintsChecked() > 0) {
-						writer.println("\tConstraints checked: " + stateAssertionResult.numberOfConstraintsChecked());
-						writer.println("\tConstraints failed: " + stateAssertionResult.getFailedConstraints().size());
-						for (ConstraintResult constraintResult : stateAssertionResult.getFailedConstraints()) {
-							writer.println("\t\tConstraint: " + constraintResult.getConstraintName());
+					if (stateAssertionResult.hasError()) {
+						writer.println("\tError: " + stateAssertionResult.getError());
+					} else {
+						if (stateAssertionResult.getNumberOfConstraints() > 0) {
+							writer.println("\tConstraints checked: " + stateAssertionResult.getNumberOfConstraints());
+							writer.println("\tConstraints failed: " + stateAssertionResult.getFailedConstraints().size());
+							for (ConstraintResult constraintResult : stateAssertionResult.getFailedConstraints()) {
+								writer.println("\t\tConstraint: " + constraintResult.getConstraintName());
+							}
 						}
-					}
-					if (((StateAssertionResult) assertionResult).getNumberOfStateExpressions() > 0) {
-						writer.println("\tState expressions checked: " + ((StateAssertionResult) assertionResult).getNumberOfStateExpressions());
-						writer.println("\tState expressions failed: " + ((StateAssertionResult) assertionResult).getFailedStateExpressions().size());
+						if (((StateAssertionResult) assertionResult).getNumberOfStateExpressions() > 0) {
+							writer.println("\tState expressions checked: " + ((StateAssertionResult) assertionResult).getNumberOfStateExpressions());
+							writer.println("\tState expressions failed: " + ((StateAssertionResult) assertionResult).getFailedStateExpressions().size());
 
-						for (StateExpressionResult result : ((StateAssertionResult) assertionResult).getFailedStateExpressions()) {
-							if (result.hasError()) {
-								writer.println("\tError occurred: " + result.getError());
-							} else {
-								String pinQualifiedName = "";
-								if (result.getStateExpression() instanceof PropertyStateExpression) {
-									ObjectNode pin = ((PropertyStateExpression) result.getStateExpression()).getPin();
-									if (pin.owner instanceof Activity) {
-										pinQualifiedName = ((Activity) pin.owner).name + "." + pin.name;
-									} else if (pin.owner instanceof Action) {
-										pinQualifiedName = ((Action) pin.owner).activity.name + "." + ((Action) pin.owner).name + "." + pin.name;
+							for (StateExpressionResult result : ((StateAssertionResult) assertionResult).getFailedStateExpressions()) {
+								if (result.hasError()) {
+									writer.println("\tError occurred: " + result.getError());
+								} else {
+									String pinQualifiedName = "";
+									if (result.getStateExpression() instanceof PropertyStateExpression) {
+										ObjectNode pin = ((PropertyStateExpression) result.getStateExpression()).getPin();
+										if (pin.owner instanceof Activity) {
+											pinQualifiedName = ((Activity) pin.owner).name + "." + pin.name;
+										} else if (pin.owner instanceof Action) {
+											pinQualifiedName = ((Action) pin.owner).activity.name + "." + ((Action) pin.owner).name + "." + pin.name;
+										}
+										Property property = ((PropertyStateExpression) result.getStateExpression()).getProperty();
+										writer.print("\t\tExpression: " + pinQualifiedName + "::" + property.name + " "
+												+ ((StateExpression) result.getStateExpression()).getOperator() + " ");
 									}
-									Property property = ((PropertyStateExpression) result.getStateExpression()).getProperty();
-									writer.print("\t\tExpression: " + pinQualifiedName + "::" + property.name + " "
-											+ ((StateExpression) result.getStateExpression()).getOperator() + " ");
-								}
-								if (result.getStateExpression() instanceof ObjectStateExpression) {
-									ObjectNode pin = ((ObjectStateExpression) result.getStateExpression()).getPin();
-									if (pin.owner instanceof Activity) {
-										pinQualifiedName = ((Activity) pin.owner).name + "." + pin.name;
-									} else if (pin.owner instanceof Action) {
-										pinQualifiedName = ((Action) pin.owner).activity.name + "." + ((Action) pin.owner).name + "." + pin.name;
+									if (result.getStateExpression() instanceof ObjectStateExpression) {
+										ObjectNode pin = ((ObjectStateExpression) result.getStateExpression()).getPin();
+										if (pin.owner instanceof Activity) {
+											pinQualifiedName = ((Activity) pin.owner).name + "." + pin.name;
+										} else if (pin.owner instanceof Action) {
+											pinQualifiedName = ((Action) pin.owner).activity.name + "." + ((Action) pin.owner).name + "." + pin.name;
+										}
+										writer.print("\t\tExpression: " + pinQualifiedName + " "
+												+ ((StateExpression) result.getStateExpression()).getOperator() + " ");
 									}
-									writer.print("\t\tExpression: " + pinQualifiedName + " " + ((StateExpression) result.getStateExpression()).getOperator()
-											+ " ");
-								}
-								Value value = ((StateExpression) result.getStateExpression()).getValue();
-								if (value instanceof ObjectValue) {
-									writer.print(((ObjectValue) value).getValue().getName());
-								} else if (value instanceof Value) {
-									if (value instanceof NullValue) {
-										writer.print("null");
-									} else if (value instanceof StringValue) {
-										writer.print(((StringValue) value).getValue());
-									} else if (value instanceof BooleanValue) {
-										writer.print(((BooleanValue) value).getValue());
-									} else if (value instanceof IntegerValue) {
-										writer.print(((IntegerValue) value).getValue());
+									Value value = ((StateExpression) result.getStateExpression()).getValue();
+									if (value instanceof ObjectValue) {
+										writer.print(((ObjectValue) value).getValue().getName());
+									} else if (value instanceof Value) {
+										if (value instanceof NullValue) {
+											writer.print("null");
+										} else if (value instanceof StringValue) {
+											writer.print(((StringValue) value).getValue());
+										} else if (value instanceof BooleanValue) {
+											writer.print(((BooleanValue) value).getValue());
+										} else if (value instanceof IntegerValue) {
+											writer.print(((IntegerValue) value).getValue());
+										}
 									}
-								}
-								if (result.getActual() != null)
-									writer.println(" / Actual was: " + result.getActual());
-								if (result.getActual() == null) {
-									writer.println(" / Actual was: NULL");
+									if (result.getActual() != null)
+										writer.println(" / Actual was: " + result.getActual());
+									if (result.getActual() == null) {
+										writer.println(" / Actual was: NULL");
+									}
 								}
 							}
 						}
@@ -253,12 +244,19 @@ public class ResultsWriter {
 		writer.close();
 	}
 
-	private void writeTestsThatDidNotRun() {
-		writer.println("These tests did not run: \n");
-		for (Entry<String, String> entry : testsThatDidNotRun.entrySet()) {
-			writer.println("Test name: \t" + entry.getKey());
-			writer.println("Cause: \t" + entry.getValue());
-			writer.println(marking);
+	private void writeTestsThatDidNotRun(TestSuiteResult suiteResult) {
+		ArrayList<TestCaseResult> testsThatDidNotRun = new ArrayList<TestCaseResult>();
+		for (TestCaseResult testCaseResult : suiteResult.getTestCaseResults()) {
+			if (!testCaseResult.hasError())
+				testsThatDidNotRun.add(testCaseResult);
+		}
+		if (testsThatDidNotRun.size() > 0) {
+			writer.println("These tests did not run: \n");
+			for (TestCaseResult testCaseResult : testsThatDidNotRun) {
+				writer.println("Test name: \t" + testCaseResult.getTestCaseName());
+				writer.println("Cause: \t" + testCaseResult.getError());
+				writer.println(marking);
+			}
 		}
 	}
 

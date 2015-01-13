@@ -21,11 +21,17 @@ public class OrderAssertionResult extends AssertionResult {
 	private List<NodeSpecification> orderSpecification;
 	private ArrayList<PathCheckResult> pathCheckResults;
 	private ArrayList<OrderAssertionResult> subOrderAssertionResults;
+	private boolean isMatrixAssertion = false;
 
-	public OrderAssertionResult(List<NodeSpecification> orderSpecification) {
+	public OrderAssertionResult(List<NodeSpecification> orderSpecification, boolean isMatrixAssertion) {
 		this.orderSpecification = orderSpecification;
 		pathCheckResults = new ArrayList<PathCheckResult>();
 		subOrderAssertionResults = new ArrayList<OrderAssertionResult>();
+		this.isMatrixAssertion = isMatrixAssertion;
+	}
+
+	public boolean isMatrixAssertion() {
+		return isMatrixAssertion;
 	}
 
 	public List<NodeSpecification> getOrderSpecification() {
@@ -43,7 +49,7 @@ public class OrderAssertionResult extends AssertionResult {
 	public ArrayList<PathCheckResult> getFailedPathCheckResults() {
 		ArrayList<PathCheckResult> failedPathCheckResults = new ArrayList<PathCheckResult>();
 		for (PathCheckResult result : pathCheckResults) {
-			if (result.getValidationResult() == false)
+			if (result.getResult() == false)
 				failedPathCheckResults.add(result);
 		}
 		return failedPathCheckResults;
@@ -56,7 +62,7 @@ public class OrderAssertionResult extends AssertionResult {
 	public ArrayList<OrderAssertionResult> getFailedSubOrderResults() {
 		ArrayList<OrderAssertionResult> failedSubOrderResults = new ArrayList<OrderAssertionResult>();
 		for (OrderAssertionResult result : subOrderAssertionResults) {
-			if (result.getAssertionValidationResult() == false)
+			if (result.getResult() == false)
 				failedSubOrderResults.add(result);
 		}
 		return failedSubOrderResults;
@@ -67,13 +73,13 @@ public class OrderAssertionResult extends AssertionResult {
 	}
 
 	@Override
-	public boolean getAssertionValidationResult() {
+	public boolean getResult() {
 		for (PathCheckResult result : pathCheckResults) {
-			if (result.getValidationResult() == false)
+			if (result.getResult() == false)
 				return false;
 		}
 		for (OrderAssertionResult subResult : subOrderAssertionResults) {
-			if (subResult.getAssertionValidationResult() == false)
+			if (subResult.getResult() == false)
 				return false;
 		}
 		return true;

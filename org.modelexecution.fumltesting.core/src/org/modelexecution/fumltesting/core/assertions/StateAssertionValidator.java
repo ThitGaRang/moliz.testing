@@ -122,7 +122,7 @@ public class StateAssertionValidator {
 								return result;
 							}
 						}
-						ConstraintResult constraintResult = new ConstraintResult(constraintName, assertion);
+						ConstraintResult constraintResult = new ConstraintResult(constraintName);
 						for (State state : states) {
 							boolean constraintResultInSingleState = false;
 							try {
@@ -139,17 +139,17 @@ public class StateAssertionValidator {
 								}
 							} catch (ConstraintNotFoundException e) {
 								result.setError(e.getMessage());
-								constraintResult.setValidationResult(false);
+								constraintResult.setResult(false);
 								return result;
 							} catch (ConstraintsNotLoadedException e) {
 								result.setError(e.getMessage());
-								constraintResult.setValidationResult(false);
+								constraintResult.setResult(false);
 								return result;
 							}
 						}
 						boolean overallResult = compileResult(results, assertion.getQuantifier());
 						results.clear();
-						constraintResult.setValidationResult(overallResult);
+						constraintResult.setResult(overallResult);
 						result.addConstraintResult(constraintResult);
 					}
 				}
@@ -187,15 +187,15 @@ public class StateAssertionValidator {
 			relevantSnapshots = snapshotUtil.getRelevantSnapshots(expression, referenceActionExecution, untilActionExecution);
 			if (expression instanceof ObjectStateExpression) {
 				if (expression.getValue() instanceof ObjectValue || expression.getValue() instanceof NullValue) {
-					result.setValidationResult(processObject((ObjectStateExpression) expression));
+					result.setResult(processObject((ObjectStateExpression) expression));
 				} else {
-					result.setValidationResult(processValue((ObjectStateExpression) expression));
+					result.setResult(processValue((ObjectStateExpression) expression));
 				}
 			} else if (expression instanceof PropertyStateExpression) {
 				if (expression.getValue() instanceof ObjectValue || expression.getValue() instanceof NullValue) {
-					result.setValidationResult(processObject((PropertyStateExpression) expression));
+					result.setResult(processObject((PropertyStateExpression) expression));
 				} else {
-					result.setValidationResult(processValue((PropertyStateExpression) expression));
+					result.setResult(processValue((PropertyStateExpression) expression));
 				}
 			}
 		} catch (ActionNotExecutedException | ExpectedLinkValueException e) {

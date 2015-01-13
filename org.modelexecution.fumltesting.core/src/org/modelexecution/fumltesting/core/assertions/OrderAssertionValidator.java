@@ -38,7 +38,7 @@ public class OrderAssertionValidator {
 	}
 
 	public OrderAssertionResult checkOrder(OrderAssertion assertion) {
-		OrderAssertionResult result = new OrderAssertionResult(((OrderAssertion) assertion).getOrder().getAllNodes());
+		OrderAssertionResult result = new OrderAssertionResult(((OrderAssertion) assertion).getOrder().getAllNodes(), false);
 
 		result.setAssertion(assertion);
 
@@ -50,7 +50,7 @@ public class OrderAssertionValidator {
 
 			boolean validationResult = compare(orderAssertionUtil.getTopNodes(main, path), nodeOrder);
 
-			pathCheckResult.setValidationResult(validationResult);
+			pathCheckResult.setResult(validationResult);
 			result.addPathCheckResult(pathCheckResult);
 		}
 
@@ -68,7 +68,7 @@ public class OrderAssertionValidator {
 
 				int activityExecutionID = traceUtil.getActivityExecutionID(parent.name);
 
-				OrderAssertionResult subOrderResult = new OrderAssertionResult(nodeSpecification.getSubOrder().getAllNodes());
+				OrderAssertionResult subOrderResult = new OrderAssertionResult(nodeSpecification.getSubOrder().getAllNodes(), false);
 				subOrderResult.setAssertion(assertion);
 
 				TraceUtil subTraceUtil = new TraceUtil(activityExecutionID);
@@ -76,7 +76,7 @@ public class OrderAssertionValidator {
 				for (ArrayList<ActivityNodeExecution> path : subTraceUtil.getAllPaths()) {
 					PathCheckResult pathCheckResult = new PathCheckResult(path);
 					boolean validationResult = compare(orderAssertionUtil.getTopNodes(parent, path), nodeSpecification.getSubOrder().getAllNodes());
-					pathCheckResult.setValidationResult(validationResult);
+					pathCheckResult.setResult(validationResult);
 					subOrderResult.addPathCheckResult(pathCheckResult);
 				}
 				result.addSubOrderAssertionResult(subOrderResult);

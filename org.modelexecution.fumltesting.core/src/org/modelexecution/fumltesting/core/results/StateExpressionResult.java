@@ -15,7 +15,7 @@ import org.modelexecution.fumltesting.core.testlang.StateExpression;
  */
 public class StateExpressionResult {
 	private StateExpression expression;
-	private boolean validationResult;
+	private boolean result;
 	private String error;
 	private boolean hasError;
 	private Object expected;
@@ -26,12 +26,12 @@ public class StateExpressionResult {
 		setExpected();
 	}
 
-	public void setValidationResult(boolean validationResult) {
-		this.validationResult = validationResult;
+	public void setResult(boolean result) {
+		this.result = result;
 	}
 
-	public boolean getValidationResult() {
-		return validationResult;
+	public boolean getResult() {
+		return result;
 	}
 
 	public StateExpression getStateExpression() {

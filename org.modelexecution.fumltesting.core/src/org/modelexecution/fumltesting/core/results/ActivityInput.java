@@ -6,25 +6,29 @@
  */
 package org.modelexecution.fumltesting.core.results;
 
+import org.modelexecution.fumltesting.core.testlang.Value;
+
+import fUML.Syntax.Activities.IntermediateActivities.ActivityParameterNode;
+
 /**
  * 
  * @author Stefan Mijatov
  * 
  */
 public class ActivityInput {
-	private Object parameter;
-	private Object value;
+	private ActivityParameterNode parameter;
+	private Value value;
 
-	public ActivityInput(Object parameter, Object value) {
+	public ActivityInput(ActivityParameterNode parameter, Value value) {
 		this.parameter = parameter;
 		this.value = value;
 	}
 
-	public Object getParameter() {
+	public ActivityParameterNode getParameter() {
 		return parameter;
 	}
 
-	public Object getValue() {
+	public Value getValue() {
 		return value;
 	}
 }

@@ -17,7 +17,7 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
  */
 public class PathCheckResult {
 	private ArrayList<ActivityNodeExecution> path;
-	private boolean validationResult;
+	private boolean result;
 
 	public PathCheckResult(ArrayList<ActivityNodeExecution> path) {
 		this.path = path;
@@ -27,11 +27,11 @@ public class PathCheckResult {
 		return path;
 	}
 
-	public void setValidationResult(boolean validationResult) {
-		this.validationResult = validationResult;
+	public void setResult(boolean result) {
+		this.result = result;
 	}
 
-	public boolean getValidationResult() {
-		return validationResult;
+	public boolean getResult() {
+		return result;
 	}
 }
