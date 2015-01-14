@@ -190,7 +190,6 @@ public class UmlTestExecutor {
 	private void testSuiteEvaluation(File testFile) {
 		TestSuiteResult suiteResult = new TestSuiteResult();
 
-		HashMap<String, String> testsThatDidNotRun = new HashMap<String, String>();
 		for (UMLTestCase umlTestCase : suite.getTests()) {
 			TestCase testCase = testConverter.convertTestCase(umlTestCase);
 			Activity activity = testCase.getActivityUnderTest();
@@ -231,7 +230,17 @@ public class UmlTestExecutor {
 
 			if (testCase.getContextObject() != null) {
 				if (contextType != testCase.getContextObject().getType() && requiresContext) {
-					testsThatDidNotRun.put(testCase.getName(), "Object of wrong type declared as context! Please use the proper one.");
+					TestCaseResult testCaseResult = new TestCaseResult(testCase.getName(), executor.getActivityExecution(mainActivityExecutionID), false);
+					testCaseResult.setActivityContextObject(testCase.getContextObject());
+
+					for (ActivityInput activityInput : testCase.getAllInputs()) {
+						org.modelexecution.fumltesting.core.results.ActivityInput activityInputForResult = new org.modelexecution.fumltesting.core.results.ActivityInput(
+								activityInput.getParameter(), activityInput.getValue());
+						testCaseResult.addActivityInputValue(activityInputForResult);
+					}
+
+					testCaseResult.setError("Object of wrong type declared as context! Please use the proper one.");
+					suiteResult.addTestCaseResult(testCaseResult);
 					continue;
 				}
 				ObjectValue contextValue = new ObjectValue(null);
@@ -242,7 +251,17 @@ public class UmlTestExecutor {
 				testDataConverter.setActivityExecution(activityExecution);
 			} else {
 				if (requiresContext) {
-					testsThatDidNotRun.put(testCase.getName(), "CONTEXT for activity NOT defined. Please correct the test declaration.");
+					TestCaseResult testCaseResult = new TestCaseResult(testCase.getName(), executor.getActivityExecution(mainActivityExecutionID), false);
+					testCaseResult.setActivityContextObject(testCase.getContextObject());
+
+					for (ActivityInput activityInput : testCase.getAllInputs()) {
+						org.modelexecution.fumltesting.core.results.ActivityInput activityInputForResult = new org.modelexecution.fumltesting.core.results.ActivityInput(
+								activityInput.getParameter(), activityInput.getValue());
+						testCaseResult.addActivityInputValue(activityInputForResult);
+					}
+
+					testCaseResult.setError("CONTEXT for activity NOT defined. Please correct the test declaration.");
+					suiteResult.addTestCaseResult(testCaseResult);
 					continue;
 				}
 				mainActivityExecutionID = executor.executeActivity(activity, inputValues, null);
@@ -255,7 +274,7 @@ public class UmlTestExecutor {
 			matrixOrderAssertionValidator = new MatrixOrderAssertionValidator(traceUtil);
 			stateAssertionValidator = new StateAssertionValidator(traceUtil, testDataConverter);
 
-			TestCaseResult testCaseResult = new TestCaseResult(testCase.getName(), executor.getActivityExecution(mainActivityExecutionID));
+			TestCaseResult testCaseResult = new TestCaseResult(testCase.getName(), executor.getActivityExecution(mainActivityExecutionID), true);
 			testCaseResult.setActivityContextObject(testCase.getContextObject());
 
 			for (ActivityInput activityInput : testCase.getAllInputs()) {
@@ -287,7 +306,7 @@ public class UmlTestExecutor {
 			suiteResult.addTestCaseResult(testCaseResult);
 		}
 
-		ResultsWriter writer = new ResultsWriter(suiteResult, testsThatDidNotRun, output);
+		ResultsWriter writer = new ResultsWriter(suiteResult, output);
 		writer.writeResults();
 
 		System.out.println("End of test suite.");
