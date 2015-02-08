@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
+import org.modelexecution.fumltesting.core.assertions.OrderAssertionValidationType;
 import org.modelexecution.fumltesting.core.results.ActivityInput;
 import org.modelexecution.fumltesting.core.results.AssertionResult;
 import org.modelexecution.fumltesting.core.results.ConstraintResult;
@@ -102,7 +103,8 @@ public class ResultsWriter {
 			writer.println();
 			for (AssertionResult assertionResult : testCaseResult.getAssertionResults()) {
 
-				if (assertionResult instanceof OrderAssertionResult && ((OrderAssertionResult) assertionResult).isMatrixAssertion()) {
+				if (assertionResult instanceof OrderAssertionResult
+						&& ((OrderAssertionResult) assertionResult).getValidationType() == OrderAssertionValidationType.MATRIX) {
 					OrderAssertionResult orderAssertionResult = (OrderAssertionResult) assertionResult;
 					printSpecification(orderAssertionResult.getOrderSpecification());
 					writer.println("\tValidation result: " + (orderAssertionResult.getResult() ? "SUCCESS" : "FAIL"));
@@ -113,7 +115,8 @@ public class ResultsWriter {
 						writer.println("\t\tValidation result: " + (orderAssertionResult.getResult() ? "SUCCESS" : "FAIL"));
 					}
 				}
-				if (assertionResult instanceof OrderAssertionResult && !((OrderAssertionResult) assertionResult).isMatrixAssertion()) {
+				if (assertionResult instanceof OrderAssertionResult
+						&& (((OrderAssertionResult) assertionResult).getValidationType() == OrderAssertionValidationType.GRAPH)) {
 					OrderAssertionResult orderAssertionResult = (OrderAssertionResult) assertionResult;
 					writer.println("\tNumber of paths checked: " + orderAssertionResult.numberOfPathsChecked());
 					writer.println("\tNumber of invalid paths: " + orderAssertionResult.getFailedPathCheckResults().size());

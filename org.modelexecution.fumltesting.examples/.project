@@ -54,6 +54,15 @@
 			</matcher>
 		</filter>
 		<filter>
+			<id>1422971410865</id>
+			<name>model/banking_new</name>
+			<type>30</type>
+			<matcher>
+				<id>org.eclipse.ui.ide.multiFilter</id>
+				<arguments>1.0-name-matches-false-false-*</arguments>
+			</matcher>
+		</filter>
+		<filter>
 			<id>1416907349903</id>
 			<name>model/banking_new_incorrect</name>
 			<type>30</type>
@@ -72,16 +81,7 @@
 			</matcher>
 		</filter>
 		<filter>
-			<id>1412681937749</id>
-			<name>model/petstore</name>
-			<type>30</type>
-			<matcher>
-				<id>org.eclipse.ui.ide.multiFilter</id>
-				<arguments>1.0-name-matches-false-false-*</arguments>
-			</matcher>
-		</filter>
-		<filter>
-			<id>1409235169755</id>
+			<id>1422972586087</id>
 			<name>model/webstore</name>
 			<type>30</type>
 			<matcher>

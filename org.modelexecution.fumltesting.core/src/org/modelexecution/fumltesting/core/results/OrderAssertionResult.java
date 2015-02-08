@@ -9,6 +9,7 @@ package org.modelexecution.fumltesting.core.results;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.modelexecution.fumltesting.core.assertions.OrderAssertionValidationType;
 import org.modelexecution.fumltesting.core.testlang.NodeSpecification;
 
 /**
@@ -21,17 +22,17 @@ public class OrderAssertionResult extends AssertionResult {
 	private List<NodeSpecification> orderSpecification;
 	private ArrayList<PathCheckResult> pathCheckResults;
 	private ArrayList<OrderAssertionResult> subOrderAssertionResults;
-	private boolean isMatrixAssertion = false;
+	private OrderAssertionValidationType validationType;
 
-	public OrderAssertionResult(List<NodeSpecification> orderSpecification, boolean isMatrixAssertion) {
+	public OrderAssertionResult(List<NodeSpecification> orderSpecification, OrderAssertionValidationType validationType) {
 		this.orderSpecification = orderSpecification;
 		pathCheckResults = new ArrayList<PathCheckResult>();
 		subOrderAssertionResults = new ArrayList<OrderAssertionResult>();
-		this.isMatrixAssertion = isMatrixAssertion;
+		this.validationType = validationType;
 	}
 
-	public boolean isMatrixAssertion() {
-		return isMatrixAssertion;
+	public OrderAssertionValidationType getValidationType() {
+		return validationType;
 	}
 
 	public List<NodeSpecification> getOrderSpecification() {

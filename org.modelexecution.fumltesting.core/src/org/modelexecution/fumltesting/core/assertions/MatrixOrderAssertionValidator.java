@@ -13,24 +13,19 @@ import fUML.Syntax.Actions.BasicActions.CallOperationAction;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Activities.IntermediateActivities.ActivityNode;
 
-public class MatrixOrderAssertionValidator {
-	private TraceUtil traceUtil;
-	private OrderUtil orderUtil;
+public class MatrixOrderAssertionValidator extends OrderAssertionValidator {
 	private ExecutionMatrix matrix;
 
 	public MatrixOrderAssertionValidator(TraceUtil traceUtil) {
-		this.traceUtil = traceUtil;
-		this.orderUtil = new OrderUtil();
+		super(traceUtil);
 		this.matrix = new ExecutionMatrix(orderUtil.getTopNodes(traceUtil.getActivityExecution()));
-		this.matrix.printMatrix();
 	}
 
 	public OrderAssertionResult checkOrder(OrderAssertion assertion) {
-		OrderAssertionResult result = new OrderAssertionResult(((OrderAssertion) assertion).getOrder().getAllNodes(), true);
+		OrderAssertionResult result = prepareResult(assertion.getOrder().getAllNodes(), OrderAssertionValidationType.MATRIX);
 		result.setAssertion(assertion);
 
 		List<NodeSpecification> nodeOrder = assertion.getOrder().getAllNodes();
-
 		result.setResult(validate(nodeOrder));
 
 		for (NodeSpecification nodeSpecification : nodeOrder) {
@@ -47,7 +42,7 @@ public class MatrixOrderAssertionValidator {
 
 				int activityExecutionID = traceUtil.getActivityExecutionID(parent.name);
 
-				OrderAssertionResult subOrderResult = new OrderAssertionResult(nodeSpecification.getSubOrder().getAllNodes(), true);
+				OrderAssertionResult subOrderResult = prepareResult(nodeSpecification.getSubOrder().getAllNodes(), OrderAssertionValidationType.MATRIX);
 				subOrderResult.setAssertion(assertion);
 
 				TraceUtil subTraceUtil = new TraceUtil(activityExecutionID);

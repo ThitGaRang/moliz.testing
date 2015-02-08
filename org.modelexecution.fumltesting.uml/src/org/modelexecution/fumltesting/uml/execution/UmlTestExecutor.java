@@ -25,7 +25,7 @@ import org.eclipse.xtext.resource.XtextResourceSet;
 import org.junit.Test;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 import org.modelexecution.fumltesting.core.assertions.MatrixOrderAssertionValidator;
-import org.modelexecution.fumltesting.core.assertions.OrderAssertionValidator;
+import org.modelexecution.fumltesting.core.assertions.GraphOrderAssertionValidator;
 import org.modelexecution.fumltesting.core.assertions.StateAssertionValidator;
 import org.modelexecution.fumltesting.core.convert.TestConverter;
 import org.modelexecution.fumltesting.core.convert.TestDataConverter;
@@ -75,7 +75,7 @@ public class UmlTestExecutor {
 	private TestDataConverter testDataConverter;
 	private TraceUtil traceUtil;
 
-	private OrderAssertionValidator orderAssertionValidator;
+	private GraphOrderAssertionValidator orderAssertionValidator;
 	private MatrixOrderAssertionValidator matrixOrderAssertionValidator;
 	private StateAssertionValidator stateAssertionValidator;
 
@@ -270,7 +270,7 @@ public class UmlTestExecutor {
 			}
 
 			traceUtil = new TraceUtil(mainActivityExecutionID);
-			orderAssertionValidator = new OrderAssertionValidator(traceUtil);
+			orderAssertionValidator = new GraphOrderAssertionValidator(traceUtil);
 			matrixOrderAssertionValidator = new MatrixOrderAssertionValidator(traceUtil);
 			stateAssertionValidator = new StateAssertionValidator(traceUtil, testDataConverter);
 

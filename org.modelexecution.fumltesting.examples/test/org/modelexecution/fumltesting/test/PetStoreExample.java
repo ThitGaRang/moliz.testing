@@ -4,22 +4,34 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 
+import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
-import fUML.Syntax.Classes.Kernel.Class_;
-import fUML.Syntax.Classes.Kernel.Parameter;
-import fUML.Syntax.Classes.Kernel.ParameterList;
 
 public class PetStoreExample {
 	private PetStoreUtil petStoreUtil = new PetStoreUtil();
 
 	@Test
-	public void findAllItemsTest() throws Exception{
+	public void checkCredentialsTest() throws Exception {
 		ParameterValueList list = new ParameterValueList();
-		ParameterValue parameterValueLogin = petStoreUtil.getParameterValue("CehckCredentials", "login", "customerOne");
-		ParameterValue parameterValuePassword = petStoreUtil.getParameterValue("CehckCredentials", "password", "pass1");
+
+		ParameterValue parameterValueLogin = petStoreUtil.createParameterValue("CheckCredentials", "login", "login");
+		ParameterValue parameterValuePassword = petStoreUtil.createParameterValue("CheckCredentials", "password", "pass1");
+
+		Object_ instance = petStoreUtil.createReference("Customer");
+		petStoreUtil.setPropertyValue(instance, "login", "login");
+		petStoreUtil.setPropertyValue(instance, "password", "pass1");
 		
-		Trace findAllItemsTrace = petStoreUtil.executeActivity("CheckCredentials", null, null);
-		Assert.assertNotNull(findAllItemsTrace);
+		ParameterValue parameterValueCustomer = petStoreUtil.createParameterValue("CheckCredentials", "customer", instance);
+
+		list.add(parameterValueLogin);
+		list.add(parameterValuePassword);
+		list.add(parameterValueCustomer);
+
+		Trace checkCredentialsTrace = petStoreUtil.executeActivity("CheckCredentials", null, list);
+
+		Assert.assertNotNull(checkCredentialsTrace);
+		Object value = petStoreUtil.getOutputValue(checkCredentialsTrace, "CheckCredentials", "corresponds");
+		Assert.assertEquals(true, value);
 	}
 }

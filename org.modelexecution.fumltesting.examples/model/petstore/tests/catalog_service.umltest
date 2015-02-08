@@ -30,14 +30,15 @@ scenario TestData[
 	}
 ]
 
-//test findAllItemsTest activity CatalogService.FindAllItems{
-//	assertOrder CatalogService.FindAllItems.init, CatalogService.FindAllItems.retrieveItems;
-//	finally{
-//		CatalogService.FindAllItems.items includes TestData.itemTD;
-//		CatalogService.FindAllItems.items includes TestData.anotherItemTD;
-//		check 'itemSize';
-//	}
-//}
+test findAllItemsTest activity CatalogService.FindAllItems{
+	initialize TestData;
+	assertOrder CatalogService.FindAllItems.init, CatalogService.FindAllItems.retrieveItems;
+	finally{
+		CatalogService.FindAllItems.items includes TestData.itemTD;
+		CatalogService.FindAllItems.items includes TestData.anotherItemTD;
+		check 'itemSize';
+	}
+}
 //
 //test findAllProductsTest activity CatalogService.FindAllProducts{
 //	assertOrder CatalogService.FindAllProducts.init, CatalogService.FindAllProducts.retrieveProducts;
