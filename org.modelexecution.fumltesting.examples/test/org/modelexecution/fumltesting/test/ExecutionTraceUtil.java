@@ -10,9 +10,11 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.uml2.uml.Association;
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.NamedElement;
+import org.eclipse.uml2.uml.Package;
 import org.eclipse.uml2.uml.UMLPackage;
 import org.eclipse.uml2.uml.resource.UMLResource;
 import org.modelexecution.fuml.convert.ConverterRegistry;
@@ -23,6 +25,7 @@ import org.modelexecution.fumldebug.core.ExecutionEventListener;
 import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 import org.modelexecution.fumldebug.core.event.Event;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.OutputParameterSetting;
 import org.modelexecution.fumldebug.core.trace.tracemodel.OutputParameterValue;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
@@ -30,6 +33,7 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 import fUML.Semantics.Classes.Kernel.BooleanValue;
 import fUML.Semantics.Classes.Kernel.FeatureValue;
 import fUML.Semantics.Classes.Kernel.IntegerValue;
+import fUML.Semantics.Classes.Kernel.Link;
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.Reference;
 import fUML.Semantics.Classes.Kernel.StringValue;
@@ -39,8 +43,9 @@ import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Classes.Kernel.Class_;
 import fUML.Syntax.Classes.Kernel.Parameter;
+import fUML.Syntax.Classes.Kernel.Property;
 
-public class PetStoreUtil implements ExecutionEventListener {
+public class ExecutionTraceUtil implements ExecutionEventListener {
 	/** Result obtained from converting UML to fUML model. */
 	private IConversionResult convertedModel;
 	private ResourceSet resourceSet;
@@ -48,7 +53,7 @@ public class PetStoreUtil implements ExecutionEventListener {
 	private NamedElement model;
 	private int mainActivityID;
 
-	public PetStoreUtil() {
+	public ExecutionTraceUtil() {
 		setup();
 	}
 
@@ -84,17 +89,37 @@ public class PetStoreUtil implements ExecutionEventListener {
 			((BooleanValue) convertedValue).value = (Boolean) value;
 			((BooleanValue) convertedValue).type = getExecutionContext().getPrimitiveBooleanType();
 		}
+		if (value instanceof Object_) {
+			Reference reference = new Reference();
+			reference.referent = (Object_) value;
+			convertedValue = reference;
+		}
 		parameterValue.values.add(convertedValue);
-
 		return parameterValue;
 	}
 
-	public Object_ createReference(String className) {
-		Class theClass = getUmlClass((org.eclipse.uml2.uml.Package) model, className);
+	public Object_ createInstance(String className) {
+		Class theClass = getUmlClass((Package) model, className);
 		if (theClass != null) {
 			Class_ class_ = (Class_) convertedModel.getFUMLElement(theClass);
 			Object_ instance = getExecutionContext().getLocus().instantiate(class_);
 			return instance;
+		}
+		return null;
+	}
+
+	public Link createLink(String associationName, Object_ source, Object_ target) {
+		Association theAssociation = getUmlAssociation((Package) model, associationName);
+		if (theAssociation != null) {
+			fUML.Syntax.Classes.Kernel.Association association = (fUML.Syntax.Classes.Kernel.Association) convertedModel.getFUMLElement(theAssociation);
+			
+			Link link = new Link();
+			link.type = association;
+			
+			FeatureValue linkSourceFeatureValue = new FeatureValue();
+			FeatureValue linkTargetFeatureValue = new FeatureValue();
+			
+			
 		}
 		return null;
 	}
@@ -119,28 +144,32 @@ public class PetStoreUtil implements ExecutionEventListener {
 		}
 	}
 
-	public Object getOutputValue(Trace trace, String activityName, String parameterName) {
-		for (ActivityExecution execution : trace.getActivityExecutions()) {
-			if (execution.getActivity().name.equals(activityName)) {
-				for (OutputParameterSetting parameterSetting : execution.getActivityOutputs()) {
-					if (parameterSetting.getParameter().name.equals(parameterName)) {
-						if (parameterSetting.getParameterValues().size() == 1) {
-							Value value = parameterSetting.getParameterValues().get(0).getValueSnapshot().getValue();
-							if (value instanceof BooleanValue) {
-								return ((BooleanValue) value).value;
-							} else if (value instanceof StringValue) {
-								return ((StringValue) value).value;
-							} else if (value instanceof IntegerValue) {
-								return ((IntegerValue) value).value;
-							} else if (value instanceof Reference) {
-								return ((Reference) value).referent;
-							}
-						}
+	public Object getOutputValue(ActivityExecution activityExecution, String parameterName) {
+		for (OutputParameterSetting parameterSetting : activityExecution.getActivityOutputs()) {
+			if (parameterSetting.getParameter().name.equals(parameterName)) {
+				if (parameterSetting.getParameterValues().size() == 1) {
+					Value value = parameterSetting.getParameterValues().get(0).getValueSnapshot().getValue();
+					if (value instanceof BooleanValue) {
+						return ((BooleanValue) value).value;
+					} else if (value instanceof StringValue) {
+						return ((StringValue) value).value;
+					} else if (value instanceof IntegerValue) {
+						return ((IntegerValue) value).value;
+					} else if (value instanceof Reference) {
+						return ((Reference) value).referent;
 					}
 				}
 			}
 		}
 		return null;
+	}
+
+	public boolean activityNodeExecuted(ActivityExecution activityExecution, String nodeName) {
+		for (ActivityNodeExecution nodeExecution : activityExecution.getNodeExecutions()) {
+			if (nodeExecution.getNode().name.equals(nodeName) && nodeExecution.isExecuted())
+				return true;
+		}
+		return false;
 	}
 
 	public List<Object> getOutputValues(Trace trace, String activityName, String parameterName) {
@@ -167,14 +196,28 @@ public class PetStoreUtil implements ExecutionEventListener {
 		return null;
 	}
 
-	private Class getUmlClass(org.eclipse.uml2.uml.Package package_, String name) {
+	private Class getUmlClass(Package package_, String name) {
 		for (Element element : package_.getOwnedElements()) {
 			if (element instanceof Class && ((Class) element).getName().equals(name))
 				return (Class) element;
-			if (element instanceof org.eclipse.uml2.uml.Package) {
-				Class aClass = getUmlClass((org.eclipse.uml2.uml.Package) element, name);
+			if (element instanceof Package) {
+				Class aClass = getUmlClass((Package) element, name);
 				if (aClass != null)
 					return aClass;
+			}
+		}
+		return null;
+	}
+
+	private Association getUmlAssociation(Package package_, String name) {
+		for (Element element : package_.getOwnedElements()) {
+			if (element instanceof Association && ((Association) element).getName().equals(name)) {
+				return (Association) element;
+			}
+			if (element instanceof Package) {
+				Association anAssociation = getUmlAssociation((Package) element, name);
+				if (anAssociation != null)
+					return anAssociation;
 			}
 		}
 		return null;
