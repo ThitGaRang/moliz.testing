@@ -75,13 +75,18 @@ public class OrderAssertionResult extends AssertionResult {
 
 	@Override
 	public boolean getResult() {
-		for (PathCheckResult result : pathCheckResults) {
-			if (result.getResult() == false)
-				return false;
+		if (validationType == OrderAssertionValidationType.GRAPH) {
+			for (PathCheckResult result : pathCheckResults) {
+				if (result.getResult() == false)
+					return false;
+			}
+			for (OrderAssertionResult subResult : subOrderAssertionResults) {
+				if (subResult.getResult() == false)
+					return false;
+			}
 		}
-		for (OrderAssertionResult subResult : subOrderAssertionResults) {
-			if (subResult.getResult() == false)
-				return false;
+		if (validationType == OrderAssertionValidationType.MATRIX) {
+			return super.getResult();
 		}
 		return true;
 	}
