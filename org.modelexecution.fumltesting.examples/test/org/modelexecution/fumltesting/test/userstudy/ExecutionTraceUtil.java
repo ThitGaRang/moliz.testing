@@ -1,4 +1,4 @@
-package org.modelexecution.fumltesting.test;
+package org.modelexecution.fumltesting.test.userstudy;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -29,6 +29,7 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.OutputParameterSetting;
 import org.modelexecution.fumldebug.core.trace.tracemodel.OutputParameterValue;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 
 import fUML.Semantics.Classes.Kernel.BooleanValue;
 import fUML.Semantics.Classes.Kernel.FeatureValue;
@@ -52,9 +53,14 @@ public class ExecutionTraceUtil implements ExecutionEventListener {
 	private Resource resource;
 	private NamedElement model;
 	private int mainActivityID;
+	private ActivityExecution activityExecution;
 
 	public ExecutionTraceUtil() {
 		setup();
+	}
+
+	public void setActivityExecution(ActivityExecution activityExecution) {
+		this.activityExecution = activityExecution;
 	}
 
 	public ParameterValue createParameterValue(String activityName, String parameterName, Object value) throws Exception {
@@ -108,20 +114,21 @@ public class ExecutionTraceUtil implements ExecutionEventListener {
 		return null;
 	}
 
-	public Link createLink(String associationName, Object_ source, Object_ target) {
+	public Link createLink(String associationName) {
 		Association theAssociation = getUmlAssociation((Package) model, associationName);
 		if (theAssociation != null) {
 			fUML.Syntax.Classes.Kernel.Association association = (fUML.Syntax.Classes.Kernel.Association) convertedModel.getFUMLElement(theAssociation);
-			
+
 			Link link = new Link();
 			link.type = association;
-			
-			FeatureValue linkSourceFeatureValue = new FeatureValue();
-			FeatureValue linkTargetFeatureValue = new FeatureValue();
-			
-			
+			link.addTo(getExecutionContext().getLocus());
+			return link;
 		}
 		return null;
+	}
+
+	public boolean isInLocus(Object instance) {
+		return getExecutionContext().getExtensionalValues().contains(instance);
 	}
 
 	public void setPropertyValue(Object_ instance, String property, Object value) {
@@ -144,6 +151,77 @@ public class ExecutionTraceUtil implements ExecutionEventListener {
 		}
 	}
 
+	public void setPropertyValue(Link link, String propertyName, Object_ value) {
+		FeatureValue featureValue = new FeatureValue();
+		Property property = null;
+
+		for (Property aProperty : link.type.attribute) {
+			if (aProperty.name.equals(propertyName))
+				property = aProperty;
+		}
+
+		featureValue.feature = property;
+
+		Reference reference = new Reference();
+		reference.referent = value;
+		featureValue.values.add(reference);
+	}
+
+	public Object getPropertyValue(Object_ instance, String property) {
+		for (FeatureValue featureValue : instance.featureValues) {
+			if (featureValue.feature.name.equals(property)) {
+				Value value = featureValue.values.get(0);
+				if (value instanceof BooleanValue) {
+					return ((BooleanValue) value).value;
+				} else if (value instanceof StringValue) {
+					return ((StringValue) value).value;
+				} else if (value instanceof IntegerValue) {
+					return ((IntegerValue) value).value;
+				}
+			}
+		}
+		return null;
+	}
+
+	public Object_ getLinkedObject(Object_ source, String associationName) {
+		for (ValueInstance valueInstance : activityExecution.getTrace().getValueInstances()) {
+			if (valueInstance.getRuntimeValue() instanceof Link && ((Link) valueInstance.getRuntimeValue()).type.name.equals(associationName)) {
+				Link link = (Link) valueInstance.getRuntimeValue();
+				if (link.type.name.equals(associationName)) {
+					Object_ firstValue = ((Reference) link.featureValues.get(0).values.get(0)).referent;
+					Object_ secondValue = ((Reference) link.featureValues.get(1).values.get(0)).referent;
+					if (firstValue.equals(source)) {
+						return secondValue;
+					}
+					if (secondValue.equals(source)) {
+						return firstValue;
+					}
+				}
+			}
+		}
+		return null;
+	}
+
+	public List<Object_> getLinkedObjects(Object_ source, String associationName) {
+		List<Object_> linkedObjects = new ArrayList<Object_>();
+		for (ValueInstance valueInstance : activityExecution.getTrace().getValueInstances()) {
+			if (valueInstance.getRuntimeValue() instanceof Link && ((Link) valueInstance.getRuntimeValue()).type.name.equals(associationName)) {
+				Link link = (Link) valueInstance.getRuntimeValue();
+				if (link.type.name.equals(associationName)) {
+					Object_ firstValue = ((Reference) link.featureValues.get(0).values.get(0)).referent;
+					Object_ secondValue = ((Reference) link.featureValues.get(1).values.get(0)).referent;
+					if (firstValue.equals(source)) {
+						linkedObjects.add(secondValue);
+					}
+					if (secondValue.equals(source)) {
+						linkedObjects.add(firstValue);
+					}
+				}
+			}
+		}
+		return linkedObjects;
+	}
+
 	public Object getOutputValue(ActivityExecution activityExecution, String parameterName) {
 		for (OutputParameterSetting parameterSetting : activityExecution.getActivityOutputs()) {
 			if (parameterSetting.getParameter().name.equals(parameterName)) {
@@ -155,8 +233,8 @@ public class ExecutionTraceUtil implements ExecutionEventListener {
 						return ((StringValue) value).value;
 					} else if (value instanceof IntegerValue) {
 						return ((IntegerValue) value).value;
-					} else if (value instanceof Reference) {
-						return ((Reference) value).referent;
+					} else if (value instanceof Object_) {
+						return (Object_) value;
 					}
 				}
 			}
@@ -170,6 +248,14 @@ public class ExecutionTraceUtil implements ExecutionEventListener {
 				return true;
 		}
 		return false;
+	}
+
+	public int indexOfExecutedNode(ActivityExecution activityExecution, String nodeName) {
+		for (ActivityNodeExecution nodeExecution : activityExecution.getNodeExecutions()) {
+			if (nodeExecution.getNode().name.equals(nodeName) && nodeExecution.isExecuted())
+				return activityExecution.getNodeExecutions().indexOf(nodeExecution);
+		}
+		return -1;
 	}
 
 	public List<Object> getOutputValues(Trace trace, String activityName, String parameterName) {

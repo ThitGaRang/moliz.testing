@@ -24,25 +24,3 @@ test checkCredentialsPassFail activity CustomerService.CheckCredentials(Customer
 		CustomerService.CheckCredentials.corresponds = false;
 	}
 }
-
-//tests for FindCustomer activity
-test checkFindCustomerSuccess activity CustomerService.FindCustomer(CustomerService.FindCustomer.login='customerOne', 
-	CustomerService.FindCustomer.password='pass1') on TestData.customerService{
-	initialize TestData;
-	assertState immediately after action CustomerService.FindCustomer.retrieveCustomers{
-		CustomerService.FindCustomer.retrieveCustomers.result includes TestData.customerOne;
-		CustomerService.FindCustomer.retrieveCustomers.result includes TestData.customerTwo;
-	}
-	
-	finally{
-		CustomerService.FindCustomer.customer = TestData.customerOne;
-	}
-}
-
-test checkFindCustomerPassFail activity CustomerService.FindCustomer(CustomerService.FindCustomer.login='customerOne', 
-	CustomerService.FindCustomer.password='pass2') on TestData.customerService{
-	initialize TestData;
-	finally{
-		CustomerService.FindCustomer.customer = null;
-	}
-}
