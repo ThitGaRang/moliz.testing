@@ -2283,7 +2283,7 @@
             <guard xmi:type="uml:LiteralBoolean" xmi:id="_6fQhMeJeEeK8HamiyIssFw" value="true"/>
             <weight xmi:type="uml:LiteralInteger" xmi:id="_6fQhMuJeEeK8HamiyIssFw" value="1"/>
           </edge>
-          <edge xmi:type="uml:ControlFlow" xmi:id="_ZO8hoOJfEeK8HamiyIssFw" name="expansion2destroy" source="_8L9a8OJbEeK8HamiyIssFw" target="_04klgOJeEeK8HamiyIssFw"/>
+          <edge xmi:type="uml:ControlFlow" xmi:id="_ZO8hoOJfEeK8HamiyIssFw" name="expansion2removeCart" source="_8L9a8OJbEeK8HamiyIssFw" target="_g9c6cD_3EeSrc_kwupipeA"/>
           <edge xmi:type="uml:ObjectFlow" xmi:id="_POa3cD_4EeSrc_kwupipeA" name="ObjectFlow19" source="_5vDzUOJeEeK8HamiyIssFw" target="_04klgeJeEeK8HamiyIssFw">
             <guard xmi:type="uml:LiteralBoolean" xmi:id="_POfv8D_4EeSrc_kwupipeA" value="true"/>
             <weight xmi:type="uml:LiteralInteger" xmi:id="_POiMMD_4EeSrc_kwupipeA" value="1"/>
@@ -2406,12 +2406,12 @@
             <upperBound xmi:type="uml:LiteralInteger" xmi:id="_uWXcweJeEeK8HamiyIssFw" value="1"/>
           </node>
           <node xmi:type="uml:ForkNode" xmi:id="_5vDzUOJeEeK8HamiyIssFw" name="cartFork" outgoing="_6fQhMOJeEeK8HamiyIssFw _POa3cD_4EeSrc_kwupipeA" incoming="_5vzaMOJeEeK8HamiyIssFw"/>
-          <node xmi:type="uml:DestroyObjectAction" xmi:id="_04klgOJeEeK8HamiyIssFw" name="destroyCart" incoming="_ZO8hoOJfEeK8HamiyIssFw _utLkYD_4EeSrc_kwupipeA" isDestroyLinks="true">
+          <node xmi:type="uml:DestroyObjectAction" xmi:id="_04klgOJeEeK8HamiyIssFw" name="destroyCart" incoming="_utLkYD_4EeSrc_kwupipeA" isDestroyLinks="true">
             <target xmi:id="_04klgeJeEeK8HamiyIssFw" name="target" incoming="_POa3cD_4EeSrc_kwupipeA">
               <upperBound xmi:type="uml:LiteralInteger" xmi:id="_04klguJeEeK8HamiyIssFw" value="1"/>
             </target>
           </node>
-          <node xmi:type="uml:RemoveStructuralFeatureValueAction" xmi:id="_g9c6cD_3EeSrc_kwupipeA" name="removeCart" outgoing="_utLkYD_4EeSrc_kwupipeA" structuralFeature="_fchZ1N_QEeKxs-T-7hfQjA">
+          <node xmi:type="uml:RemoveStructuralFeatureValueAction" xmi:id="_g9c6cD_3EeSrc_kwupipeA" name="removeCart" outgoing="_utLkYD_4EeSrc_kwupipeA" incoming="_ZO8hoOJfEeK8HamiyIssFw" structuralFeature="_fchZ1N_QEeKxs-T-7hfQjA">
             <object xmi:id="_posMQD_3EeSrc_kwupipeA" name="object" incoming="_YBoZgD_4EeSrc_kwupipeA" type="_40rm0N_OEeKxs-T-7hfQjA">
               <upperBound xmi:type="uml:LiteralInteger" xmi:id="_posMQT_3EeSrc_kwupipeA" value="1"/>
             </object>
