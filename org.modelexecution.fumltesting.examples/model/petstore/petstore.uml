@@ -1782,7 +1782,7 @@
             </result>
           </node>
           <node xmi:type="uml:ValueSpecificationAction" xmi:id="_YA62IODcEeKbNtLCas5YyQ" name="listSizeValue">
-            <result xmi:id="_bIbZoODcEeKbNtLCas5YyQ" name="result" outgoing="_qGhwoODcEeKbNtLCas5YyQ">
+            <result xmi:id="_bIbZoODcEeKbNtLCas5YyQ" name="result" outgoing="_qGhwoODcEeKbNtLCas5YyQ" type="_JhdtMN_PEeKxs-T-7hfQjA">
               <upperBound xmi:type="uml:LiteralInteger" xmi:id="_cyNa4ODcEeKbNtLCas5YyQ" value="1"/>
             </result>
             <value xmi:type="uml:LiteralInteger" xmi:id="_aMeHsODcEeKbNtLCas5YyQ" value="1"/>

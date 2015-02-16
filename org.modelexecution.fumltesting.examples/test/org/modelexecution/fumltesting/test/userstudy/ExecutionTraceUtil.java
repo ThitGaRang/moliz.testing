@@ -44,7 +44,6 @@ import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Classes.Kernel.Class_;
 import fUML.Syntax.Classes.Kernel.Parameter;
-import fUML.Syntax.Classes.Kernel.Property;
 
 public class ExecutionTraceUtil implements ExecutionEventListener {
 	/** Result obtained from converting UML to fUML model. */
@@ -109,6 +108,7 @@ public class ExecutionTraceUtil implements ExecutionEventListener {
 		if (theClass != null) {
 			Class_ class_ = (Class_) convertedModel.getFUMLElement(theClass);
 			Object_ instance = getExecutionContext().getLocus().instantiate(class_);
+			instance.createFeatureValues();
 			return instance;
 		}
 		return null;
@@ -121,6 +121,7 @@ public class ExecutionTraceUtil implements ExecutionEventListener {
 
 			Link link = new Link();
 			link.type = association;
+			link.createFeatureValues();
 			link.addTo(getExecutionContext().getLocus());
 			return link;
 		}
@@ -152,19 +153,14 @@ public class ExecutionTraceUtil implements ExecutionEventListener {
 	}
 
 	public void setPropertyValue(Link link, String propertyName, Object_ value) {
-		FeatureValue featureValue = new FeatureValue();
-		Property property = null;
-
-		for (Property aProperty : link.type.attribute) {
-			if (aProperty.name.equals(propertyName))
-				property = aProperty;
+		for (FeatureValue featureValue : link.featureValues) {
+			if (featureValue.feature.name.equals(propertyName)) {
+				Reference reference = new Reference();
+				reference.referent = value;
+				featureValue.values.add(reference);
+				break;
+			}
 		}
-
-		featureValue.feature = property;
-
-		Reference reference = new Reference();
-		reference.referent = value;
-		featureValue.values.add(reference);
 	}
 
 	public Object getPropertyValue(Object_ instance, String property) {
