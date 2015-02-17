@@ -3,6 +3,7 @@ package org.modelexecution.fumltesting.test.userstudy;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -30,6 +31,8 @@ import org.modelexecution.fumldebug.core.trace.tracemodel.OutputParameterSetting
 import org.modelexecution.fumldebug.core.trace.tracemodel.OutputParameterValue;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
+import org.modelexecution.fumldebug.libraryregistry.LibraryRegistry;
+import org.modelexecution.fumldebug.libraryregistry.OpaqueBehaviorCallReplacer;
 
 import fUML.Semantics.Classes.Kernel.BooleanValue;
 import fUML.Semantics.Classes.Kernel.FeatureValue;
@@ -44,6 +47,7 @@ import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
 import fUML.Syntax.Classes.Kernel.Class_;
 import fUML.Syntax.Classes.Kernel.Parameter;
+import fUML.Syntax.CommonBehaviors.BasicBehaviors.OpaqueBehavior;
 
 public class ExecutionTraceUtil implements ExecutionEventListener {
 	/** Result obtained from converting UML to fUML model. */
@@ -334,6 +338,13 @@ public class ExecutionTraceUtil implements ExecutionEventListener {
 		EcoreUtil.resolveAll(resourceSet);
 		IConverter converter = ConverterRegistry.getInstance().getConverter(model);
 		convertedModel = converter.convert(model);
+		registerOpaqueBehaviors();
+	}
+	
+	private void registerOpaqueBehaviors() {
+		LibraryRegistry libraryRegistry = new LibraryRegistry(getExecutionContext());
+		Map<String, OpaqueBehavior> registeredOpaqueBehaviors = libraryRegistry.loadRegisteredLibraries();
+		OpaqueBehaviorCallReplacer.instance.replaceOpaqueBehaviorCalls(convertedModel.getAllActivities(), registeredOpaqueBehaviors);		
 	}
 
 	private ExecutionContext getExecutionContext() {
