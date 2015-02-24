@@ -51,7 +51,7 @@ public class PetStoreExampleTaskOne {
 			Assert.assertTrue(traceUtil.activityNodeExecuted(mainActivityExecution, "passwordEquals"));
 
 			// check if the true value is returned by the activity
-			Boolean corresponds = (Boolean) traceUtil.getOutputValue(mainActivityExecution, "corresponds");
+			Boolean corresponds = (Boolean) traceUtil.getOutputValue("corresponds");
 			Assert.assertTrue(corresponds);
 		} else {
 			Assert.fail("Activity execution CheckCredentials not found!");
@@ -92,7 +92,7 @@ public class PetStoreExampleTaskOne {
 			Assert.assertTrue(traceUtil.activityNodeExecuted(mainActivityExecution, "passwordFalse"));
 
 			// check if the false value is returned by the activity
-			Boolean corresponds = (Boolean) traceUtil.getOutputValue(mainActivityExecution, "corresponds");
+			Boolean corresponds = (Boolean) traceUtil.getOutputValue("corresponds");
 			Assert.assertFalse(corresponds);
 		} else {
 			Assert.fail("Activity execution CheckCredentials not found!");
@@ -171,7 +171,7 @@ public class PetStoreExampleTaskOne {
 			traceUtil.setActivityExecution(mainActivityExecution);
 
 			// check if order instance contains provided customer
-			Object_ order = (Object_) traceUtil.getOutputValue(mainActivityExecution, "order");
+			Object_ order = (Object_) traceUtil.getOutputValue("order");
 			Object_ customerFromOrder = traceUtil.getLinkedObject(order, "order_customer");
 			Assert.assertEquals(customer, customerFromOrder);
 

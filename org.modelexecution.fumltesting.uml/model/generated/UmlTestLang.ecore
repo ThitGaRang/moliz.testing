@@ -15,7 +15,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UMLTestCase">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="activityUnderTest" eType="ecore:EClass platform:/resource/org.eclipse.uml2.uml/model/UML.ecore#//Activity"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="activityUnderTest" eType="ecore:EClass ../../../org.eclipse.uml2.uml/model/UML.ecore#//Activity"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="inputs" upperBound="-1"
         eType="#//UMLActivityInput" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="contextObject" eType="#//UMLObjectSpecification"/>
@@ -25,14 +25,14 @@
         eType="#//UMLAssertion" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UMLActivityInput">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="parameter" eType="ecore:EClass platform:/resource/org.eclipse.uml2.uml/model/UML.ecore#//ActivityParameterNode"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameter" eType="ecore:EClass ../../../org.eclipse.uml2.uml/model/UML.ecore#//ActivityParameterNode"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//UMLValue"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UMLValue"/>
   <eClassifiers xsi:type="ecore:EClass" name="UMLSimpleValue" eSuperTypes="#//UMLValue">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="negative" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="ecore:EClass platform:/resource/org.eclipse.xtext.xbase/model/Xbase.ecore#//XExpression"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="ecore:EClass ../../../org.eclipse.xtext.xbase/model/Xbase.ecore#//XExpression"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UMLObjectValue" eSuperTypes="#//UMLValue">
@@ -47,20 +47,20 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UMLObjectSpecification">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="ecore:EClass platform:/resource/org.eclipse.uml2.uml/model/UML.ecore#//Class"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="type" eType="ecore:EClass ../../../org.eclipse.uml2.uml/model/UML.ecore#//Class"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="attributes" upperBound="-1"
         eType="#//UMLAttribute" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UMLAttribute">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="att" eType="ecore:EClass platform:/resource/org.eclipse.uml2.uml/model/UML.ecore#//Property"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="att" eType="ecore:EClass ../../../org.eclipse.uml2.uml/model/UML.ecore#//Property"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//UMLValue"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UMLLink">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="assoc" eType="ecore:EClass platform:/resource/org.eclipse.uml2.uml/model/UML.ecore#//Association"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="sourceProperty" eType="ecore:EClass platform:/resource/org.eclipse.uml2.uml/model/UML.ecore#//Property"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="assoc" eType="ecore:EClass ../../../org.eclipse.uml2.uml/model/UML.ecore#//Association"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sourceProperty" eType="ecore:EClass ../../../org.eclipse.uml2.uml/model/UML.ecore#//Property"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="sourceValue" eType="#//UMLObjectSpecification"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="targetProperty" eType="ecore:EClass platform:/resource/org.eclipse.uml2.uml/model/UML.ecore#//Property"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetProperty" eType="ecore:EClass ../../../org.eclipse.uml2.uml/model/UML.ecore#//Property"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="targetValue" eType="#//UMLObjectSpecification"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UMLAssertion"/>
@@ -76,10 +76,10 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UMLReferencePoint"/>
   <eClassifiers xsi:type="ecore:EClass" name="UMLActionReferencePoint" eSuperTypes="#//UMLReferencePoint">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="action" eType="ecore:EClass platform:/resource/org.eclipse.uml2.uml/model/UML.ecore#//Action"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="action" eType="ecore:EClass ../../../org.eclipse.uml2.uml/model/UML.ecore#//Action"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UMLConstraintReferencePoint" eSuperTypes="#//UMLReferencePoint">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="constraintName" eType="ecore:EClass platform:/resource/org.eclipse.xtext.xbase/model/Xbase.ecore#//XExpression"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constraintName" eType="ecore:EClass ../../../org.eclipse.xtext.xbase/model/Xbase.ecore#//XExpression"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UMLFinallyStateAssertion" eSuperTypes="#//UMLAssertion">
@@ -89,19 +89,19 @@
   <eClassifiers xsi:type="ecore:EClass" name="UMLCheck"/>
   <eClassifiers xsi:type="ecore:EClass" name="UMLConstraintCheck" eSuperTypes="#//UMLCheck">
     <eStructuralFeatures xsi:type="ecore:EReference" name="constraintNames" upperBound="-1"
-        eType="ecore:EClass platform:/resource/org.eclipse.xtext.xbase/model/Xbase.ecore#//XExpression"
+        eType="ecore:EClass ../../../org.eclipse.xtext.xbase/model/Xbase.ecore#//XExpression"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="object" eType="ecore:EClass platform:/resource/org.eclipse.uml2.uml/model/UML.ecore#//ObjectNode"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="object" eType="ecore:EClass ../../../org.eclipse.uml2.uml/model/UML.ecore#//ObjectNode"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UMLStateExpression" eSuperTypes="#//UMLCheck">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="pin" eType="ecore:EClass platform:/resource/org.eclipse.uml2.uml/model/UML.ecore#//ObjectNode"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="pin" eType="ecore:EClass ../../../org.eclipse.uml2.uml/model/UML.ecore#//ObjectNode"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="operator" eType="#//UMLArithmeticOperator"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="value" eType="#//UMLValue"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UMLObjectStateExpression" eSuperTypes="#//UMLStateExpression"/>
   <eClassifiers xsi:type="ecore:EClass" name="UMLPropertyStateExpression" eSuperTypes="#//UMLStateExpression">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="property" eType="ecore:EClass platform:/resource/org.eclipse.uml2.uml/model/UML.ecore#//Property"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="property" eType="ecore:EClass ../../../org.eclipse.uml2.uml/model/UML.ecore#//Property"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UMLOrderAssertion" eSuperTypes="#//UMLAssertion">
     <eStructuralFeatures xsi:type="ecore:EReference" name="order" eType="#//UMLNodeOrder"
@@ -112,8 +112,8 @@
         eType="#//UMLNodeSpecification" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UMLNodeSpecification">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="node" eType="ecore:EClass platform:/resource/org.eclipse.uml2.uml/model/UML.ecore#//ActivityNode"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="size" eType="ecore:EClass platform:/resource/org.eclipse.xtext.xbase/model/Xbase.ecore#//XExpression"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="node" eType="ecore:EClass ../../../org.eclipse.uml2.uml/model/UML.ecore#//ActivityNode"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="size" eType="ecore:EClass ../../../org.eclipse.xtext.xbase/model/Xbase.ecore#//XExpression"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="subOrder" eType="#//UMLNodeOrder"
         containment="true"/>

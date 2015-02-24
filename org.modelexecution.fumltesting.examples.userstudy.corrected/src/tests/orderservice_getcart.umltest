@@ -15,7 +15,7 @@ scenario OrderServiceScenario2[
 	}
 ]
 
-test getCartTest activity OrderService.GetCart(OrderService.GetCart.customer=OrderServiceScenario.customer){
+test getCartNoCartTest activity OrderService.GetCart(OrderService.GetCart.customer=OrderServiceScenario.customer){
 	assertOrder *, OrderService.GetCart.getCart, *, OrderService.GetCart.listSize, *, OrderService.GetCart.sizeEquals, 
 		OrderService.GetCart.cartExistsDecision, OrderService.GetCart.newCart, OrderService.GetCart.setCart, OrderService.GetCart.cartMerge, OrderService.GetCart.getCartForOutput;
 	assertState immediately after action OrderService.GetCart.getCart{
@@ -26,7 +26,7 @@ test getCartTest activity OrderService.GetCart(OrderService.GetCart.customer=Ord
 	}
 }
 
-test getCartTest activity OrderService.GetCart(OrderService.GetCart.customer=OrderServiceScenario2.customer){
+test getCartWithCartTest activity OrderService.GetCart(OrderService.GetCart.customer=OrderServiceScenario2.customer){
 	initialize OrderServiceScenario2;
 	assertOrder *, OrderService.GetCart.getCart, *, OrderService.GetCart.listSize, *, OrderService.GetCart.sizeEquals, 
 		OrderService.GetCart.cartExistsDecision, OrderService.GetCart.cartMerge, OrderService.GetCart.getCartForOutput;

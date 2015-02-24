@@ -25,10 +25,13 @@ import org.modelexecution.fumldebug.core.ExecutionContext;
 import org.modelexecution.fumldebug.core.ExecutionEventListener;
 import org.modelexecution.fumldebug.core.event.ActivityEntryEvent;
 import org.modelexecution.fumldebug.core.event.Event;
+import org.modelexecution.fumldebug.core.trace.tracemodel.ActionExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityNodeExecution;
+import org.modelexecution.fumldebug.core.trace.tracemodel.Output;
 import org.modelexecution.fumldebug.core.trace.tracemodel.OutputParameterSetting;
 import org.modelexecution.fumldebug.core.trace.tracemodel.OutputParameterValue;
+import org.modelexecution.fumldebug.core.trace.tracemodel.OutputValue;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ValueInstance;
 import org.modelexecution.fumldebug.libraryregistry.LibraryRegistry;
@@ -121,15 +124,19 @@ public class ExecutionTraceUtil implements ExecutionEventListener {
 	public Link createLink(String associationName) {
 		Association theAssociation = getUmlAssociation((Package) model, associationName);
 		if (theAssociation != null) {
-			fUML.Syntax.Classes.Kernel.Association association = (fUML.Syntax.Classes.Kernel.Association) convertedModel.getFUMLElement(theAssociation);
+			fUML.Syntax.Classes.Kernel.Association association = (fUML.Syntax.Classes.Kernel.Association) convertedModel
+					.getFUMLElement(theAssociation);
 
 			Link link = new Link();
 			link.type = association;
 			link.createFeatureValues();
-			link.addTo(getExecutionContext().getLocus());
 			return link;
 		}
 		return null;
+	}
+
+	public void addToLocus(Link link) {
+		link.addTo(getExecutionContext().getLocus());
 	}
 
 	public boolean isInLocus(Object instance) {
@@ -222,7 +229,7 @@ public class ExecutionTraceUtil implements ExecutionEventListener {
 		return linkedObjects;
 	}
 
-	public Object getOutputValue(ActivityExecution activityExecution, String parameterName) {
+	public Object getOutputValue(String parameterName) {
 		for (OutputParameterSetting parameterSetting : activityExecution.getActivityOutputs()) {
 			if (parameterSetting.getParameter().name.equals(parameterName)) {
 				if (parameterSetting.getParameterValues().size() == 1) {
@@ -242,6 +249,73 @@ public class ExecutionTraceUtil implements ExecutionEventListener {
 		return null;
 	}
 
+	public List<Object> getOutputValues(String parameterName) {
+		for (OutputParameterSetting parameterSetting : activityExecution.getActivityOutputs()) {
+			if (parameterSetting.getParameter().name.equals(parameterName)) {
+				ArrayList<Object> values = new ArrayList<Object>();
+				for (OutputParameterValue parameterValue : parameterSetting.getParameterValues()) {
+					Value value = parameterValue.getValueSnapshot().getValue();
+					if (value instanceof BooleanValue) {
+						values.add(((BooleanValue) value).value);
+					} else if (value instanceof StringValue) {
+						values.add(((StringValue) value).value);
+					} else if (value instanceof IntegerValue) {
+						values.add(((IntegerValue) value).value);
+					} else if (value instanceof Reference) {
+						values.add(((Reference) value).referent);
+					}
+				}
+			}
+		}
+		return null;
+	}
+
+	public Object getOutputValue(String actionName, String pinName) {
+		ActionExecution actionExecution = getActionExecution(actionName);
+		if (actionExecution != null) {
+			for (Output output : actionExecution.getOutputs()) {
+				if (output.getOutputPin().name.equals(pinName)) {
+					if (output.getOutputValues().size() == 1 && output.getOutputValues().get(0).getValueSnapshot() != null)
+						return output.getOutputValues().get(0).getValueSnapshot().getValue();
+				}
+			}
+		}
+		return null;
+	}
+
+	public List<Object> getOutputValues(String actionName, String pinName) {
+		ActionExecution actionExecution = getActionExecution(actionName);
+		if (actionExecution != null) {
+			for (Output output : actionExecution.getOutputs()) {
+				if (output.getOutputPin().name.equals(pinName)) {
+					ArrayList<Object> values = new ArrayList<Object>();
+					for (OutputValue outputValue : output.getOutputValues()) {
+						Value value = outputValue.getValueSnapshot().getValue();
+						if (value instanceof BooleanValue) {
+							values.add(((BooleanValue) value).value);
+						} else if (value instanceof StringValue) {
+							values.add(((StringValue) value).value);
+						} else if (value instanceof IntegerValue) {
+							values.add(((IntegerValue) value).value);
+						} else if (value instanceof Reference) {
+							values.add(((Reference) value).referent);
+						}
+					}
+					return values;
+				}
+			}
+		}
+		return null;
+	}
+
+	private ActionExecution getActionExecution(String actionName) {
+		for (ActivityNodeExecution nodeExecution : activityExecution.getNodeExecutions()) {
+			if (nodeExecution.getNode().name.equals(actionName) && nodeExecution instanceof ActionExecution)
+				return (ActionExecution) nodeExecution;
+		}
+		return null;
+	}
+
 	public boolean activityNodeExecuted(ActivityExecution activityExecution, String nodeName) {
 		for (ActivityNodeExecution nodeExecution : activityExecution.getNodeExecutions()) {
 			if (nodeExecution.getNode().name.equals(nodeName) && nodeExecution.isExecuted())
@@ -256,30 +330,6 @@ public class ExecutionTraceUtil implements ExecutionEventListener {
 				return activityExecution.getNodeExecutions().indexOf(nodeExecution);
 		}
 		return -1;
-	}
-
-	public List<Object> getOutputValues(Trace trace, String activityName, String parameterName) {
-		for (ActivityExecution execution : trace.getActivityExecutions()) {
-			if (execution.getActivity().name.equals(activityName)) {
-				for (OutputParameterSetting parameterSetting : execution.getActivityOutputs()) {
-					if (parameterSetting.getParameter().name.equals(parameterName)) {
-						ArrayList<Object> values = new ArrayList<Object>();
-						for (OutputParameterValue value : parameterSetting.getParameterValues()) {
-							if (value instanceof BooleanValue) {
-								values.add(((BooleanValue) value).value);
-							} else if (value instanceof StringValue) {
-								values.add(((StringValue) value).value);
-							} else if (value instanceof IntegerValue) {
-								values.add(((IntegerValue) value).value);
-							} else if (value instanceof Reference) {
-								values.add(((Reference) value).referent);
-							}
-						}
-					}
-				}
-			}
-		}
-		return null;
 	}
 
 	private Class getUmlClass(Package package_, String name) {
@@ -340,11 +390,11 @@ public class ExecutionTraceUtil implements ExecutionEventListener {
 		convertedModel = converter.convert(model);
 		registerOpaqueBehaviors();
 	}
-	
+
 	private void registerOpaqueBehaviors() {
 		LibraryRegistry libraryRegistry = new LibraryRegistry(getExecutionContext());
 		Map<String, OpaqueBehavior> registeredOpaqueBehaviors = libraryRegistry.loadRegisteredLibraries();
-		OpaqueBehaviorCallReplacer.instance.replaceOpaqueBehaviorCalls(convertedModel.getAllActivities(), registeredOpaqueBehaviors);		
+		OpaqueBehaviorCallReplacer.instance.replaceOpaqueBehaviorCalls(convertedModel.getAllActivities(), registeredOpaqueBehaviors);
 	}
 
 	private ExecutionContext getExecutionContext() {
