@@ -45,6 +45,7 @@ import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.Classes.Kernel.Reference;
 import fUML.Semantics.Classes.Kernel.StringValue;
 import fUML.Semantics.Classes.Kernel.Value;
+import fUML.Semantics.Classes.Kernel.ValueList;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValueList;
 import fUML.Syntax.Activities.IntermediateActivities.Activity;
@@ -129,18 +130,30 @@ public class ExecutionTraceUtil implements ExecutionEventListener {
 
 			Link link = new Link();
 			link.type = association;
-			link.createFeatureValues();
+
+			FeatureValue firstEnd = new FeatureValue();
+			FeatureValue secondEnd = new FeatureValue();
+
+			firstEnd.feature = association.memberEnd.get(0);
+			secondEnd.feature = association.memberEnd.get(1);
+
+			firstEnd.values = new ValueList();
+			secondEnd.values = new ValueList();
+
+			link.featureValues.add(firstEnd);
+			link.featureValues.add(secondEnd);
+
 			return link;
 		}
 		return null;
 	}
 
-	public void addToLocus(Link link) {
-		link.addTo(getExecutionContext().getLocus());
-	}
-
 	public boolean isInLocus(Object instance) {
 		return getExecutionContext().getExtensionalValues().contains(instance);
+	}
+
+	public void addToLocus(Link link) {
+		link.addTo(getExecutionContext().getLocus());
 	}
 
 	public void setPropertyValue(Object_ instance, String property, Object value) {

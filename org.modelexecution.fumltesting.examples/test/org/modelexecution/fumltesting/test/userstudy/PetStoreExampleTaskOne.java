@@ -17,7 +17,7 @@ public class PetStoreExampleTaskOne {
 	private static final String checkCredentialsActivity = "petstore::logic::CustomerService::CheckCredentials";
 	private static final String confirmOrderActivity = "petstore::logic::OrderService::ConfirmOrder";
 
-	@Test
+	// @Test
 	public void checkCredentialsTest() throws Exception {
 		ParameterValueList list = new ParameterValueList();
 
@@ -58,7 +58,7 @@ public class PetStoreExampleTaskOne {
 		}
 	}
 
-	@Test
+	// @Test
 	public void checkCredentialsIncorrectTest() throws Exception {
 		ParameterValueList list = new ParameterValueList();
 
@@ -119,10 +119,12 @@ public class PetStoreExampleTaskOne {
 		Link itemProductOne = traceUtil.createLink("product_item");
 		traceUtil.setPropertyValue(itemProductOne, "item", itemOne);
 		traceUtil.setPropertyValue(itemProductOne, "product", productOne);
+		traceUtil.addToLocus(itemProductOne);
 
 		Link itemProductTwo = traceUtil.createLink("product_item");
 		traceUtil.setPropertyValue(itemProductTwo, "item", itemTwo);
 		traceUtil.setPropertyValue(itemProductTwo, "product", productTwo);
+		traceUtil.addToLocus(itemProductTwo);
 
 		Object_ cartItemOne = traceUtil.createInstance("CartItem");
 		traceUtil.setPropertyValue(cartItemOne, "quantity", 5);
@@ -133,34 +135,39 @@ public class PetStoreExampleTaskOne {
 		Link cartItemItemOne = traceUtil.createLink("cartItem_item");
 		traceUtil.setPropertyValue(cartItemItemOne, "cartItem", cartItemOne);
 		traceUtil.setPropertyValue(cartItemItemOne, "item", itemOne);
+		traceUtil.addToLocus(cartItemItemOne);
 
 		Link cartItemItemTwo = traceUtil.createLink("cartItem_item");
 		traceUtil.setPropertyValue(cartItemItemTwo, "cartItem", cartItemTwo);
 		traceUtil.setPropertyValue(cartItemItemTwo, "item", itemTwo);
+		traceUtil.addToLocus(cartItemItemTwo);
 
 		Object_ cart = traceUtil.createInstance("Cart");
 
 		Link cartCartItemOne = traceUtil.createLink("cart_cartItem");
 		traceUtil.setPropertyValue(cartCartItemOne, "cart", cart);
 		traceUtil.setPropertyValue(cartCartItemOne, "cartItems", cartItemOne);
+		traceUtil.addToLocus(cartCartItemOne);
 
 		Link cartCartItemTwo = traceUtil.createLink("cart_cartItem");
 		traceUtil.setPropertyValue(cartCartItemTwo, "cart", cart);
 		traceUtil.setPropertyValue(cartCartItemTwo, "cartItems", cartItemTwo);
+		traceUtil.addToLocus(cartCartItemTwo);
 
 		Object_ customer = traceUtil.createInstance("Customer");
 
 		Link cartCustomer = traceUtil.createLink("cart_customer");
-		traceUtil.setPropertyValue(cartCustomer, "cart", cart);
 		traceUtil.setPropertyValue(cartCustomer, "customer", customer);
+		traceUtil.setPropertyValue(cartCustomer, "cart", cart);
+		traceUtil.addToLocus(cartCustomer);
 
 		ParameterValueList list = new ParameterValueList();
 		ParameterValue parameterValueCustomer = traceUtil.createParameterValue(confirmOrderActivity, "customer", customer);
 		list.add(parameterValueCustomer);
 
-		Trace checkCredentialsTrace = traceUtil.executeActivity(confirmOrderActivity, orderService, list);
+		Trace confirmOrderTrace = traceUtil.executeActivity(confirmOrderActivity, orderService, list);
 		ActivityExecution mainActivityExecution = null;
-		for (ActivityExecution activityExecution : checkCredentialsTrace.getActivityExecutions()) {
+		for (ActivityExecution activityExecution : confirmOrderTrace.getActivityExecutions()) {
 			if (activityExecution.getActivity().qualifiedName.equals(confirmOrderActivity)) {
 				mainActivityExecution = activityExecution;
 				break;
