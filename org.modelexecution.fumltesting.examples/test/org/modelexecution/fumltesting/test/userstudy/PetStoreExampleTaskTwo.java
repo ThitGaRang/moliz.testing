@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 
+import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
 import fUML.Semantics.Classes.Kernel.Link;
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
@@ -16,6 +17,10 @@ public class PetStoreExampleTaskTwo {
 
 	@Test
 	public void getCartNoCartTest() throws Exception {
+		System.out.println("Setup time: " + traceUtil.getSetupTime());
+
+		long startTime = System.currentTimeMillis();
+
 		Object_ customer = traceUtil.createInstance("Customer");
 		traceUtil.setPropertyValue(customer, "login", "customer");
 		traceUtil.setPropertyValue(customer, "password", "pass");
@@ -64,18 +69,26 @@ public class PetStoreExampleTaskTwo {
 			Assert.assertTrue(actionCartMergeIndex + 1 == actionGetCartForOutputIndex);
 
 			// check if action getCart returns null
-			Assert.assertNull(traceUtil.getOutputValue("getCart", "result"));
+			Object_ cartFromGetCart = (Object_) traceUtil.getOutputValue("getCart", "result");
+			Assert.assertNull(cartFromGetCart);
 
 			// check if activity returns a new cart object
-			Assert.assertNotNull(traceUtil.getOutputValue("cart"));
+			Object_ cartFromOutput = (Object_) traceUtil.getOutputValue("cart");
+			Assert.assertNotNull(cartFromOutput);
 
 		} else {
 			Assert.fail("Activity execution GetCart not found!");
 		}
+
+		long endTime = System.currentTimeMillis();
+		long runningTime = endTime - startTime;
+		System.out.println("Get Cart no cart Time: " + runningTime);
 	}
 
 	@Test
 	public void getCartWithCartTest() throws Exception {
+		long startTime = System.currentTimeMillis();
+
 		Object_ customer = traceUtil.createInstance("Customer");
 		traceUtil.setPropertyValue(customer, "login", "customer");
 		traceUtil.setPropertyValue(customer, "password", "pass");
@@ -85,13 +98,14 @@ public class PetStoreExampleTaskTwo {
 		Link cart_customer = traceUtil.createLink("cart_customer");
 		traceUtil.setPropertyValue(cart_customer, "customer", customer);
 		traceUtil.setPropertyValue(cart_customer, "cart", cart);
-		traceUtil.addToLocus(cart_customer);
 
 		ParameterValueList list = new ParameterValueList();
 		ParameterValue parameterValueCustomer = traceUtil.createParameterValue(getCartActivity, "customer", customer);
 		list.add(parameterValueCustomer);
 
-		Trace getCartTrace = traceUtil.executeActivity(getCartActivity, null, list);
+		ExtensionalValueList listValues = traceUtil.createExtensionalValueList(customer, cart, cart_customer);
+
+		Trace getCartTrace = traceUtil.executeActivity(getCartActivity, null, list, listValues);
 		ActivityExecution mainActivityExecution = null;
 		for (ActivityExecution activityExecution : getCartTrace.getActivityExecutions()) {
 			if (activityExecution.getActivity().qualifiedName.equals(getCartActivity)) {
@@ -106,6 +120,7 @@ public class PetStoreExampleTaskTwo {
 			// checking order of execution
 			Assert.assertTrue(traceUtil.activityNodeExecuted(mainActivityExecution, "getCart"));
 			Assert.assertTrue(traceUtil.activityNodeExecuted(mainActivityExecution, "listSize"));
+			Assert.assertTrue(traceUtil.activityNodeExecuted(mainActivityExecution, "listSizeValue"));
 			Assert.assertTrue(traceUtil.activityNodeExecuted(mainActivityExecution, "sizeEquals"));
 			Assert.assertTrue(traceUtil.activityNodeExecuted(mainActivityExecution, "cartExistsDecision"));
 			Assert.assertTrue(traceUtil.activityNodeExecuted(mainActivityExecution, "cartMerge"));
@@ -113,6 +128,7 @@ public class PetStoreExampleTaskTwo {
 
 			int actionGetCartIndex = traceUtil.indexOfExecutedNode(mainActivityExecution, "getCart");
 			int actionListSizeIndex = traceUtil.indexOfExecutedNode(mainActivityExecution, "listSize");
+			int actionListSizeValueIndex = traceUtil.indexOfExecutedNode(mainActivityExecution, "listSizeValue");
 			int actionSizeEqualsIndex = traceUtil.indexOfExecutedNode(mainActivityExecution, "sizeEquals");
 			int actionCartExistsDecisionIndex = traceUtil.indexOfExecutedNode(mainActivityExecution, "cartExistsDecision");
 			int actionCartMergeIndex = traceUtil.indexOfExecutedNode(mainActivityExecution, "cartMerge");
@@ -120,17 +136,22 @@ public class PetStoreExampleTaskTwo {
 
 			Assert.assertTrue(actionGetCartIndex < actionListSizeIndex);
 			Assert.assertTrue(actionListSizeIndex < actionSizeEqualsIndex);
+			Assert.assertTrue(actionListSizeValueIndex < actionSizeEqualsIndex);
 			Assert.assertTrue(actionSizeEqualsIndex + 1 == actionCartExistsDecisionIndex);
 			Assert.assertTrue(actionCartExistsDecisionIndex + 1 == actionCartMergeIndex);
 			Assert.assertTrue(actionCartMergeIndex + 1 == actionGetCartForOutputIndex);
 
-			// check if action getCart returns cart of the provided customer
-			Assert.assertNotNull(traceUtil.getOutputValue("getCart", "result"));
+			// check if cart from action getCart is equal to cart provided
+			Object_ cartFromGetCart = (Object_) traceUtil.getOutputValue("getCart", "result");
+			Assert.assertTrue(cart.equals(cartFromGetCart));
 
 			// check if the customer's cart object is returned by activity
 			Object_ cartFromOutput = (Object_) traceUtil.getOutputValue("cart");
-			Assert.assertTrue(cart == cartFromOutput);
-
+			Assert.assertTrue(cart.equals(cartFromOutput));
 		}
+
+		long endTime = System.currentTimeMillis();
+		long runningTime = endTime - startTime;
+		System.out.println("Get Cart with cart Time: " + runningTime);
 	}
 }

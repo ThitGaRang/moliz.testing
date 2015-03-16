@@ -24,6 +24,7 @@ public class TestCaseResult {
 	private ArrayList<AssertionResult> assertionResults = new ArrayList<AssertionResult>();
 	private boolean hasError = false;
 	private String error = "";
+	private long runningTime;
 
 	public TestCaseResult(String name, ActivityExecution activityUT, boolean hasError) {
 		this.name = name;
@@ -49,6 +50,14 @@ public class TestCaseResult {
 
 	public String getTestCaseName() {
 		return name;
+	}
+
+	public void setRunningTime(long runningTime) {
+		this.runningTime = runningTime;
+	}
+
+	public long getRunningTime() {
+		return runningTime;
 	}
 
 	public ActivityExecution getActivityUnderTest() {

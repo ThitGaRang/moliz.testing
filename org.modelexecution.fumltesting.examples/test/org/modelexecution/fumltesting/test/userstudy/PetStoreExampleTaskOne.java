@@ -18,8 +18,11 @@ public class PetStoreExampleTaskOne {
 	private static final String checkCredentialsActivity = "petstore::logic::CustomerService::CheckCredentials";
 	private static final String confirmOrderActivity = "petstore::logic::OrderService::ConfirmOrder";
 
-	// @Test
+	@Test
 	public void checkCredentialsTest() throws Exception {
+		System.out.println("Setup time: " + traceUtil.getSetupTime());
+		
+		long startTime = System.currentTimeMillis();
 		ParameterValueList list = new ParameterValueList();
 
 		ParameterValue parameterValueLogin = traceUtil.createParameterValue(checkCredentialsActivity, "login", "login");
@@ -57,10 +60,16 @@ public class PetStoreExampleTaskOne {
 		} else {
 			Assert.fail("Activity execution CheckCredentials not found!");
 		}
+		long endTime = System.currentTimeMillis();
+
+		long runningTime = endTime - startTime;
+		System.out.println("CheckCreds Correct Time: " + runningTime);
 	}
 
-	// @Test
+	@Test
 	public void checkCredentialsIncorrectTest() throws Exception {
+		long startTime = System.currentTimeMillis();
+
 		ParameterValueList list = new ParameterValueList();
 
 		ParameterValue parameterValueLogin = traceUtil.createParameterValue(checkCredentialsActivity, "login", "login");
@@ -98,10 +107,16 @@ public class PetStoreExampleTaskOne {
 		} else {
 			Assert.fail("Activity execution CheckCredentials not found!");
 		}
+
+		long endTime = System.currentTimeMillis();
+		long runningTime = endTime - startTime;
+		System.out.println("CheckCreds Incorrect Time: " + runningTime);
 	}
 
 	@Test
 	public void confirmOrderTest() throws Exception {
+		long startTime = System.currentTimeMillis();
+
 		// creating the scenario
 		Object_ orderService = traceUtil.createInstance("OrderService");
 
@@ -120,12 +135,10 @@ public class PetStoreExampleTaskOne {
 		Link itemProductOne = traceUtil.createLink("product_item");
 		traceUtil.setPropertyValue(itemProductOne, "item", itemOne);
 		traceUtil.setPropertyValue(itemProductOne, "product", productOne);
-		traceUtil.addToLocus(itemProductOne);
 
 		Link itemProductTwo = traceUtil.createLink("product_item");
 		traceUtil.setPropertyValue(itemProductTwo, "item", itemTwo);
 		traceUtil.setPropertyValue(itemProductTwo, "product", productTwo);
-		traceUtil.addToLocus(itemProductTwo);
 
 		Object_ cartItemOne = traceUtil.createInstance("CartItem");
 		traceUtil.setPropertyValue(cartItemOne, "quantity", 5);
@@ -136,42 +149,35 @@ public class PetStoreExampleTaskOne {
 		Link cartItemItemOne = traceUtil.createLink("cartItem_item");
 		traceUtil.setPropertyValue(cartItemItemOne, "cartItem", cartItemOne);
 		traceUtil.setPropertyValue(cartItemItemOne, "item", itemOne);
-		traceUtil.addToLocus(cartItemItemOne);
 
 		Link cartItemItemTwo = traceUtil.createLink("cartItem_item");
 		traceUtil.setPropertyValue(cartItemItemTwo, "cartItem", cartItemTwo);
 		traceUtil.setPropertyValue(cartItemItemTwo, "item", itemTwo);
-		traceUtil.addToLocus(cartItemItemTwo);
 
 		Object_ cart = traceUtil.createInstance("Cart");
 
 		Link cartCartItemOne = traceUtil.createLink("cart_cartItem");
 		traceUtil.setPropertyValue(cartCartItemOne, "cart", cart);
 		traceUtil.setPropertyValue(cartCartItemOne, "cartItems", cartItemOne);
-		traceUtil.addToLocus(cartCartItemOne);
 
 		Link cartCartItemTwo = traceUtil.createLink("cart_cartItem");
 		traceUtil.setPropertyValue(cartCartItemTwo, "cart", cart);
 		traceUtil.setPropertyValue(cartCartItemTwo, "cartItems", cartItemTwo);
-		traceUtil.addToLocus(cartCartItemTwo);
 
 		Object_ customer = traceUtil.createInstance("Customer");
 
 		Link cartCustomer = traceUtil.createLink("cart_customer");
 		traceUtil.setPropertyValue(cartCustomer, "customer", customer);
 		traceUtil.setPropertyValue(cartCustomer, "cart", cart);
-		traceUtil.addToLocus(cartCustomer);
 
 		ParameterValueList list = new ParameterValueList();
 		ParameterValue parameterValueCustomer = traceUtil.createParameterValue(confirmOrderActivity, "customer", customer);
 		list.add(parameterValueCustomer);
 
-		ExtensionalValueList extensionalValues = traceUtil.createExtensionalValueList(productOne,
-				productTwo, itemOne, itemTwo, itemProductOne, itemProductTwo,
-				cartItemOne, cartItemTwo, cartItemItemOne, cartItemItemTwo,
-				cart, cartCartItemOne, cartCartItemTwo, customer, cartCustomer);
-		Trace confirmOrderTrace = traceUtil.executeActivity(
-				confirmOrderActivity, orderService, list, extensionalValues);
+		ExtensionalValueList extensionalValues = traceUtil.createExtensionalValueList(productOne, productTwo, itemOne, itemTwo, itemProductOne,
+				itemProductTwo, cartItemOne, cartItemTwo, cartItemItemOne, cartItemItemTwo, cart, cartCartItemOne, cartCartItemTwo, customer,
+				cartCustomer);
+		Trace confirmOrderTrace = traceUtil.executeActivity(confirmOrderActivity, orderService, list, extensionalValues);
 		ActivityExecution mainActivityExecution = null;
 		for (ActivityExecution activityExecution : confirmOrderTrace.getActivityExecutions()) {
 			if (activityExecution.getActivity().qualifiedName.equals(confirmOrderActivity)) {
@@ -198,5 +204,10 @@ public class PetStoreExampleTaskOne {
 		} else {
 			Assert.fail("Activity execution ConfirmOrder not found!");
 		}
+
+		long endTime = System.currentTimeMillis();
+		long runningTime = endTime - startTime;
+
+		System.out.println("Confirm Order Time: " + runningTime);
 	}
 }

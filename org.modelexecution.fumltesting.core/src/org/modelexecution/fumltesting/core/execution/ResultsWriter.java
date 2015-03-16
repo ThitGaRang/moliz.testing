@@ -66,6 +66,7 @@ public class ResultsWriter {
 
 	public void writeResults() {
 		writer.println("Test Suite Run: " + suiteResult.executedOn());
+		writer.println("Setup time: " + suiteResult.getSetupTime());
 		writer.println();
 
 		writeTestsThatDidNotRun(suiteResult);
@@ -100,6 +101,7 @@ public class ResultsWriter {
 					writer.print(activityInput.getParameter().name + " = " + value + "; ");
 				}
 			}
+			writer.println("\nRunning time (ms): " + testCaseResult.getRunningTime());
 			writer.println();
 			for (AssertionResult assertionResult : testCaseResult.getAssertionResults()) {
 
@@ -189,7 +191,8 @@ public class ResultsWriter {
 						}
 						if (((StateAssertionResult) assertionResult).getNumberOfStateExpressions() > 0) {
 							writer.println("\tState expressions checked: " + ((StateAssertionResult) assertionResult).getNumberOfStateExpressions());
-							writer.println("\tState expressions failed: " + ((StateAssertionResult) assertionResult).getFailedStateExpressions().size());
+							writer.println("\tState expressions failed: "
+									+ ((StateAssertionResult) assertionResult).getFailedStateExpressions().size());
 
 							for (StateExpressionResult result : ((StateAssertionResult) assertionResult).getFailedStateExpressions()) {
 								if (result.hasError()) {
@@ -286,8 +289,9 @@ public class ResultsWriter {
 	private void printPath(List<ActivityNodeExecution> executions) {
 		for (int i = 0; i < executions.size(); i++) {
 			ActivityNodeExecution execution = executions.get(i);
-			if (execution.getNode() instanceof Action || execution.getNode() instanceof InitialNode || execution.getNode() instanceof ActivityFinalNode
-					|| execution.getNode() instanceof MergeNode || execution.getNode() instanceof DecisionNode || execution.getNode() instanceof ForkNode) {
+			if (execution.getNode() instanceof Action || execution.getNode() instanceof InitialNode
+					|| execution.getNode() instanceof ActivityFinalNode || execution.getNode() instanceof MergeNode
+					|| execution.getNode() instanceof DecisionNode || execution.getNode() instanceof ForkNode) {
 				if (i == executions.size() - 1)
 					writer.print(execution.getNode().name);
 				else

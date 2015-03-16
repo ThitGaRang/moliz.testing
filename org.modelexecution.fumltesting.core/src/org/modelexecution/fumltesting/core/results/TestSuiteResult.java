@@ -16,8 +16,17 @@ import java.util.Date;
  * 
  */
 public class TestSuiteResult {
+	private long setupTime;
 	private SimpleDateFormat executedOn = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 	private ArrayList<TestCaseResult> testCaseResults = new ArrayList<TestCaseResult>();
+
+	public void setSetupTime(long setupTime) {
+		this.setupTime = setupTime;
+	}
+
+	public long getSetupTime() {
+		return setupTime;
+	}
 
 	public void addTestCaseResult(TestCaseResult result) {
 		testCaseResults.add(result);
@@ -27,7 +36,7 @@ public class TestSuiteResult {
 		return testCaseResults;
 	}
 
-	public String executedOn(){
+	public String executedOn() {
 		return executedOn.format(new Date());
 	}
 }

@@ -64,9 +64,14 @@ public class ExecutionTraceUtil implements ExecutionEventListener {
 	private NamedElement model;
 	private int mainActivityID;
 	private ActivityExecution activityExecution;
+	private long setupTime;
 
 	public ExecutionTraceUtil() {
 		setup();
+	}
+
+	public long getSetupTime() {
+		return setupTime;
 	}
 
 	public void setActivityExecution(ActivityExecution activityExecution) {
@@ -155,10 +160,6 @@ public class ExecutionTraceUtil implements ExecutionEventListener {
 		return getExecutionContext().getExtensionalValues().contains(instance);
 	}
 
-	public void addToLocus(Link link) {
-		link.addTo(getExecutionContext().getLocus());
-	}
-
 	public void setPropertyValue(Object_ instance, String property, Object value) {
 		for (FeatureValue featureValue : instance.featureValues) {
 			if (featureValue.feature.name.equals(property)) {
@@ -209,7 +210,7 @@ public class ExecutionTraceUtil implements ExecutionEventListener {
 	public Object_ getLinkedObject(Object_ source, String associationName) {
 		for (ValueInstance valueInstance : activityExecution.getTrace().getValueInstances()) {
 			if (valueInstance.getRuntimeValue() instanceof Link && ((Link) valueInstance.getRuntimeValue()).type.name.equals(associationName)) {
-				if(valueInstance.getDestroyer() == null) {
+				if (valueInstance.getDestroyer() == null) {
 					Link link = (Link) valueInstance.getRuntimeValue();
 					if (link.type.name.equals(associationName)) {
 						Object_ firstValue = ((Reference) link.featureValues.get(0).values.get(0)).referent;
@@ -231,15 +232,17 @@ public class ExecutionTraceUtil implements ExecutionEventListener {
 		List<Object_> linkedObjects = new ArrayList<Object_>();
 		for (ValueInstance valueInstance : activityExecution.getTrace().getValueInstances()) {
 			if (valueInstance.getRuntimeValue() instanceof Link && ((Link) valueInstance.getRuntimeValue()).type.name.equals(associationName)) {
-				Link link = (Link) valueInstance.getRuntimeValue();
-				if (link.type.name.equals(associationName)) {
-					Object_ firstValue = ((Reference) link.featureValues.get(0).values.get(0)).referent;
-					Object_ secondValue = ((Reference) link.featureValues.get(1).values.get(0)).referent;
-					if (firstValue.equals(source)) {
-						linkedObjects.add(secondValue);
-					}
-					if (secondValue.equals(source)) {
-						linkedObjects.add(firstValue);
+				if (valueInstance.getDestroyer() == null) {
+					Link link = (Link) valueInstance.getRuntimeValue();
+					if (link.type.name.equals(associationName)) {
+						Object_ firstValue = ((Reference) link.featureValues.get(0).values.get(0)).referent;
+						Object_ secondValue = ((Reference) link.featureValues.get(1).values.get(0)).referent;
+						if (firstValue.equals(source)) {
+							linkedObjects.add(secondValue);
+						}
+						if (secondValue.equals(source)) {
+							linkedObjects.add(firstValue);
+						}
 					}
 				}
 			}
@@ -380,7 +383,7 @@ public class ExecutionTraceUtil implements ExecutionEventListener {
 	public Trace executeActivity(String activityName, Object_ context, ParameterValueList parameters) {
 		return executeActivity(activityName, context, parameters, new ExtensionalValueList());
 	}
-	
+
 	public Trace executeActivity(String activityName, Object_ context, ParameterValueList parameters, ExtensionalValueList extensionalValues) {
 		Activity activity = convertedModel.getActivity(activityName);
 		getExecutionContext().getLocus().extensionalValues.clear();
@@ -388,14 +391,15 @@ public class ExecutionTraceUtil implements ExecutionEventListener {
 		getExecutionContext().execute(activity, context, parameters);
 		return getExecutionContext().getTrace(mainActivityID);
 	}
-	
+
 	private void addToLocus(ExtensionalValueList extensionalValues) {
-		for(ExtensionalValue extensionalValue : extensionalValues) {
+		for (ExtensionalValue extensionalValue : extensionalValues) {
 			getExecutionContext().getLocus().add(extensionalValue);
 		}
 	}
 
 	private void setup() {
+		long startTime = System.currentTimeMillis();
 		try {
 			resourceSet = new ResourceSetImpl();
 			resourceSet.getPackageRegistry().put(UMLPackage.eNS_URI, UMLPackage.eINSTANCE);
@@ -418,6 +422,9 @@ public class ExecutionTraceUtil implements ExecutionEventListener {
 		IConverter converter = ConverterRegistry.getInstance().getConverter(model);
 		convertedModel = converter.convert(model);
 		registerOpaqueBehaviors();
+
+		long endTime = System.currentTimeMillis();
+		setupTime = endTime - startTime;
 	}
 
 	private void registerOpaqueBehaviors() {
@@ -436,7 +443,7 @@ public class ExecutionTraceUtil implements ExecutionEventListener {
 			mainActivityID = ((ActivityEntryEvent) event).getActivityExecutionID();
 		}
 	}
-	
+
 	public ExtensionalValueList createExtensionalValueList(ExtensionalValue... extensionalValues) {
 		ArrayList<ExtensionalValue> extensionalValuesAsList = new ArrayList<ExtensionalValue>(Arrays.asList(extensionalValues));
 		ExtensionalValueList extensionalValueList = new ExtensionalValueList();

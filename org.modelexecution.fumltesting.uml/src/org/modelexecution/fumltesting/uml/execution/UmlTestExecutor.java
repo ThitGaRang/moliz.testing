@@ -115,6 +115,8 @@ public class UmlTestExecutor {
 	/** Main method of the testing framework. */
 	@Test
 	public void runTests() {
+		long startTime = System.currentTimeMillis();
+
 		File testSuite = new File(testsPath);
 
 		try {
@@ -127,7 +129,11 @@ public class UmlTestExecutor {
 			e.printStackTrace();
 			return;
 		}
-		testSuiteEvaluation(testSuite);
+
+		long endTime = System.currentTimeMillis();
+		long setupTime = endTime - startTime;
+
+		testSuiteEvaluation(testSuite, setupTime);
 	}
 
 	private void loadAndSetupAllTestResources() throws Exception {
@@ -187,10 +193,13 @@ public class UmlTestExecutor {
 		}
 	}
 
-	private void testSuiteEvaluation(File testFile) {
+	private void testSuiteEvaluation(File testFile, long setupTime) {
 		TestSuiteResult suiteResult = new TestSuiteResult();
+		suiteResult.setSetupTime(setupTime);
 
 		for (UMLTestCase umlTestCase : suite.getTests()) {
+			long startTime = System.currentTimeMillis();
+
 			TestCase testCase = testConverter.convertTestCase(umlTestCase);
 			Activity activity = testCase.getActivityUnderTest();
 
@@ -230,7 +239,8 @@ public class UmlTestExecutor {
 
 			if (testCase.getContextObject() != null) {
 				if (contextType != testCase.getContextObject().getType() && requiresContext) {
-					TestCaseResult testCaseResult = new TestCaseResult(testCase.getName(), executor.getActivityExecution(mainActivityExecutionID), false);
+					TestCaseResult testCaseResult = new TestCaseResult(testCase.getName(), executor.getActivityExecution(mainActivityExecutionID),
+							false);
 					testCaseResult.setActivityContextObject(testCase.getContextObject());
 
 					for (ActivityInput activityInput : testCase.getAllInputs()) {
@@ -251,7 +261,8 @@ public class UmlTestExecutor {
 				testDataConverter.setActivityExecution(activityExecution);
 			} else {
 				if (requiresContext) {
-					TestCaseResult testCaseResult = new TestCaseResult(testCase.getName(), executor.getActivityExecution(mainActivityExecutionID), false);
+					TestCaseResult testCaseResult = new TestCaseResult(testCase.getName(), executor.getActivityExecution(mainActivityExecutionID),
+							false);
 					testCaseResult.setActivityContextObject(testCase.getContextObject());
 
 					for (ActivityInput activityInput : testCase.getAllInputs()) {
@@ -303,6 +314,11 @@ public class UmlTestExecutor {
 					testCaseResult.addAssertionResult(result);
 				}
 			}
+
+			long endTime = System.currentTimeMillis();
+			long runningTime = endTime - startTime;
+			testCaseResult.setRunningTime(runningTime);
+
 			suiteResult.addTestCaseResult(testCaseResult);
 		}
 
