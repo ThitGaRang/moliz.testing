@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.modelexecution.fumldebug.core.trace.tracemodel.ActivityExecution;
 import org.modelexecution.fumldebug.core.trace.tracemodel.Trace;
 
+import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
 import fUML.Semantics.Classes.Kernel.Link;
 import fUML.Semantics.Classes.Kernel.Object_;
 import fUML.Semantics.CommonBehaviors.BasicBehaviors.ParameterValue;
@@ -165,7 +166,12 @@ public class PetStoreExampleTaskOne {
 		ParameterValue parameterValueCustomer = traceUtil.createParameterValue(confirmOrderActivity, "customer", customer);
 		list.add(parameterValueCustomer);
 
-		Trace confirmOrderTrace = traceUtil.executeActivity(confirmOrderActivity, orderService, list);
+		ExtensionalValueList extensionalValues = traceUtil.createExtensionalValueList(productOne,
+				productTwo, itemOne, itemTwo, itemProductOne, itemProductTwo,
+				cartItemOne, cartItemTwo, cartItemItemOne, cartItemItemTwo,
+				cart, cartCartItemOne, cartCartItemTwo, customer, cartCustomer);
+		Trace confirmOrderTrace = traceUtil.executeActivity(
+				confirmOrderActivity, orderService, list, extensionalValues);
 		ActivityExecution mainActivityExecution = null;
 		for (ActivityExecution activityExecution : confirmOrderTrace.getActivityExecutions()) {
 			if (activityExecution.getActivity().qualifiedName.equals(confirmOrderActivity)) {

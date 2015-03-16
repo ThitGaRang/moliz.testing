@@ -2,6 +2,7 @@ package org.modelexecution.fumltesting.test.userstudy;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -38,6 +39,8 @@ import org.modelexecution.fumldebug.libraryregistry.LibraryRegistry;
 import org.modelexecution.fumldebug.libraryregistry.OpaqueBehaviorCallReplacer;
 
 import fUML.Semantics.Classes.Kernel.BooleanValue;
+import fUML.Semantics.Classes.Kernel.ExtensionalValue;
+import fUML.Semantics.Classes.Kernel.ExtensionalValueList;
 import fUML.Semantics.Classes.Kernel.FeatureValue;
 import fUML.Semantics.Classes.Kernel.IntegerValue;
 import fUML.Semantics.Classes.Kernel.Link;
@@ -206,15 +209,17 @@ public class ExecutionTraceUtil implements ExecutionEventListener {
 	public Object_ getLinkedObject(Object_ source, String associationName) {
 		for (ValueInstance valueInstance : activityExecution.getTrace().getValueInstances()) {
 			if (valueInstance.getRuntimeValue() instanceof Link && ((Link) valueInstance.getRuntimeValue()).type.name.equals(associationName)) {
-				Link link = (Link) valueInstance.getRuntimeValue();
-				if (link.type.name.equals(associationName)) {
-					Object_ firstValue = ((Reference) link.featureValues.get(0).values.get(0)).referent;
-					Object_ secondValue = ((Reference) link.featureValues.get(1).values.get(0)).referent;
-					if (firstValue.equals(source)) {
-						return secondValue;
-					}
-					if (secondValue.equals(source)) {
-						return firstValue;
+				if(valueInstance.getDestroyer() == null) {
+					Link link = (Link) valueInstance.getRuntimeValue();
+					if (link.type.name.equals(associationName)) {
+						Object_ firstValue = ((Reference) link.featureValues.get(0).values.get(0)).referent;
+						Object_ secondValue = ((Reference) link.featureValues.get(1).values.get(0)).referent;
+						if (firstValue.equals(source)) {
+							return secondValue;
+						}
+						if (secondValue.equals(source)) {
+							return firstValue;
+						}
 					}
 				}
 			}
@@ -373,10 +378,21 @@ public class ExecutionTraceUtil implements ExecutionEventListener {
 	}
 
 	public Trace executeActivity(String activityName, Object_ context, ParameterValueList parameters) {
+		return executeActivity(activityName, context, parameters, new ExtensionalValueList());
+	}
+	
+	public Trace executeActivity(String activityName, Object_ context, ParameterValueList parameters, ExtensionalValueList extensionalValues) {
 		Activity activity = convertedModel.getActivity(activityName);
 		getExecutionContext().getLocus().extensionalValues.clear();
+		addToLocus(extensionalValues);
 		getExecutionContext().execute(activity, context, parameters);
 		return getExecutionContext().getTrace(mainActivityID);
+	}
+	
+	private void addToLocus(ExtensionalValueList extensionalValues) {
+		for(ExtensionalValue extensionalValue : extensionalValues) {
+			getExecutionContext().getLocus().add(extensionalValue);
+		}
 	}
 
 	private void setup() {
@@ -419,5 +435,12 @@ public class ExecutionTraceUtil implements ExecutionEventListener {
 		if (event instanceof ActivityEntryEvent && (((ActivityEntryEvent) event).getParent() == null)) {
 			mainActivityID = ((ActivityEntryEvent) event).getActivityExecutionID();
 		}
+	}
+	
+	public ExtensionalValueList createExtensionalValueList(ExtensionalValue... extensionalValues) {
+		ArrayList<ExtensionalValue> extensionalValuesAsList = new ArrayList<ExtensionalValue>(Arrays.asList(extensionalValues));
+		ExtensionalValueList extensionalValueList = new ExtensionalValueList();
+		extensionalValueList.addAll(extensionalValuesAsList);
+		return extensionalValueList;
 	}
 }
